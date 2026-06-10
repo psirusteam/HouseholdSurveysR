@@ -4,7 +4,7 @@
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 \documentclass[
   spanish,
-  12pt,
+  10pt,
 ]{book}
 \usepackage{xcolor}
 \usepackage[margin = 3cm]{geometry}
@@ -81,6 +81,7 @@
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -106,13 +107,13 @@
 \def\fps@figure{htbp}
 \makeatother
 \ifLuaTeX
-\usepackage[bidi=basic]{babel}
+\usepackage[bidi=basic,shorthands=off]{babel}
 \else
-\usepackage[bidi=default]{babel}
+\usepackage[bidi=default,shorthands=off]{babel}
 \fi
-% get rid of language-specific shorthands (see #6817):
-\let\LanguageShortHands\languageshorthands
-\def\languageshorthands#1{}
+\ifLuaTeX
+  \usepackage{selnolig} % disable illegal ligatures
+\fi
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -142,8 +143,8 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  pdftitle={Análisis de encuestas con R},
-  pdfauthor={Andrés Gutiérrez, Giovany Babativa-Márquez, Stalyn Guerrero, Cristian Téllez},
+  pdftitle={Análisis de encuestas de hogares con R},
+  pdfauthor={Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez},
   pdflang={es},
   colorlinks=true,
   linkcolor={blue},
@@ -152,16 +153,15 @@
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
-\title{Análisis de encuestas con R}
-\author{Andrés Gutiérrez\footnote{Experto Regional en Estadísticas Sociales - Comisión Económica para América Latina y el Caribe (CEPAL) - \href{mailto:andres.gutierrez@cepal.org}{\nolinkurl{andres.gutierrez@cepal.org}}}, Giovany Babativa-Márquez\footnote{Consultor - Comisión Económica para América Latina y el Caribe (CEPAL); Departamento de Estadística, Facultad de Ciencias, Universidad Nacional de Colombia -- Sede Bogotá, Bogotá D.C., Colombia, \href{mailto:jgbabativam@unal.edu.co}{\nolinkurl{jgbabativam@unal.edu.co}}}, Stalyn Guerrero\footnote{Consultor - Comisión Económica para América Latina y el Caribe (CEPAL), \href{mailto:guerrerostalyn@gmail.com}{\nolinkurl{guerrerostalyn@gmail.com}}}, Cristian Téllez\footnote{Consultor - Comisión Económica para América Latina y el Caribe (CEPAL), \href{mailto:cftellezp@unal.edu.co}{\nolinkurl{cftellezp@unal.edu.co}}}}
-\date{2026-06-05}
+\title{Análisis de encuestas de hogares con R}
+\author{Andrés Gutiérrez\footnote{Asesor Regional en Estadísticas Sociales - Comisión Económica para América Latina y el Caribe (CEPAL) - \href{mailto:andres.gutierrez@cepal.org}{\nolinkurl{andres.gutierrez@cepal.org}}}, Stalyn Guerrero\footnote{Consultor - Comisión Económica para América Latina y el Caribe (CEPAL), \href{mailto:guerrerostalyn@gmail.com}{\nolinkurl{guerrerostalyn@gmail.com}}}, Giovany Babativa-Márquez\footnote{Profesor asociado - Departamento de Estadística, Facultad de Ciencias, Universidad Nacional de Colombia, Sede Bogotá - \href{mailto:jgbabativam@unal.edu.co}{\nolinkurl{jgbabativam@unal.edu.co}}}, Cristian Téllez\footnote{Consultor - Comisión Económica para América Latina y el Caribe (CEPAL), \href{mailto:cftellezp@unal.edu.co}{\nolinkurl{cftellezp@unal.edu.co}}}}
+\date{2026-06-10}
 
 \begin{document}
 \maketitle
 
 \renewcommand*\contentsname{Tabla de Contenido}
 {
-\hypersetup{linkcolor=}
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
@@ -188,7 +188,7 @@ A manera de ejemplo ilustrativo, suponga una población con dos regiones de tama
 
 Este documento busca cerrar esa brecha y proporcionar al investigador los fundamentos teóricos y las herramientas computacionales necesarias para trabajar adecuadamente con encuestas provenientes de diseños complejos. A lo largo del texto se abordan de manera integrada aspectos prácticos que van desde la definición del diseño de muestreo hasta la estimación de indicadores ---como totales, tamaños, medias y proporciones---, la construcción de sus respectivos intervalos de confianza, la formulación de pruebas de hipótesis, la modelación mediante técnicas de regresión avanzadas y el tratamiento de problemas habituales de imputación.
 
-\chapter{Introducción}\label{cap-intro}
+\chapter{Introducción}\label{cap1}
 
 El análisis de encuestas con diseños complejos cuenta con una trayectoria consolidada en la literatura estadística, sustentada en el enfoque de inferencia basado en el diseño de muestreo. Como señalan \citet{sarndal2003model} y \citet{Gutierrez2016}, este enfoque reconoce a la distribución de probabilidad inducida por el proceso de selección de la muestra como el único mecanismo probabilístico que rige la inferencia. Bajo este paradigma, las propiedades estadísticas de los estimadores ---como el insesgamiento, la precisión y la consistencia--- se evalúan con respecto a la distribución de todas las posibles muestras que el diseño puede generar, sin imponer supuestos distribucionales sobre la variable de interés.
 
@@ -226,33 +226,33 @@ Finalmente, R ofrece una sólida integración con herramientas de reproducibilid
 
 Este documento está organizado siguiendo una progresión lógica que va desde los fundamentos conceptuales del muestreo hasta las aplicaciones más avanzadas de modelamiento estadístico y tratamiento de la no respuesta. Esta secuencia no es arbitraria: cada nivel de conocimiento constituye un requisito necesario para comprender el siguiente, de modo que el lector pueda transitar de los principios básicos hacia herramientas analíticas más sofisticadas de manera coherente.
 
-En primer lugar, se abordan los fundamentos del diseño muestral. El análisis adecuado de una encuesta comienza necesariamente con la comprensión de su diseño probabilístico. Antes de estimar cualquier parámetro, el analista debe familiarizarse con tres elementos constitutivos: la \emph{población objetivo}, entendida como el conjunto de unidades sobre las cuales se desean hacer inferencias; el \emph{marco muestral}, que corresponde a la enumeración operacional de dichas unidades; y las \emph{unidades de muestreo} en cada etapa del diseño. Estos componentes determinan tanto la validez como el alcance de las inferencias posteriores.
+En primer lugar, se abordan los fundamentos del diseño muestral. El análisis adecuado de una encuesta comienza necesariamente con la comprensión de su diseño probabilístico. Antes de estimar cualquier parámetro, el analista debe familiarizarse con tres elementos constitutivos: la población objetivo, entendida como el conjunto de unidades sobre las cuales se desean hacer inferencias; el marco de muestreo, que corresponde a la enumeración operacional de dichas unidades; y las unidades de muestreo en cada etapa del diseño. Estos componentes determinan tanto la validez como el alcance de las inferencias posteriores.
 
-A continuación, se introducen los elementos computacionales que permiten materializar estos conceptos en un entorno aplicado. El documento incorpora el uso de bases de datos en múltiples formatos (\texttt{.dta}, \texttt{.sav}, \texttt{.sas7bdat}, \texttt{.rds}), la manipulación y transformación de variables mediante los verbos del \texttt{tidyverse}, y la construcción del \emph{objeto de diseño} a través de la función \texttt{as\_survey\_design()} del paquete \texttt{srvyr}. Este objeto constituye el eje central del flujo de análisis, ya que encapsula la estructura del diseño muestral ---estratos, unidades de muestreo y pesos--- y garantiza que todas las operaciones estadísticas respeten dicha estructura. En este contexto, la diferencia entre analizar datos con \texttt{dplyr} (sin considerar el diseño) y con \texttt{srvyr} (incorporándolo explícitamente) equivale a distinguir entre una descripción de la muestra observada y una inferencia válida sobre la población.
+A continuación, se introducen los elementos computacionales que permiten materializar estos conceptos en un entorno aplicado. El documento incorpora el manejo y transformación de variables mediante un ambiente de programación adecuado para la incorporación del diseño de muestreo, que constituye el eje central del flujo de análisis y garantiza que todas las operaciones estadísticas respeten dicha estructura.
 
-Con el diseño correctamente especificado, el documento avanza hacia la estimación de parámetros descriptivos. Esta sección cubre los estimadores más utilizados en el análisis de encuestas para variables continuas, tales como ingresos, gastos o activos, incluyendo totales, medias y razones. Asimismo, se presentan sus correspondientes medidas de precisión ---varianzas, errores estándar e intervalos de confianza--- ajustadas a la complejidad del diseño muestral.
+Con el diseño correctamente especificado, el documento avanza hacia la estimación de parámetros descriptivos. Esta sección cubre los estimadores más utilizados en el análisis de encuestas para variables continuas, tales como ingresos, gastos o activos, incluyendo totales, medias y razones. Asimismo, se presentan sus correspondientes medidas de precisión (varianzas, errores estándar e intervalos de confianza) ajustadas a la complejidad del diseño muestral.
 
-Posteriormente, se desarrolla el modelamiento estadístico, extendiendo el análisis más allá de la estadística descriptiva hacia un enfoque analítico e inferencial. En particular, se abordan los modelos de regresión lineal bajo diseños complejos, donde la incorporación explícita de los pesos muestrales resulta fundamental para obtener estimadores insesgados respecto al diseño. Este contexto pone de manifiesto la tensión entre el \emph{enfoque orientado al diseño}, que prioriza las propiedades estadísticas a nivel poblacional, y el \emph{enfoque orientado al modelo}, que depende de la correcta especificación funcional. En consecuencia, se enfatiza la importancia de evaluar la sensibilidad de los resultados mediante comparaciones entre estimaciones con y sin ponderación. Adicionalmente, se introducen los \emph{modelos lineales generalizados} (MLG), que amplían el alcance del análisis a variables respuesta no normales, como variables binarias (regresión logística), conteos (regresión de Poisson) y proporciones.
+Posteriormente, se desarrolla el modelamiento estadístico, extendiendo el análisis más allá de la estadística descriptiva hacia un enfoque analítico e inferencial. En particular, se abordan los modelos de regresión lineal bajo diseños complejos, donde la incorporación explícita de los pesos muestrales resulta fundamental para obtener estimadores insesgados respecto al diseño. Este contexto pone de manifiesto la discusión entre el enfoque basado en el diseño, que prioriza las propiedades estadísticas a nivel poblacional, y el enfoque basado en los modelos, que depende de la correcta especificación funcional. En consecuencia, se enfatiza la importancia de evaluar la sensibilidad de los resultados mediante comparaciones entre estimaciones con y sin ponderación. Adicionalmente, se introducen los modelos lineales generalizados y los modelos multinivel, que amplían el alcance del análisis a variables respuesta no normales, como variables binarias (regresión logística), conteos (regresión de Poisson) y proporciones.
 
-Finalmente, el documento aborda el problema de la imputación en presencia de no respuesta, una característica estructural de las encuestas de hogares que se ha intensificado en años recientes. La calidad de las estimaciones clásicas se ve comprometida cuando la proporción de datos faltantes es elevada, especialmente si el mecanismo de pérdida no es completamente aleatorio. En este sentido, se distinguen los mecanismos de datos faltantes: \emph{MCAR} (\emph{Missing Completely at Random}), \emph{MAR} (\emph{Missing at Random}) y \emph{MNAR} (\emph{Missing Not at Random}), los cuales determinan tanto la validez de los métodos de imputación como los supuestos requeridos. Mientras que bajo MCAR el análisis de casos completos produce estimaciones insesgadas, bajo MAR métodos como la \emph{imputación múltiple} \citep{vanbuuren2012flexible} y la \emph{imputación fraccional} \citep{kim2004fractional} permiten recuperar la validez inferencial utilizando la información disponible. En contraste, bajo MNAR el problema es inherentemente no identificable sin supuestos adicionales sobre el mecanismo generador de la no respuesta.
+La organización de los capítulos sigue la arquitectura conceptual descrita anteriormente, avanzando de los fundamentos hacia las aplicaciones más complejas. De esta forma, el capítulo 2 presenta los conceptos básicos para el análisis de encuestas de hogares, destacando que la validez de las estimaciones depende de incorporar adecuadamente el diseño muestral. Se explican los elementos centrales de una encuesta, como la población objetivo, el marco muestral, las unidades de muestreo, la estratificación, la conglomeración y los pesos de muestreo. Además, el capítulo introduce los principales estimadores de muestreo para totales, medias y otros parámetros poblacionales y desarrolla los fundamentos para estimar la varianza e intervalos de confianza.
 
-La organización de los capítulos sigue la arquitectura conceptual descrita anteriormente, avanzando de los fundamentos hacia las aplicaciones más complejas. De esta forma, el capítulo 2 establece el marco conceptual y probabilístico que sustenta todo análisis válido de encuestas, respondiendo a la pregunta: ¿qué hace que una encuesta sea representativa y qué garantiza que sus estimaciones sean insesgadas? En este capítulo se presentan los conceptos técnicos de población objetivo, universo de estudio, marco muestral, unidades de análisis y unidades primarias de muestreo. Asimismo, se realiza una implementación práctica mediante \texttt{TeachingSampling} y \texttt{srvyr} usando la base \texttt{BigCity}.
-
-En el capítulo 3 se aborda la estimación rigurosa de parámetros descriptivos para variables numéricas bajo diseños complejos y se desarrollan técnicas para estimar totales y medias, junto con la estimación de varianzas mediante el método del último conglomerado y la construcción de intervalos de confianza con grados de libertad ajustados. Asimismo, se presentan enfoques alternativos para la estimación de la varianza, como la linealización de Taylor, las ecuaciones de estimación y los métodos de replicación, incluyendo bootstrap y jackknife. El capítulo también cubre la estimación de cuantiles ponderados, el análisis de desigualdad mediante indicadores como el índice de Gini y la curva de Lorenz, la estimación en dominios y subpoblaciones, y la visualización de resultados con intervalos de confianza mediante \texttt{ggplot2}.
+En el capítulo 3 se aborda la estimación rigurosa de parámetros descriptivos para variables numéricas bajo diseños complejos y se desarrollan técnicas para estimar totales y medias, junto con la estimación de varianzas mediante el método del último conglomerado y la construcción de intervalos de confianza con grados de libertad ajustados. Asimismo, se presentan enfoques alternativos para la estimación de la varianza, como la linealización de Taylor, las ecuaciones de estimación y los métodos de replicación, incluyendo bootstrap y jackknife. El capítulo también cubre la estimación de cuantiles ponderados, el análisis de desigualdad mediante indicadores como el índice de Gini y la curva de Lorenz, la estimación en dominios y subpoblaciones, y la visualización de resultados con intervalos de confianza.
 
 En el capítulo 4 se aborda el análisis de variables categóricas bajo diseños complejos, incluyendo la evaluación de asociaciones entre categorías mediante métodos que incorporan adecuadamente el diseño muestral. Se desarrollan técnicas para estimar tamaños poblacionales y proporciones a partir de ponderaciones, junto con la estimación de su variabilidad mediante linealización y la construcción de intervalos de confianza, incluyendo enfoques robustos para proporciones extremas. Asimismo, se presentan tablas de contingencia ponderadas con sus respectivas frecuencias y proporciones, así como pruebas de independencia que ajustan la estadística clásica para reflejar el efecto del diseño. El capítulo también cubre la estimación e interpretación de medidas de asociación como la razón de odds, el análisis de diferencias de proporciones entre subpoblaciones mediante contrastes, y diversas estrategias de visualización, incluyendo gráficos de barras con intervalos de confianza y mapas.
 
-El capítulo 5 se enfoca en analizar relaciones entre variables y construir modelos predictivos o explicativos válidos bajo diseños complejos, en los que los supuestos clásicos de independencia e identidad de distribuciones no se cumplen. Se presenta la evolución del problema desde los aportes iniciales hasta los desarrollos más recientes, y discute las implicaciones de trabajar con datos de encuestas en el contexto de los modelos de regresión, incluyendo la violación de los supuestos del modelo lineal clásico. Se contrasta el enfoque basado en el diseño con el basado en los modelos. Asimismo, se introduce el marco de la pseudo-verosimilitud y la estimación de modelos de regresión ponderados, junto con la obtención de errores estándar y matrices de varianza-covarianza ajustadas al diseño mediante técnicas como la linealización. El capítulo también aborda la realización de pruebas de hipótesis con ajustes apropiados, el diagnóstico de residuales y la identificación de observaciones influyentes utilizando herramientas como \texttt{svydiags}, y la extensión hacia modelos no lineales, en particular la regresión logística ponderada. Finalmente, se presenta la implementación completa de estos modelos mediante la función \texttt{svyglm()} del paquete \texttt{survey}, integrando así los aspectos teóricos y computacionales en un flujo de análisis coherente.
+El capítulo 5 se enfoca en analizar relaciones entre variables y construir modelos predictivos o explicativos válidos bajo diseños complejos, cuando los supuestos clásicos de independencia e idéntica distribución no se cumplen. Se presenta la evolución del problema desde los aportes iniciales hasta los desarrollos más recientes, y discute las implicaciones de trabajar con datos de encuestas en el contexto de los modelos de regresión, incluyendo la violación de los supuestos del modelo lineal clásico. Se contrasta el enfoque basado en el diseño con el basado en los modelos. El capítulo también aborda la realización de pruebas de hipótesis con ajustes apropiados, el diagnóstico de residuales y la identificación de observaciones influyentes.
 
-En el capítulo 6 se extiende la modelación estadística a variables que no siguen una distribución normal ---como variables binarias, de conteo y proporciones--- en el contexto de diseños de muestreo complejo. Para ello, se construye un marco unificado basado en los modelos lineales generalizados, incorporando sus componentes fundamentales y se discute la dualidad inferencial en poblaciones finitas, donde coexisten la medida de probabilidad del modelo y la del diseño muestral. Asimismo, se contrasta el enfoque clásico de máxima verosimilitud con el de máxima pseudo-verosimilitud, basado en ecuaciones de estimación ponderadas que incorporan los pesos muestrales, y se estudia la estimación de la varianza mediante técnicas de linealización.
+En el capítulo 6 se extiende la modelación estadística a variables que no siguen una distribución normal (como variables binarias, multinomiales y estirctamente positivas) en el contexto de diseños de muestreo complejo. Para ello, se construye un marco unificado basado en los modelos lineales generalizados, incorporando sus componentes fundamentales y se discute la dualidad inferencial en poblaciones finitas, donde coexisten la medida de probabilidad del modelo y la del diseño muestral. Asimismo, se contrasta el enfoque clásico de máxima verosimilitud con el de máxima pseudo-verosimilitud, basado en ecuaciones de estimación ponderadas que incorporan los pesos muestrales, y se estudia la estimación de la varianza mediante técnicas de linealización.
 
 En el capítulo 7 se revisan los modelos multinivel, también llamados jerárquicos o de efectos mixtos, para analizar datos con estructura anidada incorporando simultáneamente variables a nivel individual y contextual. A través de ejemplos de regresión (con interceptos y pendientes que varían por estrato), se muestra que ignorar la estructura jerárquica puede llevar a inferencias incorrectas, mientras que modelarla explícitamente permite capturar heterogeneidad entre grupos y aprovechar información compartida mediante. El enfoque se formaliza con el modelo nulo, que descompone la varianza en componentes dentro y entre estratos, y permite calcular la correlación intraclase (ICC), indicador clave para cuantificar la dependencia intragrupo.
 
-En el capítulo 8 se aborda el problema de la no respuesta parcial en encuestas de hogares, el cual genera datos faltantes que pueden comprometer la validez de las estimaciones si no se tratan adecuadamente. El capítulo examina la identificación de patrones de datos faltantes, su impacto sobre distintos tipos de estimadores y los procedimientos computacionales disponibles para mitigarlo mediante técnicas de imputación. El capítulo presenta métodos modernos de imputación, incluyendo la imputación múltiple con el paquete \texttt{mice} y la imputación fraccional, y propone criterios para comparar estimaciones antes y después de la imputación. Finalmente, se abordan herramientas de diagnóstico para evaluar la calidad de las imputaciones ---como el análisis de convergencia y la comparación de distribuciones--- y se discute la integración de los datos imputados con el objeto de diseño muestral, asegurando así la validez de la inferencia en etapas posteriores del análisis.
+Adicionalmente, el primer apéndice introduce el manejo de bases de datos en \texttt{R} mediante el entorno \texttt{tidyverse}, con énfasis en el paquete \texttt{dplyr}. A partir de la base de datos \texttt{BigCity}, se presenta un flujo básico de trabajo que incluye la carga de librerías, la inspección inicial de la base, el uso del operador de encadenamiento \texttt{\%\textgreater{}\%} y la aplicación de los principales verbos de \texttt{dplyr}: \texttt{filter()}, \texttt{select()}, \texttt{arrange()}, \texttt{mutate()}, \texttt{summarise()} y \texttt{group\_by()}. El capítulo muestra cómo seleccionar registros y variables, ordenar datos, crear nuevas variables y producir resúmenes descriptivos, explicando tanto la lógica de los códigos como la interpretación de sus salidas.
+
+Finalmente, el segundo apéndice aborda la inferencia en poblaciones finitas y la diferencia entre la inferencia basada en modelos y la inferencia basada en el diseño muestral. A partir de ejemplos de simulación, muestra que en encuestas complejas la aleatoriedad proviene principalmente de la selección de la muestra y que, por tanto, las estimaciones deben incorporar las probabilidades de inclusión y los pesos muestrales. Se presenta el método de máxima verosimilitud como punto de partida para modelos estadísticos bajo supuestos de observaciones independientes, y luego presenta la máxima pseudo-verosimilitud como una extensión adecuada para datos de encuestas, donde cada contribución individual se pondera según el diseño.
 
 El lector que los recorra en orden los capítulos habrá construido la capacidad de tomar cualquier encuesta de hogares latinoamericana, entender su diseño, procesar sus datos, estimar los indicadores de interés con la precisión estadística correcta, modelar las relaciones entre variables de manera válida bajo el diseño complejo, y manejar la no respuesta con métodos apropiados. Esa capacidad es, en esencia, lo que la producción rigurosa de estadísticas sociales exige.
 
-\chapter{Conceptos básicos en encuestas de hogares}\label{conceptos-buxe1sicos-en-encuestas-de-hogares}
+\chapter{Conceptos básicos en encuestas de hogares}\label{cap2}
 
 Las encuestas de hogares constituyen una de las principales herramientas para comprender la realidad social y económica de una población. A partir de ellas se obtiene información esencial sobre las condiciones de vida, el empleo, la educación, la salud y otros aspectos que orientan la formulación de políticas públicas y la toma de decisiones basadas en evidencia. El análisis riguroso de estas encuestas es fundamental para estudiar la realidad social, económica y demográfica de una población. Sin embargo, la validez de los resultados no depende únicamente del tamaño de la muestra o de la calidad de la recolección de datos, sino también de la manera en que la encuesta fue diseñada y de cómo dicho diseño se incorpora en el análisis estadístico. Ignorar el diseño muestral y aplicar métodos de análisis tradicionales que asumen una muestra aleatoria simple puede conducir a estimaciones sesgadas, errores en la inferencia y conclusiones equivocadas. Por esta razón, el análisis de las encuestas de hogares no puede desligarse de su diseño de selección, ya que este constituye el fundamento que sustenta la validez y representatividad de la información producida.
 
@@ -560,7 +560,7 @@ df = m - H
 
 donde \(m\) representa el número total de UPM observadas en la muestra y \(H\) el número de estratos. Esta aproximación refleja la cantidad efectiva de información independiente disponible para estimar la variabilidad muestral. A medida que los grados de libertad aumentan, la distribución \(t\) de Student converge hacia la distribución normal estándar. Esta propiedad explica por qué muchas veces se utilizan aproximaciones normales para reportar intervalos de confianza, especialmente en encuestas de hogares de gran escala. Sin embargo, cuando el número de conglomerados es reducido o existen estratos con pocas UPM, la aproximación normal puede subestimar la incertidumbre y producir intervalos excesivamente estrechos.
 
-\chapter{Análisis de las variables continuas}\label{cap4}
+\chapter{Análisis de las variables continuas}\label{cap3}
 
 El análisis estadístico de encuestas ha evolucionado de manera constante, impulsado por el desarrollo de nuevas metodologías y enfoques que buscan mejorar la precisión y la representatividad de los resultados. En general, estos avances surgen en el ámbito académico y, con el tiempo, son adoptados por instituciones públicas, empresas privadas y organismos estadísticos, que demandan su incorporación en los principales programas de análisis de datos.
 
@@ -2122,7 +2122,7 @@ Adicionalmente, es posible incorporar variables de agrupamiento en los diagramas
 \caption{Diagrama de dispersión entre ingreso y gasto por zona geográfica}\label{fig:fig-scatter-zona}
 \end{figure}
 
-\chapter{Análisis de variables categóricas}\label{anuxe1lisis-de-variables-categuxf3ricas}
+\chapter{Análisis de variables categóricas}\label{cap4}
 
 En el análisis de encuestas de hogares, uno de los productos más habituales es la estimación de parámetros descriptivos asociados a variables categóricas, los cuales permiten sintetizar las principales características de la población. Estas medidas facilitan una representación clara y comprensible de fenómenos sociales a partir de información recolectada mediante muestras probabilísticas.
 
@@ -2723,6 +2723,7 @@ Para calcular los errores estándar asociados a cada uno de los contrastes anter
 \end{Highlighting}
 \end{Shaded}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}llcccc@{}}
 \toprule\noalign{}
 & Norte & Sur & Centro & Occidente & Oriente \\
@@ -2736,6 +2737,7 @@ Centro & 0 & 0.000 & 0 & 0 & 0 \\
 Occidente & 0 & 0.000 & 0 & 0 & 0 \\
 Oriente & 0 & 0.000 & 0 & 0 & 0 \\
 \end{longtable}
+}
 
 Nótese que las covarianzas entre las estimaciones regionales son iguales a cero debido a que las muestras seleccionadas en cada región son independientes entre sí. Por tanto, el error estándar de cada contraste se obtiene aplicando la expresión de la varianza para la diferencia entre dos estimadores. En este caso, dado que, el cálculo se reduce a la raíz cuadrada de la suma de las varianzas correspondientes:
 
@@ -2802,6 +2804,7 @@ donde \(w_{hik}\) representa el factor de expansión asociado al elemento \(k\) 
 
 Además de las frecuencias conjuntas, también es posible estimar los tamaños marginales por filas y columnas, definidos respectivamente como \(\hat{N}_{r+} = \sum_{c=1}^{C} \hat{N}_{rc}\) y \(\hat{N}_{+c} = \sum_{r=1}^{R} \hat{N}_{rc}\). Mientras que el total general se expresa como \(\hat{N}_{++} = \sum_{r=1}^{R}\sum_{c=1}^{C} \hat{N}_{rc}\). La estructura general de una tabla de contingencia con \(R\) filas y \(C\) columnas puede representarse de la siguiente forma:
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2135}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1461}}
@@ -2832,6 +2835,7 @@ Marginal fila
 \(R\) & \(\hat{N}_{R1}\) & \(\hat{N}_{R2}\) & \(\cdots\) & \(\hat{N}_{RC}\) & \(\hat{N}_{R+}\) \\
 Marginal columna & \(\hat{N}_{+1}\) & \(\hat{N}_{+2}\) & \(\cdots\) & \(\hat{N}_{+C}\) & \(\hat{N}_{++}\) \\
 \end{longtable}
+}
 
 De manera tradicional, las tablas de contingencia suelen representarse como arreglos bidimensionales de dimensión \(R \times C\). Sin embargo, también pueden extenderse para incorporar una o más variables adicionales, generando subconjuntos o subtablas que permiten estudiar relaciones más complejas entre variables categóricas. A partir de los tamaños estimados, también pueden estimarse proporciones para cada celda de la tabla de contingencia, de la siguiente manera:
 
@@ -3566,7 +3570,7 @@ A continuación, la función \texttt{bi\_legend()} crea una leyenda especializad
 
 En este mapa, cada celda de la leyenda combina un tono de la proporción de pobreza (eje vertical) con un tono del coeficiente de variación (eje horizontal), permitiendo identificar simultáneamente regiones con alta pobreza y alta incertidumbre en la estimación. Este tipo de representación es especialmente valioso para orientar decisiones sobre la necesidad de ampliar el tamaño muestral en zonas geográficas específicas.
 
-\chapter{Modelos de regresión}\label{cap6}
+\chapter{Modelos de regresión}\label{cap5}
 
 Los modelos de regresión constituyen una de las herramientas más utilizadas en el análisis de datos provenientes de encuestas, ya que permiten estudiar la relación entre una variable de interés y un conjunto de variables explicativas. A través de estos modelos, es posible evaluar cómo cambian determinadas características de la población según factores demográficos, sociales o económicos observados en la muestra. No obstante, la validez de los resultados obtenidos depende de una adecuada especificación del modelo y de la correcta consideración de las características del diseño muestral de la encuesta.
 
@@ -3611,7 +3615,7 @@ y_{k} = \mathbf{x}_{k}\boldsymbol{\beta} + \varepsilon_{k}, \quad k=1,\ldots,n,
 donde \(\mathbf{x}_{k} = [1, x_{1i}, \ldots, x_{pi}]\) representa el vector de covariables asociado a la unidad \(k\), mientras que \(\boldsymbol{\beta} = [\beta_{0}, \beta_{1}, \ldots, \beta_{p}]'\) corresponde al vector de parámetros desconocidos del modelo. En este contexto, el valor esperado de la variable respuesta condicionado al conjunto de covariables puede expresarse como:
 
 \[
-E(y \mid x) = {\beta}_{0} + {\beta}_{1}x_{1} + \cdots + {\beta}_{p}x_{p}
+E(y \mid \mathbf{x}) = {\beta}_{0} + {\beta}_{1}x_{1} + \cdots + {\beta}_{p}x_{p}
 \]
 
 Los modelos de regresión lineal se sustentan en una serie de supuestos teóricos que garantizan la validez de las estimaciones y de las inferencias derivadas del modelo. En primer lugar, se asume que el valor esperado de los residuos condicionado a las covariables es igual a cero, es decir, \(E(\varepsilon_{k} \mid \mathbf{x}_{k}) = 0\), lo que implica la ausencia de sesgos sistemáticos en la estimación de la variable respuesta. Asimismo, se supone homogeneidad de la varianza de los errores, de modo que la variabilidad residual permanece constante para todos los valores de las covariables, esto es, \(Var(\varepsilon_{k} \mid \mathbf{x}_{k}) = \sigma^2\). Adicionalmente, se considera que los errores siguen una distribución normal con media cero y varianza constante, expresada como \(\varepsilon_{k} \mid \mathbf{x}_{k} \sim N(0,\sigma^2)\), y que los residuos asociados a distintas observaciones son independientes entre sí, de manera que \(Cov(\varepsilon_{k},\varepsilon_{j}\mid \mathbf{x}_{k},\mathbf{x}_{j})=0\).
@@ -3982,10 +3986,10 @@ En \texttt{R}, se evalúa la presencia de observaciones influyentes mediante la 
 \end{figure}
 
 \begin{verbatim}
-##            1            2            3            4            5            6 
-## 0.0008667289 0.0013960768 0.0013978891 0.0010179499 0.0016358877 0.0016422670 
-##            7            8            9           10 
-## 0.0018452090 0.0013092790 0.0021196768 0.0012425138
+##         1         2         3         4         5         6         7         8 
+## 0.0008667 0.0013961 0.0013979 0.0010179 0.0016359 0.0016423 0.0018452 0.0013093 
+##         9        10 
+## 0.0021197 0.0012425
 \end{verbatim}
 
 Otro estadístico que mide el grado de influencia de una observación es el DFBETA, denotado como \(D_f\text{Beta}_{(k)j}\), que mide el cambio que experimenta el coeficiente de regresión \(\hat{\beta}_{j}\) cuando la observación \(k\) es eliminada del proceso de estimación. En consecuencia, esta medida evalúa la influencia individual de cada observación sobre los parámetros del modelo, identificando aquellas unidades cuya presencia altera de manera importante las estimaciones obtenidas. Valores elevados de \(D_f\text{Beta}_{(k)j}\) indican que la observación ejerce una influencia considerable sobre el coeficiente correspondiente, lo que puede afectar la estabilidad e interpretación del modelo.
@@ -4404,7 +4408,7 @@ Supóngase, por ejemplo, que se desea obtener la predicción del modelo para una
 
 En primer lugar, el objeto \texttt{datos\_nuevos} especifica los valores de las covariables incluidas en el modelo. Posteriormente, la función \texttt{predict()} calcula la predicción puntual asociada a dicha observación. El argumento \texttt{newdata\ =\ datos\_nuevos} indica que la predicción debe realizarse utilizando la nueva información suministrada, mientras que \texttt{type\ =\ "link"} solicita el resultado en la escala del predictor lineal. Finalmente, la función \texttt{confint()} permite obtener el intervalo de confianza asociado a la predicción realizada. Este intervalo cuantifica la incertidumbre de la estimación y proporciona un rango de valores plausibles para el valor esperado de la variable respuesta correspondiente al perfil especificado.
 
-\chapter{Modelos lineales generalizados}\label{cap-glm}
+\chapter{Modelos lineales generalizados}\label{cap6}
 
 Cuando la variable de interés no es continua o los supuestos del modelo lineal clásico no se satisfacen, los modelos lineales generalizados constituyen una alternativa adecuada para modelar las relaciones de interés. Este enfoque fue introducido por \citet{nelder1972generalized}, quienes demostraron que diversos métodos estadísticos ampliamente utilizados, como la regresión logística, los modelos log-lineales para datos de conteo y ciertos modelos avanzados de regresión para variables continuas, podían integrarse dentro de un mismo marco teórico unificado. Esta formulación permitió extender las herramientas de regresión más allá de los escenarios en los que la variable respuesta sigue una distribución normal.
 
@@ -4952,7 +4956,7 @@ ZoneUrban & 0.151 & 0.089 & 1.701 & 0.092 \\
 
 Dado que el modelo utiliza un enlace logarítmico, los coeficientes pueden interpretarse como efectos multiplicativos sobre el ingreso esperado. El coeficiente asociado al gasto del hogar es positivo y estadísticamente significativo (\(p<0.001\)), indicando que, manteniendo constantes las demás variables del modelo, un incremento de una unidad en el gasto se asocia con un aumento aproximado del \(0.2\%\) en el ingreso esperado, ya que \(\exp(0.002)\approx 1.002\). La edad también presenta un efecto positivo y significativo (\(p=0.017\)). En promedio, cada año adicional de edad se asocia con un incremento cercano al \(0.2\%\) en el ingreso esperado, manteniendo constantes las demás covariables. Por el contrario, las variables de sexo y zona de residencia no muestran evidencia estadística suficiente para concluir que influyen sobre el ingreso.
 
-\chapter{Modelos multinivel}\label{cap-multinivel}
+\chapter{Modelos multinivel}\label{cap7}
 
 Los modelos multinivel, también conocidos como modelos jerárquicos, son una técnica estadística diseñada para el análisis de datos con estructura jerárquica, como los que provienen de encuestas de hogares, en donde las unidades de observación no son independientes entre sí. Los individuos pertenecen a hogares, los hogares se ubican en áreas geográficas específicas (UPMs) y estas, a su vez, forman parte de unidades territoriales más amplias (estratos o dominios). Como consecuencia, las observaciones que comparten un mismo contexto suelen presentar características más similares entre sí que aquellas pertenecientes a contextos diferentes. Esta estructura de dependencia viola uno de los supuestos fundamentales de los modelos de regresión convencionales y puede conducir a estimaciones ineficientes e inferencias incorrectas.
 
@@ -5513,7 +5517,7 @@ idStrt006 & 28.59 & 1.217 \\
 idStrt007 & 40.98 & 1.079 \\
 idStrt008 & 163.81 & 0.928 \\
 idStrt009 & 16.55 & 0.838 \\
-idStrt010 & 89.90 & 1.830 \\
+idStrt010 & 89.91 & 1.830 \\
 \end{longtable}
 
 Una vez más, Con el propósito de facilitar la visualización de los resultados, se utiliza la submuestra reducida definida previamente, la cual considera únicamente tres estratos seleccionados.
@@ -5838,16 +5842,16 @@ La estimación del modelo con intercepto y pendiente aleatoria indica una hetero
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-idStrt001 & 4.865 & -0.025 \\
-idStrt002 & 9.862 & -0.035 \\
+idStrt001 & 4.864 & -0.025 \\
+idStrt002 & 9.860 & -0.035 \\
 idStrt003 & -1.133 & -0.007 \\
-idStrt004 & 1.899 & -0.015 \\
-idStrt005 & 8.030 & -0.026 \\
+idStrt004 & 1.897 & -0.015 \\
+idStrt005 & 8.029 & -0.026 \\
 idStrt006 & -1.153 & 0.009 \\
-idStrt007 & 0.974 & -0.012 \\
+idStrt007 & 0.973 & -0.012 \\
 idStrt008 & 1.488 & -0.006 \\
 idStrt009 & 3.660 & -0.005 \\
-idStrt010 & 4.133 & -0.020 \\
+idStrt010 & 4.132 & -0.020 \\
 \end{longtable}
 
 Los coeficientes por estrato evidencian que la relación entre gasto y pobreza no sólo cambia en el nivel base, sino también en la intensidad y dirección de la pendiente. En varios estratos la pendiente del gasto es negativa, lo que mantiene la interpretación esperada de que mayores niveles de gasto reducen la probabilidad de pobreza. Sin embargo, también aparecen pendientes cercanas a cero e incluso positivas en algunos estratos, lo que sugiere patrones locales distintos. Esta variabilidad es precisamente la que el modelo busca capturar mediante el efecto aleatorio de la pendiente. La Figura \ref{fig:fig-logit-pendiente-aleatoria} muestra que las curvas predichas son más heterogéneas entre estratos que en el modelo anterior:
@@ -5886,6 +5890,972 @@ Los coeficientes por estrato evidencian que la relación entre gasto y pobreza n
 
 \caption{Curvas de probabilidad predichas por estrato: modelo logístico con intercepto y pendiente aleatoria}\label{fig:fig-logit-pendiente-aleatoria}
 \end{figure}
+
+\appendix
+
+
+\chapter{\texorpdfstring{Manejo de bases de datos con \texttt{R}}{Manejo de bases de datos con R}}\label{ap1}
+
+\texttt{R} es un software estadístico ampliamente utilizado para el análisis de datos y la generación de gráficos y permite un ambiente integrado para el análisis estadístico, en particular de bases de datos. Esto significa que permite realizar procesos de análisis, programación, visualización y manejo de datos dentro de un mismo entorno. En este anexo se utiliza el enfoque del \texttt{tidyverse}, y en particular el paquete \texttt{dplyr}, para organizar una secuencia lógica de trabajo con bases de datos: cargar la información, inspeccionarla, seleccionar variables, filtrar registros, ordenar filas, crear variables y producir resúmenes.
+
+\section{Preparación del entorno de trabajo}\label{preparaciuxf3n-del-entorno-de-trabajo}
+
+\texttt{R} es un lenguaje de programación de carácter colaborativo, lo que permite que su comunidad de usuarios y desarrolladores contribuya continuamente mediante la creación de funciones, paquetes y librerías especializadas. Gracias a este ecosistema abierto, es posible ampliar sus capacidades para distintos tipos de análisis estadístico y procesamiento de datos. Entre las librerías más utilizadas para el análisis de bases de datos se encuentran las siguientes:
+
+\begin{itemize}
+\item
+  La librería \texttt{tidyverse} \citep{tidyverse2019} corresponde a un conjunto de paquetes de \texttt{R} diseñados para apoyar distintas etapas del trabajo con datos, desde su importación y transformación hasta su exploración, análisis y visualización. Su uso se ha extendido ampliamente en ciencia de datos porque ofrece una forma de trabajo consistente y ordenada.
+\item
+  El paquete \texttt{dplyr} \citep{dplyr2026} ofrece herramientas para organizar y transformar bases de datos rectangulares. Su utilidad radica en que reúne, en una sintaxis simple y consistente, las operaciones más frecuentes del trabajo analítico con datos: seleccionar variables, filtrar registros, crear nuevas columnas, ordenar observaciones y resumir información.
+\item
+  \texttt{ggplot2} \citep{Wickham2023} permite construir gráficos estadísticos mediante la gramática de los gráficos. Bajo este enfoque, una visualización se entiende como la combinación ordenada de capas: datos, variables, geometrías, escalas, títulos, colores y otros elementos visuales.
+\item
+  El paquete \texttt{survey} \citep{Lumley2024} proporciona herramientas especializadas para analizar información proveniente de encuestas con diseños muestrales complejos, incorporando ponderaciones, estratificación y conglomeración.
+\item
+  La librería \texttt{srvyr} \citep{Freedman2024} extiende la funcionalidad del paquete \texttt{survey} para utilizar una sintaxis más cercana al enfoque de \texttt{tidyverse}.
+\item
+  El paquete \texttt{TeachingSampling} \citep{GutierrezT2020} ofrece funciones para seleccionar muestras probabilísticas y realizar inferencia sobre poblaciones finitas bajo diversos diseños de muestreo.
+\item
+  La librería \texttt{samplesize4surveys} \citep{Gutierrez2020} permite calcular tamaños de muestra para estimar totales, medias y proporciones en el contexto de diseños de muestreo complejos.
+\end{itemize}
+
+Antes de poder utilizar las diferentes funciones que cada librería tiene, es necesario descargarlas de antemano de la web. El comando \texttt{install.packages} permite realizar esta tarea. Note que algunas librerías pueden depender de otras, así que para poder utilizarlas es necesario instalar también las dependencias adicionales.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"survey"}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"srvyr"}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"ggplot2"}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"TeachingSampling"}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"samplesize4surveys"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Una vez instalados los paquetes, se cargan con \texttt{library()}. El primer comando limpia los objetos existentes en la sesión de trabajo, lo que ayuda a que los resultados del capítulo dependan solo del código que se ejecuta aquí. Debe tenerse en cuenta que un paquete solo puede cargarse si previamente ha sido instalado en el sistema.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rm}\NormalTok{(}\AttributeTok{list =} \FunctionTok{ls}\NormalTok{())}
+
+\FunctionTok{library}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(}\StringTok{"survey"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(}\StringTok{"srvyr"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(}\StringTok{"ggplot2"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(}\StringTok{"TeachingSampling"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(}\StringTok{"samplesize4surveys"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Una vez se descargan e instalan las librerías o paquetes en \texttt{R}, el paso recomendado es que todos los procesamientos que se realicen se hagan a través de un la creación de proyectos. Un proyecto de \texttt{R} se define como un archivo que contiene los archivos de origen y contenido asociados con el trabajo que se está realizando. Adicionalmente, contiene información que permite la compilación de cada archivo de \texttt{R} que se va a utilizar, mantiene la información para integrarse con sistemas de control de código fuente y ayuda a organizar la aplicación de los procesamientos en componentes lógicos.
+
+\section{Carga e inspección inicial de la base}\label{carga-e-inspecciuxf3n-inicial-de-la-base}
+
+Es muy usual que al trabajar proyectos en \texttt{R} sea necesario importar bases de datos con información relevante para un estudio en particular. Los formatos de bases de datos que \texttt{R} permite importar son diversos, entre ellos se tienen \texttt{xlsx}, \texttt{csv}, \texttt{txt}, \texttt{STATA}, etc. Una vez leída la base de datos en el formato pertinente es recomendable transformarla al formato nativo de \texttt{R}, es decir \texttt{.RDS}. Este es un formato más eficiente y propio de \texttt{R}.
+
+Una vez se carga la base de datos se procede a utilizar las funciones en \texttt{R} para poder obtener resultados de los procesamientos agregados y gráficos de interés. Para ejemplificar el uso de funciones que permitan obtener resultados agregados, utilizaremos la base de datos \texttt{BigCity} del paquete \texttt{TeachingSampling}. Esta base corresponde a un conjunto de variables socioeconómicas de 150266 personas en un año en particular.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(TeachingSampling)}
+\FunctionTok{data}\NormalTok{(BigCity)}
+\NormalTok{data1 }\OtherTok{\textless{}{-}}\NormalTok{ BigCity}
+\end{Highlighting}
+\end{Shaded}
+
+El objeto \texttt{data1} contiene una copia de \texttt{BigCity}. La función \texttt{head()} permite observar las primeras filas y obtener una impresión rápida de la estructura de la base.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(data1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        HHID PersonID   Stratum     PSU  Zone    Sex Age MaritalST Income
+## 1 idHH00001  idPer01 idStrt001 PSU0001 Rural   Male  38   Married 555.00
+## 2 idHH00001  idPer02 idStrt001 PSU0001 Rural Female  40   Married 555.00
+## 3 idHH00001  idPer03 idStrt001 PSU0001 Rural Female  20    Single 555.00
+## 4 idHH00001  idPer04 idStrt001 PSU0001 Rural   Male  19    Single 555.00
+## 5 idHH00001  idPer05 idStrt001 PSU0001 Rural   Male  18    Single 555.00
+## 6 idHH00002  idPer01 idStrt001 PSU0001 Rural   Male  35   Married 298.34
+##   Expenditure Employment  Poverty
+## 1      488.33   Employed  NotPoor
+## 2      488.33   Employed  NotPoor
+## 3      488.33   Inactive  NotPoor
+## 4      488.33   Employed  NotPoor
+## 5      488.33   Inactive  NotPoor
+## 6      216.70   Employed Relative
+\end{verbatim}
+
+Una vez cargada la base de datos en \texttt{R}, se puede empezar a realizar los procesamientos según las necesidades de cada investigador. En este sentido, una de las primeras revisiones que se realizan al cargar una base de datos es verificar su dimensión; es decir, identificar la cantidad de filas y columnas que contiene. Lo anterior se puede hacer con la función \texttt{nrow}, que identifica el número de registros en la base de datos, y con la función \texttt{ncol}, que muestra el número de variables. Los códigos computacionales son los siguientes:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{nrow}\NormalTok{(data1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 150266
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ncol}\NormalTok{(data1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 12
+\end{verbatim}
+
+Una forma resumida de revisar la cantidad de filas y columnas de una base de datos es mediante la función \texttt{dim}, la cual devuelve un vector cuya primera componente corresponde al número de filas y cuya segunda componente indica el número de columnas.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dim}\NormalTok{(data1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 150266     12
+\end{verbatim}
+
+En algunas ocasiones, las bases de datos pueden ser extensas, ya sea porque contienen un número considerable de variables observadas o porque el número de registros es grande. Por esta razón, para visualizarlas adecuadamente, puede ser conveniente abrirlas en una ventana independiente y explorar su contenido de forma tabular. Esto se realiza mediante la función \texttt{View}, como se muestra a continuación.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{View}\NormalTok{(data1)}
+\end{Highlighting}
+\end{Shaded}
+
+Otra verificación importante al cargar una base de datos en \texttt{R} consiste en identificar las variables que contiene. Para ello, se puede utilizar la función \texttt{names}, la cual muestra los nombres de las variables incluidas en la base de datos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(data1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "HHID"        "PersonID"    "Stratum"     "PSU"         "Zone"       
+##  [6] "Sex"         "Age"         "MaritalST"   "Income"      "Expenditure"
+## [11] "Employment"  "Poverty"
+\end{verbatim}
+
+La salida anterior muestra los nombres de las variables contenidas en la base de datos. En este caso, la base cuenta con 12 variables. Las primeras variables corresponden a identificadores y elementos del diseño muestral, como \texttt{HHID}, \texttt{PersonID}, \texttt{Stratum}, \texttt{PSU} y \texttt{Zone}. Luego aparecen variables sociodemográficas, como \texttt{Sex}, \texttt{Age} y \texttt{MaritalST}. Finalmente, se incluyen variables económicas y de condición laboral o social, como \texttt{Income}, \texttt{Expenditure}, \texttt{Employment} y \texttt{Poverty}.
+
+Si se desea profundizar en el tipo de información que almacena cada variable, puede utilizarse la función \texttt{str}, la cual muestra de manera compacta la estructura de un objeto y sus componentes. Para nuestra base de datos, esta función se utilizaría de la siguiente manera:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(data1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    150266 obs. of  12 variables:
+##  $ HHID       : chr  "idHH00001" "idHH00001" "idHH00001" "idHH00001" ...
+##  $ PersonID   : chr  "idPer01" "idPer02" "idPer03" "idPer04" ...
+##  $ Stratum    : chr  "idStrt001" "idStrt001" "idStrt001" "idStrt001" ...
+##  $ PSU        : chr  "PSU0001" "PSU0001" "PSU0001" "PSU0001" ...
+##  $ Zone       : chr  "Rural" "Rural" "Rural" "Rural" ...
+##  $ Sex        : chr  "Male" "Female" "Female" "Male" ...
+##  $ Age        : int  38 40 20 19 18 35 29 14 13 6 ...
+##  $ MaritalST  : Factor w/ 6 levels "Partner","Married",..: 2 2 5 5 5 2 2 5 5 NA ...
+##  $ Income     : num  555 555 555 555 555 ...
+##  $ Expenditure: num  488 488 488 488 488 ...
+##  $ Employment : Factor w/ 3 levels "Unemployed","Inactive",..: 3 3 2 3 2 3 3 NA NA NA ...
+##  $ Poverty    : Factor w/ 3 levels "NotPoor","Extreme",..: 1 1 1 1 1 3 3 3 3 3 ...
+\end{verbatim}
+
+Como se observa en la salida anterior, la función \texttt{str} permite identificar la clase de cada variable incluida en la base de datos. Por ejemplo, la variable \texttt{HHID} es de tipo carácter, al igual que la variable \texttt{Sex}, mientras que las variables \texttt{Income} y \texttt{Expenditure} son de tipo numérico. Los demás atributos asociados con las variables también pueden revisarse directamente en la salida del código. Esta función resulta especialmente útil para obtener una visión general del contenido y la estructura de una base de datos.
+
+\section{Encadenamiento de operaciones}\label{encadenamiento-de-operaciones}
+
+Una de las contribuciones más útiles de \texttt{R} es la incorporación de las tuberías (\emph{pipelines}), las cuales permiten construir consultas, transformaciones y nuevos objetos a partir de una base de datos de manera más intuitiva, ordenada y fácil de interpretar. El operador de encadenamiento \texttt{\%\textgreater{}\%}, proveniente del paquete \texttt{magrittr} \citep{pipe} y cargado automáticamente al utilizar la librería \texttt{tidyverse}, permite enlazar varias operaciones sucesivas, de modo que el resultado obtenido en un paso se convierte en el insumo del paso siguiente. A continuación, se presenta un ejemplo sencillo de su uso con la base de datos \texttt{BigLucy}, en el cual se calcula el número total de elementos que contiene la base mediante la función \texttt{count}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{count}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        n
+## 1 150266
+\end{verbatim}
+
+La línea de código anterior puede interpretarse de forma sencilla: se toma la base de datos como punto de partida y, sobre ella, se realiza un conteo de sus registros. Además de la función \texttt{count}, existe una amplia variedad de funciones que pueden combinarse con el operador \texttt{\%\textgreater{}\%} para realizar consultas, transformaciones y resúmenes sobre los datos. El paquete \texttt{dplyr} toma ventaja de este operador, permitiendo organizar las operaciones más comunes sobre una base rectangular. En las siguientes subsecciones se presentan algunas de ellas, siguiendo un orden típico de trabajo: reducir observaciones, conservar variables, ordenar la información, crear nuevas columnas y producir resultados agregados.
+
+\subsection{\texorpdfstring{\texttt{filter}: selección de registros}{filter: selección de registros}}\label{filter-selecciuxf3n-de-registros}
+
+\texttt{filter()} conserva las filas que cumplen una o varias condiciones. En el siguiente ejemplo se crean dos subconjuntos de \texttt{data1}: uno con los hombres y otro con las mujeres. El resultado son dos objetos nuevos. \texttt{datasexH} contiene únicamente registros con \texttt{Sex\ ==\ "Male"}, mientras que \texttt{datasexM} contiene registros con \texttt{Sex\ ==\ "Female"}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datasexH }\OtherTok{\textless{}{-}}\NormalTok{ data1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(Sex }\SpecialCharTok{==} \StringTok{"Male"}\NormalTok{)}
+\NormalTok{datasexM }\OtherTok{\textless{}{-}}\NormalTok{ data1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(Sex }\SpecialCharTok{==} \StringTok{"Female"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+También puede filtrarse por condición de pobreza. En este caso se conservan solo las personas clasificadas como no pobres. Em este caso, el objeto \texttt{datanopobre} contiene el subconjunto de registros cuya variable \texttt{Poverty} toma el valor \texttt{"NotPoor"}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datanopobre }\OtherTok{\textless{}{-}}\NormalTok{ data1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(Poverty }\SpecialCharTok{==} \StringTok{"NotPoor"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+La función \texttt{filter()} también permite conservar registros cuyos valores pertenecen a un conjunto específico. En los siguientes ejemplos se filtra por valores particulares de ingreso. Note que \texttt{\%in\%} evalúa si \texttt{Income} pertenece al conjunto indicado. Así, \texttt{datared} conserva ingresos iguales a 265 o 600, y \texttt{dataingreso2} conserva ingresos iguales a 1000 o 2000.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datared }\OtherTok{\textless{}{-}}\NormalTok{ data1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(Income }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{265}\NormalTok{, }\DecValTok{600}\NormalTok{))}
+
+\NormalTok{dataingreso2 }\OtherTok{\textless{}{-}}\NormalTok{ data1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(Income }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{2000}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{\texorpdfstring{\texttt{select}: seleccionar variables}{select: seleccionar variables}}\label{select-seleccionar-variables}
+
+La función \texttt{select()} conserva columnas específicas. Para continuar con los ejemplos, se seleccionan variables de identificación de la persona y el hogar y otras como zona, sexo, edad e ingreso. El resultado es una base más reducida en columnas. Se mantiene \texttt{Age} porque será utilizada posteriormente para ordenar registros por edad.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datared }\OtherTok{\textless{}{-}}\NormalTok{ data1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(PersonID, HHID, PSU, Zone, Sex, Age, Income)}
+\end{Highlighting}
+\end{Shaded}
+
+Adicionalmente, \texttt{select()} también permite excluir variables. Para eliminar columnas, se antepone el signo menos (\texttt{-}) al nombre de cada variable. El objeto \texttt{datagrey} conserva las variables de \texttt{datared}, excepto \texttt{HHID} y \texttt{PersonID}. Esta operación es útil cuando se desea trabajar con una base más compacta.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datagrey }\OtherTok{\textless{}{-}}\NormalTok{ datared }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{HHID, }\SpecialCharTok{{-}}\NormalTok{PersonID)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{\texorpdfstring{\texttt{arrange}: ordenamiento de filas}{arrange: ordenamiento de filas}}\label{arrange-ordenamiento-de-filas}
+
+La función \texttt{arrange()} ordena las filas de una base según una o más variables. En el primer ejemplo, \texttt{datared} se ordena de menor a mayor ingreso, mientras que \texttt{datadog} contiene las mismas columnas que \texttt{datared}, pero sus filas quedan ordenadas por \texttt{Income}. La función \texttt{head()} muestra los primeros registros después del ordenamiento.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datadog }\OtherTok{\textless{}{-}}\NormalTok{ datared }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(Income)}
+
+\NormalTok{datadog }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   PersonID      HHID     PSU  Zone    Sex Age Income
+## 1  idPer01 idHH01522 PSU0112 Rural Female  82  10.00
+## 2  idPer01 idHH22167 PSU0112 Rural Female  82  10.00
+## 3  idPer01 idHH10745 PSU0893 Rural   Male  68  11.92
+## 4  idPer01 idHH31390 PSU0893 Rural   Male  68  11.92
+## 5  idPer01 idHH17632 PSU1432 Rural   Male  58  12.08
+## 6  idPer02 idHH17632 PSU1432 Rural Female  50  12.08
+\end{verbatim}
+
+El ordenamiento también puede realizarse considerando más de una variable. En este ejemplo, la base se organiza primero según la variable \texttt{Sex} y, posteriormente, dentro de cada grupo, de acuerdo con la variable \texttt{Age}. La siguiente salida permite revisar los primeros registros después de aplicar este criterio de ordenamiento.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datared }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(Sex, Age) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   PersonID      HHID     PSU  Zone    Sex Age Income
+## 1  idPer04 idHH00009 PSU0001 Rural Female   0 151.67
+## 2  idPer04 idHH20654 PSU0001 Rural Female   0 151.67
+## 3  idPer06 idHH00042 PSU0004 Rural Female   0 527.84
+## 4  idPer06 idHH20687 PSU0004 Rural Female   0 527.84
+## 5  idPer04 idHH00191 PSU0014 Urban Female   0 355.00
+## 6  idPer04 idHH20836 PSU0014 Urban Female   0 355.00
+\end{verbatim}
+
+Para ordenar los registros de mayor a menor, se utiliza la opción \texttt{desc()} dentro de la función \texttt{arrange()}. En el siguiente ejemplo, la base se organiza de manera que las personas con mayor edad aparezcan en los primeros registros. Este tipo de ordenamiento permite identificar rápidamente los valores más altos de una variable dentro de la base reducida.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datared }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(Age)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   PersonID      HHID     PSU  Zone    Sex Age Income
+## 1  idPer02 idHH01024 PSU0076 Urban Female  98 135.00
+## 2  idPer02 idHH21669 PSU0076 Urban Female  98 135.00
+## 3  idPer01 idHH02916 PSU0219 Rural Female  98 136.89
+## 4  idPer01 idHH23561 PSU0219 Rural Female  98 136.89
+## 5  idPer01 idHH03863 PSU0290 Rural   Male  98 244.92
+## 6  idPer01 idHH24508 PSU0290 Rural   Male  98 244.92
+\end{verbatim}
+
+\subsection{\texorpdfstring{\texttt{mutate}: creación o transformación de variables}{mutate: creación o transformación de variables}}\label{mutate-creaciuxf3n-o-transformaciuxf3n-de-variables}
+
+La función \texttt{mutate()} crea nuevas variables o modifica variables existentes. Dado que \texttt{BigCity} no incluye una variable de región geográfica explícita, se construye \texttt{Region} a partir de \texttt{Stratum}. Primero se extrae la parte numérica del estrato con \texttt{gsub("\textbackslash{}\textbackslash{}D",\ "",\ Stratum)}, luego se convierte a número con \texttt{as.numeric()} y finalmente se divide en cinco intervalos con \texttt{cut()}. El resultado es una nueva columna \texttt{Region} dentro de \texttt{data1}, en la que sus categorías permiten producir resúmenes regionales en los pasos siguientes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1 }\OtherTok{\textless{}{-}}\NormalTok{ data1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{Region =} \FunctionTok{cut}\NormalTok{(}
+      \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{D"}\NormalTok{, }\StringTok{""}\NormalTok{, Stratum)),}
+      \AttributeTok{breaks =} \DecValTok{5}\NormalTok{,}
+      \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Norte"}\NormalTok{, }\StringTok{"Sur"}\NormalTok{, }\StringTok{"Centro"}\NormalTok{, }\StringTok{"Occidente"}\NormalTok{, }\StringTok{"Oriente"}\NormalTok{)}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+En el análisis de bases de datos también es frecuente recodificar variables categóricas. El siguiente código crea \texttt{IDRegion}, una versión codificada de \texttt{Region} que conserva el orden de las regiones y asigna códigos de dos dígitos. Esta forma de recodificación facilita la presentación o el cruce con otras fuentes de información.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1 }\OtherTok{\textless{}{-}}\NormalTok{ data1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{IDRegion =} \FunctionTok{factor}\NormalTok{(}
+\NormalTok{      Region,}
+      \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Norte"}\NormalTok{, }\StringTok{"Sur"}\NormalTok{, }\StringTok{"Centro"}\NormalTok{, }\StringTok{"Occidente"}\NormalTok{, }\StringTok{"Oriente"}\NormalTok{),}
+      \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"01"}\NormalTok{, }\StringTok{"02"}\NormalTok{, }\StringTok{"03"}\NormalTok{, }\StringTok{"04"}\NormalTok{, }\StringTok{"05"}\NormalTok{)}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+El siguiente ejemplo crea \texttt{Logincome}, que corresponde al logaritmo natural del ingreso (transformación de la escala del ingreso). Esta operación se usa con frecuencia cuando una variable monetaria presenta alta dispersión. Luego se muestran las primeras filas de las variables relevantes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datablue2 }\OtherTok{\textless{}{-}}\NormalTok{ datared }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Logincome =} \FunctionTok{log}\NormalTok{(Income))}
+
+\NormalTok{datablue2 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(PersonID, Income, Logincome) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   PersonID Income Logincome
+## 1  idPer01 555.00  6.318968
+## 2  idPer02 555.00  6.318968
+## 3  idPer03 555.00  6.318968
+## 4  idPer04 555.00  6.318968
+## 5  idPer05 555.00  6.318968
+## 6  idPer01 298.34  5.698234
+\end{verbatim}
+
+Note que \texttt{mutate()} puede crear más de una variable en el mismo paso. Además, las variables creadas al inicio de \texttt{mutate()} pueden ser utilizadas en cálculos posteriores dentro del mismo llamado. Por ejemplo, \texttt{Income2} duplica el ingreso original e \texttt{Income4} duplica \texttt{Income2}. La siguiente salida muestra que \texttt{Income4} equivale a cuatro veces el ingreso inicial.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datacat }\OtherTok{\textless{}{-}}\NormalTok{ datablue2 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Income2 =} \DecValTok{2} \SpecialCharTok{*}\NormalTok{ Income,}
+         \AttributeTok{Income4 =} \DecValTok{2} \SpecialCharTok{*}\NormalTok{ Income2)}
+
+\NormalTok{datacat }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(PersonID, Income2, Income4) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   PersonID Income2 Income4
+## 1  idPer01 1110.00 2220.00
+## 2  idPer02 1110.00 2220.00
+## 3  idPer03 1110.00 2220.00
+## 4  idPer04 1110.00 2220.00
+## 5  idPer05 1110.00 2220.00
+## 6  idPer01  596.68 1193.36
+\end{verbatim}
+
+También se puede crear una variable categórica mediante condiciones. En este ejemplo, la función \texttt{case\_when()} clasifica la edad en rangos y luego convierte el resultado en un factor ordenado. El resultado es \texttt{CatAge}, una variable de grupos etarios ordenados. Esta transformación facilita la producción de tablas por tramos de edad.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1 }\OtherTok{\textless{}{-}}\NormalTok{ data1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{CatAge =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      Age }\SpecialCharTok{\textless{}=} \DecValTok{5} \SpecialCharTok{\textasciitilde{}} \StringTok{"0{-}5"}\NormalTok{,}
+\NormalTok{      Age }\SpecialCharTok{\textless{}=} \DecValTok{15} \SpecialCharTok{\textasciitilde{}} \StringTok{"6{-}15"}\NormalTok{,}
+\NormalTok{      Age }\SpecialCharTok{\textless{}=} \DecValTok{30} \SpecialCharTok{\textasciitilde{}} \StringTok{"16{-}30"}\NormalTok{,}
+\NormalTok{      Age }\SpecialCharTok{\textless{}=} \DecValTok{45} \SpecialCharTok{\textasciitilde{}} \StringTok{"31{-}45"}\NormalTok{,}
+\NormalTok{      Age }\SpecialCharTok{\textless{}=} \DecValTok{60} \SpecialCharTok{\textasciitilde{}} \StringTok{"46{-}60"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \StringTok{"Más de 60"}
+\NormalTok{    ),}
+    \AttributeTok{CatAge =} \FunctionTok{factor}\NormalTok{(}
+\NormalTok{      CatAge,}
+      \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"0{-}5"}\NormalTok{, }\StringTok{"6{-}15"}\NormalTok{, }\StringTok{"16{-}30"}\NormalTok{,}
+                 \StringTok{"31{-}45"}\NormalTok{, }\StringTok{"46{-}60"}\NormalTok{, }\StringTok{"Más de 60"}\NormalTok{),}
+      \AttributeTok{ordered =} \ConstantTok{TRUE}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{\texorpdfstring{\texttt{summarise}: resúmenes descriptivos}{summarise: resúmenes descriptivos}}\label{summarise-resuxfamenes-descriptivos}
+
+La función \texttt{summarise()} permite construir una tabla resumen a partir de una o varias variables de la base de datos. En el siguiente ejemplo se calculan dos estadísticas descriptivas de la variable \texttt{Income}: el total y la media. Como resultado, se obtiene una tabla con una sola fila que contiene la suma de los ingresos observados y el ingreso promedio de los registros incluidos en la base.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{total.ing =} \FunctionTok{sum}\NormalTok{(Income),}
+            \AttributeTok{media.ing =} \FunctionTok{mean}\NormalTok{(Income))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   total.ing media.ing
+## 1  87893117  584.9169
+\end{verbatim}
+
+También pueden calcularse medidas de localización para describir la posición de los valores dentro de la distribución. En este caso, se obtiene la mediana, el primer decil, el noveno decil y la diferencia entre estos dos últimos. El resultado permite resumir distintos puntos de la distribución del ingreso, mientras que el rango decílico muestra la distancia entre el 10\% inferior y el 10\% superior de los ingresos observados.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarise}\NormalTok{(}
+  \AttributeTok{mediana =} \FunctionTok{median}\NormalTok{(Income),}
+  \AttributeTok{decil1 =} \FunctionTok{quantile}\NormalTok{(Income, }\FloatTok{0.1}\NormalTok{),}
+  \AttributeTok{decil9 =} \FunctionTok{quantile}\NormalTok{(Income, }\FloatTok{0.9}\NormalTok{),}
+  \AttributeTok{rangodecil =}\NormalTok{ decil9 }\SpecialCharTok{{-}}\NormalTok{ decil1}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   mediana decil1  decil9 rangodecil
+## 1  449.17 165.33 1126.33        961
+\end{verbatim}
+
+Con \texttt{summarise()} también es posible calcular medidas de dispersión, tales como la varianza, la desviación estándar, el valor mínimo, el valor máximo, el rango y el rango intercuartílico. Estas estadísticas permiten describir el grado de variabilidad de los ingresos observados en la muestra. En particular, el rango se obtiene como la diferencia entre el valor máximo y el valor mínimo, mientras que el rango intercuartílico resume la dispersión del 50\% central de la distribución.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{summarise}\NormalTok{(}
+  \AttributeTok{varianza =} \FunctionTok{var}\NormalTok{(Income),}
+  \AttributeTok{desv =} \FunctionTok{sd}\NormalTok{(Income),}
+  \AttributeTok{mini =} \FunctionTok{min}\NormalTok{(Income),}
+  \AttributeTok{maxi =} \FunctionTok{max}\NormalTok{(Income),}
+  \AttributeTok{rango =}\NormalTok{ maxi }\SpecialCharTok{{-}}\NormalTok{ mini,}
+  \AttributeTok{rangoiq =} \FunctionTok{IQR}\NormalTok{(Income)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   varianza     desv mini  maxi rango rangoiq
+## 1 332463.4 576.5964   10 32920 32910  468.33
+\end{verbatim}
+
+\subsection{\texorpdfstring{\texttt{group\_by}: agrupación de casos}{group\_by: agrupación de casos}}\label{group_by-agrupaciuxf3n-de-casos}
+
+La función \texttt{group\_by()} permite agrupar la base de datos de acuerdo con una o más variables. Al combinarla con \texttt{summarise()}, las estadísticas se calculan de manera independiente dentro de cada grupo definido. En el siguiente ejemplo, se cuenta el número de registros por región y luego se ordena el resultado de mayor a menor. La siguiente salida permite identificar cuántos registros están asociados con cada región de la base de datos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Region) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(n))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 2
+##   Region        n
+##   <fct>     <int>
+## 1 Oriente   39160
+## 2 Occidente 33868
+## 3 Centro    25944
+## 4 Sur       25898
+## 5 Norte     25396
+\end{verbatim}
+
+Para obtener el número de encuestas efectivas por sexo, se aplica la misma lógica de agrupación y conteo. En este caso, la base se agrupa según la variable \texttt{Sex} y luego se calcula el número de registros asociados con cada una de sus categorías. El resultado permite identificar cuántas observaciones corresponden a cada sexo dentro de la base de datos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Sex) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(n))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 2
+##   Sex        n
+##   <chr>  <int>
+## 1 Female 79190
+## 2 Male   71076
+\end{verbatim}
+
+El conteo también puede realizarse según la zona geográfica. En este caso, la base se agrupa por la variable \texttt{Zone} y se calcula el número de registros correspondiente a cada una de sus categorías. La siguiente salida permite conocer cómo se distribuyen las observaciones entre las distintas zonas de la base de datos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Zone) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(n))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 2
+##   Zone      n
+##   <chr> <int>
+## 1 Urban 78164
+## 2 Rural 72102
+\end{verbatim}
+
+Además de los conteos, también es posible calcular medidas resumen por grupo, como la media. En este caso, para obtener el ingreso promedio por región junto con el número total de registros, se agrupa la base según la variable \texttt{Region} y luego se aplica \texttt{summarise()}. El resultado es una tabla regional que presenta, para cada región, el total de observaciones y el ingreso medio correspondiente.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Region) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{(),}
+            \AttributeTok{media =} \FunctionTok{mean}\NormalTok{(Income))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 3
+##   Region        n media
+##   <fct>     <int> <dbl>
+## 1 Norte     25396  509.
+## 2 Sur       25898  644.
+## 3 Centro    25944  701.
+## 4 Occidente 33868  571.
+## 5 Oriente   39160  530.
+\end{verbatim}
+
+El mismo procedimiento puede aplicarse para calcular el ingreso medio por sexo. En este caso, la base se agrupa según la variable \texttt{Sex} y luego se obtiene el promedio de \texttt{Income} para cada categoría. La tabla resultante permite comparar el ingreso medio observado entre los distintos grupos definidos por el sexo.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Sex) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{(),}
+            \AttributeTok{media =} \FunctionTok{mean}\NormalTok{(Income))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 3
+##   Sex        n media
+##   <chr>  <int> <dbl>
+## 1 Female 79190  579.
+## 2 Male   71076  591.
+\end{verbatim}
+
+Por último, se calculan la media, la desviación estándar y el rango intercuartílico de los ingresos según la condición de ocupación. Para ello, la base se agrupa por la variable \texttt{Employment} y luego se obtienen las estadísticas descriptivas de \texttt{Income} dentro de cada grupo. La siguiente salida presenta un resumen del comportamiento de los ingresos para cada categoría de ocupación.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(Employment) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{n =} \FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{media =} \FunctionTok{mean}\NormalTok{(Income),}
+    \AttributeTok{desv =} \FunctionTok{sd}\NormalTok{(Income),}
+    \AttributeTok{rangoiq =} \FunctionTok{IQR}\NormalTok{(Income)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 5
+##   Employment     n media  desv rangoiq
+##   <fct>      <int> <dbl> <dbl>   <dbl>
+## 1 Unemployed  4630  429.  375.    392.
+## 2 Inactive   44104  532.  553.    439.
+## 3 Employed   62188  661.  606.    529.
+## 4 <NA>       39344  541.  558.    407.
+\end{verbatim}
+
+\chapter{Inferencia en poblaciones finitas}\label{ap2}
+
+Una cuestión fundamental en el análisis de encuestas es identificar cuál es la medida de probabilidad que rige la inferencia. En la inferencia estadística clásica se suele asumir que las observaciones disponibles son variables aleatorias independientes e idénticamente distribuidas (IID). Bajo ese enfoque, la aleatoriedad proviene del modelo que genera los datos. Sin embargo, como señala \citet{kish1987statistical}, este supuesto no describe adecuadamente la información proveniente de encuestas con diseños muestrales complejos, donde las observaciones son seleccionadas mediante estratificación, conglomeración y probabilidades de inclusión desiguales.
+
+\section{Dos posibles inferencias}\label{dos-posibles-inferencias}
+
+En encuestas de hogares conviene distinguir tres objetos. Primero, la población finita, denotada como \(U = \{1,2,\ldots,N\}\), la cual contiene todas las unidades de interés. Segundo, la variable de estudio \(y_k\), observada o definida para cada unidad \(k \in U\). Tercero, el diseño muestral \(p(s)\), que asigna probabilidades a las posibles muestras \(s \subset U\). En la notación utilizada a lo largo de este documento, una unidad puede identificarse como \(k\) dentro del conglomerado o UPM \(i\), perteneciente al estrato \(h\), de modo que los estimadores ponderados suelen escribirse como sumas de la forma
+
+\[
+\hat{t}_y = \sum_h \sum_i \sum_k w_{hik} \ y_{hik}
+\]
+
+donde \(w_{hik}\) representa el factor de expansión o peso muestral asociado con la unidad observada. En la teoría de muestreo, los valores \(y_k\) se consideran fijos una vez definida la población. La aleatoriedad no está en los valores de la variable, sino en los indicadores de inclusión
+
+\[
+I_k =
+\begin{cases}
+1, & \text{si } k \in s,\\
+0, & \text{si } k \notin s,
+\end{cases}
+\]
+
+que inducen la probabilidad de inclusión \(\pi_k = \Pr_p(I_k=1)\) y, a su vez, el correspondiente peso de muestreo, definido como \(w_k = \frac{1}{\pi_k}\).
+
+Un estimador que ignora los pesos de muestreo puede no representar adecuadamente a la población objetivo, especialmente cuando la muestra proviene de un diseño complejo. En la inferencia basada en el diseño, la población se considera fija y la fuente de aleatoriedad proviene del mecanismo de selección de la muestra; por ello, sus elementos centrales son las probabilidades de inclusión \(\pi_k\) y los pesos de muestreo \(w_k\).
+
+Por el contrario, la inferencia basada en modelos considera que los valores de la variable de interés en toda la población se conciben como realizaciones de un proceso estocástico, usualmente denotado por \(\xi\). Así, mientras la inferencia basada en los modelos estudia propiedades como \(E_{\xi}(Y_k)\) y \(Var_{\xi}(Y_k)\), la inferencia basada en el diseño se orienta a incorporar las características del plan muestral en los estimadores, para que sean insesgados \(E_{p}(\hat{t}_y) = t_y\).
+
+Esta distinción permite entender por qué, aun cuando exista un modelo razonable para la variable de interés, el diseño muestral debe incorporarse explícitamente si se desea obtener inferencias válidas para la población objetivo. Para comprender la distinción entre inferencia basada en el modelo e inferencia basada en el diseño, partimos de un ejemplo sencillo, adaptado de \citet{binder2011estimating}. Supóngase que se generan \(N=100\) realizaciones independientes de una variable Bernoulli con parámetro \(\theta=0.3\), donde \(\theta\) representa la proporción esperada de personas desempleadas en una población generada por un modelo. Si \(Y_k \sim Bernoulli(\theta)\), entonces
+
+\[
+E_{\xi}(Y_k) = \theta, \qquad Var_{\xi}(Y_k) = \theta(1-\theta).
+\]
+
+donde \(E_{\xi}(\cdot)\) y \(Var_{\xi}(\cdot)\) denotan la esperanza y la varianza bajo el modelo \(\xi\) (conocido como modelo de superpoblación). Para una población finita generada por ese modelo, la media poblacional es \(\bar{Y}_U = \frac{1}{N}\sum_{k \in U}Y_k\). Bajo el modelo, esta media es insesgada para \(\theta\), puesto que
+
+\[
+E_{\xi}(\bar{Y}_U) =
+E_{\xi}\left(\frac{1}{N}\sum_{k \in U}Y_k\right)
+= \frac{1}{N}\sum_{k \in U}E_{\xi}(Y_k)
+= \theta.
+\]
+
+La siguiente simulación de Monte Carlo reproduce este proceso. En cada repetición se genera una población completa de tamaño \(N=100\) y se calcula su media. El promedio de esas medias poblacionales debe aproximarse a \(\theta\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2026}\NormalTok{)}
+\NormalTok{N     }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{theta }\OtherTok{\textless{}{-}} \FloatTok{0.3}
+\NormalTok{nsim1 }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{Est0  }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, nsim1)}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{nsim1) \{}
+\NormalTok{  y       }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(N, }\DecValTok{1}\NormalTok{, theta)}
+\NormalTok{  Est0[i] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(y)}
+\NormalTok{\}}
+
+\FunctionTok{cbind}\NormalTok{(theta, }\AttributeTok{Esp0 =} \FunctionTok{mean}\NormalTok{(Est0), }\AttributeTok{Sesgo =} \FunctionTok{mean}\NormalTok{(Est0) }\SpecialCharTok{{-}}\NormalTok{ theta)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      theta    Esp0   Sesgo
+## [1,]   0.3 0.30225 0.00225
+\end{verbatim}
+
+El código fija una semilla para que el ejercicio sea reproducible. Luego genera \texttt{nsim1} poblaciones independientes mediante \texttt{rbinom()}. La salida reporta el parámetro verdadero \texttt{theta}, el promedio de las medias simuladas \texttt{Esp0} y el sesgo Monte Carlo. Como se espera bajo el modelo Bernoulli IID, \texttt{Esp0} queda muy cerca de 0.3 y el sesgo es cercano a cero. Las pequeñas diferencias se deben a que se usan 1000 simulaciones, no un número infinito de repeticiones.
+
+En la teoría de muestreo, en cambio, las características de interés son parámetros fijos de la población. Si una persona está desempleada, su estado se considera un valor fijo de la población finita. Lo aleatorio es el mecanismo mediante el cual se selecciona la muestra. El total poblacional se define como \(t_y = \sum_{k \in U} y_k\), mientras que la media poblacional es \(\bar{y}_U = \frac{t_y}{N}\). Si se observa una muestra \(s\), el estimador de Horvitz-Thompson del total es
+
+\[
+\hat{t}_{y} = \sum_{k \in s}\frac{y_k}{\pi_k}
+= \sum_{k \in s}w_k y_k.
+\]
+
+Como se mencionó en los capítulos anteriores, cuando el tamaño poblacional \(N\) es desconocido, la media poblacional puede estimarse mediante el estimador de razón ponderado, definido como
+
+\[
+\hat{\bar{y}} =
+\frac{\sum_{k \in s}w_k y_k}
+{\sum_{k \in s}w_k}
+\]
+
+Estos estimadores incorporan las probabilidades de inclusión en su forma funcional y es esa, la diferencia central frente al promedio simple no ponderado de una muestra. Para ilustrar el impacto del diseño, supóngase que la población anterior se divide en \(N_I\) UPMs. La UPM \(i\) tiene tamaño \(N_i\), total \(t_{y_i}=\sum_{k \in U_i}y_{ik}\) y media \(\bar{y}_i=t_{y_i}/N_i\). Si se seleccionan \(n_I\) UPMs con probabilidades proporcionales al tamaño, entonces sus probabilidades de inclusión toman la siguiente forma:
+
+\[
+\pi_{Ii} = \frac{n_I N_i}{N}
+\]
+
+Cuando todos los miembros de las UPMs seleccionadas son observados, el estimador ponderado de la media poblacional, que es aproximadamente insesgado, puede escribirse como
+
+\[
+\hat{\bar{y}}
+= \frac{1}{N}\sum_{i \in S_I}\frac{t_{y_i}}{\pi_{Ii}}
+= \frac{1}{N}\sum_{i \in S_I}\frac{N_i\bar{y}_i}{n_I N_i/N}
+= \frac{1}{n_I}\sum_{i \in S_I}\bar{y}_i.
+\]
+
+Esta expresión ejemplifica por qué, cuándo el diseno de muestreo es complejo (en este caso selección proporcional al tamaño), el promedio de las medias de los conglomerados brinda insesgamiento. En contraste, el promedio simple de las personas observadas en las UPMs seleccionadas, sería:
+
+\[
+\bar{y}_s =
+\frac{\sum_{i \in S_I}t_{y_i}}
+     {\sum_{i \in S_I}N_i},
+\]
+
+el cual trata la muestra como si fuera autoponderada. Este estimador no es insesgado cuando las probabilidades de selección no son iguales o cuando el tamaño del conglomerado se relaciona con la variable de interés. La siguiente simulación fija una población finita y repite muchas veces la selección de hogares con probabilidades proporcionales al tamaño. En cada muestra se calculan dos estimadores: \texttt{Est1}, que corresponde a \(\hat{\bar{y}}\), y \texttt{Est2}, que corresponde al promedio simple de las personas observadas en las UPMs seleccionadas, \(\bar{y}_s\). Además, estos estimadores se comparan con el parámetro del modelo \texttt{theta\_N}, correspondiente a \(\theta = 0.3\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(TeachingSampling)}
+
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2026}\NormalTok{)}
+\NormalTok{N      }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{theta  }\OtherTok{\textless{}{-}} \FloatTok{0.3}
+\NormalTok{nsim2  }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{Est1 }\OtherTok{\textless{}{-}}\NormalTok{ Est2 }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, nsim2)}
+
+\NormalTok{cluster\_size }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, }\AttributeTok{each =} \DecValTok{5}\NormalTok{)}
+\NormalTok{NI           }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(cluster\_size)}
+\NormalTok{cluster\_id   }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\FunctionTok{seq\_len}\NormalTok{(NI), cluster\_size)}
+\NormalTok{size\_center  }\OtherTok{\textless{}{-}} \FunctionTok{weighted.mean}\NormalTok{(cluster\_size, cluster\_size)}
+\NormalTok{prob\_person  }\OtherTok{\textless{}{-}}\NormalTok{ theta }\SpecialCharTok{+} \FunctionTok{rep}\NormalTok{((cluster\_size }\SpecialCharTok{{-}}\NormalTok{ size\_center) }\SpecialCharTok{/} \DecValTok{12}\NormalTok{, cluster\_size)}
+\NormalTok{y            }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(N, }\DecValTok{1}\NormalTok{, prob\_person)}
+\NormalTok{theta\_N      }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(y)}
+\NormalTok{Ty\_i         }\OtherTok{\textless{}{-}} \FunctionTok{tapply}\NormalTok{(y, cluster\_id, sum)}
+\NormalTok{Mean\_i       }\OtherTok{\textless{}{-}} \FunctionTok{tapply}\NormalTok{(y, cluster\_id, mean)}
+
+\NormalTok{nI }\OtherTok{\textless{}{-}} \FunctionTok{floor}\NormalTok{(NI }\SpecialCharTok{*} \FloatTok{0.3}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{nsim2) \{}
+\NormalTok{  res         }\OtherTok{\textless{}{-}} \FunctionTok{S.piPS}\NormalTok{(nI, cluster\_size)}
+\NormalTok{  sam         }\OtherTok{\textless{}{-}}\NormalTok{ res[, }\DecValTok{1}\NormalTok{]}
+\NormalTok{  size\_sam    }\OtherTok{\textless{}{-}}\NormalTok{ cluster\_size[sam]}
+\NormalTok{  total\_sam   }\OtherTok{\textless{}{-}}\NormalTok{ Ty\_i[sam]}
+\NormalTok{  mean\_sam    }\OtherTok{\textless{}{-}}\NormalTok{ Mean\_i[sam]}
+\NormalTok{  Est1[j] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(mean\_sam)}
+\NormalTok{  Est2[j] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(total\_sam) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(size\_sam)}
+\NormalTok{\}}
+
+\FunctionTok{cbind}\NormalTok{(theta\_N,}
+      \AttributeTok{Esp\_piS =} \FunctionTok{mean}\NormalTok{(Est1),}
+      \AttributeTok{Sesgo\_piS =} \FunctionTok{mean}\NormalTok{(Est1) }\SpecialCharTok{{-}}\NormalTok{ theta\_N,}
+      \AttributeTok{Esp\_S =} \FunctionTok{mean}\NormalTok{(Est2),}
+      \AttributeTok{Sesgo\_S =} \FunctionTok{mean}\NormalTok{(Est2) }\SpecialCharTok{{-}}\NormalTok{ theta\_N)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      theta_N   Esp_piS  Sesgo_piS     Esp_S    Sesgo_S
+## [1,]     0.3 0.3036762 0.00367619 0.3584908 0.05849078
+\end{verbatim}
+
+El primer bloque del código genera hogares de tamaños desiguales, entre 2 y 6 personas. Para hacer visible el efecto del diseño, la probabilidad individual de desempleo varía suavemente con el tamaño del hogar, pero se centra de manera que el promedio esperado de la población siga siendo cercano a \texttt{theta}. Luego se calcula \texttt{theta\_N}, que es la proporción real de desempleo en esa población específica. En cada repetición, \texttt{S.piPS()} selecciona UPMs con probabilidades proporcionales al tamaño; después se calculan la media de las medias de las UPMs seleccionadas y el promedio simple de las personas observadas. La salida compara ambos estimadores con \texttt{theta\_N}. El sesgo de Monte Carlo de \texttt{Esp\_piS} es cercano a cero, mientras que el de \texttt{Esp\_S} no lo es, mostrando resultado de ignorar el diseño en este ejercicio.
+
+\section{La integración de ambas inferencias}\label{la-integraciuxf3n-de-ambas-inferencias}
+
+No obstante, en muchas aplicaciones ambos marcos inferenciales no se presentan como enfoques excluyentes, sino como componentes complementarios de un mismo problema. En particular, puede considerarse que la muestra ha sido obtenida mediante un diseño probabilístico complejo y que, al mismo tiempo, los valores de la variable de interés responden a un modelo de superpoblación. Esta formulación conduce a un esquema de inferencia doble, en el cual la incertidumbre no proviene de una única fuente, sino de la combinación entre el mecanismo que genera los valores poblacionales (modelo de superpoblación) y el mecanismo que determina qué unidades son observadas (diseño de muestreo).
+
+Formalmente, intervienen dos medidas de probabilidad: \(\xi\), asociada al proceso generador de los valores \(Y_k\), y \(p(\cdot)\), asociada al diseño muestral que selecciona la muestra \(s\). Por tanto, las propiedades de los estimadores deben evaluarse considerando simultáneamente ambas fuentes de variación. Bajo este marco, la esperanza combinada puede expresarse como
+
+\[
+E_{\xi p}(\hat{\theta})
+= E_{\xi}\{E_p(\hat{\theta}\mid U)\},
+\]
+
+donde primero se evalúa el comportamiento del estimador bajo el diseño, condicionado a la población finita generada, y luego se promedia sobre el modelo de superpoblación. En este contexto, la verosimilitud conjunta completa puede resultar intratable, especialmente cuando las probabilidades de inclusión dependen de variables relacionadas con la respuesta. La solución propuesta por \citet{pfeffermann1993role} es la técnica de máxima pseudo-verosimilitud (MPV), que pondera las contribuciones de cada unidad por el inverso de su probabilidad de inclusión.
+
+\subsection{Método de la máxima verosimilitud}\label{sec-mv}
+
+El método de máxima verosimilitud parte de una muestra aleatoria \(y_1,\ldots,y_n\) generada por una distribución con densidad o función de probabilidad \(f(y;\theta)\). Si las observaciones son independientes e idénticamente distribuidas (IID), la función de verosimilitud se define como
+
+\[
+L(\theta)
+= \prod_{k=1}^{N} f(y_i;\theta).
+\]
+
+Como los productos pueden ser difíciles de manipular, se utiliza la log-verosimilitud:
+
+\[
+\ell(\theta)
+= \sum_{k=1}^{N}\log f(y_i;\theta)
+\]
+
+El estimador de máxima verosimilitud \(\hat{\theta}\) es el valor de \(\theta\) que maximiza \(\ell(\theta)\). Si la función es diferenciable, este valor satisface las ecuaciones de score:
+
+\[
+U(\theta)
+= \frac{\partial \ \ell(\theta)}{\partial \ \theta}
+= \sum_{k=1}^{N} u_k(\theta)
+= 0
+\]
+
+donde \(u_k(\theta) = \frac{\partial}{\partial\theta}\log f(y_k;\theta)\) es la contribución de la unidad \(k\) al score total. Para una distribución Bernoulli con parámetro \(\theta\), la función de probabilidad es \(f(y_k;\theta) = \theta^{y_k}(1-\theta)^{1-y_k}\), para \(y_k \in \{0,1\}\). La log-verosimilitud es
+
+\[
+\ell(\theta)
+= \sum_{k=1}^{N}
+\left[
+y_k\log(\theta)
++(1-y_k)\log(1-\theta)
+\right]
+\]
+
+Al derivar e igualar a cero y despejar, se obtiene el estimador MV, definido por:
+
+\[
+\hat{\theta}_{MV}
+= \frac{1}{N}\sum_{k=1}^{N}y_k
+\]
+
+Así, la proporción muestral es el estimador natural del parámetro Bernoulli. El punto clave es que este resultado depende del supuesto de que las observaciones tienen igual distribución y no provienen de un diseño con probabilidades desiguales.
+
+Por otro lado, en un modelo de regresión lineal múltiple con errores normales, se tiene que \(\mathbf{y} \sim N(\mathbf{X}\boldsymbol{\beta},\sigma^2 I)\). En este caso, la log-verosimilitud, omitiendo constantes, puede escribirse como
+
+\[
+\ell(\boldsymbol{\beta},\sigma^2) = -\frac{n}{2}\log(\sigma^2) -\frac{1}{2\sigma^2}(\mathbf{y}-\mathbf{X}\boldsymbol{\beta})'(\mathbf{y}-\mathbf{X}\boldsymbol{\beta})
+\]
+
+Maximizar esta expresión respecto de \(\beta\) equivale a minimizar la suma de cuadrados de los residuos. Por ello, el estimador de máxima verosimilitud de \(\beta\) coincide con el estimador de mínimos cuadrados ordinarios \(\hat{\boldsymbol{\beta}}_{MV} = (\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{y}\). Este resultado es importante porque muestra que muchos procedimientos estadísticos usuales pueden interpretarse como máxima verosimilitud bajo supuestos de modelo específicos. Sin embargo, si los datos provienen de una encuesta compleja, la matriz \(\mathbf{X}'\mathbf{X}\) no refleja por sí sola el mecanismo de selección de la muestra.
+
+\subsection{Método de máxima pseudo-verosimilitud}\label{sec-mpv-formal}
+
+Cuando el diseño muestral es complejo, los datos observados no satisfacen necesariamente los supuestos de independencia e indénticva disetribución. Algunas unidades pueden representan a muchas personas de la población y otras a pocas. Además, dos unidades seleccionadas dentro del mismo conglomerado pueden estar correlacionadas. En este contexto, usar directamente la log-verosimilitud ordinaria puede producir estimaciones que describen la muestra, pero no la población objetivo.
+
+La máxima pseudo-verosimilitud, desarrollada a partir de los resultados de \citet{binder1983variances}, incorpora los pesos de muestreo en la log-verosimilitud. Para unidades observadas \(k \in s\), se define
+
+\[
+\ell_p(\theta)
+= \sum_{k \in s} w_k \log f(y_k;\theta) 
+\]
+
+El peso \(w_{hik}=1/\pi_{hik}\) indica cuántas unidades de la población representa la observación \(y_{hik}\). Por eso, la contribución de una unidad con baja probabilidad de inclusión se amplifica en la pseudo-verosimilitud. Las ecuaciones de estimación resultantes son
+
+\[
+U_p(\theta)
+= \sum_{k \in s} w_k \ u_k(\theta)
+= 0
+\]
+
+La estimación MPV conserva la lógica de máxima verosimilitud, pero reemplaza el \emph{score} ordinario por un \emph{score} ponderado. La solución \(\hat{\theta}_{MPV}\) es el valor que hace que la suma ponderada de contribuciones individuales sea igual a cero. Para una distribución Bernoulli, la pseudo-log-verosimilitud es
+
+\[
+\ell_p(\theta)
+= \sum_{k \in s} w_k
+\left[
+y_k\log(\theta)
++(1-y_k)\log(1-\theta)
+\right].
+\]
+
+Al derivar e igualar a cero, se obtienen que:
+
+\[
+\frac{\partial l_p(\theta)}{\partial \theta}
+=
+\sum_{k \in s} w_k
+\left[
+\frac{y_k}{\theta}
+-\frac{1-y_k}{1-\theta}
+\right]
+=0
+\]
+
+Cuya solución es:
+
+\[
+\hat{\theta}_{MPV}
+=
+\frac{\sum_{k \in s}w_k y_k}
+     {\sum_{k \in s}w_k}
+= \hat{p}_d 
+\]
+
+Por tanto, para una variable binaria, la MPV conduce al estimador ponderado de la proporción, equivalente al estimador de Hájek. Este resultado conecta directamente la teoría de pseudo-verosimilitud con los estimadores de proporciones presentados en los capítulos de variables categóricas.
+
+Asimismo, para un modelo de regresión lineal múltiple, la pseudo-log-verosimilitud ponderada implica minimizar una suma de cuadrados ponderada:
+
+\[
+(\mathbf{y}-\mathbf{X}\beta)'\mathbf{W}(\mathbf{y}-\mathbf{X}\boldsymbol{\beta}),
+\]
+
+donde
+
+\[
+\mathbf{W}=
+\begin{pmatrix}
+w_1 & 0 & \cdots & 0\\
+0 & w_2 & \cdots & 0\\
+\vdots & \vdots & \ddots & \vdots\\
+0 & 0 & \cdots & w_n
+\end{pmatrix}.
+\]
+
+La solución es el estimador de mínimos cuadrados ponderados:
+
+\[
+\hat{\boldsymbol{\beta}}_{MPV}
+= (\mathbf{X}'\mathbf{W}\mathbf{X})^{-1}\mathbf{X}'\mathbf{W}\mathbf{y}
+\]
+
+Este resultado extiende de manera natural el estimador ordinario al contexto de encuestas complejas: cada observación contribuye al ajuste del modelo en proporción a su peso muestral. No obstante, para la inferencia no basta con ponderar la estimación puntual; también se requiere estimar correctamente la varianza considerando estratos, conglomerados y pesos.
+
+La siguiente simulación de Monte Carlo anidada ilustra la inferencia doble. En el ciclo externo se genera una nueva población bajo el modelo Bernoulli. En el ciclo interno se seleccionan muchas muestras por diseño y se comparan el estimador que incorpora el diseño y el promedio simple de la muestra.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(TeachingSampling)}
+
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2026}\NormalTok{)}
+\NormalTok{N     }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{theta }\OtherTok{\textless{}{-}} \FloatTok{0.3}
+\NormalTok{nsim1 }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{Esp1 }\OtherTok{\textless{}{-}}\NormalTok{ Esp2 }\OtherTok{\textless{}{-}}\NormalTok{ Theta\_U }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, nsim1)}
+
+\NormalTok{cluster\_size }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, }\AttributeTok{each =} \DecValTok{5}\NormalTok{)}
+\NormalTok{NI           }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(cluster\_size)}
+\NormalTok{cluster\_id   }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\FunctionTok{seq\_len}\NormalTok{(NI), cluster\_size)}
+\NormalTok{size\_center  }\OtherTok{\textless{}{-}} \FunctionTok{weighted.mean}\NormalTok{(cluster\_size, cluster\_size)}
+\NormalTok{prob\_person  }\OtherTok{\textless{}{-}}\NormalTok{ theta }\SpecialCharTok{+} \FunctionTok{rep}\NormalTok{((cluster\_size }\SpecialCharTok{{-}}\NormalTok{ size\_center) }\SpecialCharTok{/} \DecValTok{12}\NormalTok{, cluster\_size)}
+\NormalTok{nI           }\OtherTok{\textless{}{-}} \FunctionTok{floor}\NormalTok{(NI }\SpecialCharTok{*} \FloatTok{0.3}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{nsim1) \{}
+\NormalTok{  y        }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(N, }\DecValTok{1}\NormalTok{, prob\_person)}
+\NormalTok{  Theta\_U[i] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(y)}
+\NormalTok{  Ty\_i     }\OtherTok{\textless{}{-}} \FunctionTok{tapply}\NormalTok{(y, cluster\_id, sum)}
+\NormalTok{  Mean\_i   }\OtherTok{\textless{}{-}} \FunctionTok{tapply}\NormalTok{(y, cluster\_id, mean)}
+
+\NormalTok{  Est1 }\OtherTok{\textless{}{-}}\NormalTok{ Est2 }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\DecValTok{100}\NormalTok{)}
+  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{) \{}
+\NormalTok{    res       }\OtherTok{\textless{}{-}} \FunctionTok{S.piPS}\NormalTok{(nI, cluster\_size)}
+\NormalTok{    sam       }\OtherTok{\textless{}{-}}\NormalTok{ res[, }\DecValTok{1}\NormalTok{]}
+\NormalTok{    size\_sam  }\OtherTok{\textless{}{-}}\NormalTok{ cluster\_size[sam]}
+\NormalTok{    total\_sam }\OtherTok{\textless{}{-}}\NormalTok{ Ty\_i[sam]}
+\NormalTok{    mean\_sam  }\OtherTok{\textless{}{-}}\NormalTok{ Mean\_i[sam]}
+\NormalTok{    Est1[j] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(mean\_sam)}
+\NormalTok{    Est2[j] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(total\_sam) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(size\_sam)}
+\NormalTok{  \}}
+\NormalTok{  Esp1[i] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(Est1)}
+\NormalTok{  Esp2[i] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(Est2)}
+\NormalTok{\}}
+
+\FunctionTok{cbind}\NormalTok{(theta,}
+      \AttributeTok{Media\_U =} \FunctionTok{mean}\NormalTok{(Theta\_U),}
+      \AttributeTok{Esp\_piS =} \FunctionTok{mean}\NormalTok{(Esp1),}
+      \AttributeTok{Sesgo\_piS =} \FunctionTok{mean}\NormalTok{(Esp1) }\SpecialCharTok{{-}}\NormalTok{ theta,}
+      \AttributeTok{Esp\_S =} \FunctionTok{mean}\NormalTok{(Esp2),}
+      \AttributeTok{Sesgo\_S =} \FunctionTok{mean}\NormalTok{(Esp2) }\SpecialCharTok{{-}}\NormalTok{ theta)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      theta Media_U   Esp_piS   Sesgo_piS     Esp_S    Sesgo_S
+## [1,]   0.3  0.3039 0.3024769 0.002476905 0.3316799 0.03167989
+\end{verbatim}
+
+El código reproduce las dos fuentes de aleatoriedad. El ciclo externo representa el modelo \(\xi\), porque genera nuevas poblaciones finitas con \texttt{rbinom()}. El ciclo interno representa el diseño \(p\), porque para cada población se seleccionan múltiples muestras con \texttt{S.piPS()}. La salida incluye \texttt{Media\_U}, que es el promedio de las medias poblacionales generadas; \texttt{Esp\_piS}, que resume el comportamiento del estimador que incorpora el diseño; y \texttt{Esp\_S}, que resume el promedio simple de la muestra seleccionada. Cuando el diseño se incorpora correctamente, el sesgo Monte Carlo respecto de \texttt{theta} debe ser pequeño. La comparación con \texttt{Esp\_S} muestra por qué la inferencia basada en encuestas requiere pesos y varianzas de diseño, incluso cuando se parte de un modelo estadístico sencillo.
+
+En síntesis, la máxima verosimilitud ordinaria es adecuada cuando las observaciones pueden tratarse como IID bajo un modelo probabilístico. En encuestas complejas, la máxima pseudo-verosimilitud ofrece una extensión natural: conserva la estructura de las ecuaciones de estimación, pero pondera cada contribución individual por su peso muestral. Así, los modelos estadísticos se ajustan de manera más coherente con la población que la encuesta busca representar.
+
+\chapter*{Referencias}\label{referencias}
+\addcontentsline{toc}{chapter}{Referencias}
 
 \bibliography{book.bib}
 

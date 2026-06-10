@@ -8,9 +8,7 @@ knitr::opts_chunk$set(warning = FALSE,
 
 # Manejo de bases de datos con `R`  {#ap1}
 
-`R` es un software estadístico ampliamente utilizado para el análisis de datos y la generación de gráficos. Su uso se ha extendido entre investigadores y profesionales porque es una herramienta gratuita, de código abierto y disponible bajo licencia GNU. Puede descargarse desde el sitio oficial del proyecto: https://www.r-project.org, y está disponible para Windows, MacOS y Linux.
-
-`R` constituye un ambiente integrado para el análisis estadístico. Esto significa que permite realizar procesos de análisis, programación, visualización y manejo de datos dentro de un mismo entorno. En este anexo se utiliza el enfoque del `tidyverse`, y en particular el paquete `dplyr`, para organizar una secuencia lógica de trabajo con bases de datos: cargar la información, inspeccionarla, seleccionar variables, filtrar registros, ordenar filas, crear variables y producir resúmenes.
+`R` es un software estadístico ampliamente utilizado para el análisis de datos y la generación de gráficos y permite un ambiente integrado para el análisis estadístico, en particular de bases de datos. Esto significa que permite realizar procesos de análisis, programación, visualización y manejo de datos dentro de un mismo entorno. En este anexo se utiliza el enfoque del `tidyverse`, y en particular el paquete `dplyr`, para organizar una secuencia lógica de trabajo con bases de datos: cargar la información, inspeccionarla, seleccionar variables, filtrar registros, ordenar filas, crear variables y producir resúmenes.
 
 ## Preparación del entorno de trabajo
 

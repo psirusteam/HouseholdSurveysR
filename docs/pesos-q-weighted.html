@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 5 Modelos de regresión | Análisis de encuestas de hogares con R</title>
+  <title>7.2 Pesos q-weighted | Análisis de encuestas de hogares con R</title>
   <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 5 Modelos de regresión | Análisis de encuestas de hogares con R" />
+  <meta property="og:title" content="7.2 Pesos q-weighted | Análisis de encuestas de hogares con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
   <meta name="github-repo" content="psirusteam/LibroEncuestasR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 5 Modelos de regresión | Análisis de encuestas de hogares con R" />
+  <meta name="twitter:title" content="7.2 Pesos q-weighted | Análisis de encuestas de hogares con R" />
   
   <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="viz-categoricas.html"/>
-<link rel="next" href="formulación-del-modelo.html"/>
+<link rel="prev" href="sec-motivacionMult.html"/>
+<link rel="next" href="modelo-lineal-multinivel.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -168,72 +168,72 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
 <li class="chapter" data-level="1" data-path="cap1.html"><a href="cap1.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="05-Regresión.html"><a href="#justificaci%C3%B3n"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
-<li class="chapter" data-level="1.2" data-path="05-Regresión.html"><a href="#uso-del-software-r-para-el-an%C3%A1lisis-de-encuestas"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
+<li class="chapter" data-level="1.1" data-path="07-Multinivel.html"><a href="#justificaci%C3%B3n"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
+<li class="chapter" data-level="1.2" data-path="07-Multinivel.html"><a href="#uso-del-software-r-para-el-an%C3%A1lisis-de-encuestas"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
 <li class="chapter" data-level="1.3" data-path="estructura-del-documento.html"><a href="estructura-del-documento.html"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="cap2.html"><a href="cap2.html"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="05-Regresión.html"><a href="#poblaci%C3%B3n-objetivo-y-unidades-de-muestreo"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
+<li class="chapter" data-level="2.1" data-path="07-Multinivel.html"><a href="#poblaci%C3%B3n-objetivo-y-unidades-de-muestreo"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
 <li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
-<li class="chapter" data-level="2.3" data-path="05-Regresión.html"><a href="#fundamentos-te%C3%B3ricos"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<li class="chapter" data-level="2.3" data-path="07-Multinivel.html"><a href="#fundamentos-te%C3%B3ricos"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="05-Regresión.html"><a href="#estimaci%C3%B3n-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
-<li class="chapter" data-level="2.3.2" data-path="05-Regresión.html"><a href="#estimaci%C3%B3n-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+<li class="chapter" data-level="2.3.1" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
+<li class="chapter" data-level="2.3.2" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="cap3.html"><a href="cap3.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="05-Regresión.html"><a href="#estimaci%C3%B3n-de-par%C3%A1metros-descriptivos"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<li class="chapter" data-level="3.1" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-par%C3%A1metros-descriptivos"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="05-Regresión.html"><a href="#estimaci%C3%B3n-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
-<li class="chapter" data-level="3.1.2" data-path="05-Regresión.html"><a href="#estimaci%C3%B3n-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
-<li class="chapter" data-level="3.1.3" data-path="05-Regresión.html"><a href="#estimaci%C3%B3n-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+<li class="chapter" data-level="3.1.1" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
+<li class="chapter" data-level="3.1.2" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
+<li class="chapter" data-level="3.1.3" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="05-Regresión.html"><a href="#estimaci%C3%B3n-de-par%C3%A1metros-de-distribuci%C3%B3n-y-desigualdad"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<li class="chapter" data-level="3.2" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-par%C3%A1metros-de-distribuci%C3%B3n-y-desigualdad"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="05-Regresión.html"><a href="#estimaci%C3%B3n-de-la-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
-<li class="chapter" data-level="3.2.2" data-path="05-Regresión.html"><a href="#estimaci%C3%B3n-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
-<li class="chapter" data-level="3.2.3" data-path="05-Regresión.html"><a href="#estimaci%C3%B3n-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
-<li class="chapter" data-level="3.2.4" data-path="05-Regresión.html"><a href="#estimaci%C3%B3n-de-la-correlaci%C3%B3n"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
+<li class="chapter" data-level="3.2.1" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-la-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
+<li class="chapter" data-level="3.2.2" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
+<li class="chapter" data-level="3.2.3" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
+<li class="chapter" data-level="3.2.4" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-la-correlaci%C3%B3n"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="05-Regresión.html"><a href="#pruebas-de-hip%C3%B3tesis"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
-<li class="chapter" data-level="3.4" data-path="05-Regresión.html"><a href="#estimaci%C3%B3n-de-contrastes"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
+<li class="chapter" data-level="3.3" data-path="07-Multinivel.html"><a href="#pruebas-de-hip%C3%B3tesis"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
+<li class="chapter" data-level="3.4" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-contrastes"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
 <li class="chapter" data-level="3.5" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
 <ul>
 <li class="chapter" data-level="3.5.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
 <li class="chapter" data-level="3.5.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
-<li class="chapter" data-level="3.5.3" data-path="05-Regresión.html"><a href="#diagramas-de-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+<li class="chapter" data-level="3.5.3" data-path="07-Multinivel.html"><a href="#diagramas-de-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="05-Regresión.html"><a href="#estimaci%C3%B3n-del-tama%C3%B1o-poblacional"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
-<li class="chapter" data-level="4.2" data-path="05-Regresión.html"><a href="#estimaci%C3%B3n-de-proporciones"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
+<li class="chapter" data-level="4.1" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-del-tama%C3%B1o-poblacional"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
+<li class="chapter" data-level="4.2" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-proporciones"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
 <li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
 <li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
-<li class="chapter" data-level="4.5" data-path="05-Regresión.html"><a href="#la-raz%C3%B3n-de-odds"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
+<li class="chapter" data-level="4.5" data-path="07-Multinivel.html"><a href="#la-raz%C3%B3n-de-odds"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
 <li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi2.html"><a href="prueba-de-independencia-chi2.html"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
 <li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="05-Regresión.html"><a href="#gr%C3%A1ficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
+<li class="chapter" data-level="4.7.1" data-path="07-Multinivel.html"><a href="#gr%C3%A1ficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
 <li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="cap5.html"><a href="cap5.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="05-Regresión.html"><a href="#formulaci%C3%B3n-del-modelo"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
+<li class="chapter" data-level="5.1" data-path="07-Multinivel.html"><a href="#formulaci%C3%B3n-del-modelo"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
 <li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
-<li class="chapter" data-level="5.3" data-path="05-Regresión.html"><a href="#estimaci%C3%B3n-de-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
-<li class="chapter" data-level="5.4" data-path="05-Regresión.html"><a href="#diagn%C3%B3stico-del-modelo"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<li class="chapter" data-level="5.3" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.4" data-path="07-Multinivel.html"><a href="#diagn%C3%B3stico-del-modelo"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="05-Regresión.html"><a href="#coeficiente-de-determinaci%C3%B3n"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="5.4.1" data-path="07-Multinivel.html"><a href="#coeficiente-de-determinaci%C3%B3n"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
 <li class="chapter" data-level="5.4.2" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
 <li class="chapter" data-level="5.4.3" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="05-Regresión.html"><a href="#inferencia-sobre-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
-<li class="chapter" data-level="5.6" data-path="05-Regresión.html"><a href="#estimaci%C3%B3n-y-predicci%C3%B3n"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+<li class="chapter" data-level="5.5" data-path="07-Multinivel.html"><a href="#inferencia-sobre-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.6" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-y-predicci%C3%B3n"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
 <ul>
@@ -253,30 +253,30 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html"><i class="fa fa-check"></i><b>7.4</b> Modelo logístico multinivel</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="05-Regresión.html"><a href="#modelo-nulo-log%C3%ADstico"><i class="fa fa-check"></i><b>7.4.1</b> Modelo nulo logístico</a></li>
-<li class="chapter" data-level="7.4.2" data-path="05-Regresión.html"><a href="#modelo-log%C3%ADstico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Modelo logístico con intercepto aleatorio</a></li>
-<li class="chapter" data-level="7.4.3" data-path="05-Regresión.html"><a href="#modelo-log%C3%ADstico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Modelo logístico con intercepto y pendiente aleatoria</a></li>
+<li class="chapter" data-level="7.4.1" data-path="07-Multinivel.html"><a href="#modelo-nulo-log%C3%ADstico"><i class="fa fa-check"></i><b>7.4.1</b> Modelo nulo logístico</a></li>
+<li class="chapter" data-level="7.4.2" data-path="07-Multinivel.html"><a href="#modelo-log%C3%ADstico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Modelo logístico con intercepto aleatorio</a></li>
+<li class="chapter" data-level="7.4.3" data-path="07-Multinivel.html"><a href="#modelo-log%C3%ADstico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Modelo logístico con intercepto y pendiente aleatoria</a></li>
 </ul></li>
 </ul></li>
 <li class="appendix"><span><b>Anexos</b></span></li>
 <li class="chapter" data-level="A" data-path="ap1.html"><a href="ap1.html"><i class="fa fa-check"></i><b>A</b> Manejo de bases de datos con <code>R</code></a>
 <ul>
-<li class="chapter" data-level="A.1" data-path="05-Regresión.html"><a href="#preparaci%C3%B3n-del-entorno-de-trabajo"><i class="fa fa-check"></i><b>A.1</b> Preparación del entorno de trabajo</a></li>
-<li class="chapter" data-level="A.2" data-path="05-Regresión.html"><a href="#carga-e-inspecci%C3%B3n-inicial-de-la-base"><i class="fa fa-check"></i><b>A.2</b> Carga e inspección inicial de la base</a></li>
+<li class="chapter" data-level="A.1" data-path="07-Multinivel.html"><a href="#preparaci%C3%B3n-del-entorno-de-trabajo"><i class="fa fa-check"></i><b>A.1</b> Preparación del entorno de trabajo</a></li>
+<li class="chapter" data-level="A.2" data-path="07-Multinivel.html"><a href="#carga-e-inspecci%C3%B3n-inicial-de-la-base"><i class="fa fa-check"></i><b>A.2</b> Carga e inspección inicial de la base</a></li>
 <li class="chapter" data-level="A.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html"><i class="fa fa-check"></i><b>A.3</b> Encadenamiento de operaciones</a>
 <ul>
-<li class="chapter" data-level="A.3.1" data-path="05-Regresión.html"><a href="#filter-selecci%C3%B3n-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selección de registros</a></li>
+<li class="chapter" data-level="A.3.1" data-path="07-Multinivel.html"><a href="#filter-selecci%C3%B3n-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selección de registros</a></li>
 <li class="chapter" data-level="A.3.2" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: seleccionar variables</a></li>
 <li class="chapter" data-level="A.3.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: ordenamiento de filas</a></li>
-<li class="chapter" data-level="A.3.4" data-path="05-Regresión.html"><a href="#mutate-creaci%C3%B3n-o-transformaci%C3%B3n-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creación o transformación de variables</a></li>
-<li class="chapter" data-level="A.3.5" data-path="05-Regresión.html"><a href="#summarise-res%C3%BAmenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: resúmenes descriptivos</a></li>
-<li class="chapter" data-level="A.3.6" data-path="05-Regresión.html"><a href="#group_by-agrupaci%C3%B3n-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: agrupación de casos</a></li>
+<li class="chapter" data-level="A.3.4" data-path="07-Multinivel.html"><a href="#mutate-creaci%C3%B3n-o-transformaci%C3%B3n-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creación o transformación de variables</a></li>
+<li class="chapter" data-level="A.3.5" data-path="07-Multinivel.html"><a href="#summarise-res%C3%BAmenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: resúmenes descriptivos</a></li>
+<li class="chapter" data-level="A.3.6" data-path="07-Multinivel.html"><a href="#group_by-agrupaci%C3%B3n-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: agrupación de casos</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Inferencia en poblaciones finitas</a>
 <ul>
 <li class="chapter" data-level="B.1" data-path="dos-posibles-inferencias.html"><a href="dos-posibles-inferencias.html"><i class="fa fa-check"></i><b>B.1</b> Dos posibles inferencias</a></li>
-<li class="chapter" data-level="B.2" data-path="05-Regresión.html"><a href="#la-integraci%C3%B3n-de-ambas-inferencias"><i class="fa fa-check"></i><b>B.2</b> La integración de ambas inferencias</a>
+<li class="chapter" data-level="B.2" data-path="07-Multinivel.html"><a href="#la-integraci%C3%B3n-de-ambas-inferencias"><i class="fa fa-check"></i><b>B.2</b> La integración de ambas inferencias</a>
 <ul>
 <li class="chapter" data-level="B.2.1" data-path="la-integración-de-ambas-inferencias.html"><a href="la-integración-de-ambas-inferencias.html"><i class="fa fa-check"></i><b>B.2.1</b> Método de la máxima verosimilitud</a></li>
 <li class="chapter" data-level="B.2.2" data-path="la-integración-de-ambas-inferencias.html"><a href="la-integración-de-ambas-inferencias.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Método de máxima pseudo-verosimilitud</a></li>
@@ -303,42 +303,53 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="cap5" class="section level1 hasAnchor" number="5">
-<h1><span class="header-section-number">Capítulo 5</span> Modelos de regresión<a href="cap5.html#cap5" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Los modelos de regresión constituyen una de las herramientas más utilizadas en el análisis de datos provenientes de encuestas, ya que permiten estudiar la relación entre una variable de interés y un conjunto de variables explicativas. A través de estos modelos, es posible evaluar cómo cambian determinadas características de la población según factores demográficos, sociales o económicos observados en la muestra. No obstante, la validez de los resultados obtenidos depende de una adecuada especificación del modelo y de la correcta consideración de las características del diseño muestral de la encuesta.</p>
-<p>En términos generales, los modelos de regresión buscan describir y cuantificar la asociación entre una variable respuesta (dependiente) y una o más variables explicativas (independientes), proporcionando elementos para la interpretación estadística y la formulación de inferencias sobre la población de estudio. No obstante, la validez de los resultados obtenidos depende, en gran medida, de una adecuada especificación del modelo y de la correcta consideración de las características del diseño muestral de la encuesta <span class="citation">(<a href="#ref-heeringa2017applied">Heeringa et al., 2017</a>)</span>.</p>
-<p>Por ejemplo, es posible analizar el comportamiento del ingreso de los hogares como variable de respuesta, en función de características como el nivel educativo alcanzado y la situación laboral de sus integrantes, consideradas variables explicativas. Utilizando información proveniente de encuestas de hogares, este tipo de modelos permite identificar patrones de asociación, cuantificar el efecto de distintos factores socioeconómicos sobre el ingreso y generar evidencia empírica útil para el diseño, seguimiento y evaluación de políticas públicas.</p>
-<p>No obstante, dado que las encuestas de hogares están sustentadas en diseños de muestreo complejos, los métodos clásicos de regresión, desarrollados bajo supuestos de muestreo aleatorio simple, pueden resultar inapropiados. Ignorar las características del diseño de muestreo puede generar estimaciones sesgadas de los coeficientes de regresión, así como una subestimación de sus errores estándar y varianzas, comprometiendo la validez de las inferencias estadísticas.</p>
-<p>En consecuencia, el análisis de datos provenientes de encuestas exige una atención detallada al diseño de muestreo. La incorporación de los pesos de la encuesta y los ajustes correspondientes a la estratificación y la conglomeración permite obtener inferencias válidas y precisas. Adicionalmente, en algunos casos se han propuesto alternativas simplificadas, como el uso de pesos normalizados o enfoques de ponderación aproximada, que buscan equilibrar la complejidad metodológica con la factibilidad práctica del análisis.</p>
-<p>El estudio de la regresión bajo diseños de muestreo complejos cuenta con una trayectoria bien documentada. <span class="citation">Kish &amp; Frankel (<a href="#ref-kish1974inference">1974</a>)</span> fueron de los primeros en discutir el impacto de estos diseños sobre las inferencias derivadas de modelos de regresión. Posteriormente, <span class="citation">Fuller (<a href="#ref-fuller1975regression">1975</a>)</span> desarrolló un estimador de varianza apoyado en técnicas de linealización para modelos de regresión lineal múltiple con ponderación desigual, e introdujo métodos específicos para diseños estratificados y de dos etapas.</p>
-<p>Más adelante, <span class="citation">Shah et al. (<a href="#ref-shah1977inference">1977</a>)</span> abordaron el problema de las violaciones a los supuestos clásicos al trabajar con datos de encuestas, proponiendo alternativas de inferencia robusta para los parámetros. En paralelo, <span class="citation">Binder (<a href="#ref-binder1983variances">1983</a>)</span> se enfocó en las distribuciones muestrales de los estimadores de regresión en poblaciones finitas, estableciendo procedimientos para estimar varianzas bajo esquemas complejos.</p>
-<p>En los años siguientes, <span class="citation">Skinner et al. (<a href="#ref-skinner1989analysis">1989</a>)</span> ampliaron estos aportes mediante estimadores de varianza para los coeficientes de regresión que incorporaban la estratificación y la conglomeración, recomendando explícitamente el uso de métodos de linealización o técnicas alternativas para la estimación de la varianza. Posteriormente, <span class="citation">Fuller (<a href="#ref-fuller2002regression">2002</a>)</span> realizó un compendio de los métodos de estimación aplicables a modelos de regresión en encuestas complejas, mientras que <span class="citation">Pfeffermann (<a href="#ref-pfeffermann2011modelling">2011</a>)</span> discutió desarrollos más recientes, como los métodos de ponderación <em>q-weighted</em>, mostrando evidencia empírica de su utilidad.</p>
+<div id="pesos-q-weighted" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Pesos <em>q-weighted</em><a href="pesos-q-weighted.html#pesos-q-weighted" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En relación con la incorporación de pesos de muestreo en modelos multinivel, aunque existe un consenso general sobre la necesidad de utilizarlos para garantizar inferencias representativas de la población objetivo <span class="citation">(<a href="#ref-cai2013investigation">Cai, 2013</a>)</span>, no existe una única estrategia metodológica para su implementación. En este contexto, <span class="citation">Pfeffermann et al. (<a href="#ref-pfeffermann1998weighting">1998</a>)</span> y <span class="citation">Asparouhov (<a href="#ref-asparouhov2006general">2006</a>)</span> proponen enfoques basados en pseudo-máxima verosimilitud, en particular mediante procedimientos de mínimos cuadrados generalizados ponderados. Alternativamente, <span class="citation">Rabe-Hesketh &amp; Skrondal (<a href="#ref-rabehesketh2006multilevel">2006</a>)</span> proponen métodos basados en algoritmos EM para la estimación de modelos jerárquicos con ponderaciones.</p>
+<p>Desde una perspectiva general, el enfoque de máxima verosimilitud consiste en estimar los parámetros del modelo identificando aquellos valores que maximizan la probabilidad de observar los datos disponibles bajo la especificación asumida. Una extensión importante de este enfoque es la máxima verosimilitud restringida (REML), la cual mejora la estimación de los componentes de varianza al corregir el sesgo asociado a la estimación de los grados de libertad, produciendo en muchos casos estimaciones más estables que la máxima verosimilitud convencional <span class="citation">(<a href="#ref-kreft1998introducing">Kreft &amp; De Leeuw, 1998</a>)</span>.</p>
+<p>En el contexto de los modelos multinivel con datos provenientes de encuestas, una dificultad adicional radica en la incorporación coherente de los pesos de muestreo a través de los distintos niveles de la jerarquía. Como señalan <span class="citation">Pfeffermann et al. (<a href="#ref-pfeffermann1998weighting">1998</a>)</span>, la estructura agrupada de los datos implica que las observaciones no son independientes, por lo que la función de log-verosimilitud no puede descomponerse como una suma simple de contribuciones individuales. En su lugar, es necesario considerar explícitamente la dependencia entre los distintos niveles del diseño muestral para lograr inferencias adecuadas.</p>
+<p>Para ajustar un modelo multinivel con datos provenientes de encuestas complejas, se recomienda redefinir los factores de expansión mediante el enfoque de pesos <em>q-weighted</em> propuesto por <span class="citation">Pfeffermann (<a href="#ref-pfeffermann2011modelling">2011</a>)</span>. Este procedimiento busca eliminar la parte sistemática de los pesos asociada a las covariables incluidas en el modelo, conservando únicamente la componente residual de los mecanismos de selección. Los pasos son los siguientes:</p>
+<ol style="list-style-type: decimal">
+<li><p>Ajustar un modelo de regresión para los factores de expansión finales de la encuesta, utilizando como variables explicativas el mismo conjunto de covariables que será empleado en el modelo multinivel. Siendo <span class="math inline">\(w_k\)</span> el factor de expansión original de la unidad <span class="math inline">\(k\)</span> y <span class="math inline">\(\mathbf{x}_k\)</span> el vector de covariables. Entonces se ajusta el modelo</p>
+<p><span class="math display">\[
+w_k = f(\mathbf{x}_k, \boldsymbol{\beta}) + \varepsilon_k,
+\]</span></p>
+<p>donde <span class="math inline">\(f(\cdot)\)</span> representa la relación funcional entre los pesos <span class="math inline">\(w_k\)</span> y las covariables <span class="math inline">\(\mathbf{x}_k\)</span>, a través de los coeficientes <span class="math inline">\(\boldsymbol{\beta}\)</span>.</p></li>
+<li><p>Obtener los valores predichos del modelo para cada unidad de observación, de tal forma que:</p>
+<p><span class="math display">\[
+\hat{w}_k = f(\mathbf{x}_k, \hat{\boldsymbol{\beta}}).
+\]</span></p>
+<p>Estos valores representan la componente de los factores de expansión explicada por las covariables incluidas en el modelo.</p></li>
+<li><p>Construir los pesos <em>q-weighted</em> dividiendo los factores de expansión originales por sus correspondientes valores predichos,</p>
+<p><span class="math display">\[
+q_k = \frac{w_k}{\hat{w}_k}.
+\]</span></p>
+<p>De esta forma, los nuevos pesos reflejan únicamente la variación residual de los factores de expansión una vez controlado el efecto de las covariables.</p></li>
+<li><p>Definir el nuevo diseño muestral utilizando los pesos ajustados <span class="math inline">\(q_k\)</span> en lugar de los pesos originales <span class="math inline">\(w_k\)</span>, y emplear este diseño para la estimación de los parámetros del modelo multinivel.</p></li>
+</ol>
+<p>El siguiente código implementa el procedimiento de construcción de pesos <em>q-weighted</em>. En primer lugar, ajusta un modelo de regresión lineal que explica los factores de expansión originales a partir de la variable explicativa gasto. De esta forma, los pesos resultantes conservan únicamente la componente de variación no explicada por las covariables incluidas en el modelo multinivel.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="pesos-q-weighted.html#cb169-1" tabindex="-1"></a>mod_qw  <span class="ot">&lt;-</span> <span class="fu">lm</span>(wk <span class="sc">~</span> Expenditure, <span class="at">data =</span> encuesta)</span>
+<span id="cb169-2"><a href="pesos-q-weighted.html#cb169-2" tabindex="-1"></a>encuesta<span class="sc">$</span>qk <span class="ot">&lt;-</span> encuesta<span class="sc">$</span>wk <span class="sc">/</span> <span class="fu">predict</span>(mod_qw)</span></code></pre></div>
 </div>
 <h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
-<div id="ref-binder1983variances" class="csl-entry">
-Binder, D. A. (1983). On the variances of asymptotically normal estimators from complex surveys. <em>International Statistical Review/Revue Internationale de Statistique</em>, 279-292.
+<div id="ref-asparouhov2006general" class="csl-entry">
+Asparouhov, T. (2006). General Multi-Level Modeling with Sampling Weights. <em>Communications in Statistics, Theory and Methods</em>, <em>35</em>(3), 439-460. <a href="https://doi.org/10.1080/03610920500476598">https://doi.org/10.1080/03610920500476598</a>
 </div>
-<div id="ref-fuller1975regression" class="csl-entry">
-Fuller, W. A. (1975). Regression analysis for sample survey. <em>Sankhya, Series C</em>, <em>37</em>, 117-132.
+<div id="ref-cai2013investigation" class="csl-entry">
+Cai, T. (2013). Investigation of Ways to Handle Sampling Weights for Multilevel Model Analyses. <em>Sociological Methodology</em>, <em>43</em>(1), 178-219. <a href="https://doi.org/10.1177/0081175013490035">https://doi.org/10.1177/0081175013490035</a>
 </div>
-<div id="ref-fuller2002regression" class="csl-entry">
-Fuller, W. A. (2002). Regression estimation for survey samples. <em>Survey Methodology</em>, <em>28</em>(1), 5-23.
-</div>
-<div id="ref-heeringa2017applied" class="csl-entry">
-Heeringa, S. G., West, B. T., Heeringa, S. G., &amp; Berglund, P. A. (2017). <em>Applied survey data analysis</em>. chapman; hall/CRC.
-</div>
-<div id="ref-kish1974inference" class="csl-entry">
-Kish, L., &amp; Frankel, M. R. (1974). Inference from complex samples. <em>Journal of the Royal Statistical Society, Series B</em>, <em>36</em>, 1-37.
+<div id="ref-kreft1998introducing" class="csl-entry">
+Kreft, I. G. G., &amp; De Leeuw, J. (1998). <em>Introducing Multilevel Modeling</em>. Sage Publications.
 </div>
 <div id="ref-pfeffermann2011modelling" class="csl-entry">
 Pfeffermann, D. (2011). Modelling of complex survey data: <span>W</span>hy model? <span>W</span>hy is it a problem? <span>H</span>ow can we approach it? <em>Survey Methodology</em>, <em>37</em>(2), 115-136.
 </div>
-<div id="ref-shah1977inference" class="csl-entry">
-Shah, B. V., Holt, M. M., &amp; Folsom, R. F. (1977). Inference about regression models from sample survey data. <em>Bulletin of the International Statistical Institute</em>, <em>41</em>(3), 43-57.
+<div id="ref-pfeffermann1998weighting" class="csl-entry">
+Pfeffermann, D., Skinner, C. J., Holmes, D. J., Goldstein, H., &amp; Rasbash, J. (1998). Weighting for Unequal Selection Probabilities in Multilevel Models. <em>Journal of the Royal Statistical Society: Series B</em>, <em>60</em>(1), 23-40. <a href="https://doi.org/10.1111/1467-9868.00106">https://doi.org/10.1111/1467-9868.00106</a>
 </div>
-<div id="ref-skinner1989analysis" class="csl-entry">
-Skinner, C. J., Holt, D., &amp; Smith, T. M. F. (Eds.). (1989). <em>Analysis of complex surveys</em>. John Wiley &amp; Sons.
+<div id="ref-rabehesketh2006multilevel" class="csl-entry">
+Rabe-Hesketh, S., &amp; Skrondal, A. (2006). Multilevel Modelling of Complex Survey Data. <em>Journal of the Royal Statistical Society: Series A</em>, <em>169</em>(4), 805-827. <a href="https://doi.org/10.1111/j.1467-985X.2006.00426.x">https://doi.org/10.1111/j.1467-985X.2006.00426.x</a>
 </div>
 </div>
             </section>
@@ -346,8 +357,8 @@ Skinner, C. J., Holt, D., &amp; Smith, T. M. F. (Eds.). (1989). <em>Analysis of 
           </div>
         </div>
       </div>
-<a href="viz-categoricas.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="formulación-del-modelo.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="sec-motivacionMult.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="modelo-lineal-multinivel.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -378,7 +389,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/psirusteam/LibroEncuestasR/05-Regresión.Rmd",
+    "link": "https://github.com/psirusteam/LibroEncuestasR/07-Multinivel.Rmd",
     "text": "Edit"
   },
   "history": {

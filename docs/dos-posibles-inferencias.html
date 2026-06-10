@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Apéndice B Inferencia en poblaciones finitas | Análisis de encuestas de hogares con R</title>
+  <title>B.1 Dos posibles inferencias | Análisis de encuestas de hogares con R</title>
   <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Apéndice B Inferencia en poblaciones finitas | Análisis de encuestas de hogares con R" />
+  <meta property="og:title" content="B.1 Dos posibles inferencias | Análisis de encuestas de hogares con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
   <meta name="github-repo" content="psirusteam/LibroEncuestasR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Apéndice B Inferencia en poblaciones finitas | Análisis de encuestas de hogares con R" />
+  <meta name="twitter:title" content="B.1 Dos posibles inferencias | Análisis de encuestas de hogares con R" />
   
   <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="encadenamiento-de-operaciones.html"/>
-<link rel="next" href="dos-posibles-inferencias.html"/>
+<link rel="prev" href="ap2.html"/>
+<link rel="next" href="la-integración-de-ambas-inferencias.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -303,14 +303,121 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ap2" class="section level1 hasAnchor" number="9">
-<h1><span class="header-section-number">Apéndice B</span> Inferencia en poblaciones finitas<a href="ap2.html#ap2" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Una cuestión fundamental en el análisis de encuestas es identificar cuál es la medida de probabilidad que rige la inferencia. En la inferencia estadística clásica se suele asumir que las observaciones disponibles son variables aleatorias independientes e idénticamente distribuidas (IID). Bajo ese enfoque, la aleatoriedad proviene del modelo que genera los datos. Sin embargo, como señala <span class="citation">Kish (<a href="#ref-kish1987statistical">1987</a>)</span>, este supuesto no describe adecuadamente la información proveniente de encuestas con diseños muestrales complejos, donde las observaciones son seleccionadas mediante estratificación, conglomeración y probabilidades de inclusión desiguales.</p>
+<div id="dos-posibles-inferencias" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">B.1</span> Dos posibles inferencias<a href="dos-posibles-inferencias.html#dos-posibles-inferencias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En encuestas de hogares conviene distinguir tres objetos. Primero, la población finita, denotada como <span class="math inline">\(U = \{1,2,\ldots,N\}\)</span>, la cual contiene todas las unidades de interés. Segundo, la variable de estudio <span class="math inline">\(y_k\)</span>, observada o definida para cada unidad <span class="math inline">\(k \in U\)</span>. Tercero, el diseño muestral <span class="math inline">\(p(s)\)</span>, que asigna probabilidades a las posibles muestras <span class="math inline">\(s \subset U\)</span>. En la notación utilizada a lo largo de este documento, una unidad puede identificarse como <span class="math inline">\(k\)</span> dentro del conglomerado o UPM <span class="math inline">\(i\)</span>, perteneciente al estrato <span class="math inline">\(h\)</span>, de modo que los estimadores ponderados suelen escribirse como sumas de la forma</p>
+<p><span class="math display">\[
+\hat{t}_y = \sum_h \sum_i \sum_k w_{hik} \ y_{hik}
+\]</span></p>
+<p>donde <span class="math inline">\(w_{hik}\)</span> representa el factor de expansión o peso muestral asociado con la unidad observada. En la teoría de muestreo, los valores <span class="math inline">\(y_k\)</span> se consideran fijos una vez definida la población. La aleatoriedad no está en los valores de la variable, sino en los indicadores de inclusión</p>
+<p><span class="math display">\[
+I_k =
+\begin{cases}
+1, &amp; \text{si } k \in s,\\
+0, &amp; \text{si } k \notin s,
+\end{cases}
+\]</span></p>
+<p>que inducen la probabilidad de inclusión <span class="math inline">\(\pi_k = \Pr_p(I_k=1)\)</span> y, a su vez, el correspondiente peso de muestreo, definido como <span class="math inline">\(w_k = \frac{1}{\pi_k}\)</span>.</p>
+<p>Un estimador que ignora los pesos de muestreo puede no representar adecuadamente a la población objetivo, especialmente cuando la muestra proviene de un diseño complejo. En la inferencia basada en el diseño, la población se considera fija y la fuente de aleatoriedad proviene del mecanismo de selección de la muestra; por ello, sus elementos centrales son las probabilidades de inclusión <span class="math inline">\(\pi_k\)</span> y los pesos de muestreo <span class="math inline">\(w_k\)</span>.</p>
+<p>Por el contrario, la inferencia basada en modelos considera que los valores de la variable de interés en toda la población se conciben como realizaciones de un proceso estocástico, usualmente denotado por <span class="math inline">\(\xi\)</span>. Así, mientras la inferencia basada en los modelos estudia propiedades como <span class="math inline">\(E_{\xi}(Y_k)\)</span> y <span class="math inline">\(Var_{\xi}(Y_k)\)</span>, la inferencia basada en el diseño se orienta a incorporar las características del plan muestral en los estimadores, para que sean insesgados <span class="math inline">\(E_{p}(\hat{t}_y) = t_y\)</span>.</p>
+<p>Esta distinción permite entender por qué, aun cuando exista un modelo razonable para la variable de interés, el diseño muestral debe incorporarse explícitamente si se desea obtener inferencias válidas para la población objetivo. Para comprender la distinción entre inferencia basada en el modelo e inferencia basada en el diseño, partimos de un ejemplo sencillo, adaptado de <span class="citation">Binder (<a href="#ref-binder2011estimating">2011</a>)</span>. Supóngase que se generan <span class="math inline">\(N=100\)</span> realizaciones independientes de una variable Bernoulli con parámetro <span class="math inline">\(\theta=0.3\)</span>, donde <span class="math inline">\(\theta\)</span> representa la proporción esperada de personas desempleadas en una población generada por un modelo. Si <span class="math inline">\(Y_k \sim Bernoulli(\theta)\)</span>, entonces</p>
+<p><span class="math display">\[
+E_{\xi}(Y_k) = \theta, \qquad Var_{\xi}(Y_k) = \theta(1-\theta).
+\]</span></p>
+<p>donde <span class="math inline">\(E_{\xi}(\cdot)\)</span> y <span class="math inline">\(Var_{\xi}(\cdot)\)</span> denotan la esperanza y la varianza bajo el modelo <span class="math inline">\(\xi\)</span> (conocido como modelo de superpoblación). Para una población finita generada por ese modelo, la media poblacional es <span class="math inline">\(\bar{Y}_U = \frac{1}{N}\sum_{k \in U}Y_k\)</span>. Bajo el modelo, esta media es insesgada para <span class="math inline">\(\theta\)</span>, puesto que</p>
+<p><span class="math display">\[
+E_{\xi}(\bar{Y}_U) =
+E_{\xi}\left(\frac{1}{N}\sum_{k \in U}Y_k\right)
+= \frac{1}{N}\sum_{k \in U}E_{\xi}(Y_k)
+= \theta.
+\]</span></p>
+<p>La siguiente simulación de Monte Carlo reproduce este proceso. En cada repetición se genera una población completa de tamaño <span class="math inline">\(N=100\)</span> y se calcula su media. El promedio de esas medias poblacionales debe aproximarse a <span class="math inline">\(\theta\)</span>.</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="dos-posibles-inferencias.html#cb252-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb252-2"><a href="dos-posibles-inferencias.html#cb252-2" tabindex="-1"></a>N     <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb252-3"><a href="dos-posibles-inferencias.html#cb252-3" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
+<span id="cb252-4"><a href="dos-posibles-inferencias.html#cb252-4" tabindex="-1"></a>nsim1 <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb252-5"><a href="dos-posibles-inferencias.html#cb252-5" tabindex="-1"></a>Est0  <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, nsim1)</span>
+<span id="cb252-6"><a href="dos-posibles-inferencias.html#cb252-6" tabindex="-1"></a></span>
+<span id="cb252-7"><a href="dos-posibles-inferencias.html#cb252-7" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nsim1) {</span>
+<span id="cb252-8"><a href="dos-posibles-inferencias.html#cb252-8" tabindex="-1"></a>  y       <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(N, <span class="dv">1</span>, theta)</span>
+<span id="cb252-9"><a href="dos-posibles-inferencias.html#cb252-9" tabindex="-1"></a>  Est0[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb252-10"><a href="dos-posibles-inferencias.html#cb252-10" tabindex="-1"></a>}</span>
+<span id="cb252-11"><a href="dos-posibles-inferencias.html#cb252-11" tabindex="-1"></a></span>
+<span id="cb252-12"><a href="dos-posibles-inferencias.html#cb252-12" tabindex="-1"></a><span class="fu">cbind</span>(theta, <span class="at">Esp0 =</span> <span class="fu">mean</span>(Est0), <span class="at">Sesgo =</span> <span class="fu">mean</span>(Est0) <span class="sc">-</span> theta)</span></code></pre></div>
+<pre><code>##      theta    Esp0   Sesgo
+## [1,]   0.3 0.30225 0.00225</code></pre>
+<p>El código fija una semilla para que el ejercicio sea reproducible. Luego genera <code>nsim1</code> poblaciones independientes mediante <code>rbinom()</code>. La salida reporta el parámetro verdadero <code>theta</code>, el promedio de las medias simuladas <code>Esp0</code> y el sesgo Monte Carlo. Como se espera bajo el modelo Bernoulli IID, <code>Esp0</code> queda muy cerca de 0.3 y el sesgo es cercano a cero. Las pequeñas diferencias se deben a que se usan 1000 simulaciones, no un número infinito de repeticiones.</p>
+<p>En la teoría de muestreo, en cambio, las características de interés son parámetros fijos de la población. Si una persona está desempleada, su estado se considera un valor fijo de la población finita. Lo aleatorio es el mecanismo mediante el cual se selecciona la muestra. El total poblacional se define como <span class="math inline">\(t_y = \sum_{k \in U} y_k\)</span>, mientras que la media poblacional es <span class="math inline">\(\bar{y}_U = \frac{t_y}{N}\)</span>. Si se observa una muestra <span class="math inline">\(s\)</span>, el estimador de Horvitz-Thompson del total es</p>
+<p><span class="math display">\[
+\hat{t}_{y} = \sum_{k \in s}\frac{y_k}{\pi_k}
+= \sum_{k \in s}w_k y_k.
+\]</span></p>
+<p>Como se mencionó en los capítulos anteriores, cuando el tamaño poblacional <span class="math inline">\(N\)</span> es desconocido, la media poblacional puede estimarse mediante el estimador de razón ponderado, definido como</p>
+<p><span class="math display">\[
+\hat{\bar{y}} =
+\frac{\sum_{k \in s}w_k y_k}
+{\sum_{k \in s}w_k}
+\]</span></p>
+<p>Estos estimadores incorporan las probabilidades de inclusión en su forma funcional y es esa, la diferencia central frente al promedio simple no ponderado de una muestra. Para ilustrar el impacto del diseño, supóngase que la población anterior se divide en <span class="math inline">\(N_I\)</span> UPMs. La UPM <span class="math inline">\(i\)</span> tiene tamaño <span class="math inline">\(N_i\)</span>, total <span class="math inline">\(t_{y_i}=\sum_{k \in U_i}y_{ik}\)</span> y media <span class="math inline">\(\bar{y}_i=t_{y_i}/N_i\)</span>. Si se seleccionan <span class="math inline">\(n_I\)</span> UPMs con probabilidades proporcionales al tamaño, entonces sus probabilidades de inclusión toman la siguiente forma:</p>
+<p><span class="math display">\[
+\pi_{Ii} = \frac{n_I N_i}{N}
+\]</span></p>
+<p>Cuando todos los miembros de las UPMs seleccionadas son observados, el estimador ponderado de la media poblacional, que es aproximadamente insesgado, puede escribirse como</p>
+<p><span class="math display">\[
+\hat{\bar{y}}
+= \frac{1}{N}\sum_{i \in S_I}\frac{t_{y_i}}{\pi_{Ii}}
+= \frac{1}{N}\sum_{i \in S_I}\frac{N_i\bar{y}_i}{n_I N_i/N}
+= \frac{1}{n_I}\sum_{i \in S_I}\bar{y}_i.
+\]</span></p>
+<p>Esta expresión ejemplifica por qué, cuándo el diseno de muestreo es complejo (en este caso selección proporcional al tamaño), el promedio de las medias de los conglomerados brinda insesgamiento. En contraste, el promedio simple de las personas observadas en las UPMs seleccionadas, sería:</p>
+<p><span class="math display">\[
+\bar{y}_s =
+\frac{\sum_{i \in S_I}t_{y_i}}
+     {\sum_{i \in S_I}N_i},
+\]</span></p>
+<p>el cual trata la muestra como si fuera autoponderada. Este estimador no es insesgado cuando las probabilidades de selección no son iguales o cuando el tamaño del conglomerado se relaciona con la variable de interés. La siguiente simulación fija una población finita y repite muchas veces la selección de hogares con probabilidades proporcionales al tamaño. En cada muestra se calculan dos estimadores: <code>Est1</code>, que corresponde a <span class="math inline">\(\hat{\bar{y}}\)</span>, y <code>Est2</code>, que corresponde al promedio simple de las personas observadas en las UPMs seleccionadas, <span class="math inline">\(\bar{y}_s\)</span>. Además, estos estimadores se comparan con el parámetro del modelo <code>theta_N</code>, correspondiente a <span class="math inline">\(\theta = 0.3\)</span>.</p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="dos-posibles-inferencias.html#cb254-1" tabindex="-1"></a><span class="fu">library</span>(TeachingSampling)</span>
+<span id="cb254-2"><a href="dos-posibles-inferencias.html#cb254-2" tabindex="-1"></a></span>
+<span id="cb254-3"><a href="dos-posibles-inferencias.html#cb254-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb254-4"><a href="dos-posibles-inferencias.html#cb254-4" tabindex="-1"></a>N      <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb254-5"><a href="dos-posibles-inferencias.html#cb254-5" tabindex="-1"></a>theta  <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
+<span id="cb254-6"><a href="dos-posibles-inferencias.html#cb254-6" tabindex="-1"></a>nsim2  <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb254-7"><a href="dos-posibles-inferencias.html#cb254-7" tabindex="-1"></a>Est1 <span class="ot">&lt;-</span> Est2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, nsim2)</span>
+<span id="cb254-8"><a href="dos-posibles-inferencias.html#cb254-8" tabindex="-1"></a></span>
+<span id="cb254-9"><a href="dos-posibles-inferencias.html#cb254-9" tabindex="-1"></a>cluster_size <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">each =</span> <span class="dv">5</span>)</span>
+<span id="cb254-10"><a href="dos-posibles-inferencias.html#cb254-10" tabindex="-1"></a>NI           <span class="ot">&lt;-</span> <span class="fu">length</span>(cluster_size)</span>
+<span id="cb254-11"><a href="dos-posibles-inferencias.html#cb254-11" tabindex="-1"></a>cluster_id   <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">seq_len</span>(NI), cluster_size)</span>
+<span id="cb254-12"><a href="dos-posibles-inferencias.html#cb254-12" tabindex="-1"></a>size_center  <span class="ot">&lt;-</span> <span class="fu">weighted.mean</span>(cluster_size, cluster_size)</span>
+<span id="cb254-13"><a href="dos-posibles-inferencias.html#cb254-13" tabindex="-1"></a>prob_person  <span class="ot">&lt;-</span> theta <span class="sc">+</span> <span class="fu">rep</span>((cluster_size <span class="sc">-</span> size_center) <span class="sc">/</span> <span class="dv">12</span>, cluster_size)</span>
+<span id="cb254-14"><a href="dos-posibles-inferencias.html#cb254-14" tabindex="-1"></a>y            <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(N, <span class="dv">1</span>, prob_person)</span>
+<span id="cb254-15"><a href="dos-posibles-inferencias.html#cb254-15" tabindex="-1"></a>theta_N      <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb254-16"><a href="dos-posibles-inferencias.html#cb254-16" tabindex="-1"></a>Ty_i         <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, cluster_id, sum)</span>
+<span id="cb254-17"><a href="dos-posibles-inferencias.html#cb254-17" tabindex="-1"></a>Mean_i       <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, cluster_id, mean)</span>
+<span id="cb254-18"><a href="dos-posibles-inferencias.html#cb254-18" tabindex="-1"></a></span>
+<span id="cb254-19"><a href="dos-posibles-inferencias.html#cb254-19" tabindex="-1"></a>nI <span class="ot">&lt;-</span> <span class="fu">floor</span>(NI <span class="sc">*</span> <span class="fl">0.3</span>)</span>
+<span id="cb254-20"><a href="dos-posibles-inferencias.html#cb254-20" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nsim2) {</span>
+<span id="cb254-21"><a href="dos-posibles-inferencias.html#cb254-21" tabindex="-1"></a>  res         <span class="ot">&lt;-</span> <span class="fu">S.piPS</span>(nI, cluster_size)</span>
+<span id="cb254-22"><a href="dos-posibles-inferencias.html#cb254-22" tabindex="-1"></a>  sam         <span class="ot">&lt;-</span> res[, <span class="dv">1</span>]</span>
+<span id="cb254-23"><a href="dos-posibles-inferencias.html#cb254-23" tabindex="-1"></a>  size_sam    <span class="ot">&lt;-</span> cluster_size[sam]</span>
+<span id="cb254-24"><a href="dos-posibles-inferencias.html#cb254-24" tabindex="-1"></a>  total_sam   <span class="ot">&lt;-</span> Ty_i[sam]</span>
+<span id="cb254-25"><a href="dos-posibles-inferencias.html#cb254-25" tabindex="-1"></a>  mean_sam    <span class="ot">&lt;-</span> Mean_i[sam]</span>
+<span id="cb254-26"><a href="dos-posibles-inferencias.html#cb254-26" tabindex="-1"></a>  Est1[j] <span class="ot">&lt;-</span> <span class="fu">mean</span>(mean_sam)</span>
+<span id="cb254-27"><a href="dos-posibles-inferencias.html#cb254-27" tabindex="-1"></a>  Est2[j] <span class="ot">&lt;-</span> <span class="fu">sum</span>(total_sam) <span class="sc">/</span> <span class="fu">sum</span>(size_sam)</span>
+<span id="cb254-28"><a href="dos-posibles-inferencias.html#cb254-28" tabindex="-1"></a>}</span>
+<span id="cb254-29"><a href="dos-posibles-inferencias.html#cb254-29" tabindex="-1"></a></span>
+<span id="cb254-30"><a href="dos-posibles-inferencias.html#cb254-30" tabindex="-1"></a><span class="fu">cbind</span>(theta_N,</span>
+<span id="cb254-31"><a href="dos-posibles-inferencias.html#cb254-31" tabindex="-1"></a>      <span class="at">Esp_piS =</span> <span class="fu">mean</span>(Est1),</span>
+<span id="cb254-32"><a href="dos-posibles-inferencias.html#cb254-32" tabindex="-1"></a>      <span class="at">Sesgo_piS =</span> <span class="fu">mean</span>(Est1) <span class="sc">-</span> theta_N,</span>
+<span id="cb254-33"><a href="dos-posibles-inferencias.html#cb254-33" tabindex="-1"></a>      <span class="at">Esp_S =</span> <span class="fu">mean</span>(Est2),</span>
+<span id="cb254-34"><a href="dos-posibles-inferencias.html#cb254-34" tabindex="-1"></a>      <span class="at">Sesgo_S =</span> <span class="fu">mean</span>(Est2) <span class="sc">-</span> theta_N)</span></code></pre></div>
+<pre><code>##      theta_N   Esp_piS  Sesgo_piS     Esp_S    Sesgo_S
+## [1,]     0.3 0.3036762 0.00367619 0.3584908 0.05849078</code></pre>
+<p>El primer bloque del código genera hogares de tamaños desiguales, entre 2 y 6 personas. Para hacer visible el efecto del diseño, la probabilidad individual de desempleo varía suavemente con el tamaño del hogar, pero se centra de manera que el promedio esperado de la población siga siendo cercano a <code>theta</code>. Luego se calcula <code>theta_N</code>, que es la proporción real de desempleo en esa población específica. En cada repetición, <code>S.piPS()</code> selecciona UPMs con probabilidades proporcionales al tamaño; después se calculan la media de las medias de las UPMs seleccionadas y el promedio simple de las personas observadas. La salida compara ambos estimadores con <code>theta_N</code>. El sesgo de Monte Carlo de <code>Esp_piS</code> es cercano a cero, mientras que el de <code>Esp_S</code> no lo es, mostrando resultado de ignorar el diseño en este ejercicio.</p>
 </div>
 <h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
-<div id="ref-kish1987statistical" class="csl-entry">
-Kish, L. (1987). <em>Statistical Design for Research</em>. John Wiley &amp; Sons.
+<div id="ref-binder2011estimating" class="csl-entry">
+Binder, D. A. (2011). Estimating model parameters from a complex survey under a model-design randomization framework. <em>Pakistan Journal of Statistics</em>, <em>27</em>(4).
 </div>
 </div>
             </section>
@@ -318,8 +425,8 @@ Kish, L. (1987). <em>Statistical Design for Research</em>. John Wiley &amp; Sons
           </div>
         </div>
       </div>
-<a href="encadenamiento-de-operaciones.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="dos-posibles-inferencias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ap2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="la-integración-de-ambas-inferencias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

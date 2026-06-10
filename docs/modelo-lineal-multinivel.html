@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7.3 Modelo lineal multinivel | Análisis de encuestas de hogares con R</title>
+  <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7.3 Modelo lineal multinivel | Análisis de encuestas de hogares con R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="github-repo" content="psirusteam/LibroEncuestasR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7.3 Modelo lineal multinivel | Análisis de encuestas de hogares con R" />
+  
+  <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  
+
+<meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
+
+
+<meta name="date" content="2026-06-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="pesos-q-weighted.html"/>
+<link rel="next" href="sec-logistica-multinivel.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis de encuestas de hogares con R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
+<li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="1" data-path="cap1.html"><a href="cap1.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="07-Multinivel.html"><a href="#justificaci%C3%B3n"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
+<li class="chapter" data-level="1.2" data-path="07-Multinivel.html"><a href="#uso-del-software-r-para-el-an%C3%A1lisis-de-encuestas"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
+<li class="chapter" data-level="1.3" data-path="estructura-del-documento.html"><a href="estructura-del-documento.html"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="cap2.html"><a href="cap2.html"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="07-Multinivel.html"><a href="#poblaci%C3%B3n-objetivo-y-unidades-de-muestreo"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
+<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
+<li class="chapter" data-level="2.3" data-path="07-Multinivel.html"><a href="#fundamentos-te%C3%B3ricos"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
+<li class="chapter" data-level="2.3.2" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cap3.html"><a href="cap3.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-par%C3%A1metros-descriptivos"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
+<li class="chapter" data-level="3.1.2" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
+<li class="chapter" data-level="3.1.3" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-par%C3%A1metros-de-distribuci%C3%B3n-y-desigualdad"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-la-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
+<li class="chapter" data-level="3.2.2" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
+<li class="chapter" data-level="3.2.3" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
+<li class="chapter" data-level="3.2.4" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-la-correlaci%C3%B3n"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="07-Multinivel.html"><a href="#pruebas-de-hip%C3%B3tesis"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
+<li class="chapter" data-level="3.4" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-contrastes"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
+<li class="chapter" data-level="3.5" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.5.3" data-path="07-Multinivel.html"><a href="#diagramas-de-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-del-tama%C3%B1o-poblacional"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
+<li class="chapter" data-level="4.2" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-proporciones"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
+<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
+<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
+<li class="chapter" data-level="4.5" data-path="07-Multinivel.html"><a href="#la-raz%C3%B3n-de-odds"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
+<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi2.html"><a href="prueba-de-independencia-chi2.html"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="07-Multinivel.html"><a href="#gr%C3%A1ficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
+<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cap5.html"><a href="cap5.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="07-Multinivel.html"><a href="#formulaci%C3%B3n-del-modelo"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
+<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
+<li class="chapter" data-level="5.3" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-de-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.4" data-path="07-Multinivel.html"><a href="#diagn%C3%B3stico-del-modelo"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="07-Multinivel.html"><a href="#coeficiente-de-determinaci%C3%B3n"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="5.4.2" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
+<li class="chapter" data-level="5.4.3" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="07-Multinivel.html"><a href="#inferencia-sobre-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.6" data-path="07-Multinivel.html"><a href="#estimaci%C3%B3n-y-predicci%C3%B3n"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
+<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cap7.html"><a href="cap7.html"><i class="fa fa-check"></i><b>7</b> Modelos multinivel</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="sec-motivacionMult.html"><a href="sec-motivacionMult.html"><i class="fa fa-check"></i><b>7.1</b> Motivación</a></li>
+<li class="chapter" data-level="7.2" data-path="pesos-q-weighted.html"><a href="pesos-q-weighted.html"><i class="fa fa-check"></i><b>7.2</b> Pesos <em>q-weighted</em></a></li>
+<li class="chapter" data-level="7.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html"><i class="fa fa-check"></i><b>7.3</b> Modelo lineal multinivel</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Modelo nulo</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Modelo con intercepto aleatorio</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Modelo con intercepto y pendiente aleatoria</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html"><i class="fa fa-check"></i><b>7.4</b> Modelo logístico multinivel</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="07-Multinivel.html"><a href="#modelo-nulo-log%C3%ADstico"><i class="fa fa-check"></i><b>7.4.1</b> Modelo nulo logístico</a></li>
+<li class="chapter" data-level="7.4.2" data-path="07-Multinivel.html"><a href="#modelo-log%C3%ADstico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Modelo logístico con intercepto aleatorio</a></li>
+<li class="chapter" data-level="7.4.3" data-path="07-Multinivel.html"><a href="#modelo-log%C3%ADstico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Modelo logístico con intercepto y pendiente aleatoria</a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>Anexos</b></span></li>
+<li class="chapter" data-level="A" data-path="ap1.html"><a href="ap1.html"><i class="fa fa-check"></i><b>A</b> Manejo de bases de datos con <code>R</code></a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="07-Multinivel.html"><a href="#preparaci%C3%B3n-del-entorno-de-trabajo"><i class="fa fa-check"></i><b>A.1</b> Preparación del entorno de trabajo</a></li>
+<li class="chapter" data-level="A.2" data-path="07-Multinivel.html"><a href="#carga-e-inspecci%C3%B3n-inicial-de-la-base"><i class="fa fa-check"></i><b>A.2</b> Carga e inspección inicial de la base</a></li>
+<li class="chapter" data-level="A.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html"><i class="fa fa-check"></i><b>A.3</b> Encadenamiento de operaciones</a>
+<ul>
+<li class="chapter" data-level="A.3.1" data-path="07-Multinivel.html"><a href="#filter-selecci%C3%B3n-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selección de registros</a></li>
+<li class="chapter" data-level="A.3.2" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: seleccionar variables</a></li>
+<li class="chapter" data-level="A.3.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: ordenamiento de filas</a></li>
+<li class="chapter" data-level="A.3.4" data-path="07-Multinivel.html"><a href="#mutate-creaci%C3%B3n-o-transformaci%C3%B3n-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creación o transformación de variables</a></li>
+<li class="chapter" data-level="A.3.5" data-path="07-Multinivel.html"><a href="#summarise-res%C3%BAmenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: resúmenes descriptivos</a></li>
+<li class="chapter" data-level="A.3.6" data-path="07-Multinivel.html"><a href="#group_by-agrupaci%C3%B3n-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: agrupación de casos</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Inferencia en poblaciones finitas</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="dos-posibles-inferencias.html"><a href="dos-posibles-inferencias.html"><i class="fa fa-check"></i><b>B.1</b> Dos posibles inferencias</a></li>
+<li class="chapter" data-level="B.2" data-path="07-Multinivel.html"><a href="#la-integraci%C3%B3n-de-ambas-inferencias"><i class="fa fa-check"></i><b>B.2</b> La integración de ambas inferencias</a>
+<ul>
+<li class="chapter" data-level="B.2.1" data-path="la-integración-de-ambas-inferencias.html"><a href="la-integración-de-ambas-inferencias.html"><i class="fa fa-check"></i><b>B.2.1</b> Método de la máxima verosimilitud</a></li>
+<li class="chapter" data-level="B.2.2" data-path="la-integración-de-ambas-inferencias.html"><a href="la-integración-de-ambas-inferencias.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Método de máxima pseudo-verosimilitud</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a Análisis de encuestas de hogares con R</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis de encuestas de hogares con R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modelo-lineal-multinivel" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Modelo lineal multinivel<a href="modelo-lineal-multinivel.html#modelo-lineal-multinivel" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Los modelos multinivel más utilizados en la práctica corresponden a extensiones del modelo lineal clásico para datos con estructura jerárquica. En su formulación básica, estos modelos asumen que la variable respuesta es continua y sigue una distribución normal condicional a los efectos fijos y aleatorios incluidos en el modelo. Asimismo, se supone que los efectos aleatorios y los errores residuales son independientes entre sí y se distribuyen normalmente con media cero y varianzas constantes.</p>
+<div id="sec-multinivel-muestras-complejas" class="section level3 hasAnchor" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Modelo nulo<a href="modelo-lineal-multinivel.html#sec-multinivel-muestras-complejas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En el análisis de regresión multinivel se distinguen dos tipos de parámetros: los coeficientes de regresión, conocidos como parámetros fijos, y los componentes de varianza asociados a los efectos aleatorios. Una etapa inicial fundamental en este tipo de análisis consiste en descomponer la variabilidad total de la variable dependiente en los distintos niveles de la estructura jerárquica. En el contexto del ejemplo anterior, esta descomposición permite separar la variación del ingreso en una componente atribuible a diferencias dentro de los estratos y otra asociada a diferencias entre estratos.</p>
+<p>El punto de partida para esta descomposición es el denominado modelo nulo, el cual no incorpora variables explicativas y se expresa como</p>
+<p><span class="math display">\[
+y_{kj} = \beta_{0j} + \epsilon_{kj}
+\]</span></p>
+<p>En donde <span class="math inline">\(y_{kj}\)</span> denota el valor observado del ingreso para la unidad <span class="math inline">\(k\)</span> en el estrato <span class="math inline">\(j\)</span>. El término <span class="math inline">\(\beta_{0j}\)</span> representa el intercepto específico de cada estrato, capturando las diferencias en los niveles promedio de la variable entre grupos. Finalmente, <span class="math inline">\(\epsilon_{kj}\)</span> corresponde al error a nivel de unidad, el cual recoge la variabilidad no explicada dentro de cada estrato y se asume con media cero y varianza constante condicional al grupo.</p>
+<p>A su vez, el intercepto por estrato puede descomponerse en una parte común a todos los estratos y una desviación específica de cada uno de ellos, de la siguiente forma:</p>
+<p><span class="math display">\[
+\beta_{0j} = \gamma_{00} + \tau_{0j}
+\]</span></p>
+<p>donde <span class="math inline">\(\gamma_{00}\)</span> representa el intercepto promedio global y <span class="math inline">\(\tau_{0j}\)</span> es el efecto aleatorio para el intercepto que captura la desviación del estrato <span class="math inline">\(j\)</span>, permitiendo modelar explícitamente la heterogeneidad entre estratos. Además, los componentes aleatorios del modelo se asumen distribuidos normalmente con media cero y varianzas específicas para cada nivel de la jerarquía. En particular, el efecto aleatorio asociado al intercepto por estrato cumple</p>
+<p><span class="math display">\[
+\tau_{0j} \sim N\left(0, \sigma_{\tau}^{2}\right),
+\]</span></p>
+<p>lo que implica que las desviaciones de cada estrato respecto al intercepto global se distribuyen alrededor de cero, con una variabilidad determinada por <span class="math inline">\(\sigma_{\tau}^{2}\)</span>. De manera análoga, el término de error a nivel de unidad sigue la distribución</p>
+<p><span class="math display">\[
+\epsilon_{kj} \sim N\left(0, \sigma_{\epsilon}^{2}\right),
+\]</span></p>
+<p>donde <span class="math inline">\(\sigma_{\epsilon}^{2}\)</span> representa la variabilidad residual dentro de los estratos. A partir de este modelo se define el coeficiente de correlación intraclase (ICC, por sus siglas en inglés), que cuantifica la proporción de la varianza total explicada por las diferencias entre estratos:</p>
+<p><span class="math display">\[
+\rho = \frac{\sigma_{\tau}^{2}}{\sigma_{\tau}^{2} + \sigma_{\epsilon}^{2}}
+\]</span></p>
+<p>Un valor elevado del ICC indica que una proporción importante de la variabilidad total de la variable de interés se debe a diferencias entre estratos, lo que sugiere la presencia de heterogeneidad relevante entre grupos y la necesidad de incorporar explícitamente dicha estructura en el modelo. En contraste, un ICC bajo implica que la variabilidad se concentra principalmente dentro de los estratos, los cuales presentan una mayor homogeneidad relativa entre sí.</p>
+<p>Siguiendo con el análisis de la encuesta de ejemplo, cuando la variable de interés es el ingreso, el modelo nulo constituye el punto de partida para cuantificar qué proporción de la variabilidad total se debe a diferencias entre estratos y qué proporción corresponde a diferencias entre hogares dentro de un mismo estrato.</p>
+<p>La estimación de modelos multinivel en <code>R</code>se realiza mediante el paquete <code>lme4</code>. En particular, la función <code>lmer()</code> permite especificar los efectos aleatorios mediante expresiones de la forma <code>(efecto | grupo)</code>. En este contexto, la expresión <code>(1 | Stratum)</code> indica que el modelo incluye un intercepto aleatorio para cada estrato. El valor <code>1</code> representa el intercepto del modelo, mientras que <code>Stratum</code> identifica la variable de agrupación.</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="modelo-lineal-multinivel.html#cb170-1" tabindex="-1"></a>mod_null  <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Income <span class="sc">~</span> (<span class="dv">1</span> <span class="sc">|</span> Stratum), </span>
+<span id="cb170-2"><a href="modelo-lineal-multinivel.html#cb170-2" tabindex="-1"></a>                  <span class="at">data =</span> encuesta, <span class="at">weights =</span> qk)</span></code></pre></div>
+<p>La Tabla <a href="modelo-lineal-multinivel.html#tab:tab-interceptos-nulos">7.1</a> presenta los interceptos estimados para cada estrato a partir del modelo nulo. Dado que este modelo no incorpora variables explicativas, cada intercepto puede interpretarse como el ingreso promedio esperado en el correspondiente estrato. Los resultados evidencian diferencias importantes entre grupos: mientras que el estrato <code>idStrt004</code> presenta el mayor ingreso promedio estimado (959.6), el estrato <code>idStrt009</code> registra el menor valor (207.6). Estas diferencias sugieren la existencia de una variabilidad sustancial entre estratos, justificando la incorporación de efectos aleatorios para modelar explícitamente la estructura jerárquica de los datos.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="modelo-lineal-multinivel.html#cb171-1" tabindex="-1"></a>coef_mod_null <span class="ot">&lt;-</span> <span class="fu">coef</span>(mod_null)<span class="sc">$</span>Stratum</span>
+<span id="cb171-2"><a href="modelo-lineal-multinivel.html#cb171-2" tabindex="-1"></a>coef_mod_null <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span><span class="dt">L</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-interceptos-nulos">Cuadro 7.1: </span>Interceptos estimados por estrato bajo pesos q-weighted y senate-weighted (modelo nulo, primeros 12 estratos)</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">(Intercept)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">idStrt001</td>
+<td align="left">634.7</td>
+</tr>
+<tr class="even">
+<td align="left">idStrt002</td>
+<td align="left">507.5</td>
+</tr>
+<tr class="odd">
+<td align="left">idStrt003</td>
+<td align="left">485.6</td>
+</tr>
+<tr class="even">
+<td align="left">idStrt004</td>
+<td align="left">960.0</td>
+</tr>
+<tr class="odd">
+<td align="left">idStrt005</td>
+<td align="left">518.3</td>
+</tr>
+<tr class="even">
+<td align="left">idStrt006</td>
+<td align="left">439.3</td>
+</tr>
+<tr class="odd">
+<td align="left">idStrt007</td>
+<td align="left">477.4</td>
+</tr>
+<tr class="even">
+<td align="left">idStrt008</td>
+<td align="left">377.0</td>
+</tr>
+<tr class="odd">
+<td align="left">idStrt009</td>
+<td align="left">218.2</td>
+</tr>
+<tr class="even">
+<td align="left">idStrt010</td>
+<td align="left">593.7</td>
+</tr>
+<tr class="odd">
+<td align="left">idStrt011</td>
+<td align="left">590.5</td>
+</tr>
+<tr class="even">
+<td align="left">idStrt012</td>
+<td align="left">361.6</td>
+</tr>
+</tbody>
+</table>
+<p>A partir de los componentes de varianza estimados en el modelo nulo, la correlación intraclase se calcula mediante la función <code>icc()</code> del paquete <code>performance</code>. Este indicador cuantifica la proporción de la variabilidad total del ingreso que puede atribuirse a diferencias entre estratos, constituyendo una medida de la dependencia existente entre observaciones pertenecientes a un mismo grupo. Los resultados obtenidos se presentan en la Tabla <a href="modelo-lineal-multinivel.html#tab:tab-icc-nulo">7.2</a>.</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="modelo-lineal-multinivel.html#cb172-1" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb172-2"><a href="modelo-lineal-multinivel.html#cb172-2" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">icc</span>(mod_null) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-icc-nulo">Cuadro 7.2: </span>Correlación intraclase del modelo nulo (ingreso por estrato)</caption>
+<thead>
+<tr class="header">
+<th align="left">ICC_adjusted</th>
+<th align="center">ICC_unadjusted</th>
+<th align="center">optional</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0.329</td>
+<td align="center">0.329</td>
+<td align="center">FALSE</td>
+</tr>
+</tbody>
+</table>
+<p>La correlación intraclase estimada de 32% indica que aproximadamente un tercio de la variabilidad total observada en el ingreso se debe a diferencias entre estratos, mientras que el porcentaje restante corresponde a diferencias entre hogares dentro de los mismos estratos. Por último, como el modelo nulo no incluye ningún predictor, la estimación del ingreso dentro de cada estrato es constante e igual al intercepto estimado para ese estrato.</p>
+</div>
+<div id="sec-intercepto-aleatorio" class="section level3 hasAnchor" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Modelo con intercepto aleatorio<a href="modelo-lineal-multinivel.html#sec-intercepto-aleatorio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El modelo multinivel más simple que incorpora covariables corresponde al modelo de intercepto aleatorio. En esta especificación, se asume que los efectos de las variables explicativas son comunes a todos los estratos, mientras que el nivel promedio de la variable respuesta puede variar entre ellos. El modelo se expresa como</p>
+<p><span class="math display">\[
+y_{kj} = \beta_{0j} + \mathbf{x}_{kj}\boldsymbol{\beta} + \epsilon_{kj}
+\]</span></p>
+<p>En donde <span class="math inline">\(y_{kj}\)</span> representa el valor observado de la variable respuesta para la unidad <span class="math inline">\(k\)</span> perteneciente al estrato <span class="math inline">\(j\)</span>, <span class="math inline">\(\mathbf{x}_{kj}\)</span> es el vector de covariables asociado a dicha unidad, <span class="math inline">\(\boldsymbol{\beta}\)</span> es el vector de coeficientes de regresión comunes a todos los estratos y <span class="math inline">\(\epsilon_{kj}\)</span> corresponde al error aleatorio a nivel de unidad.</p>
+<p>Al igual que en el modelo nulo, el intercepto se modela como <span class="math inline">\(\beta_{0j} = \gamma_{00} + \tau_{0j}\)</span>; en donde <span class="math inline">\(\gamma_{00}\)</span> representa el intercepto promedio global y <span class="math inline">\(\tau_{0j}\)</span> es el efecto aleatorio asociado al estrato <span class="math inline">\(j\)</span>, que mide la desviación de dicho estrato respecto al promedio general.</p>
+<p>Los componentes aleatorios del modelo se asumen independientes y normalmente distribuidos, de manera que <span class="math inline">\(\tau_{0j} \sim N(0,\sigma_{\tau}^{2})\)</span> y <span class="math inline">\(\epsilon_{kj} \sim N(0,\sigma_{\epsilon}^{2})\)</span>. Bajo estas condiciones, la variabilidad total de la variable respuesta puede descomponerse en una componente entre estratos, cuantificada por <span class="math inline">\(\sigma_{\tau}^{2}\)</span>, y una componente dentro de los estratos, representada por <span class="math inline">\(\sigma_{\epsilon}^{2}\)</span>.</p>
+<p>El siguiente código ajusta un modelo multinivel de intercepto aleatorio, en donde el ingreso (<code>Income</code>) se explica a partir del gasto del hogar (<code>Expenditure</code>), incorporando además un efecto aleatorio asociado al estrato (<code>Stratum</code>) y utilizando los pesos <em>q-weighted</em> almacenados en la variable <code>qk</code>. Una vez ajustado el modelo, se estima la correlación intraclase (ICC) a partir de los componentes de varianza estimados.</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="modelo-lineal-multinivel.html#cb173-1" tabindex="-1"></a>mod_Int_Aleatorio <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Income <span class="sc">~</span> Expenditure <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Stratum),</span>
+<span id="cb173-2"><a href="modelo-lineal-multinivel.html#cb173-2" tabindex="-1"></a>                          <span class="at">data =</span> encuesta, <span class="at">weights =</span> qk)</span>
+<span id="cb173-3"><a href="modelo-lineal-multinivel.html#cb173-3" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">icc</span>(mod_Int_Aleatorio)</span></code></pre></div>
+<pre><code>## # Intraclass Correlation Coefficient
+## 
+##     Adjusted ICC: 0.203
+##   Unadjusted ICC: 0.109</code></pre>
+<p>La correlación intraclase ajustada de 0.196 indica que, después de controlar por el gasto del hogar (<code>Expenditure</code>), aproximadamente el 20% de la variabilidad residual del ingreso sigue siendo atribuible a diferencias entre estratos. Aunque este valor es inferior al obtenido con el modelo nulo, la magnitud del ICC continúa justificando el uso de un modelo multinivel para representar adecuadamente la estructura jerárquica de los datos. Los coeficientes estimados por estrato se presentan en la Tabla <a href="modelo-lineal-multinivel.html#tab:tab-coef-intercepto-aleatorio">7.3</a>:</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="modelo-lineal-multinivel.html#cb175-1" tabindex="-1"></a><span class="fu">coef</span>(mod_Int_Aleatorio)<span class="sc">$</span>Stratum <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span><span class="dt">L</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-coef-intercepto-aleatorio">Cuadro 7.3: </span>Coeficientes del modelo con intercepto aleatorio por estrato (primeros 8 estratos)</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">(Intercept)</th>
+<th align="center">Expenditure</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">idStrt001</td>
+<td align="left">250.44</td>
+<td align="center">1.189</td>
+</tr>
+<tr class="even">
+<td align="left">idStrt002</td>
+<td align="left">156.81</td>
+<td align="center">1.189</td>
+</tr>
+<tr class="odd">
+<td align="left">idStrt003</td>
+<td align="left">142.89</td>
+<td align="center">1.189</td>
+</tr>
+<tr class="even">
+<td align="left">idStrt004</td>
+<td align="left">296.81</td>
+<td align="center">1.189</td>
+</tr>
+<tr class="odd">
+<td align="left">idStrt005</td>
+<td align="left">-32.43</td>
+<td align="center">1.189</td>
+</tr>
+<tr class="even">
+<td align="left">idStrt006</td>
+<td align="left">53.78</td>
+<td align="center">1.189</td>
+</tr>
+<tr class="odd">
+<td align="left">idStrt007</td>
+<td align="left">12.46</td>
+<td align="center">1.189</td>
+</tr>
+<tr class="even">
+<td align="left">idStrt008</td>
+<td align="left">107.14</td>
+<td align="center">1.189</td>
+</tr>
+</tbody>
+</table>
+<p>Con el fin de facilitar la visualización de los resultados del modelo, se utiliza la submuestra reducida presentada anteriormente, la cual contiene únicamente tres estratos seleccionados.</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="modelo-lineal-multinivel.html#cb176-1" tabindex="-1"></a>Coef_Estimado <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(</span>
+<span id="cb176-2"><a href="modelo-lineal-multinivel.html#cb176-2" tabindex="-1"></a>  <span class="fu">coef</span>(mod_Int_Aleatorio)<span class="sc">$</span>Stratum <span class="sc">%&gt;%</span> </span>
+<span id="cb176-3"><a href="modelo-lineal-multinivel.html#cb176-3" tabindex="-1"></a>    tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;Stratum&quot;</span>),</span>
+<span id="cb176-4"><a href="modelo-lineal-multinivel.html#cb176-4" tabindex="-1"></a>  encuesta_plot <span class="sc">%&gt;%</span> </span>
+<span id="cb176-5"><a href="modelo-lineal-multinivel.html#cb176-5" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(Stratum) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb176-6"><a href="modelo-lineal-multinivel.html#cb176-6" tabindex="-1"></a>)</span></code></pre></div>
+<p>La Figura <a href="modelo-lineal-multinivel.html#fig:fig-intercepto-aleatorio">7.5</a> muestra las rectas de regresión estimadas para cada estrato bajo el modelo de intercepto aleatorio. Se observa que las rectas comparten una misma pendiente, reflejando el efecto común del gasto sobre el ingreso, pero difieren en su posición vertical debido a los interceptos específicos estimados para cada estrato.</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="modelo-lineal-multinivel.html#cb177-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> encuesta_plot,</span>
+<span id="cb177-2"><a href="modelo-lineal-multinivel.html#cb177-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> Income, <span class="at">x =</span> Expenditure, <span class="at">colour =</span> Stratum)) <span class="sc">+</span></span>
+<span id="cb177-3"><a href="modelo-lineal-multinivel.html#cb177-3" tabindex="-1"></a>  <span class="fu">geom_jitter</span>() <span class="sc">+</span></span>
+<span id="cb177-4"><a href="modelo-lineal-multinivel.html#cb177-4" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">data =</span> Coef_Estimado,</span>
+<span id="cb177-5"><a href="modelo-lineal-multinivel.html#cb177-5" tabindex="-1"></a>              <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">slope =</span> Expenditure,</span>
+<span id="cb177-6"><a href="modelo-lineal-multinivel.html#cb177-6" tabindex="-1"></a>                            <span class="at">intercept =</span> <span class="st">`</span><span class="at">(Intercept)</span><span class="st">`</span>,</span>
+<span id="cb177-7"><a href="modelo-lineal-multinivel.html#cb177-7" tabindex="-1"></a>                            <span class="at">colour =</span> Stratum)) <span class="sc">+</span></span>
+<span id="cb177-8"><a href="modelo-lineal-multinivel.html#cb177-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb177-9"><a href="modelo-lineal-multinivel.html#cb177-9" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb177-10"><a href="modelo-lineal-multinivel.html#cb177-10" tabindex="-1"></a>  <span class="fu">theme_cepal</span>()</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-intercepto-aleatorio"></span>
+<img src="07-Multinivel_files/figure-html/fig-intercepto-aleatorio-1.svg" alt="Rectas de regresión estimadas por estrato: modelo con intercepto aleatorio" width="70%" />
+<p class="caption">
+Figura 7.5: Rectas de regresión estimadas por estrato: modelo con intercepto aleatorio
+</p>
+</div>
+</div>
+<div id="sec-intercepto-pendiente-aleatorios" class="section level3 hasAnchor" number="7.3.3">
+<h3><span class="header-section-number">7.3.3</span> Modelo con intercepto y pendiente aleatoria<a href="modelo-lineal-multinivel.html#sec-intercepto-pendiente-aleatorios" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Una extensión natural del modelo anterior es el modelo de intercepto y pendiente aleatorios. En esta especificación, no sólo se permite que el nivel promedio de la variable respuesta varíe entre estratos, sino también que el efecto de una o más covariables difiera entre grupos. De esta manera, cada estrato puede tener su propia recta de regresión, tanto en términos de intercepto como de pendiente. El modelo puede expresarse como</p>
+<p><span class="math display">\[
+y_{kj} = \beta_{0j} + x_{kj}\beta_{1j} + \mathbf{z}_{kj}\boldsymbol{\beta} + \epsilon_{kj},
+\]</span></p>
+<p>donde <span class="math inline">\(y_{kj}\)</span> representa el valor observado de la variable respuesta para la unidad <span class="math inline">\(k\)</span> perteneciente al estrato <span class="math inline">\(j\)</span>, <span class="math inline">\(x_{kj}\)</span> corresponde a la covariable cuya pendiente se permite variar entre estratos, <span class="math inline">\(\mathbf{z}_{kj}\)</span> contiene las covariables con efectos fijos comunes a todos los grupos, y <span class="math inline">\(\epsilon_{kj}\)</span> es el término de error a nivel de unidad. En este modelo, tanto el intercepto como la pendiente asociada a <span class="math inline">\(x_{kj}\)</span> se consideran aleatorios y se descomponen de la siguiente forma:</p>
+<p><span class="math display">\[
+\beta_{0j} = \gamma_{00} + \tau_{0j}, \qquad
+\beta_{1j} = \gamma_{10} + \tau_{1j}
+\]</span></p>
+<p>donde <span class="math inline">\(\gamma_{00}\)</span> y <span class="math inline">\(\gamma_{10}\)</span> representan, respectivamente, el intercepto y la pendiente promedio en la población, mientras que <span class="math inline">\(\tau_{0j}\)</span> y <span class="math inline">\(\tau_{1j}\)</span> capturan las desviaciones específicas del estrato <span class="math inline">\(j\)</span> respecto a dichos promedios. Estos efectos aleatorios se asumen normalmente distribuidos como se indica a continuación:</p>
+<p><span class="math display">\[
+\begin{pmatrix}
+\tau_{0j} \\
+\tau_{1j}
+\end{pmatrix}
+\sim
+N\left(
+\begin{pmatrix}
+0 \\
+0
+\end{pmatrix},
+\begin{pmatrix}
+\sigma_{\tau_0}^2 &amp; \sigma_{\tau_{01}} \\
+\sigma_{\tau_{01}} &amp; \sigma_{\tau_1}^2
+\end{pmatrix}
+\right),
+\]</span></p>
+<p>mientras que el error a nivel de unidad satisface <span class="math inline">\(\epsilon_{kj} \sim N(0,\sigma_{\epsilon}^{2})\)</span>. En consecuencia, el modelo permite cuantificar no sólo la variabilidad entre estratos en los niveles promedio de la variable respuesta, sino también la heterogeneidad existente en el efecto de la covariable cuyo coeficiente se modela como aleatorio.</p>
+<p>El siguiente código ajusta un modelo multinivel con intercepto y pendiente aleatorios, en el que el ingreso (<code>Income</code>) se explica a partir del gasto del hogar (<code>Expenditure</code>) y de la zona de residencia (<code>Zone</code>). En este caso, tanto el intercepto como el efecto del gasto pueden variar entre estratos mediante efectos aleatorios asociados a <code>Stratum</code>, empleando además los pesos <em>q-weighted</em> almacenados en la variable <code>qk</code>.</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="modelo-lineal-multinivel.html#cb178-1" tabindex="-1"></a>mod_Pen_Aleatorio <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb178-2"><a href="modelo-lineal-multinivel.html#cb178-2" tabindex="-1"></a>  Income <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Expenditure <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> Expenditure <span class="sc">|</span> Stratum),</span>
+<span id="cb178-3"><a href="modelo-lineal-multinivel.html#cb178-3" tabindex="-1"></a>  <span class="at">data =</span> encuesta,</span>
+<span id="cb178-4"><a href="modelo-lineal-multinivel.html#cb178-4" tabindex="-1"></a>  <span class="at">weights =</span> qk</span>
+<span id="cb178-5"><a href="modelo-lineal-multinivel.html#cb178-5" tabindex="-1"></a>)</span>
+<span id="cb178-6"><a href="modelo-lineal-multinivel.html#cb178-6" tabindex="-1"></a></span>
+<span id="cb178-7"><a href="modelo-lineal-multinivel.html#cb178-7" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">icc</span>(mod_Pen_Aleatorio)</span></code></pre></div>
+<pre><code>## # Intraclass Correlation Coefficient
+## 
+##     Adjusted ICC: 0.690
+##   Unadjusted ICC: 0.457</code></pre>
+<p>Nótese que en la especificación del código se incluye simultáneamente efectos fijos y efectos aleatorios para el intercepto y la variable <code>Expenditure</code>. Los términos ubicados fuera del paréntesis, <code>1 + Expenditure</code>, corresponden a los efectos fijos del modelo y permiten estimar el intercepto promedio global y la pendiente promedio global asociada al gasto. Por su parte, la expresión <code>(1 + Expenditure | Stratum)</code> incorpora las desviaciones específicas de cada estrato respecto a dichos promedios. La inclusión explícita de los efectos fijos es fundamental, ya que los efectos aleatorios se interpretan como desviaciones alrededor de una media poblacional. Los coeficientes del modelo por estrato se presentan en la Tabla <a href="modelo-lineal-multinivel.html#tab:tab-coef-pendiente-aleatoria">7.4</a>:</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="modelo-lineal-multinivel.html#cb180-1" tabindex="-1"></a><span class="fu">coef</span>(mod_Pen_Aleatorio)<span class="sc">$</span>Stratum <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span><span class="dt">L</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-coef-pendiente-aleatoria">Cuadro 7.4: </span>Coeficientes del modelo con intercepto y pendiente aleatoria por estrato (primeros 10 estratos)</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">(Intercept)</th>
+<th align="center">Expenditure</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">idStrt001</td>
+<td align="left">-222.76</td>
+<td align="center">2.730</td>
+</tr>
+<tr class="even">
+<td align="left">idStrt002</td>
+<td align="left">35.51</td>
+<td align="center">1.607</td>
+</tr>
+<tr class="odd">
+<td align="left">idStrt003</td>
+<td align="left">151.86</td>
+<td align="center">1.164</td>
+</tr>
+<tr class="even">
+<td align="left">idStrt004</td>
+<td align="left">224.20</td>
+<td align="center">1.353</td>
+</tr>
+<tr class="odd">
+<td align="left">idStrt005</td>
+<td align="left">-89.69</td>
+<td align="center">1.286</td>
+</tr>
+<tr class="even">
+<td align="left">idStrt006</td>
+<td align="left">28.59</td>
+<td align="center">1.217</td>
+</tr>
+<tr class="odd">
+<td align="left">idStrt007</td>
+<td align="left">40.98</td>
+<td align="center">1.079</td>
+</tr>
+<tr class="even">
+<td align="left">idStrt008</td>
+<td align="left">163.81</td>
+<td align="center">0.928</td>
+</tr>
+<tr class="odd">
+<td align="left">idStrt009</td>
+<td align="left">16.55</td>
+<td align="center">0.838</td>
+</tr>
+<tr class="even">
+<td align="left">idStrt010</td>
+<td align="left">89.91</td>
+<td align="center">1.830</td>
+</tr>
+</tbody>
+</table>
+<p>Una vez más, Con el propósito de facilitar la visualización de los resultados, se utiliza la submuestra reducida definida previamente, la cual considera únicamente tres estratos seleccionados.</p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="modelo-lineal-multinivel.html#cb181-1" tabindex="-1"></a>Coef_Estimado <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(</span>
+<span id="cb181-2"><a href="modelo-lineal-multinivel.html#cb181-2" tabindex="-1"></a>  <span class="fu">coef</span>(mod_Pen_Aleatorio)<span class="sc">$</span>Stratum <span class="sc">%&gt;%</span> </span>
+<span id="cb181-3"><a href="modelo-lineal-multinivel.html#cb181-3" tabindex="-1"></a>    tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;Stratum&quot;</span>),</span>
+<span id="cb181-4"><a href="modelo-lineal-multinivel.html#cb181-4" tabindex="-1"></a>  encuesta_plot <span class="sc">%&gt;%</span> </span>
+<span id="cb181-5"><a href="modelo-lineal-multinivel.html#cb181-5" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(Stratum) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb181-6"><a href="modelo-lineal-multinivel.html#cb181-6" tabindex="-1"></a>)</span></code></pre></div>
+<p>La Figura <a href="modelo-lineal-multinivel.html#fig:fig-pendiente-aleatoria">7.6</a> presenta las rectas de regresión estimadas para cada estrato bajo el modelo de intercepto y pendiente aleatorios. A diferencia del modelo de intercepto aleatorio, en este caso las rectas difieren tanto en su posición vertical como en su inclinación, reflejando que los estratos no sólo presentan niveles promedio de ingreso distintos, sino también diferentes intensidades en la relación entre ingreso y gasto.</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="modelo-lineal-multinivel.html#cb182-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> encuesta_plot,</span>
+<span id="cb182-2"><a href="modelo-lineal-multinivel.html#cb182-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> Income, <span class="at">x =</span> Expenditure, <span class="at">colour =</span> Stratum)) <span class="sc">+</span></span>
+<span id="cb182-3"><a href="modelo-lineal-multinivel.html#cb182-3" tabindex="-1"></a>  <span class="fu">geom_jitter</span>() <span class="sc">+</span></span>
+<span id="cb182-4"><a href="modelo-lineal-multinivel.html#cb182-4" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">data =</span> Coef_Estimado,</span>
+<span id="cb182-5"><a href="modelo-lineal-multinivel.html#cb182-5" tabindex="-1"></a>              <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">slope =</span> Expenditure,</span>
+<span id="cb182-6"><a href="modelo-lineal-multinivel.html#cb182-6" tabindex="-1"></a>                            <span class="at">intercept =</span> <span class="st">`</span><span class="at">(Intercept)</span><span class="st">`</span>,</span>
+<span id="cb182-7"><a href="modelo-lineal-multinivel.html#cb182-7" tabindex="-1"></a>                            <span class="at">colour =</span> Stratum)) <span class="sc">+</span></span>
+<span id="cb182-8"><a href="modelo-lineal-multinivel.html#cb182-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb182-9"><a href="modelo-lineal-multinivel.html#cb182-9" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb182-10"><a href="modelo-lineal-multinivel.html#cb182-10" tabindex="-1"></a>  <span class="fu">theme_cepal</span>()</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-pendiente-aleatoria"></span>
+<img src="07-Multinivel_files/figure-html/fig-pendiente-aleatoria-1.svg" alt="Rectas de regresión estimadas por estrato: modelo con intercepto y pendiente aleatoria" width="70%" />
+<p class="caption">
+Figura 7.6: Rectas de regresión estimadas por estrato: modelo con intercepto y pendiente aleatoria
+</p>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="pesos-q-weighted.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="sec-logistica-multinivel.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/psirusteam/LibroEncuestasR/07-Multinivel.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Libro.pdf", "Libro.epub", "Libro.mobi"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  },
+  "tconfig": null
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

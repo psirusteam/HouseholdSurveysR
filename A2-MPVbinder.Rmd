@@ -28,14 +28,15 @@ $$
 
 que inducen la probabilidad de inclusión $\pi_k = \Pr_p(I_k=1)$ y, a su vez, el correspondiente peso de muestreo, definido como $w_k = \frac{1}{\pi_k}$. 
 
-Un estimador que ignora los pesos de muestreo puede no representar adecuadamente a la población objetivo, especialmente cuando la muestra proviene de un diseño complejo. En la inferencia basada en el diseño, la población se considera fija y la fuente de aleatoriedad proviene del mecanismo de selección de la muestra; por ello, sus elementos centrales son las probabilidades de inclusión $\pi_k$ y los pesos de muestreo $w_k$. Este enfoque se diferencia de la inferencia basada en modelos, en la cual los valores de la variable de interés se conciben como realizaciones de un proceso estocástico, usualmente denotado por $\xi$. Así, mientras la inferencia basada en los modelos estudia propiedades como $E_{\xi}(Y_k)$ y $Var_{\xi}(Y_k)$, la inferencia basada en el diseño se orienta a incorporar las características del plan muestral en los estimadores, para que sean insesgados $E_{p}(\hat{t}_y) = t_y$.
+Un estimador que ignora los pesos de muestreo puede no representar adecuadamente a la población objetivo, especialmente cuando la muestra proviene de un diseño complejo. En la inferencia basada en el diseño, la población se considera fija y la fuente de aleatoriedad proviene del mecanismo de selección de la muestra; por ello, sus elementos centrales son las probabilidades de inclusión $\pi_k$ y los pesos de muestreo $w_k$. 
+
+Por el contrario, la inferencia basada en modelos considera que los valores de la variable de interés en toda la población se conciben como realizaciones de un proceso estocástico, usualmente denotado por $\xi$. Así, mientras la inferencia basada en los modelos estudia propiedades como $E_{\xi}(Y_k)$ y $Var_{\xi}(Y_k)$, la inferencia basada en el diseño se orienta a incorporar las características del plan muestral en los estimadores, para que sean insesgados $E_{p}(\hat{t}_y) = t_y$.
 
 Esta distinción permite entender por qué, aun cuando exista un modelo razonable para la variable de interés, el diseño muestral debe incorporarse explícitamente si se desea obtener inferencias válidas para la población objetivo. Para comprender la distinción entre inferencia basada en el modelo e inferencia basada en el diseño, partimos de un ejemplo sencillo, adaptado de @binder2011estimating. Supóngase que se generan $N=100$ realizaciones independientes de una variable Bernoulli con parámetro $\theta=0.3$, donde $\theta$ representa la proporción esperada de personas desempleadas en una población generada por un modelo. Si $Y_k \sim Bernoulli(\theta)$, entonces
 
 $$
 E_{\xi}(Y_k) = \theta, \qquad Var_{\xi}(Y_k) = \theta(1-\theta).
 $$
-
 
 donde $E_{\xi}(\cdot)$ y $Var_{\xi}(\cdot)$ denotan la esperanza y la varianza bajo el modelo $\xi$ (conocido como modelo de superpoblación). Para una población finita generada por ese modelo, la media poblacional es $\bar{Y}_U = \frac{1}{N}\sum_{k \in U}Y_k$. Bajo el modelo, esta media es insesgada para $\theta$, puesto que 
 
@@ -46,7 +47,7 @@ E_{\xi}\left(\frac{1}{N}\sum_{k \in U}Y_k\right)
 = \theta.
 $$
 
-La siguiente simulación de Monte Carlo reproduce este proceso. En cada repetición se genera una población completa de tamaño $N=100$ y se calcula su media. El promedio de esas medias debe aproximarse a $\theta$.
+La siguiente simulación de Monte Carlo reproduce este proceso. En cada repetición se genera una población completa de tamaño $N=100$ y se calcula su media. El promedio de esas medias poblacionales debe aproximarse a $\theta$.
 
 ```{r sim-mv-modelo2, echo=TRUE, eval=TRUE}
 set.seed(2026)

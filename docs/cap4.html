@@ -12,7 +12,7 @@
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
-  <meta name="github-repo" content="psirusteam/2021ASDA" />
+  <meta name="github-repo" content="psirusteam/LibroEncuestasR" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Capítulo 4 Análisis de variables categóricas | Análisis de encuestas de hogares con R" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="cap3.html"/>
-<link rel="next" href="cap5.html"/>
+<link rel="prev" href="viz-continuas.html"/>
+<link rel="next" href="estimación-del-tamaño-poblacional.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -148,6 +148,7 @@ div.csl-indent {
 }
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -160,24 +161,27 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
+<li><a href="./">Análisis de encuestas de hogares con R</a></li>
+
+<li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
 <li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
 <li class="chapter" data-level="1" data-path="cap1.html"><a href="cap1.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="04-Categoricas.html"><a href="#justificaci%C3%B3n"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
 <li class="chapter" data-level="1.2" data-path="04-Categoricas.html"><a href="#uso-del-software-r-para-el-an%C3%A1lisis-de-encuestas"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
-<li class="chapter" data-level="1.3" data-path="cap1.html"><a href="cap1.html#estructura-del-documento"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+<li class="chapter" data-level="1.3" data-path="estructura-del-documento.html"><a href="estructura-del-documento.html"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="cap2.html"><a href="cap2.html"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="04-Categoricas.html"><a href="#poblaci%C3%B3n-objetivo-y-unidades-de-muestreo"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
-<li class="chapter" data-level="2.2" data-path="cap2.html"><a href="cap2.html#estimadores-de-muestreo"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
+<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
 <li class="chapter" data-level="2.3" data-path="04-Categoricas.html"><a href="#fundamentos-te%C3%B3ricos"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
 <ul>
 <li class="chapter" data-level="2.3.1" data-path="04-Categoricas.html"><a href="#estimaci%C3%B3n-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
 <li class="chapter" data-level="2.3.2" data-path="04-Categoricas.html"><a href="#estimaci%C3%B3n-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="cap2.html"><a href="cap2.html#intervalos-de-confianza"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="cap3.html"><a href="cap3.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
 <ul>
@@ -196,10 +200,10 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="04-Categoricas.html"><a href="#pruebas-de-hip%C3%B3tesis"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
 <li class="chapter" data-level="3.4" data-path="04-Categoricas.html"><a href="#estimaci%C3%B3n-de-contrastes"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
-<li class="chapter" data-level="3.5" data-path="cap3.html"><a href="cap3.html#viz-continuas"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
+<li class="chapter" data-level="3.5" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
 <ul>
-<li class="chapter" data-level="3.5.1" data-path="cap3.html"><a href="cap3.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
-<li class="chapter" data-level="3.5.2" data-path="cap3.html"><a href="cap3.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.5.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
 <li class="chapter" data-level="3.5.3" data-path="04-Categoricas.html"><a href="#diagramas-de-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
 </ul></li>
 </ul></li>
@@ -207,47 +211,47 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="4.1" data-path="04-Categoricas.html"><a href="#estimaci%C3%B3n-del-tama%C3%B1o-poblacional"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
 <li class="chapter" data-level="4.2" data-path="04-Categoricas.html"><a href="#estimaci%C3%B3n-de-proporciones"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
-<li class="chapter" data-level="4.3" data-path="cap4.html"><a href="cap4.html#contrastes-y-diferencias-de-proporciones"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
-<li class="chapter" data-level="4.4" data-path="cap4.html"><a href="cap4.html#tablas-cruzadas"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
+<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
+<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
 <li class="chapter" data-level="4.5" data-path="04-Categoricas.html"><a href="#la-raz%C3%B3n-de-odds"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
-<li class="chapter" data-level="4.6" data-path="cap4.html"><a href="cap4.html#prueba-de-independencia-chi2"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
-<li class="chapter" data-level="4.7" data-path="cap4.html"><a href="cap4.html#viz-categoricas"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi2.html"><a href="prueba-de-independencia-chi2.html"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
 <ul>
 <li class="chapter" data-level="4.7.1" data-path="04-Categoricas.html"><a href="#gr%C3%A1ficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
-<li class="chapter" data-level="4.7.2" data-path="cap4.html"><a href="cap4.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="cap5.html"><a href="cap5.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="04-Categoricas.html"><a href="#formulaci%C3%B3n-del-modelo"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
-<li class="chapter" data-level="5.2" data-path="cap5.html"><a href="cap5.html#uso-de-los-pesos-de-muestreo"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
+<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
 <li class="chapter" data-level="5.3" data-path="04-Categoricas.html"><a href="#estimaci%C3%B3n-de-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
 <li class="chapter" data-level="5.4" data-path="04-Categoricas.html"><a href="#diagn%C3%B3stico-del-modelo"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
 <ul>
 <li class="chapter" data-level="5.4.1" data-path="04-Categoricas.html"><a href="#coeficiente-de-determinaci%C3%B3n"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
-<li class="chapter" data-level="5.4.2" data-path="cap5.html"><a href="cap5.html#residuales"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
-<li class="chapter" data-level="5.4.3" data-path="cap5.html"><a href="cap5.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+<li class="chapter" data-level="5.4.2" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
+<li class="chapter" data-level="5.4.3" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="04-Categoricas.html"><a href="#inferencia-sobre-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
 <li class="chapter" data-level="5.6" data-path="04-Categoricas.html"><a href="#estimaci%C3%B3n-y-predicci%C3%B3n"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="cap6.html"><a href="cap6.html#sec-logistica"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
-<li class="chapter" data-level="6.2" data-path="cap6.html"><a href="cap6.html#sec-multinomial"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
-<li class="chapter" data-level="6.3" data-path="cap6.html"><a href="cap6.html#sec-gamma"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
+<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="cap7.html"><a href="cap7.html"><i class="fa fa-check"></i><b>7</b> Modelos multinivel</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="cap7.html"><a href="cap7.html#sec-motivacionMult"><i class="fa fa-check"></i><b>7.1</b> Motivación</a></li>
-<li class="chapter" data-level="7.2" data-path="cap7.html"><a href="cap7.html#pesos-q-weighted"><i class="fa fa-check"></i><b>7.2</b> Pesos <em>q-weighted</em></a></li>
-<li class="chapter" data-level="7.3" data-path="cap7.html"><a href="cap7.html#modelo-lineal-multinivel"><i class="fa fa-check"></i><b>7.3</b> Modelo lineal multinivel</a>
+<li class="chapter" data-level="7.1" data-path="sec-motivacionMult.html"><a href="sec-motivacionMult.html"><i class="fa fa-check"></i><b>7.1</b> Motivación</a></li>
+<li class="chapter" data-level="7.2" data-path="pesos-q-weighted.html"><a href="pesos-q-weighted.html"><i class="fa fa-check"></i><b>7.2</b> Pesos <em>q-weighted</em></a></li>
+<li class="chapter" data-level="7.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html"><i class="fa fa-check"></i><b>7.3</b> Modelo lineal multinivel</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="cap7.html"><a href="cap7.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Modelo nulo</a></li>
-<li class="chapter" data-level="7.3.2" data-path="cap7.html"><a href="cap7.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Modelo con intercepto aleatorio</a></li>
-<li class="chapter" data-level="7.3.3" data-path="cap7.html"><a href="cap7.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Modelo con intercepto y pendiente aleatoria</a></li>
+<li class="chapter" data-level="7.3.1" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Modelo nulo</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Modelo con intercepto aleatorio</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Modelo con intercepto y pendiente aleatoria</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="cap7.html"><a href="cap7.html#sec-logistica-multinivel"><i class="fa fa-check"></i><b>7.4</b> Modelo logístico multinivel</a>
+<li class="chapter" data-level="7.4" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html"><i class="fa fa-check"></i><b>7.4</b> Modelo logístico multinivel</a>
 <ul>
 <li class="chapter" data-level="7.4.1" data-path="04-Categoricas.html"><a href="#modelo-nulo-log%C3%ADstico"><i class="fa fa-check"></i><b>7.4.1</b> Modelo nulo logístico</a></li>
 <li class="chapter" data-level="7.4.2" data-path="04-Categoricas.html"><a href="#modelo-log%C3%ADstico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Modelo logístico con intercepto aleatorio</a></li>
@@ -259,11 +263,11 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="A.1" data-path="04-Categoricas.html"><a href="#preparaci%C3%B3n-del-entorno-de-trabajo"><i class="fa fa-check"></i><b>A.1</b> Preparación del entorno de trabajo</a></li>
 <li class="chapter" data-level="A.2" data-path="04-Categoricas.html"><a href="#carga-e-inspecci%C3%B3n-inicial-de-la-base"><i class="fa fa-check"></i><b>A.2</b> Carga e inspección inicial de la base</a></li>
-<li class="chapter" data-level="A.3" data-path="ap1.html"><a href="ap1.html#encadenamiento-de-operaciones"><i class="fa fa-check"></i><b>A.3</b> Encadenamiento de operaciones</a>
+<li class="chapter" data-level="A.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html"><i class="fa fa-check"></i><b>A.3</b> Encadenamiento de operaciones</a>
 <ul>
 <li class="chapter" data-level="A.3.1" data-path="04-Categoricas.html"><a href="#filter-selecci%C3%B3n-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selección de registros</a></li>
-<li class="chapter" data-level="A.3.2" data-path="ap1.html"><a href="ap1.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: seleccionar variables</a></li>
-<li class="chapter" data-level="A.3.3" data-path="ap1.html"><a href="ap1.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: ordenamiento de filas</a></li>
+<li class="chapter" data-level="A.3.2" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: seleccionar variables</a></li>
+<li class="chapter" data-level="A.3.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: ordenamiento de filas</a></li>
 <li class="chapter" data-level="A.3.4" data-path="04-Categoricas.html"><a href="#mutate-creaci%C3%B3n-o-transformaci%C3%B3n-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creación o transformación de variables</a></li>
 <li class="chapter" data-level="A.3.5" data-path="04-Categoricas.html"><a href="#summarise-res%C3%BAmenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: resúmenes descriptivos</a></li>
 <li class="chapter" data-level="A.3.6" data-path="04-Categoricas.html"><a href="#group_by-agrupaci%C3%B3n-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: agrupación de casos</a></li>
@@ -271,14 +275,17 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Inferencia en poblaciones finitas</a>
 <ul>
-<li class="chapter" data-level="B.1" data-path="ap2.html"><a href="ap2.html#dos-posibles-inferencias"><i class="fa fa-check"></i><b>B.1</b> Dos posibles inferencias</a></li>
+<li class="chapter" data-level="B.1" data-path="dos-posibles-inferencias.html"><a href="dos-posibles-inferencias.html"><i class="fa fa-check"></i><b>B.1</b> Dos posibles inferencias</a></li>
 <li class="chapter" data-level="B.2" data-path="04-Categoricas.html"><a href="#la-integraci%C3%B3n-de-ambas-inferencias"><i class="fa fa-check"></i><b>B.2</b> La integración de ambas inferencias</a>
 <ul>
-<li class="chapter" data-level="B.2.1" data-path="ap2.html"><a href="ap2.html#sec-mv"><i class="fa fa-check"></i><b>B.2.1</b> Método de la máxima verosimilitud</a></li>
-<li class="chapter" data-level="B.2.2" data-path="ap2.html"><a href="ap2.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Método de máxima pseudo-verosimilitud</a></li>
+<li class="chapter" data-level="B.2.1" data-path="la-integración-de-ambas-inferencias.html"><a href="la-integración-de-ambas-inferencias.html"><i class="fa fa-check"></i><b>B.2.1</b> Método de la máxima verosimilitud</a></li>
+<li class="chapter" data-level="B.2.2" data-path="la-integración-de-ambas-inferencias.html"><a href="la-integración-de-ambas-inferencias.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Método de máxima pseudo-verosimilitud</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a Análisis de encuestas de hogares con R</a></li>
+
 </ul>
 
       </nav>
@@ -327,1560 +334,14 @@ div.csl-indent {
 <span id="cb55-2"><a href="cap4.html#cb55-2" tabindex="-1"></a>sub_Rural  <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(Zone <span class="sc">==</span> <span class="st">&quot;Rural&quot;</span>)</span>
 <span id="cb55-3"><a href="cap4.html#cb55-3" tabindex="-1"></a>sub_Mujer  <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>)</span>
 <span id="cb55-4"><a href="cap4.html#cb55-4" tabindex="-1"></a>sub_Hombre <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>)</span></code></pre></div>
-<div id="estimación-del-tamaño-poblacional" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Estimación del tamaño poblacional<a href="#estimaci%C3%B3n-del-tama%C3%B1o-poblacional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>En el análisis de encuestas de hogares, es fundamental estimar el tamaño de las subpoblaciones, entendido como el número de personas u hogares que pertenecen a categorías específicas y la proporción que representan dentro de la población. Estas estimaciones, basadas en variables categóricas, permiten caracterizar el perfil demográfico y socioeconómico de la población, información clave para orientar la asignación de recursos, diseñar políticas públicas y formular programas sociales. Por ejemplo, estimar cuántas personas se encuentran por debajo de la línea de pobreza, cuántas están desempleadas o cuántas alcanzaron determinado nivel educativo es esencial para identificar brechas y evaluar condiciones de bienestar.</p>
-<p>La estimación del tamaño de una población o subpoblación se realiza a partir de variables categóricas, que segmentan a la población en grupos mutuamente excluyentes (particiones). El tamaño poblacional hace referencia al número total de individuos u hogares que, en la base de datos de la encuesta, pertenecen a una categoría determinada. Estas categorías pueden corresponder, por ejemplo, a estados de ocupación o niveles educativos alcanzados. Para obtener estas estimaciones, se combinan las respuestas de los encuestados con los pesos muestrales, que indican cuántas personas u hogares representa cada unidad de la muestra dentro de la población total.</p>
-<p>El estimador del tamaño de la población se define como:</p>
-<p><span class="math display">\[
-\hat{N} = \sum_{h} \sum_{i} \sum_{k} w_{hik}
-\]</span></p>
-<p>En donde, <span class="math inline">\(w_{hik}\)</span> es el peso o factor de expansión de la unidad <span class="math inline">\(k\)</span> en la UPM <span class="math inline">\(i\)</span> del estrato <span class="math inline">\(h\)</span>. Asimismo, la estimación del tamaño de una subpoblación sigue el mismo principio, pero se enmarcado en un subconjunto definido por una característica específica. Para determinar cuántas personas pertenecen a una categoría particular, se identifica dicho grupo en la base de datos y se suman sus pesos muestrales. Esto permite cuantificar grupos de interés específicos y conocer su tamaño dentro de la población:</p>
-<p><span class="math display">\[
-\hat{N}_d = \sum_{h} \sum_{i} \sum_{k} w_{hik} \ I(y_{hik}=d)
-\]</span></p>
-<p>En donde <span class="math inline">\(I(y_{hik}=d)\)</span> es una variable binaria que toma el valor de 1 si la unidad <span class="math inline">\(k\)</span> de la UPM <span class="math inline">\(i\)</span> en el estrato <span class="math inline">\(h\)</span> pertenece a la categoría <span class="math inline">\(d\)</span> de la variable de interés <span class="math inline">\(y\)</span>, y 0 en caso contrario. Nótese además que, si <span class="math inline">\(d\)</span> fue utilizada en la calibración de los pesos, el valor de <span class="math inline">\(\hat{N}_d\)</span> coincidirá con el control externo aplicado.</p>
-<p>En <code>R</code>, y utilizando el diseño muestral definido previamente, es posible generar resúmenes de la información de la encuesta para cada categoría de la variable <code>Zone</code>. Para ello, los datos se agrupan según la zona geográfica, lo que permite obtener resultados independientes para cada uno de estos dominios de estudio. A partir de este procedimiento se producen dos tipos principales de resultados. En primer lugar, se calcula el número de observaciones efectivamente recolectadas en la muestra, sin considerar los factores de expansión, lo que corresponde al tamaño muestral disponible en cada zona. En segundo lugar, se estima el tamaño poblacional asociado a cada dominio incorporando la información del diseño de muestreo.</p>
-<p>Junto con las estimaciones poblacionales también se obtienen medidas de precisión, como el error estándar y el intervalo de confianza, las cuales permiten evaluar el nivel de incertidumbre asociado a los resultados producidos a partir de la muestra. Los resultados se presentan en la Tabla <a href="cap4.html#tab:tab-tamano-zona">4.1</a>. En dicha tabla, <code>n</code> representa el número de observaciones de la muestra en cada zona, mientras que <code>Nd</code> corresponde a la estimación del total poblacional de la subpoblación. Por su parte, la función <code>unweighted()</code> se utiliza para calcular resúmenes no ponderados directamente a partir de los datos observados en la muestra.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="cap4.html#cb56-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
-<span id="cb56-2"><a href="cap4.html#cb56-2" tabindex="-1"></a>     <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span> </span>
-<span id="cb56-3"><a href="cap4.html#cb56-3" tabindex="-1"></a>     <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">unweighted</span>(<span class="fu">n</span>()), </span>
-<span id="cb56-4"><a href="cap4.html#cb56-4" tabindex="-1"></a>               <span class="at">Nd =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-tamano-zona">Cuadro 4.1: </span>Tamaño poblacional estimado por zona geográfica</caption>
-<thead>
-<tr class="header">
-<th align="left">Zone</th>
-<th align="center">n</th>
-<th align="center">Nd</th>
-<th align="center">Nd_se</th>
-<th align="center">Nd_low</th>
-<th align="center">Nd_upp</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Rural</td>
-<td align="center">1297</td>
-<td align="center">72102</td>
-<td align="center">3062.204</td>
-<td align="center">66038.53</td>
-<td align="center">78165.47</td>
-</tr>
-<tr class="even">
-<td align="left">Urban</td>
-<td align="center">1308</td>
-<td align="center">78164</td>
-<td align="center">2847.221</td>
-<td align="center">72526.22</td>
-<td align="center">83801.78</td>
-</tr>
-</tbody>
-</table>
-<p>En efecto, el tamaño de muestra fue de 1297 personas en la zona rural y de 1308 en la zona urbana. A partir de estas muestras se estimó una población de 72,102 personas para la zona rural, con un error estándar de 3,062, y de 78,164 personas para la zona urbana, con un error estándar de 2,847. Estos resultados reflejan no solo el tamaño estimado de la población en cada dominio, sino también el nivel de precisión asociado a las estimaciones obtenidas a partir del diseño muestral.</p>
-<p>Considerando un nivel de confianza del 95%, los intervalos de confianza para las estimaciones poblacionales fueron de 66,038.5 a 78,165.4 personas en la zona rural y de 72,526.2 a 83,801.7 personas en la zona urbana. De manera análoga, también es posible estimar el número de personas según los distintos niveles de pobreza, cuyos resultados se presentan en la Tabla <a href="cap4.html#tab:tab-tamano-pobreza">4.2</a>.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="cap4.html#cb57-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
-<span id="cb57-2"><a href="cap4.html#cb57-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Poverty) <span class="sc">%&gt;%</span> </span>
-<span id="cb57-3"><a href="cap4.html#cb57-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Nd =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-tamano-pobreza">Cuadro 4.2: </span>Tamaño poblacional estimado por condición de pobreza</caption>
-<thead>
-<tr class="header">
-<th align="left">Poverty</th>
-<th align="center">Nd</th>
-<th align="center">Nd_se</th>
-<th align="center">Nd_low</th>
-<th align="center">Nd_upp</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">NotPoor</td>
-<td align="center">91398.33</td>
-<td align="center">4394.855</td>
-<td align="center">82696.08</td>
-<td align="center">100100.58</td>
-</tr>
-<tr class="even">
-<td align="left">Extreme</td>
-<td align="center">21518.77</td>
-<td align="center">4949.354</td>
-<td align="center">11718.55</td>
-<td align="center">31318.98</td>
-</tr>
-<tr class="odd">
-<td align="left">Relative</td>
-<td align="center">37348.90</td>
-<td align="center">3695.399</td>
-<td align="center">30031.64</td>
-<td align="center">44666.16</td>
-</tr>
-</tbody>
-</table>
-<p>Otra variable categórica relevante en las encuestas de hogares es el estado de ocupación. A continuación se presenta el código correspondiente, cuyos resultados se muestran en la Tabla <a href="cap4.html#tab:tab-tamano-empleo">4.3</a>. En este caso, la información se agrupa según las categorías de la variable <code>Employment</code>, lo que permite obtener estimaciones separadas para cada condición de actividad laboral de la población. Mediante el uso de la función <code>group_by()</code> es posible desagregar las estimaciones en niveles más detallados, facilitando el análisis comparativo entre los distintos grupos ocupacionales.</p>
-<p>Antes de realizar las estimaciones, se excluyen los registros con valores faltantes en la variable de empleo, garantizando que los resultados se calculen únicamente con información válida. Posteriormente, para cada categoría de ocupación se estima el tamaño poblacional utilizando el diseño muestral definido previamente. Además de la estimación puntual, también se calculan medidas de precisión, específicamente el error estándar y los intervalos de confianza, lo que permite evaluar el grado de incertidumbre asociado a cada estimación.</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="cap4.html#cb58-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
-<span id="cb58-2"><a href="cap4.html#cb58-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Employment)) <span class="sc">%&gt;%</span></span>
-<span id="cb58-3"><a href="cap4.html#cb58-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Employment) <span class="sc">%&gt;%</span> </span>
-<span id="cb58-4"><a href="cap4.html#cb58-4" tabindex="-1"></a>  <span class="fu">summarise</span>( <span class="at">Nd =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-tamano-empleo">Cuadro 4.3: </span>Tamaño poblacional estimado por estado de ocupación</caption>
-<thead>
-<tr class="header">
-<th align="left">Employment</th>
-<th align="center">Nd</th>
-<th align="center">Nd_se</th>
-<th align="center">Nd_low</th>
-<th align="center">Nd_upp</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Unemployed</td>
-<td align="center">4634.807</td>
-<td align="center">760.624</td>
-<td align="center">3128.695</td>
-<td align="center">6140.919</td>
-</tr>
-<tr class="even">
-<td align="left">Inactive</td>
-<td align="center">41465.248</td>
-<td align="center">2162.804</td>
-<td align="center">37182.680</td>
-<td align="center">45747.816</td>
-</tr>
-<tr class="odd">
-<td align="left">Employed</td>
-<td align="center">61877.020</td>
-<td align="center">2540.076</td>
-<td align="center">56847.415</td>
-<td align="center">66906.624</td>
-</tr>
-</tbody>
-</table>
-<p>A partir de los resultados obtenidos se estima que 4,634.8 personas se encuentran desempleadas, con un intervalo de confianza del 95% entre 3,128.6 y 6,140.9 personas. Asimismo, se estima que 41,465.2 personas pertenecen a la población inactiva, con un intervalo de confianza entre 37,182.6 y 45,747.8. Finalmente, la población ocupada se estimó en 61,877.0 personas, con un intervalo de confianza de 36,784.2 a 47,793.5 personas.</p>
-<p>Finalmente, las estimaciones también pueden desagregarse simultáneamente por más de una variable categórica. Por ejemplo, es posible analizar el estado ocupacional según el nivel de pobreza, cuyos resultados se presentan en la Tabla <a href="cap4.html#tab:tab-tamano-empleo-pobreza">4.4</a>, de donde se puede concluir, entre otros aspectos, que aproximadamente 44,600.3 personas ocupadas no se encuentran en condición de pobreza, con un intervalo de confianza del 95% entre 39,459.6 y 49,741.0 personas. Asimismo, se estima que 6,421.8 personas inactivas se encuentran en situación de pobreza extrema, con un intervalo de confianza al 95% entre 3,806.6 y 9,037.0 personas.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="cap4.html#cb59-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
-<span id="cb59-2"><a href="cap4.html#cb59-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Employment)) <span class="sc">%&gt;%</span></span>
-<span id="cb59-3"><a href="cap4.html#cb59-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Employment, Poverty) <span class="sc">%&gt;%</span> </span>
-<span id="cb59-4"><a href="cap4.html#cb59-4" tabindex="-1"></a>  <span class="fu">cascade</span>( <span class="at">Nd =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span><span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)), </span>
-<span id="cb59-5"><a href="cap4.html#cb59-5" tabindex="-1"></a>           <span class="at">.fill =</span> <span class="st">&quot;Total&quot;</span>)</span></code></pre></div>
-<table style="width:100%;">
-<caption><span id="tab:tab-tamano-empleo-pobreza">Cuadro 4.4: </span>Tamaño poblacional estimado por estado de ocupación y condición de pobreza</caption>
-<colgroup>
-<col width="16%" />
-<col width="14%" />
-<col width="17%" />
-<col width="14%" />
-<col width="17%" />
-<col width="17%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Employment</th>
-<th align="center">Poverty</th>
-<th align="center">Nd</th>
-<th align="center">Nd_se</th>
-<th align="center">Nd_low</th>
-<th align="center">Nd_upp</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Unemployed</td>
-<td align="center">NotPoor</td>
-<td align="center">1768.375</td>
-<td align="center">405.377</td>
-<td align="center">965.689</td>
-<td align="center">2571.061</td>
-</tr>
-<tr class="even">
-<td align="left">Unemployed</td>
-<td align="center">Extreme</td>
-<td align="center">1169.201</td>
-<td align="center">348.134</td>
-<td align="center">479.860</td>
-<td align="center">1858.541</td>
-</tr>
-<tr class="odd">
-<td align="left">Unemployed</td>
-<td align="center">Relative</td>
-<td align="center">1697.231</td>
-<td align="center">457.808</td>
-<td align="center">790.726</td>
-<td align="center">2603.736</td>
-</tr>
-<tr class="even">
-<td align="left">Unemployed</td>
-<td align="center">Total</td>
-<td align="center">4634.807</td>
-<td align="center">760.624</td>
-<td align="center">3128.695</td>
-<td align="center">6140.919</td>
-</tr>
-<tr class="odd">
-<td align="left">Inactive</td>
-<td align="center">NotPoor</td>
-<td align="center">24346.008</td>
-<td align="center">1736.277</td>
-<td align="center">20908.006</td>
-<td align="center">27784.010</td>
-</tr>
-<tr class="even">
-<td align="left">Inactive</td>
-<td align="center">Extreme</td>
-<td align="center">6421.825</td>
-<td align="center">1320.735</td>
-<td align="center">3806.638</td>
-<td align="center">9037.012</td>
-</tr>
-<tr class="odd">
-<td align="left">Inactive</td>
-<td align="center">Relative</td>
-<td align="center">10697.414</td>
-<td align="center">1460.279</td>
-<td align="center">7805.915</td>
-<td align="center">13588.913</td>
-</tr>
-<tr class="even">
-<td align="left">Inactive</td>
-<td align="center">Total</td>
-<td align="center">41465.248</td>
-<td align="center">2162.804</td>
-<td align="center">37182.680</td>
-<td align="center">45747.816</td>
-</tr>
-<tr class="odd">
-<td align="left">Employed</td>
-<td align="center">NotPoor</td>
-<td align="center">44600.347</td>
-<td align="center">2596.191</td>
-<td align="center">39459.628</td>
-<td align="center">49741.065</td>
-</tr>
-<tr class="even">
-<td align="left">Employed</td>
-<td align="center">Extreme</td>
-<td align="center">5127.531</td>
-<td align="center">1121.646</td>
-<td align="center">2906.560</td>
-<td align="center">7348.503</td>
-</tr>
-<tr class="odd">
-<td align="left">Employed</td>
-<td align="center">Relative</td>
-<td align="center">12149.142</td>
-<td align="center">1346.616</td>
-<td align="center">9482.708</td>
-<td align="center">14815.576</td>
-</tr>
-<tr class="even">
-<td align="left">Employed</td>
-<td align="center">Total</td>
-<td align="center">61877.020</td>
-<td align="center">2540.076</td>
-<td align="center">56847.415</td>
-<td align="center">66906.624</td>
-</tr>
-<tr class="odd">
-<td align="left">Total</td>
-<td align="center">Total</td>
-<td align="center">107977.074</td>
-<td align="center">3465.568</td>
-<td align="center">101114.903</td>
-<td align="center">114839.246</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="estimación-de-proporciones" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> Estimación de proporciones<a href="#estimaci%C3%B3n-de-proporciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Las proporciones permiten expresar el peso relativo que tienen determinados grupos dentro de la población. Por ejemplo, conocer el porcentaje de hogares que se encuentran por debajo de la línea de pobreza es esencial para evaluar desigualdades y caracterizar condiciones de bienestar. Para obtener este tipo de indicadores, se calcula el promedio ponderado de la variable dicotómica, lo que asegura que la estimación represente adecuadamente la distribución poblacional. De acuerdo con <span class="citation">Heeringa et al. (<a href="#ref-heeringa2017applied">2017</a>)</span>, al convertir las categorías originales en variables indicadoras, la proporción estimada se calcula como:</p>
-<p><span class="math display">\[
-\hat{p}_d = \frac{\hat{N}_d}{\hat{N}} = \frac{\displaystyle\sum_{h} \sum_{i} \sum_{k} w_{hik} \ I(y_{hik}=d)} {\displaystyle\sum_{h} \sum_{i} \sum_{k} w_{hik}}
-\]</span></p>
-<p>Si bien este estimador es conceptualmente sencillo, corresponde a una función no lineal de los totales poblacionales. Por esta razón, para derivar sus propiedades estadísticas, particularmente su varianza y error estándar, es necesario recurrir a métodos de aproximación como la linealización de Taylor. En este contexto, se utiliza la función <span class="math inline">\(z_{hik}=I(y_{hik}=d)-\hat{p}_d\)</span>. En la práctica, los programas estadísticos implementan automáticamente estos procedimientos y generan las estimaciones de proporciones junto con sus respectivos errores estándar e intervalos de confianza.</p>
-<p>Cuando las proporciones toman valores muy cercanos a 0 o a 1, la precisión de las estimaciones puede verse afectada, por lo que en muchos casos es necesario contar con tamaños muestrales mayores para obtener resultados estables y confiables. Esta situación es especialmente relevante en el análisis de fenómenos poco frecuentes o altamente concentrados, donde pequeñas variaciones en la muestra pueden producir cambios importantes en las estimaciones.</p>
-<p>Adicionalmente, los intervalos de confianza construidos mediante aproximaciones normales pueden presentar límites inferiores menores que 0 o superiores mayores que 1, lo que dificulta su interpretación al tratarse de proporciones. Para evitar este problema, una alternativa ampliamente utilizada consiste en aplicar la transformación logit antes de construir los intervalos de confianza. Este procedimiento garantiza que, al regresar a la escala original, los límites obtenidos permanezcan dentro del rango válido de las proporciones.</p>
-<p><span class="math display">\[
-CI(\hat{p}_d; 1-\alpha) = \frac{exp \left[ln\left(\frac{\hat{p}_d}{1-\hat{p}_d}\right) \pm \frac{\widehat{me}}{\hat{p}_d(1-\hat{p}_d)}\right]}{1 + exp \left[ln\left(\frac{\hat{p}_d}{1-\hat{p}_d}\right) \pm \frac{\widehat{me}}{\hat{p}_d(1-\hat{p}_d)}\right]}
-\]</span></p>
-<p>En donde <span class="math inline">\(\widehat{me}\)</span> corresponde al margen de error estimado y se obtiene a partir del producto entre el valor crítico de la distribución <span class="math inline">\(t\)</span> de Student y el error estándar estimado de la proporción <span class="math inline">\(\hat{p}_d\)</span>. El término <span class="math inline">\(t_{1-\alpha/2, df}\)</span> representa el percentil asociado al nivel de confianza seleccionado, considerando <span class="math inline">\(df\)</span> grados de libertad. En el contexto de encuestas complejas, estos grados de libertad suelen definirse como la diferencia entre el número de unidades primarias de muestreo (UPM) y el número de estratos presentes en el subgrupo o dominio de análisis.</p>
-<p>A diferencia de otros programas estadísticos que presentan los resultados en porcentaje, <code>R</code> reporta las proporciones en la escala [0,1]. Las funciones de estos paquetes permiten calcular directamente las estimaciones, sus errores estándar e intervalos de confianza, lo que facilita el análisis de variables categóricas en encuestas de hogares. A continuación se ilustra cómo obtener la proporción de personas por zona usando el diseño muestral previamente definido, presentada en la Tabla <a href="cap4.html#tab:tab-prop-zona">4.5</a>:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="cap4.html#cb60-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
-<span id="cb60-2"><a href="cap4.html#cb60-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span> </span>
-<span id="cb60-3"><a href="cap4.html#cb60-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prop =</span> <span class="fu">survey_mean</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>), </span>
-<span id="cb60-4"><a href="cap4.html#cb60-4" tabindex="-1"></a>                               <span class="at">proportion =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-prop-zona">Cuadro 4.5: </span>Proporción de personas por zona geográfica</caption>
-<thead>
-<tr class="header">
-<th align="left">Zone</th>
-<th align="center">prop</th>
-<th align="center">prop_se</th>
-<th align="center">prop_low</th>
-<th align="center">prop_upp</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Rural</td>
-<td align="center">0.48</td>
-<td align="center">0.014</td>
-<td align="center">0.452</td>
-<td align="center">0.508</td>
-</tr>
-<tr class="even">
-<td align="left">Urban</td>
-<td align="center">0.52</td>
-<td align="center">0.014</td>
-<td align="center">0.492</td>
-<td align="center">0.548</td>
-</tr>
-</tbody>
-</table>
-<p>En este ejemplo, la función <code>survey_mean()</code> se utiliza para calcular la estimación de proporciones poblacionales y, mediante el argumento <code>proportion = TRUE</code>, se especifica que el interés se centra en estimar la distribución relativa de la población entre las distintas categorías de la variable analizada. Los resultados indican que aproximadamente el 47.9% de las personas reside en la zona rural, con un intervalo de confianza del 95% entre 45.2% y 50.7%, mientras que el 52.0% corresponde a población residente en la zona urbana, con un intervalo de confianza entre 49.2% y 54.7%.</p>
-<p>La librería <code>survey</code> también dispone de la función <code>survey_prop()</code>, diseñada específicamente para la estimación de proporciones en encuestas complejas. Esta función produce resultados equivalentes a los obtenidos con <code>survey_mean()</code>, facilitando además una sintaxis más directa e intuitiva cuando el objetivo del análisis es exclusivamente el cálculo de proporciones. Los resultados obtenidos mediante esta alternativa se presentan en la Tabla <a href="cap4.html#tab:tab-prop-zona2">4.6</a>.</p>
-<p>A partir de estas estimaciones se observa que, en la zona urbana, el 53.6% de la población corresponde a mujeres, con un intervalo de confianza del 95% entre 51.0% y 56.2%, mientras que el 46.4% corresponde a hombres, con un intervalo de confianza entre 43.7% y 48.9%. Estos resultados permiten apreciar no solo la distribución porcentual de la población según sexo, sino también el nivel de precisión asociado a las estimaciones.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="cap4.html#cb61-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
-<span id="cb61-2"><a href="cap4.html#cb61-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span> </span>
-<span id="cb61-3"><a href="cap4.html#cb61-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prop =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-prop-zona2">Cuadro 4.6: </span>Proporción de personas por zona geográfica (función survey_prop)</caption>
-<thead>
-<tr class="header">
-<th align="left">Zone</th>
-<th align="center">prop</th>
-<th align="center">prop_se</th>
-<th align="center">prop_low</th>
-<th align="center">prop_upp</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Rural</td>
-<td align="center">0.48</td>
-<td align="center">0.014</td>
-<td align="center">0.452</td>
-<td align="center">0.508</td>
-</tr>
-<tr class="even">
-<td align="left">Urban</td>
-<td align="center">0.52</td>
-<td align="center">0.014</td>
-<td align="center">0.492</td>
-<td align="center">0.548</td>
-</tr>
-</tbody>
-</table>
-<p>Si el interés se centra ahora en estimar proporciones para subpoblaciones específicas, por ejemplo, la proporción de hombres y mujeres que residen en la zona urbana, es necesario restringir el análisis a dicho dominio de estudio y posteriormente calcular las estimaciones correspondientes para cada categoría de sexo. El código computacional correspondiente se presenta en la Tabla <a href="cap4.html#tab:tab-prop-sexo-urbano">4.7</a>.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="cap4.html#cb62-1" tabindex="-1"></a>sub_Urbano <span class="sc">%&gt;%</span> </span>
-<span id="cb62-2"><a href="cap4.html#cb62-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span> </span>
-<span id="cb62-3"><a href="cap4.html#cb62-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prop =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-prop-sexo-urbano">Cuadro 4.7: </span>Proporción de hombres y mujeres en zona urbana</caption>
-<thead>
-<tr class="header">
-<th align="left">Sex</th>
-<th align="center">prop</th>
-<th align="center">prop_se</th>
-<th align="center">prop_low</th>
-<th align="center">prop_upp</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Female</td>
-<td align="center">0.537</td>
-<td align="center">0.013</td>
-<td align="center">0.511</td>
-<td align="center">0.563</td>
-</tr>
-<tr class="even">
-<td align="left">Male</td>
-<td align="center">0.463</td>
-<td align="center">0.013</td>
-<td align="center">0.437</td>
-<td align="center">0.489</td>
-</tr>
-</tbody>
-</table>
-<p>De manera análoga, es posible realizar el mismo ejercicio para la población residente en la zona rural, estimando la proporción de hombres y mujeres. Este tipo de desagregación permite comparar la composición poblacional según sexo entre las áreas urbana y rural, proporcionando una visión más detallada de las características demográficas de la población encuestada. Los resultados correspondientes se presentan en la Tabla <a href="cap4.html#tab:tab-prop-sexo-rural">4.8</a>.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="cap4.html#cb63-1" tabindex="-1"></a>sub_Rural <span class="sc">%&gt;%</span> </span>
-<span id="cb63-2"><a href="cap4.html#cb63-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span> </span>
-<span id="cb63-3"><a href="cap4.html#cb63-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n    =</span> <span class="fu">unweighted</span>(<span class="fu">n</span>()),</span>
-<span id="cb63-4"><a href="cap4.html#cb63-4" tabindex="-1"></a>            <span class="at">prop =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-prop-sexo-rural">Cuadro 4.8: </span>Proporción de hombres y mujeres en zona rural</caption>
-<thead>
-<tr class="header">
-<th align="left">Sex</th>
-<th align="center">n</th>
-<th align="center">prop</th>
-<th align="center">prop_se</th>
-<th align="center">prop_low</th>
-<th align="center">prop_upp</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Female</td>
-<td align="center">679</td>
-<td align="center">0.516</td>
-<td align="center">0.008</td>
-<td align="center">0.500</td>
-<td align="center">0.533</td>
-</tr>
-<tr class="even">
-<td align="left">Male</td>
-<td align="center">618</td>
-<td align="center">0.484</td>
-<td align="center">0.008</td>
-<td align="center">0.467</td>
-<td align="center">0.500</td>
-</tr>
-</tbody>
-</table>
-<p>Ahora bien, si el análisis se restringe únicamente a la población masculina incluida en la base de datos y el interés consiste en estimar la distribución porcentual de los hombres según la zona de residencia, es posible calcular la proporción de hombres que viven en áreas urbanas y rurales utilizando el diseño muestral previamente definido. El código computacional correspondiente se presenta en la Tabla <a href="cap4.html#tab:tab-prop-zona-hombre">4.9</a>.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="cap4.html#cb64-1" tabindex="-1"></a>sub_Hombre <span class="sc">%&gt;%</span> </span>
-<span id="cb64-2"><a href="cap4.html#cb64-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span> </span>
-<span id="cb64-3"><a href="cap4.html#cb64-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prop =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-prop-zona-hombre">Cuadro 4.9: </span>Distribución por zona en la subpoblación masculina</caption>
-<thead>
-<tr class="header">
-<th align="left">Zone</th>
-<th align="center">prop</th>
-<th align="center">prop_se</th>
-<th align="center">prop_low</th>
-<th align="center">prop_upp</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Rural</td>
-<td align="center">0.491</td>
-<td align="center">0.018</td>
-<td align="center">0.455</td>
-<td align="center">0.526</td>
-</tr>
-<tr class="even">
-<td align="left">Urban</td>
-<td align="center">0.509</td>
-<td align="center">0.018</td>
-<td align="center">0.474</td>
-<td align="center">0.545</td>
-</tr>
-</tbody>
-</table>
-<p>Si se desea estimar resultados con varios niveles de desagregación, al igual que en los capítulos anteriores, el uso de la función <code>group_by()</code> permite generar distintos niveles de agregación mediante la combinación de dos o más variables categóricas. Por ejemplo, es posible estimar la proporción de hombres según zona de residencia y condición de pobreza de manera simultánea. Este tipo de análisis permite caracterizar con mayor detalle las condiciones socioeconómicas de subpoblaciones específicas. El procedimiento correspondiente se presenta en la Tabla <a href="cap4.html#tab:tab-prop-zona-pobreza-hombre">4.10</a>.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="cap4.html#cb65-1" tabindex="-1"></a>sub_Hombre <span class="sc">%&gt;%</span></span>
-<span id="cb65-2"><a href="cap4.html#cb65-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone, Poverty) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-3"><a href="cap4.html#cb65-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prop =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-prop-zona-pobreza-hombre">Cuadro 4.10: </span>Proporción de hombres por zona y condición de pobreza</caption>
-<thead>
-<tr class="header">
-<th align="left">Zone</th>
-<th align="center">Poverty</th>
-<th align="center">prop</th>
-<th align="center">prop_se</th>
-<th align="center">prop_low</th>
-<th align="center">prop_upp</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Rural</td>
-<td align="center">NotPoor</td>
-<td align="center">0.549</td>
-<td align="center">0.063</td>
-<td align="center">0.424</td>
-<td align="center">0.668</td>
-</tr>
-<tr class="even">
-<td align="left">Rural</td>
-<td align="center">Extreme</td>
-<td align="center">0.198</td>
-<td align="center">0.067</td>
-<td align="center">0.096</td>
-<td align="center">0.364</td>
-</tr>
-<tr class="odd">
-<td align="left">Rural</td>
-<td align="center">Relative</td>
-<td align="center">0.254</td>
-<td align="center">0.037</td>
-<td align="center">0.187</td>
-<td align="center">0.334</td>
-</tr>
-<tr class="even">
-<td align="left">Urban</td>
-<td align="center">NotPoor</td>
-<td align="center">0.660</td>
-<td align="center">0.037</td>
-<td align="center">0.584</td>
-<td align="center">0.728</td>
-</tr>
-<tr class="odd">
-<td align="left">Urban</td>
-<td align="center">Extreme</td>
-<td align="center">0.113</td>
-<td align="center">0.025</td>
-<td align="center">0.073</td>
-<td align="center">0.171</td>
-</tr>
-<tr class="even">
-<td align="left">Urban</td>
-<td align="center">Relative</td>
-<td align="center">0.227</td>
-<td align="center">0.026</td>
-<td align="center">0.180</td>
-<td align="center">0.283</td>
-</tr>
-</tbody>
-</table>
-<p>A partir de los resultados obtenidos se observa que, en la zona rural, el 19.7% de los hombres se encuentra en situación de pobreza extrema, mientras que en la zona urbana esta proporción corresponde al 11.3%. Aunque las estimaciones puntuales sugieren una mayor incidencia de pobreza extrema en la ruralidad, la comparación de los intervalos de confianza indica que no existe evidencia suficiente para concluir que las diferencias sean estadísticamente significativas al nivel de confianza considerado, debido a que ambos intervalos presentan superposición.</p>
-<p>También es posible categorizar variables cuantitativas para facilitar su análisis conjunto con otras variables categóricas. Por ejemplo, la edad puede agruparse en rangos etarios específicos y posteriormente cruzarse con variables relacionadas con la situación en el empleo. Este tipo de procedimiento resulta útil para identificar diferencias en la participación laboral entre distintos grupos de edad.</p>
-<p>A continuación, la variable edad se clasifica en dos categorías para la población femenina: mujeres entre 18 y 35 años, y mujeres pertenecientes a otros rangos de edad. Posteriormente, estas categorías se analizan en conjunto con la variable de empleabilidad, permitiendo estimar la distribución de la condición laboral según grupo etario. Los resultados correspondientes se presentan en la Tabla <a href="cap4.html#tab:tab-prop-edad-rango-empleo-mujer">4.11</a>.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="cap4.html#cb66-1" tabindex="-1"></a>sub_Mujer <span class="sc">%&gt;%</span> </span>
-<span id="cb66-2"><a href="cap4.html#cb66-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Employment)) <span class="sc">%&gt;%</span> </span>
-<span id="cb66-3"><a href="cap4.html#cb66-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edad_rango =</span> <span class="fu">case_when</span>(</span>
-<span id="cb66-4"><a href="cap4.html#cb66-4" tabindex="-1"></a>                      Age<span class="sc">&gt;=</span> <span class="dv">18</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;=</span><span class="dv">35</span>  <span class="sc">~</span> <span class="st">&quot;18 - 35&quot;</span>, </span>
-<span id="cb66-5"><a href="cap4.html#cb66-5" tabindex="-1"></a>                      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;Otro&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb66-6"><a href="cap4.html#cb66-6" tabindex="-1"></a>  <span class="fu">group_by</span>(edad_rango, Employment) <span class="sc">%&gt;%</span> </span>
-<span id="cb66-7"><a href="cap4.html#cb66-7" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Prop =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-prop-edad-rango-empleo-mujer">Cuadro 4.11: </span>Proporción de mujeres por rango de edad y estado de ocupación</caption>
-<thead>
-<tr class="header">
-<th align="left">edad_rango</th>
-<th align="center">Employment</th>
-<th align="center">Prop</th>
-<th align="center">Prop_se</th>
-<th align="center">Prop_low</th>
-<th align="center">Prop_upp</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">18 - 35</td>
-<td align="center">Unemployed</td>
-<td align="center">0.029</td>
-<td align="center">0.009</td>
-<td align="center">0.015</td>
-<td align="center">0.054</td>
-</tr>
-<tr class="even">
-<td align="left">18 - 35</td>
-<td align="center">Inactive</td>
-<td align="center">0.517</td>
-<td align="center">0.038</td>
-<td align="center">0.442</td>
-<td align="center">0.591</td>
-</tr>
-<tr class="odd">
-<td align="left">18 - 35</td>
-<td align="center">Employed</td>
-<td align="center">0.455</td>
-<td align="center">0.036</td>
-<td align="center">0.385</td>
-<td align="center">0.526</td>
-</tr>
-<tr class="even">
-<td align="left">Otro</td>
-<td align="center">Unemployed</td>
-<td align="center">0.016</td>
-<td align="center">0.007</td>
-<td align="center">0.007</td>
-<td align="center">0.036</td>
-</tr>
-<tr class="odd">
-<td align="left">Otro</td>
-<td align="center">Inactive</td>
-<td align="center">0.571</td>
-<td align="center">0.030</td>
-<td align="center">0.511</td>
-<td align="center">0.629</td>
-</tr>
-<tr class="even">
-<td align="left">Otro</td>
-<td align="center">Employed</td>
-<td align="center">0.413</td>
-<td align="center">0.029</td>
-<td align="center">0.356</td>
-<td align="center">0.472</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="contrastes-y-diferencias-de-proporciones" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> Contrastes y diferencias de proporciones<a href="cap4.html#contrastes-y-diferencias-de-proporciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Según <span class="citation">Heeringa et al. (<a href="#ref-heeringa2017applied">2017</a>)</span>, las proporciones obtenidas en las filas de una tabla de doble entrada pueden interpretarse como estimaciones para distintas subpoblaciones, definidas a partir de los niveles de una variable categórica. En este contexto, no solo resulta relevante estimar las proporciones asociadas a cada grupo, sino también evaluar las diferencias existentes entre ellas mediante contrastes lineales.</p>
-<p>Por ejemplo, suponga que el interés está en comparar la proporción de mujeres en condición de pobreza con la proporción de hombres en esta misma situación. Formalmente, este contraste puede expresarse como <span class="math inline">\(\hat{p}_F - \hat{p}_M\)</span>, donde <span class="math inline">\(\hat{p}_F\)</span> representa la proporción estimada de mujeres en pobreza y <span class="math inline">\(\hat{p}_M\)</span> la proporción estimada de hombres en dicha condición. Para construir este contraste, primero se estiman las proporciones de hombres y mujeres en estado de pobreza utilizando el mismo procedimiento descrito en capítulos anteriores. Los resultados correspondientes se presentan en la Tabla <a href="cap4.html#tab:tab-svyby-pobreza-sexo2">4.12</a>:</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="cap4.html#cb67-1" tabindex="-1"></a>tab_sex_pobreza <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>pobreza, <span class="at">by =</span> <span class="sc">~</span>Sex,</span>
-<span id="cb67-2"><a href="cap4.html#cb67-2" tabindex="-1"></a>                         <span class="at">design =</span> diseno, svymean, <span class="at">na.rm=</span>T,</span>
-<span id="cb67-3"><a href="cap4.html#cb67-3" tabindex="-1"></a>                         <span class="at">covmat =</span> <span class="cn">TRUE</span>, <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-svyby-pobreza-sexo2">Cuadro 4.12: </span>Proporción en condición de pobreza por sexo</caption>
-<thead>
-<tr class="header">
-<th align="left"></th>
-<th align="left">Sex</th>
-<th align="center">pobreza</th>
-<th align="center">se</th>
-<th align="center">ci_l</th>
-<th align="center">ci_u</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Female</td>
-<td align="left">Female</td>
-<td align="center">0.389</td>
-<td align="center">0.032</td>
-<td align="center">0.327</td>
-<td align="center">0.451</td>
-</tr>
-<tr class="even">
-<td align="left">Male</td>
-<td align="left">Male</td>
-<td align="center">0.395</td>
-<td align="center">0.037</td>
-<td align="center">0.323</td>
-<td align="center">0.466</td>
-</tr>
-</tbody>
-</table>
-<p>Una vez estimadas las proporciones de hombres y mujeres en condición de pobreza, es posible calcular la diferencia entre ambas proporciones junto con su correspondiente error estándar. En este caso, la diferencia estimada se obtiene restando la proporción de hombres en pobreza a la proporción de mujeres en esta misma condición:</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="cap4.html#cb68-1" tabindex="-1"></a><span class="fl">0.3892</span> <span class="sc">-</span> <span class="fl">0.3946</span>          </span></code></pre></div>
-<pre><code>## [1] -0.0054</code></pre>
-<p>Para calcular correctamente la variabilidad asociada a esta diferencia, no basta con considerar únicamente las varianzas de cada estimación por separado. También es necesario incorporar la covarianza entre ambas proporciones, dado que las estimaciones provienen de una misma muestra y, por tanto, no son independientes. La matriz de varianzas y covarianzas puede obtenerse mediante la función <code>vcov</code>, cuyos resultados se presentan en la Tabla <a href="cap4.html#tab:tab-vcov-sex-pobreza">4.13</a>:</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="cap4.html#cb70-1" tabindex="-1"></a><span class="fu">vcov</span>(tab_sex_pobreza) <span class="sc">%&gt;%</span></span>
-<span id="cb70-2"><a href="cap4.html#cb70-2" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-vcov-sex-pobreza">Cuadro 4.13: </span>Matriz de varianzas y covarianzas de la proporción de pobreza por sexo</caption>
-<thead>
-<tr class="header">
-<th align="left"></th>
-<th align="left">Female</th>
-<th align="center">Male</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Female</td>
-<td align="left">0.0009982953</td>
-<td align="center">0.0009182927</td>
-</tr>
-<tr class="even">
-<td align="left">Male</td>
-<td align="left">0.0009182927</td>
-<td align="center">0.0013415823</td>
-</tr>
-</tbody>
-</table>
-<p>A partir de esta matriz, el error estándar de la diferencia de proporciones se estima utilizando la expresión general para la varianza de una diferencia entre estimadores, la cual corresponde a la suma de las varianzas de cada estimación menos dos veces la covarianza entre ellas. En este caso, el cálculo se realiza de la siguiente manera:</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="cap4.html#cb71-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fl">0.0009983</span> <span class="sc">+</span> <span class="fl">0.0013416</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="fl">0.0009183</span>)</span></code></pre></div>
-<pre><code>## [1] 0.02243435</code></pre>
-<p>No obstante, el paquete <code>survey</code> permite realizar este procedimiento de forma directa mediante la función <code>svycontrast</code>, la cual calcula tanto el contraste lineal como su error estándar asociado. Para obtener la diferencia entre las proporciones de mujeres y hombres en condición de pobreza, se utiliza el siguiente código:</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="cap4.html#cb73-1" tabindex="-1"></a><span class="fu">svycontrast</span>(tab_sex_pobreza,</span>
-<span id="cb73-2"><a href="cap4.html#cb73-2" tabindex="-1"></a>            <span class="fu">list</span>(<span class="at">diff_Sex =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb73-3"><a href="cap4.html#cb73-3" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span></code></pre></div>
-<pre><code>##              contrast   diff_Sex
-## diff_Sex -0.005322297 0.02243418</code></pre>
-<p>De lo que se concluye que, la diferencia entre las proporciones de mujeres y hombres en estado de pobreza es -0.005 (-0.5%) con una error estándar de 0.022, indicando que la proporción estimada de mujeres en condición de pobreza es ligeramente menor que la observada en los hombres.</p>
-<p>Otro ejercicio que puede desarrollarse a partir de una encuesta de hogares consiste en estimar la proporción de personas desempleadas según la región de residencia. Para ello, estima las proporciones de desempleo para cada una de las regiones consideradas en el análisis. Los resultados obtenidos se presentan en la Tabla <a href="cap4.html#tab:tab-svyby-desempleo-region">4.14</a>:</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="cap4.html#cb75-1" tabindex="-1"></a>tab_region_desempleo <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span>  <span class="sc">~</span>desempleo, <span class="at">by =</span> <span class="sc">~</span>Region,</span>
-<span id="cb75-2"><a href="cap4.html#cb75-2" tabindex="-1"></a>                              <span class="at">design  =</span> diseno <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(desempleo)),</span>
-<span id="cb75-3"><a href="cap4.html#cb75-3" tabindex="-1"></a>                              <span class="at">FUN     =</span> svymean, <span class="at">na.rm=</span>T, <span class="at">covmat =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb75-4"><a href="cap4.html#cb75-4" tabindex="-1"></a>                              <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-svyby-desempleo-region">Cuadro 4.14: </span>Proporción en condición de desempleo por región</caption>
-<thead>
-<tr class="header">
-<th align="left"></th>
-<th align="left">Region</th>
-<th align="center">desempleo</th>
-<th align="center">se</th>
-<th align="center">ci_l</th>
-<th align="center">ci_u</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Norte</td>
-<td align="left">Norte</td>
-<td align="center">0.049</td>
-<td align="center">0.020</td>
-<td align="center">0.010</td>
-<td align="center">0.088</td>
-</tr>
-<tr class="even">
-<td align="left">Sur</td>
-<td align="left">Sur</td>
-<td align="center">0.066</td>
-<td align="center">0.024</td>
-<td align="center">0.019</td>
-<td align="center">0.112</td>
-</tr>
-<tr class="odd">
-<td align="left">Centro</td>
-<td align="left">Centro</td>
-<td align="center">0.039</td>
-<td align="center">0.012</td>
-<td align="center">0.014</td>
-<td align="center">0.063</td>
-</tr>
-<tr class="even">
-<td align="left">Occidente</td>
-<td align="left">Occidente</td>
-<td align="center">0.040</td>
-<td align="center">0.012</td>
-<td align="center">0.016</td>
-<td align="center">0.064</td>
-</tr>
-<tr class="odd">
-<td align="left">Oriente</td>
-<td align="left">Oriente</td>
-<td align="center">0.030</td>
-<td align="center">0.013</td>
-<td align="center">0.005</td>
-<td align="center">0.054</td>
-</tr>
-</tbody>
-</table>
-<p>Una vez estimadas las proporciones de desempleo por región, el siguiente paso consiste en evaluar si existen diferencias estadísticamente significativas entre algunas de estas proporciones mediante contrastes lineales. En particular, el interés se centra en comparar las diferencias entre las proporciones estimadas de desempleo de distintas regiones. Los contrastes considerados corresponden a <span class="math inline">\(\hat{p}_{Norte} - \hat{p}_{Centro} = 0.01004\)</span>, <span class="math inline">\(\hat{p}_{Sur} - \hat{p}_{Centro} = 0.02691\)</span> y <span class="math inline">\(\hat{p}_{Occidente} - \hat{p}_{Oriente} = 0.01046\)</span>. De manera matricial, estos contrastes entre regiones pueden escribirse así:</p>
-<p><span class="math display">\[
-\left[\begin{array}{ccccc}
-1 &amp; 0 &amp; -1 &amp; 0 &amp; 0\\
-0 &amp; 1 &amp; -1 &amp; 0 &amp; 0\\
-0 &amp; 0 &amp; 0 &amp; 1 &amp; -1
-\end{array}\right]
-\]</span></p>
-<p>Para calcular los errores estándar asociados a cada uno de los contrastes anteriores, es necesario considerar no solo las varianzas de las estimaciones regionales, sino también las covarianzas entre ellas. Esta información se resume en la matriz de varianzas y covarianzas de las proporciones estimadas de desempleo por región, presentada a continuación:</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="cap4.html#cb76-1" tabindex="-1"></a><span class="fu">vcov</span>(tab_region_desempleo) <span class="sc">%&gt;%</span></span>
-<span id="cb76-2"><a href="cap4.html#cb76-2" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span></code></pre></div>
-<table>
-<thead>
-<tr class="header">
-<th align="left"></th>
-<th align="left">Norte</th>
-<th align="center">Sur</th>
-<th align="center">Centro</th>
-<th align="center">Occidente</th>
-<th align="center">Oriente</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Norte</td>
-<td align="left">0</td>
-<td align="center">0.000</td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-<tr class="even">
-<td align="left">Sur</td>
-<td align="left">0</td>
-<td align="center">0.001</td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-<tr class="odd">
-<td align="left">Centro</td>
-<td align="left">0</td>
-<td align="center">0.000</td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-<tr class="even">
-<td align="left">Occidente</td>
-<td align="left">0</td>
-<td align="center">0.000</td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-<tr class="odd">
-<td align="left">Oriente</td>
-<td align="left">0</td>
-<td align="center">0.000</td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-</tbody>
-</table>
-<p>Nótese que las covarianzas entre las estimaciones regionales son iguales a cero debido a que las muestras seleccionadas en cada región son independientes entre sí. Por tanto, el error estándar de cada contraste se obtiene aplicando la expresión de la varianza para la diferencia entre dos estimadores. En este caso, dado que, el cálculo se reduce a la raíz cuadrada de la suma de las varianzas correspondientes:</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="cap4.html#cb77-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fl">0.0002981</span> <span class="sc">+</span> <span class="fl">0.0002884</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="dv">0</span>)</span></code></pre></div>
-<pre><code>## [1] 0.02421776</code></pre>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="cap4.html#cb79-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fl">0.0001968</span> <span class="sc">+</span> <span class="fl">0.0002884</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="dv">0</span>)</span></code></pre></div>
-<pre><code>## [1] 0.02202726</code></pre>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="cap4.html#cb81-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fl">0.0001267</span> <span class="sc">+</span> <span class="fl">0.0004093</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="dv">0</span>)</span></code></pre></div>
-<pre><code>## [1] 0.02315167</code></pre>
-<p>Alternativamente, el paquete <code>survey</code> permite calcular estos contrastes de manera directa mediante la función <code>svycontrast</code>, la cual obtiene tanto las diferencias estimadas entre proporciones como sus respectivos errores estándar. En este caso, la estimación de los contrastes definidos anteriormente se realiza de la siguiente manera:</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="cap4.html#cb83-1" tabindex="-1"></a><span class="fu">svycontrast</span>(tab_region_desempleo, <span class="fu">list</span>(</span>
-<span id="cb83-2"><a href="cap4.html#cb83-2" tabindex="-1"></a>                             <span class="at">Norte_sur =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
-<span id="cb83-3"><a href="cap4.html#cb83-3" tabindex="-1"></a>                             <span class="at">Sur_centro =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
-<span id="cb83-4"><a href="cap4.html#cb83-4" tabindex="-1"></a>                             <span class="at">Occidente_Oriente =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb83-5"><a href="cap4.html#cb83-5" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span></code></pre></div>
-<pre><code>##                     contrast         SE
-## Norte_sur         0.01004463 0.02355327
-## Sur_centro        0.02690618 0.02679477
-## Occidente_Oriente 0.01046292 0.01758365</code></pre>
-</div>
-<div id="tablas-cruzadas" class="section level2 hasAnchor" number="4.4">
-<h2><span class="header-section-number">4.4</span> Tablas cruzadas<a href="cap4.html#tablas-cruzadas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Además de analizar cada variable de manera individual, resulta especialmente relevante estudiar si existe asociación entre dos variables categóricas. Este tipo de análisis permite identificar patrones y relaciones que aportan información valiosa para la toma de decisiones y la comprensión de fenómenos sociales. Por ejemplo, en el ámbito de las políticas públicas es posible relacionar educación y empleo para diseñar estrategias orientadas al mercado laboral; en la evaluación de programas sociales, analizar diferencias en el acceso a servicios de salud según el nivel de ingresos; y en investigación social, estudiar cómo variables demográficas y condiciones de vida se relacionan entre sí para comprender dinámicas y tendencias de la población.</p>
-<p>Formalmente, sean <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span> dos variables categóricas con <span class="math inline">\(R\)</span> categorías para las filas y <span class="math inline">\(C\)</span> categorías para las columnas, respectivamente. En el contexto de encuestas por muestreo, el interés suele centrarse en estimar la distribución conjunta de ambas variables, es decir, la proporción de unidades poblacionales que pertenecen simultáneamente a cada combinación posible de categorías. Para ello, las entradas de una tabla cruzada, también conocida como tabla de contingencia, se estiman mediante frecuencias ponderadas obtenidas a partir de los factores de expansión y del diseño muestral. La estimación del total poblacional asociado a cada celda <span class="math inline">\((r,c)\)</span> se define como:</p>
-<p><span class="math display">\[
-\hat{N}_{rc} = \sum_{h} \sum_{i} \sum_{k} w_{hik} \ I(x_{hik}=r,\ y_{hik}=c),
-\]</span></p>
-<p>donde <span class="math inline">\(w_{hik}\)</span> representa el factor de expansión asociado al elemento <span class="math inline">\(k\)</span> de la UPM <span class="math inline">\(i\)</span> perteneciente al estrato <span class="math inline">\(h\)</span>, mientras que <span class="math inline">\(I(x_{hik}=r,\ y_{hik}=c)\)</span> corresponde a una función indicadora que toma el valor de uno cuando la unidad observada pertenece simultáneamente a la categoría <span class="math inline">\(r\)</span> de la variable <span class="math inline">\(x\)</span> y a la categoría <span class="math inline">\(c\)</span> de la variable <span class="math inline">\(y\)</span>, y toma el valor de cero en cualquier otro caso.</p>
-<p>Además de las frecuencias conjuntas, también es posible estimar los tamaños marginales por filas y columnas, definidos respectivamente como <span class="math inline">\(\hat{N}_{r+} = \sum_{c=1}^{C} \hat{N}_{rc}\)</span> y <span class="math inline">\(\hat{N}_{+c} = \sum_{r=1}^{R} \hat{N}_{rc}\)</span>. Mientras que el total general se expresa como <span class="math inline">\(\hat{N}_{++} = \sum_{r=1}^{R}\sum_{c=1}^{C} \hat{N}_{rc}\)</span>. La estructura general de una tabla de contingencia con <span class="math inline">\(R\)</span> filas y <span class="math inline">\(C\)</span> columnas puede representarse de la siguiente forma:</p>
-<table style="width:100%;">
-<colgroup>
-<col width="21%" />
-<col width="14%" />
-<col width="16%" />
-<col width="12%" />
-<col width="16%" />
-<col width="17%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Variable 2</th>
-<th>Variable 1</th>
-<th></th>
-<th><span class="math inline">\(\cdots\)</span></th>
-<th></th>
-<th>Marginal fila</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-<td><span class="math inline">\(1\)</span></td>
-<td><span class="math inline">\(2\)</span></td>
-<td><span class="math inline">\(\cdots\)</span></td>
-<td><span class="math inline">\(C\)</span></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(1\)</span></td>
-<td><span class="math inline">\(\hat{N}_{11}\)</span></td>
-<td><span class="math inline">\(\hat{N}_{12}\)</span></td>
-<td><span class="math inline">\(\cdots\)</span></td>
-<td><span class="math inline">\(\hat{N}_{1C}\)</span></td>
-<td><span class="math inline">\(\hat{N}_{1+}\)</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(2\)</span></td>
-<td><span class="math inline">\(\hat{N}_{21}\)</span></td>
-<td><span class="math inline">\(\hat{N}_{22}\)</span></td>
-<td><span class="math inline">\(\cdots\)</span></td>
-<td><span class="math inline">\(\hat{N}_{2C}\)</span></td>
-<td><span class="math inline">\(\hat{N}_{2+}\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\vdots\)</span></td>
-<td><span class="math inline">\(\vdots\)</span></td>
-<td><span class="math inline">\(\vdots\)</span></td>
-<td><span class="math inline">\(\ddots\)</span></td>
-<td><span class="math inline">\(\vdots\)</span></td>
-<td><span class="math inline">\(\vdots\)</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(R\)</span></td>
-<td><span class="math inline">\(\hat{N}_{R1}\)</span></td>
-<td><span class="math inline">\(\hat{N}_{R2}\)</span></td>
-<td><span class="math inline">\(\cdots\)</span></td>
-<td><span class="math inline">\(\hat{N}_{RC}\)</span></td>
-<td><span class="math inline">\(\hat{N}_{R+}\)</span></td>
-</tr>
-<tr class="even">
-<td>Marginal columna</td>
-<td><span class="math inline">\(\hat{N}_{+1}\)</span></td>
-<td><span class="math inline">\(\hat{N}_{+2}\)</span></td>
-<td><span class="math inline">\(\cdots\)</span></td>
-<td><span class="math inline">\(\hat{N}_{+C}\)</span></td>
-<td><span class="math inline">\(\hat{N}_{++}\)</span></td>
-</tr>
-</tbody>
-</table>
-<p>De manera tradicional, las tablas de contingencia suelen representarse como arreglos bidimensionales de dimensión <span class="math inline">\(R \times C\)</span>. Sin embargo, también pueden extenderse para incorporar una o más variables adicionales, generando subconjuntos o subtablas que permiten estudiar relaciones más complejas entre variables categóricas. A partir de los tamaños estimados, también pueden estimarse proporciones para cada celda de la tabla de contingencia, de la siguiente manera:</p>
-<p><span class="math display">\[
-\hat{p}_{rc}=\frac{\hat{N}_{rc}}{\hat{N}_{++}}
-\]</span></p>
-<p>A continuación, y siguiendo con la base de datos de ejemplo, se estima la distribución porcentual de hombres y mujeres según su condición de pobreza, incorporando además sus respectivos errores estándar e intervalos de confianza. Los resultados se presentan en la Tabla <a href="cap4.html#tab:tab-contingencia-pobreza-sexo">4.15</a>. Este tipo de análisis permite describir la composición de la población pobre según sexo y evaluar la precisión de las estimaciones obtenidas a partir del diseño muestral.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="cap4.html#cb85-1" tabindex="-1"></a>dsg <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span> </span>
-<span id="cb85-2"><a href="cap4.html#cb85-2" tabindex="-1"></a>       <span class="fu">mutate</span>(<span class="at">pobreza =</span> <span class="fu">factor</span>(pobreza, <span class="at">levels =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>,</span>
-<span id="cb85-3"><a href="cap4.html#cb85-3" tabindex="-1"></a>                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No pobre&quot;</span>, <span class="st">&quot;Pobre&quot;</span>))) </span></code></pre></div>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="cap4.html#cb86-1" tabindex="-1"></a>dsg <span class="sc">%&gt;%</span></span>
-<span id="cb86-2"><a href="cap4.html#cb86-2" tabindex="-1"></a>  <span class="fu">group_by</span>(pobreza,Sex) <span class="sc">%&gt;%</span></span>
-<span id="cb86-3"><a href="cap4.html#cb86-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prop =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-contingencia-pobreza-sexo">Cuadro 4.15: </span>Proporción de hombres y mujeres en condición de pobreza y no pobreza</caption>
-<thead>
-<tr class="header">
-<th align="left">pobreza</th>
-<th align="center">Sex</th>
-<th align="center">prop</th>
-<th align="center">prop_se</th>
-<th align="center">prop_low</th>
-<th align="center">prop_upp</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">No pobre</td>
-<td align="center">Female</td>
-<td align="center">0.529</td>
-<td align="center">0.012</td>
-<td align="center">0.505</td>
-<td align="center">0.554</td>
-</tr>
-<tr class="even">
-<td align="left">No pobre</td>
-<td align="center">Male</td>
-<td align="center">0.471</td>
-<td align="center">0.012</td>
-<td align="center">0.446</td>
-<td align="center">0.495</td>
-</tr>
-<tr class="odd">
-<td align="left">Pobre</td>
-<td align="center">Female</td>
-<td align="center">0.524</td>
-<td align="center">0.016</td>
-<td align="center">0.492</td>
-<td align="center">0.555</td>
-</tr>
-<tr class="even">
-<td align="left">Pobre</td>
-<td align="center">Male</td>
-<td align="center">0.476</td>
-<td align="center">0.016</td>
-<td align="center">0.445</td>
-<td align="center">0.508</td>
-</tr>
-</tbody>
-</table>
-<p>Los resultados indican que el 52.3% de la población en condición de pobreza corresponde a mujeres, mientras que el 47.6% corresponde a hombres. Para las mujeres, el intervalo de confianza al 95% se encuentra entre 49.2% y 55.5%, mientras que para los hombres el intervalo correspondiente se ubica entre 44.5% y 50.7%. Estas estimaciones permiten observar la distribución relativa de la pobreza según sexo, considerando además la incertidumbre inherente al proceso de muestreo.</p>
-<p>En la librería <code>survey</code> existe una alternativa para estimar tablas de contingencia mediante la función <code>svyby()</code>, la cual permite calcular estimaciones desagregadas para distintos grupos definidos por una o más variables categóricas. Para ello, es necesario especificar la variable sobre la cual se desea realizar la estimación (<code>formula</code>), las categorías o grupos de análisis (<code>by</code>), el diseño muestral (<code>design</code>) y la función asociada al parámetro que se desea estimar (<code>FUN</code>), como proporciones, medias o totales. En el siguiente ejemplo se estima la distribución de la condición de pobreza según sexo, obteniendo además medidas de precisión como errores estándar e intervalos de confianza. El código correspondiente y sus resultados se presentan en la Tabla <a href="cap4.html#tab:tab-svyby-pobreza-sexo">4.16</a>.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="cap4.html#cb87-1" tabindex="-1"></a>tab_Sex_Pobr <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>Sex, <span class="at">by =</span>  <span class="sc">~</span>pobreza, <span class="at">design =</span> dsg, <span class="at">FUN =</span> svymean) </span></code></pre></div>
-<table>
-<caption><span id="tab:tab-svyby-pobreza-sexo">Cuadro 4.16: </span>Proporción de hombres y mujeres por condición de pobreza (svyby)</caption>
-<thead>
-<tr class="header">
-<th align="left"></th>
-<th align="left">pobreza</th>
-<th align="center">SexFemale</th>
-<th align="center">SexMale</th>
-<th align="center">se.SexFemale</th>
-<th align="center">se.SexMale</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">No pobre</td>
-<td align="left">No pobre</td>
-<td align="center">0.529</td>
-<td align="center">0.471</td>
-<td align="center">0.012</td>
-<td align="center">0.012</td>
-</tr>
-<tr class="even">
-<td align="left">Pobre</td>
-<td align="left">Pobre</td>
-<td align="center">0.524</td>
-<td align="center">0.476</td>
-<td align="center">0.016</td>
-<td align="center">0.016</td>
-</tr>
-</tbody>
-</table>
-<p>Adicionalmente, los intervalos de confianza pueden obtenerse mediante la función <code>confint()</code>, la cual permite calcular automáticamente los límites inferior y superior asociados a las estimaciones realizadas. El procedimiento para la estimación de los intervalos de confianza se presenta en la Tabla <a href="cap4.html#tab:tab-confint-sexo-pobreza">4.17</a>. Nótese que lso intervalos coinciden con los generados anteriormente usando la función <code>group_by</code>.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="cap4.html#cb88-1" tabindex="-1"></a><span class="fu">confint</span>(tab_Sex_Pobr) <span class="sc">%&gt;%</span> </span>
-<span id="cb88-2"><a href="cap4.html#cb88-2" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb88-3"><a href="cap4.html#cb88-3" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">&quot;Dominio&quot;</span>)</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-confint-sexo-pobreza">Cuadro 4.17: </span>Intervalos de confianza para la proporción por sexo y pobreza</caption>
-<thead>
-<tr class="header">
-<th align="left">Dominio</th>
-<th align="center">2.5 %</th>
-<th align="center">97.5 %</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">No pobre:SexFemale</td>
-<td align="center">0.505</td>
-<td align="center">0.554</td>
-</tr>
-<tr class="even">
-<td align="left">Pobre:SexFemale</td>
-<td align="center">0.493</td>
-<td align="center">0.555</td>
-</tr>
-<tr class="odd">
-<td align="left">No pobre:SexMale</td>
-<td align="center">0.446</td>
-<td align="center">0.495</td>
-</tr>
-<tr class="even">
-<td align="left">Pobre:SexMale</td>
-<td align="center">0.445</td>
-<td align="center">0.507</td>
-</tr>
-</tbody>
-</table>
-<p>Otro análisis de interés relacionado con tablas de doble entrada en encuestas de hogares consiste en estimar el porcentaje de personas desempleadas según sexo. El procedimiento correspondiente y sus resultados se presentan en la Tabla <a href="cap4.html#tab:tab-svyby-empleo-sexo">4.18</a>.</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="cap4.html#cb89-1" tabindex="-1"></a>tab_Sex_Ocupa <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>Sex, <span class="at">by =</span> <span class="sc">~</span>Employment,</span>
-<span id="cb89-2"><a href="cap4.html#cb89-2" tabindex="-1"></a>                       <span class="at">design =</span> diseno, <span class="at">FUN =</span> svymean)</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-svyby-empleo-sexo">Cuadro 4.18: </span>Proporción de hombres y mujeres por estado de ocupación (svyby)</caption>
-<colgroup>
-<col width="16%" />
-<col width="16%" />
-<col width="16%" />
-<col width="13%" />
-<col width="20%" />
-<col width="17%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left"></th>
-<th align="left">Employment</th>
-<th align="center">SexFemale</th>
-<th align="center">SexMale</th>
-<th align="center">se.SexFemale</th>
-<th align="center">se.SexMale</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Unemployed</td>
-<td align="left">Unemployed</td>
-<td align="center">0.273</td>
-<td align="center">0.727</td>
-<td align="center">0.054</td>
-<td align="center">0.054</td>
-</tr>
-<tr class="even">
-<td align="left">Inactive</td>
-<td align="left">Inactive</td>
-<td align="center">0.770</td>
-<td align="center">0.230</td>
-<td align="center">0.023</td>
-<td align="center">0.023</td>
-</tr>
-<tr class="odd">
-<td align="left">Employed</td>
-<td align="left">Employed</td>
-<td align="center">0.405</td>
-<td align="center">0.595</td>
-<td align="center">0.019</td>
-<td align="center">0.019</td>
-</tr>
-</tbody>
-</table>
-<p>De la anterior salida se puede observar que, el 27.2% de las mujeres y el 72.7% de los hombres están desempleados con errores estándares para estas estimaciones de 5.3% para mujeres y hombres. cuyos intervalos de confianza se calculan a continuación, presentada en la Tabla <a href="cap4.html#tab:tab-confint-empleo-sexo">4.19</a>:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="cap4.html#cb90-1" tabindex="-1"></a><span class="fu">confint</span>(tab_Sex_Ocupa) <span class="sc">%&gt;%</span> </span>
-<span id="cb90-2"><a href="cap4.html#cb90-2" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb90-3"><a href="cap4.html#cb90-3" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">&quot;Dominio&quot;</span>)</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-confint-empleo-sexo">Cuadro 4.19: </span>Intervalos de confianza para la proporción por sexo y ocupación</caption>
-<thead>
-<tr class="header">
-<th align="left">Dominio</th>
-<th align="center">2.5 %</th>
-<th align="center">97.5 %</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Unemployed:SexFemale</td>
-<td align="center">0.168</td>
-<td align="center">0.378</td>
-</tr>
-<tr class="even">
-<td align="left">Inactive:SexFemale</td>
-<td align="center">0.724</td>
-<td align="center">0.816</td>
-</tr>
-<tr class="odd">
-<td align="left">Employed:SexFemale</td>
-<td align="center">0.369</td>
-<td align="center">0.441</td>
-</tr>
-<tr class="even">
-<td align="left">Unemployed:SexMale</td>
-<td align="center">0.622</td>
-<td align="center">0.832</td>
-</tr>
-<tr class="odd">
-<td align="left">Inactive:SexMale</td>
-<td align="center">0.184</td>
-<td align="center">0.276</td>
-</tr>
-<tr class="even">
-<td align="left">Employed:SexMale</td>
-<td align="center">0.559</td>
-<td align="center">0.631</td>
-</tr>
-</tbody>
-</table>
-<p>Si ahora el objetivo es estimar la pobreza, pero por las distintas regiones que se tienen en la base de datos. Primero, dado que la variable <code>pobreza</code> es de tipo numérica, es necesario convertirla en factor y luego realizar la estimación con la función <code>svyby</code>, como se muestra en la Tabla <a href="cap4.html#tab:tab-svyby-region-pobreza">4.20</a>.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="cap4.html#cb91-1" tabindex="-1"></a>tab_region_pobreza <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span><span class="fu">as.factor</span>(pobreza),  <span class="at">by =</span> <span class="sc">~</span>Region,</span>
-<span id="cb91-2"><a href="cap4.html#cb91-2" tabindex="-1"></a>                            <span class="at">design =</span>  diseno, <span class="at">FUN =</span> svymean)</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-svyby-region-pobreza">Cuadro 4.20: </span>Proporción en condición de pobreza por región</caption>
-<colgroup>
-<col width="9%" />
-<col width="9%" />
-<col width="19%" />
-<col width="19%" />
-<col width="21%" />
-<col width="21%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left"></th>
-<th align="left">Region</th>
-<th align="center">as.factor(pobreza)0</th>
-<th align="center">as.factor(pobreza)1</th>
-<th align="center">se.as.factor(pobreza)0</th>
-<th align="center">se.as.factor(pobreza)1</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Norte</td>
-<td align="left">Norte</td>
-<td align="center">0.641</td>
-<td align="center">0.359</td>
-<td align="center">0.055</td>
-<td align="center">0.055</td>
-</tr>
-<tr class="even">
-<td align="left">Sur</td>
-<td align="left">Sur</td>
-<td align="center">0.656</td>
-<td align="center">0.344</td>
-<td align="center">0.043</td>
-<td align="center">0.043</td>
-</tr>
-<tr class="odd">
-<td align="left">Centro</td>
-<td align="left">Centro</td>
-<td align="center">0.635</td>
-<td align="center">0.365</td>
-<td align="center">0.079</td>
-<td align="center">0.079</td>
-</tr>
-<tr class="even">
-<td align="left">Occidente</td>
-<td align="left">Occidente</td>
-<td align="center">0.599</td>
-<td align="center">0.401</td>
-<td align="center">0.047</td>
-<td align="center">0.047</td>
-</tr>
-<tr class="odd">
-<td align="left">Oriente</td>
-<td align="left">Oriente</td>
-<td align="center">0.548</td>
-<td align="center">0.452</td>
-<td align="center">0.088</td>
-<td align="center">0.088</td>
-</tr>
-</tbody>
-</table>
-<p>De lo anterior se puede concluir que, en la región Norte, el 35% de las personas están en estado de pobreza mientras que en el sur es el 34%. La pobreza más alta se tiene en la región oriente con un 45% de pobres. Los errores estándares de las estimaciones.</p>
-</div>
-<div id="la-razón-de-odds" class="section level2 hasAnchor" number="4.5">
-<h2><span class="header-section-number">4.5</span> La razón de <em>odds</em><a href="#la-raz%C3%B3n-de-odds" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>La razón de <em>odds</em> es una medida ampliamente utilizada para estudiar la asociación entre dos variables categóricas, especialmente cuando el interés se centra en comparar la probabilidad de ocurrencia de un evento entre distintos grupos poblacionales. Su interpretación se basa en comparar las ventajas relativas (<em>odds</em>) de ocurrencia de un evento entre dos categorías de análisis.</p>
-<p>En este sentido, este parámetro permite evaluar cómo cambia dicha ventaja entre diferentes grupos de interés y constituye una herramienta fundamental en estudios sociales, económicos y de salud; además, esta medida también puede utilizarse para cuantificar la relación entre los niveles de una variable y un factor categórico, comparando las ventajas relativas de ocurrencia del evento en cada grupo <span class="citation">(<a href="#ref-heeringa2017applied">Heeringa et al., 2017</a>)</span>.</p>
-<p>Por ejemplo, suponga que se desea estudiar la asociación entre el sexo de las personas y la condición de pobreza. En particular, interesa evaluar si la ventaja relativa de pertenecer al grupo de personas no pobres frente al grupo de personas pobres es diferente entre mujeres y hombres. Para ello, puede definirse la siguiente razón de <em>odds</em>:</p>
-<p><span class="math display">\[
-\frac{
-P(\text{Sex}=\text{Female} \mid \text{pobreza}=0)
-\big/
-P(\text{Sex}=\text{Female} \mid \text{pobreza}=1)
-}{
-P(\text{Sex}=\text{Male} \mid \text{pobreza}=1)
-\big/
-P(\text{Sex}=\text{Male} \mid \text{pobreza}=0)
-}
-\]</span></p>
-<p>La expresión del numerador representa la ventaja relativa de observar mujeres en condición de no pobreza respecto a observar mujeres en condición de pobreza. De manera análoga, el denominador representa la ventaja relativa de observar hombres en condición de pobreza respecto a hombres en condición de no pobreza. Por tanto, la razón de <em>odds</em> compara ambas ventajas relativas y permite cuantificar si la asociación entre sexo y pobreza favorece más a un grupo que a otro.</p>
-<p>Un valor igual a uno indicaría ausencia de asociación entre las variables, es decir, que la relación entre sexo y condición de pobreza es similar para hombres y mujeres. Valores superiores a uno indicarían una mayor ventaja relativa para las mujeres en comparación con los hombres, mientras que valores inferiores a uno sugerirían una mayor ventaja relativa para los hombres. En el contexto de encuestas de hogares, este tipo de medidas resulta especialmente útil para estudiar desigualdades sociodemográficas y brechas en condiciones de bienestar entre distintos grupos poblacionales.</p>
-<p>El procedimiento para realizarlo en <code>R</code> sería, primero estimar las proporciones de la tabla cruzada entre las variables sexo y pobreza, presentada en la Tabla <a href="cap4.html#tab:tab-interaccion-sexo-pobreza">4.21</a>:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="cap4.html#cb92-1" tabindex="-1"></a>tab_Sex_Pobr <span class="ot">&lt;-</span> <span class="fu">svymean</span>(<span class="at">x =</span> <span class="sc">~</span><span class="fu">interaction</span> (Sex, pobreza),</span>
-<span id="cb92-2"><a href="cap4.html#cb92-2" tabindex="-1"></a>                        <span class="at">design =</span> diseno,</span>
-<span id="cb92-3"><a href="cap4.html#cb92-3" tabindex="-1"></a>                        <span class="at">se=</span>T, <span class="at">na.rm=</span>T, <span class="at">ci=</span>T, <span class="at">keep.vars=</span>T)</span></code></pre></div>
-<table>
-<caption><span id="tab:tab-interaccion-sexo-pobreza">Cuadro 4.21: </span>Proporciones conjuntas de sexo y condición de pobreza</caption>
-<thead>
-<tr class="header">
-<th align="left"></th>
-<th align="left">mean</th>
-<th align="center">SE</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">interaction(Sex, pobreza)Female.0</td>
-<td align="left">0.322</td>
-<td align="center">0.018</td>
-</tr>
-<tr class="even">
-<td align="left">interaction(Sex, pobreza)Male.0</td>
-<td align="left">0.286</td>
-<td align="center">0.018</td>
-</tr>
-<tr class="odd">
-<td align="left">interaction(Sex, pobreza)Female.1</td>
-<td align="left">0.205</td>
-<td align="center">0.017</td>
-</tr>
-<tr class="even">
-<td align="left">interaction(Sex, pobreza)Male.1</td>
-<td align="left">0.187</td>
-<td align="center">0.018</td>
-</tr>
-</tbody>
-</table>
-<p>Luego, se realiza el contraste dividiendo cada uno de los elementos de la expresión mostrada anteriormente:</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="cap4.html#cb93-1" tabindex="-1"></a>odds_ratio <span class="ot">&lt;-</span> <span class="fu">quote</span>(</span>
-<span id="cb93-2"><a href="cap4.html#cb93-2" tabindex="-1"></a> (<span class="st">`</span><span class="at">interaction(Sex, pobreza)Female.0</span><span class="st">`</span> <span class="sc">/</span></span>
-<span id="cb93-3"><a href="cap4.html#cb93-3" tabindex="-1"></a>  <span class="st">`</span><span class="at">interaction(Sex, pobreza)Female.1</span><span class="st">`</span>) <span class="sc">/</span></span>
-<span id="cb93-4"><a href="cap4.html#cb93-4" tabindex="-1"></a> (<span class="st">`</span><span class="at">interaction(Sex, pobreza)Male.0</span><span class="st">`</span> <span class="sc">/</span></span>
-<span id="cb93-5"><a href="cap4.html#cb93-5" tabindex="-1"></a>  <span class="st">`</span><span class="at">interaction(Sex, pobreza)Male.1</span><span class="st">`</span>)</span>
-<span id="cb93-6"><a href="cap4.html#cb93-6" tabindex="-1"></a>)</span>
-<span id="cb93-7"><a href="cap4.html#cb93-7" tabindex="-1"></a></span>
-<span id="cb93-8"><a href="cap4.html#cb93-8" tabindex="-1"></a><span class="fu">svycontrast</span>(<span class="at">stat =</span> tab_Sex_Pobr,</span>
-<span id="cb93-9"><a href="cap4.html#cb93-9" tabindex="-1"></a>            <span class="at">contrasts =</span> odds_ratio)</span></code></pre></div>
-<pre><code>##           nlcon     SE
-## contrast 1.0226 0.0961</code></pre>
-<p>Obteniendo que el <em>odds</em> estimado de que una mujer no se encuentre en situación de pobreza, en comparación con un hombre, es igual a 1.02. Esto significa que, sin considerar otras variables de la encuesta, las mujeres presentan una razón de probabilidades de no estar en pobreza aproximadamente 2% mayor que la observada en los hombres. En otras palabras, la probabilidad relativa de no encontrarse en condición de pobreza es ligeramente superior para las mujeres respecto a los hombres.</p>
-</div>
-<div id="prueba-de-independencia-chi2" class="section level2 hasAnchor" number="4.6">
-<h2><span class="header-section-number">4.6</span> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span><a href="cap4.html#prueba-de-independencia-chi2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Como se introdujo en los capítulos anteriores, una prueba de hipótesis es un procedimiento estadístico utilizado para evaluar si la evidencia observada en una muestra es compatible con una afirmación acerca de la población. En el contexto de tablas de contingencia, las pruebas de independencia permiten analizar si existe asociación entre dos variables categóricas.</p>
-<p>En este caso, la hipótesis nula (<span class="math inline">\(H_{0}\)</span>) establece que ambas variables son independientes; es decir, que la distribución de una variable no depende de las categorías de la otra. Bajo este supuesto, las diferencias observadas en la muestra se atribuyen únicamente a la variabilidad muestral y no a una relación real entre las variables en la población. Matemáticamente, esta hipótesis puede expresarse como:</p>
-<p><span class="math display">\[
-H_0: p_{rc}^0 = p_{r+} \times p_{+c}, \quad \text{para todo } r = 1,\ldots,R \text{ y } c = 1,\ldots,C
-\]</span></p>
-<p>En donde <span class="math inline">\(p_{rc}^0\)</span> representa la proporción esperada en la celda <span class="math inline">\((r,c)\)</span> bajo el supuesto de independencia, mientras que <span class="math inline">\(P_{r+}\)</span> y <span class="math inline">\(P_{+c}\)</span> corresponden a las proporciones marginales de las filas y columnas, respectivamente. Bajo esta formulación, la hipótesis de independencia implica que la probabilidad conjunta de cada celda puede expresarse como el producto de sus probabilidades marginales.</p>
-<p>En consecuencia, la prueba de independencia consiste en comparar las proporciones observadas o estimadas <span class="math inline">\(\hat{p}_{rc}\)</span> con las proporciones esperadas <span class="math inline">\(p_{rc}^0\)</span> bajo la hipótesis nula. Cuando las diferencias entre ambas son pequeñas, la evidencia empírica resulta consistente con el supuesto de independencia. Por el contrario, discrepancias suficientemente grandes sugieren la existencia de asociación entre las variables y conducen al rechazo de <span class="math inline">\(H_0\)</span>.</p>
-<p>Como se ha venido mencionando, en las encuestas de hogares, características propias del diseño muestral complejo, como la estratificación, la selección por conglomerados y el uso de factores de expansión, afectan la variabilidad de los estimadores en comparación con la que se obtendría bajo un muestreo aleatorio simple. Como consecuencia, la prueba clásica de independencia <span class="math inline">\(\chi^2\)</span> de Pearson no resulta adecuada para analizar tablas de contingencia provenientes de este tipo de diseños, ya que puede subestimar o sobreestimar la variabilidad real de las estimaciones.</p>
-<p>Con el propósito de corregir este problema, <span class="citation">Fay (<a href="#ref-fay1979contingency">1979</a>)</span> y <span class="citation">Fellegi (<a href="#ref-fellegi1980approximate">1980</a>)</span> propusieron los primeros ajustes al estadístico chi-cuadrado de Pearson basados en el efecto de diseño generalizado (<span class="math inline">\(GDEFF\)</span>). Posteriormente, <span class="citation">Rao &amp; Scott (<a href="#ref-rao1984chisquare">1984</a>)</span> y <span class="citation">Thomas &amp; Rao (<a href="#ref-thomas1987chisquare">1987</a>)</span> ampliaron y formalizaron el marco teórico de estas correcciones, dando origen a lo que actualmente se conoce como la prueba de Rao-Scott, considerada el procedimiento de referencia para el análisis de datos categóricos obtenidos mediante encuestas complejas.</p>
-<p>La idea central de este enfoque consiste en adaptar la prueba clásica de independencia mediante la incorporación del efecto de diseño generalizado, obteniendo así un estadístico robusto frente a las complejidades del diseño muestral:</p>
-<p><span class="math display">\[
-\chi_{RS}^2 = \frac{n_{++}}{GDEFF} \sum_r \sum_c \frac{(\hat{p}_{rc} - p_{rc}^0)^2}{p_{rc}^0}
-\]</span></p>
-<p>donde <span class="math inline">\(n_{++}\)</span> representa el tamaño total de la muestra, <span class="math inline">\(\hat{p}_{rc}\)</span> corresponde a la proporción estimada en la celda <span class="math inline">\((r,c)\)</span> de la tabla de contingencia y <span class="math inline">\(p_{rc}^0\)</span> denota la proporción esperada bajo la hipótesis nula de independencia, calculada a partir del producto de las proporciones marginales de filas y columnas.</p>
-<p>Por su parte, el término <span class="math inline">\(GDEFF\)</span> <span class="citation">(<a href="#ref-heeringa2017applied">Heeringa et al., 2017</a>)</span> representa el efecto de diseño generalizado y mide cuánto se incrementa o disminuye la variabilidad de las estimaciones como consecuencia del diseño complejo de la encuesta respecto a la variabilidad que se observaría bajo un muestreo aleatorio simple. De esta manera, el ajuste de Rao–Scott permite que las inferencias derivadas de la prueba de independencia reflejen adecuadamente la estructura del diseño muestral.</p>
-<p>Bajo la hipótesis nula <span class="math inline">\(H_0\)</span>, el estadístico <span class="math inline">\(\chi_{RS}^2\)</span> sigue aproximadamente una distribución <span class="math inline">\(\chi^2\)</span> con <span class="math inline">\((R-1)(C-1)\)</span> grados de libertad, donde <span class="math inline">\(R\)</span> y <span class="math inline">\(C\)</span> corresponden al número de categorías de las filas y columnas, respectivamente. En situaciones de muestras pequeñas o con pocos grados de libertad, es frecuente utilizar ajustes basados en la distribución <span class="math inline">\(F\)</span>, los cuales mejoran la precisión de la inferencia estadística. Actualmente, las pruebas de Rao-Scott constituyen el estándar para el análisis de asociación entre variables categóricas en encuestas complejas <span class="citation">(<a href="#ref-heeringa2017applied">Heeringa et al., 2017</a>)</span>.</p>
-<p>El paquete <code>survey</code> en <code>R</code> implementa este tipo de pruebas mediante la función <code>svychisq()</code>, la cual incorpora automáticamente los ajustes de Rao-Scott para tener en cuenta las características del diseño muestral complejo. Esta función permite evaluar la existencia de asociación entre dos variables categóricas utilizando tablas de contingencia ponderadas y corrigiendo adecuadamente la variabilidad de los estimadores. A modo de ejemplo, para evaluar si la condición de pobreza es independiente del sexo, se ejecuta el siguiente código:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="cap4.html#cb95-1" tabindex="-1"></a><span class="fu">svychisq</span>(<span class="at">formula =</span> <span class="sc">~</span>Sex <span class="sc">+</span> pobreza, <span class="at">design =</span> diseno, <span class="at">statistic=</span><span class="st">&quot;F&quot;</span>)</span></code></pre></div>
-<pre><code>## 
-##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
-## 
-## data:  NextMethod()
-## F = 0.056464, ndf = 1, ddf = 119, p-value = 0.8126</code></pre>
-<p>En este caso, el argumento <code>formula</code> especifica las dos variables categóricas cuya independencia se desea evaluar; <code>design</code> corresponde al diseño muestral previamente definido; y <code>statistic = "F"</code> indica que la prueba se realizará utilizando la versión ajustada basada en la distribución <span class="math inline">\(F\)</span>. Si el valor-<em>p</em> es superior al 5%, no se rechaza la hipótesis nula <span class="math inline">\(H_0\)</span>, concluyendo que no existe evidencia estadística suficiente para afirmar que pobreza y sexo están asociadas. Por el contrario, si el valor-<em>p</em> es inferior al 5%, se rechaza <span class="math inline">\(H_0\)</span>, lo que sugiere la existencia de dependencia o asociación entre ambas variables categóricas. De manera similar, se pueden evaluar otras relaciones, como desempleo y sexo o pobreza y región.</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="cap4.html#cb97-1" tabindex="-1"></a><span class="fu">svychisq</span>(<span class="at">formula =</span> <span class="sc">~</span>Sex <span class="sc">+</span> Employment, <span class="at">design =</span> diseno, <span class="at">statistic =</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
-<pre><code>## 
-##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
-## 
-## data:  NextMethod()
-## F = 62.251, ndf = 1.6865, ddf = 200.6978, p-value &lt; 2.2e-16</code></pre>
-<p>En este primer caso, para el contraste de independencia entre las variables <code>Sex</code> y <code>Employment</code>, el estadístico obtenido fue <span class="math inline">\(F = 62.251\)</span>, con un valor-<span class="math inline">\(p\)</span> menor que <span class="math inline">\(2.2\times10^{-16}\)</span>, lo que proporciona evidencia estadísticamente significativa para rechazar la hipótesis nula de independencia entre ambas variables. En consecuencia, los resultados sugieren que existe una asociación significativa entre el sexo y la condición de empleo en la población de estudio.</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="cap4.html#cb99-1" tabindex="-1"></a><span class="fu">svychisq</span>(<span class="at">formula =</span> <span class="sc">~</span>Region <span class="sc">+</span> pobreza, <span class="at">design =</span> diseno, <span class="at">statistic =</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
-<pre><code>## 
-##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
-## 
-## data:  NextMethod()
-## F = 0.48794, ndf = 3.0082, ddf = 357.9731, p-value = 0.6914</code></pre>
-<p>Por otro lado, esta prueba de independencia entre las variables <code>Region</code> y <code>pobreza</code>, da como resultado <span class="math inline">\(F = 0.48794\)</span>, con un valor-<span class="math inline">\(p = 0.6914\)</span>. Dado que este valor-<span class="math inline">\(p\)</span> es considerablemente mayor que niveles de significancia convencionales, no existe evidencia suficiente para rechazar la hipótesis nula de independencia. Por tanto, los resultados sugieren que, bajo el diseño muestral considerado, no se observa una asociación estadísticamente significativa entre la región y la condición de pobreza.</p>
-</div>
-<div id="viz-categoricas" class="section level2 hasAnchor" number="4.7">
-<h2><span class="header-section-number">4.7</span> Visualización de variables categóricas<a href="cap4.html#viz-categoricas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>La visualización de variables categóricas es fundamental en el análisis de encuestas de hogares, ya que permite comunicar de manera clara la distribución de grupos poblacionales y las comparaciones entre ellos. Al igual que en el análisis de variables continuas, los gráficos deben incorporar los pesos muestrales para que la representación visual corresponda a estimaciones válidas a nivel poblacional. Cuando la precisión estadística es relevante, es recomendable acompañar las barras con intervalos de confianza, que comunican tanto el valor central como la incertidumbre asociada al proceso de estimación.</p>
-<p>En esta sección se utilizan los paquetes <code>ggplot2</code> <span class="citation">(<a href="#ref-Wickham2023">Wickham et al., 2023</a>)</span> y <code>patchwork</code> <span class="citation">(<a href="#ref-patchwork">Pedersen, 2024</a>)</span>.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="cap4.html#cb101-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb101-2"><a href="cap4.html#cb101-2" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code></pre></div>
-<div id="gráficos-de-barras" class="section level3 hasAnchor" number="4.7.1">
-<h3><span class="header-section-number">4.7.1</span> Gráficos de barras<a href="#gr%C3%A1ficos-de-barras" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>La construcción de gráficos de barras en <code>R</code> requiere, como paso previo, obtener las estimaciones que se desean representar visualmente. En el contexto de encuestas complejas, estas estimaciones pueden calcularse mediante las funciones <code>survey_total()</code> o <code>survey_prop()</code> del paquete <code>srvyr</code>, dependiendo de si el interés se centra en totales poblacionales o proporciones.</p>
-<p>A continuación, se ilustra este procedimiento utilizando el tamaño poblacional estimado por zona de residencia. Los resultados gráficos correspondientes se presentan en la Figura <a href="cap4.html#fig:fig-barras-zona">4.1</a>:</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="cap4.html#cb102-1" tabindex="-1"></a>tamano_zona <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span></span>
-<span id="cb102-2"><a href="cap4.html#cb102-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span></span>
-<span id="cb102-3"><a href="cap4.html#cb102-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Nd =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span>
-<span id="cb102-4"><a href="cap4.html#cb102-4" tabindex="-1"></a></span>
-<span id="cb102-5"><a href="cap4.html#cb102-5" tabindex="-1"></a>colorZona <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">Urban =</span> <span class="st">&quot;#48C9B0&quot;</span>, <span class="at">Rural =</span> <span class="st">&quot;#117864&quot;</span>)</span>
-<span id="cb102-6"><a href="cap4.html#cb102-6" tabindex="-1"></a></span>
-<span id="cb102-7"><a href="cap4.html#cb102-7" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tamano_zona,</span>
-<span id="cb102-8"><a href="cap4.html#cb102-8" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Zone, <span class="at">y =</span> Nd,</span>
-<span id="cb102-9"><a href="cap4.html#cb102-9" tabindex="-1"></a>      <span class="at">ymax =</span> Nd_upp, <span class="at">ymin =</span> Nd_low,</span>
-<span id="cb102-10"><a href="cap4.html#cb102-10" tabindex="-1"></a>      <span class="at">fill =</span> Zone)) <span class="sc">+</span></span>
-<span id="cb102-11"><a href="cap4.html#cb102-11" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
-<span id="cb102-12"><a href="cap4.html#cb102-12" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.9</span>), <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb102-13"><a href="cap4.html#cb102-13" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colorZona) <span class="sc">+</span></span>
-<span id="cb102-14"><a href="cap4.html#cb102-14" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb102-15"><a href="cap4.html#cb102-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-barras-zona"></span>
-<img src="04-Categoricas_files/figure-html/fig-barras-zona-1.png" alt="Gráfico de barras del tamaño poblacional por zona geográfica" width="70%" />
-<p class="caption">
-Figura 4.1: Gráfico de barras del tamaño poblacional por zona geográfica
-</p>
-</div>
-<p>El procedimiento anterior también puede aplicarse a variables con más de dos categorías. En estos casos, el gráfico de barras permite comparar de manera sencilla las estimaciones asociadas a cada categoría de la variable de interés. Por ejemplo, a continuación se presenta la distribución estimada de la población según la condición de pobreza, cuyos resultados gráficos se muestran en la Figura <a href="cap4.html#fig:fig-barras-pobreza">4.2</a>.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="cap4.html#cb103-1" tabindex="-1"></a>tamano_pobreza <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span></span>
-<span id="cb103-2"><a href="cap4.html#cb103-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Poverty) <span class="sc">%&gt;%</span></span>
-<span id="cb103-3"><a href="cap4.html#cb103-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Nd =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span>
-<span id="cb103-4"><a href="cap4.html#cb103-4" tabindex="-1"></a></span>
-<span id="cb103-5"><a href="cap4.html#cb103-5" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tamano_pobreza,</span>
-<span id="cb103-6"><a href="cap4.html#cb103-6" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Poverty, <span class="at">y =</span> Nd,</span>
-<span id="cb103-7"><a href="cap4.html#cb103-7" tabindex="-1"></a>      <span class="at">ymax =</span> Nd_upp, <span class="at">ymin =</span> Nd_low,</span>
-<span id="cb103-8"><a href="cap4.html#cb103-8" tabindex="-1"></a>      <span class="at">fill =</span> Poverty)) <span class="sc">+</span></span>
-<span id="cb103-9"><a href="cap4.html#cb103-9" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
-<span id="cb103-10"><a href="cap4.html#cb103-10" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.9</span>), <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb103-11"><a href="cap4.html#cb103-11" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb103-12"><a href="cap4.html#cb103-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-barras-pobreza"></span>
-<img src="04-Categoricas_files/figure-html/fig-barras-pobreza-1.png" alt="Gráfico de barras del tamaño poblacional por condición de pobreza" width="70%" />
-<p class="caption">
-Figura 4.2: Gráfico de barras del tamaño poblacional por condición de pobreza
-</p>
-</div>
-<p>Una de las ventajas de los gráficos de barras es que pueden extenderse fácilmente a comparaciones entre dos variables categóricas. Por ejemplo, se puede analizar el tamaño poblacional por nivel de pobreza cruzado con el estado de ocupación, presentada en la Figura <a href="cap4.html#fig:fig-barras-empleo-pobreza">4.3</a>:</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="cap4.html#cb104-1" tabindex="-1"></a>tamano_ocupacion_pobreza <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span></span>
-<span id="cb104-2"><a href="cap4.html#cb104-2" tabindex="-1"></a>  <span class="fu">group_by</span>(desempleo, Poverty) <span class="sc">%&gt;%</span></span>
-<span id="cb104-3"><a href="cap4.html#cb104-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Nd =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb104-4"><a href="cap4.html#cb104-4" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb104-5"><a href="cap4.html#cb104-5" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb104-6"><a href="cap4.html#cb104-6" tabindex="-1"></a>    <span class="at">desempleo =</span> <span class="fu">case_when</span>(</span>
-<span id="cb104-7"><a href="cap4.html#cb104-7" tabindex="-1"></a>      desempleo <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;Occupied&quot;</span>,</span>
-<span id="cb104-8"><a href="cap4.html#cb104-8" tabindex="-1"></a>      desempleo <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;Unemployed&quot;</span>,</span>
-<span id="cb104-9"><a href="cap4.html#cb104-9" tabindex="-1"></a>      <span class="fu">is.na</span>(desempleo) <span class="sc">~</span> <span class="st">&quot;Not in the Labour Force&quot;</span></span>
-<span id="cb104-10"><a href="cap4.html#cb104-10" tabindex="-1"></a>    )</span>
-<span id="cb104-11"><a href="cap4.html#cb104-11" tabindex="-1"></a>  )</span>
-<span id="cb104-12"><a href="cap4.html#cb104-12" tabindex="-1"></a></span>
-<span id="cb104-13"><a href="cap4.html#cb104-13" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tamano_ocupacion_pobreza,</span>
-<span id="cb104-14"><a href="cap4.html#cb104-14" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Poverty, <span class="at">y =</span> Nd,</span>
-<span id="cb104-15"><a href="cap4.html#cb104-15" tabindex="-1"></a>      <span class="at">ymax =</span> Nd_upp, <span class="at">ymin =</span> Nd_low,</span>
-<span id="cb104-16"><a href="cap4.html#cb104-16" tabindex="-1"></a>      <span class="at">fill =</span> <span class="fu">as.factor</span>(desempleo))) <span class="sc">+</span></span>
-<span id="cb104-17"><a href="cap4.html#cb104-17" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
-<span id="cb104-18"><a href="cap4.html#cb104-18" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.9</span>), <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb104-19"><a href="cap4.html#cb104-19" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb104-20"><a href="cap4.html#cb104-20" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-barras-empleo-pobreza"></span>
-<img src="04-Categoricas_files/figure-html/fig-barras-empleo-pobreza-1.png" alt="Gráfico de barras del tamaño poblacional por estado de ocupación y pobreza" width="80%" />
-<p class="caption">
-Figura 4.3: Gráfico de barras del tamaño poblacional por estado de ocupación y pobreza
-</p>
-</div>
-<p>Este tipo de análisis gráfico resulta especialmente útil para identificar intersecciones de vulnerabilidad, al mostrar de manera simultánea dos o más características poblacionales. También es posible presentar proporciones en lugar de conteos. Por ejemplo, la proporción de hombres en condición de pobreza por zona, presentada en la Figura <a href="cap4.html#fig:fig-barras-prop-zona-hombre">4.4</a>:</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="cap4.html#cb105-1" tabindex="-1"></a>prop_ZonaH_Pobreza <span class="ot">&lt;-</span> sub_Hombre <span class="sc">%&gt;%</span></span>
-<span id="cb105-2"><a href="cap4.html#cb105-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone, Poverty) <span class="sc">%&gt;%</span></span>
-<span id="cb105-3"><a href="cap4.html#cb105-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prop =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span>
-<span id="cb105-4"><a href="cap4.html#cb105-4" tabindex="-1"></a></span>
-<span id="cb105-5"><a href="cap4.html#cb105-5" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> prop_ZonaH_Pobreza,</span>
-<span id="cb105-6"><a href="cap4.html#cb105-6" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Poverty, <span class="at">y =</span> prop,</span>
-<span id="cb105-7"><a href="cap4.html#cb105-7" tabindex="-1"></a>      <span class="at">ymax =</span> prop_upp, <span class="at">ymin =</span> prop_low,</span>
-<span id="cb105-8"><a href="cap4.html#cb105-8" tabindex="-1"></a>      <span class="at">fill =</span> Zone)) <span class="sc">+</span></span>
-<span id="cb105-9"><a href="cap4.html#cb105-9" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
-<span id="cb105-10"><a href="cap4.html#cb105-10" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.9</span>), <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb105-11"><a href="cap4.html#cb105-11" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colorZona) <span class="sc">+</span></span>
-<span id="cb105-12"><a href="cap4.html#cb105-12" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb105-13"><a href="cap4.html#cb105-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-barras-prop-zona-hombre"></span>
-<img src="04-Categoricas_files/figure-html/fig-barras-prop-zona-hombre-1.png" alt="Proporción de hombres en condición de pobreza por zona geográfica" width="70%" />
-<p class="caption">
-Figura 4.4: Proporción de hombres en condición de pobreza por zona geográfica
-</p>
-</div>
-<p>De forma análoga, se puede graficar la proporción de hombres en condición de pobreza desagregada por región, presentada en la Figura <a href="cap4.html#fig:fig-barras-prop-region-hombre">4.5</a>:</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="cap4.html#cb106-1" tabindex="-1"></a>prop_RegionH_Pobreza <span class="ot">&lt;-</span> sub_Hombre <span class="sc">%&gt;%</span></span>
-<span id="cb106-2"><a href="cap4.html#cb106-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Region, pobreza) <span class="sc">%&gt;%</span></span>
-<span id="cb106-3"><a href="cap4.html#cb106-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prop =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb106-4"><a href="cap4.html#cb106-4" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span>
-<span id="cb106-5"><a href="cap4.html#cb106-5" tabindex="-1"></a></span>
-<span id="cb106-6"><a href="cap4.html#cb106-6" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> prop_RegionH_Pobreza,</span>
-<span id="cb106-7"><a href="cap4.html#cb106-7" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Region, <span class="at">y =</span> prop,</span>
-<span id="cb106-8"><a href="cap4.html#cb106-8" tabindex="-1"></a>      <span class="at">ymax =</span> prop_upp, <span class="at">ymin =</span> prop_low,</span>
-<span id="cb106-9"><a href="cap4.html#cb106-9" tabindex="-1"></a>      <span class="at">fill =</span> <span class="fu">as.factor</span>(pobreza))) <span class="sc">+</span></span>
-<span id="cb106-10"><a href="cap4.html#cb106-10" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
-<span id="cb106-11"><a href="cap4.html#cb106-11" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.9</span>), <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb106-12"><a href="cap4.html#cb106-12" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb106-13"><a href="cap4.html#cb106-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-barras-prop-region-hombre"></span>
-<img src="04-Categoricas_files/figure-html/fig-barras-prop-region-hombre-1.png" alt="Proporción de hombres en condición de pobreza por región" width="75%" />
-<p class="caption">
-Figura 4.5: Proporción de hombres en condición de pobreza por región
-</p>
-</div>
-<p>En síntesis, los gráficos de barras junto con sus correspondientes errores estánar permiten una descripción clara de los patrones de pobreza, empleo u otras variables categóricas en la población, y cuando se aplican correctamente, constituyen una herramienta poderosa para comunicar hallazgos de encuestas de hogares manteniendo el rigor estadístico en la representación de los resultados.</p>
-</div>
-<div id="viz-mapas" class="section level3 hasAnchor" number="4.7.2">
-<h3><span class="header-section-number">4.7.2</span> Mapas<a href="cap4.html#viz-mapas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Los mapas temáticos constituyen una herramienta de visualización especialmente útil en el análisis de encuestas de hogares, ya que permiten representar la distribución territorial de indicadores sociales y demográficos. En este contexto, las estimaciones de proporciones calculadas en secciones anteriores —como el porcentaje de pobreza o desempleo por región— pueden proyectarse directamente sobre unidades geográficas, facilitando así la identificación de patrones espaciales y desigualdades regionales.</p>
-<p>Para construir este tipo de mapas en <code>R</code> se requiere información geoespacial en formato <em>shapefile</em>, la cual contiene los polígonos asociados a cada unidad geográfica de análisis. En este capítulo se utiliza el archivo <code>shapeBigCity/BigCity.shp</code>, cuyas regiones corresponden a las definidas en la base de datos <code>BigCity</code>. Los paquetes <code>sf</code> <span class="citation">(<a href="#ref-sf2018">Pebesma, 2018</a>)</span> y <code>tmap</code> <span class="citation">(<a href="#ref-tmap2023">Tennekes, 2023</a>)</span> permiten cargar, manipular y visualizar esta información geográfica de manera integrada con los resultados obtenidos a partir de la encuesta.</p>
-<p>El siguiente código carga los paquetes necesarios para trabajar con información geoespacial y visualización cartográfica en <code>R</code>. En primer lugar, la librería <code>sf</code> permite leer y manipular objetos espaciales modernos, mientras que <code>tmap</code> proporciona herramientas para la elaboración de mapas temáticos. La instrucción <code>tmap_mode("plot")</code> establece el modo de visualización estática de los mapas, apropiado para documentos y reportes. Finalmente, la función <code>read_sf()</code> importa el archivo geográfico <code>BigCity.shp</code>, almacenándolo en el objeto <code>shapeBigCity</code>, el cual contiene los polígonos correspondientes a las regiones de análisis.</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="cap4.html#cb107-1" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb107-2"><a href="cap4.html#cb107-2" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
-<span id="cb107-3"><a href="cap4.html#cb107-3" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
-<span id="cb107-4"><a href="cap4.html#cb107-4" tabindex="-1"></a>shapeBigCity <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">&quot;Data/shapeBigCity/BigCity.shp&quot;</span>)</span></code></pre></div>
-<p>Con el shapefile cargado, se puede generar un mapa de las regiones usando <code>tm_shape()</code> y <code>tm_polygons()</code>, como se muestra en la Figura <a href="cap4.html#fig:fig-mapa-regiones">4.6</a>:</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="cap4.html#cb108-1" tabindex="-1"></a><span class="fu">tm_shape</span>(shapeBigCity) <span class="sc">+</span></span>
-<span id="cb108-2"><a href="cap4.html#cb108-2" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">&quot;Region&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-mapa-regiones"></span>
-<img src="04-Categoricas_files/figure-html/fig-mapa-regiones-1.png" alt="Mapa de regiones geográficas de BigCity" width="70%" />
-<p class="caption">
-Figura 4.6: Mapa de regiones geográficas de BigCity
-</p>
-</div>
-<p>Por ejemplo, si se desea representar geográficamente la proporción de hombres en condición de pobreza por región, estimada previamente en la Figura <a href="cap4.html#fig:fig-barras-prop-region-hombre">4.5</a>, es necesario integrar las estimaciones obtenidas con la información espacial del shapefile. Para ello, el objeto <code>prop_RegionH_Pobreza</code>, que contiene las proporciones estimadas para cada región, se vincula con el archivo geográfico mediante la función <code>left_join()</code>. Posteriormente, se filtran únicamente las observaciones correspondientes a la categoría de pobreza (<code>pobreza == 1</code>), de manera que el mapa represente exclusivamente la distribución espacial de la población masculina en condición de pobreza.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="cap4.html#cb109-1" tabindex="-1"></a>shape_temp <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(</span>
-<span id="cb109-2"><a href="cap4.html#cb109-2" tabindex="-1"></a>  shapeBigCity <span class="sc">%&gt;%</span></span>
-<span id="cb109-3"><a href="cap4.html#cb109-3" tabindex="-1"></a>    <span class="fu">left_join</span>(</span>
-<span id="cb109-4"><a href="cap4.html#cb109-4" tabindex="-1"></a>      prop_RegionH_Pobreza <span class="sc">%&gt;%</span></span>
-<span id="cb109-5"><a href="cap4.html#cb109-5" tabindex="-1"></a>        <span class="fu">filter</span>(pobreza <span class="sc">==</span> <span class="dv">1</span>),</span>
-<span id="cb109-6"><a href="cap4.html#cb109-6" tabindex="-1"></a>      <span class="at">by =</span> <span class="st">&quot;Region&quot;</span>))</span></code></pre></div>
-<p>Una vez construido el objeto espacial con las estimaciones de interés, el argumento <code>breaks</code> ayuda a definir los puntos de corte que determinarán los intervalos de la escala de color utilizada en el mapa. Posteriormente, se genera el mapa temático, permitiendo visualizar la distribución regional de la proporción de hombres en condición de pobreza, como se presenta en la Figura <a href="cap4.html#fig:fig-mapa-pobreza-hombre">4.7</a>.</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="cap4.html#cb110-1" tabindex="-1"></a>brks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.6</span>, <span class="fl">0.8</span>, <span class="dv">1</span>)</span>
-<span id="cb110-2"><a href="cap4.html#cb110-2" tabindex="-1"></a>shape_temp <span class="sc">+</span></span>
-<span id="cb110-3"><a href="cap4.html#cb110-3" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(</span>
-<span id="cb110-4"><a href="cap4.html#cb110-4" tabindex="-1"></a>    <span class="at">col    =</span> <span class="st">&quot;prop&quot;</span>,</span>
-<span id="cb110-5"><a href="cap4.html#cb110-5" tabindex="-1"></a>    <span class="at">breaks =</span> brks,</span>
-<span id="cb110-6"><a href="cap4.html#cb110-6" tabindex="-1"></a>    <span class="at">title  =</span> <span class="st">&quot;Proporción en pobreza&quot;</span>,</span>
-<span id="cb110-7"><a href="cap4.html#cb110-7" tabindex="-1"></a>    <span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-mapa-pobreza-hombre"></span>
-<img src="04-Categoricas_files/figure-html/fig-mapa-pobreza-hombre-1.png" alt="Proporción de hombres en condición de pobreza por región" width="70%" />
-<p class="caption">
-Figura 4.7: Proporción de hombres en condición de pobreza por región
-</p>
-</div>
-<p>Otro uso de los mapas en encuestas es la visualización de la precisión de las estimaciones. Por ejemplo, usando el coeficiente de variación del ingreso medio por región es posible identificar las áreas donde las estimaciones son menos confiables, como se muestra en la Figura <a href="cap4.html#fig:fig-mapa-cv-ingreso">4.8</a>.</p>
-<p>El siguiente código calcula y representa geográficamente el coeficiente de variación del ingreso medio por región. En primer lugar, la función se estima el ingreso promedio para cada región. El argumento <code>vartype = "cv"</code> solicita el cálculo del coeficiente de variación de cada estimación. Posteriormente, se definen los intervalos de clasificación de la escala de color mediante el objeto <code>brks_cv</code>, y las estimaciones se integran con la información geográfica del shapefile usando <code>left_join()</code>. Finalmente, mediante las funciones <code>tm_shape()</code> y <code>tm_polygons()</code> del paquete <code>tmap</code>, se construye el mapa que representa espacialmente los coeficientes de variación utilizando una escala de colores en blanco y negro y ajustando la proporción del mapa con <code>tm_layout(asp = 0)</code>.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="cap4.html#cb111-1" tabindex="-1"></a>prom_region <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="sc">~</span>Income, <span class="sc">~</span>Region, diseno,</span>
-<span id="cb111-2"><a href="cap4.html#cb111-2" tabindex="-1"></a>  svymean,</span>
-<span id="cb111-3"><a href="cap4.html#cb111-3" tabindex="-1"></a>  <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">covmat =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb111-4"><a href="cap4.html#cb111-4" tabindex="-1"></a>  <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;cv&quot;</span>))</span>
-<span id="cb111-5"><a href="cap4.html#cb111-5" tabindex="-1"></a></span>
-<span id="cb111-6"><a href="cap4.html#cb111-6" tabindex="-1"></a>brks_cv <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="dv">1</span>)</span>
-<span id="cb111-7"><a href="cap4.html#cb111-7" tabindex="-1"></a>shape_cv <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(</span>
-<span id="cb111-8"><a href="cap4.html#cb111-8" tabindex="-1"></a>  shapeBigCity <span class="sc">%&gt;%</span></span>
-<span id="cb111-9"><a href="cap4.html#cb111-9" tabindex="-1"></a>    <span class="fu">left_join</span>(prom_region, <span class="at">by =</span> <span class="st">&quot;Region&quot;</span>))</span>
-<span id="cb111-10"><a href="cap4.html#cb111-10" tabindex="-1"></a></span>
-<span id="cb111-11"><a href="cap4.html#cb111-11" tabindex="-1"></a>shape_cv <span class="sc">+</span></span>
-<span id="cb111-12"><a href="cap4.html#cb111-12" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(</span>
-<span id="cb111-13"><a href="cap4.html#cb111-13" tabindex="-1"></a>    <span class="st">&quot;cv&quot;</span>,</span>
-<span id="cb111-14"><a href="cap4.html#cb111-14" tabindex="-1"></a>    <span class="at">breaks =</span> brks_cv,</span>
-<span id="cb111-15"><a href="cap4.html#cb111-15" tabindex="-1"></a>    <span class="at">title  =</span> <span class="st">&quot;CV del ingreso medio&quot;</span>,</span>
-<span id="cb111-16"><a href="cap4.html#cb111-16" tabindex="-1"></a>    <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;#FFFFFF&quot;</span>, <span class="st">&quot;#000000&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb111-17"><a href="cap4.html#cb111-17" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">asp =</span> <span class="dv">0</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-mapa-cv-ingreso"></span>
-<img src="04-Categoricas_files/figure-html/fig-mapa-cv-ingreso-1.png" alt="Coeficiente de variación del ingreso medio por región" width="70%" />
-<p class="caption">
-Figura 4.8: Coeficiente de variación del ingreso medio por región
-</p>
-</div>
-<p>Los polígonos con tonos más oscuros corresponden a regiones donde la estimación del ingreso presenta mayor variabilidad relativa, lo que puede indicar tamaños muestrales insuficientes para obtener estimaciones precisas en esas áreas.</p>
-<p>Cuando se desea representar simultáneamente dos variables —por ejemplo, la proporción de pobreza y su coeficiente de variación— es posible construir un mapa bivariante utilizando <code>ggplot2</code> junto con los paquetes <code>biscale</code> y <code>cowplot</code>. Este tipo de visualización permite identificar regiones con alta pobreza y alta incertidumbre en la estimación de forma conjunta, como se presenta en la Figura <a href="cap4.html#fig:fig-mapa-bivariante">4.9</a>. El siguiente código estima la proporción de mujeres en condición de pobreza en zonas rurales para cada región, incorporando además el cálculo del coeficiente de variación de las estimaciones, generando así una base de datos lista para la construcción de un mapa bivariado.</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="cap4.html#cb112-1" tabindex="-1"></a>prom_region_Sex <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span></span>
-<span id="cb112-2"><a href="cap4.html#cb112-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Region, Zone, Sex, pobreza) <span class="sc">%&gt;%</span></span>
-<span id="cb112-3"><a href="cap4.html#cb112-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prop =</span> <span class="fu">survey_mean</span>(<span class="at">vartype =</span> <span class="st">&quot;cv&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb112-4"><a href="cap4.html#cb112-4" tabindex="-1"></a>  <span class="fu">filter</span>(pobreza <span class="sc">==</span> <span class="dv">1</span>, Zone <span class="sc">==</span> <span class="st">&quot;Rural&quot;</span>, Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>)</span></code></pre></div>
-<p>El siguiente código construye un mapa bivariado que permite visualizar simultáneamente la proporción de pobreza femenina rural y el coeficiente de variación asociado a dicha estimación por región. En primer lugar, se integran las estimaciones contenidas en <code>prom_region_Sex</code> con la información geográfica del shapefile mediante <code>left_join()</code>. Posteriormente, utilizando la función <code>bi_class()</code> del paquete <code>biscale</code>, se clasifican conjuntamente las variables <code>prop</code> y <code>prop_cv</code> en una cuadrícula de <span class="math inline">\(3 \times 3\)</span> categorías (<code>dim = 3</code>), empleando el método de clasificación de Fisher (<code>style = "fisher"</code>). Luego, con <code>ggplot2</code> y <code>geom_sf()</code>, se genera el mapa temático utilizando colores bivariados definidos por <code>bi_scale_fill()</code>, mientras que <code>bi_theme()</code> aplica un estilo minimalista y se elimina la leyenda predeterminada.</p>
-<p>A continuación, la función <code>bi_legend()</code> crea una leyenda especializada que permite interpretar simultáneamente ambas dimensiones del mapa: el coeficiente de variación y la pobreza femenina rural. Finalmente, mediante las funciones <code>ggdraw()</code> y <code>draw_plot()</code> del paquete <code>cowplot</code>, se combinan el mapa y la leyenda en una única visualización.</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="cap4.html#cb113-1" tabindex="-1"></a><span class="fu">library</span>(biscale)</span>
-<span id="cb113-2"><a href="cap4.html#cb113-2" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
-<span id="cb113-3"><a href="cap4.html#cb113-3" tabindex="-1"></a></span>
-<span id="cb113-4"><a href="cap4.html#cb113-4" tabindex="-1"></a>temp_shape <span class="ot">&lt;-</span> shapeBigCity <span class="sc">%&gt;%</span></span>
-<span id="cb113-5"><a href="cap4.html#cb113-5" tabindex="-1"></a>  <span class="fu">left_join</span>(prom_region_Sex, <span class="at">by =</span> <span class="st">&quot;Region&quot;</span>)</span>
-<span id="cb113-6"><a href="cap4.html#cb113-6" tabindex="-1"></a></span>
-<span id="cb113-7"><a href="cap4.html#cb113-7" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb113-8"><a href="cap4.html#cb113-8" tabindex="-1"></a>datos_bi <span class="ot">&lt;-</span> <span class="fu">bi_class</span>(temp_shape,</span>
-<span id="cb113-9"><a href="cap4.html#cb113-9" tabindex="-1"></a>  <span class="at">y =</span> prop, <span class="at">x =</span> prop_cv, <span class="at">dim =</span> k,</span>
-<span id="cb113-10"><a href="cap4.html#cb113-10" tabindex="-1"></a>  <span class="at">style =</span> <span class="st">&quot;fisher&quot;</span>)</span>
-<span id="cb113-11"><a href="cap4.html#cb113-11" tabindex="-1"></a></span>
-<span id="cb113-12"><a href="cap4.html#cb113-12" tabindex="-1"></a>map_bi <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb113-13"><a href="cap4.html#cb113-13" tabindex="-1"></a>  <span class="fu">geom_sf</span>(</span>
-<span id="cb113-14"><a href="cap4.html#cb113-14" tabindex="-1"></a>    <span class="at">data =</span> datos_bi,</span>
-<span id="cb113-15"><a href="cap4.html#cb113-15" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">fill =</span> bi_class, <span class="at">geometry =</span> geometry),</span>
-<span id="cb113-16"><a href="cap4.html#cb113-16" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>, <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb113-17"><a href="cap4.html#cb113-17" tabindex="-1"></a>  <span class="fu">bi_scale_fill</span>(<span class="at">pal =</span> <span class="st">&quot;GrPink&quot;</span>, <span class="at">dim =</span> k) <span class="sc">+</span></span>
-<span id="cb113-18"><a href="cap4.html#cb113-18" tabindex="-1"></a>  <span class="fu">bi_theme</span>() <span class="sc">+</span></span>
-<span id="cb113-19"><a href="cap4.html#cb113-19" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span>
-<span id="cb113-20"><a href="cap4.html#cb113-20" tabindex="-1"></a></span>
-<span id="cb113-21"><a href="cap4.html#cb113-21" tabindex="-1"></a>legend_bi <span class="ot">&lt;-</span> <span class="fu">bi_legend</span>(</span>
-<span id="cb113-22"><a href="cap4.html#cb113-22" tabindex="-1"></a>  <span class="at">pal  =</span> <span class="st">&quot;GrPink&quot;</span>, <span class="at">dim =</span> k,</span>
-<span id="cb113-23"><a href="cap4.html#cb113-23" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;Coeficiente de variación&quot;</span>,</span>
-<span id="cb113-24"><a href="cap4.html#cb113-24" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Pobreza femenina rural&quot;</span>,</span>
-<span id="cb113-25"><a href="cap4.html#cb113-25" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">8</span>)</span>
-<span id="cb113-26"><a href="cap4.html#cb113-26" tabindex="-1"></a></span>
-<span id="cb113-27"><a href="cap4.html#cb113-27" tabindex="-1"></a><span class="fu">ggdraw</span>() <span class="sc">+</span></span>
-<span id="cb113-28"><a href="cap4.html#cb113-28" tabindex="-1"></a>  <span class="fu">draw_plot</span>(map_bi,     <span class="dv">0</span>,    <span class="dv">0</span>,    <span class="dv">1</span>, <span class="at">scale =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb113-29"><a href="cap4.html#cb113-29" tabindex="-1"></a>  <span class="fu">draw_plot</span>(legend_bi,  <span class="fl">0.75</span>, <span class="fl">0.4</span>,  <span class="fl">0.2</span>, <span class="fl">0.2</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-mapa-bivariante"></span>
-<img src="04-Categoricas_files/figure-html/fig-mapa-bivariante-1.png" alt="Mapa bivariante: proporción de pobreza femenina rural y su coeficiente de variación por región" width="80%" />
-<p class="caption">
-Figura 4.9: Mapa bivariante: proporción de pobreza femenina rural y su coeficiente de variación por región
-</p>
-</div>
-<p>En este mapa, cada celda de la leyenda combina un tono de la proporción de pobreza (eje vertical) con un tono del coeficiente de variación (eje horizontal), permitiendo identificar simultáneamente regiones con alta pobreza y alta incertidumbre en la estimación. Este tipo de representación es especialmente valioso para orientar decisiones sobre la necesidad de ampliar el tamaño muestral en zonas geográficas específicas.</p>
-
-</div>
-</div>
-</div>
-<h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
-<div id="ref-fay1979contingency" class="csl-entry">
-Fay, R. E. (1979). On Adjusting the Pearson Chi-Square Statistic for Cluster Sampling. <em>Proceedings of the Social Statistics Section, American Statistical Association</em>, 402-405.
-</div>
-<div id="ref-fellegi1980approximate" class="csl-entry">
-Fellegi, I. P. (1980). Approximate Tests of Independence and Goodness of Fit Based on Stratified Multistage Samples. <em>Journal of the American Statistical Association</em>, <em>75</em>(370), 261-268. <a href="https://doi.org/10.2307/2287405">https://doi.org/10.2307/2287405</a>
-</div>
-<div id="ref-heeringa2017applied" class="csl-entry">
-Heeringa, S. G., West, B. T., Heeringa, S. G., &amp; Berglund, P. A. (2017). <em>Applied survey data analysis</em>. chapman; hall/CRC.
-</div>
-<div id="ref-sf2018" class="csl-entry">
-Pebesma, E. (2018). <span>Simple Features for R: Standardized Support for Spatial Vector Data</span>. <em><span>The R Journal</span></em>, <em>10</em>(1), 439-446. <a href="https://doi.org/10.32614/RJ-2018-009">https://doi.org/10.32614/RJ-2018-009</a>
-</div>
-<div id="ref-patchwork" class="csl-entry">
-Pedersen, T. L. (2024). <em>patchwork: The composer of plots</em>. <a href="https://CRAN.R-project.org/package=patchwork">https://CRAN.R-project.org/package=patchwork</a>
-</div>
-<div id="ref-rao1984chisquare" class="csl-entry">
-Rao, J. N. K., &amp; Scott, A. J. (1984). On chi-squared tests for multiway contingency tables with cell proportions estimated from survey data. <em>The Annals of Statistics</em>, <em>12</em>(1), 46-60.
-</div>
-<div id="ref-tmap2023" class="csl-entry">
-Tennekes, M. (2023). <em>tmap: Thematic Maps</em>. <a href="https://CRAN.R-project.org/package=tmap">https://CRAN.R-project.org/package=tmap</a>
-</div>
-<div id="ref-thomas1987chisquare" class="csl-entry">
-Thomas, D. R., &amp; Rao, J. N. K. (1987). Small-sample comparisons of level and power for simple goodness-of-fit statistics under cluster sampling. <em>Journal of the American Statistical Association</em>, <em>82</em>(398), 630-636.
-</div>
-<div id="ref-Wickham2023" class="csl-entry">
-Wickham, H., Navarro, D., &amp; Pedersen, T. L. (2023). <em>ggplot2: Elegant Graphics for Data Analysis</em> (3.ª ed.). Springer. <a href="https://doi.org/10.1007/978-3-319-24277-4">https://doi.org/10.1007/978-3-319-24277-4</a>
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="cap3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="cap5.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="viz-continuas.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="estimación-del-tamaño-poblacional.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -1895,8 +356,8 @@ Wickham, H., Navarro, D., &amp; Pedersen, T. L. (2023). <em>ggplot2: Elegant Gra
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
   "sharing": {
-    "github": false,
-    "facebook": true,
+    "github": true,
+    "facebook": false,
     "twitter": true,
     "linkedin": false,
     "weibo": false,
@@ -1911,8 +372,8 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": null,
-    "text": null
+    "link": "https://github.com/psirusteam/LibroEncuestasR/04-Categoricas.Rmd",
+    "text": "Edit"
   },
   "history": {
     "link": null,
@@ -1922,14 +383,15 @@ gitbook.start({
     "link": null,
     "text": null
   },
-  "download": ["Libro.pdf"],
+  "download": ["Libro.pdf", "Libro.epub", "Libro.mobi"],
   "search": {
     "engine": "fuse",
     "options": null
   },
   "toc": {
-    "collapse": "subsection"
-  }
+    "collapse": "section"
+  },
+  "tconfig": null
 });
 });
 </script>

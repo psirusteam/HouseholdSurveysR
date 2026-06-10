@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Apéndice B Inferencia en poblaciones finitas | Análisis de encuestas de hogares con R</title>
+  <title>B.2 La integración de ambas inferencias | Análisis de encuestas de hogares con R</title>
   <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Apéndice B Inferencia en poblaciones finitas | Análisis de encuestas de hogares con R" />
+  <meta property="og:title" content="B.2 La integración de ambas inferencias | Análisis de encuestas de hogares con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
   <meta name="github-repo" content="psirusteam/LibroEncuestasR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Apéndice B Inferencia en poblaciones finitas | Análisis de encuestas de hogares con R" />
+  <meta name="twitter:title" content="B.2 La integración de ambas inferencias | Análisis de encuestas de hogares con R" />
   
   <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="encadenamiento-de-operaciones.html"/>
-<link rel="next" href="dos-posibles-inferencias.html"/>
+<link rel="prev" href="dos-posibles-inferencias.html"/>
+<link rel="next" href="referencias.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -303,14 +303,174 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ap2" class="section level1 hasAnchor" number="9">
-<h1><span class="header-section-number">Apéndice B</span> Inferencia en poblaciones finitas<a href="ap2.html#ap2" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Una cuestión fundamental en el análisis de encuestas es identificar cuál es la medida de probabilidad que rige la inferencia. En la inferencia estadística clásica se suele asumir que las observaciones disponibles son variables aleatorias independientes e idénticamente distribuidas (IID). Bajo ese enfoque, la aleatoriedad proviene del modelo que genera los datos. Sin embargo, como señala <span class="citation">Kish (<a href="#ref-kish1987statistical">1987</a>)</span>, este supuesto no describe adecuadamente la información proveniente de encuestas con diseños muestrales complejos, donde las observaciones son seleccionadas mediante estratificación, conglomeración y probabilidades de inclusión desiguales.</p>
+<div id="la-integración-de-ambas-inferencias" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">B.2</span> La integración de ambas inferencias<a href="#la-integraci%C3%B3n-de-ambas-inferencias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>No obstante, en muchas aplicaciones ambos marcos inferenciales no se presentan como enfoques excluyentes, sino como componentes complementarios de un mismo problema. En particular, puede considerarse que la muestra ha sido obtenida mediante un diseño probabilístico complejo y que, al mismo tiempo, los valores de la variable de interés responden a un modelo de superpoblación. Esta formulación conduce a un esquema de inferencia doble, en el cual la incertidumbre no proviene de una única fuente, sino de la combinación entre el mecanismo que genera los valores poblacionales (modelo de superpoblación) y el mecanismo que determina qué unidades son observadas (diseño de muestreo).</p>
+<p>Formalmente, intervienen dos medidas de probabilidad: <span class="math inline">\(\xi\)</span>, asociada al proceso generador de los valores <span class="math inline">\(Y_k\)</span>, y <span class="math inline">\(p(\cdot)\)</span>, asociada al diseño muestral que selecciona la muestra <span class="math inline">\(s\)</span>. Por tanto, las propiedades de los estimadores deben evaluarse considerando simultáneamente ambas fuentes de variación. Bajo este marco, la esperanza combinada puede expresarse como</p>
+<p><span class="math display">\[
+E_{\xi p}(\hat{\theta})
+= E_{\xi}\{E_p(\hat{\theta}\mid U)\},
+\]</span></p>
+<p>donde primero se evalúa el comportamiento del estimador bajo el diseño, condicionado a la población finita generada, y luego se promedia sobre el modelo de superpoblación. En este contexto, la verosimilitud conjunta completa puede resultar intratable, especialmente cuando las probabilidades de inclusión dependen de variables relacionadas con la respuesta. La solución propuesta por <span class="citation">Pfeffermann (<a href="#ref-pfeffermann1993role">1993</a>)</span> es la técnica de máxima pseudo-verosimilitud (MPV), que pondera las contribuciones de cada unidad por el inverso de su probabilidad de inclusión.</p>
+<div id="sec-mv" class="section level3 hasAnchor" number="9.2.1">
+<h3><span class="header-section-number">B.2.1</span> Método de la máxima verosimilitud<a href="la-integración-de-ambas-inferencias.html#sec-mv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El método de máxima verosimilitud parte de una muestra aleatoria <span class="math inline">\(y_1,\ldots,y_n\)</span> generada por una distribución con densidad o función de probabilidad <span class="math inline">\(f(y;\theta)\)</span>. Si las observaciones son independientes e idénticamente distribuidas (IID), la función de verosimilitud se define como</p>
+<p><span class="math display">\[
+L(\theta)
+= \prod_{k=1}^{N} f(y_i;\theta).
+\]</span></p>
+<p>Como los productos pueden ser difíciles de manipular, se utiliza la log-verosimilitud:</p>
+<p><span class="math display">\[
+\ell(\theta)
+= \sum_{k=1}^{N}\log f(y_i;\theta)
+\]</span></p>
+<p>El estimador de máxima verosimilitud <span class="math inline">\(\hat{\theta}\)</span> es el valor de <span class="math inline">\(\theta\)</span> que maximiza <span class="math inline">\(\ell(\theta)\)</span>. Si la función es diferenciable, este valor satisface las ecuaciones de score:</p>
+<p><span class="math display">\[
+U(\theta)
+= \frac{\partial \ \ell(\theta)}{\partial \ \theta}
+= \sum_{k=1}^{N} u_k(\theta)
+= 0
+\]</span></p>
+<p>donde <span class="math inline">\(u_k(\theta) = \frac{\partial}{\partial\theta}\log f(y_k;\theta)\)</span> es la contribución de la unidad <span class="math inline">\(k\)</span> al score total. Para una distribución Bernoulli con parámetro <span class="math inline">\(\theta\)</span>, la función de probabilidad es <span class="math inline">\(f(y_k;\theta) = \theta^{y_k}(1-\theta)^{1-y_k}\)</span>, para <span class="math inline">\(y_k \in \{0,1\}\)</span>. La log-verosimilitud es</p>
+<p><span class="math display">\[
+\ell(\theta)
+= \sum_{k=1}^{N}
+\left[
+y_k\log(\theta)
++(1-y_k)\log(1-\theta)
+\right]
+\]</span></p>
+<p>Al derivar e igualar a cero y despejar, se obtiene el estimador MV, definido por:</p>
+<p><span class="math display">\[
+\hat{\theta}_{MV}
+= \frac{1}{N}\sum_{k=1}^{N}y_k
+\]</span></p>
+<p>Así, la proporción muestral es el estimador natural del parámetro Bernoulli. El punto clave es que este resultado depende del supuesto de que las observaciones tienen igual distribución y no provienen de un diseño con probabilidades desiguales.</p>
+<p>Por otro lado, en un modelo de regresión lineal múltiple con errores normales, se tiene que <span class="math inline">\(\mathbf{y} \sim N(\mathbf{X}\boldsymbol{\beta},\sigma^2 I)\)</span>. En este caso, la log-verosimilitud, omitiendo constantes, puede escribirse como</p>
+<p><span class="math display">\[
+\ell(\boldsymbol{\beta},\sigma^2) = -\frac{n}{2}\log(\sigma^2) -\frac{1}{2\sigma^2}(\mathbf{y}-\mathbf{X}\boldsymbol{\beta})&#39;(\mathbf{y}-\mathbf{X}\boldsymbol{\beta})
+\]</span></p>
+<p>Maximizar esta expresión respecto de <span class="math inline">\(\beta\)</span> equivale a minimizar la suma de cuadrados de los residuos. Por ello, el estimador de máxima verosimilitud de <span class="math inline">\(\beta\)</span> coincide con el estimador de mínimos cuadrados ordinarios <span class="math inline">\(\hat{\boldsymbol{\beta}}_{MV} = (\mathbf{X}&#39;\mathbf{X})^{-1}\mathbf{X}&#39;\mathbf{y}\)</span>. Este resultado es importante porque muestra que muchos procedimientos estadísticos usuales pueden interpretarse como máxima verosimilitud bajo supuestos de modelo específicos. Sin embargo, si los datos provienen de una encuesta compleja, la matriz <span class="math inline">\(\mathbf{X}&#39;\mathbf{X}\)</span> no refleja por sí sola el mecanismo de selección de la muestra.</p>
 </div>
+<div id="sec-mpv-formal" class="section level3 hasAnchor" number="9.2.2">
+<h3><span class="header-section-number">B.2.2</span> Método de máxima pseudo-verosimilitud<a href="la-integración-de-ambas-inferencias.html#sec-mpv-formal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Cuando el diseño muestral es complejo, los datos observados no satisfacen necesariamente los supuestos de independencia e indénticva disetribución. Algunas unidades pueden representan a muchas personas de la población y otras a pocas. Además, dos unidades seleccionadas dentro del mismo conglomerado pueden estar correlacionadas. En este contexto, usar directamente la log-verosimilitud ordinaria puede producir estimaciones que describen la muestra, pero no la población objetivo.</p>
+<p>La máxima pseudo-verosimilitud, desarrollada a partir de los resultados de <span class="citation">Binder (<a href="#ref-binder1983variances">1983</a>)</span>, incorpora los pesos de muestreo en la log-verosimilitud. Para unidades observadas <span class="math inline">\(k \in s\)</span>, se define</p>
+<p><span class="math display">\[
+\ell_p(\theta)
+= \sum_{k \in s} w_k \log f(y_k;\theta)
+\]</span></p>
+<p>El peso <span class="math inline">\(w_{hik}=1/\pi_{hik}\)</span> indica cuántas unidades de la población representa la observación <span class="math inline">\(y_{hik}\)</span>. Por eso, la contribución de una unidad con baja probabilidad de inclusión se amplifica en la pseudo-verosimilitud. Las ecuaciones de estimación resultantes son</p>
+<p><span class="math display">\[
+U_p(\theta)
+= \sum_{k \in s} w_k \ u_k(\theta)
+= 0
+\]</span></p>
+<p>La estimación MPV conserva la lógica de máxima verosimilitud, pero reemplaza el <em>score</em> ordinario por un <em>score</em> ponderado. La solución <span class="math inline">\(\hat{\theta}_{MPV}\)</span> es el valor que hace que la suma ponderada de contribuciones individuales sea igual a cero. Para una distribución Bernoulli, la pseudo-log-verosimilitud es</p>
+<p><span class="math display">\[
+\ell_p(\theta)
+= \sum_{k \in s} w_k
+\left[
+y_k\log(\theta)
++(1-y_k)\log(1-\theta)
+\right].
+\]</span></p>
+<p>Al derivar e igualar a cero, se obtienen que:</p>
+<p><span class="math display">\[
+\frac{\partial l_p(\theta)}{\partial \theta}
+=
+\sum_{k \in s} w_k
+\left[
+\frac{y_k}{\theta}
+-\frac{1-y_k}{1-\theta}
+\right]
+=0
+\]</span></p>
+<p>Cuya solución es:</p>
+<p><span class="math display">\[
+\hat{\theta}_{MPV}
+=
+\frac{\sum_{k \in s}w_k y_k}
+     {\sum_{k \in s}w_k}
+= \hat{p}_d
+\]</span></p>
+<p>Por tanto, para una variable binaria, la MPV conduce al estimador ponderado de la proporción, equivalente al estimador de Hájek. Este resultado conecta directamente la teoría de pseudo-verosimilitud con los estimadores de proporciones presentados en los capítulos de variables categóricas.</p>
+<p>Asimismo, para un modelo de regresión lineal múltiple, la pseudo-log-verosimilitud ponderada implica minimizar una suma de cuadrados ponderada:</p>
+<p><span class="math display">\[
+(\mathbf{y}-\mathbf{X}\beta)&#39;\mathbf{W}(\mathbf{y}-\mathbf{X}\boldsymbol{\beta}),
+\]</span></p>
+<p>donde</p>
+<p><span class="math display">\[
+\mathbf{W}=
+\begin{pmatrix}
+w_1 &amp; 0 &amp; \cdots &amp; 0\\
+0 &amp; w_2 &amp; \cdots &amp; 0\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+0 &amp; 0 &amp; \cdots &amp; w_n
+\end{pmatrix}.
+\]</span></p>
+<p>La solución es el estimador de mínimos cuadrados ponderados:</p>
+<p><span class="math display">\[
+\hat{\boldsymbol{\beta}}_{MPV}
+= (\mathbf{X}&#39;\mathbf{W}\mathbf{X})^{-1}\mathbf{X}&#39;\mathbf{W}\mathbf{y}
+\]</span></p>
+<p>Este resultado extiende de manera natural el estimador ordinario al contexto de encuestas complejas: cada observación contribuye al ajuste del modelo en proporción a su peso muestral. No obstante, para la inferencia no basta con ponderar la estimación puntual; también se requiere estimar correctamente la varianza considerando estratos, conglomerados y pesos.</p>
+<p>La siguiente simulación de Monte Carlo anidada ilustra la inferencia doble. En el ciclo externo se genera una nueva población bajo el modelo Bernoulli. En el ciclo interno se seleccionan muchas muestras por diseño y se comparan el estimador que incorpora el diseño y el promedio simple de la muestra.</p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="la-integración-de-ambas-inferencias.html#cb256-1" tabindex="-1"></a><span class="fu">library</span>(TeachingSampling)</span>
+<span id="cb256-2"><a href="la-integración-de-ambas-inferencias.html#cb256-2" tabindex="-1"></a></span>
+<span id="cb256-3"><a href="la-integración-de-ambas-inferencias.html#cb256-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb256-4"><a href="la-integración-de-ambas-inferencias.html#cb256-4" tabindex="-1"></a>N     <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb256-5"><a href="la-integración-de-ambas-inferencias.html#cb256-5" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
+<span id="cb256-6"><a href="la-integración-de-ambas-inferencias.html#cb256-6" tabindex="-1"></a>nsim1 <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb256-7"><a href="la-integración-de-ambas-inferencias.html#cb256-7" tabindex="-1"></a>Esp1 <span class="ot">&lt;-</span> Esp2 <span class="ot">&lt;-</span> Theta_U <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, nsim1)</span>
+<span id="cb256-8"><a href="la-integración-de-ambas-inferencias.html#cb256-8" tabindex="-1"></a></span>
+<span id="cb256-9"><a href="la-integración-de-ambas-inferencias.html#cb256-9" tabindex="-1"></a>cluster_size <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">each =</span> <span class="dv">5</span>)</span>
+<span id="cb256-10"><a href="la-integración-de-ambas-inferencias.html#cb256-10" tabindex="-1"></a>NI           <span class="ot">&lt;-</span> <span class="fu">length</span>(cluster_size)</span>
+<span id="cb256-11"><a href="la-integración-de-ambas-inferencias.html#cb256-11" tabindex="-1"></a>cluster_id   <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">seq_len</span>(NI), cluster_size)</span>
+<span id="cb256-12"><a href="la-integración-de-ambas-inferencias.html#cb256-12" tabindex="-1"></a>size_center  <span class="ot">&lt;-</span> <span class="fu">weighted.mean</span>(cluster_size, cluster_size)</span>
+<span id="cb256-13"><a href="la-integración-de-ambas-inferencias.html#cb256-13" tabindex="-1"></a>prob_person  <span class="ot">&lt;-</span> theta <span class="sc">+</span> <span class="fu">rep</span>((cluster_size <span class="sc">-</span> size_center) <span class="sc">/</span> <span class="dv">12</span>, cluster_size)</span>
+<span id="cb256-14"><a href="la-integración-de-ambas-inferencias.html#cb256-14" tabindex="-1"></a>nI           <span class="ot">&lt;-</span> <span class="fu">floor</span>(NI <span class="sc">*</span> <span class="fl">0.3</span>)</span>
+<span id="cb256-15"><a href="la-integración-de-ambas-inferencias.html#cb256-15" tabindex="-1"></a></span>
+<span id="cb256-16"><a href="la-integración-de-ambas-inferencias.html#cb256-16" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nsim1) {</span>
+<span id="cb256-17"><a href="la-integración-de-ambas-inferencias.html#cb256-17" tabindex="-1"></a>  y        <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(N, <span class="dv">1</span>, prob_person)</span>
+<span id="cb256-18"><a href="la-integración-de-ambas-inferencias.html#cb256-18" tabindex="-1"></a>  Theta_U[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb256-19"><a href="la-integración-de-ambas-inferencias.html#cb256-19" tabindex="-1"></a>  Ty_i     <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, cluster_id, sum)</span>
+<span id="cb256-20"><a href="la-integración-de-ambas-inferencias.html#cb256-20" tabindex="-1"></a>  Mean_i   <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, cluster_id, mean)</span>
+<span id="cb256-21"><a href="la-integración-de-ambas-inferencias.html#cb256-21" tabindex="-1"></a></span>
+<span id="cb256-22"><a href="la-integración-de-ambas-inferencias.html#cb256-22" tabindex="-1"></a>  Est1 <span class="ot">&lt;-</span> Est2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">100</span>)</span>
+<span id="cb256-23"><a href="la-integración-de-ambas-inferencias.html#cb256-23" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb256-24"><a href="la-integración-de-ambas-inferencias.html#cb256-24" tabindex="-1"></a>    res       <span class="ot">&lt;-</span> <span class="fu">S.piPS</span>(nI, cluster_size)</span>
+<span id="cb256-25"><a href="la-integración-de-ambas-inferencias.html#cb256-25" tabindex="-1"></a>    sam       <span class="ot">&lt;-</span> res[, <span class="dv">1</span>]</span>
+<span id="cb256-26"><a href="la-integración-de-ambas-inferencias.html#cb256-26" tabindex="-1"></a>    size_sam  <span class="ot">&lt;-</span> cluster_size[sam]</span>
+<span id="cb256-27"><a href="la-integración-de-ambas-inferencias.html#cb256-27" tabindex="-1"></a>    total_sam <span class="ot">&lt;-</span> Ty_i[sam]</span>
+<span id="cb256-28"><a href="la-integración-de-ambas-inferencias.html#cb256-28" tabindex="-1"></a>    mean_sam  <span class="ot">&lt;-</span> Mean_i[sam]</span>
+<span id="cb256-29"><a href="la-integración-de-ambas-inferencias.html#cb256-29" tabindex="-1"></a>    Est1[j] <span class="ot">&lt;-</span> <span class="fu">mean</span>(mean_sam)</span>
+<span id="cb256-30"><a href="la-integración-de-ambas-inferencias.html#cb256-30" tabindex="-1"></a>    Est2[j] <span class="ot">&lt;-</span> <span class="fu">sum</span>(total_sam) <span class="sc">/</span> <span class="fu">sum</span>(size_sam)</span>
+<span id="cb256-31"><a href="la-integración-de-ambas-inferencias.html#cb256-31" tabindex="-1"></a>  }</span>
+<span id="cb256-32"><a href="la-integración-de-ambas-inferencias.html#cb256-32" tabindex="-1"></a>  Esp1[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(Est1)</span>
+<span id="cb256-33"><a href="la-integración-de-ambas-inferencias.html#cb256-33" tabindex="-1"></a>  Esp2[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(Est2)</span>
+<span id="cb256-34"><a href="la-integración-de-ambas-inferencias.html#cb256-34" tabindex="-1"></a>}</span>
+<span id="cb256-35"><a href="la-integración-de-ambas-inferencias.html#cb256-35" tabindex="-1"></a></span>
+<span id="cb256-36"><a href="la-integración-de-ambas-inferencias.html#cb256-36" tabindex="-1"></a><span class="fu">cbind</span>(theta,</span>
+<span id="cb256-37"><a href="la-integración-de-ambas-inferencias.html#cb256-37" tabindex="-1"></a>      <span class="at">Media_U =</span> <span class="fu">mean</span>(Theta_U),</span>
+<span id="cb256-38"><a href="la-integración-de-ambas-inferencias.html#cb256-38" tabindex="-1"></a>      <span class="at">Esp_piS =</span> <span class="fu">mean</span>(Esp1),</span>
+<span id="cb256-39"><a href="la-integración-de-ambas-inferencias.html#cb256-39" tabindex="-1"></a>      <span class="at">Sesgo_piS =</span> <span class="fu">mean</span>(Esp1) <span class="sc">-</span> theta,</span>
+<span id="cb256-40"><a href="la-integración-de-ambas-inferencias.html#cb256-40" tabindex="-1"></a>      <span class="at">Esp_S =</span> <span class="fu">mean</span>(Esp2),</span>
+<span id="cb256-41"><a href="la-integración-de-ambas-inferencias.html#cb256-41" tabindex="-1"></a>      <span class="at">Sesgo_S =</span> <span class="fu">mean</span>(Esp2) <span class="sc">-</span> theta)</span></code></pre></div>
+<pre><code>##      theta Media_U   Esp_piS   Sesgo_piS     Esp_S    Sesgo_S
+## [1,]   0.3  0.3039 0.3024769 0.002476905 0.3316799 0.03167989</code></pre>
+<p>El código reproduce las dos fuentes de aleatoriedad. El ciclo externo representa el modelo <span class="math inline">\(\xi\)</span>, porque genera nuevas poblaciones finitas con <code>rbinom()</code>. El ciclo interno representa el diseño <span class="math inline">\(p\)</span>, porque para cada población se seleccionan múltiples muestras con <code>S.piPS()</code>. La salida incluye <code>Media_U</code>, que es el promedio de las medias poblacionales generadas; <code>Esp_piS</code>, que resume el comportamiento del estimador que incorpora el diseño; y <code>Esp_S</code>, que resume el promedio simple de la muestra seleccionada. Cuando el diseño se incorpora correctamente, el sesgo Monte Carlo respecto de <code>theta</code> debe ser pequeño. La comparación con <code>Esp_S</code> muestra por qué la inferencia basada en encuestas requiere pesos y varianzas de diseño, incluso cuando se parte de un modelo estadístico sencillo.</p>
+<p>En síntesis, la máxima verosimilitud ordinaria es adecuada cuando las observaciones pueden tratarse como IID bajo un modelo probabilístico. En encuestas complejas, la máxima pseudo-verosimilitud ofrece una extensión natural: conserva la estructura de las ecuaciones de estimación, pero pondera cada contribución individual por su peso muestral. Así, los modelos estadísticos se ajustan de manera más coherente con la población que la encuesta busca representar.</p>
+</div>
+</div>
+<!-- </div> -->
 <h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
-<div id="ref-kish1987statistical" class="csl-entry">
-Kish, L. (1987). <em>Statistical Design for Research</em>. John Wiley &amp; Sons.
+<div id="ref-binder1983variances" class="csl-entry">
+Binder, D. A. (1983). On the variances of asymptotically normal estimators from complex surveys. <em>International Statistical Review/Revue Internationale de Statistique</em>, 279-292.
+</div>
+<div id="ref-pfeffermann1993role" class="csl-entry">
+Pfeffermann, D. (1993). The Role of Sampling Weights When Modeling Survey Data. <em>International Statistical Review</em>, <em>61</em>(2), 317-337. <a href="https://doi.org/10.2307/1403631">https://doi.org/10.2307/1403631</a>
 </div>
 </div>
             </section>
@@ -318,8 +478,8 @@ Kish, L. (1987). <em>Statistical Design for Research</em>. John Wiley &amp; Sons
           </div>
         </div>
       </div>
-<a href="encadenamiento-de-operaciones.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="dos-posibles-inferencias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="dos-posibles-inferencias.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="referencias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -17,7 +17,7 @@ header-includes:
   - \usepackage{amsmath}
   - \usepackage[ruled,vlined,linesnumbered]{algorithm2e}
   - \usepackage{hyperref}
-github-repo: psirusteam/2021ASDA
+github-repo: psirusteam/LibroEncuestasR
 description: "Este es el repositorio del libro *Análisis de encuestas de hogares con R*."
 knit: "bookdown::render_book"
 linkcolor: blue

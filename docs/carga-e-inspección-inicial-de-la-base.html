@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Apéndice A Manejo de bases de datos con R | Análisis de encuestas de hogares con R</title>
+  <title>A.2 Carga e inspección inicial de la base | Análisis de encuestas de hogares con R</title>
   <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Apéndice A Manejo de bases de datos con R | Análisis de encuestas de hogares con R" />
+  <meta property="og:title" content="A.2 Carga e inspección inicial de la base | Análisis de encuestas de hogares con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
   <meta name="github-repo" content="psirusteam/LibroEncuestasR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Apéndice A Manejo de bases de datos con R | Análisis de encuestas de hogares con R" />
+  <meta name="twitter:title" content="A.2 Carga e inspección inicial de la base | Análisis de encuestas de hogares con R" />
   
   <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="sec-logistica-multinivel.html"/>
-<link rel="next" href="preparación-del-entorno-de-trabajo.html"/>
+<link rel="prev" href="preparación-del-entorno-de-trabajo.html"/>
+<link rel="next" href="encadenamiento-de-operaciones.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -303,17 +303,69 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ap1" class="section level1 hasAnchor" number="8">
-<h1><span class="header-section-number">Apéndice A</span> Manejo de bases de datos con <code>R</code><a href="ap1.html#ap1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><code>R</code> es un software estadístico ampliamente utilizado para el análisis de datos y la generación de gráficos y permite un ambiente integrado para el análisis estadístico, en particular de bases de datos. Esto significa que permite realizar procesos de análisis, programación, visualización y manejo de datos dentro de un mismo entorno. En este anexo se utiliza el enfoque del <code>tidyverse</code>, y en particular el paquete <code>dplyr</code>, para organizar una secuencia lógica de trabajo con bases de datos: cargar la información, inspeccionarla, seleccionar variables, filtrar registros, ordenar filas, crear variables y producir resúmenes.</p>
+<div id="carga-e-inspección-inicial-de-la-base" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">A.2</span> Carga e inspección inicial de la base<a href="#carga-e-inspecci%C3%B3n-inicial-de-la-base" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Es muy usual que al trabajar proyectos en <code>R</code> sea necesario importar bases de datos con información relevante para un estudio en particular. Los formatos de bases de datos que <code>R</code> permite importar son diversos, entre ellos se tienen <code>xlsx</code>, <code>csv</code>, <code>txt</code>, <code>STATA</code>, etc. Una vez leída la base de datos en el formato pertinente es recomendable transformarla al formato nativo de <code>R</code>, es decir <code>.RDS</code>. Este es un formato más eficiente y propio de <code>R</code>.</p>
+<p>Una vez se carga la base de datos se procede a utilizar las funciones en <code>R</code> para poder obtener resultados de los procesamientos agregados y gráficos de interés. Para ejemplificar el uso de funciones que permitan obtener resultados agregados, utilizaremos la base de datos <code>BigCity</code> del paquete <code>TeachingSampling</code>. Esta base corresponde a un conjunto de variables socioeconómicas de 150266 personas en un año en particular.</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="carga-e-inspección-inicial-de-la-base.html#cb200-1" tabindex="-1"></a><span class="fu">library</span>(TeachingSampling)</span>
+<span id="cb200-2"><a href="carga-e-inspección-inicial-de-la-base.html#cb200-2" tabindex="-1"></a><span class="fu">data</span>(BigCity)</span>
+<span id="cb200-3"><a href="carga-e-inspección-inicial-de-la-base.html#cb200-3" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> BigCity</span></code></pre></div>
+<p>El objeto <code>data1</code> contiene una copia de <code>BigCity</code>. La función <code>head()</code> permite observar las primeras filas y obtener una impresión rápida de la estructura de la base.</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="carga-e-inspección-inicial-de-la-base.html#cb201-1" tabindex="-1"></a><span class="fu">head</span>(data1)</span></code></pre></div>
+<pre><code>##        HHID PersonID   Stratum     PSU  Zone    Sex Age MaritalST Income
+## 1 idHH00001  idPer01 idStrt001 PSU0001 Rural   Male  38   Married 555.00
+## 2 idHH00001  idPer02 idStrt001 PSU0001 Rural Female  40   Married 555.00
+## 3 idHH00001  idPer03 idStrt001 PSU0001 Rural Female  20    Single 555.00
+## 4 idHH00001  idPer04 idStrt001 PSU0001 Rural   Male  19    Single 555.00
+## 5 idHH00001  idPer05 idStrt001 PSU0001 Rural   Male  18    Single 555.00
+## 6 idHH00002  idPer01 idStrt001 PSU0001 Rural   Male  35   Married 298.34
+##   Expenditure Employment  Poverty
+## 1      488.33   Employed  NotPoor
+## 2      488.33   Employed  NotPoor
+## 3      488.33   Inactive  NotPoor
+## 4      488.33   Employed  NotPoor
+## 5      488.33   Inactive  NotPoor
+## 6      216.70   Employed Relative</code></pre>
+<p>Una vez cargada la base de datos en <code>R</code>, se puede empezar a realizar los procesamientos según las necesidades de cada investigador. En este sentido, una de las primeras revisiones que se realizan al cargar una base de datos es verificar su dimensión; es decir, identificar la cantidad de filas y columnas que contiene. Lo anterior se puede hacer con la función <code>nrow</code>, que identifica el número de registros en la base de datos, y con la función <code>ncol</code>, que muestra el número de variables. Los códigos computacionales son los siguientes:</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="carga-e-inspección-inicial-de-la-base.html#cb203-1" tabindex="-1"></a><span class="fu">nrow</span>(data1)</span></code></pre></div>
+<pre><code>## [1] 150266</code></pre>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="carga-e-inspección-inicial-de-la-base.html#cb205-1" tabindex="-1"></a><span class="fu">ncol</span>(data1)</span></code></pre></div>
+<pre><code>## [1] 12</code></pre>
+<p>Una forma resumida de revisar la cantidad de filas y columnas de una base de datos es mediante la función <code>dim</code>, la cual devuelve un vector cuya primera componente corresponde al número de filas y cuya segunda componente indica el número de columnas.</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="carga-e-inspección-inicial-de-la-base.html#cb207-1" tabindex="-1"></a><span class="fu">dim</span>(data1)</span></code></pre></div>
+<pre><code>## [1] 150266     12</code></pre>
+<p>En algunas ocasiones, las bases de datos pueden ser extensas, ya sea porque contienen un número considerable de variables observadas o porque el número de registros es grande. Por esta razón, para visualizarlas adecuadamente, puede ser conveniente abrirlas en una ventana independiente y explorar su contenido de forma tabular. Esto se realiza mediante la función <code>View</code>, como se muestra a continuación.</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="carga-e-inspección-inicial-de-la-base.html#cb209-1" tabindex="-1"></a><span class="fu">View</span>(data1)</span></code></pre></div>
+<p>Otra verificación importante al cargar una base de datos en <code>R</code> consiste en identificar las variables que contiene. Para ello, se puede utilizar la función <code>names</code>, la cual muestra los nombres de las variables incluidas en la base de datos.</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="carga-e-inspección-inicial-de-la-base.html#cb210-1" tabindex="-1"></a><span class="fu">names</span>(data1)</span></code></pre></div>
+<pre><code>##  [1] &quot;HHID&quot;        &quot;PersonID&quot;    &quot;Stratum&quot;     &quot;PSU&quot;         &quot;Zone&quot;       
+##  [6] &quot;Sex&quot;         &quot;Age&quot;         &quot;MaritalST&quot;   &quot;Income&quot;      &quot;Expenditure&quot;
+## [11] &quot;Employment&quot;  &quot;Poverty&quot;</code></pre>
+<p>La salida anterior muestra los nombres de las variables contenidas en la base de datos. En este caso, la base cuenta con 12 variables. Las primeras variables corresponden a identificadores y elementos del diseño muestral, como <code>HHID</code>, <code>PersonID</code>, <code>Stratum</code>, <code>PSU</code> y <code>Zone</code>. Luego aparecen variables sociodemográficas, como <code>Sex</code>, <code>Age</code> y <code>MaritalST</code>. Finalmente, se incluyen variables económicas y de condición laboral o social, como <code>Income</code>, <code>Expenditure</code>, <code>Employment</code> y <code>Poverty</code>.</p>
+<p>Si se desea profundizar en el tipo de información que almacena cada variable, puede utilizarse la función <code>str</code>, la cual muestra de manera compacta la estructura de un objeto y sus componentes. Para nuestra base de datos, esta función se utilizaría de la siguiente manera:</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="carga-e-inspección-inicial-de-la-base.html#cb212-1" tabindex="-1"></a><span class="fu">str</span>(data1)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    150266 obs. of  12 variables:
+##  $ HHID       : chr  &quot;idHH00001&quot; &quot;idHH00001&quot; &quot;idHH00001&quot; &quot;idHH00001&quot; ...
+##  $ PersonID   : chr  &quot;idPer01&quot; &quot;idPer02&quot; &quot;idPer03&quot; &quot;idPer04&quot; ...
+##  $ Stratum    : chr  &quot;idStrt001&quot; &quot;idStrt001&quot; &quot;idStrt001&quot; &quot;idStrt001&quot; ...
+##  $ PSU        : chr  &quot;PSU0001&quot; &quot;PSU0001&quot; &quot;PSU0001&quot; &quot;PSU0001&quot; ...
+##  $ Zone       : chr  &quot;Rural&quot; &quot;Rural&quot; &quot;Rural&quot; &quot;Rural&quot; ...
+##  $ Sex        : chr  &quot;Male&quot; &quot;Female&quot; &quot;Female&quot; &quot;Male&quot; ...
+##  $ Age        : int  38 40 20 19 18 35 29 14 13 6 ...
+##  $ MaritalST  : Factor w/ 6 levels &quot;Partner&quot;,&quot;Married&quot;,..: 2 2 5 5 5 2 2 5 5 NA ...
+##  $ Income     : num  555 555 555 555 555 ...
+##  $ Expenditure: num  488 488 488 488 488 ...
+##  $ Employment : Factor w/ 3 levels &quot;Unemployed&quot;,&quot;Inactive&quot;,..: 3 3 2 3 2 3 3 NA NA NA ...
+##  $ Poverty    : Factor w/ 3 levels &quot;NotPoor&quot;,&quot;Extreme&quot;,..: 1 1 1 1 1 3 3 3 3 3 ...</code></pre>
+<p>Como se observa en la salida anterior, la función <code>str</code> permite identificar la clase de cada variable incluida en la base de datos. Por ejemplo, la variable <code>HHID</code> es de tipo carácter, al igual que la variable <code>Sex</code>, mientras que las variables <code>Income</code> y <code>Expenditure</code> son de tipo numérico. Los demás atributos asociados con las variables también pueden revisarse directamente en la salida del código. Esta función resulta especialmente útil para obtener una visión general del contenido y la estructura de una base de datos.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="sec-logistica-multinivel.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="preparación-del-entorno-de-trabajo.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="preparación-del-entorno-de-trabajo.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="encadenamiento-de-operaciones.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

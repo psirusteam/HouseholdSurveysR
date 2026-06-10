@@ -12,7 +12,7 @@
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
-  <meta name="github-repo" content="psirusteam/2021ASDA" />
+  <meta name="github-repo" content="psirusteam/LibroEncuestasR" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Capítulo 2 Conceptos básicos en encuestas de hogares | Análisis de encuestas de hogares con R" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="cap1.html"/>
-<link rel="next" href="cap3.html"/>
+<link rel="prev" href="estructura-del-documento.html"/>
+<link rel="next" href="población-objetivo-y-unidades-de-muestreo.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -148,6 +148,7 @@ div.csl-indent {
 }
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -160,24 +161,27 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
+<li><a href="./">Análisis de encuestas de hogares con R</a></li>
+
+<li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
 <li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
 <li class="chapter" data-level="1" data-path="cap1.html"><a href="cap1.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="02-Conceptos.html"><a href="#justificaci%C3%B3n"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
 <li class="chapter" data-level="1.2" data-path="02-Conceptos.html"><a href="#uso-del-software-r-para-el-an%C3%A1lisis-de-encuestas"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
-<li class="chapter" data-level="1.3" data-path="cap1.html"><a href="cap1.html#estructura-del-documento"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+<li class="chapter" data-level="1.3" data-path="estructura-del-documento.html"><a href="estructura-del-documento.html"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="cap2.html"><a href="cap2.html"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="02-Conceptos.html"><a href="#poblaci%C3%B3n-objetivo-y-unidades-de-muestreo"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
-<li class="chapter" data-level="2.2" data-path="cap2.html"><a href="cap2.html#estimadores-de-muestreo"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
+<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
 <li class="chapter" data-level="2.3" data-path="02-Conceptos.html"><a href="#fundamentos-te%C3%B3ricos"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
 <ul>
 <li class="chapter" data-level="2.3.1" data-path="02-Conceptos.html"><a href="#estimaci%C3%B3n-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
 <li class="chapter" data-level="2.3.2" data-path="02-Conceptos.html"><a href="#estimaci%C3%B3n-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="cap2.html"><a href="cap2.html#intervalos-de-confianza"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="cap3.html"><a href="cap3.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
 <ul>
@@ -196,10 +200,10 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="02-Conceptos.html"><a href="#pruebas-de-hip%C3%B3tesis"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
 <li class="chapter" data-level="3.4" data-path="02-Conceptos.html"><a href="#estimaci%C3%B3n-de-contrastes"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
-<li class="chapter" data-level="3.5" data-path="cap3.html"><a href="cap3.html#viz-continuas"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
+<li class="chapter" data-level="3.5" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
 <ul>
-<li class="chapter" data-level="3.5.1" data-path="cap3.html"><a href="cap3.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
-<li class="chapter" data-level="3.5.2" data-path="cap3.html"><a href="cap3.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.5.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
 <li class="chapter" data-level="3.5.3" data-path="02-Conceptos.html"><a href="#diagramas-de-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
 </ul></li>
 </ul></li>
@@ -207,47 +211,47 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="4.1" data-path="02-Conceptos.html"><a href="#estimaci%C3%B3n-del-tama%C3%B1o-poblacional"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
 <li class="chapter" data-level="4.2" data-path="02-Conceptos.html"><a href="#estimaci%C3%B3n-de-proporciones"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
-<li class="chapter" data-level="4.3" data-path="cap4.html"><a href="cap4.html#contrastes-y-diferencias-de-proporciones"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
-<li class="chapter" data-level="4.4" data-path="cap4.html"><a href="cap4.html#tablas-cruzadas"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
+<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
+<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
 <li class="chapter" data-level="4.5" data-path="02-Conceptos.html"><a href="#la-raz%C3%B3n-de-odds"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
-<li class="chapter" data-level="4.6" data-path="cap4.html"><a href="cap4.html#prueba-de-independencia-chi2"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
-<li class="chapter" data-level="4.7" data-path="cap4.html"><a href="cap4.html#viz-categoricas"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi2.html"><a href="prueba-de-independencia-chi2.html"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
 <ul>
 <li class="chapter" data-level="4.7.1" data-path="02-Conceptos.html"><a href="#gr%C3%A1ficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
-<li class="chapter" data-level="4.7.2" data-path="cap4.html"><a href="cap4.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="cap5.html"><a href="cap5.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="02-Conceptos.html"><a href="#formulaci%C3%B3n-del-modelo"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
-<li class="chapter" data-level="5.2" data-path="cap5.html"><a href="cap5.html#uso-de-los-pesos-de-muestreo"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
+<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
 <li class="chapter" data-level="5.3" data-path="02-Conceptos.html"><a href="#estimaci%C3%B3n-de-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
 <li class="chapter" data-level="5.4" data-path="02-Conceptos.html"><a href="#diagn%C3%B3stico-del-modelo"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
 <ul>
 <li class="chapter" data-level="5.4.1" data-path="02-Conceptos.html"><a href="#coeficiente-de-determinaci%C3%B3n"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
-<li class="chapter" data-level="5.4.2" data-path="cap5.html"><a href="cap5.html#residuales"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
-<li class="chapter" data-level="5.4.3" data-path="cap5.html"><a href="cap5.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+<li class="chapter" data-level="5.4.2" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
+<li class="chapter" data-level="5.4.3" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="02-Conceptos.html"><a href="#inferencia-sobre-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
 <li class="chapter" data-level="5.6" data-path="02-Conceptos.html"><a href="#estimaci%C3%B3n-y-predicci%C3%B3n"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="cap6.html"><a href="cap6.html#sec-logistica"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
-<li class="chapter" data-level="6.2" data-path="cap6.html"><a href="cap6.html#sec-multinomial"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
-<li class="chapter" data-level="6.3" data-path="cap6.html"><a href="cap6.html#sec-gamma"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
+<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="cap7.html"><a href="cap7.html"><i class="fa fa-check"></i><b>7</b> Modelos multinivel</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="cap7.html"><a href="cap7.html#sec-motivacionMult"><i class="fa fa-check"></i><b>7.1</b> Motivación</a></li>
-<li class="chapter" data-level="7.2" data-path="cap7.html"><a href="cap7.html#pesos-q-weighted"><i class="fa fa-check"></i><b>7.2</b> Pesos <em>q-weighted</em></a></li>
-<li class="chapter" data-level="7.3" data-path="cap7.html"><a href="cap7.html#modelo-lineal-multinivel"><i class="fa fa-check"></i><b>7.3</b> Modelo lineal multinivel</a>
+<li class="chapter" data-level="7.1" data-path="sec-motivacionMult.html"><a href="sec-motivacionMult.html"><i class="fa fa-check"></i><b>7.1</b> Motivación</a></li>
+<li class="chapter" data-level="7.2" data-path="pesos-q-weighted.html"><a href="pesos-q-weighted.html"><i class="fa fa-check"></i><b>7.2</b> Pesos <em>q-weighted</em></a></li>
+<li class="chapter" data-level="7.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html"><i class="fa fa-check"></i><b>7.3</b> Modelo lineal multinivel</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="cap7.html"><a href="cap7.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Modelo nulo</a></li>
-<li class="chapter" data-level="7.3.2" data-path="cap7.html"><a href="cap7.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Modelo con intercepto aleatorio</a></li>
-<li class="chapter" data-level="7.3.3" data-path="cap7.html"><a href="cap7.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Modelo con intercepto y pendiente aleatoria</a></li>
+<li class="chapter" data-level="7.3.1" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Modelo nulo</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Modelo con intercepto aleatorio</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Modelo con intercepto y pendiente aleatoria</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="cap7.html"><a href="cap7.html#sec-logistica-multinivel"><i class="fa fa-check"></i><b>7.4</b> Modelo logístico multinivel</a>
+<li class="chapter" data-level="7.4" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html"><i class="fa fa-check"></i><b>7.4</b> Modelo logístico multinivel</a>
 <ul>
 <li class="chapter" data-level="7.4.1" data-path="02-Conceptos.html"><a href="#modelo-nulo-log%C3%ADstico"><i class="fa fa-check"></i><b>7.4.1</b> Modelo nulo logístico</a></li>
 <li class="chapter" data-level="7.4.2" data-path="02-Conceptos.html"><a href="#modelo-log%C3%ADstico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Modelo logístico con intercepto aleatorio</a></li>
@@ -259,11 +263,11 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="A.1" data-path="02-Conceptos.html"><a href="#preparaci%C3%B3n-del-entorno-de-trabajo"><i class="fa fa-check"></i><b>A.1</b> Preparación del entorno de trabajo</a></li>
 <li class="chapter" data-level="A.2" data-path="02-Conceptos.html"><a href="#carga-e-inspecci%C3%B3n-inicial-de-la-base"><i class="fa fa-check"></i><b>A.2</b> Carga e inspección inicial de la base</a></li>
-<li class="chapter" data-level="A.3" data-path="ap1.html"><a href="ap1.html#encadenamiento-de-operaciones"><i class="fa fa-check"></i><b>A.3</b> Encadenamiento de operaciones</a>
+<li class="chapter" data-level="A.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html"><i class="fa fa-check"></i><b>A.3</b> Encadenamiento de operaciones</a>
 <ul>
 <li class="chapter" data-level="A.3.1" data-path="02-Conceptos.html"><a href="#filter-selecci%C3%B3n-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selección de registros</a></li>
-<li class="chapter" data-level="A.3.2" data-path="ap1.html"><a href="ap1.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: seleccionar variables</a></li>
-<li class="chapter" data-level="A.3.3" data-path="ap1.html"><a href="ap1.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: ordenamiento de filas</a></li>
+<li class="chapter" data-level="A.3.2" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: seleccionar variables</a></li>
+<li class="chapter" data-level="A.3.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: ordenamiento de filas</a></li>
 <li class="chapter" data-level="A.3.4" data-path="02-Conceptos.html"><a href="#mutate-creaci%C3%B3n-o-transformaci%C3%B3n-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creación o transformación de variables</a></li>
 <li class="chapter" data-level="A.3.5" data-path="02-Conceptos.html"><a href="#summarise-res%C3%BAmenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: resúmenes descriptivos</a></li>
 <li class="chapter" data-level="A.3.6" data-path="02-Conceptos.html"><a href="#group_by-agrupaci%C3%B3n-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: agrupación de casos</a></li>
@@ -271,14 +275,17 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Inferencia en poblaciones finitas</a>
 <ul>
-<li class="chapter" data-level="B.1" data-path="ap2.html"><a href="ap2.html#dos-posibles-inferencias"><i class="fa fa-check"></i><b>B.1</b> Dos posibles inferencias</a></li>
+<li class="chapter" data-level="B.1" data-path="dos-posibles-inferencias.html"><a href="dos-posibles-inferencias.html"><i class="fa fa-check"></i><b>B.1</b> Dos posibles inferencias</a></li>
 <li class="chapter" data-level="B.2" data-path="02-Conceptos.html"><a href="#la-integraci%C3%B3n-de-ambas-inferencias"><i class="fa fa-check"></i><b>B.2</b> La integración de ambas inferencias</a>
 <ul>
-<li class="chapter" data-level="B.2.1" data-path="ap2.html"><a href="ap2.html#sec-mv"><i class="fa fa-check"></i><b>B.2.1</b> Método de la máxima verosimilitud</a></li>
-<li class="chapter" data-level="B.2.2" data-path="ap2.html"><a href="ap2.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Método de máxima pseudo-verosimilitud</a></li>
+<li class="chapter" data-level="B.2.1" data-path="la-integración-de-ambas-inferencias.html"><a href="la-integración-de-ambas-inferencias.html"><i class="fa fa-check"></i><b>B.2.1</b> Método de la máxima verosimilitud</a></li>
+<li class="chapter" data-level="B.2.2" data-path="la-integración-de-ambas-inferencias.html"><a href="la-integración-de-ambas-inferencias.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Método de máxima pseudo-verosimilitud</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a Análisis de encuestas de hogares con R</a></li>
+
 </ul>
 
       </nav>
@@ -316,237 +323,14 @@ div.csl-indent {
 \hat{\theta} = \frac{(1 \times 50 \times 10.000) + (9 \times 50 \times 2.000)}{(1 \times 50) + (9 \times 50)} = 2.800
 \]</span></p>
 <p>Este resultado coincide con el valor verdadero de la población y muestra cómo el uso adecuado de los pesos corrige el sesgo introducido por un análisis que ignora el diseño muestral.</p>
-<div id="población-objetivo-y-unidades-de-muestreo" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Población objetivo y unidades de muestreo<a href="#poblaci%C3%B3n-objetivo-y-unidades-de-muestreo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><span class="citation">Gambino &amp; Nascimento Silva (<a href="#ref-gambino2009sampling">2009</a>)</span> menciona que, desde la popularización de las encuestas de hogares en la década de 1940, se han evidenciado diversas tendencias asociadas a los avances tecnológicos tanto en las agencias estadísticas como en la sociedad en general, las cuales se aceleraron con la introducción del computador. En este contexto, el muestreo surge como una respuesta a la necesidad de obtener información estadística precisa sobre una población objetivo sin recurrir a la realización de un censo completo. Como señala <span class="citation">Gutiérrez (<a href="#ref-Gutierrez2016">2016</a>)</span>, el muestreo consiste en realizar investigaciones parciales sobre una población con el propósito de inferir resultados para el conjunto total.</p>
-<p>En las últimas décadas, esta metodología se ha consolidado en distintos campos, especialmente en el sector gubernamental, mediante la producción de estadísticas oficiales que permiten el seguimiento de políticas públicas y de los Objetivos de Desarrollo Sostenible. Asimismo, el uso del muestreo se ha extendido al ámbito académico, al sector privado y a los medios de comunicación, donde constituye una herramienta fundamental para la generación y análisis de información.</p>
-<p>Toda encuesta se encuentra asociada a una población finita compuesta por individuos o elementos sobre los cuales se desea obtener información. El conjunto de unidades sobre las que se producirán estimaciones y resultados recibe el nombre de población objetivo. Asimismo, las encuestas definen unidades de análisis, que corresponden a los distintos niveles de desagregación para los cuales se presentan estadísticas de interés, como personas, hogares o viviendas.</p>
-<p>En las encuestas de hogares de América Latina es común utilizar diseños de muestreo en varias etapas. Para ello, se seleccionan diferentes unidades de muestreo que permiten llegar finalmente a los hogares que harán parte de la muestra. Por ejemplo, las unidades primarias de muestreo (UPM) pueden corresponder a sectores censales construidos a partir del último censo demográfico, mientras que las unidades secundarias de muestreo (USM) pueden ser las viviendas ubicadas dentro de dichos sectores.</p>
-<p>Para realizar un proceso de selección sistemática de hogares es indispensable contar con un marco muestral que sirva como enlace entre las unidades de muestreo y los hogares que conforman la población objetivo. Este marco corresponde al conjunto en el que se identifican todos los elementos que integran la población de estudio y a partir del cual se selecciona la muestra. En las encuestas de hogares con diseños muestrales complejos, los marcos de muestreo suelen estar basados en áreas geográficas. Es decir, se construyen a partir de estructuras espaciales que vinculan a los hogares o personas con zonas delimitadas del territorio. Este tipo de marco facilita la organización territorial en unidades más manejables y permite implementar procesos de selección en varias etapas, manteniendo los principios del muestreo probabilístico.</p>
-<p>Otra característica fundamental de las encuestas de hogares es la conglomeración. En la práctica, muchas encuestas seleccionan primero unidades primarias de muestreo, como sectores censales o áreas de enumeración, y posteriormente seleccionan hogares dentro de cada una de ellas. Este tipo de diseño permite reducir costos operativos y facilitar el trabajo de campo; sin embargo, también tiene implicaciones importantes sobre la precisión de las estimaciones. Cuando los hogares pertenecientes a un mismo conglomerado comparten características similares, la información adicional que aporta cada nueva observación dentro del conglomerado disminuye.</p>
-<p>Por ejemplo, supóngase una encuesta que selecciona 100 conglomerados y, dentro de cada uno, 10 hogares, obteniendo así una muestra total de 1.000 hogares. Si los hogares de un mismo conglomerado presentan comportamientos muy parecidos (por ejemplo, si todos cuentan con acceso a electricidad), la variabilidad efectiva de la muestra se reduce considerablemente. En términos prácticos, la precisión obtenida podría ser equivalente a la de una muestra aleatoria simple de apenas 100 hogares. Analizar los 1.000 hogares como si fueran observaciones completamente independientes, ignorando la estructura de conglomeración, conduce a una subestimación de los errores estándar y, en consecuencia, a intervalos de confianza artificialmente estrechos y conclusiones potencialmente erróneas sobre la significancia estadística de los resultados.</p>
-</div>
-<div id="estimadores-de-muestreo" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Estimadores de muestreo<a href="cap2.html#estimadores-de-muestreo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Al analizar datos de encuestas, también es imprescindible definir el parámetro de interés: un valor numérico fijo que describe una característica de toda la población, denotada como <span class="math inline">\(U\)</span>. Entre los parámetros más comunes se encuentran las proporciones, los tamaños, los totales, las medias y las razones, entre otros. Dado que, en la práctica, no es posible observar a toda la población, las encuestas por muestreo permiten inferir estos parámetros a partir de una muestra, denotada como <span class="math inline">\(s\)</span>.</p>
-<p>En el muestreo probabilístico, cada unidad de la población tiene una probabilidad de inclusión conocida y mayor que cero de ser seleccionada en la muestra. Estas probabilidades constituyen la base para el cálculo de los pesos básicos de muestreo, los cuales se utilizan posteriormente para estimar los parámetros poblacionales mediante sumas ponderadas de los datos recolectados en la encuesta. Cuando el diseño y la selección se implementan correctamente, las estimaciones obtenidas son insesgadas, es decir, en promedio coinciden con el valor real de la población si el proceso de muestreo se repitiera bajo las mismas condiciones.</p>
-<p>No obstante, los pesos básicos de muestreo suelen requerir ajustes adicionales con el fin de mejorar la precisión y la robustez de las estimaciones. Uno de los ajustes más comunes corresponde al tratamiento de la no respuesta, mediante el cual los pesos de las unidades que sí respondieron se incrementan para representar también a aquellas unidades seleccionadas que no participaron en la encuesta, contribuyendo así a reducir posibles sesgos. Otro ajuste ampliamente utilizado es la calibración, que consiste en modificar los pesos para garantizar que las sumas ponderadas de ciertas variables auxiliares, como la edad o el sexo, coincidan con totales poblacionales conocidos provenientes de censos o proyecciones demográficas. Además de mejorar la consistencia de las estimaciones, la calibración constituye una herramienta útil para detectar problemas de cobertura o patrones de no respuesta.</p>
-<p>Los ajustes de los pesos, y en particular la calibración, desempeñan un papel fundamental en el análisis de encuestas con diseños complejos. Estos procedimientos no solo corrigen las imperfecciones derivadas de la no respuesta o la cobertura incompleta, sino que también fortalecen la coherencia entre la muestra y la población objetivo, garantizando que las inferencias sean estadísticamente válidas y comparables con otras fuentes oficiales <span class="citation">(<a href="#ref-kalton2003weighting">Kalton &amp; Flores-Cervantes, 2003</a>)</span>.</p>
-<p>La calibración es especialmente relevante porque permite confrontar las estimaciones iniciales de la encuesta con valores de referencia externos, generalmente obtenidos de censos, registros administrativos o proyecciones demográficas. Esta comparación constituye una herramienta poderosa para detectar inconsistencias en la composición de la muestra, identificar sesgos potenciales asociados a la no respuesta y evaluar la calidad del trabajo de campo.</p>
-<p>Además, los pesos calibrados tienden a reducir la varianza de las estimaciones, mejorando su precisión sin alterar los totales poblacionales conocidos <span class="citation">(<a href="#ref-sarndal2005nonresponse">Särndal &amp; Lundström, 2005</a>)</span>. En consecuencia, la calibración no solo corrige, sino que también optimiza el uso de la información disponible, permitiendo obtener resultados más precisos.</p>
-<p>La estimación de totales en encuestas constituye un paso central en el análisis estadístico aplicado a poblaciones finitas. Gran parte de los indicadores de interés para la formulación de políticas públicas (como por ejemplo, el número de personas en situación de pobreza, el total de ocupados o el gasto agregado de los hogares) se derivan de un total poblacional. Por esta razón, comprender cómo se definen y estiman los totales resulta fundamental para garantizar la calidad y pertinencia de la información producida.</p>
-<p>En términos formales, si <span class="math inline">\(y_k\)</span> denota el valor de una variable de interés para la unidad <span class="math inline">\(k \in U\)</span>, el total poblacional se define como</p>
-<p><span class="math display">\[
-t_y = \sum_{U} y_k,
-\]</span></p>
-<p>Siendo <span class="math inline">\(N\)</span> el tamano de la población, la media poblacional se define como <span class="math inline">\(\bar{y} = \frac{t_y}{N}\)</span>. Dado que en la práctica solo se observa una muestra <span class="math inline">\(s \subset U\)</span>, es necesario recurrir a estimadores que incorporen el diseño de muestreo. Por ejemplo, el estimador de Horvitz–Thompson (HT) se expresa como</p>
-<p><span class="math display">\[
-\hat{t}_{y} = \sum_{s} d_k y_k
-\]</span></p>
-<p>donde <span class="math inline">\(d_k = 1/\pi_k\)</span> son los pesos básicos provenientes del diseño de muestreo y <span class="math inline">\(\pi_k = \Pr(k \in s)\)</span> son las probabilidades de inclusión de primer orden.</p>
-<p>En la práctica, los pesos de diseño suelen modificarse para reflejar procesos adicionales como el ajuste por no respuesta o la calibración a totales poblacionales conocidos, obteniendo así nuevos pesos ajustados, denotados como <span class="math inline">\(w_k\)</span> para todo <span class="math inline">\(k \in s\)</span>. El reemplazo de <span class="math inline">\(d_k\)</span> por <span class="math inline">\(w_k\)</span> permite mejorar la precisión y reducir sesgos en las estimaciones, especialmente cuando existen fuentes auxiliares de información confiables.</p>
-<p>No obstante, toda estimación a partir de una muestra conlleva incertidumbre. Incluso cuando el estimador es insesgado, los resultados varían de una muestra a otra debido a la propiedad de aleatoriedad del diseño. Esta variabilidad se cuantifica mediante la varianza del estimador con la cual se puede calcular el error estándar (<span class="math inline">\(se\)</span>) o el coeficiente de variación (<span class="math inline">\(cv\)</span>). Estos indicadores son herramientas indispensables para evaluar la precisión de los totales estimados y, por tanto, para interpretar de manera adecuada la información estadística. Bajo el enfoque de diseño, la varianza insesgada del estimador de Horvitz–Thompson puede expresarse como:</p>
-<p><span class="math display">\[
-\widehat{Var}_p(\hat{t}_{y}) = \sum_{k \in s} \sum_{l \in s} \bigl( d_k d_l - d_{kl} \bigr) y_k y_l,
-\]</span></p>
-<p>donde <span class="math inline">\(d_{kl} = 1/\pi_{kl}\)</span> y <span class="math inline">\(\pi_{kl} = \Pr(k,l \in s)\)</span> representan las probabilidades conjuntas de inclusión. Esta expresión requiere que el diseño de muestreo cumpla que <span class="math inline">\(\pi_{kl} &gt; 0\)</span> para todo par de unidades <span class="math inline">\(k,l \in U\)</span>.</p>
-<p>Para comprender de manera más concreta la relevancia de considerar el diseño muestral en la estimación de totales y de sus varianzas, analicemos un ejemplo de <span class="citation">United Nations Statistics Division (<a href="#ref-UNhandbook">2026</a>)</span> que permite visualizar cómo el método de estimación se ajusta al esquema de selección adoptado. Suponga una población finita de tamaño <span class="math inline">\(N=6\)</span>, de la cual se selecciona una muestra aleatoria simple (MAS) sin reemplazo de tamaño <span class="math inline">\(n=3\)</span>. En dicha muestra se observan los valores <span class="math inline">\((y_1=10, y_2=14, y_3=18)\)</span>. Bajo este diseño, el estimador de Horvitz–Thompson del total poblacional se define como la suma de los valores observados divididos por sus probabilidades de inclusión, y su varianza estimada se obtiene a partir de las covarianzas inducidas por el proceso de selección. De esta forma, la varianza estimada del estimador de Horvitz–Thompson se calcula como:</p>
-<p><span class="math display">\[
-\widehat{Var}_{MAS}(\hat{t}_{y}) = \frac{N^2}{n}\left(1-\frac{n}{N}\right)S_{y_s}^2
-\]</span></p>
-<p>donde <span class="math inline">\(S_{y_s}^2\)</span> corresponde a la varianza muestral de los valores observados. Sustituyendo en la expresión, se obtiene</p>
-<p><span class="math display">\[
-\widehat{Var}_p(\hat{t}_{y}) = \frac{36}{3}\left(1-\frac{3}{6}\right)16 = 96
-\]</span></p>
-<p>En contraste, si se ignora el diseño de muestreo, un analista inexperto podría calcular erróneamente la varianza mediante la fórmula simplificada:</p>
-<p><span class="math display">\[
-\frac{N^2}{n}S_{y_s}^2 = 192,
-\]</span></p>
-<p>lo que conduciría a una sobreestimación de la varianza por no considerar las características del diseño muestral. Asimismo, la estimación del total poblacional es <span class="math inline">\(\hat{t}_{y}=84\)</span>. El error estándar calculado según el diseño de muestreo, es</p>
-<p><span class="math display">\[
-\sqrt{\widehat{Var}_p(\hat{t}_{y})} = \sqrt{96} \approx 9.80.
-\]</span></p>
-<p>En cambio, si la varianza se estima usando un método ingenuo que ignore el diseño de muestreo, el intervalo de confianza sería más amplio con evidentes sesgos, lo que podría conducir a inferencias erróneas.</p>
-<p>Por último, de acuerdo con <span class="citation">Kish (<a href="#ref-kish1965survey">1965, p. 258</a>)</span>, el efecto del diseño (DEFF) se define como la razón entre la varianza de un estimador obtenida bajo un diseño de muestreo complejo y la varianza del mismo estimador bajo un muestreo aleatorio simple (MAS) de igual tamaño de muestra. Su estimación se expresa como:</p>
-<p><span class="math display">\[
-\widehat{{DEFF}} = \frac{\widehat{Var}_{p}(\hat{\theta})}{\widehat{Var}_{MAS}(\hat{\theta})}
-\]</span></p>
-<p>En donde, <span class="math inline">\(\widehat{Var}_{p}(\hat{\theta})\)</span> corresponde a la varianza estimada de <span class="math inline">\(\hat{\theta}\)</span> bajo el diseño complejo <span class="math inline">\(p(\cdot)\)</span>, mientras que <span class="math inline">\(\widehat{Var}_{MAS}(\hat{\theta})\)</span>
-representa la varianza estimada del mismo estimador bajo un diseño MAS con igual tamaño muestral.</p>
-<p>Este indicador permite cuantificar cuánto aumenta la varianza debido a la conglomeración y otras características propias de los diseños complejos en comparación con un muestreo simple. Según <span class="citation">Naciones Unidas (<a href="#ref-ONUDeff">2009, p. 40</a>)</span>, el DEFF puede entenderse de tres maneras: como el factor de incremento de la varianza frente al MAS, como una medida de la pérdida relativa de precisión o como una indicación del aumento en el tamaño de la muestra que sería necesario en un diseño complejo para alcanzar el mismo nivel de varianza que en un MAS. Según <span class="citation">Park et al. (<a href="#ref-Park2003Design">2003</a>)</span>, el efecto del diseño de una encuesta puede deberse a los siguientes tres factores:</p>
-<ul>
-<li>Ponderación desigual: la presencia de pesos muestrales no uniformes suele incrementar ligeramente la varianza; por ello, el uso de pesos uniformes resulta ventajoso y explica por qué los diseños auto-ponderados son preferidos en encuestas de hogares.</li>
-<li>Estratificación: cuando se aplica correctamente, puede disminuir la varianza, aunque en la práctica su efecto reductor suele ser moderado.</li>
-<li>Muestreo en varias etapas: generalmente incrementa la varianza, ya que las unidades dentro de un mismo conglomerado tienden a ser más homogéneas entre sí que en comparación con las de otros conglomerados.</li>
-</ul>
-<p>En el análisis de encuestas, el efecto del diseño (DEFF) constituye un indicador esencial para evaluar la precisión y eficiencia de las estimaciones, así como para orientar la planificación de futuros estudios. Un valor elevado evidencia que el diseño complejo introduce un incremento de la varianza, reduciendo la precisión de los resultados. Por el contrario, un valor cercano a uno indica que el diseño tiene un efecto mínimo sobre la varianza. Esta información permite a los investigadores identificar si es necesario ajustar la ponderación, optimizar la estratificación o modificar el tamaño del submuestreo para aumentar la eficiencia en levantamientos posteriores.</p>
-<p>La interpretación de un DEFF alto debe hacerse con precaución, ya que no siempre implica que el diseño muestral sea inadecuado. Es fundamental considerar el contexto de la encuesta: un valor superior a tres podría parecer alarmante, pero a menudo se debe a limitaciones prácticas como restricciones presupuestales, dificultades logísticas o la necesidad de garantizar la participación de los entrevistados. En ciertos levantamientos de hogares, puede ser indispensable seleccionar solo una fracción de los individuos elegibles en cada hogar. Además, problemas de cobertura o tasas de no respuesta pueden aumentar la variabilidad de los pesos muestrales y, en consecuencia, elevar los valores del DEFF. <span class="citation">Gutiérrez &amp; Babativa-Márquez (<a href="#ref-GutierrezBabativa2023">2023</a>)</span> realizan un análisis detallado de los efectos de diseño en encuestas de hogares en América Latina usando los datos de BADEHOG.</p>
-</div>
-<div id="fundamentos-teóricos" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Fundamentos teóricos<a href="#fundamentos-te%C3%B3ricos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Tal como destacan <span class="citation">Heeringa et al. (<a href="#ref-heeringa2017applied">2017</a>)</span>, el cálculo de totales y medias poblacionales, junto con sus varianzas, ha sido esencial para el desarrollo de la teoría del muestreo probabilístico y la interpretación adecuada de los resultados de encuestas de hogares. La determinación de los totales poblacionales constituye uno de los pilares fundamentales del análisis de encuestas. Tanto las medias como las proporciones y las razones se derivan de estos totales. Un total se define como la suma de una variable específica (por ejemplo, ingreso o gasto) a nivel de toda la población.</p>
-<p>Con encuestas de hogares, el análisis de datos numéricoséricos implica con frecuencia calcular estadísticas descriptivas como medias, totales y razones, ya que estas permiten sintetizar las principales características de la población y sirven de base para la toma de decisiones. Dichas estimaciones pueden calcularse para la población en su conjunto o para subgrupos específicos, según los objetivos de la investigación.</p>
-<div id="estimación-puntual" class="section level3 hasAnchor" number="2.3.1">
-<h3><span class="header-section-number">2.3.1</span> Estimación puntual<a href="#estimaci%C3%B3n-puntual" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Una vez definido el objeto del diseño muestral, se procede a realizar los procesos de estimación de los parámetros de interés. Para efectos de este documento, se iniciará con la estimación del total de ingresos de los hogares. Para la estimación de totales en diseños muestrales complejos, se denotará a los estratos con la letra <span class="math inline">\(h\)</span>; a las unidades primarias de muestreo, las cuales están contenidas dentro de los estratos, con la letra <span class="math inline">\(i\)</span>; mientras que las unidades observadas (hogares o personas), se denotarán con la letra <span class="math inline">\(k\)</span>. De esta forma, el estimador del total puede expresarse como:</p>
-<p><span class="math display">\[
-\hat{t}_y = \sum_{h} \sum_{i} \sum_{k} w_{hik} \, y_{hik}
-\]</span></p>
-<p>En donde, <span class="math inline">\(w_{hik}\)</span> corresponde al factor de expansión de la unidad <span class="math inline">\(k\)</span>, mientras que <span class="math inline">\(y_{hik}\)</span> corresponde a la observación de la variable de interés en esta misma unidad. El cálculo de la estimación del total y de su varianza asociada puede resultar complejo, por lo que es necesario considerar distintos enfoques metodológicos.</p>
-<p>En términos de notación y con el propósito de simplificar la escritura a lo largo de este documento, a menos que se indique lo contrario, <span class="math inline">\(\sum_{h}\)</span> denotará la suma sobre todos los estratos de la población; <span class="math inline">\(\sum_{i}\)</span> representará la suma sobre todas las unidades primarias de muestreo seleccionadas en la muestra dentro del estrato <span class="math inline">\(h\)</span>; y <span class="math inline">\(\sum_{k}\)</span> corresponderá a la suma sobre todos los elementos observados en la muestra de la UPM <span class="math inline">\(i\)</span>, perteneciente al estrato <span class="math inline">\(h\)</span> de la población de interés.</p>
-</div>
-<div id="estimación-de-la-varianza" class="section level3 hasAnchor" number="2.3.2">
-<h3><span class="header-section-number">2.3.2</span> Estimación de la varianza<a href="#estimaci%C3%B3n-de-la-varianza" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Al trabajar con encuestas de hogares es fundamental no solo obtener estimaciones puntuales, sino también cuantificar la incertidumbre asociada a dichas estimaciones. Comprender y estimar esta incertidumbre constituye una parte esencial del análisis de los datos de encuestas de hogares. Mediante la aplicación de métodos apropiados, los usuarios pueden evaluar la precisión de sus estimaciones. Existen diversos métodos para estimar dicha precisión y, con el apoyo de software moderno, estos enfoques pueden implementarse de manera eficiente para respaldar análisis rigurosos y confiables. Entre los principales métodos se encuentran:</p>
-<ul>
-<li><p>Ecuaciones de estimación: proporcionan un marco flexible para estimar totales, medias, razones y otros parámetros, así como sus varianzas correspondientes, integrando una visión unificada de la teoría del muestreo <span class="citation">(<a href="#ref-binder1983variances">Binder, 1983</a>)</span>.</p></li>
-<li><p>Linealización de Taylor: consiste en aproximar estadísticas no lineales complejas mediante expresiones lineales, y posteriormente estimar la varianza de dicha aproximación.</p></li>
-<li><p>Método del último conglomerado: utilizado con frecuencia en encuestas basadas en muestreo estratificado en múltiples etapas. Se fundamenta en el cálculo de la varianza a partir de las diferencias entre las estimaciones obtenidas a nivel de las unidades primarias de muestreo (UPM). Este método suele combinarse con la linealización de Taylor para estimar la varianza de estadísticas no lineales, como medias o razones.</p></li>
-<li><p>Bootstrap y otros métodos de replicación: se fundamentan en tomar repetidas submuestras del conjunto de datos observado, calcular estimaciones para cada réplica y luego utilizar la variabilidad entre estas estimaciones replicadas para inferir la varianza del estimador principal.</p></li>
-</ul>
-<p>En el contexto de encuestas de hogares, muchos parámetros complejos pueden formularse como combinaciones lineales de otros parámetros <span class="math inline">\(f(\theta_1,\ldots,\theta_J)\)</span>. En efecto, sea:</p>
-<p><span class="math display">\[
-f=f(\theta_1,\ldots,\theta_J) = \sum_{j=1}^J a_j \theta_j,
-\]</span></p>
-<p>donde los coeficientes <span class="math inline">\(a_j\)</span> son constantes conocidas y <span class="math inline">\(\theta_j\)</span> representan parámetros poblacionales. Si, <span class="math inline">\(\hat\theta_j\)</span> es un estimador de <span class="math inline">\(\theta_j\)</span>, entonces, un estimador muestral de <span class="math inline">\(f\)</span> se define como:</p>
-<p><span class="math display">\[
-\hat{f} = \sum_{j=1}^J a_j \hat{\theta}_j,
-\]</span></p>
-<p>De esta manera, su varianza puede expresarse como:</p>
-<p><span class="math display">\[
-Var(\hat{f}) = \sum_{j=1}^J a_j^2 Var(\hat{\theta}_j)
-\;+\;
-2\sum_{j=1}^{J-1}\sum_{k&gt;j}^J
-a_j a_k \, Cov(\hat{\theta}_j,\hat{\theta}_k).
-\]</span></p>
-<p>Este resultado es particularmente importante porque incluye numerosos casos de interés práctico que se desarrollarán a lo largo de este documento.</p>
-<div id="ecuaciones-de-estimación" class="section level4 hasAnchor" number="2.3.2.1">
-<h4><span class="header-section-number">2.3.2.1</span> Ecuaciones de estimación<a href="#ecuaciones-de-estimaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Muchos parámetros poblacionales pueden expresarse como soluciones de ecuaciones de estimación que involucran totales poblacionales. Aunque los detalles técnicos pueden ser complejos, la idea fundamental es que los mismos principios utilizados para estimar totales pueden aplicarse también para la estimación de varianzas. Este marco general hace que el método sea sencillo y flexible, facilitando su implementación en software estadístico especializado. Una ecuación de estimación poblacional genérica puede expresarse de la siguiente manera:</p>
-<p><span class="math display">\[
-\sum_{k\in U} z_k(\theta)=0,
-\]</span></p>
-<p>donde <span class="math inline">\(z_k(\cdot)\)</span> es una función de estimación evaluada para la unidad <span class="math inline">\(k\)</span> y <span class="math inline">\(\theta\)</span> representa el parámetro poblacional de interés. Estas ecuaciones proporcionan un marco general para definir y calcular diversos parámetros de la población, como totales, medias y razones. Por ejemplo, para el total poblacional, se define <span class="math inline">\(z_k(\theta)=y_k-\theta/N\)</span>, de manera que la ecuación de estimación es <span class="math inline">\(\sum_{k\in U}(y_k-\theta/N)=0\)</span>. La solución de esta ecuación conduce a <span class="math inline">\(\theta=\sum_{k\in U} y_k = Y\)</span>, es decir, al total poblacional.</p>
-<p>De forma similar, para la media poblacional se utiliza <span class="math inline">\(z_k(\theta)=y_k-\theta\)</span>, y la ecuación <span class="math inline">\(\sum_{k\in U}(y_k-\theta)=0\)</span> tiene como solución <span class="math inline">\(\theta=\left(\sum_{k\in U} y_k\right)/N = \overline{Y}\)</span>, correspondiente a la media de la población. Asimismo, en el caso de las razones de totales, se define <span class="math inline">\(z_k(\theta)=y_k-\theta x_k\)</span>. Así, la ecuación <span class="math inline">\(\sum_{k\in U}(y_k-\theta x_k)=0\)</span> conduce a la solución <span class="math inline">\(\theta=\dfrac{\sum_{k\in U} y_k}{\sum_{k\in U} x_k} = R\)</span>, que corresponde a la razón poblacional entre los totales de las variables <span class="math inline">\(y\)</span> y <span class="math inline">\(x\)</span>. Estas formulaciones muestran cómo distintos parámetros de interés pueden expresarse mediante ecuaciones de estimación que comparten una estructura común.</p>
-<p>La idea de definir parámetros poblacionales como soluciones de ecuaciones de estimación a nivel de población conduce naturalmente a un método general para obtener los estimadores muestrales. En este caso, se utilizan ecuaciones de la forma:</p>
-<p><span class="math display">\[
-\sum_{k\in s} w_k\, z_k(\theta)=0,
-\]</span></p>
-<p>donde <span class="math inline">\(w_k\)</span> son los factores de expansión y <span class="math inline">\(z_k(\theta)\)</span> la función de estimación evaluada para cada unidad de la muestra. Bajo un muestreo probabilístico y asumiendo respuesta completa, la suma muestral <span class="math inline">\(\sum_{k\in s} d_k\, z_k(\theta)\)</span> es insesgada respecto a su análoga poblacional, lo que garantiza que las soluciones de estas ecuaciones sean estimadores consistentes de los parámetros poblacionales.</p>
-</div>
-<div id="linealización-de-taylor" class="section level4 hasAnchor" number="2.3.2.2">
-<h4><span class="header-section-number">2.3.2.2</span> Linealización de Taylor<a href="#linealizaci%C3%B3n-de-taylor" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Esta técnica permite aproximar la varianza de estimadores no lineales. El procedimiento consiste en aplicar una expansión de Taylor de primer orden alrededor del parámetro estimado, con el fin de reemplazar el estimador no lineal por una expresión lineal. De esta manera, se facilita el cálculo de varianzas en situaciones donde no existen fórmulas exactas o su derivación resulta demasiado compleja. Un estimador consistente de la varianza, derivado mediante linealización de Taylor para soluciones de ecuaciones de estimación muestrales, puede expresarse como:</p>
-<p><span class="math display">\[
-\widehat{Var}(\hat{\theta}) \approx [\hat{J}(\hat{\theta})]^{-1} \, \widehat{Var}_p \Bigg[\sum_{k\in s} w_k\, z_k(\hat{\theta})\Bigg] \, [\hat{J}(\hat{\theta})]^{-1}
-\]</span></p>
-<p>donde <span class="math inline">\(\hat{J}(\hat{\theta}) = \sum_{k\in s} w_k \left[ \frac{\partial z_k(\theta)}{\partial \theta} \right]_{\theta=\hat{\theta}}\)</span>. Este resultado muestra cómo la linealización de Taylor convierte la estimación de varianzas de parámetros complejos en un problema de estimación de totales, lo que explica su amplia adopción en software especializado para el análisis de encuestas.</p>
-</div>
-<div id="último-conglomerado" class="section level4 hasAnchor" number="2.3.2.3">
-<h4><span class="header-section-number">2.3.2.3</span> Último conglomerado<a href="#%C3%BAltimo-conglomerado" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>El método del último conglomerado constituye un enfoque directo y robusto para estimar la varianza de totales en encuestas que emplean diseños de muestreo por conglomerados estratificados en múltiples etapas. Propuesto por <span class="citation"><span class="nocase">Hansen et al.</span> (<a href="#ref-hansen1953sample">1953</a>)</span>, este método simplifica la complejidad de los diseños multinivel al centrarse únicamente en la variación entre las Unidades Primarias de Muestreo (UPM). Se asume que, dentro de cada estrato de muestreo, las UPM fueron seleccionadas de manera independiente con reemplazo (posiblemente con probabilidades desiguales), aunque en la práctica la selección suele realizarse sin reemplazo.</p>
-<p>El método se basa en la variación entre las estadísticas calculadas a nivel de UPM. Cuando se aplica correctamente, refleja implícitamente cualquier submuestreo realizado dentro de las UPM, permitiendo estimaciones de varianza más simples pero confiables. Es especialmente útil en diseños complejos que incluyen estratificación y probabilidades desiguales de selección tanto de UPM como de unidades de niveles inferiores (hogares e individuos). Los requisitos para aplicar este método incluyen la disponibilidad de estimaciones insesgadas de totales para las variables de interés en cada UPM seleccionada. Además, si la muestra se estratifica en la primera etapa, es necesario contar con al menos dos UPM disponibles por estrato, ya que esto permite estimar adecuadamente la variabilidad entre conglomerados dentro de cada estrato.</p>
-<p>De esta forma, considere un diseño de muestreo en múltiples etapas donde se seleccionan <span class="math inline">\(n_h\)</span> UPM en el estrato <span class="math inline">\(h\)</span>, (<span class="math inline">\(h=1,\dots,H\)</span>). Una estimación del total de la variable de interés en la UPM <span class="math inline">\(i\)</span> del estrato <span class="math inline">\(h\)</span> es:</p>
-<p><span class="math display">\[
-\hat{t}_{y_i} = \sum_{k\in s_{hi}} w_{hik} \ y_{hik}
-\]</span></p>
-<p>En donde <span class="math inline">\(s_{hi}\)</span> corresponde a la muestra de unidades en la UPM <span class="math inline">\(i\)</span> del estrato <span class="math inline">\(h\)</span>; por tanto, un estimador insesgado del total poblacional se expresaría como</p>
-<p><span class="math display">\[
-\hat{t}_{y}  = \sum_{h}\sum_{i} \hat{t}_{y_i}
-\]</span></p>
-<p>Según el método del último conglomerado, suponiendo que <span class="math inline">\(\hat{\bar t}_{y_h}=(1/{n_h}) \sum_{i} \hat{t}_{y_i}\)</span> es la media muestral de los totales estimados de las UPM en el estrato <span class="math inline">\(h\)</span>, un estimador aproximado de la varianza de <span class="math inline">\(\hat t_y\)</span> se obtiene mediante al siguiente expresión:</p>
-<p><span class="math display">\[
-\widehat{Var}(\hat{t}_y) = \sum_{h} \frac{n_h}{n_h-1} \sum_{i} (\hat{t}_{y_i} - \hat{\bar t}_{y_h})^2
-\]</span></p>
-<p>Para más detalles, véase Hansen, <span class="citation"><span class="nocase">Hansen et al.</span> (<a href="#ref-hansen1953sample">1953, p. 258</a>)</span> o <span class="citation">Wolter &amp; Wolter (<a href="#ref-wolter2007">2007</a>)</span>. Aunque este método se propuso originalmente para calcular varianzas de estimadores de totales, el método puede combinarse con linealización de Taylor o ecuaciones de estimación para derivar varianzas de otros parámetros poblacionales formulables como soluciones de ecuaciones de estimación. Esta flexibilidad hace que el método sea aplicable a diversos contextos de análisis de encuestas de hogares.</p>
-<p>Un supuesto fundamental de esta técnica es que, dentro de cada estrato, las UPM se eligen de forma independiente y con reemplazo. En la práctica, la mayoría de las encuestas selecciona UPM sin reemplazo, generando diseños más eficientes. En consecuencia, las varianzas calculadas bajo la hipótesis de independencia constituyen aproximaciones de las verdaderas varianzas de muestreo. Cuando la fracción muestral es pequeña (por ejemplo, inferior al <span class="math inline">\(5\%\)</span>), dichas aproximaciones suelen ser suficientemente precisas para su utilización por parte de las oficinas nacionales de estadística o de otros analistas.</p>
-<p>Este método destaca por su simplicidad y robustez, lo que lo hace muy atractivo en la práctica. Aunque los métodos más sofisticados que consideran todas las etapas del diseño pueden ofrecer estimaciones de varianza ligeramente más precisas, su aplicación requiere información más detallada y mayor complejidad computacional. Por el contrario, el método del último conglomerado proporciona una aproximación confiable y eficiente, especialmente útil al estimar totales o medias en encuestas de hogares. Para un análisis detallado sobre la precisión de esta aproximación y posibles alternativas, véase <span class="citation">Särndal et al. (<a href="#ref-sarndal2003model">2003</a>)</span>.</p>
-</div>
-<div id="bootstrap" class="section level4 hasAnchor" number="2.3.2.4">
-<h4><span class="header-section-number">2.3.2.4</span> Bootstrap<a href="cap2.html#bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>En muchos casos, los microdatos de encuestas públicas omiten información esencial del diseño, como identificadores de estratos o de unidades primarias de muestreo (UPM), para proteger la confidencialidad de los encuestados. Esta omisión limita la capacidad de los usuarios para calcular varianzas válidas. En tales situaciones, se recomienda que las oficinas nacionales de estadística proporcionen pesos de replicación, lo que permite a los analistas estimar errores estándar de manera correcta. Sin estos datos, los usuarios secundarios no pueden reproducir los errores estándar publicados ni considerar adecuadamente el diseño complejo de la encuesta.</p>
-<p>Los métodos de replicación estiman la varianza generando subconjuntos de la muestra original, calculando estimaciones para cada uno y utilizando la variabilidad observada entre estas estimaciones para aproximar la varianza del estimador principal. Son particularmente útiles cuando no se dispone de información sobre estratos o UPM, situación en la que no se puede aplicar el método de Ultimate Cluster.</p>
-<p>Por ejemplo, el Bootstrap es una herramienta de replicación robusta y versátil. Originalmente introducido por <span class="citation">Efron (<a href="#ref-efron1979bootstrap">1979</a>)</span> para datos que no provenían de encuestas, su adaptación más usada para encuestas de hogares es el Bootstrap de Reescalamiento Rao-Wu-Yue <span class="citation">(<a href="#ref-rao1992resampling">Rao et al., 1992</a>)</span>. Este método se ajusta de manera óptima a diseños de muestreo estratificados y multietápicos, y es ampliamente empleado para la estimación de varianzas en encuestas complejas.</p>
-<p>El procedimiento consiste en generar muchas réplicas de la muestra original, simulando extracciones repetidas de la población. Cada réplica se construye mediante la creación de columnas adicionales de pesos de replicación en la base de datos, siguiendo este proceso:</p>
-<ul>
-<li>Para cada estrato, se seleccionan aleatoriamente las UPM con reemplazo; algunas pueden repetirse y otras no aparecer. Cada UPM elegida se incorpora con todas sus observaciones. Si el tamaño de la muestra de primera etapa en el estrato <span class="math inline">\(h\)</span> es mayor que dos (<span class="math inline">\(n_h &gt; 2\)</span>), el número de UPM seleccionadas por réplica es <span class="math inline">\(n_h - 1\)</span>.</li>
-<li>Este proceso se repite muchas veces, habitualmente cientos, generando un gran número de réplicas. La cantidad de veces que una UPM <span class="math inline">\(i\)</span> del estrato <span class="math inline">\(h\)</span> aparece en la réplica <span class="math inline">\(r\)</span> se denota <span class="math inline">\(n_{hi}^{(r)}\)</span>, variando entre 0 y <span class="math inline">\(n_h - 1\)</span>.</li>
-<li>A partir de cada réplica se calculan nuevos pesos bootstrap para todas las unidades, reflejando cuántas veces fue seleccionada su UPM. El peso de la unidad <span class="math inline">\(k\)</span> en la réplica <span class="math inline">\(r\)</span> se calcula como:</li>
-</ul>
-<p><span class="math display">\[
-w_{hik}^{(r)} = w_{hik} \times \frac{n_h}{n_h - 1} \times n_{hi}^{(r)}
-\]</span></p>
-<p>Si los pesos originales incluyen ajustes por no respuesta o calibración, estos deben aplicarse también a cada conjunto de pesos bootstrap.</p>
-<p>Cuando se proporciona únicamente pesos de replicación Bootstrap, los analistas pueden estimar errores estándar correctamente, aun sin identificadores de estratos o UPM. Para cada réplica <span class="math inline">\(r\)</span>, se calcula el parámetro de interés <span class="math inline">\(\hat{\theta}^{(r)}\)</span> usando los pesos bootstrap <span class="math inline">\(w_{hik}^{(r)}\)</span>. La varianza del estimador original se aproxima mediante la variabilidad entre todas las réplicas:</p>
-<p><span class="math display">\[
-\widehat{Var}_B(\hat{\theta}) = \frac{1}{R} \sum_{r=1}^{R} \left(\hat{\theta}^{(r)} - \tilde{\theta}\right)^2, \quad
-\tilde{\theta} = \frac{1}{R} \sum_{r=1}^{R} \hat{\theta}^{(r)}
-\]</span></p>
-<p>Este enfoque asegura que la dispersión entre réplicas capture fielmente la incertidumbre del parámetro. El Bootstrap ofrece múltiples ventajas. A pesar de requerir un mayor procesamiento computacional, es eficaz para diseños de encuesta complejos y permite estimar parámetros difíciles de calcular con métodos tradicionales, como medianas u otras estadísticas no lineales. Es especialmente útil para analistas que trabajan con bases de datos sin identificadores de estratos y UPM, pero con pesos de replicación.</p>
-<p>La simplicidad del método facilita su aplicación incluso sin software estadístico especializado. Sin embargo, la mayoría de los paquetes estadísticos modernos ya incluyen procedimientos para aplicar Bootstrap y calcular varianzas, ampliando su disponibilidad y robustez. No obstante, su uso no es recomendable en encuestas repetidas con muestras superpuestas ni en situaciones con fracciones de muestreo grandes y tamaños de muestra pequeños <span class="citation">(<a href="#ref-bruch2011variance">Bruch et al., 2011</a>)</span>.</p>
-</div>
-</div>
-</div>
-<div id="intervalos-de-confianza" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> Intervalos de confianza<a href="cap2.html#intervalos-de-confianza" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Además de producir estimaciones puntuales, uno de los objetivos fundamentales de una encuesta es cuantificar la incertidumbre asociada a dichas estimaciones. En este contexto, los intervalos de confianza permiten construir un rango de valores plausibles para el parámetro poblacional de interés, incorporando explícitamente la variabilidad introducida por el diseño muestral. El intervalo de confianza de nivel <span class="math inline">\((1-\alpha)100\%\)</span> para el total poblacional <span class="math inline">\(Y\)</span> se calcula como:</p>
-<p><span class="math display">\[
-\hat{\theta} \pm t_{1-\alpha/2, df} \times \sqrt{\widehat{Var}(\hat{\theta})}
-\]</span></p>
-<p>donde <span class="math inline">\(\hat{\theta}\)</span> corresponde al estimador por muestreo del parámetro poblacional <span class="math inline">\(\theta\)</span>; <span class="math inline">\(\widehat{Var}(\hat{\theta})\)</span> representa el estimador de varianza bajo el diseño complejo de la encuesta; y <span class="math inline">\(t_{1-\alpha/2, df}\)</span> es el cuantil de la distribución <span class="math inline">\(t\)</span> de Student con <span class="math inline">\(df\)</span> grados de libertad. En encuestas complejas, los grados de libertad suelen estar relacionados con la cantidad de unidades primarias de muestreo (UPM) y los estratos considerados en el diseño. Una aproximación común consiste en calcularlos como:</p>
-<p><span class="math display">\[
-df = m - H
-\]</span></p>
-<p>donde <span class="math inline">\(m\)</span> representa el número total de UPM observadas en la muestra y <span class="math inline">\(H\)</span> el número de estratos. Esta aproximación refleja la cantidad efectiva de información independiente disponible para estimar la variabilidad muestral. A medida que los grados de libertad aumentan, la distribución <span class="math inline">\(t\)</span> de Student converge hacia la distribución normal estándar. Esta propiedad explica por qué muchas veces se utilizan aproximaciones normales para reportar intervalos de confianza, especialmente en encuestas de hogares de gran escala. Sin embargo, cuando el número de conglomerados es reducido o existen estratos con pocas UPM, la aproximación normal puede subestimar la incertidumbre y producir intervalos excesivamente estrechos.</p>
-
-</div>
 </div>
 <h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
-<div id="ref-binder1983variances" class="csl-entry">
-Binder, D. A. (1983). On the variances of asymptotically normal estimators from complex surveys. <em>International Statistical Review/Revue Internationale de Statistique</em>, 279-292.
-</div>
-<div id="ref-bruch2011variance" class="csl-entry">
-Bruch, C., Münnich, R., &amp; Zins, S. (2011). Variance estimation for complex surveys. <em>Deliverable D3</em>, <em>1</em>.
-</div>
-<div id="ref-efron1979bootstrap" class="csl-entry">
-Efron, B. (1979). Bootstrap methods: Another look at the jackknife. <em>The Annals of Statistics</em>, <em>7</em>(1), 1-26. <a href="https://doi.org/10.1214/aos/1176344552">https://doi.org/10.1214/aos/1176344552</a>
-</div>
-<div id="ref-gambino2009sampling" class="csl-entry">
-Gambino, J. G., &amp; Nascimento Silva, P. L. do. (2009). Sampling and estimation in household surveys. En <em>Handbook of Statistics</em> (Vol. 29, pp. 407-439). Elsevier.
-</div>
 <div id="ref-Gutierrez2016" class="csl-entry">
 Gutiérrez, H. A. (2016). <em>Estrategias de muestreo: diseño de encuestas y estimación de parámetros</em> (Segunda edición). Ediciones de la U.
 </div>
-<div id="ref-GutierrezBabativa2023" class="csl-entry">
-Gutiérrez, H. A., &amp; Babativa-Márquez, G. (2023). <em>Efectos de diseño para indicadores sociales en Am<span>é</span>rica Latina: función generalizada de varianza para estimadores directos provenientes de encuestas de hogares</em> (LC/TS.2023/95 No. 106; CEPAL - Serie Estudios Estadísticos). Comisión Económica para América Latina y el Caribe (CEPAL), Naciones Unidas. <a href="https://repositorio.cepal.org/server/api/core/bitstreams/feb8c8be-6434-41f2-8fd9-f12f71a0739a/content">https://repositorio.cepal.org/server/api/core/bitstreams/feb8c8be-6434-41f2-8fd9-f12f71a0739a/content</a>
-</div>
-<div id="ref-hansen1953sample" class="csl-entry">
-<span class="nocase">Hansen, M. H., Hurwitz, W. N., Madow, W. G., et al.</span> (1953). <em>Sample survey methods and theory</em>.
-</div>
-<div id="ref-heeringa2017applied" class="csl-entry">
-Heeringa, S. G., West, B. T., Heeringa, S. G., &amp; Berglund, P. A. (2017). <em>Applied survey data analysis</em>. chapman; hall/CRC.
-</div>
-<div id="ref-kalton2003weighting" class="csl-entry">
-Kalton, G., &amp; Flores-Cervantes, I. (2003). Weighting methods. <em>Journal of official statistics</em>, <em>19</em>(2), 81.
-</div>
-<div id="ref-kish1965survey" class="csl-entry">
-Kish, L. (1965). <em>Survey sampling.</em>
-</div>
 <div id="ref-korn1995analysis" class="csl-entry">
 Korn, E. L., &amp; Graubard, B. I. (1995). Analysis of large health surveys: accounting for the sampling design. <em>Journal of the Royal Statistical Society: Series A (Statistics in Society)</em>, <em>158</em>(2), 263-295.
-</div>
-<div id="ref-ONUDeff" class="csl-entry">
-Naciones Unidas. (2009). <em>Diseño de Muestras para Encuestas de Hogares: Directrices Prácticas.</em> Naciones Unidas. <a href="https://unstats.un.org/unsd/publication/seriesf/seriesf_98s.pdf">https://unstats.un.org/unsd/publication/seriesf/seriesf_98s.pdf</a>
-</div>
-<div id="ref-Park2003Design" class="csl-entry">
-Park, I., Winglee, M., Clark, J., Rust, K., Sedlak, A., &amp; Morganstein, D. (2003). Design Effects and Survey Planning. <em>Proceedings of the Section on Survey Research Methods</em>, 3179-3186. <a href="https://www.asasrms.org/Proceedings/y2003/Files/JSM2003-000156.pdf">https://www.asasrms.org/Proceedings/y2003/Files/JSM2003-000156.pdf</a>
-</div>
-<div id="ref-rao1992resampling" class="csl-entry">
-Rao, J. N. K., Wu, C. F. J., &amp; Yue, K. (1992). Some recent work on resampling methods for complex surveys. <em>Survey Methodology</em>, <em>18</em>, 209-217.
-</div>
-<div id="ref-sarndal2005nonresponse" class="csl-entry">
-Särndal, C.-E., &amp; Lundström, S. (2005). <em>Estimation in surveys with nonresponse</em>. John Wiley &amp; Sons.
 </div>
 <div id="ref-sarndal2003model" class="csl-entry">
 Särndal, C.-E., Swensson, B., &amp; Wretman, J. (2003). <em>Model assisted survey sampling</em>. Springer Science &amp; Business Media.
@@ -554,17 +338,14 @@ Särndal, C.-E., Swensson, B., &amp; Wretman, J. (2003). <em>Model assisted surv
 <div id="ref-UNhandbook" class="csl-entry">
 United Nations Statistics Division. (2026). <em>Handbook of Surveys on Households and Individuals Foundations and Emerging Approaches</em>. United Nations.
 </div>
-<div id="ref-wolter2007" class="csl-entry">
-Wolter, K. M., &amp; Wolter, K. M. (2007). <em>Introduction to variance estimation</em> (Vol. 53). Springer.
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="cap1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="cap3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="estructura-del-documento.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="población-objetivo-y-unidades-de-muestreo.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -579,8 +360,8 @@ Wolter, K. M., &amp; Wolter, K. M. (2007). <em>Introduction to variance estimati
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
   "sharing": {
-    "github": false,
-    "facebook": true,
+    "github": true,
+    "facebook": false,
     "twitter": true,
     "linkedin": false,
     "weibo": false,
@@ -595,8 +376,8 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": null,
-    "text": null
+    "link": "https://github.com/psirusteam/LibroEncuestasR/02-Conceptos.Rmd",
+    "text": "Edit"
   },
   "history": {
     "link": null,
@@ -606,14 +387,15 @@ gitbook.start({
     "link": null,
     "text": null
   },
-  "download": ["Libro.pdf"],
+  "download": ["Libro.pdf", "Libro.epub", "Libro.mobi"],
   "search": {
     "engine": "fuse",
     "options": null
   },
   "toc": {
-    "collapse": "subsection"
-  }
+    "collapse": "section"
+  },
+  "tconfig": null
 });
 });
 </script>
