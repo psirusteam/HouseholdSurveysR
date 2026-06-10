@@ -327,21 +327,21 @@ H_0: p_{rc}^0 = p_{r+} \times p_{+c}, \quad \text{para todo } r = 1,\ldots,R \te
 ##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
 ## 
 ## data:  NextMethod()
-## F = 0.056464, ndf = 1, ddf = 119, p-value = 0.8126</code></pre>
+## F = 0.06, ndf = 1, ddf = 119, p-value = 0.8</code></pre>
 <p>En este caso, el argumento <code>formula</code> especifica las dos variables categóricas cuya independencia se desea evaluar; <code>design</code> corresponde al diseño muestral previamente definido; y <code>statistic = "F"</code> indica que la prueba se realizará utilizando la versión ajustada basada en la distribución <span class="math inline">\(F\)</span>. Si el valor-<em>p</em> es superior al 5%, no se rechaza la hipótesis nula <span class="math inline">\(H_0\)</span>, concluyendo que no existe evidencia estadística suficiente para afirmar que pobreza y sexo están asociadas. Por el contrario, si el valor-<em>p</em> es inferior al 5%, se rechaza <span class="math inline">\(H_0\)</span>, lo que sugiere la existencia de dependencia o asociación entre ambas variables categóricas. De manera similar, se pueden evaluar otras relaciones, como desempleo y sexo o pobreza y región.</p>
 <div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="prueba-de-independencia-chi.html#cb96-1" tabindex="-1"></a><span class="fu">svychisq</span>(<span class="at">formula =</span> <span class="sc">~</span>Sex <span class="sc">+</span> Employment, <span class="at">design =</span> diseno, <span class="at">statistic =</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
 ## 
 ## data:  NextMethod()
-## F = 62.251, ndf = 1.6865, ddf = 200.6978, p-value &lt; 2.2e-16</code></pre>
+## F = 62, ndf = 2, ddf = 201, p-value &lt;0.0000000000000002</code></pre>
 <p>En este primer caso, para el contraste de independencia entre las variables <code>Sex</code> y <code>Employment</code>, el estadístico obtenido fue <span class="math inline">\(F = 62.251\)</span>, con un valor-<span class="math inline">\(p\)</span> menor que <span class="math inline">\(2.2\times10^{-16}\)</span>, lo que proporciona evidencia estadísticamente significativa para rechazar la hipótesis nula de independencia entre ambas variables. En consecuencia, los resultados sugieren que existe una asociación significativa entre el sexo y la condición de empleo en la población de estudio.</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="prueba-de-independencia-chi.html#cb98-1" tabindex="-1"></a><span class="fu">svychisq</span>(<span class="at">formula =</span> <span class="sc">~</span>Region <span class="sc">+</span> pobreza, <span class="at">design =</span> diseno, <span class="at">statistic =</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
 ## 
 ## data:  NextMethod()
-## F = 0.48794, ndf = 3.0082, ddf = 357.9731, p-value = 0.6914</code></pre>
+## F = 0.5, ndf = 3, ddf = 358, p-value = 0.7</code></pre>
 <p>Por otro lado, esta prueba de independencia entre las variables <code>Region</code> y <code>pobreza</code>, da como resultado <span class="math inline">\(F = 0.48794\)</span>, con un valor-<span class="math inline">\(p = 0.6914\)</span>. Dado que este valor-<span class="math inline">\(p\)</span> es considerablemente mayor que niveles de significancia convencionales, no existe evidencia suficiente para rechazar la hipótesis nula de independencia. Por tanto, los resultados sugieren que, bajo el diseño muestral considerado, no se observa una asociación estadísticamente significativa entre la región y la condición de pobreza.</p>
 </div>
 <h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>

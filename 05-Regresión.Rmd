@@ -6,7 +6,9 @@ knitr::opts_chunk$set(warning = FALSE,
                       fig.width = 6,
                       fig.height = 4,
                       out.width = "70%",
-                      fig.path = "docs/figures/")
+                      fig.path = "figures/")
+knitr::opts_knit$set(base.dir = "docs")
+options(scipen = 999, digits = 3)
 source("_tabla_helper.R")
 ```
 

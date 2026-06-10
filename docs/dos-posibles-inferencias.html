@@ -344,8 +344,8 @@ E_{\xi}\left(\frac{1}{N}\sum_{k \in U}Y_k\right)
 <span id="cb250-10"><a href="dos-posibles-inferencias.html#cb250-10" tabindex="-1"></a>}</span>
 <span id="cb250-11"><a href="dos-posibles-inferencias.html#cb250-11" tabindex="-1"></a></span>
 <span id="cb250-12"><a href="dos-posibles-inferencias.html#cb250-12" tabindex="-1"></a><span class="fu">cbind</span>(theta, <span class="at">Esp0 =</span> <span class="fu">mean</span>(Est0), <span class="at">Sesgo =</span> <span class="fu">mean</span>(Est0) <span class="sc">-</span> theta)</span></code></pre></div>
-<pre><code>##      theta   Esp0   Sesgo
-## [1,]   0.3 0.3023 0.00225</code></pre>
+<pre><code>##      theta  Esp0   Sesgo
+## [1,]   0.3 0.302 0.00225</code></pre>
 <p>El código fija una semilla para que el ejercicio sea reproducible. Luego genera <code>nsim1</code> poblaciones independientes mediante <code>rbinom()</code>. La salida reporta el parámetro verdadero <code>theta</code>, el promedio de las medias simuladas <code>Esp0</code> y el sesgo Monte Carlo. Como se espera bajo el modelo Bernoulli IID, <code>Esp0</code> queda muy cerca de 0.3 y el sesgo es cercano a cero. Las pequeñas diferencias se deben a que se usan 1000 simulaciones, no un número infinito de repeticiones.</p>
 <p>En la teoría de muestreo, en cambio, las características de interés son parámetros fijos de la población. Si una persona está desempleada, su estado se considera un valor fijo de la población finita. Lo aleatorio es el mecanismo mediante el cual se selecciona la muestra. El total poblacional se define como <span class="math inline">\(t_y = \sum_{k \in U} y_k\)</span>, mientras que la media poblacional es <span class="math inline">\(\bar{y}_U = \frac{t_y}{N}\)</span>. Si se observa una muestra <span class="math inline">\(s\)</span>, el estimador de Horvitz-Thompson del total es</p>
 <p><span class="math display">\[
@@ -410,8 +410,8 @@ E_{\xi}\left(\frac{1}{N}\sum_{k \in U}Y_k\right)
 <span id="cb252-32"><a href="dos-posibles-inferencias.html#cb252-32" tabindex="-1"></a>      <span class="at">Sesgo_piS =</span> <span class="fu">mean</span>(Est1) <span class="sc">-</span> theta_N,</span>
 <span id="cb252-33"><a href="dos-posibles-inferencias.html#cb252-33" tabindex="-1"></a>      <span class="at">Esp_S =</span> <span class="fu">mean</span>(Est2),</span>
 <span id="cb252-34"><a href="dos-posibles-inferencias.html#cb252-34" tabindex="-1"></a>      <span class="at">Sesgo_S =</span> <span class="fu">mean</span>(Est2) <span class="sc">-</span> theta_N)</span></code></pre></div>
-<pre><code>##      theta_N Esp_piS Sesgo_piS  Esp_S Sesgo_S
-## [1,]     0.3  0.3037  0.003676 0.3585 0.05849</code></pre>
+<pre><code>##      theta_N Esp_piS Sesgo_piS Esp_S Sesgo_S
+## [1,]     0.3   0.304   0.00368 0.358  0.0585</code></pre>
 <p>El primer bloque del código genera hogares de tamaños desiguales, entre 2 y 6 personas. Para hacer visible el efecto del diseño, la probabilidad individual de desempleo varía suavemente con el tamaño del hogar, pero se centra de manera que el promedio esperado de la población siga siendo cercano a <code>theta</code>. Luego se calcula <code>theta_N</code>, que es la proporción real de desempleo en esa población específica. En cada repetición, <code>S.piPS()</code> selecciona UPMs con probabilidades proporcionales al tamaño; después se calculan la media de las medias de las UPMs seleccionadas y el promedio simple de las personas observadas. La salida compara ambos estimadores con <code>theta_N</code>. El sesgo de Monte Carlo de <code>Esp_piS</code> es cercano a cero, mientras que el de <code>Esp_S</code> no lo es, mostrando resultado de ignorar el diseño en este ejercicio.</p>
 </div>
 <h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>

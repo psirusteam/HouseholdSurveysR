@@ -346,34 +346,34 @@ div.csl-indent {
 <span id="cb219-4"><a href="encadenamiento-de-operaciones.html#cb219-4" tabindex="-1"></a>datadog <span class="sc">%&gt;%</span></span>
 <span id="cb219-5"><a href="encadenamiento-de-operaciones.html#cb219-5" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>##   PersonID      HHID     PSU  Zone    Sex Age Income
-## 1  idPer01 idHH01522 PSU0112 Rural Female  82  10.00
-## 2  idPer01 idHH22167 PSU0112 Rural Female  82  10.00
-## 3  idPer01 idHH10745 PSU0893 Rural   Male  68  11.92
-## 4  idPer01 idHH31390 PSU0893 Rural   Male  68  11.92
-## 5  idPer01 idHH17632 PSU1432 Rural   Male  58  12.08
-## 6  idPer02 idHH17632 PSU1432 Rural Female  50  12.08</code></pre>
+## 1  idPer01 idHH01522 PSU0112 Rural Female  82   10.0
+## 2  idPer01 idHH22167 PSU0112 Rural Female  82   10.0
+## 3  idPer01 idHH10745 PSU0893 Rural   Male  68   11.9
+## 4  idPer01 idHH31390 PSU0893 Rural   Male  68   11.9
+## 5  idPer01 idHH17632 PSU1432 Rural   Male  58   12.1
+## 6  idPer02 idHH17632 PSU1432 Rural Female  50   12.1</code></pre>
 <p>El ordenamiento también puede realizarse considerando más de una variable. En este ejemplo, la base se organiza primero según la variable <code>Sex</code> y, posteriormente, dentro de cada grupo, de acuerdo con la variable <code>Age</code>. La siguiente salida permite revisar los primeros registros después de aplicar este criterio de ordenamiento.</p>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="encadenamiento-de-operaciones.html#cb221-1" tabindex="-1"></a>datared <span class="sc">%&gt;%</span></span>
 <span id="cb221-2"><a href="encadenamiento-de-operaciones.html#cb221-2" tabindex="-1"></a>  <span class="fu">arrange</span>(Sex, Age) <span class="sc">%&gt;%</span></span>
 <span id="cb221-3"><a href="encadenamiento-de-operaciones.html#cb221-3" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>##   PersonID      HHID     PSU  Zone    Sex Age Income
-## 1  idPer04 idHH00009 PSU0001 Rural Female   0  151.7
-## 2  idPer04 idHH20654 PSU0001 Rural Female   0  151.7
-## 3  idPer06 idHH00042 PSU0004 Rural Female   0  527.8
-## 4  idPer06 idHH20687 PSU0004 Rural Female   0  527.8
-## 5  idPer04 idHH00191 PSU0014 Urban Female   0  355.0
-## 6  idPer04 idHH20836 PSU0014 Urban Female   0  355.0</code></pre>
+## 1  idPer04 idHH00009 PSU0001 Rural Female   0    152
+## 2  idPer04 idHH20654 PSU0001 Rural Female   0    152
+## 3  idPer06 idHH00042 PSU0004 Rural Female   0    528
+## 4  idPer06 idHH20687 PSU0004 Rural Female   0    528
+## 5  idPer04 idHH00191 PSU0014 Urban Female   0    355
+## 6  idPer04 idHH20836 PSU0014 Urban Female   0    355</code></pre>
 <p>Para ordenar los registros de mayor a menor, se utiliza la opción <code>desc()</code> dentro de la función <code>arrange()</code>. En el siguiente ejemplo, la base se organiza de manera que las personas con mayor edad aparezcan en los primeros registros. Este tipo de ordenamiento permite identificar rápidamente los valores más altos de una variable dentro de la base reducida.</p>
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="encadenamiento-de-operaciones.html#cb223-1" tabindex="-1"></a>datared <span class="sc">%&gt;%</span></span>
 <span id="cb223-2"><a href="encadenamiento-de-operaciones.html#cb223-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Age)) <span class="sc">%&gt;%</span></span>
 <span id="cb223-3"><a href="encadenamiento-de-operaciones.html#cb223-3" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>##   PersonID      HHID     PSU  Zone    Sex Age Income
-## 1  idPer02 idHH01024 PSU0076 Urban Female  98  135.0
-## 2  idPer02 idHH21669 PSU0076 Urban Female  98  135.0
-## 3  idPer01 idHH02916 PSU0219 Rural Female  98  136.9
-## 4  idPer01 idHH23561 PSU0219 Rural Female  98  136.9
-## 5  idPer01 idHH03863 PSU0290 Rural   Male  98  244.9
-## 6  idPer01 idHH24508 PSU0290 Rural   Male  98  244.9</code></pre>
+## 1  idPer02 idHH01024 PSU0076 Urban Female  98    135
+## 2  idPer02 idHH21669 PSU0076 Urban Female  98    135
+## 3  idPer01 idHH02916 PSU0219 Rural Female  98    137
+## 4  idPer01 idHH23561 PSU0219 Rural Female  98    137
+## 5  idPer01 idHH03863 PSU0290 Rural   Male  98    245
+## 6  idPer01 idHH24508 PSU0290 Rural   Male  98    245</code></pre>
 </div>
 <div id="mutate-creacion-o-transformacion-de-variables" class="section level3 hasAnchor" number="8.3.4">
 <h3><span class="header-section-number">A.3.4</span> <code>mutate</code>: creación o transformación de variables<a href="encadenamiento-de-operaciones.html#mutate-creacion-o-transformacion-de-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -403,12 +403,12 @@ div.csl-indent {
 <span id="cb227-5"><a href="encadenamiento-de-operaciones.html#cb227-5" tabindex="-1"></a>  <span class="fu">select</span>(PersonID, Income, Logincome) <span class="sc">%&gt;%</span></span>
 <span id="cb227-6"><a href="encadenamiento-de-operaciones.html#cb227-6" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>##   PersonID Income Logincome
-## 1  idPer01  555.0     6.319
-## 2  idPer02  555.0     6.319
-## 3  idPer03  555.0     6.319
-## 4  idPer04  555.0     6.319
-## 5  idPer05  555.0     6.319
-## 6  idPer01  298.3     5.698</code></pre>
+## 1  idPer01    555      6.32
+## 2  idPer02    555      6.32
+## 3  idPer03    555      6.32
+## 4  idPer04    555      6.32
+## 5  idPer05    555      6.32
+## 6  idPer01    298      5.70</code></pre>
 <p>Note que <code>mutate()</code> puede crear más de una variable en el mismo paso. Además, las variables creadas al inicio de <code>mutate()</code> pueden ser utilizadas en cálculos posteriores dentro del mismo llamado. Por ejemplo, <code>Income2</code> duplica el ingreso original e <code>Income4</code> duplica <code>Income2</code>. La siguiente salida muestra que <code>Income4</code> equivale a cuatro veces el ingreso inicial.</p>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="encadenamiento-de-operaciones.html#cb229-1" tabindex="-1"></a>datacat <span class="ot">&lt;-</span> datablue2 <span class="sc">%&gt;%</span></span>
 <span id="cb229-2"><a href="encadenamiento-de-operaciones.html#cb229-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Income2 =</span> <span class="dv">2</span> <span class="sc">*</span> Income,</span>
@@ -418,12 +418,12 @@ div.csl-indent {
 <span id="cb229-6"><a href="encadenamiento-de-operaciones.html#cb229-6" tabindex="-1"></a>  <span class="fu">select</span>(PersonID, Income2, Income4) <span class="sc">%&gt;%</span></span>
 <span id="cb229-7"><a href="encadenamiento-de-operaciones.html#cb229-7" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>##   PersonID Income2 Income4
-## 1  idPer01  1110.0    2220
-## 2  idPer02  1110.0    2220
-## 3  idPer03  1110.0    2220
-## 4  idPer04  1110.0    2220
-## 5  idPer05  1110.0    2220
-## 6  idPer01   596.7    1193</code></pre>
+## 1  idPer01    1110    2220
+## 2  idPer02    1110    2220
+## 3  idPer03    1110    2220
+## 4  idPer04    1110    2220
+## 5  idPer05    1110    2220
+## 6  idPer01     597    1193</code></pre>
 <p>También se puede crear una variable categórica mediante condiciones. En este ejemplo, la función <code>case_when()</code> clasifica la edad en rangos y luego convierte el resultado en un factor ordenado. El resultado es <code>CatAge</code>, una variable de grupos etarios ordenados. Esta transformación facilita la producción de tablas por tramos de edad.</p>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="encadenamiento-de-operaciones.html#cb231-1" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> data1 <span class="sc">%&gt;%</span></span>
 <span id="cb231-2"><a href="encadenamiento-de-operaciones.html#cb231-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -450,7 +450,7 @@ div.csl-indent {
 <span id="cb232-2"><a href="encadenamiento-de-operaciones.html#cb232-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.ing =</span> <span class="fu">sum</span>(Income),</span>
 <span id="cb232-3"><a href="encadenamiento-de-operaciones.html#cb232-3" tabindex="-1"></a>            <span class="at">media.ing =</span> <span class="fu">mean</span>(Income))</span></code></pre></div>
 <pre><code>##   total.ing media.ing
-## 1  87893117     584.9</code></pre>
+## 1  87893117       585</code></pre>
 <p>También pueden calcularse medidas de localización para describir la posición de los valores dentro de la distribución. En este caso, se obtiene la mediana, el primer decil, el noveno decil y la diferencia entre estos dos últimos. El resultado permite resumir distintos puntos de la distribución del ingreso, mientras que el rango decílico muestra la distancia entre el 10% inferior y el 10% superior de los ingresos observados.</p>
 <div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="encadenamiento-de-operaciones.html#cb234-1" tabindex="-1"></a>data1 <span class="sc">%&gt;%</span></span>
 <span id="cb234-2"><a href="encadenamiento-de-operaciones.html#cb234-2" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
@@ -460,7 +460,7 @@ div.csl-indent {
 <span id="cb234-6"><a href="encadenamiento-de-operaciones.html#cb234-6" tabindex="-1"></a>  <span class="at">rangodecil =</span> decil9 <span class="sc">-</span> decil1</span>
 <span id="cb234-7"><a href="encadenamiento-de-operaciones.html#cb234-7" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>##   mediana decil1 decil9 rangodecil
-## 1   449.2  165.3   1126        961</code></pre>
+## 1     449    165   1126        961</code></pre>
 <p>Con <code>summarise()</code> también es posible calcular medidas de dispersión, tales como la varianza, la desviación estándar, el valor mínimo, el valor máximo, el rango y el rango intercuartílico. Estas estadísticas permiten describir el grado de variabilidad de los ingresos observados en la muestra. En particular, el rango se obtiene como la diferencia entre el valor máximo y el valor mínimo, mientras que el rango intercuartílico resume la dispersión del 50% central de la distribución.</p>
 <div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="encadenamiento-de-operaciones.html#cb236-1" tabindex="-1"></a>data1 <span class="sc">%&gt;%</span></span>
 <span id="cb236-2"><a href="encadenamiento-de-operaciones.html#cb236-2" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
@@ -471,8 +471,8 @@ div.csl-indent {
 <span id="cb236-7"><a href="encadenamiento-de-operaciones.html#cb236-7" tabindex="-1"></a>  <span class="at">rango =</span> maxi <span class="sc">-</span> mini,</span>
 <span id="cb236-8"><a href="encadenamiento-de-operaciones.html#cb236-8" tabindex="-1"></a>  <span class="at">rangoiq =</span> <span class="fu">IQR</span>(Income)</span>
 <span id="cb236-9"><a href="encadenamiento-de-operaciones.html#cb236-9" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>##   varianza  desv mini  maxi rango rangoiq
-## 1   332463 576.6   10 32920 32910   468.3</code></pre>
+<pre><code>##   varianza desv mini  maxi rango rangoiq
+## 1   332463  577   10 32920 32910     468</code></pre>
 </div>
 <div id="group-by-agrupacion-de-casos" class="section level3 hasAnchor" number="8.3.6">
 <h3><span class="header-section-number">A.3.6</span> <code>group_by</code>: agrupación de casos<a href="encadenamiento-de-operaciones.html#group-by-agrupacion-de-casos" class="anchor-section" aria-label="Anchor link to header"></a></h3>

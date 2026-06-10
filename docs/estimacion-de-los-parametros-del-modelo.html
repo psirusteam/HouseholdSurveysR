@@ -370,7 +370,7 @@ div.csl-indent {
 <span id="cb115-6"><a href="estimacion-de-los-parametros-del-modelo.html#cb115-6" tabindex="-1"></a></span>
 <span id="cb115-7"><a href="estimacion-de-los-parametros-del-modelo.html#cb115-7" tabindex="-1"></a>plot_sin </span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-scatter-muestra-sinP"></span>
-<img src="docs/figures/fig-scatter-muestra-sinP-1.svg" alt="Diagrama de dispersión entre gasto e ingreso en la muestra (sin ponderar)" width="65%" />
+<img src="figures/fig-scatter-muestra-sinP-1.svg" alt="Diagrama de dispersión entre gasto e ingreso en la muestra (sin ponderar)" width="65%" />
 <p class="caption">
 Figura 5.1: Diagrama de dispersión entre gasto e ingreso en la muestra (sin ponderar)
 </p>
@@ -398,8 +398,8 @@ Figura 5.1: Diagrama de dispersión entre gasto e ingreso en la muestra (sin pon
 ##       73.58         1.22        66.65        20.64  
 ## 
 ## Degrees of Freedom: 2604 Total (i.e. Null);  116 Residual
-## Null Deviance:       6.35e+08 
-## Residual Deviance: 3.09e+08  AIC: 38300</code></pre>
+## Null Deviance:       635000000 
+## Residual Deviance: 309000000     AIC: 38300</code></pre>
 <p>La salida anterior corresponde al ajuste de un modelo de regresión lineal en el que la variable <code>Income</code> se explica a partir de las variables <code>Expenditure</code>, <code>Zone</code> y <code>Sex</code>. Los resultados indican la existencia de una relación positiva entre ingreso y gasto, de modo que, manteniendo constantes las demás variables, el ingreso esperado aumenta en aproximadamente 1.22 unidades por cada unidad adicional de gasto.</p>
 <p>Asimismo, se evidencian diferencias sistemáticas asociadas a las características sociodemográficas incluidas en el modelo: residir en zona urbana se asocia con un incremento promedio de 66.65 unidades en el ingreso respecto de la categoría de referencia, mientras que ser hombre se asocia con un aumento de 20.64 unidades en comparación con la categoría base del sexo. El intercepto estimado, igual a 73.58, representa el nivel esperado de ingreso para la categoría de referencia del modelo (zona rural y sexo femenino) cuando el gasto es igual a cero.</p>
 </div>

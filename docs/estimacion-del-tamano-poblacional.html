@@ -339,17 +339,17 @@ div.csl-indent {
 <td align="left">Rural</td>
 <td align="center">1297</td>
 <td align="center">72102</td>
-<td align="center">3062.204</td>
-<td align="center">66038.53</td>
-<td align="center">78165.47</td>
+<td align="center">3062</td>
+<td align="center">66039</td>
+<td align="center">78165</td>
 </tr>
 <tr class="even">
 <td align="left">Urban</td>
 <td align="center">1308</td>
 <td align="center">78164</td>
-<td align="center">2847.221</td>
-<td align="center">72526.22</td>
-<td align="center">83801.78</td>
+<td align="center">2847</td>
+<td align="center">72526</td>
+<td align="center">83802</td>
 </tr>
 </tbody>
 </table>
@@ -372,24 +372,24 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td align="left">NotPoor</td>
-<td align="center">91398.33</td>
-<td align="center">4394.855</td>
-<td align="center">82696.08</td>
-<td align="center">100100.58</td>
+<td align="center">91398</td>
+<td align="center">4395</td>
+<td align="center">82696</td>
+<td align="center">100101</td>
 </tr>
 <tr class="even">
 <td align="left">Extreme</td>
-<td align="center">21518.77</td>
-<td align="center">4949.354</td>
-<td align="center">11718.55</td>
-<td align="center">31318.98</td>
+<td align="center">21519</td>
+<td align="center">4949</td>
+<td align="center">11719</td>
+<td align="center">31319</td>
 </tr>
 <tr class="odd">
 <td align="left">Relative</td>
-<td align="center">37348.90</td>
-<td align="center">3695.399</td>
-<td align="center">30031.64</td>
-<td align="center">44666.16</td>
+<td align="center">37349</td>
+<td align="center">3695</td>
+<td align="center">30032</td>
+<td align="center">44666</td>
 </tr>
 </tbody>
 </table>
@@ -413,24 +413,24 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td align="left">Unemployed</td>
-<td align="center">4634.807</td>
-<td align="center">760.624</td>
-<td align="center">3128.695</td>
-<td align="center">6140.919</td>
+<td align="center">4635</td>
+<td align="center">761</td>
+<td align="center">3129</td>
+<td align="center">6141</td>
 </tr>
 <tr class="even">
 <td align="left">Inactive</td>
-<td align="center">41465.248</td>
-<td align="center">2162.804</td>
-<td align="center">37182.680</td>
-<td align="center">45747.816</td>
+<td align="center">41465</td>
+<td align="center">2163</td>
+<td align="center">37183</td>
+<td align="center">45748</td>
 </tr>
 <tr class="odd">
 <td align="left">Employed</td>
-<td align="center">61877.020</td>
-<td align="center">2540.076</td>
-<td align="center">56847.415</td>
-<td align="center">66906.624</td>
+<td align="center">61877</td>
+<td align="center">2540</td>
+<td align="center">56847</td>
+<td align="center">66907</td>
 </tr>
 </tbody>
 </table>
@@ -441,16 +441,8 @@ div.csl-indent {
 <span id="cb58-3"><a href="estimacion-del-tamano-poblacional.html#cb58-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Employment, Poverty) <span class="sc">%&gt;%</span></span>
 <span id="cb58-4"><a href="estimacion-del-tamano-poblacional.html#cb58-4" tabindex="-1"></a>  <span class="fu">cascade</span>( <span class="at">Nd =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span><span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)), </span>
 <span id="cb58-5"><a href="estimacion-del-tamano-poblacional.html#cb58-5" tabindex="-1"></a>           <span class="at">.fill =</span> <span class="st">&quot;Total&quot;</span>)</span></code></pre></div>
-<table style="width:100%;">
+<table>
 <caption><span id="tab:tab-tamano-empleo-pobreza">Cuadro 4.4: </span>Tamaño poblacional estimado por estado de ocupación y condición de pobreza</caption>
-<colgroup>
-<col width="16%" />
-<col width="14%" />
-<col width="17%" />
-<col width="14%" />
-<col width="17%" />
-<col width="17%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Employment</th>
@@ -465,106 +457,106 @@ div.csl-indent {
 <tr class="odd">
 <td align="left">Unemployed</td>
 <td align="center">NotPoor</td>
-<td align="center">1768.375</td>
-<td align="center">405.377</td>
-<td align="center">965.689</td>
-<td align="center">2571.061</td>
+<td align="center">1768</td>
+<td align="center">405</td>
+<td align="center">966</td>
+<td align="center">2571</td>
 </tr>
 <tr class="even">
 <td align="left">Unemployed</td>
 <td align="center">Extreme</td>
-<td align="center">1169.201</td>
-<td align="center">348.134</td>
-<td align="center">479.860</td>
-<td align="center">1858.541</td>
+<td align="center">1169</td>
+<td align="center">348</td>
+<td align="center">480</td>
+<td align="center">1859</td>
 </tr>
 <tr class="odd">
 <td align="left">Unemployed</td>
 <td align="center">Relative</td>
-<td align="center">1697.231</td>
-<td align="center">457.808</td>
-<td align="center">790.726</td>
-<td align="center">2603.736</td>
+<td align="center">1697</td>
+<td align="center">458</td>
+<td align="center">791</td>
+<td align="center">2604</td>
 </tr>
 <tr class="even">
 <td align="left">Unemployed</td>
 <td align="center">Total</td>
-<td align="center">4634.807</td>
-<td align="center">760.624</td>
-<td align="center">3128.695</td>
-<td align="center">6140.919</td>
+<td align="center">4635</td>
+<td align="center">761</td>
+<td align="center">3129</td>
+<td align="center">6141</td>
 </tr>
 <tr class="odd">
 <td align="left">Inactive</td>
 <td align="center">NotPoor</td>
-<td align="center">24346.008</td>
-<td align="center">1736.277</td>
-<td align="center">20908.006</td>
-<td align="center">27784.010</td>
+<td align="center">24346</td>
+<td align="center">1736</td>
+<td align="center">20908</td>
+<td align="center">27784</td>
 </tr>
 <tr class="even">
 <td align="left">Inactive</td>
 <td align="center">Extreme</td>
-<td align="center">6421.825</td>
-<td align="center">1320.735</td>
-<td align="center">3806.638</td>
-<td align="center">9037.012</td>
+<td align="center">6422</td>
+<td align="center">1321</td>
+<td align="center">3807</td>
+<td align="center">9037</td>
 </tr>
 <tr class="odd">
 <td align="left">Inactive</td>
 <td align="center">Relative</td>
-<td align="center">10697.414</td>
-<td align="center">1460.279</td>
-<td align="center">7805.915</td>
-<td align="center">13588.913</td>
+<td align="center">10697</td>
+<td align="center">1460</td>
+<td align="center">7806</td>
+<td align="center">13589</td>
 </tr>
 <tr class="even">
 <td align="left">Inactive</td>
 <td align="center">Total</td>
-<td align="center">41465.248</td>
-<td align="center">2162.804</td>
-<td align="center">37182.680</td>
-<td align="center">45747.816</td>
+<td align="center">41465</td>
+<td align="center">2163</td>
+<td align="center">37183</td>
+<td align="center">45748</td>
 </tr>
 <tr class="odd">
 <td align="left">Employed</td>
 <td align="center">NotPoor</td>
-<td align="center">44600.347</td>
-<td align="center">2596.191</td>
-<td align="center">39459.628</td>
-<td align="center">49741.065</td>
+<td align="center">44600</td>
+<td align="center">2596</td>
+<td align="center">39460</td>
+<td align="center">49741</td>
 </tr>
 <tr class="even">
 <td align="left">Employed</td>
 <td align="center">Extreme</td>
-<td align="center">5127.531</td>
-<td align="center">1121.646</td>
-<td align="center">2906.560</td>
-<td align="center">7348.503</td>
+<td align="center">5128</td>
+<td align="center">1122</td>
+<td align="center">2907</td>
+<td align="center">7349</td>
 </tr>
 <tr class="odd">
 <td align="left">Employed</td>
 <td align="center">Relative</td>
-<td align="center">12149.142</td>
-<td align="center">1346.616</td>
-<td align="center">9482.708</td>
-<td align="center">14815.576</td>
+<td align="center">12149</td>
+<td align="center">1347</td>
+<td align="center">9483</td>
+<td align="center">14816</td>
 </tr>
 <tr class="even">
 <td align="left">Employed</td>
 <td align="center">Total</td>
-<td align="center">61877.020</td>
-<td align="center">2540.076</td>
-<td align="center">56847.415</td>
-<td align="center">66906.624</td>
+<td align="center">61877</td>
+<td align="center">2540</td>
+<td align="center">56847</td>
+<td align="center">66907</td>
 </tr>
 <tr class="odd">
 <td align="left">Total</td>
 <td align="center">Total</td>
-<td align="center">107977.074</td>
-<td align="center">3465.568</td>
-<td align="center">101114.903</td>
-<td align="center">114839.246</td>
+<td align="center">107977</td>
+<td align="center">3466</td>
+<td align="center">101115</td>
+<td align="center">114839</td>
 </tr>
 </tbody>
 </table>

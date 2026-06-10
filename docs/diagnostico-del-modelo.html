@@ -333,9 +333,9 @@ div.csl-indent {
 <span id="cb119-4"><a href="diagnostico-del-modelo.html#cb119-4" tabindex="-1"></a>R2Adj <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> ((n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> (n <span class="sc">-</span> p)) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> R2)</span>
 <span id="cb119-5"><a href="diagnostico-del-modelo.html#cb119-5" tabindex="-1"></a></span>
 <span id="cb119-6"><a href="diagnostico-del-modelo.html#cb119-6" tabindex="-1"></a>R2</span></code></pre></div>
-<pre><code>## [1] 0.5138361</code></pre>
+<pre><code>## [1] 0.5138</code></pre>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="diagnostico-del-modelo.html#cb121-1" tabindex="-1"></a>R2Adj</span></code></pre></div>
-<pre><code>## [1] 0.5132754</code></pre>
+<pre><code>## [1] 0.5133</code></pre>
 </div>
 <div id="residuales" class="section level3 hasAnchor" number="5.4.2">
 <h3><span class="header-section-number">5.4.2</span> Residuales<a href="diagnostico-del-modelo.html#residuales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -363,7 +363,7 @@ r_{k} = \frac{y_k - \mu_k}{\sqrt{\widehat{Var}(\mu_k)/w_k}},
 <span id="cb124-8"><a href="diagnostico-del-modelo.html#cb124-8" tabindex="-1"></a>                <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb124-9"><a href="diagnostico-del-modelo.html#cb124-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-hist-residuales"></span>
-<img src="docs/figures/fig-hist-residuales-1.svg" alt="Histograma de residuales estandarizados con curva de densidad estimada y distribución normal teórica" width="65%" />
+<img src="figures/fig-hist-residuales-1.svg" alt="Histograma de residuales estandarizados con curva de densidad estimada y distribución normal teórica" width="65%" />
 <p class="caption">
 Figura 5.2: Histograma de residuales estandarizados con curva de densidad estimada y distribución normal teórica
 </p>
@@ -389,7 +389,7 @@ Figura 5.2: Histograma de residuales estandarizados con curva de densidad estima
 <span id="cb125-17"><a href="diagnostico-del-modelo.html#cb125-17" tabindex="-1"></a></span>
 <span id="cb125-18"><a href="diagnostico-del-modelo.html#cb125-18" tabindex="-1"></a>(g1<span class="sc">|</span>g2<span class="sc">|</span>g3)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-residuales-covariables"></span>
-<img src="docs/figures/fig-residuales-covariables-1.svg" alt="Gráficos de residuales estandarizados frente a cada covariable del modelo" width="80%" />
+<img src="figures/fig-residuales-covariables-1.svg" alt="Gráficos de residuales estandarizados frente a cada covariable del modelo" width="80%" />
 <p class="caption">
 Figura 5.3: Gráficos de residuales estandarizados frente a cada covariable del modelo
 </p>
@@ -408,15 +408,15 @@ Figura 5.3: Gráficos de residuales estandarizados frente a cada covariable del 
 <div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="diagnostico-del-modelo.html#cb126-1" tabindex="-1"></a><span class="fu">svyCooksD</span>(fit_svy, <span class="at">doplot=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb126-2"><a href="diagnostico-del-modelo.html#cb126-2" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-cook"></span>
-<img src="docs/figures/fig-cook-1.svg" alt="Distancia de Cook para cada observación de la muestra" width="65%" />
+<img src="figures/fig-cook-1.svg" alt="Distancia de Cook para cada observación de la muestra" width="65%" />
 <p class="caption">
 Figura 5.4: Distancia de Cook para cada observación de la muestra
 </p>
 </div>
-<pre><code>##            1            2            3            4            5            6 
-## 0.0008667289 0.0013960768 0.0013978891 0.0010179499 0.0016358877 0.0016422670 
-##            7            8            9           10 
-## 0.0018452090 0.0013092790 0.0021196768 0.0012425138</code></pre>
+<pre><code>##         1         2         3         4         5         6         7         8 
+## 0.0008667 0.0013961 0.0013979 0.0010179 0.0016359 0.0016423 0.0018452 0.0013093 
+##         9        10 
+## 0.0021197 0.0012425</code></pre>
 <p>Otro estadístico que mide el grado de influencia de una observación es el DFBETA, denotado como <span class="math inline">\(D_f\text{Beta}_{(k)j}\)</span>, que mide el cambio que experimenta el coeficiente de regresión <span class="math inline">\(\hat{\beta}_{j}\)</span> cuando la observación <span class="math inline">\(k\)</span> es eliminada del proceso de estimación. En consecuencia, esta medida evalúa la influencia individual de cada observación sobre los parámetros del modelo, identificando aquellas unidades cuya presencia altera de manera importante las estimaciones obtenidas. Valores elevados de <span class="math inline">\(D_f\text{Beta}_{(k)j}\)</span> indican que la observación ejerce una influencia considerable sobre el coeficiente correspondiente, lo que puede afectar la estabilidad e interpretación del modelo.</p>
 <p>Segun <span class="citation">Li &amp; Valliant (<a href="#ref-Li_Valliant_2015">2015</a>)</span>, como criterio práctico de diagnóstico, una observación suele considerarse influyente sobre el coeficiente <span class="math inline">\(\hat{\beta}_{j}\)</span> cuando</p>
 <p><span class="math display">\[
@@ -600,7 +600,7 @@ Figura 5.4: Distancia de Cook para cada observación de la muestra
 <span id="cb130-9"><a href="diagnostico-del-modelo.html#cb130-9" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(</span>
 <span id="cb130-10"><a href="diagnostico-del-modelo.html#cb130-10" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Si&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;No&quot;</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-dfbetas"></span>
-<img src="docs/figures/fig-dfbetas-1.svg" alt="Valores DfBetas por parámetro: observaciones influyentes señaladas en rojo" width="80%" />
+<img src="figures/fig-dfbetas-1.svg" alt="Valores DfBetas por parámetro: observaciones influyentes señaladas en rojo" width="80%" />
 <p class="caption">
 Figura 5.5: Valores DfBetas por parámetro: observaciones influyentes señaladas en rojo
 </p>
@@ -623,7 +623,7 @@ donde <span class="math inline">\(z\)</span> toma comúnmente valores de 2 o 3, 
 <span id="cb131-10"><a href="diagnostico-del-modelo.html#cb131-10" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(</span>
 <span id="cb131-11"><a href="diagnostico-del-modelo.html#cb131-11" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Si&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;No&quot;</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-dffits"></span>
-<img src="docs/figures/fig-dffits-1.svg" alt="Valores DfFits: observaciones influyentes sobre el ajuste global señaladas en rojo" width="65%" />
+<img src="figures/fig-dffits-1.svg" alt="Valores DfFits: observaciones influyentes sobre el ajuste global señaladas en rojo" width="65%" />
 <p class="caption">
 Figura 5.6: Valores DfFits: observaciones influyentes sobre el ajuste global señaladas en rojo
 </p>
