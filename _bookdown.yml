@@ -1,0 +1,40 @@
+book_filename: "Libro"
+delete_merged_file: true
+output_dir: "docs"
+new_session: yes
+
+rmd_files: [
+  "index.Rmd",
+  "01-Introduccion.Rmd",
+  "02-Conceptos.Rmd",
+  "03-Continuas.Rmd",
+  "04-Categoricas.Rmd",
+  "05-Regresión.Rmd",
+  "06-GLM.Rmd",
+  "07-Multinivel.Rmd",
+  "A1-TidyVerse.Rmd",
+  "A2-MPVbinder.Rmd"
+  ]
+
+language:
+  label:
+    fig: 'Figura '
+    tab: 'Cuadro '
+    eq: 'Ecuación '
+    thm: 'Teorema '
+    lem: 'Lema '
+    cor: 'Corolario '
+    prp: 'Resultado '
+    cnj: 'Conjectura '
+    def: 'Definición '
+    exm: 'Ejemplo '
+    exr: 'Ejercicio '
+    hyp: 'Hipótesis '
+    proof: 'Prueba. '
+    remark: 'Comentario. '
+    solution: 'Solución. '
+  ui:
+    edit: Edit
+    chapter_name: 'Capítulo '
+    appendix_name: 'Apéndice '
+    refs_names: 'Referencias '

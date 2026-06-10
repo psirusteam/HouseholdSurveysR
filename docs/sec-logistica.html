@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6.1 Modelo de regresión logística | Análisis de encuestas con R</title>
+  <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6.1 Modelo de regresión logística | Análisis de encuestas con R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="github-repo" content="psirusteam/2021ASDA" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6.1 Modelo de regresión logística | Análisis de encuestas con R" />
+  
+  <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  
+
+<meta name="author" content="Andrés Gutiérrez, Giovany Babativa-Márquez, Stalyn Guerrero, Cristian Téllez" />
+
+
+<meta name="date" content="2026-06-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="cap-glm.html"/>
+<link rel="next" href="sec-multinomial.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis de encuestas de hogares con R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
+<li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="1" data-path="cap-intro.html"><a href="cap-intro.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="06-GLM.html"><a href="justificación.html#justificaci%C3%B3n"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
+<li class="chapter" data-level="1.2" data-path="06-GLM.html"><a href="uso-del-software-r-para-el-análisis-de-encuestas.html#uso-del-software-r-para-el-an%C3%A1lisis-de-encuestas"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
+<li class="chapter" data-level="1.3" data-path="estructura-del-documento.html"><a href="estructura-del-documento.html"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="06-GLM.html"><a href="conceptos-básicos-en-encuestas-de-hogares.html#conceptos-b%C3%A1sicos-en-encuestas-de-hogares"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="06-GLM.html"><a href="población-objetivo-y-unidades-de-muestreo.html#poblaci%C3%B3n-objetivo-y-unidades-de-muestreo"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
+<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
+<li class="chapter" data-level="2.3" data-path="06-GLM.html"><a href="fundamentos-teóricos.html#fundamentos-te%C3%B3ricos"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="06-GLM.html"><a href="fundamentos-teóricos.html#estimaci%C3%B3n-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
+<li class="chapter" data-level="2.3.2" data-path="06-GLM.html"><a href="fundamentos-teóricos.html#estimaci%C3%B3n-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="06-GLM.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-par%C3%A1metros-descriptivos"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="06-GLM.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
+<li class="chapter" data-level="3.1.2" data-path="06-GLM.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
+<li class="chapter" data-level="3.1.3" data-path="06-GLM.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="06-GLM.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-par%C3%A1metros-de-distribuci%C3%B3n-y-desigualdad"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="06-GLM.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-la-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
+<li class="chapter" data-level="3.2.2" data-path="06-GLM.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
+<li class="chapter" data-level="3.2.3" data-path="06-GLM.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
+<li class="chapter" data-level="3.2.4" data-path="06-GLM.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-la-correlaci%C3%B3n"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="06-GLM.html"><a href="pruebas-de-hipótesis.html#pruebas-de-hip%C3%B3tesis"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
+<li class="chapter" data-level="3.4" data-path="06-GLM.html"><a href="estimación-de-contrastes.html#estimaci%C3%B3n-de-contrastes"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
+<li class="chapter" data-level="3.5" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.5.3" data-path="06-GLM.html"><a href="viz-continuas.html#diagramas-de-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="06-GLM.html"><a href="análisis-de-variables-categóricas.html#an%C3%A1lisis-de-variables-categ%C3%B3ricas"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="06-GLM.html"><a href="estimación-del-tamaño-poblacional.html#estimaci%C3%B3n-del-tama%C3%B1o-poblacional"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
+<li class="chapter" data-level="4.2" data-path="06-GLM.html"><a href="estimación-de-proporciones.html#estimaci%C3%B3n-de-proporciones"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
+<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
+<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
+<li class="chapter" data-level="4.5" data-path="06-GLM.html"><a href="la-razón-de-odds.html#la-raz%C3%B3n-de-odds"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
+<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi2.html"><a href="prueba-de-independencia-chi2.html"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="06-GLM.html"><a href="viz-categoricas.html#gr%C3%A1ficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
+<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="06-GLM.html"><a href="formulación-del-modelo.html#formulaci%C3%B3n-del-modelo"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
+<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
+<li class="chapter" data-level="5.3" data-path="06-GLM.html"><a href="estimación-de-los-parámetros-del-modelo.html#estimaci%C3%B3n-de-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.4" data-path="06-GLM.html"><a href="diagnóstico-del-modelo.html#diagn%C3%B3stico-del-modelo"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="06-GLM.html"><a href="diagnóstico-del-modelo.html#coeficiente-de-determinaci%C3%B3n"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="5.4.2" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
+<li class="chapter" data-level="5.4.3" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="06-GLM.html"><a href="inferencia-sobre-los-parámetros-del-modelo.html#inferencia-sobre-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.6" data-path="06-GLM.html"><a href="estimación-y-predicción.html#estimaci%C3%B3n-y-predicci%C3%B3n"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cap-glm.html"><a href="cap-glm.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
+<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+</ul></li>
+<li class="divider"></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis de encuestas con R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="sec-logistica" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Modelo de regresión logística<a href="sec-logistica.html#sec-logistica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Cuando la variable de interés es dicotómica, tomando valores de cero o uno, el modelo lineal clásico no resulta adecuado debido a que puede generar predicciones fuera del intervalo <span class="math inline">\((0,1)\)</span> y porque la varianza de la respuesta depende de su media. Para abordar estas limitaciones, se emplea el modelo de regresión logística, uno de los modelos lineales generalizados más utilizados para analizar variables binarias. En el contexto de encuestas de hogares, la regresión logística puede emplearse para analizar la asociación entre una condición de interés, como la pobreza, y características sociodemográficas de los individuos o los hogares.</p>
+<p>Considere una variable dicotómica <span class="math inline">\(Y_k \in \{0,1\}\)</span>, cuya esperanza es <span class="math inline">\(\theta_k=Pr(Y_k=1)\)</span>. El modelo de regresión logística relaciona dicha probabilidad con un conjunto de variables explicativas mediante la función de enlace logit, definida como</p>
+<p><span class="math display">\[
+\log\left(\frac{\theta_k}{1-\theta_k}\right)
+=
+\beta_0+\beta_1x_{k1}+\cdots+\beta_px_{kp}
+=\mathbf{x}_{k}\boldsymbol{\beta}
+\]</span></p>
+<p>En donde <span class="math inline">\(\boldsymbol{\beta}\)</span> es el vector de coeficientes de regresión asociado a las covariables. Esta transformación logit convierte el intervalo restringido de probabilidades <span class="math inline">\((0,1)\)</span> en toda la recta real, permitiendo modelar la relación entre la respuesta y las variables auxiliares mediante un predictor lineal. De manera equivalente, la probabilidad de éxito puede expresarse mediante la siguiente relación:</p>
+<p><span class="math display">\[
+\theta_k
+=
+Pr(Y_k = 1 \mid \mathbf{x}_k)
+=
+\frac{\exp(\mathbf{x}_k\boldsymbol{\beta})}
+     {1+\exp(\mathbf{x}_k\boldsymbol{\beta})}
+\]</span></p>
+<p>De manera equivalente, la probabilidad de que la unidad no presente la característica de interés es <span class="math inline">\(Pr(Y_k = 0 \mid \mathbf{x}_k) = 1-\theta_k\)</span>. Bajo esta parametrización, cada coeficiente de <span class="math inline">\(\boldsymbol{\beta}\)</span> representa el efecto de una covariable sobre el logaritmo de la razón de probabilidades de que ocurra el evento de interés, manteniendo constantes las demás variables del modelo.
+La estimación de los parámetros puede realizarse mediante el enfoque de pseudo-máxima verosimilitud. Este método incorpora los factores de expansión en la función de verosimilitud convencional con el fin de obtener estimadores consistentes respecto de la población objetivo. Siguiendo a <span class="citation">Heeringa et al. (<a href="#ref-heeringa2017applied">2017</a>)</span>, la función de pseudo-verosimilitud para el modelo logístico se define como</p>
+<p><span class="math display">\[
+PL(\boldsymbol{\beta})
+=
+\prod_{k}
+\left[
+\theta_{k}^{y_{k}}
+\left\{
+1-\theta_{k}
+\right\}^{1-y_{k}}
+\right]^{w_{k}}
+\]</span></p>
+<p>En donde el subíndice <span class="math inline">\(k\)</span> representa una unidad observada de la muestra. Asimismo, <span class="math inline">\(\theta_{k}\)</span> denota la probabilidad de que la unidad <span class="math inline">\(k\)</span> de la UPM <span class="math inline">\(i\)</span> en el estrato <span class="math inline">\(h\)</span> presente la característica de interés, <span class="math inline">\(y_{k}\)</span> corresponde al valor observado de la variable dicotómica para dicha unidad y <span class="math inline">\(w_{k}\)</span> representa el factor de expansión asociado a la observación.</p>
+<p>La contribución de cada observación al proceso de estimación está determinada por su respectivo factor de expansión, permitiendo que la función refleje adecuadamente las características del diseño complejo de la encuesta. Dado que la maximización de la pseudo-verosimilitud resulta equivalente a maximizar su logaritmo, entonces el problema se reduce a optimizar la siguiente función:</p>
+<p><span class="math display">\[
+\ell(\boldsymbol{\beta})
+=
+\sum_{k}
+w_{k}
+\left[
+y_{k}\log(\theta_{k})
++
+(1-y_{k})
+\log(1-\theta_{k})
+\right]
+\]</span></p>
+<p>Esta expresión constituye la función objetivo utilizada por los algoritmos de optimización numérica para obtener el estimador de los parámetros del modelo. Es importante señalar que la función anterior no corresponde a una verosimilitud en sentido estricto bajo el diseño complejo de la encuesta. Por esta razón, se utiliza el término <em>pseudo-verosimilitud</em> y los estimadores obtenidos mediante su maximización son conocidos como estimadores de pseudo-máxima verosimilitud (<em>Pseudo Maximum Likelihood Estimators</em>, PMLE).</p>
+<p>Según <span class="citation">Molina &amp; Skinner (<a href="#ref-molina1992pseudo">1992</a>)</span>, bajo condiciones de regularidad, estos estimadores son consistentes y asintóticamente normales, constituyendo la base de los procedimientos de inferencia implementados en la mayoría de los paquetes estadísticos para el análisis de datos de encuestas complejas.</p>
+<p>Una vez obtenidos los estimadores de pseudo-máxima verosimilitud, sus varianzas se estiman mediante técnicas de linealización de Taylor <span class="citation">(<a href="#ref-binder1983variances">Binder, 1983</a>)</span>, las cuales incorporan explícitamente las características del diseño complejo de muestreo. La matriz de varianzas y covarianzas de los parámetros estimados, denotada por <span class="math inline">\(\text{Var}(\hat{\boldsymbol{\beta}})=\boldsymbol{\Sigma}\)</span>, se obtiene a partir de una aproximación lineal de las ecuaciones de estimación alrededor del verdadero valor de los parámetros.</p>
+<p>Esta matriz describe la precisión de los estimadores, ya que sus elementos diagonales corresponden a las varianzas de cada coeficiente, mientras que los elementos fuera de la diagonal representan las covarianzas entre pares de coeficientes. Su estimación constituye la base para el cálculo de errores estándar, la construcción de intervalos de confianza y la realización de pruebas de hipótesis sobre los parámetros del modelo.</p>
+<p>Como los datos provienen de un diseño muestral complejo, es necesario incorporar adecuadamente las ponderaciones, la estratificación y la conglomeración para obtener estimadores consistentes de los parámetros y de sus errores estándar. En R, esta tarea puede realizarse mediante la función <code>svyglm()</code> del paquete <code>survey</code>, la cual extiende los modelos lineales generalizados al contexto de encuestas complejas.</p>
+<p>Siguiendo con la encuesta de ejemplo, y con el fin de analizar los factores asociados a la condición de pobreza, se ajusta un modelo de regresión logística utilizando como variables explicativas el gasto, la situación en el empleo y el sexo. Dado que los datos provienen de una encuesta con diseño muestral complejo, la estimación se realiza mediante la función <code>svyglm()</code> del paquete <code>survey</code>, especificando <code>family = binomial</code> para indicar que la variable respuesta es dicotómica y que se utilizará la función de enlace logit. Los resultados del ajuste se presentan en la Tabla <a href="sec-logistica.html#tab:tab-ic-logistica">6.1</a>.</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="sec-logistica.html#cb146-1" tabindex="-1"></a>mod_loglin <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(</span>
+<span id="cb146-2"><a href="sec-logistica.html#cb146-2" tabindex="-1"></a>  <span class="at">formula =</span> pobreza <span class="sc">~</span> Expenditure <span class="sc">+</span> Employment <span class="sc">+</span> Sex,</span>
+<span id="cb146-3"><a href="sec-logistica.html#cb146-3" tabindex="-1"></a>  <span class="at">family  =</span> binomial,</span>
+<span id="cb146-4"><a href="sec-logistica.html#cb146-4" tabindex="-1"></a>  <span class="at">design  =</span> diseno</span>
+<span id="cb146-5"><a href="sec-logistica.html#cb146-5" tabindex="-1"></a>)</span></code></pre></div>
+<p>En la especificación del modelo, el argumento <code>formula = pobreza ~ Expenditure + Employment + Sex</code> define la relación entre la variable respuesta <code>pobreza</code> y las covariables incluidas en el predictor lineal. Para las variables categóricas, la función genera automáticamente las variables indicadoras correspondientes y estima sus efectos con respecto a una categoría de referencia. Por su parte, el argumento <code>design = diseno</code> incorpora la información del diseño muestral. El objeto resultante, <code>mod_loglin</code>, contiene los parámetros estimados, sus medidas de precisión y las estadísticas necesarias para realizar inferencia sobre la relación entre la condición de pobreza y las variables explicativas consideradas en el modelo.</p>
+<p>Los resultados de la Tabla <a href="sec-logistica.html#tab:tab-ic-logistica">6.1</a> muestran las sestimaciones de los coeficientes de regresión, junto con su error estándar, los intervalos de confirza y el valor-p. Del modelo se deduce que un mayor nivel de gasto se asocia con una menor probabilidad de encontrarse en condición de pobreza. Asimismo, en comparación con la categoría de referencia (desocupados), tanto las personas inactivas como las ocupadas presentan una menor propensión a ser pobres, siendo este efecto más marcado entre estas últimas. En contraste, el sexo tiene una influencia muy reducida sobre la probabilidad de pobreza una vez controlado el efecto de las demás covariables incluidas en el modelo.</p>
+<pre><code>##                        2.5 %    97.5 %
+## (Intercept)         1.448618  2.926867
+## Expenditure        -0.007044 -0.003752
+## EmploymentInactive -1.618341 -0.108547
+## EmploymentEmployed -2.076705 -0.737132
+## SexMale            -0.309026  0.314060</code></pre>
+<table>
+<caption><span id="tab:tab-ic-logistica">Cuadro 6.1: </span>Intervalos de confianza al 95% para los parámetros del modelo logístico</caption>
+<colgroup>
+<col width="14%" />
+<col width="28%" />
+<col width="14%" />
+<col width="15%" />
+<col width="15%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Parámetro</th>
+<th align="center">term</th>
+<th align="center">estimate</th>
+<th align="center">std.error</th>
+<th align="center">statistic</th>
+<th align="center">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="center">(Intercept)</td>
+<td align="center">2.188</td>
+<td align="center">0.373</td>
+<td align="center">5.863</td>
+<td align="center">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="center">Expenditure</td>
+<td align="center">-0.005</td>
+<td align="center">0.001</td>
+<td align="center">-6.497</td>
+<td align="center">0.000</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="center">EmploymentInactive</td>
+<td align="center">-0.863</td>
+<td align="center">0.381</td>
+<td align="center">-2.266</td>
+<td align="center">0.025</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="center">EmploymentEmployed</td>
+<td align="center">-1.407</td>
+<td align="center">0.338</td>
+<td align="center">-4.161</td>
+<td align="center">0.000</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="center">SexMale</td>
+<td align="center">0.003</td>
+<td align="center">0.157</td>
+<td align="center">0.016</td>
+<td align="center">0.987</td>
+</tr>
+</tbody>
+</table>
+<p>La Figura <a href="sec-logistica.html#fig:fig-logistica-base">6.1</a> presenta la distribución de los estimadores de los coeficientes de regresión. Se observa que, para todas las covariables excepto el sexo, los intervalos de confianza no incluyen el valor cero, lo que proporciona evidencia de una asociación estadísticamente significativa. En contraste, el intervalo de confianza asociado a la variable sexo contiene el valor cero, por lo que no se encuentra evidencia suficiente para concluir que esta variable tenga un efecto significativo una vez controladas las demás covariables incluidas en el modelo.</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="sec-logistica.html#cb148-1" tabindex="-1"></a><span class="fu">library</span>(ggstance)</span>
+<span id="cb148-2"><a href="sec-logistica.html#cb148-2" tabindex="-1"></a><span class="fu">plot_summs</span>(mod_loglin,</span>
+<span id="cb148-3"><a href="sec-logistica.html#cb148-3" tabindex="-1"></a>           <span class="at">scale =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb148-4"><a href="sec-logistica.html#cb148-4" tabindex="-1"></a>           <span class="at">plot.distributions =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-logistica-base"></span>
+<img src="06-GLM_files/figure-html/fig-logistica-base-1.svg" alt="Distribución de los parámetros del modelo logístico base" width="80%" />
+<p class="caption">
+Figura 6.1: Distribución de los parámetros del modelo logístico base
+</p>
+</div>
+<p>El modelo puede ampliarse incorporando términos de interacción para evaluar si el efecto de una variable explicativa depende de los valores que toma otra. En este caso, se incluye una interacción entre el sexo y la situación laboral mediante el término <code>Sex:Employment</code>, con el objetivo de analizar si la relación entre el estado ocupacional y la probabilidad de pobreza es la misma para hombres y mujeres. Sin este término, el modelo asume que el efecto de la situación laboral sobre la pobreza es idéntico para ambos sexos. En cambio, al incorporar la interacción, se permite que dicho efecto varíe entre hombres y mujeres, capturando posibles diferencias en la forma en que la condición laboral se asocia con la pobreza en cada grupo. Los resultados del modelo ajustado se presentan en la Tabla <a href="sec-logistica.html#tab:tab-logistica-interaccion">6.2</a>.</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="sec-logistica.html#cb149-1" tabindex="-1"></a>mod_loglin_int <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(</span>
+<span id="cb149-2"><a href="sec-logistica.html#cb149-2" tabindex="-1"></a>  <span class="at">formula =</span> pobreza <span class="sc">~</span> Expenditure <span class="sc">+</span> Employment <span class="sc">+</span> Sex <span class="sc">+</span> Sex<span class="sc">:</span>Employment,</span>
+<span id="cb149-3"><a href="sec-logistica.html#cb149-3" tabindex="-1"></a>  <span class="at">family  =</span> binomial,</span>
+<span id="cb149-4"><a href="sec-logistica.html#cb149-4" tabindex="-1"></a>  <span class="at">design  =</span> diseno</span>
+<span id="cb149-5"><a href="sec-logistica.html#cb149-5" tabindex="-1"></a>)</span></code></pre></div>
+<table style="width:100%;">
+<caption><span id="tab:tab-logistica-interaccion">Cuadro 6.2: </span>Coeficientes del modelo logístico con interacciones</caption>
+<colgroup>
+<col width="39%" />
+<col width="14%" />
+<col width="16%" />
+<col width="16%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="center">estimate</th>
+<th align="center">std.error</th>
+<th align="center">statistic</th>
+<th align="center">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="center">1.770</td>
+<td align="center">0.610</td>
+<td align="center">2.900</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="even">
+<td align="left">Expenditure</td>
+<td align="center">-0.005</td>
+<td align="center">0.001</td>
+<td align="center">-6.473</td>
+<td align="center">0.000</td>
+</tr>
+<tr class="odd">
+<td align="left">EmploymentInactive</td>
+<td align="center">-0.395</td>
+<td align="center">0.594</td>
+<td align="center">-0.665</td>
+<td align="center">0.507</td>
+</tr>
+<tr class="even">
+<td align="left">EmploymentEmployed</td>
+<td align="center">-1.059</td>
+<td align="center">0.570</td>
+<td align="center">-1.860</td>
+<td align="center">0.066</td>
+</tr>
+<tr class="odd">
+<td align="left">SexMale</td>
+<td align="center">0.587</td>
+<td align="center">0.748</td>
+<td align="center">0.785</td>
+<td align="center">0.434</td>
+</tr>
+<tr class="even">
+<td align="left">EmploymentInactive:SexMale</td>
+<td align="center">-0.846</td>
+<td align="center">0.860</td>
+<td align="center">-0.984</td>
+<td align="center">0.327</td>
+</tr>
+<tr class="odd">
+<td align="left">EmploymentEmployed:SexMale</td>
+<td align="center">-0.481</td>
+<td align="center">0.760</td>
+<td align="center">-0.633</td>
+<td align="center">0.528</td>
+</tr>
+</tbody>
+</table>
+<p>Al incorporar la interacción entre sexo y situación laboral, el gasto continúa mostrando una asociación negativa y estadísticamente significativa con la probabilidad de pobreza, manteniéndose como la covariable con mayor evidencia explicativa dentro del modelo. En contraste, los efectos principales de la situación laboral pierden importancia estadística una vez que se incluyen los términos de interacción, lo que sugiere una mayor incertidumbre en la estimación de sus efectos. Por su parte, ni el efecto principal del sexo ni los coeficientes asociados a las interacciones entre sexo y situación laboral resultan estadísticamente significativos al nivel del 5%. En consecuencia, la inclusión de los términos de interacción no parece aportar información adicional relevante respecto al modelo sin interacción.</p>
+<p>La Figura <a href="sec-logistica.html#fig:fig-comparacion-logistica">6.2</a> presenta una comparación de las estimaciones de los coeficientes y sus respectivos intervalos de confianza para los modelos con y sin interacción. Se observa que la incorporación de los términos de interacción incrementa la incertidumbre asociada a varios de los parámetros, lo que se refleja en intervalos de confianza más amplios. Asimismo, los coeficientes de interacción presentan estimaciones cercanas a cero y amplios intervalos de confianza que incluyen dicho valor, lo que coincide con la falta de evidencia estadística para concluir que el efecto de la situación laboral sobre la probabilidad de pobreza difiere entre hombres y mujeres.</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="sec-logistica.html#cb150-1" tabindex="-1"></a><span class="fu">plot_summs</span>(mod_loglin_int, mod_loglin,</span>
+<span id="cb150-2"><a href="sec-logistica.html#cb150-2" tabindex="-1"></a>           <span class="at">scale =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb150-3"><a href="sec-logistica.html#cb150-3" tabindex="-1"></a>           <span class="at">plot.distributions =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-comparacion-logistica"></span>
+<img src="06-GLM_files/figure-html/fig-comparacion-logistica-1.svg" alt="Comparación de los parámetros del modelo logístico con y sin interacciones" width="70%" />
+<p class="caption">
+Figura 6.2: Comparación de los parámetros del modelo logístico con y sin interacciones
+</p>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-binder1983variances" class="csl-entry">
+Binder, D. A. (1983). On the variances of asymptotically normal estimators from complex surveys. <em>International Statistical Review/Revue Internationale de Statistique</em>, 279-292.
+</div>
+<div id="ref-heeringa2017applied" class="csl-entry">
+Heeringa, S. G., West, B. T., Heeringa, S. G., &amp; Berglund, P. A. (2017). <em>Applied survey data analysis</em>. chapman; hall/CRC.
+</div>
+<div id="ref-molina1992pseudo" class="csl-entry">
+Molina, E. A., &amp; Skinner, C. J. (1992). Pseudo-likelihood and quasi-likelihood estimation for complex sampling schemes. <em>Computational Statistics &amp; Data Analysis</em>, <em>13</em>, 395-405.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="cap-glm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="sec-multinomial.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/psirusteam/2021ASDA/06-GLM.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Libro.pdf", "Libro.epub", "Libro.mobi"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  },
+  "tconfig": null
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

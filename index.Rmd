@@ -1,0 +1,56 @@
+--- 
+title: "Análisis de encuestas de hogares con R"
+author: "Andrés Gutiérrez^[Asesor Regional en Estadísticas Sociales - Comisión Económica para América Latina y el Caribe (CEPAL) - andres.gutierrez@cepal.org], Stalyn Guerrero^[Consultor - Comisión Económica para América Latina y el Caribe (CEPAL), guerrerostalyn@gmail.com], Giovany Babativa-Márquez^[Profesor asociado - Departamento de Estadística, Facultad de Ciencias, Universidad Nacional de Colombia, Sede Bogotá - jgbabativam@unal.edu.co], Cristian Téllez^[Consultor - Comisión Económica para América Latina y el Caribe (CEPAL), cftellezp@unal.edu.co]"
+date: "`r Sys.Date()`"
+lang: es
+documentclass: book
+bibliography: book.bib
+csl: apa.csl
+link-citations: yes
+toc-title: Tabla de Contenido
+colorlinks: yes
+lot: yes
+lof: yes
+fontsize: 10pt
+geometry: margin = 3cm
+header-includes:
+  - \usepackage{amsmath}
+  - \usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+  - \usepackage{hyperref}
+github-repo: psirusteam/2021ASDA
+description: "Este es el repositorio del libro *Análisis de encuestas de hogares con R*."
+knit: "bookdown::render_book"
+linkcolor: blue
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    keep_tex: true
+    latex_engine: xelatex
+  gitbook:
+    df_print: kable
+    css: "style.css"
+# Compilar así:
+# bookdown::render_book("index.Rmd", "bookdown::gitbook")
+# bookdown::render_book("index.Rmd", "bookdown::pdf_book")
+# bookdown::render_book("index.Rmd", "bookdown::epub_book")
+# bookdown::render_book("index.Rmd", "bookdown::word_document2")
+# bookdown::preview_chapter("01.Rmd", "bookdown::word_document2")
+---
+
+# Prefacio {-}
+
+
+```{r results = 'asis', out.width="100px", fig.cap="Licencia de Creative Commons", echo=FALSE}
+# download.file(url = "https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png",
+#           destfile = "Pics/CClicence.png",
+#           mode = 'wb')
+# knitr::include_graphics(path = "Pics/CClicence.png")
+```
+
+La versión online de este libro está licenciada bajo una [Licencia Internacional de Creative Commons para compartir con atribución no comercial 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/). 
+
+También puede descargar la versión en PDF aquí:
+<a href="Libro.pdf" download><i class="fa fa-file-pdf-o" aria-hidden="true"></i> <i class="fa fa-download" aria-hidden="true"></i> Descargar libro en PDF</a>.
+
+Este libro es el resultado de un compendio de las experiencias internacionales prácticas adquiridas por los autores en su asesoría a los países de América Latina y el Caribe desde la División de Estadísticas de la CEPAL.

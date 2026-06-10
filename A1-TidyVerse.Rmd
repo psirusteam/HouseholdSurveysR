@@ -1,0 +1,394 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE,
+                      message = FALSE,
+                      cache = TRUE)
+```
+
+# (APPENDIX) Anexos {-}
+
+# Manejo de bases de datos con `R`  {#ap1}
+
+`R` es un software estadístico ampliamente utilizado para el análisis de datos y la generación de gráficos. Su uso se ha extendido entre investigadores y profesionales porque es una herramienta gratuita, de código abierto y disponible bajo licencia GNU. Puede descargarse desde el sitio oficial del proyecto: https://www.r-project.org, y está disponible para Windows, MacOS y Linux.
+
+`R` constituye un ambiente integrado para el análisis estadístico. Esto significa que permite realizar procesos de análisis, programación, visualización y manejo de datos dentro de un mismo entorno. En este anexo se utiliza el enfoque del `tidyverse`, y en particular el paquete `dplyr`, para organizar una secuencia lógica de trabajo con bases de datos: cargar la información, inspeccionarla, seleccionar variables, filtrar registros, ordenar filas, crear variables y producir resúmenes.
+
+## Preparación del entorno de trabajo
+
+`R` es un lenguaje de programación de carácter colaborativo, lo que permite que su comunidad de usuarios y desarrolladores contribuya continuamente mediante la creación de funciones, paquetes y librerías especializadas. Gracias a este ecosistema abierto, es posible ampliar sus capacidades para distintos tipos de análisis estadístico y procesamiento de datos. Entre las librerías más utilizadas para el análisis de bases de datos se encuentran las siguientes:
+
+* La librería `tidyverse` [@tidyverse2019] corresponde a un conjunto de paquetes de `R` diseñados para apoyar distintas etapas del trabajo con datos, desde su importación y transformación hasta su exploración, análisis y visualización. Su uso se ha extendido ampliamente en ciencia de datos porque ofrece una forma de trabajo consistente y ordenada.
+
+* El paquete `dplyr` [@dplyr2026] ofrece herramientas para organizar y transformar bases de datos rectangulares. Su utilidad radica en que reúne, en una sintaxis simple y consistente, las operaciones más frecuentes del trabajo analítico con datos: seleccionar variables, filtrar registros, crear nuevas columnas, ordenar observaciones y resumir información.
+
+* `ggplot2` [@Wickham2023] permite construir gráficos estadísticos mediante la gramática de los gráficos. Bajo este enfoque, una visualización se entiende como la combinación ordenada de capas: datos, variables, geometrías, escalas, títulos, colores y otros elementos visuales.
+
+* El paquete `survey` [@Lumley2024] proporciona herramientas especializadas para analizar información proveniente de encuestas con diseños muestrales complejos, incorporando ponderaciones, estratificación y conglomeración.
+
+* La librería `srvyr` [@Freedman2024] extiende la funcionalidad del paquete `survey` para utilizar una sintaxis más cercana al enfoque de `tidyverse`.
+
+* El paquete `TeachingSampling` [@GutierrezT2020] ofrece funciones para seleccionar muestras probabilísticas y realizar inferencia sobre poblaciones finitas bajo diversos diseños de muestreo.
+
+* La librería `samplesize4surveys` [@Gutierrez2020] permite calcular tamaños de muestra para estimar totales, medias y proporciones en el contexto de diseños de muestreo complejos.
+
+Antes de poder utilizar las diferentes funciones que cada librería tiene, es necesario descargarlas de antemano de la web. El comando `install.packages` permite realizar esta tarea. Note que algunas librerías pueden depender de otras, así que para poder utilizarlas es necesario instalar también las dependencias adicionales.
+
+```{r, eval=FALSE}
+install.packages("dplyr")
+install.packages("tidyverse")
+install.packages("survey")
+install.packages("srvyr")
+install.packages("ggplot2")
+install.packages("TeachingSampling")
+install.packages("samplesize4surveys")
+```
+
+Una vez instalados los paquetes, se cargan con `library()`. El primer comando limpia los objetos existentes en la sesión de trabajo, lo que ayuda a que los resultados del capítulo dependan solo del código que se ejecuta aquí. Debe tenerse en cuenta que un paquete solo puede cargarse si previamente ha sido instalado en el sistema.
+
+```{r, warning=FALSE, echo=TRUE, message=FALSE}
+rm(list = ls())
+
+library("tidyverse")
+library("dplyr")
+library("survey")
+library("srvyr")
+library("ggplot2")
+library("TeachingSampling")
+library("samplesize4surveys")
+```
+
+Una vez se descargan e instalan las librerías o paquetes en `R`, el paso recomendado es que todos los procesamientos que se realicen se hagan a través de un la creación de proyectos. Un proyecto de `R` se define como un archivo que contiene los archivos de origen y contenido asociados con el trabajo que se está realizando. Adicionalmente, contiene información que permite la compilación de cada archivo de `R` que se va a utilizar, mantiene la información para integrarse con sistemas de control de código fuente y ayuda a organizar la aplicación de los procesamientos en componentes lógicos.
+
+## Carga e inspección inicial de la base
+
+Es muy usual que al trabajar proyectos en `R` sea necesario importar bases de datos con información relevante para un estudio en particular. Los formatos de bases de datos que `R` permite importar son diversos, entre ellos se tienen `xlsx`, `csv`, `txt`, `STATA`, etc. Una vez leída la base de datos en el formato pertinente es recomendable transformarla al formato nativo de `R`, es decir `.RDS`. Este es un formato más eficiente y propio de `R`. 
+
+Una vez se carga la base de datos se procede a utilizar las funciones en `R` para poder obtener resultados de los procesamientos agregados y gráficos de interés. Para ejemplificar el uso de funciones que permitan obtener resultados agregados, utilizaremos la base de datos `BigCity` del paquete `TeachingSampling`. Esta base corresponde a un conjunto de variables socioeconómicas de 150266 personas en un año en particular. 
+
+```{r, warning=FALSE, echo=TRUE, message=FALSE, eval=TRUE}
+library(TeachingSampling)
+data(BigCity)
+data1 <- BigCity
+```
+
+El objeto `data1` contiene una copia de `BigCity`. La función `head()` permite observar las primeras filas y obtener una impresión rápida de la estructura de la base.
+
+```{r}
+head(data1)
+```
+
+Una vez cargada la base de datos en `R`, se puede empezar a realizar los procesamientos según las necesidades de cada investigador. En este sentido, una de las primeras revisiones que se realizan al cargar una base de datos es verificar su dimensión; es decir, identificar la cantidad de filas y columnas que contiene. Lo anterior se puede hacer con la función `nrow`, que identifica el número de registros en la base de datos, y con la función `ncol`, que muestra el número de variables. Los códigos computacionales son los siguientes:
+
+```{r}
+nrow(data1)
+```
+
+```{r}
+ncol(data1)
+```
+
+Una forma resumida de revisar la cantidad de filas y columnas de una base de datos es mediante la función `dim`, la cual devuelve un vector cuya primera componente corresponde al número de filas y cuya segunda componente indica el número de columnas.
+
+```{r}
+dim(data1)
+```
+
+En algunas ocasiones, las bases de datos pueden ser extensas, ya sea porque contienen un número considerable de variables observadas o porque el número de registros es grande. Por esta razón, para visualizarlas adecuadamente, puede ser conveniente abrirlas en una ventana independiente y explorar su contenido de forma tabular. Esto se realiza mediante la función `View`, como se muestra a continuación.
+
+```{r, eval=FALSE}
+View(data1)
+```
+
+Otra verificación importante al cargar una base de datos en `R` consiste en identificar las variables que contiene. Para ello, se puede utilizar la función `names`, la cual muestra los nombres de las variables incluidas en la base de datos.
+
+```{r}
+names(data1)
+```
+
+La salida anterior muestra los nombres de las variables contenidas en la base de datos. En este caso, la base cuenta con 12 variables. Las primeras variables corresponden a identificadores y elementos del diseño muestral, como `HHID`, `PersonID`, `Stratum`, `PSU` y `Zone`. Luego aparecen variables sociodemográficas, como `Sex`, `Age` y `MaritalST`. Finalmente, se incluyen variables económicas y de condición laboral o social, como `Income`, `Expenditure`, `Employment` y `Poverty`.
+
+Si se desea profundizar en el tipo de información que almacena cada variable, puede utilizarse la función `str`, la cual muestra de manera compacta la estructura de un objeto y sus componentes. Para nuestra base de datos, esta función se utilizaría de la siguiente manera:
+
+```{r, eval=TRUE}
+str(data1)
+```
+
+Como se observa en la salida anterior, la función `str` permite identificar la clase de cada variable incluida en la base de datos. Por ejemplo, la variable `HHID` es de tipo carácter, al igual que la variable `Sex`, mientras que las variables `Income` y `Expenditure` son de tipo numérico. Los demás atributos asociados con las variables también pueden revisarse directamente en la salida del código. Esta función resulta especialmente útil para obtener una visión general del contenido y la estructura de una base de datos.
+
+## Encadenamiento de operaciones 
+
+Una de las contribuciones más útiles de `R` es la incorporación de las tuberías (*pipelines*), las cuales permiten construir consultas, transformaciones y nuevos objetos a partir de una base de datos de manera más intuitiva, ordenada y fácil de interpretar. El operador de encadenamiento `%>%`, proveniente del paquete `magrittr` [@pipe] y cargado automáticamente al utilizar la librería `tidyverse`, permite enlazar varias operaciones sucesivas, de modo que el resultado obtenido en un paso se convierte en el insumo del paso siguiente. A continuación, se presenta un ejemplo sencillo de su uso con la base de datos `BigLucy`, en el cual se calcula el número total de elementos que contiene la base mediante la función `count`.
+
+```{r, eval=TRUE}
+data1 %>% count()
+```
+
+La línea de código anterior puede interpretarse de forma sencilla: se toma la base de datos como punto de partida y, sobre ella, se realiza un conteo de sus registros. Además de la función `count`, existe una amplia variedad de funciones que pueden combinarse con el operador `%>%` para realizar consultas, transformaciones y resúmenes sobre los datos. El paquete `dplyr` toma ventaja de este operador, permitiendo organizar las operaciones más comunes sobre una base rectangular. En las siguientes subsecciones se presentan algunas de ellas, siguiendo un orden típico de trabajo: reducir observaciones, conservar variables, ordenar la información, crear nuevas columnas y producir resultados agregados.
+
+### `filter`: selección de registros
+
+`filter()` conserva las filas que cumplen una o varias condiciones. En el siguiente ejemplo se crean dos subconjuntos de `data1`: uno con los hombres y otro con las mujeres. El resultado son dos objetos nuevos. `datasexH` contiene únicamente registros con `Sex == "Male"`, mientras que `datasexM` contiene registros con `Sex == "Female"`. 
+
+```{r}
+datasexH <- data1 %>%
+  filter(Sex == "Male")
+datasexM <- data1 %>%
+  filter(Sex == "Female")
+```
+
+También puede filtrarse por condición de pobreza. En este caso se conservan solo las personas clasificadas como no pobres. Em este caso, el objeto `datanopobre` contiene el subconjunto de registros cuya variable `Poverty` toma el valor `"NotPoor"`.
+
+```{r, eval=TRUE}
+datanopobre <- data1 %>%
+  filter(Poverty == "NotPoor")
+```
+
+La función `filter()` también permite conservar registros cuyos valores pertenecen a un conjunto específico. En los siguientes ejemplos se filtra por valores particulares de ingreso. Note que `%in%` evalúa si `Income` pertenece al conjunto indicado. Así, `datared` conserva ingresos iguales a 265 o 600, y `dataingreso2` conserva ingresos iguales a 1000 o 2000.
+
+```{r, eval=TRUE}
+datared <- data1 %>%
+  filter(Income %in% c(265, 600))
+
+dataingreso2 <- data1 %>%
+  filter(Income %in% c(1000, 2000))
+```
+
+
+### `select`: seleccionar variables
+
+La función `select()` conserva columnas específicas. Para continuar con los ejemplos, se seleccionan variables de identificación de la persona y el hogar y otras como zona, sexo, edad e ingreso. El resultado es una base más reducida en columnas. Se mantiene `Age` porque será utilizada posteriormente para ordenar registros por edad.
+
+
+```{r}
+datared <- data1 %>%
+  select(PersonID, HHID, PSU, Zone, Sex, Age, Income)
+```
+
+
+Adicionalmente, `select()` también permite excluir variables. Para eliminar columnas, se antepone el signo menos (`-`) al nombre de cada variable. El objeto `datagrey` conserva las variables de `datared`, excepto `HHID` y `PersonID`. Esta operación es útil cuando se desea trabajar con una base más compacta.
+
+```{r, eval=TRUE}
+datagrey <- datared %>%
+  select(-HHID, -PersonID)
+```
+
+
+### `arrange`: ordenamiento de filas
+
+La función `arrange()` ordena las filas de una base según una o más variables. En el primer ejemplo, `datared` se ordena de menor a mayor ingreso, mientras que `datadog` contiene las mismas columnas que `datared`, pero sus filas quedan ordenadas por `Income`. La función `head()` muestra los primeros registros después del ordenamiento.
+
+
+```{r}
+datadog <- datared %>%
+  arrange(Income)
+
+datadog %>%
+  head()
+```
+
+
+El ordenamiento también puede realizarse considerando más de una variable. En este ejemplo, la base se organiza primero según la variable `Sex` y, posteriormente, dentro de cada grupo, de acuerdo con la variable `Age`. La siguiente salida permite revisar los primeros registros después de aplicar este criterio de ordenamiento.
+
+```{r, eval=TRUE}
+datared %>%
+  arrange(Sex, Age) %>%
+  head()
+```
+
+
+Para ordenar los registros de mayor a menor, se utiliza la opción `desc()` dentro de la función `arrange()`. En el siguiente ejemplo, la base se organiza de manera que las personas con mayor edad aparezcan en los primeros registros. Este tipo de ordenamiento permite identificar rápidamente los valores más altos de una variable dentro de la base reducida.
+
+
+```{r}
+datared %>%
+  arrange(desc(Age)) %>%
+  head()
+```
+
+
+### `mutate`: creación o transformación de variables
+
+La función `mutate()` crea nuevas variables o modifica variables existentes. Dado que `BigCity` no incluye una variable de región geográfica explícita, se construye `Region` a partir de `Stratum`. Primero se extrae la parte numérica del estrato con `gsub("\\D", "", Stratum)`, luego se convierte a número con `as.numeric()` y finalmente se divide en cinco intervalos con `cut()`. El resultado es una nueva columna `Region` dentro de `data1`, en la que sus categorías permiten producir resúmenes regionales en los pasos siguientes.
+
+```{r}
+data1 <- data1 %>%
+  mutate(
+    Region = cut(
+      as.numeric(gsub("\\D", "", Stratum)),
+      breaks = 5,
+      labels = c("Norte", "Sur", "Centro", "Occidente", "Oriente")
+    )
+  )
+```
+
+
+En el análisis de bases de datos también es frecuente recodificar variables categóricas. El siguiente código crea `IDRegion`, una versión codificada de `Region` que conserva el orden de las regiones y asigna códigos de dos dígitos. Esta forma de recodificación facilita la presentación o el cruce con otras fuentes de información.
+
+
+```{r}
+data1 <- data1 %>%
+  mutate(
+    IDRegion = factor(
+      Region,
+      levels = c("Norte", "Sur", "Centro", "Occidente", "Oriente"),
+      labels = c("01", "02", "03", "04", "05")
+    )
+  )
+```
+
+
+El siguiente ejemplo crea `Logincome`, que corresponde al logaritmo natural del ingreso (transformación de la escala del ingreso). Esta operación se usa con frecuencia cuando una variable monetaria presenta alta dispersión. Luego se muestran las primeras filas de las variables relevantes.
+
+```{r, eval=TRUE}
+datablue2 <- datared %>%
+  mutate(Logincome = log(Income))
+
+datablue2 %>%
+  select(PersonID, Income, Logincome) %>%
+  head()
+```
+
+
+Note que `mutate()` puede crear más de una variable en el mismo paso. Además, las variables creadas al inicio de `mutate()` pueden ser utilizadas en cálculos posteriores dentro del mismo llamado. Por ejemplo, `Income2` duplica el ingreso original e `Income4` duplica `Income2`. La siguiente salida muestra que `Income4` equivale a cuatro veces el ingreso inicial.
+
+```{r, eval=TRUE}
+datacat <- datablue2 %>%
+  mutate(Income2 = 2 * Income,
+         Income4 = 2 * Income2)
+
+datacat %>%
+  select(PersonID, Income2, Income4) %>%
+  head()
+```
+
+
+También se puede crear una variable categórica mediante condiciones. En este ejemplo, la función `case_when()` clasifica la edad en rangos y luego convierte el resultado en un factor ordenado. El resultado es `CatAge`, una variable de grupos etarios ordenados. Esta transformación facilita la producción de tablas por tramos de edad.
+
+
+```{r}
+data1 <- data1 %>%
+  mutate(
+    CatAge = case_when(
+      Age <= 5 ~ "0-5",
+      Age <= 15 ~ "6-15",
+      Age <= 30 ~ "16-30",
+      Age <= 45 ~ "31-45",
+      Age <= 60 ~ "46-60",
+      TRUE ~ "Más de 60"
+    ),
+    CatAge = factor(
+      CatAge,
+      levels = c("0-5", "6-15", "16-30",
+                 "31-45", "46-60", "Más de 60"),
+      ordered = TRUE
+    )
+  )
+```
+
+
+### `summarise`: resúmenes descriptivos 
+
+La función `summarise()` permite construir una tabla resumen a partir de una o varias variables de la base de datos. En el siguiente ejemplo se calculan dos estadísticas descriptivas de la variable `Income`: el total y la media. Como resultado, se obtiene una tabla con una sola fila que contiene la suma de los ingresos observados y el ingreso promedio de los registros incluidos en la base.
+
+```{r}
+data1 %>%
+  summarise(total.ing = sum(Income),
+            media.ing = mean(Income))
+```
+
+
+También pueden calcularse medidas de localización para describir la posición de los valores dentro de la distribución. En este caso, se obtiene la mediana, el primer decil, el noveno decil y la diferencia entre estos dos últimos. El resultado permite resumir distintos puntos de la distribución del ingreso, mientras que el rango decílico muestra la distancia entre el 10% inferior y el 10% superior de los ingresos observados.
+
+```{r}
+data1 %>% summarise(
+  mediana = median(Income),
+  decil1 = quantile(Income, 0.1),
+  decil9 = quantile(Income, 0.9),
+  rangodecil = decil9 - decil1
+)
+```
+
+
+Con `summarise()` también es posible calcular medidas de dispersión, tales como la varianza, la desviación estándar, el valor mínimo, el valor máximo, el rango y el rango intercuartílico. Estas estadísticas permiten describir el grado de variabilidad de los ingresos observados en la muestra. En particular, el rango se obtiene como la diferencia entre el valor máximo y el valor mínimo, mientras que el rango intercuartílico resume la dispersión del 50% central de la distribución.
+
+
+```{r}
+data1 %>% summarise(
+  varianza = var(Income),
+  desv = sd(Income),
+  mini = min(Income),
+  maxi = max(Income),
+  rango = maxi - mini,
+  rangoiq = IQR(Income)
+)
+```
+
+
+### `group_by`: agrupación de casos 
+
+La función `group_by()` permite agrupar la base de datos de acuerdo con una o más variables. Al combinarla con `summarise()`, las estadísticas se calculan de manera independiente dentro de cada grupo definido. En el siguiente ejemplo, se cuenta el número de registros por región y luego se ordena el resultado de mayor a menor. La siguiente salida permite identificar cuántos registros están asociados con cada región de la base de datos.
+
+
+```{r, eval=TRUE}
+data1 %>%
+  group_by(Region) %>%
+  summarise(n = n()) %>%
+  arrange(desc(n))
+```
+
+Para obtener el número de encuestas efectivas por sexo, se aplica la misma lógica de agrupación y conteo. En este caso, la base se agrupa según la variable `Sex` y luego se calcula el número de registros asociados con cada una de sus categorías. El resultado permite identificar cuántas observaciones corresponden a cada sexo dentro de la base de datos.
+
+
+```{r}
+data1 %>%
+  group_by(Sex) %>%
+  summarise(n = n()) %>%
+  arrange(desc(n))
+```
+
+
+El conteo también puede realizarse según la zona geográfica. En este caso, la base se agrupa por la variable `Zone` y se calcula el número de registros correspondiente a cada una de sus categorías. La siguiente salida permite conocer cómo se distribuyen las observaciones entre las distintas zonas de la base de datos.
+
+
+```{r}
+data1 %>%
+  group_by(Zone) %>%
+  summarise(n = n()) %>%
+  arrange(desc(n))
+```
+
+
+Además de los conteos, también es posible calcular medidas resumen por grupo, como la media. En este caso, para obtener el ingreso promedio por región junto con el número total de registros, se agrupa la base según la variable `Region` y luego se aplica `summarise()`. El resultado es una tabla regional que presenta, para cada región, el total de observaciones y el ingreso medio correspondiente.
+
+
+```{r}
+data1 %>%
+  group_by(Region) %>%
+  summarise(n = n(),
+            media = mean(Income))
+```
+
+El mismo procedimiento puede aplicarse para calcular el ingreso medio por sexo. En este caso, la base se agrupa según la variable `Sex` y luego se obtiene el promedio de `Income` para cada categoría. La tabla resultante permite comparar el ingreso medio observado entre los distintos grupos definidos por el sexo.
+
+
+```{r}
+data1 %>%
+  group_by(Sex) %>%
+  summarise(n = n(),
+            media = mean(Income))
+```
+
+
+Por último, se calculan la media, la desviación estándar y el rango intercuartílico de los ingresos según la condición de ocupación. Para ello, la base se agrupa por la variable `Employment` y luego se obtienen las estadísticas descriptivas de `Income` dentro de cada grupo. La siguiente salida presenta un resumen del comportamiento de los ingresos para cada categoría de ocupación.
+
+
+```{r}
+data1 %>% group_by(Employment) %>%
+  summarise(
+    n = n(),
+    media = mean(Income),
+    desv = sd(Income),
+    rangoiq = IQR(Income)
+  )
+```
+
+

@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Apéndice A Manejo de bases de datos con R | Análisis de encuestas de hogares con R</title>
+  <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Apéndice A Manejo de bases de datos con R | Análisis de encuestas de hogares con R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="github-repo" content="psirusteam/2021ASDA" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Apéndice A Manejo de bases de datos con R | Análisis de encuestas de hogares con R" />
+  
+  <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  
+
+<meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
+
+
+<meta name="date" content="2026-06-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="cap-multinivel.html"/>
+<link rel="next" href="ap2.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
+<li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="1" data-path="cap-intro.html"><a href="cap-intro.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="A1-TidyVerse.html"><a href="#justificaci%C3%B3n"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
+<li class="chapter" data-level="1.2" data-path="A1-TidyVerse.html"><a href="#uso-del-software-r-para-el-an%C3%A1lisis-de-encuestas"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
+<li class="chapter" data-level="1.3" data-path="cap-intro.html"><a href="cap-intro.html#estructura-del-documento"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="A1-TidyVerse.html"><a href="#conceptos-b%C3%A1sicos-en-encuestas-de-hogares"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="A1-TidyVerse.html"><a href="#poblaci%C3%B3n-objetivo-y-unidades-de-muestreo"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
+<li class="chapter" data-level="2.2" data-path="conceptos-básicos-en-encuestas-de-hogares.html"><a href="conceptos-básicos-en-encuestas-de-hogares.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
+<li class="chapter" data-level="2.3" data-path="A1-TidyVerse.html"><a href="#fundamentos-te%C3%B3ricos"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="A1-TidyVerse.html"><a href="#estimaci%C3%B3n-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
+<li class="chapter" data-level="2.3.2" data-path="A1-TidyVerse.html"><a href="#estimaci%C3%B3n-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="conceptos-básicos-en-encuestas-de-hogares.html"><a href="conceptos-básicos-en-encuestas-de-hogares.html#intervalos-de-confianza"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="A1-TidyVerse.html"><a href="#estimaci%C3%B3n-de-par%C3%A1metros-descriptivos"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="A1-TidyVerse.html"><a href="#estimaci%C3%B3n-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
+<li class="chapter" data-level="3.1.2" data-path="A1-TidyVerse.html"><a href="#estimaci%C3%B3n-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
+<li class="chapter" data-level="3.1.3" data-path="A1-TidyVerse.html"><a href="#estimaci%C3%B3n-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="A1-TidyVerse.html"><a href="#estimaci%C3%B3n-de-par%C3%A1metros-de-distribuci%C3%B3n-y-desigualdad"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="A1-TidyVerse.html"><a href="#estimaci%C3%B3n-de-la-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
+<li class="chapter" data-level="3.2.2" data-path="A1-TidyVerse.html"><a href="#estimaci%C3%B3n-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
+<li class="chapter" data-level="3.2.3" data-path="A1-TidyVerse.html"><a href="#estimaci%C3%B3n-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
+<li class="chapter" data-level="3.2.4" data-path="A1-TidyVerse.html"><a href="#estimaci%C3%B3n-de-la-correlaci%C3%B3n"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="A1-TidyVerse.html"><a href="#pruebas-de-hip%C3%B3tesis"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
+<li class="chapter" data-level="3.4" data-path="A1-TidyVerse.html"><a href="#estimaci%C3%B3n-de-contrastes"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
+<li class="chapter" data-level="3.5" data-path="cap4.html"><a href="cap4.html#viz-continuas"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="cap4.html"><a href="cap4.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="cap4.html"><a href="cap4.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.5.3" data-path="A1-TidyVerse.html"><a href="#diagramas-de-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="A1-TidyVerse.html"><a href="#an%C3%A1lisis-de-variables-categ%C3%B3ricas"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="A1-TidyVerse.html"><a href="#estimaci%C3%B3n-del-tama%C3%B1o-poblacional"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
+<li class="chapter" data-level="4.2" data-path="A1-TidyVerse.html"><a href="#estimaci%C3%B3n-de-proporciones"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
+<li class="chapter" data-level="4.3" data-path="análisis-de-variables-categóricas.html"><a href="análisis-de-variables-categóricas.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
+<li class="chapter" data-level="4.4" data-path="análisis-de-variables-categóricas.html"><a href="análisis-de-variables-categóricas.html#tablas-cruzadas"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
+<li class="chapter" data-level="4.5" data-path="A1-TidyVerse.html"><a href="#la-raz%C3%B3n-de-odds"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
+<li class="chapter" data-level="4.6" data-path="análisis-de-variables-categóricas.html"><a href="análisis-de-variables-categóricas.html#prueba-de-independencia-chi2"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="análisis-de-variables-categóricas.html"><a href="análisis-de-variables-categóricas.html#viz-categoricas"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="A1-TidyVerse.html"><a href="#gr%C3%A1ficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
+<li class="chapter" data-level="4.7.2" data-path="análisis-de-variables-categóricas.html"><a href="análisis-de-variables-categóricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="A1-TidyVerse.html"><a href="#formulaci%C3%B3n-del-modelo"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
+<li class="chapter" data-level="5.2" data-path="cap6.html"><a href="cap6.html#uso-de-los-pesos-de-muestreo"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
+<li class="chapter" data-level="5.3" data-path="A1-TidyVerse.html"><a href="#estimaci%C3%B3n-de-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.4" data-path="A1-TidyVerse.html"><a href="#diagn%C3%B3stico-del-modelo"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="A1-TidyVerse.html"><a href="#coeficiente-de-determinaci%C3%B3n"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="5.4.2" data-path="cap6.html"><a href="cap6.html#residuales"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
+<li class="chapter" data-level="5.4.3" data-path="cap6.html"><a href="cap6.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="A1-TidyVerse.html"><a href="#inferencia-sobre-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.6" data-path="A1-TidyVerse.html"><a href="#estimaci%C3%B3n-y-predicci%C3%B3n"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cap-glm.html"><a href="cap-glm.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="cap-glm.html"><a href="cap-glm.html#sec-logistica"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
+<li class="chapter" data-level="6.2" data-path="cap-glm.html"><a href="cap-glm.html#sec-multinomial"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
+<li class="chapter" data-level="6.3" data-path="cap-glm.html"><a href="cap-glm.html#sec-gamma"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cap-multinivel.html"><a href="cap-multinivel.html"><i class="fa fa-check"></i><b>7</b> Modelos multinivel</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="cap-multinivel.html"><a href="cap-multinivel.html#sec-motivacionMult"><i class="fa fa-check"></i><b>7.1</b> Motivación</a></li>
+<li class="chapter" data-level="7.2" data-path="cap-multinivel.html"><a href="cap-multinivel.html#pesos-q-weighted"><i class="fa fa-check"></i><b>7.2</b> Pesos <em>q-weighted</em></a></li>
+<li class="chapter" data-level="7.3" data-path="cap-multinivel.html"><a href="cap-multinivel.html#modelo-lineal-multinivel"><i class="fa fa-check"></i><b>7.3</b> Modelo lineal multinivel</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="cap-multinivel.html"><a href="cap-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Modelo nulo</a></li>
+<li class="chapter" data-level="7.3.2" data-path="cap-multinivel.html"><a href="cap-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Modelo con intercepto aleatorio</a></li>
+<li class="chapter" data-level="7.3.3" data-path="cap-multinivel.html"><a href="cap-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Modelo con intercepto y pendiente aleatoria</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="cap-multinivel.html"><a href="cap-multinivel.html#sec-logistica-multinivel"><i class="fa fa-check"></i><b>7.4</b> Modelo logístico multinivel</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="A1-TidyVerse.html"><a href="#modelo-nulo-log%C3%ADstico"><i class="fa fa-check"></i><b>7.4.1</b> Modelo nulo logístico</a></li>
+<li class="chapter" data-level="7.4.2" data-path="A1-TidyVerse.html"><a href="#modelo-log%C3%ADstico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Modelo logístico con intercepto aleatorio</a></li>
+<li class="chapter" data-level="7.4.3" data-path="A1-TidyVerse.html"><a href="#modelo-log%C3%ADstico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Modelo logístico con intercepto y pendiente aleatoria</a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>Anexos</b></span></li>
+<li class="chapter" data-level="A" data-path="ap1.html"><a href="ap1.html"><i class="fa fa-check"></i><b>A</b> Manejo de bases de datos con <code>R</code></a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="A1-TidyVerse.html"><a href="#preparaci%C3%B3n-del-entorno-de-trabajo"><i class="fa fa-check"></i><b>A.1</b> Preparación del entorno de trabajo</a></li>
+<li class="chapter" data-level="A.2" data-path="A1-TidyVerse.html"><a href="#carga-e-inspecci%C3%B3n-inicial-de-la-base"><i class="fa fa-check"></i><b>A.2</b> Carga e inspección inicial de la base</a></li>
+<li class="chapter" data-level="A.3" data-path="ap1.html"><a href="ap1.html#encadenamiento-de-operaciones"><i class="fa fa-check"></i><b>A.3</b> Encadenamiento de operaciones</a>
+<ul>
+<li class="chapter" data-level="A.3.1" data-path="A1-TidyVerse.html"><a href="#filter-selecci%C3%B3n-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selección de registros</a></li>
+<li class="chapter" data-level="A.3.2" data-path="ap1.html"><a href="ap1.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: seleccionar variables</a></li>
+<li class="chapter" data-level="A.3.3" data-path="ap1.html"><a href="ap1.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: ordenamiento de filas</a></li>
+<li class="chapter" data-level="A.3.4" data-path="A1-TidyVerse.html"><a href="#mutate-creaci%C3%B3n-o-transformaci%C3%B3n-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creación o transformación de variables</a></li>
+<li class="chapter" data-level="A.3.5" data-path="A1-TidyVerse.html"><a href="#summarise-res%C3%BAmenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: resúmenes descriptivos</a></li>
+<li class="chapter" data-level="A.3.6" data-path="A1-TidyVerse.html"><a href="#group_by-agrupaci%C3%B3n-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: agrupación de casos</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Inferencia en poblaciones finitas</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="ap2.html"><a href="ap2.html#dos-posibles-inferencias"><i class="fa fa-check"></i><b>B.1</b> Dos posibles inferencias</a></li>
+<li class="chapter" data-level="B.2" data-path="A1-TidyVerse.html"><a href="#la-integraci%C3%B3n-de-ambas-inferencias"><i class="fa fa-check"></i><b>B.2</b> La integración de ambas inferencias</a>
+<ul>
+<li class="chapter" data-level="B.2.1" data-path="ap2.html"><a href="ap2.html#sec-mv"><i class="fa fa-check"></i><b>B.2.1</b> Método de la máxima verosimilitud</a></li>
+<li class="chapter" data-level="B.2.2" data-path="ap2.html"><a href="ap2.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Método de máxima pseudo-verosimilitud</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis de encuestas de hogares con R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ap1" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Apéndice A</span> Manejo de bases de datos con <code>R</code><a href="ap1.html#ap1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><code>R</code> es un software estadístico ampliamente utilizado para el análisis de datos y la generación de gráficos. Su uso se ha extendido entre investigadores y profesionales porque es una herramienta gratuita, de código abierto y disponible bajo licencia GNU. Puede descargarse desde el sitio oficial del proyecto: <a href="https://www.r-project.org" class="uri">https://www.r-project.org</a>, y está disponible para Windows, MacOS y Linux.</p>
+<p><code>R</code> constituye un ambiente integrado para el análisis estadístico. Esto significa que permite realizar procesos de análisis, programación, visualización y manejo de datos dentro de un mismo entorno. En este anexo se utiliza el enfoque del <code>tidyverse</code>, y en particular el paquete <code>dplyr</code>, para organizar una secuencia lógica de trabajo con bases de datos: cargar la información, inspeccionarla, seleccionar variables, filtrar registros, ordenar filas, crear variables y producir resúmenes.</p>
+<div id="preparación-del-entorno-de-trabajo" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">A.1</span> Preparación del entorno de trabajo<a href="#preparaci%C3%B3n-del-entorno-de-trabajo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><code>R</code> es un lenguaje de programación de carácter colaborativo, lo que permite que su comunidad de usuarios y desarrolladores contribuya continuamente mediante la creación de funciones, paquetes y librerías especializadas. Gracias a este ecosistema abierto, es posible ampliar sus capacidades para distintos tipos de análisis estadístico y procesamiento de datos. Entre las librerías más utilizadas para el análisis de bases de datos se encuentran las siguientes:</p>
+<ul>
+<li><p>La librería <code>tidyverse</code> <span class="citation">(<a href="#ref-tidyverse2019">Wickham et al., 2019</a>)</span> corresponde a un conjunto de paquetes de <code>R</code> diseñados para apoyar distintas etapas del trabajo con datos, desde su importación y transformación hasta su exploración, análisis y visualización. Su uso se ha extendido ampliamente en ciencia de datos porque ofrece una forma de trabajo consistente y ordenada.</p></li>
+<li><p>El paquete <code>dplyr</code> <span class="citation">(<a href="#ref-dplyr2026">Wickham et al., 2026</a>)</span> ofrece herramientas para organizar y transformar bases de datos rectangulares. Su utilidad radica en que reúne, en una sintaxis simple y consistente, las operaciones más frecuentes del trabajo analítico con datos: seleccionar variables, filtrar registros, crear nuevas columnas, ordenar observaciones y resumir información.</p></li>
+<li><p><code>ggplot2</code> <span class="citation">(<a href="#ref-Wickham2023">Wickham et al., 2023</a>)</span> permite construir gráficos estadísticos mediante la gramática de los gráficos. Bajo este enfoque, una visualización se entiende como la combinación ordenada de capas: datos, variables, geometrías, escalas, títulos, colores y otros elementos visuales.</p></li>
+<li><p>El paquete <code>survey</code> <span class="citation">(<a href="#ref-Lumley2024">Lumley, 2024</a>)</span> proporciona herramientas especializadas para analizar información proveniente de encuestas con diseños muestrales complejos, incorporando ponderaciones, estratificación y conglomeración.</p></li>
+<li><p>La librería <code>srvyr</code> <span class="citation">(<a href="#ref-Freedman2024">Freedman Ellis &amp; Schneider, 2024</a>)</span> extiende la funcionalidad del paquete <code>survey</code> para utilizar una sintaxis más cercana al enfoque de <code>tidyverse</code>.</p></li>
+<li><p>El paquete <code>TeachingSampling</code> <span class="citation">(<a href="#ref-GutierrezT2020">Gutiérrez, 2020b</a>)</span> ofrece funciones para seleccionar muestras probabilísticas y realizar inferencia sobre poblaciones finitas bajo diversos diseños de muestreo.</p></li>
+<li><p>La librería <code>samplesize4surveys</code> <span class="citation">(<a href="#ref-Gutierrez2020">Gutiérrez, 2020a</a>)</span> permite calcular tamaños de muestra para estimar totales, medias y proporciones en el contexto de diseños de muestreo complejos.</p></li>
+</ul>
+<p>Antes de poder utilizar las diferentes funciones que cada librería tiene, es necesario descargarlas de antemano de la web. El comando <code>install.packages</code> permite realizar esta tarea. Note que algunas librerías pueden depender de otras, así que para poder utilizarlas es necesario instalar también las dependencias adicionales.</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="ap1.html#cb198-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
+<span id="cb198-2"><a href="ap1.html#cb198-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span>
+<span id="cb198-3"><a href="ap1.html#cb198-3" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;survey&quot;</span>)</span>
+<span id="cb198-4"><a href="ap1.html#cb198-4" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;srvyr&quot;</span>)</span>
+<span id="cb198-5"><a href="ap1.html#cb198-5" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb198-6"><a href="ap1.html#cb198-6" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;TeachingSampling&quot;</span>)</span>
+<span id="cb198-7"><a href="ap1.html#cb198-7" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;samplesize4surveys&quot;</span>)</span></code></pre></div>
+<p>Una vez instalados los paquetes, se cargan con <code>library()</code>. El primer comando limpia los objetos existentes en la sesión de trabajo, lo que ayuda a que los resultados del capítulo dependan solo del código que se ejecuta aquí. Debe tenerse en cuenta que un paquete solo puede cargarse si previamente ha sido instalado en el sistema.</p>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="ap1.html#cb199-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb199-2"><a href="ap1.html#cb199-2" tabindex="-1"></a></span>
+<span id="cb199-3"><a href="ap1.html#cb199-3" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</span>
+<span id="cb199-4"><a href="ap1.html#cb199-4" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
+<span id="cb199-5"><a href="ap1.html#cb199-5" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;survey&quot;</span>)</span>
+<span id="cb199-6"><a href="ap1.html#cb199-6" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;srvyr&quot;</span>)</span>
+<span id="cb199-7"><a href="ap1.html#cb199-7" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb199-8"><a href="ap1.html#cb199-8" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;TeachingSampling&quot;</span>)</span>
+<span id="cb199-9"><a href="ap1.html#cb199-9" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;samplesize4surveys&quot;</span>)</span></code></pre></div>
+<p>Una vez se descargan e instalan las librerías o paquetes en <code>R</code>, el paso recomendado es que todos los procesamientos que se realicen se hagan a través de un la creación de proyectos. Un proyecto de <code>R</code> se define como un archivo que contiene los archivos de origen y contenido asociados con el trabajo que se está realizando. Adicionalmente, contiene información que permite la compilación de cada archivo de <code>R</code> que se va a utilizar, mantiene la información para integrarse con sistemas de control de código fuente y ayuda a organizar la aplicación de los procesamientos en componentes lógicos.</p>
+</div>
+<div id="carga-e-inspección-inicial-de-la-base" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">A.2</span> Carga e inspección inicial de la base<a href="#carga-e-inspecci%C3%B3n-inicial-de-la-base" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Es muy usual que al trabajar proyectos en <code>R</code> sea necesario importar bases de datos con información relevante para un estudio en particular. Los formatos de bases de datos que <code>R</code> permite importar son diversos, entre ellos se tienen <code>xlsx</code>, <code>csv</code>, <code>txt</code>, <code>STATA</code>, etc. Una vez leída la base de datos en el formato pertinente es recomendable transformarla al formato nativo de <code>R</code>, es decir <code>.RDS</code>. Este es un formato más eficiente y propio de <code>R</code>.</p>
+<p>Una vez se carga la base de datos se procede a utilizar las funciones en <code>R</code> para poder obtener resultados de los procesamientos agregados y gráficos de interés. Para ejemplificar el uso de funciones que permitan obtener resultados agregados, utilizaremos la base de datos <code>BigCity</code> del paquete <code>TeachingSampling</code>. Esta base corresponde a un conjunto de variables socioeconómicas de 150266 personas en un año en particular.</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="ap1.html#cb200-1" tabindex="-1"></a><span class="fu">library</span>(TeachingSampling)</span>
+<span id="cb200-2"><a href="ap1.html#cb200-2" tabindex="-1"></a><span class="fu">data</span>(BigCity)</span>
+<span id="cb200-3"><a href="ap1.html#cb200-3" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> BigCity</span></code></pre></div>
+<p>El objeto <code>data1</code> contiene una copia de <code>BigCity</code>. La función <code>head()</code> permite observar las primeras filas y obtener una impresión rápida de la estructura de la base.</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="ap1.html#cb201-1" tabindex="-1"></a><span class="fu">head</span>(data1)</span></code></pre></div>
+<pre><code>##        HHID PersonID   Stratum     PSU  Zone    Sex Age MaritalST Income
+## 1 idHH00001  idPer01 idStrt001 PSU0001 Rural   Male  38   Married 555.00
+## 2 idHH00001  idPer02 idStrt001 PSU0001 Rural Female  40   Married 555.00
+## 3 idHH00001  idPer03 idStrt001 PSU0001 Rural Female  20    Single 555.00
+## 4 idHH00001  idPer04 idStrt001 PSU0001 Rural   Male  19    Single 555.00
+## 5 idHH00001  idPer05 idStrt001 PSU0001 Rural   Male  18    Single 555.00
+## 6 idHH00002  idPer01 idStrt001 PSU0001 Rural   Male  35   Married 298.34
+##   Expenditure Employment  Poverty
+## 1      488.33   Employed  NotPoor
+## 2      488.33   Employed  NotPoor
+## 3      488.33   Inactive  NotPoor
+## 4      488.33   Employed  NotPoor
+## 5      488.33   Inactive  NotPoor
+## 6      216.70   Employed Relative</code></pre>
+<p>Una vez cargada la base de datos en <code>R</code>, se puede empezar a realizar los procesamientos según las necesidades de cada investigador. En este sentido, una de las primeras revisiones que se realizan al cargar una base de datos es verificar su dimensión; es decir, identificar la cantidad de filas y columnas que contiene. Lo anterior se puede hacer con la función <code>nrow</code>, que identifica el número de registros en la base de datos, y con la función <code>ncol</code>, que muestra el número de variables. Los códigos computacionales son los siguientes:</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="ap1.html#cb203-1" tabindex="-1"></a><span class="fu">nrow</span>(data1)</span></code></pre></div>
+<pre><code>## [1] 150266</code></pre>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="ap1.html#cb205-1" tabindex="-1"></a><span class="fu">ncol</span>(data1)</span></code></pre></div>
+<pre><code>## [1] 12</code></pre>
+<p>Una forma resumida de revisar la cantidad de filas y columnas de una base de datos es mediante la función <code>dim</code>, la cual devuelve un vector cuya primera componente corresponde al número de filas y cuya segunda componente indica el número de columnas.</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="ap1.html#cb207-1" tabindex="-1"></a><span class="fu">dim</span>(data1)</span></code></pre></div>
+<pre><code>## [1] 150266     12</code></pre>
+<p>En algunas ocasiones, las bases de datos pueden ser extensas, ya sea porque contienen un número considerable de variables observadas o porque el número de registros es grande. Por esta razón, para visualizarlas adecuadamente, puede ser conveniente abrirlas en una ventana independiente y explorar su contenido de forma tabular. Esto se realiza mediante la función <code>View</code>, como se muestra a continuación.</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="ap1.html#cb209-1" tabindex="-1"></a><span class="fu">View</span>(data1)</span></code></pre></div>
+<p>Otra verificación importante al cargar una base de datos en <code>R</code> consiste en identificar las variables que contiene. Para ello, se puede utilizar la función <code>names</code>, la cual muestra los nombres de las variables incluidas en la base de datos.</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="ap1.html#cb210-1" tabindex="-1"></a><span class="fu">names</span>(data1)</span></code></pre></div>
+<pre><code>##  [1] &quot;HHID&quot;        &quot;PersonID&quot;    &quot;Stratum&quot;     &quot;PSU&quot;         &quot;Zone&quot;       
+##  [6] &quot;Sex&quot;         &quot;Age&quot;         &quot;MaritalST&quot;   &quot;Income&quot;      &quot;Expenditure&quot;
+## [11] &quot;Employment&quot;  &quot;Poverty&quot;</code></pre>
+<p>La salida anterior muestra los nombres de las variables contenidas en la base de datos. En este caso, la base cuenta con 12 variables. Las primeras variables corresponden a identificadores y elementos del diseño muestral, como <code>HHID</code>, <code>PersonID</code>, <code>Stratum</code>, <code>PSU</code> y <code>Zone</code>. Luego aparecen variables sociodemográficas, como <code>Sex</code>, <code>Age</code> y <code>MaritalST</code>. Finalmente, se incluyen variables económicas y de condición laboral o social, como <code>Income</code>, <code>Expenditure</code>, <code>Employment</code> y <code>Poverty</code>.</p>
+<p>Si se desea profundizar en el tipo de información que almacena cada variable, puede utilizarse la función <code>str</code>, la cual muestra de manera compacta la estructura de un objeto y sus componentes. Para nuestra base de datos, esta función se utilizaría de la siguiente manera:</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="ap1.html#cb212-1" tabindex="-1"></a><span class="fu">str</span>(data1)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    150266 obs. of  12 variables:
+##  $ HHID       : chr  &quot;idHH00001&quot; &quot;idHH00001&quot; &quot;idHH00001&quot; &quot;idHH00001&quot; ...
+##  $ PersonID   : chr  &quot;idPer01&quot; &quot;idPer02&quot; &quot;idPer03&quot; &quot;idPer04&quot; ...
+##  $ Stratum    : chr  &quot;idStrt001&quot; &quot;idStrt001&quot; &quot;idStrt001&quot; &quot;idStrt001&quot; ...
+##  $ PSU        : chr  &quot;PSU0001&quot; &quot;PSU0001&quot; &quot;PSU0001&quot; &quot;PSU0001&quot; ...
+##  $ Zone       : chr  &quot;Rural&quot; &quot;Rural&quot; &quot;Rural&quot; &quot;Rural&quot; ...
+##  $ Sex        : chr  &quot;Male&quot; &quot;Female&quot; &quot;Female&quot; &quot;Male&quot; ...
+##  $ Age        : int  38 40 20 19 18 35 29 14 13 6 ...
+##  $ MaritalST  : Factor w/ 6 levels &quot;Partner&quot;,&quot;Married&quot;,..: 2 2 5 5 5 2 2 5 5 NA ...
+##  $ Income     : num  555 555 555 555 555 ...
+##  $ Expenditure: num  488 488 488 488 488 ...
+##  $ Employment : Factor w/ 3 levels &quot;Unemployed&quot;,&quot;Inactive&quot;,..: 3 3 2 3 2 3 3 NA NA NA ...
+##  $ Poverty    : Factor w/ 3 levels &quot;NotPoor&quot;,&quot;Extreme&quot;,..: 1 1 1 1 1 3 3 3 3 3 ...</code></pre>
+<p>Como se observa en la salida anterior, la función <code>str</code> permite identificar la clase de cada variable incluida en la base de datos. Por ejemplo, la variable <code>HHID</code> es de tipo carácter, al igual que la variable <code>Sex</code>, mientras que las variables <code>Income</code> y <code>Expenditure</code> son de tipo numérico. Los demás atributos asociados con las variables también pueden revisarse directamente en la salida del código. Esta función resulta especialmente útil para obtener una visión general del contenido y la estructura de una base de datos.</p>
+</div>
+<div id="encadenamiento-de-operaciones" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">A.3</span> Encadenamiento de operaciones<a href="ap1.html#encadenamiento-de-operaciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Una de las contribuciones más útiles de <code>R</code> es la incorporación de las tuberías (<em>pipelines</em>), las cuales permiten construir consultas, transformaciones y nuevos objetos a partir de una base de datos de manera más intuitiva, ordenada y fácil de interpretar. El operador de encadenamiento <code>%&gt;%</code>, proveniente del paquete <code>magrittr</code> <span class="citation">(<a href="#ref-pipe">Bache &amp; Wickham, 2026</a>)</span> y cargado automáticamente al utilizar la librería <code>tidyverse</code>, permite enlazar varias operaciones sucesivas, de modo que el resultado obtenido en un paso se convierte en el insumo del paso siguiente. A continuación, se presenta un ejemplo sencillo de su uso con la base de datos <code>BigLucy</code>, en el cual se calcula el número total de elementos que contiene la base mediante la función <code>count</code>.</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="ap1.html#cb214-1" tabindex="-1"></a>data1 <span class="sc">%&gt;%</span> <span class="fu">count</span>()</span></code></pre></div>
+<pre><code>##        n
+## 1 150266</code></pre>
+<p>La línea de código anterior puede interpretarse de forma sencilla: se toma la base de datos como punto de partida y, sobre ella, se realiza un conteo de sus registros. Además de la función <code>count</code>, existe una amplia variedad de funciones que pueden combinarse con el operador <code>%&gt;%</code> para realizar consultas, transformaciones y resúmenes sobre los datos. El paquete <code>dplyr</code> toma ventaja de este operador, permitiendo organizar las operaciones más comunes sobre una base rectangular. En las siguientes subsecciones se presentan algunas de ellas, siguiendo un orden típico de trabajo: reducir observaciones, conservar variables, ordenar la información, crear nuevas columnas y producir resultados agregados.</p>
+<div id="filter-selección-de-registros" class="section level3 hasAnchor" number="8.3.1">
+<h3><span class="header-section-number">A.3.1</span> <code>filter</code>: selección de registros<a href="#filter-selecci%C3%B3n-de-registros" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>filter()</code> conserva las filas que cumplen una o varias condiciones. En el siguiente ejemplo se crean dos subconjuntos de <code>data1</code>: uno con los hombres y otro con las mujeres. El resultado son dos objetos nuevos. <code>datasexH</code> contiene únicamente registros con <code>Sex == "Male"</code>, mientras que <code>datasexM</code> contiene registros con <code>Sex == "Female"</code>.</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="ap1.html#cb216-1" tabindex="-1"></a>datasexH <span class="ot">&lt;-</span> data1 <span class="sc">%&gt;%</span></span>
+<span id="cb216-2"><a href="ap1.html#cb216-2" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>)</span>
+<span id="cb216-3"><a href="ap1.html#cb216-3" tabindex="-1"></a>datasexM <span class="ot">&lt;-</span> data1 <span class="sc">%&gt;%</span></span>
+<span id="cb216-4"><a href="ap1.html#cb216-4" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>)</span></code></pre></div>
+<p>También puede filtrarse por condición de pobreza. En este caso se conservan solo las personas clasificadas como no pobres. Em este caso, el objeto <code>datanopobre</code> contiene el subconjunto de registros cuya variable <code>Poverty</code> toma el valor <code>"NotPoor"</code>.</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="ap1.html#cb217-1" tabindex="-1"></a>datanopobre <span class="ot">&lt;-</span> data1 <span class="sc">%&gt;%</span></span>
+<span id="cb217-2"><a href="ap1.html#cb217-2" tabindex="-1"></a>  <span class="fu">filter</span>(Poverty <span class="sc">==</span> <span class="st">&quot;NotPoor&quot;</span>)</span></code></pre></div>
+<p>La función <code>filter()</code> también permite conservar registros cuyos valores pertenecen a un conjunto específico. En los siguientes ejemplos se filtra por valores particulares de ingreso. Note que <code>%in%</code> evalúa si <code>Income</code> pertenece al conjunto indicado. Así, <code>datared</code> conserva ingresos iguales a 265 o 600, y <code>dataingreso2</code> conserva ingresos iguales a 1000 o 2000.</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="ap1.html#cb218-1" tabindex="-1"></a>datared <span class="ot">&lt;-</span> data1 <span class="sc">%&gt;%</span></span>
+<span id="cb218-2"><a href="ap1.html#cb218-2" tabindex="-1"></a>  <span class="fu">filter</span>(Income <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">265</span>, <span class="dv">600</span>))</span>
+<span id="cb218-3"><a href="ap1.html#cb218-3" tabindex="-1"></a></span>
+<span id="cb218-4"><a href="ap1.html#cb218-4" tabindex="-1"></a>dataingreso2 <span class="ot">&lt;-</span> data1 <span class="sc">%&gt;%</span></span>
+<span id="cb218-5"><a href="ap1.html#cb218-5" tabindex="-1"></a>  <span class="fu">filter</span>(Income <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">2000</span>))</span></code></pre></div>
+</div>
+<div id="select-seleccionar-variables" class="section level3 hasAnchor" number="8.3.2">
+<h3><span class="header-section-number">A.3.2</span> <code>select</code>: seleccionar variables<a href="ap1.html#select-seleccionar-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La función <code>select()</code> conserva columnas específicas. Para continuar con los ejemplos, se seleccionan variables de identificación de la persona y el hogar y otras como zona, sexo, edad e ingreso. El resultado es una base más reducida en columnas. Se mantiene <code>Age</code> porque será utilizada posteriormente para ordenar registros por edad.</p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="ap1.html#cb219-1" tabindex="-1"></a>datared <span class="ot">&lt;-</span> data1 <span class="sc">%&gt;%</span></span>
+<span id="cb219-2"><a href="ap1.html#cb219-2" tabindex="-1"></a>  <span class="fu">select</span>(PersonID, HHID, PSU, Zone, Sex, Age, Income)</span></code></pre></div>
+<p>Adicionalmente, <code>select()</code> también permite excluir variables. Para eliminar columnas, se antepone el signo menos (<code>-</code>) al nombre de cada variable. El objeto <code>datagrey</code> conserva las variables de <code>datared</code>, excepto <code>HHID</code> y <code>PersonID</code>. Esta operación es útil cuando se desea trabajar con una base más compacta.</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="ap1.html#cb220-1" tabindex="-1"></a>datagrey <span class="ot">&lt;-</span> datared <span class="sc">%&gt;%</span></span>
+<span id="cb220-2"><a href="ap1.html#cb220-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>HHID, <span class="sc">-</span>PersonID)</span></code></pre></div>
+</div>
+<div id="arrange-ordenamiento-de-filas" class="section level3 hasAnchor" number="8.3.3">
+<h3><span class="header-section-number">A.3.3</span> <code>arrange</code>: ordenamiento de filas<a href="ap1.html#arrange-ordenamiento-de-filas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La función <code>arrange()</code> ordena las filas de una base según una o más variables. En el primer ejemplo, <code>datared</code> se ordena de menor a mayor ingreso, mientras que <code>datadog</code> contiene las mismas columnas que <code>datared</code>, pero sus filas quedan ordenadas por <code>Income</code>. La función <code>head()</code> muestra los primeros registros después del ordenamiento.</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="ap1.html#cb221-1" tabindex="-1"></a>datadog <span class="ot">&lt;-</span> datared <span class="sc">%&gt;%</span></span>
+<span id="cb221-2"><a href="ap1.html#cb221-2" tabindex="-1"></a>  <span class="fu">arrange</span>(Income)</span>
+<span id="cb221-3"><a href="ap1.html#cb221-3" tabindex="-1"></a></span>
+<span id="cb221-4"><a href="ap1.html#cb221-4" tabindex="-1"></a>datadog <span class="sc">%&gt;%</span></span>
+<span id="cb221-5"><a href="ap1.html#cb221-5" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##   PersonID      HHID     PSU  Zone    Sex Age Income
+## 1  idPer01 idHH01522 PSU0112 Rural Female  82  10.00
+## 2  idPer01 idHH22167 PSU0112 Rural Female  82  10.00
+## 3  idPer01 idHH10745 PSU0893 Rural   Male  68  11.92
+## 4  idPer01 idHH31390 PSU0893 Rural   Male  68  11.92
+## 5  idPer01 idHH17632 PSU1432 Rural   Male  58  12.08
+## 6  idPer02 idHH17632 PSU1432 Rural Female  50  12.08</code></pre>
+<p>El ordenamiento también puede realizarse considerando más de una variable. En este ejemplo, la base se organiza primero según la variable <code>Sex</code> y, posteriormente, dentro de cada grupo, de acuerdo con la variable <code>Age</code>. La siguiente salida permite revisar los primeros registros después de aplicar este criterio de ordenamiento.</p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="ap1.html#cb223-1" tabindex="-1"></a>datared <span class="sc">%&gt;%</span></span>
+<span id="cb223-2"><a href="ap1.html#cb223-2" tabindex="-1"></a>  <span class="fu">arrange</span>(Sex, Age) <span class="sc">%&gt;%</span></span>
+<span id="cb223-3"><a href="ap1.html#cb223-3" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##   PersonID      HHID     PSU  Zone    Sex Age Income
+## 1  idPer04 idHH00009 PSU0001 Rural Female   0 151.67
+## 2  idPer04 idHH20654 PSU0001 Rural Female   0 151.67
+## 3  idPer06 idHH00042 PSU0004 Rural Female   0 527.84
+## 4  idPer06 idHH20687 PSU0004 Rural Female   0 527.84
+## 5  idPer04 idHH00191 PSU0014 Urban Female   0 355.00
+## 6  idPer04 idHH20836 PSU0014 Urban Female   0 355.00</code></pre>
+<p>Para ordenar los registros de mayor a menor, se utiliza la opción <code>desc()</code> dentro de la función <code>arrange()</code>. En el siguiente ejemplo, la base se organiza de manera que las personas con mayor edad aparezcan en los primeros registros. Este tipo de ordenamiento permite identificar rápidamente los valores más altos de una variable dentro de la base reducida.</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="ap1.html#cb225-1" tabindex="-1"></a>datared <span class="sc">%&gt;%</span></span>
+<span id="cb225-2"><a href="ap1.html#cb225-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Age)) <span class="sc">%&gt;%</span></span>
+<span id="cb225-3"><a href="ap1.html#cb225-3" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##   PersonID      HHID     PSU  Zone    Sex Age Income
+## 1  idPer02 idHH01024 PSU0076 Urban Female  98 135.00
+## 2  idPer02 idHH21669 PSU0076 Urban Female  98 135.00
+## 3  idPer01 idHH02916 PSU0219 Rural Female  98 136.89
+## 4  idPer01 idHH23561 PSU0219 Rural Female  98 136.89
+## 5  idPer01 idHH03863 PSU0290 Rural   Male  98 244.92
+## 6  idPer01 idHH24508 PSU0290 Rural   Male  98 244.92</code></pre>
+</div>
+<div id="mutate-creación-o-transformación-de-variables" class="section level3 hasAnchor" number="8.3.4">
+<h3><span class="header-section-number">A.3.4</span> <code>mutate</code>: creación o transformación de variables<a href="#mutate-creaci%C3%B3n-o-transformaci%C3%B3n-de-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La función <code>mutate()</code> crea nuevas variables o modifica variables existentes. Dado que <code>BigCity</code> no incluye una variable de región geográfica explícita, se construye <code>Region</code> a partir de <code>Stratum</code>. Primero se extrae la parte numérica del estrato con <code>gsub("\\D", "", Stratum)</code>, luego se convierte a número con <code>as.numeric()</code> y finalmente se divide en cinco intervalos con <code>cut()</code>. El resultado es una nueva columna <code>Region</code> dentro de <code>data1</code>, en la que sus categorías permiten producir resúmenes regionales en los pasos siguientes.</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="ap1.html#cb227-1" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> data1 <span class="sc">%&gt;%</span></span>
+<span id="cb227-2"><a href="ap1.html#cb227-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb227-3"><a href="ap1.html#cb227-3" tabindex="-1"></a>    <span class="at">Region =</span> <span class="fu">cut</span>(</span>
+<span id="cb227-4"><a href="ap1.html#cb227-4" tabindex="-1"></a>      <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">D&quot;</span>, <span class="st">&quot;&quot;</span>, Stratum)),</span>
+<span id="cb227-5"><a href="ap1.html#cb227-5" tabindex="-1"></a>      <span class="at">breaks =</span> <span class="dv">5</span>,</span>
+<span id="cb227-6"><a href="ap1.html#cb227-6" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Norte&quot;</span>, <span class="st">&quot;Sur&quot;</span>, <span class="st">&quot;Centro&quot;</span>, <span class="st">&quot;Occidente&quot;</span>, <span class="st">&quot;Oriente&quot;</span>)</span>
+<span id="cb227-7"><a href="ap1.html#cb227-7" tabindex="-1"></a>    )</span>
+<span id="cb227-8"><a href="ap1.html#cb227-8" tabindex="-1"></a>  )</span></code></pre></div>
+<p>En el análisis de bases de datos también es frecuente recodificar variables categóricas. El siguiente código crea <code>IDRegion</code>, una versión codificada de <code>Region</code> que conserva el orden de las regiones y asigna códigos de dos dígitos. Esta forma de recodificación facilita la presentación o el cruce con otras fuentes de información.</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="ap1.html#cb228-1" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> data1 <span class="sc">%&gt;%</span></span>
+<span id="cb228-2"><a href="ap1.html#cb228-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb228-3"><a href="ap1.html#cb228-3" tabindex="-1"></a>    <span class="at">IDRegion =</span> <span class="fu">factor</span>(</span>
+<span id="cb228-4"><a href="ap1.html#cb228-4" tabindex="-1"></a>      Region,</span>
+<span id="cb228-5"><a href="ap1.html#cb228-5" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Norte&quot;</span>, <span class="st">&quot;Sur&quot;</span>, <span class="st">&quot;Centro&quot;</span>, <span class="st">&quot;Occidente&quot;</span>, <span class="st">&quot;Oriente&quot;</span>),</span>
+<span id="cb228-6"><a href="ap1.html#cb228-6" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;01&quot;</span>, <span class="st">&quot;02&quot;</span>, <span class="st">&quot;03&quot;</span>, <span class="st">&quot;04&quot;</span>, <span class="st">&quot;05&quot;</span>)</span>
+<span id="cb228-7"><a href="ap1.html#cb228-7" tabindex="-1"></a>    )</span>
+<span id="cb228-8"><a href="ap1.html#cb228-8" tabindex="-1"></a>  )</span></code></pre></div>
+<p>El siguiente ejemplo crea <code>Logincome</code>, que corresponde al logaritmo natural del ingreso (transformación de la escala del ingreso). Esta operación se usa con frecuencia cuando una variable monetaria presenta alta dispersión. Luego se muestran las primeras filas de las variables relevantes.</p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="ap1.html#cb229-1" tabindex="-1"></a>datablue2 <span class="ot">&lt;-</span> datared <span class="sc">%&gt;%</span></span>
+<span id="cb229-2"><a href="ap1.html#cb229-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Logincome =</span> <span class="fu">log</span>(Income))</span>
+<span id="cb229-3"><a href="ap1.html#cb229-3" tabindex="-1"></a></span>
+<span id="cb229-4"><a href="ap1.html#cb229-4" tabindex="-1"></a>datablue2 <span class="sc">%&gt;%</span></span>
+<span id="cb229-5"><a href="ap1.html#cb229-5" tabindex="-1"></a>  <span class="fu">select</span>(PersonID, Income, Logincome) <span class="sc">%&gt;%</span></span>
+<span id="cb229-6"><a href="ap1.html#cb229-6" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##   PersonID Income Logincome
+## 1  idPer01 555.00  6.318968
+## 2  idPer02 555.00  6.318968
+## 3  idPer03 555.00  6.318968
+## 4  idPer04 555.00  6.318968
+## 5  idPer05 555.00  6.318968
+## 6  idPer01 298.34  5.698234</code></pre>
+<p>Note que <code>mutate()</code> puede crear más de una variable en el mismo paso. Además, las variables creadas al inicio de <code>mutate()</code> pueden ser utilizadas en cálculos posteriores dentro del mismo llamado. Por ejemplo, <code>Income2</code> duplica el ingreso original e <code>Income4</code> duplica <code>Income2</code>. La siguiente salida muestra que <code>Income4</code> equivale a cuatro veces el ingreso inicial.</p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="ap1.html#cb231-1" tabindex="-1"></a>datacat <span class="ot">&lt;-</span> datablue2 <span class="sc">%&gt;%</span></span>
+<span id="cb231-2"><a href="ap1.html#cb231-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Income2 =</span> <span class="dv">2</span> <span class="sc">*</span> Income,</span>
+<span id="cb231-3"><a href="ap1.html#cb231-3" tabindex="-1"></a>         <span class="at">Income4 =</span> <span class="dv">2</span> <span class="sc">*</span> Income2)</span>
+<span id="cb231-4"><a href="ap1.html#cb231-4" tabindex="-1"></a></span>
+<span id="cb231-5"><a href="ap1.html#cb231-5" tabindex="-1"></a>datacat <span class="sc">%&gt;%</span></span>
+<span id="cb231-6"><a href="ap1.html#cb231-6" tabindex="-1"></a>  <span class="fu">select</span>(PersonID, Income2, Income4) <span class="sc">%&gt;%</span></span>
+<span id="cb231-7"><a href="ap1.html#cb231-7" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##   PersonID Income2 Income4
+## 1  idPer01 1110.00 2220.00
+## 2  idPer02 1110.00 2220.00
+## 3  idPer03 1110.00 2220.00
+## 4  idPer04 1110.00 2220.00
+## 5  idPer05 1110.00 2220.00
+## 6  idPer01  596.68 1193.36</code></pre>
+<p>También se puede crear una variable categórica mediante condiciones. En este ejemplo, la función <code>case_when()</code> clasifica la edad en rangos y luego convierte el resultado en un factor ordenado. El resultado es <code>CatAge</code>, una variable de grupos etarios ordenados. Esta transformación facilita la producción de tablas por tramos de edad.</p>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="ap1.html#cb233-1" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> data1 <span class="sc">%&gt;%</span></span>
+<span id="cb233-2"><a href="ap1.html#cb233-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb233-3"><a href="ap1.html#cb233-3" tabindex="-1"></a>    <span class="at">CatAge =</span> <span class="fu">case_when</span>(</span>
+<span id="cb233-4"><a href="ap1.html#cb233-4" tabindex="-1"></a>      Age <span class="sc">&lt;=</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">&quot;0-5&quot;</span>,</span>
+<span id="cb233-5"><a href="ap1.html#cb233-5" tabindex="-1"></a>      Age <span class="sc">&lt;=</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">&quot;6-15&quot;</span>,</span>
+<span id="cb233-6"><a href="ap1.html#cb233-6" tabindex="-1"></a>      Age <span class="sc">&lt;=</span> <span class="dv">30</span> <span class="sc">~</span> <span class="st">&quot;16-30&quot;</span>,</span>
+<span id="cb233-7"><a href="ap1.html#cb233-7" tabindex="-1"></a>      Age <span class="sc">&lt;=</span> <span class="dv">45</span> <span class="sc">~</span> <span class="st">&quot;31-45&quot;</span>,</span>
+<span id="cb233-8"><a href="ap1.html#cb233-8" tabindex="-1"></a>      Age <span class="sc">&lt;=</span> <span class="dv">60</span> <span class="sc">~</span> <span class="st">&quot;46-60&quot;</span>,</span>
+<span id="cb233-9"><a href="ap1.html#cb233-9" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;Más de 60&quot;</span></span>
+<span id="cb233-10"><a href="ap1.html#cb233-10" tabindex="-1"></a>    ),</span>
+<span id="cb233-11"><a href="ap1.html#cb233-11" tabindex="-1"></a>    <span class="at">CatAge =</span> <span class="fu">factor</span>(</span>
+<span id="cb233-12"><a href="ap1.html#cb233-12" tabindex="-1"></a>      CatAge,</span>
+<span id="cb233-13"><a href="ap1.html#cb233-13" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;0-5&quot;</span>, <span class="st">&quot;6-15&quot;</span>, <span class="st">&quot;16-30&quot;</span>,</span>
+<span id="cb233-14"><a href="ap1.html#cb233-14" tabindex="-1"></a>                 <span class="st">&quot;31-45&quot;</span>, <span class="st">&quot;46-60&quot;</span>, <span class="st">&quot;Más de 60&quot;</span>),</span>
+<span id="cb233-15"><a href="ap1.html#cb233-15" tabindex="-1"></a>      <span class="at">ordered =</span> <span class="cn">TRUE</span></span>
+<span id="cb233-16"><a href="ap1.html#cb233-16" tabindex="-1"></a>    )</span>
+<span id="cb233-17"><a href="ap1.html#cb233-17" tabindex="-1"></a>  )</span></code></pre></div>
+</div>
+<div id="summarise-resúmenes-descriptivos" class="section level3 hasAnchor" number="8.3.5">
+<h3><span class="header-section-number">A.3.5</span> <code>summarise</code>: resúmenes descriptivos<a href="#summarise-res%C3%BAmenes-descriptivos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La función <code>summarise()</code> permite construir una tabla resumen a partir de una o varias variables de la base de datos. En el siguiente ejemplo se calculan dos estadísticas descriptivas de la variable <code>Income</code>: el total y la media. Como resultado, se obtiene una tabla con una sola fila que contiene la suma de los ingresos observados y el ingreso promedio de los registros incluidos en la base.</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="ap1.html#cb234-1" tabindex="-1"></a>data1 <span class="sc">%&gt;%</span></span>
+<span id="cb234-2"><a href="ap1.html#cb234-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.ing =</span> <span class="fu">sum</span>(Income),</span>
+<span id="cb234-3"><a href="ap1.html#cb234-3" tabindex="-1"></a>            <span class="at">media.ing =</span> <span class="fu">mean</span>(Income))</span></code></pre></div>
+<pre><code>##   total.ing media.ing
+## 1  87893117  584.9169</code></pre>
+<p>También pueden calcularse medidas de localización para describir la posición de los valores dentro de la distribución. En este caso, se obtiene la mediana, el primer decil, el noveno decil y la diferencia entre estos dos últimos. El resultado permite resumir distintos puntos de la distribución del ingreso, mientras que el rango decílico muestra la distancia entre el 10% inferior y el 10% superior de los ingresos observados.</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="ap1.html#cb236-1" tabindex="-1"></a>data1 <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(</span>
+<span id="cb236-2"><a href="ap1.html#cb236-2" tabindex="-1"></a>  <span class="at">mediana =</span> <span class="fu">median</span>(Income),</span>
+<span id="cb236-3"><a href="ap1.html#cb236-3" tabindex="-1"></a>  <span class="at">decil1 =</span> <span class="fu">quantile</span>(Income, <span class="fl">0.1</span>),</span>
+<span id="cb236-4"><a href="ap1.html#cb236-4" tabindex="-1"></a>  <span class="at">decil9 =</span> <span class="fu">quantile</span>(Income, <span class="fl">0.9</span>),</span>
+<span id="cb236-5"><a href="ap1.html#cb236-5" tabindex="-1"></a>  <span class="at">rangodecil =</span> decil9 <span class="sc">-</span> decil1</span>
+<span id="cb236-6"><a href="ap1.html#cb236-6" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>##   mediana decil1  decil9 rangodecil
+## 1  449.17 165.33 1126.33        961</code></pre>
+<p>Con <code>summarise()</code> también es posible calcular medidas de dispersión, tales como la varianza, la desviación estándar, el valor mínimo, el valor máximo, el rango y el rango intercuartílico. Estas estadísticas permiten describir el grado de variabilidad de los ingresos observados en la muestra. En particular, el rango se obtiene como la diferencia entre el valor máximo y el valor mínimo, mientras que el rango intercuartílico resume la dispersión del 50% central de la distribución.</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="ap1.html#cb238-1" tabindex="-1"></a>data1 <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(</span>
+<span id="cb238-2"><a href="ap1.html#cb238-2" tabindex="-1"></a>  <span class="at">varianza =</span> <span class="fu">var</span>(Income),</span>
+<span id="cb238-3"><a href="ap1.html#cb238-3" tabindex="-1"></a>  <span class="at">desv =</span> <span class="fu">sd</span>(Income),</span>
+<span id="cb238-4"><a href="ap1.html#cb238-4" tabindex="-1"></a>  <span class="at">mini =</span> <span class="fu">min</span>(Income),</span>
+<span id="cb238-5"><a href="ap1.html#cb238-5" tabindex="-1"></a>  <span class="at">maxi =</span> <span class="fu">max</span>(Income),</span>
+<span id="cb238-6"><a href="ap1.html#cb238-6" tabindex="-1"></a>  <span class="at">rango =</span> maxi <span class="sc">-</span> mini,</span>
+<span id="cb238-7"><a href="ap1.html#cb238-7" tabindex="-1"></a>  <span class="at">rangoiq =</span> <span class="fu">IQR</span>(Income)</span>
+<span id="cb238-8"><a href="ap1.html#cb238-8" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>##   varianza     desv mini  maxi rango rangoiq
+## 1 332463.4 576.5964   10 32920 32910  468.33</code></pre>
+</div>
+<div id="group_by-agrupación-de-casos" class="section level3 hasAnchor" number="8.3.6">
+<h3><span class="header-section-number">A.3.6</span> <code>group_by</code>: agrupación de casos<a href="#group_by-agrupaci%C3%B3n-de-casos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La función <code>group_by()</code> permite agrupar la base de datos de acuerdo con una o más variables. Al combinarla con <code>summarise()</code>, las estadísticas se calculan de manera independiente dentro de cada grupo definido. En el siguiente ejemplo, se cuenta el número de registros por región y luego se ordena el resultado de mayor a menor. La siguiente salida permite identificar cuántos registros están asociados con cada región de la base de datos.</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="ap1.html#cb240-1" tabindex="-1"></a>data1 <span class="sc">%&gt;%</span></span>
+<span id="cb240-2"><a href="ap1.html#cb240-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Region) <span class="sc">%&gt;%</span></span>
+<span id="cb240-3"><a href="ap1.html#cb240-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb240-4"><a href="ap1.html#cb240-4" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 2
+##   Region        n
+##   &lt;fct&gt;     &lt;int&gt;
+## 1 Oriente   39160
+## 2 Occidente 33868
+## 3 Centro    25944
+## 4 Sur       25898
+## 5 Norte     25396</code></pre>
+<p>Para obtener el número de encuestas efectivas por sexo, se aplica la misma lógica de agrupación y conteo. En este caso, la base se agrupa según la variable <code>Sex</code> y luego se calcula el número de registros asociados con cada una de sus categorías. El resultado permite identificar cuántas observaciones corresponden a cada sexo dentro de la base de datos.</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="ap1.html#cb242-1" tabindex="-1"></a>data1 <span class="sc">%&gt;%</span></span>
+<span id="cb242-2"><a href="ap1.html#cb242-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb242-3"><a href="ap1.html#cb242-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb242-4"><a href="ap1.html#cb242-4" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 2
+##   Sex        n
+##   &lt;chr&gt;  &lt;int&gt;
+## 1 Female 79190
+## 2 Male   71076</code></pre>
+<p>El conteo también puede realizarse según la zona geográfica. En este caso, la base se agrupa por la variable <code>Zone</code> y se calcula el número de registros correspondiente a cada una de sus categorías. La siguiente salida permite conocer cómo se distribuyen las observaciones entre las distintas zonas de la base de datos.</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="ap1.html#cb244-1" tabindex="-1"></a>data1 <span class="sc">%&gt;%</span></span>
+<span id="cb244-2"><a href="ap1.html#cb244-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span></span>
+<span id="cb244-3"><a href="ap1.html#cb244-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb244-4"><a href="ap1.html#cb244-4" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 2
+##   Zone      n
+##   &lt;chr&gt; &lt;int&gt;
+## 1 Urban 78164
+## 2 Rural 72102</code></pre>
+<p>Además de los conteos, también es posible calcular medidas resumen por grupo, como la media. En este caso, para obtener el ingreso promedio por región junto con el número total de registros, se agrupa la base según la variable <code>Region</code> y luego se aplica <code>summarise()</code>. El resultado es una tabla regional que presenta, para cada región, el total de observaciones y el ingreso medio correspondiente.</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="ap1.html#cb246-1" tabindex="-1"></a>data1 <span class="sc">%&gt;%</span></span>
+<span id="cb246-2"><a href="ap1.html#cb246-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Region) <span class="sc">%&gt;%</span></span>
+<span id="cb246-3"><a href="ap1.html#cb246-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb246-4"><a href="ap1.html#cb246-4" tabindex="-1"></a>            <span class="at">media =</span> <span class="fu">mean</span>(Income))</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 3
+##   Region        n media
+##   &lt;fct&gt;     &lt;int&gt; &lt;dbl&gt;
+## 1 Norte     25396  509.
+## 2 Sur       25898  644.
+## 3 Centro    25944  701.
+## 4 Occidente 33868  571.
+## 5 Oriente   39160  530.</code></pre>
+<p>El mismo procedimiento puede aplicarse para calcular el ingreso medio por sexo. En este caso, la base se agrupa según la variable <code>Sex</code> y luego se obtiene el promedio de <code>Income</code> para cada categoría. La tabla resultante permite comparar el ingreso medio observado entre los distintos grupos definidos por el sexo.</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="ap1.html#cb248-1" tabindex="-1"></a>data1 <span class="sc">%&gt;%</span></span>
+<span id="cb248-2"><a href="ap1.html#cb248-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb248-3"><a href="ap1.html#cb248-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb248-4"><a href="ap1.html#cb248-4" tabindex="-1"></a>            <span class="at">media =</span> <span class="fu">mean</span>(Income))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 3
+##   Sex        n media
+##   &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;
+## 1 Female 79190  579.
+## 2 Male   71076  591.</code></pre>
+<p>Por último, se calculan la media, la desviación estándar y el rango intercuartílico de los ingresos según la condición de ocupación. Para ello, la base se agrupa por la variable <code>Employment</code> y luego se obtienen las estadísticas descriptivas de <code>Income</code> dentro de cada grupo. La siguiente salida presenta un resumen del comportamiento de los ingresos para cada categoría de ocupación.</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="ap1.html#cb250-1" tabindex="-1"></a>data1 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Employment) <span class="sc">%&gt;%</span></span>
+<span id="cb250-2"><a href="ap1.html#cb250-2" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb250-3"><a href="ap1.html#cb250-3" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb250-4"><a href="ap1.html#cb250-4" tabindex="-1"></a>    <span class="at">media =</span> <span class="fu">mean</span>(Income),</span>
+<span id="cb250-5"><a href="ap1.html#cb250-5" tabindex="-1"></a>    <span class="at">desv =</span> <span class="fu">sd</span>(Income),</span>
+<span id="cb250-6"><a href="ap1.html#cb250-6" tabindex="-1"></a>    <span class="at">rangoiq =</span> <span class="fu">IQR</span>(Income)</span>
+<span id="cb250-7"><a href="ap1.html#cb250-7" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 5
+##   Employment     n media  desv rangoiq
+##   &lt;fct&gt;      &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Unemployed  4630  429.  375.    392.
+## 2 Inactive   44104  532.  553.    439.
+## 3 Employed   62188  661.  606.    529.
+## 4 &lt;NA&gt;       39344  541.  558.    407.</code></pre>
+
+</div>
+</div>
+</div>
+<h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-pipe" class="csl-entry">
+Bache, S. M., &amp; Wickham, H. (2026). <em>magrittr: A Forward-Pipe Operator for R</em>. <a href="https://doi.org/10.32614/CRAN.package.magrittr">https://doi.org/10.32614/CRAN.package.magrittr</a>
+</div>
+<div id="ref-Freedman2024" class="csl-entry">
+Freedman Ellis, G., &amp; Schneider, B. (2024). <em>srvyr: ’dplyr’-Like Syntax for Summary Statistics of Survey Data</em>. <a href="https://doi.org/10.32614/CRAN.package.srvyr">https://doi.org/10.32614/CRAN.package.srvyr</a>
+</div>
+<div id="ref-Gutierrez2020" class="csl-entry">
+Gutiérrez, H. A. (2020a). <em>samplesize4surveys: Sample Size Calculations for Complex Surveys</em>. <a href="https://doi.org/10.32614/CRAN.package.samplesize4surveys">https://doi.org/10.32614/CRAN.package.samplesize4surveys</a>
+</div>
+<div id="ref-GutierrezT2020" class="csl-entry">
+Gutiérrez, H. A. (2020b). <em>TeachingSampling: Selection of Samples and Parameter Estimation in Finite Population</em>. <a href="https://doi.org/10.32614/CRAN.package.TeachingSampling">https://doi.org/10.32614/CRAN.package.TeachingSampling</a>
+</div>
+<div id="ref-Lumley2024" class="csl-entry">
+Lumley, T. (2024). <em>survey: analysis of complex survey samples</em>.
+</div>
+<div id="ref-tidyverse2019" class="csl-entry">
+Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., Grolemund, G., Hayes, A., Henry, L., Hester, J., Kuhn, M., Pedersen, T. L., Miller, E., Bache, S. M., Müller, K., Ooms, J., Robinson, D., Seidel, D. P., Spinu, V., … Yutani, H. (2019). Welcome to the <span>tidyverse</span>. <em>Journal of Open Source Software</em>, <em>4</em>(43), 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>
+</div>
+<div id="ref-dplyr2026" class="csl-entry">
+Wickham, H., François, R., Henry, L., Müller, K., &amp; Vaughan, D. (2026). <em>dplyr: A Grammar of Data Manipulation</em>. <a href="https://doi.org/10.32614/CRAN.package.dplyr">https://doi.org/10.32614/CRAN.package.dplyr</a>
+</div>
+<div id="ref-Wickham2023" class="csl-entry">
+Wickham, H., Navarro, D., &amp; Pedersen, T. L. (2023). <em>ggplot2: Elegant Graphics for Data Analysis</em> (3.ª ed.). Springer. <a href="https://doi.org/10.1007/978-3-319-24277-4">https://doi.org/10.1007/978-3-319-24277-4</a>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="cap-multinivel.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ap2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Libro.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

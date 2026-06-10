@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.2 Estimadores de muestreo | Análisis de encuestas con R</title>
+  <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.2 Estimadores de muestreo | Análisis de encuestas con R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="github-repo" content="psirusteam/2021ASDA" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.2 Estimadores de muestreo | Análisis de encuestas con R" />
+  
+  <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  
+
+<meta name="author" content="Andrés Gutiérrez, Giovany Babativa-Márquez, Stalyn Guerrero, Cristian Téllez" />
+
+
+<meta name="date" content="2026-06-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="población-objetivo-y-unidades-de-muestreo.html"/>
+<link rel="next" href="fundamentos-teóricos.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis de encuestas de hogares con R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
+<li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="1" data-path="cap-intro.html"><a href="cap-intro.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="02-Conceptos.html"><a href="justificación.html#justificaci%C3%B3n"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
+<li class="chapter" data-level="1.2" data-path="02-Conceptos.html"><a href="uso-del-software-r-para-el-análisis-de-encuestas.html#uso-del-software-r-para-el-an%C3%A1lisis-de-encuestas"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
+<li class="chapter" data-level="1.3" data-path="estructura-del-documento.html"><a href="estructura-del-documento.html"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="02-Conceptos.html"><a href="conceptos-básicos-en-encuestas-de-hogares.html#conceptos-b%C3%A1sicos-en-encuestas-de-hogares"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="02-Conceptos.html"><a href="población-objetivo-y-unidades-de-muestreo.html#poblaci%C3%B3n-objetivo-y-unidades-de-muestreo"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
+<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
+<li class="chapter" data-level="2.3" data-path="02-Conceptos.html"><a href="fundamentos-teóricos.html#fundamentos-te%C3%B3ricos"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="02-Conceptos.html"><a href="fundamentos-teóricos.html#estimaci%C3%B3n-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
+<li class="chapter" data-level="2.3.2" data-path="02-Conceptos.html"><a href="fundamentos-teóricos.html#estimaci%C3%B3n-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="02-Conceptos.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-par%C3%A1metros-descriptivos"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="02-Conceptos.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
+<li class="chapter" data-level="3.1.2" data-path="02-Conceptos.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
+<li class="chapter" data-level="3.1.3" data-path="02-Conceptos.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="02-Conceptos.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-par%C3%A1metros-de-distribuci%C3%B3n-y-desigualdad"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="02-Conceptos.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-la-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
+<li class="chapter" data-level="3.2.2" data-path="02-Conceptos.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
+<li class="chapter" data-level="3.2.3" data-path="02-Conceptos.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
+<li class="chapter" data-level="3.2.4" data-path="02-Conceptos.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-la-correlaci%C3%B3n"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="02-Conceptos.html"><a href="pruebas-de-hipótesis.html#pruebas-de-hip%C3%B3tesis"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
+<li class="chapter" data-level="3.4" data-path="02-Conceptos.html"><a href="estimación-de-contrastes.html#estimaci%C3%B3n-de-contrastes"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
+<li class="chapter" data-level="3.5" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.5.3" data-path="02-Conceptos.html"><a href="viz-continuas.html#diagramas-de-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="02-Conceptos.html"><a href="análisis-de-variables-categóricas.html#an%C3%A1lisis-de-variables-categ%C3%B3ricas"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="02-Conceptos.html"><a href="estimación-del-tamaño-poblacional.html#estimaci%C3%B3n-del-tama%C3%B1o-poblacional"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
+<li class="chapter" data-level="4.2" data-path="02-Conceptos.html"><a href="estimación-de-proporciones.html#estimaci%C3%B3n-de-proporciones"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
+<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
+<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
+<li class="chapter" data-level="4.5" data-path="02-Conceptos.html"><a href="la-razón-de-odds.html#la-raz%C3%B3n-de-odds"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
+<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi2.html"><a href="prueba-de-independencia-chi2.html"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="02-Conceptos.html"><a href="viz-categoricas.html#gr%C3%A1ficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
+<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="02-Conceptos.html"><a href="formulación-del-modelo.html#formulaci%C3%B3n-del-modelo"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
+<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
+<li class="chapter" data-level="5.3" data-path="02-Conceptos.html"><a href="estimación-de-los-parámetros-del-modelo.html#estimaci%C3%B3n-de-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.4" data-path="02-Conceptos.html"><a href="diagnóstico-del-modelo.html#diagn%C3%B3stico-del-modelo"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="02-Conceptos.html"><a href="diagnóstico-del-modelo.html#coeficiente-de-determinaci%C3%B3n"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="5.4.2" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
+<li class="chapter" data-level="5.4.3" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="02-Conceptos.html"><a href="inferencia-sobre-los-parámetros-del-modelo.html#inferencia-sobre-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.6" data-path="02-Conceptos.html"><a href="estimación-y-predicción.html#estimaci%C3%B3n-y-predicci%C3%B3n"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cap-glm.html"><a href="cap-glm.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
+<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+</ul></li>
+<li class="divider"></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis de encuestas con R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="estimadores-de-muestreo" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Estimadores de muestreo<a href="estimadores-de-muestreo.html#estimadores-de-muestreo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Al analizar datos de encuestas, también es imprescindible definir el parámetro de interés: un valor numérico fijo que describe una característica de toda la población, denotada como <span class="math inline">\(U\)</span>. Entre los parámetros más comunes se encuentran las proporciones, los tamaños, los totales, las medias y las razones, entre otros. Dado que, en la práctica, no es posible observar a toda la población, las encuestas por muestreo permiten inferir estos parámetros a partir de una muestra, denotada como <span class="math inline">\(s\)</span>.</p>
+<p>En el muestreo probabilístico, cada unidad de la población tiene una probabilidad de inclusión conocida y mayor que cero de ser seleccionada en la muestra. Estas probabilidades constituyen la base para el cálculo de los pesos básicos de muestreo, los cuales se utilizan posteriormente para estimar los parámetros poblacionales mediante sumas ponderadas de los datos recolectados en la encuesta. Cuando el diseño y la selección se implementan correctamente, las estimaciones obtenidas son insesgadas, es decir, en promedio coinciden con el valor real de la población si el proceso de muestreo se repitiera bajo las mismas condiciones.</p>
+<p>No obstante, los pesos básicos de muestreo suelen requerir ajustes adicionales con el fin de mejorar la precisión y la robustez de las estimaciones. Uno de los ajustes más comunes corresponde al tratamiento de la no respuesta, mediante el cual los pesos de las unidades que sí respondieron se incrementan para representar también a aquellas unidades seleccionadas que no participaron en la encuesta, contribuyendo así a reducir posibles sesgos. Otro ajuste ampliamente utilizado es la calibración, que consiste en modificar los pesos para garantizar que las sumas ponderadas de ciertas variables auxiliares, como la edad o el sexo, coincidan con totales poblacionales conocidos provenientes de censos o proyecciones demográficas. Además de mejorar la consistencia de las estimaciones, la calibración constituye una herramienta útil para detectar problemas de cobertura o patrones de no respuesta.</p>
+<p>Los ajustes de los pesos, y en particular la calibración, desempeñan un papel fundamental en el análisis de encuestas con diseños complejos. Estos procedimientos no solo corrigen las imperfecciones derivadas de la no respuesta o la cobertura incompleta, sino que también fortalecen la coherencia entre la muestra y la población objetivo, garantizando que las inferencias sean estadísticamente válidas y comparables con otras fuentes oficiales <span class="citation">(<a href="#ref-kalton2003weighting">Kalton &amp; Flores-Cervantes, 2003</a>)</span>.</p>
+<p>La calibración es especialmente relevante porque permite confrontar las estimaciones iniciales de la encuesta con valores de referencia externos, generalmente obtenidos de censos, registros administrativos o proyecciones demográficas. Esta comparación constituye una herramienta poderosa para detectar inconsistencias en la composición de la muestra, identificar sesgos potenciales asociados a la no respuesta y evaluar la calidad del trabajo de campo.</p>
+<p>Además, los pesos calibrados tienden a reducir la varianza de las estimaciones, mejorando su precisión sin alterar los totales poblacionales conocidos <span class="citation">(<a href="#ref-sarndal2005nonresponse">Särndal &amp; Lundström, 2005</a>)</span>. En consecuencia, la calibración no solo corrige, sino que también optimiza el uso de la información disponible, permitiendo obtener resultados más precisos.</p>
+<p>La estimación de totales en encuestas constituye un paso central en el análisis estadístico aplicado a poblaciones finitas. Gran parte de los indicadores de interés para la formulación de políticas públicas (como por ejemplo, el número de personas en situación de pobreza, el total de ocupados o el gasto agregado de los hogares) se derivan de un total poblacional. Por esta razón, comprender cómo se definen y estiman los totales resulta fundamental para garantizar la calidad y pertinencia de la información producida.</p>
+<p>En términos formales, si <span class="math inline">\(y_k\)</span> denota el valor de una variable de interés para la unidad <span class="math inline">\(k \in U\)</span>, el total poblacional se define como</p>
+<p><span class="math display">\[
+t_y = \sum_{U} y_k,
+\]</span></p>
+<p>Siendo <span class="math inline">\(N\)</span> el tamano de la población, la media poblacional se define como <span class="math inline">\(\bar{y} = \frac{t_y}{N}\)</span>. Dado que en la práctica solo se observa una muestra <span class="math inline">\(s \subset U\)</span>, es necesario recurrir a estimadores que incorporen el diseño de muestreo. Por ejemplo, el estimador de Horvitz–Thompson (HT) se expresa como</p>
+<p><span class="math display">\[
+\hat{t}_{y} = \sum_{s} d_k y_k
+\]</span></p>
+<p>donde <span class="math inline">\(d_k = 1/\pi_k\)</span> son los pesos básicos provenientes del diseño de muestreo y <span class="math inline">\(\pi_k = \Pr(k \in s)\)</span> son las probabilidades de inclusión de primer orden.</p>
+<p>En la práctica, los pesos de diseño suelen modificarse para reflejar procesos adicionales como el ajuste por no respuesta o la calibración a totales poblacionales conocidos, obteniendo así nuevos pesos ajustados, denotados como <span class="math inline">\(w_k\)</span> para todo <span class="math inline">\(k \in s\)</span>. El reemplazo de <span class="math inline">\(d_k\)</span> por <span class="math inline">\(w_k\)</span> permite mejorar la precisión y reducir sesgos en las estimaciones, especialmente cuando existen fuentes auxiliares de información confiables.</p>
+<p>No obstante, toda estimación a partir de una muestra conlleva incertidumbre. Incluso cuando el estimador es insesgado, los resultados varían de una muestra a otra debido a la propiedad de aleatoriedad del diseño. Esta variabilidad se cuantifica mediante la varianza del estimador con la cual se puede calcular el error estándar (<span class="math inline">\(se\)</span>) o el coeficiente de variación (<span class="math inline">\(cv\)</span>). Estos indicadores son herramientas indispensables para evaluar la precisión de los totales estimados y, por tanto, para interpretar de manera adecuada la información estadística. Bajo el enfoque de diseño, la varianza insesgada del estimador de Horvitz–Thompson puede expresarse como:</p>
+<p><span class="math display">\[
+\widehat{Var}_p(\hat{t}_{y}) = \sum_{k \in s} \sum_{l \in s} \bigl( d_k d_l - d_{kl} \bigr) y_k y_l,
+\]</span></p>
+<p>donde <span class="math inline">\(d_{kl} = 1/\pi_{kl}\)</span> y <span class="math inline">\(\pi_{kl} = \Pr(k,l \in s)\)</span> representan las probabilidades conjuntas de inclusión. Esta expresión requiere que el diseño de muestreo cumpla que <span class="math inline">\(\pi_{kl} &gt; 0\)</span> para todo par de unidades <span class="math inline">\(k,l \in U\)</span>.</p>
+<p>Para comprender de manera más concreta la relevancia de considerar el diseño muestral en la estimación de totales y de sus varianzas, analicemos un ejemplo de <span class="citation">United Nations Statistics Division (<a href="#ref-UNhandbook">2026</a>)</span> que permite visualizar cómo el método de estimación se ajusta al esquema de selección adoptado. Suponga una población finita de tamaño <span class="math inline">\(N=6\)</span>, de la cual se selecciona una muestra aleatoria simple (MAS) sin reemplazo de tamaño <span class="math inline">\(n=3\)</span>. En dicha muestra se observan los valores <span class="math inline">\((y_1=10, y_2=14, y_3=18)\)</span>. Bajo este diseño, el estimador de Horvitz–Thompson del total poblacional se define como la suma de los valores observados divididos por sus probabilidades de inclusión, y su varianza estimada se obtiene a partir de las covarianzas inducidas por el proceso de selección. De esta forma, la varianza estimada del estimador de Horvitz–Thompson se calcula como:</p>
+<p><span class="math display">\[
+\widehat{Var}_{MAS}(\hat{t}_{y}) = \frac{N^2}{n}\left(1-\frac{n}{N}\right)S_{y_s}^2
+\]</span></p>
+<p>donde <span class="math inline">\(S_{y_s}^2\)</span> corresponde a la varianza muestral de los valores observados. Sustituyendo en la expresión, se obtiene</p>
+<p><span class="math display">\[
+\widehat{Var}_p(\hat{t}_{y}) = \frac{36}{3}\left(1-\frac{3}{6}\right)16 = 96
+\]</span></p>
+<p>En contraste, si se ignora el diseño de muestreo, un analista inexperto podría calcular erróneamente la varianza mediante la fórmula simplificada:</p>
+<p><span class="math display">\[
+\frac{N^2}{n}S_{y_s}^2 = 192,
+\]</span></p>
+<p>lo que conduciría a una sobreestimación de la varianza por no considerar las características del diseño muestral. Asimismo, la estimación del total poblacional es <span class="math inline">\(\hat{t}_{y}=84\)</span>. El error estándar calculado según el diseño de muestreo, es</p>
+<p><span class="math display">\[
+\sqrt{\widehat{Var}_p(\hat{t}_{y})} = \sqrt{96} \approx 9.80.
+\]</span></p>
+<p>En cambio, si la varianza se estima usando un método ingenuo que ignore el diseño de muestreo, el intervalo de confianza sería más amplio con evidentes sesgos, lo que podría conducir a inferencias erróneas.</p>
+<p>Por último, de acuerdo con <span class="citation">Kish (<a href="#ref-kish1965survey">1965, p. 258</a>)</span>, el efecto del diseño (DEFF) se define como la razón entre la varianza de un estimador obtenida bajo un diseño de muestreo complejo y la varianza del mismo estimador bajo un muestreo aleatorio simple (MAS) de igual tamaño de muestra. Su estimación se expresa como:</p>
+<p><span class="math display">\[
+\widehat{{DEFF}} = \frac{\widehat{Var}_{p}(\hat{\theta})}{\widehat{Var}_{MAS}(\hat{\theta})}
+\]</span></p>
+<p>En donde, <span class="math inline">\(\widehat{Var}_{p}(\hat{\theta})\)</span> corresponde a la varianza estimada de <span class="math inline">\(\hat{\theta}\)</span> bajo el diseño complejo <span class="math inline">\(p(\cdot)\)</span>, mientras que <span class="math inline">\(\widehat{Var}_{MAS}(\hat{\theta})\)</span>
+representa la varianza estimada del mismo estimador bajo un diseño MAS con igual tamaño muestral.</p>
+<p>Este indicador permite cuantificar cuánto aumenta la varianza debido a la conglomeración y otras características propias de los diseños complejos en comparación con un muestreo simple. Según <span class="citation">Naciones Unidas (<a href="#ref-ONUDeff">2009, p. 40</a>)</span>, el DEFF puede entenderse de tres maneras: como el factor de incremento de la varianza frente al MAS, como una medida de la pérdida relativa de precisión o como una indicación del aumento en el tamaño de la muestra que sería necesario en un diseño complejo para alcanzar el mismo nivel de varianza que en un MAS. Según <span class="citation">Park et al. (<a href="#ref-Park2003Design">2003</a>)</span>, el efecto del diseño de una encuesta puede deberse a los siguientes tres factores:</p>
+<ul>
+<li>Ponderación desigual: la presencia de pesos muestrales no uniformes suele incrementar ligeramente la varianza; por ello, el uso de pesos uniformes resulta ventajoso y explica por qué los diseños auto-ponderados son preferidos en encuestas de hogares.</li>
+<li>Estratificación: cuando se aplica correctamente, puede disminuir la varianza, aunque en la práctica su efecto reductor suele ser moderado.</li>
+<li>Muestreo en varias etapas: generalmente incrementa la varianza, ya que las unidades dentro de un mismo conglomerado tienden a ser más homogéneas entre sí que en comparación con las de otros conglomerados.</li>
+</ul>
+<p>En el análisis de encuestas, el efecto del diseño (DEFF) constituye un indicador esencial para evaluar la precisión y eficiencia de las estimaciones, así como para orientar la planificación de futuros estudios. Un valor elevado evidencia que el diseño complejo introduce un incremento de la varianza, reduciendo la precisión de los resultados. Por el contrario, un valor cercano a uno indica que el diseño tiene un efecto mínimo sobre la varianza. Esta información permite a los investigadores identificar si es necesario ajustar la ponderación, optimizar la estratificación o modificar el tamaño del submuestreo para aumentar la eficiencia en levantamientos posteriores.</p>
+<p>La interpretación de un DEFF alto debe hacerse con precaución, ya que no siempre implica que el diseño muestral sea inadecuado. Es fundamental considerar el contexto de la encuesta: un valor superior a tres podría parecer alarmante, pero a menudo se debe a limitaciones prácticas como restricciones presupuestales, dificultades logísticas o la necesidad de garantizar la participación de los entrevistados. En ciertos levantamientos de hogares, puede ser indispensable seleccionar solo una fracción de los individuos elegibles en cada hogar. Además, problemas de cobertura o tasas de no respuesta pueden aumentar la variabilidad de los pesos muestrales y, en consecuencia, elevar los valores del DEFF. <span class="citation">Gutiérrez &amp; Babativa-Márquez (<a href="#ref-GutierrezBabativa2023">2023</a>)</span> realizan un análisis detallado de los efectos de diseño en encuestas de hogares en América Latina usando los datos de BADEHOG.</p>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-GutierrezBabativa2023" class="csl-entry">
+Gutiérrez, H. A., &amp; Babativa-Márquez, G. (2023). <em>Efectos de diseño para indicadores sociales en Am<span>é</span>rica Latina: función generalizada de varianza para estimadores directos provenientes de encuestas de hogares</em> (LC/TS.2023/95 No. 106; CEPAL - Serie Estudios Estad<span>ı́</span>sticos). Comisi<span>ó</span>n Econ<span>ó</span>mica para Am<span>é</span>rica Latina y el Caribe (CEPAL), Naciones Unidas. <a href="https://repositorio.cepal.org/server/api/core/bitstreams/feb8c8be-6434-41f2-8fd9-f12f71a0739a/content">https://repositorio.cepal.org/server/api/core/bitstreams/feb8c8be-6434-41f2-8fd9-f12f71a0739a/content</a>
+</div>
+<div id="ref-kalton2003weighting" class="csl-entry">
+Kalton, G., &amp; Flores-Cervantes, I. (2003). Weighting methods. <em>Journal of official statistics</em>, <em>19</em>(2), 81.
+</div>
+<div id="ref-kish1965survey" class="csl-entry">
+Kish, L. (1965). <em>Survey sampling.</em>
+</div>
+<div id="ref-ONUDeff" class="csl-entry">
+Naciones Unidas. (2009). <em>Diseño de Muestras para Encuestas de Hogares: Directrices Prácticas.</em> Naciones Unidas. <a href="https://unstats.un.org/unsd/publication/seriesf/seriesf_98s.pdf">https://unstats.un.org/unsd/publication/seriesf/seriesf_98s.pdf</a>
+</div>
+<div id="ref-Park2003Design" class="csl-entry">
+Park, I., Winglee, M., Clark, J., Rust, K., Sedlak, A., &amp; Morganstein, D. (2003). Design Effects and Survey Planning. <em>Proceedings of the Section on Survey Research Methods</em>, 3179-3186. <a href="https://www.asasrms.org/Proceedings/y2003/Files/JSM2003-000156.pdf">https://www.asasrms.org/Proceedings/y2003/Files/JSM2003-000156.pdf</a>
+</div>
+<div id="ref-sarndal2005nonresponse" class="csl-entry">
+Särndal, C.-E., &amp; Lundström, S. (2005). <em>Estimation in surveys with nonresponse</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-UNhandbook" class="csl-entry">
+United Nations Statistics Division. (2026). <em>Handbook of Surveys on Households and Individuals Foundations and Emerging Approaches</em>. United Nations.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="población-objetivo-y-unidades-de-muestreo.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="fundamentos-teóricos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/psirusteam/2021ASDA/02-Conceptos.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Libro.pdf", "Libro.epub", "Libro.mobi"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  },
+  "tconfig": null
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 1 Introducción | Análisis de encuestas de hogares con R</title>
+  <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 1 Introducción | Análisis de encuestas de hogares con R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="github-repo" content="psirusteam/2021ASDA" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 1 Introducción | Análisis de encuestas de hogares con R" />
+  
+  <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  
+
+<meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
+
+
+<meta name="date" content="2026-06-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="resumen.html"/>
+<link rel="next" href="conceptos-básicos-en-encuestas-de-hogares.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
+<li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="1" data-path="cap-intro.html"><a href="cap-intro.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="01-Introduccion.html"><a href="#justificaci%C3%B3n"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
+<li class="chapter" data-level="1.2" data-path="01-Introduccion.html"><a href="#uso-del-software-r-para-el-an%C3%A1lisis-de-encuestas"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
+<li class="chapter" data-level="1.3" data-path="cap-intro.html"><a href="cap-intro.html#estructura-del-documento"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="01-Introduccion.html"><a href="#conceptos-b%C3%A1sicos-en-encuestas-de-hogares"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="01-Introduccion.html"><a href="#poblaci%C3%B3n-objetivo-y-unidades-de-muestreo"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
+<li class="chapter" data-level="2.2" data-path="conceptos-básicos-en-encuestas-de-hogares.html"><a href="conceptos-básicos-en-encuestas-de-hogares.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
+<li class="chapter" data-level="2.3" data-path="01-Introduccion.html"><a href="#fundamentos-te%C3%B3ricos"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="01-Introduccion.html"><a href="#estimaci%C3%B3n-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
+<li class="chapter" data-level="2.3.2" data-path="01-Introduccion.html"><a href="#estimaci%C3%B3n-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="conceptos-básicos-en-encuestas-de-hogares.html"><a href="conceptos-básicos-en-encuestas-de-hogares.html#intervalos-de-confianza"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="01-Introduccion.html"><a href="#estimaci%C3%B3n-de-par%C3%A1metros-descriptivos"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="01-Introduccion.html"><a href="#estimaci%C3%B3n-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
+<li class="chapter" data-level="3.1.2" data-path="01-Introduccion.html"><a href="#estimaci%C3%B3n-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
+<li class="chapter" data-level="3.1.3" data-path="01-Introduccion.html"><a href="#estimaci%C3%B3n-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="01-Introduccion.html"><a href="#estimaci%C3%B3n-de-par%C3%A1metros-de-distribuci%C3%B3n-y-desigualdad"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="01-Introduccion.html"><a href="#estimaci%C3%B3n-de-la-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
+<li class="chapter" data-level="3.2.2" data-path="01-Introduccion.html"><a href="#estimaci%C3%B3n-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
+<li class="chapter" data-level="3.2.3" data-path="01-Introduccion.html"><a href="#estimaci%C3%B3n-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
+<li class="chapter" data-level="3.2.4" data-path="01-Introduccion.html"><a href="#estimaci%C3%B3n-de-la-correlaci%C3%B3n"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="01-Introduccion.html"><a href="#pruebas-de-hip%C3%B3tesis"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
+<li class="chapter" data-level="3.4" data-path="01-Introduccion.html"><a href="#estimaci%C3%B3n-de-contrastes"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
+<li class="chapter" data-level="3.5" data-path="cap4.html"><a href="cap4.html#viz-continuas"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="cap4.html"><a href="cap4.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="cap4.html"><a href="cap4.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.5.3" data-path="01-Introduccion.html"><a href="#diagramas-de-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="01-Introduccion.html"><a href="#an%C3%A1lisis-de-variables-categ%C3%B3ricas"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="01-Introduccion.html"><a href="#estimaci%C3%B3n-del-tama%C3%B1o-poblacional"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
+<li class="chapter" data-level="4.2" data-path="01-Introduccion.html"><a href="#estimaci%C3%B3n-de-proporciones"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
+<li class="chapter" data-level="4.3" data-path="análisis-de-variables-categóricas.html"><a href="análisis-de-variables-categóricas.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
+<li class="chapter" data-level="4.4" data-path="análisis-de-variables-categóricas.html"><a href="análisis-de-variables-categóricas.html#tablas-cruzadas"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
+<li class="chapter" data-level="4.5" data-path="01-Introduccion.html"><a href="#la-raz%C3%B3n-de-odds"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
+<li class="chapter" data-level="4.6" data-path="análisis-de-variables-categóricas.html"><a href="análisis-de-variables-categóricas.html#prueba-de-independencia-chi2"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="análisis-de-variables-categóricas.html"><a href="análisis-de-variables-categóricas.html#viz-categoricas"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="01-Introduccion.html"><a href="#gr%C3%A1ficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
+<li class="chapter" data-level="4.7.2" data-path="análisis-de-variables-categóricas.html"><a href="análisis-de-variables-categóricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="01-Introduccion.html"><a href="#formulaci%C3%B3n-del-modelo"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
+<li class="chapter" data-level="5.2" data-path="cap6.html"><a href="cap6.html#uso-de-los-pesos-de-muestreo"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
+<li class="chapter" data-level="5.3" data-path="01-Introduccion.html"><a href="#estimaci%C3%B3n-de-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.4" data-path="01-Introduccion.html"><a href="#diagn%C3%B3stico-del-modelo"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="01-Introduccion.html"><a href="#coeficiente-de-determinaci%C3%B3n"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="5.4.2" data-path="cap6.html"><a href="cap6.html#residuales"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
+<li class="chapter" data-level="5.4.3" data-path="cap6.html"><a href="cap6.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="01-Introduccion.html"><a href="#inferencia-sobre-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.6" data-path="01-Introduccion.html"><a href="#estimaci%C3%B3n-y-predicci%C3%B3n"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cap-glm.html"><a href="cap-glm.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="cap-glm.html"><a href="cap-glm.html#sec-logistica"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
+<li class="chapter" data-level="6.2" data-path="cap-glm.html"><a href="cap-glm.html#sec-multinomial"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
+<li class="chapter" data-level="6.3" data-path="cap-glm.html"><a href="cap-glm.html#sec-gamma"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cap-multinivel.html"><a href="cap-multinivel.html"><i class="fa fa-check"></i><b>7</b> Modelos multinivel</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="cap-multinivel.html"><a href="cap-multinivel.html#sec-motivacionMult"><i class="fa fa-check"></i><b>7.1</b> Motivación</a></li>
+<li class="chapter" data-level="7.2" data-path="cap-multinivel.html"><a href="cap-multinivel.html#pesos-q-weighted"><i class="fa fa-check"></i><b>7.2</b> Pesos <em>q-weighted</em></a></li>
+<li class="chapter" data-level="7.3" data-path="cap-multinivel.html"><a href="cap-multinivel.html#modelo-lineal-multinivel"><i class="fa fa-check"></i><b>7.3</b> Modelo lineal multinivel</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="cap-multinivel.html"><a href="cap-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Modelo nulo</a></li>
+<li class="chapter" data-level="7.3.2" data-path="cap-multinivel.html"><a href="cap-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Modelo con intercepto aleatorio</a></li>
+<li class="chapter" data-level="7.3.3" data-path="cap-multinivel.html"><a href="cap-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Modelo con intercepto y pendiente aleatoria</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="cap-multinivel.html"><a href="cap-multinivel.html#sec-logistica-multinivel"><i class="fa fa-check"></i><b>7.4</b> Modelo logístico multinivel</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="01-Introduccion.html"><a href="#modelo-nulo-log%C3%ADstico"><i class="fa fa-check"></i><b>7.4.1</b> Modelo nulo logístico</a></li>
+<li class="chapter" data-level="7.4.2" data-path="01-Introduccion.html"><a href="#modelo-log%C3%ADstico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Modelo logístico con intercepto aleatorio</a></li>
+<li class="chapter" data-level="7.4.3" data-path="01-Introduccion.html"><a href="#modelo-log%C3%ADstico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Modelo logístico con intercepto y pendiente aleatoria</a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>Anexos</b></span></li>
+<li class="chapter" data-level="A" data-path="ap1.html"><a href="ap1.html"><i class="fa fa-check"></i><b>A</b> Manejo de bases de datos con <code>R</code></a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="01-Introduccion.html"><a href="#preparaci%C3%B3n-del-entorno-de-trabajo"><i class="fa fa-check"></i><b>A.1</b> Preparación del entorno de trabajo</a></li>
+<li class="chapter" data-level="A.2" data-path="01-Introduccion.html"><a href="#carga-e-inspecci%C3%B3n-inicial-de-la-base"><i class="fa fa-check"></i><b>A.2</b> Carga e inspección inicial de la base</a></li>
+<li class="chapter" data-level="A.3" data-path="ap1.html"><a href="ap1.html#encadenamiento-de-operaciones"><i class="fa fa-check"></i><b>A.3</b> Encadenamiento de operaciones</a>
+<ul>
+<li class="chapter" data-level="A.3.1" data-path="01-Introduccion.html"><a href="#filter-selecci%C3%B3n-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selección de registros</a></li>
+<li class="chapter" data-level="A.3.2" data-path="ap1.html"><a href="ap1.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: seleccionar variables</a></li>
+<li class="chapter" data-level="A.3.3" data-path="ap1.html"><a href="ap1.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: ordenamiento de filas</a></li>
+<li class="chapter" data-level="A.3.4" data-path="01-Introduccion.html"><a href="#mutate-creaci%C3%B3n-o-transformaci%C3%B3n-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creación o transformación de variables</a></li>
+<li class="chapter" data-level="A.3.5" data-path="01-Introduccion.html"><a href="#summarise-res%C3%BAmenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: resúmenes descriptivos</a></li>
+<li class="chapter" data-level="A.3.6" data-path="01-Introduccion.html"><a href="#group_by-agrupaci%C3%B3n-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: agrupación de casos</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Inferencia en poblaciones finitas</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="ap2.html"><a href="ap2.html#dos-posibles-inferencias"><i class="fa fa-check"></i><b>B.1</b> Dos posibles inferencias</a></li>
+<li class="chapter" data-level="B.2" data-path="01-Introduccion.html"><a href="#la-integraci%C3%B3n-de-ambas-inferencias"><i class="fa fa-check"></i><b>B.2</b> La integración de ambas inferencias</a>
+<ul>
+<li class="chapter" data-level="B.2.1" data-path="ap2.html"><a href="ap2.html#sec-mv"><i class="fa fa-check"></i><b>B.2.1</b> Método de la máxima verosimilitud</a></li>
+<li class="chapter" data-level="B.2.2" data-path="ap2.html"><a href="ap2.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Método de máxima pseudo-verosimilitud</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis de encuestas de hogares con R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cap-intro" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Capítulo 1</span> Introducción<a href="cap-intro.html#cap-intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>El análisis de encuestas con diseños complejos cuenta con una trayectoria consolidada en la literatura estadística, sustentada en el enfoque de inferencia basado en el diseño de muestreo. Como señalan <span class="citation">Särndal et al. (<a href="#ref-sarndal2003model">2003</a>)</span> y <span class="citation">Gutiérrez (<a href="#ref-Gutierrez2016">2016</a>)</span>, este enfoque reconoce a la distribución de probabilidad inducida por el proceso de selección de la muestra como el único mecanismo probabilístico que rige la inferencia. Bajo este paradigma, las propiedades estadísticas de los estimadores —como el insesgamiento, la precisión y la consistencia— se evalúan con respecto a la distribución de todas las posibles muestras que el diseño puede generar, sin imponer supuestos distribucionales sobre la variable de interés.</p>
+<p>En este marco, la estimación de varianzas ha ocupado un lugar central y ha evolucionado en torno a tres grandes familias metodológicas complementarias. La primera, el método del último conglomerado <span class="citation">(<a href="#ref-hansen1953sample"><span class="nocase">Hansen et al.</span>, 1953</a>)</span>, simplifica la estructura multinivel al concentrar la variabilidad en las unidades primarias de muestreo (UPM), tratando la selección como si se realizara con reemplazo. La segunda, la linealización de Taylor <span class="citation">(<a href="#ref-binder1983variances">Binder, 1983</a>)</span>, extiende este principio a parámetros no lineales —como medias, proporciones y razones— mediante una aproximación de primer orden que reduce el problema de estimación de la varianza al de un total. Finalmente, la tercera familia, los métodos de replicación (jackknife, bootstrap y balanced repeated replication), estima la varianza a partir de la dispersión entre estimaciones obtenidas mediante réplicas sistemáticas de la muestra.</p>
+<p>Paralelamente, en el ámbito de la modelización estadística, contribuciones fundamentales como las de <span class="citation">Kish &amp; Frankel (<a href="#ref-kish1974inference">1974</a>)</span>, <span class="citation">Fuller (<a href="#ref-fuller1975regression">1975</a>)</span> y <span class="citation">Binder (<a href="#ref-binder1983variances">1983</a>)</span> sentaron las bases de la regresión ponderada y de la estimación de varianzas de coeficientes en diseños estratificados y de múltiples etapas. Sobre este desarrollo, <span class="citation">Pfeffermann (<a href="#ref-pfeffermann1993role">1993</a>)</span> formalizó el método de máxima pseudo-verosimilitud (MPV), que incorpora los pesos muestrales en la función de log-verosimilitud para producir estimadores consistentes bajo el diseño, extendiendo así los modelos lineales generalizados de <span class="citation">Nelder &amp; Wedderburn (<a href="#ref-nelder1972generalized">1972</a>)</span> al contexto de encuestas con diseño complejo.</p>
+<p>Más recientemente, <span class="citation">Heeringa et al. (<a href="#ref-heeringa2017applied">2017</a>)</span> han sintetizado estas contribuciones en un marco analítico unificado que integra de manera coherente el diseño muestral, la ponderación y la modelización, constituyéndose en una referencia estándar para la práctica contemporánea del análisis de encuestas complejas.</p>
+<p>Este documento está dirigido a lectores con formación en estadística o ciencia de datos, o con experiencia profesional equivalente. Está especialmente pensado para quienes cuentan con conocimientos de los fundamentos de la teoría de muestreo —como probabilidades de inclusión, estimadores e intervalos de confianza—, de modelos de regresión lineal y logística, y con un manejo introductorio del lenguaje de programación R.</p>
+<p>En este contexto, el documento se posiciona como un texto de nivel intermedio-avanzado, orientado a profundizar y consolidar estos conocimientos, facilitando su aplicación rigurosa en contextos complejos y de alta exigencia técnica. Su propósito es acompañar al investigador en la transición desde los fundamentos hacia su implementación adecuada en la producción de estadísticas oficiales, la investigación académica en ciencias sociales, la evaluación de políticas públicas y el análisis de datos bajo estándares internacionales de calidad.</p>
+<div id="justificación" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Justificación<a href="#justificaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A pesar de la riqueza metodológica disponible en la literatura especializada, persiste una brecha significativa entre el estado del arte y la práctica cotidiana del análisis de encuestas en la región. Una de las principales manifestaciones de esta brecha se relaciona con el acceso y uso del software estadístico. Algunos textos de referencia ampliamente reconocidos en análisis de encuestas, como <span class="citation">Heeringa et al. (<a href="#ref-heeringa2017applied">2017</a>)</span>, <span class="citation">Cochran (<a href="#ref-cochran1977sampling">1977</a>)</span> y <span class="citation">Särndal et al. (<a href="#ref-sarndal2003model">2003</a>)</span>, constituyen fuentes fundamentales desde el punto de vista teórico; sin embargo, están orientados principalmente hacia software con licencia, como <code>SAS</code>, <code>Stata</code> o <code>SPSS</code>, o bien no logran integrarse plenamente con el ecosistema computacional de <code>R</code>. En contraste, muchos tutoriales disponibles en línea sobre análisis de encuestas en <code>R</code> suelen privilegiar los aspectos operativos del software, pero rara vez alcanzan el nivel de profundidad conceptual necesario para un uso adecuado y responsable en la producción de estadísticas oficiales.</p>
+<p>Adicionalmente, existe una fragmentación metodológica importante entre los distintos componentes que intervienen en el análisis de encuestas complejas. Con frecuencia, los fundamentos del diseño muestral, la gestión computacional de los datos, la estimación de parámetros descriptivos e inferenciales con corrección por diseño y el tratamiento de la no respuesta son abordados de manera separada, dificultando la construcción de flujos de trabajo integrales y reproducibles. En este contexto, el presente texto propone una integración coherente de estos elementos dentro de un único marco analítico implementado completamente en <code>R</code>.</p>
+<p>Otro aspecto relevante corresponde a la contextualización regional de los ejemplos y aplicaciones. Una proporción considerable de los textos de referencia utiliza bases de datos y ejemplos provenientes de encuestas de países anglosajones, lo que limita parcialmente su aplicabilidad inmediata en América Latina. Con el propósito de acercar los contenidos a las realidades estadísticas de la región, este documento emplea una base de datos nativa de <code>R</code>, diseñada para replicar la estructura tradicional de las encuestas de hogares latinoamericanas y, por tanto, proporcionar ejemplos más cercanos a los problemas enfrentados por las oficinas nacionales de estadística y los equipos técnicos de la región.</p>
+<p>Finalmente, este documento constituye en sí mismo un ejercicio de investigación reproducible. Todo su contenido, incluyendo tablas, figuras, ecuaciones y resultados numéricos, es generado íntegramente mediante código en R incorporado directamente en los capítulos. De esta manera, el lector no solo puede estudiar los métodos presentados, sino también replicarlos, modificarlos y adaptarlos a sus propios contextos y bases de datos, fortaleciendo así las capacidades analíticas y la transparencia en la producción estadística.</p>
+</div>
+<div id="uso-del-software-r-para-el-análisis-de-encuestas" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Uso del software R para el análisis de encuestas<a href="#uso-del-software-r-para-el-an%C3%A1lisis-de-encuestas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La elección de R como entorno computacional para este documento no es arbitraria. R reúne al menos tres características que lo convierten en una opción idónea para el análisis de encuestas de hogares en el contexto latinoamericano.</p>
+<p>En primer lugar, su condición de acceso libre. A diferencia de otros programas con costos de licencia que pueden resultar prohibitivos para muchas oficinas nacionales de estadística en países en desarrollo, R se distribuye bajo licencia GNU, lo que garantiza que los métodos presentados en este documento sean plenamente accesibles y replicables, independientemente de las restricciones presupuestarias de las instituciones.</p>
+<p>En segundo lugar, destaca su ecosistema especializado. El paquete <code>survey</code> <span class="citation">(<a href="#ref-Lumley2024">Lumley, 2024</a>)</span>, disponible desde 2004 y en constante evolución, implementa una amplia gama de métodos de estimación para diseños complejos: estimadores de Horvitz–Thompson, técnicas de calibración, linealización de Taylor, métodos de replicación, modelos de regresión ponderados y pruebas de hipótesis ajustadas al diseño (como Rao-Scott), entre otros. A su vez, el paquete <code>srvyr</code> <span class="citation">(<a href="#ref-Freedman2024">Freedman Ellis &amp; Schneider, 2024</a>)</span> extiende estas capacidades al incorporar la sintaxis del ecosistema <code>tidyverse</code>, facilitando una transición fluida entre el análisis exploratorio y el inferencial. Paquetes complementarios como <code>TeachingSampling</code> <span class="citation">(<a href="#ref-GutierrezT2020">Gutiérrez, 2020b</a>)</span>, <code>samplesize4surveys</code> <span class="citation">(<a href="#ref-Gutierrez2020">Gutiérrez, 2020a</a>)</span>, <code>convey</code> <span class="citation">(<a href="#ref-covey2024">Jacob et al., 2024</a>)</span> y <code>PracTools</code> <span class="citation">(<a href="#ref-Valliant2025">Valliant &amp; Zipf, 2025</a>)</span> consolidan un entorno analítico difícil de igualar en otros lenguajes.</p>
+<p>Finalmente, R ofrece una sólida integración con herramientas de reproducibilidad científica. En particular, su combinación con R Markdown y el sistema <code>bookdown</code> permite generar documentos en los que resultados, tablas y figuras se producen directamente a partir del código fuente. Esta capacidad resulta especialmente relevante en el ámbito de la estadística oficial, donde la trazabilidad y la transparencia metodológica son requisitos fundamentales.</p>
+</div>
+<div id="estructura-del-documento" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Estructura del documento<a href="cap-intro.html#estructura-del-documento" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Este documento está organizado siguiendo una progresión lógica que va desde los fundamentos conceptuales del muestreo hasta las aplicaciones más avanzadas de modelamiento estadístico y tratamiento de la no respuesta. Esta secuencia no es arbitraria: cada nivel de conocimiento constituye un requisito necesario para comprender el siguiente, de modo que el lector pueda transitar de los principios básicos hacia herramientas analíticas más sofisticadas de manera coherente.</p>
+<p>En primer lugar, se abordan los fundamentos del diseño muestral. El análisis adecuado de una encuesta comienza necesariamente con la comprensión de su diseño probabilístico. Antes de estimar cualquier parámetro, el analista debe familiarizarse con tres elementos constitutivos: la <em>población objetivo</em>, entendida como el conjunto de unidades sobre las cuales se desean hacer inferencias; el <em>marco muestral</em>, que corresponde a la enumeración operacional de dichas unidades; y las <em>unidades de muestreo</em> en cada etapa del diseño. Estos componentes determinan tanto la validez como el alcance de las inferencias posteriores.</p>
+<p>A continuación, se introducen los elementos computacionales que permiten materializar estos conceptos en un entorno aplicado. El documento incorpora el uso de bases de datos en múltiples formatos (<code>.dta</code>, <code>.sav</code>, <code>.sas7bdat</code>, <code>.rds</code>), la manipulación y transformación de variables mediante los verbos del <code>tidyverse</code>, y la construcción del <em>objeto de diseño</em> a través de la función <code>as_survey_design()</code> del paquete <code>srvyr</code>. Este objeto constituye el eje central del flujo de análisis, ya que encapsula la estructura del diseño muestral —estratos, unidades de muestreo y pesos— y garantiza que todas las operaciones estadísticas respeten dicha estructura. En este contexto, la diferencia entre analizar datos con <code>dplyr</code> (sin considerar el diseño) y con <code>srvyr</code> (incorporándolo explícitamente) equivale a distinguir entre una descripción de la muestra observada y una inferencia válida sobre la población.</p>
+<p>Con el diseño correctamente especificado, el documento avanza hacia la estimación de parámetros descriptivos. Esta sección cubre los estimadores más utilizados en el análisis de encuestas para variables continuas, tales como ingresos, gastos o activos, incluyendo totales, medias y razones. Asimismo, se presentan sus correspondientes medidas de precisión —varianzas, errores estándar e intervalos de confianza— ajustadas a la complejidad del diseño muestral.</p>
+<p>Posteriormente, se desarrolla el modelamiento estadístico, extendiendo el análisis más allá de la estadística descriptiva hacia un enfoque analítico e inferencial. En particular, se abordan los modelos de regresión lineal bajo diseños complejos, donde la incorporación explícita de los pesos muestrales resulta fundamental para obtener estimadores insesgados respecto al diseño. Este contexto pone de manifiesto la tensión entre el <em>enfoque orientado al diseño</em>, que prioriza las propiedades estadísticas a nivel poblacional, y el <em>enfoque orientado al modelo</em>, que depende de la correcta especificación funcional. En consecuencia, se enfatiza la importancia de evaluar la sensibilidad de los resultados mediante comparaciones entre estimaciones con y sin ponderación. Adicionalmente, se introducen los <em>modelos lineales generalizados</em> (MLG), que amplían el alcance del análisis a variables respuesta no normales, como variables binarias (regresión logística), conteos (regresión de Poisson) y proporciones.</p>
+<p>Finalmente, el documento aborda el problema de la imputación en presencia de no respuesta, una característica estructural de las encuestas de hogares que se ha intensificado en años recientes. La calidad de las estimaciones clásicas se ve comprometida cuando la proporción de datos faltantes es elevada, especialmente si el mecanismo de pérdida no es completamente aleatorio. En este sentido, se distinguen los mecanismos de datos faltantes: <em>MCAR</em> (<em>Missing Completely at Random</em>), <em>MAR</em> (<em>Missing at Random</em>) y <em>MNAR</em> (<em>Missing Not at Random</em>), los cuales determinan tanto la validez de los métodos de imputación como los supuestos requeridos. Mientras que bajo MCAR el análisis de casos completos produce estimaciones insesgadas, bajo MAR métodos como la <em>imputación múltiple</em> <span class="citation">(<a href="#ref-vanbuuren2012flexible"><span class="nocase">van Buuren</span>, 2018</a>)</span> y la <em>imputación fraccional</em> <span class="citation">(<a href="#ref-kim2004fractional">Kim &amp; Fuller, 2004</a>)</span> permiten recuperar la validez inferencial utilizando la información disponible. En contraste, bajo MNAR el problema es inherentemente no identificable sin supuestos adicionales sobre el mecanismo generador de la no respuesta.</p>
+<p>La organización de los capítulos sigue la arquitectura conceptual descrita anteriormente, avanzando de los fundamentos hacia las aplicaciones más complejas. De esta forma, el capítulo 2 establece el marco conceptual y probabilístico que sustenta todo análisis válido de encuestas, respondiendo a la pregunta: ¿qué hace que una encuesta sea representativa y qué garantiza que sus estimaciones sean insesgadas? En este capítulo se presentan los conceptos técnicos de población objetivo, universo de estudio, marco muestral, unidades de análisis y unidades primarias de muestreo. Asimismo, se realiza una implementación práctica mediante <code>TeachingSampling</code> y <code>srvyr</code> usando la base <code>BigCity</code>.</p>
+<p>En el capítulo 3 se aborda la estimación rigurosa de parámetros descriptivos para variables numéricas bajo diseños complejos y se desarrollan técnicas para estimar totales y medias, junto con la estimación de varianzas mediante el método del último conglomerado y la construcción de intervalos de confianza con grados de libertad ajustados. Asimismo, se presentan enfoques alternativos para la estimación de la varianza, como la linealización de Taylor, las ecuaciones de estimación y los métodos de replicación, incluyendo bootstrap y jackknife. El capítulo también cubre la estimación de cuantiles ponderados, el análisis de desigualdad mediante indicadores como el índice de Gini y la curva de Lorenz, la estimación en dominios y subpoblaciones, y la visualización de resultados con intervalos de confianza mediante <code>ggplot2</code>.</p>
+<p>En el capítulo 4 se aborda el análisis de variables categóricas bajo diseños complejos, incluyendo la evaluación de asociaciones entre categorías mediante métodos que incorporan adecuadamente el diseño muestral. Se desarrollan técnicas para estimar tamaños poblacionales y proporciones a partir de ponderaciones, junto con la estimación de su variabilidad mediante linealización y la construcción de intervalos de confianza, incluyendo enfoques robustos para proporciones extremas. Asimismo, se presentan tablas de contingencia ponderadas con sus respectivas frecuencias y proporciones, así como pruebas de independencia que ajustan la estadística clásica para reflejar el efecto del diseño. El capítulo también cubre la estimación e interpretación de medidas de asociación como la razón de odds, el análisis de diferencias de proporciones entre subpoblaciones mediante contrastes, y diversas estrategias de visualización, incluyendo gráficos de barras con intervalos de confianza y mapas.</p>
+<p>El capítulo 5 se enfoca en analizar relaciones entre variables y construir modelos predictivos o explicativos válidos bajo diseños complejos, en los que los supuestos clásicos de independencia e identidad de distribuciones no se cumplen. Se presenta la evolución del problema desde los aportes iniciales hasta los desarrollos más recientes, y discute las implicaciones de trabajar con datos de encuestas en el contexto de los modelos de regresión, incluyendo la violación de los supuestos del modelo lineal clásico. Se contrasta el enfoque basado en el diseño con el basado en los modelos. Asimismo, se introduce el marco de la pseudo-verosimilitud y la estimación de modelos de regresión ponderados, junto con la obtención de errores estándar y matrices de varianza-covarianza ajustadas al diseño mediante técnicas como la linealización. El capítulo también aborda la realización de pruebas de hipótesis con ajustes apropiados, el diagnóstico de residuales y la identificación de observaciones influyentes utilizando herramientas como <code>svydiags</code>, y la extensión hacia modelos no lineales, en particular la regresión logística ponderada. Finalmente, se presenta la implementación completa de estos modelos mediante la función <code>svyglm()</code> del paquete <code>survey</code>, integrando así los aspectos teóricos y computacionales en un flujo de análisis coherente.</p>
+<p>En el capítulo 6 se extiende la modelación estadística a variables que no siguen una distribución normal —como variables binarias, de conteo y proporciones— en el contexto de diseños de muestreo complejo. Para ello, se construye un marco unificado basado en los modelos lineales generalizados, incorporando sus componentes fundamentales y se discute la dualidad inferencial en poblaciones finitas, donde coexisten la medida de probabilidad del modelo y la del diseño muestral. Asimismo, se contrasta el enfoque clásico de máxima verosimilitud con el de máxima pseudo-verosimilitud, basado en ecuaciones de estimación ponderadas que incorporan los pesos muestrales, y se estudia la estimación de la varianza mediante técnicas de linealización.</p>
+<p>En el capítulo 7 se revisan los modelos multinivel, también llamados jerárquicos o de efectos mixtos, para analizar datos con estructura anidada incorporando simultáneamente variables a nivel individual y contextual. A través de ejemplos de regresión (con interceptos y pendientes que varían por estrato), se muestra que ignorar la estructura jerárquica puede llevar a inferencias incorrectas, mientras que modelarla explícitamente permite capturar heterogeneidad entre grupos y aprovechar información compartida mediante. El enfoque se formaliza con el modelo nulo, que descompone la varianza en componentes dentro y entre estratos, y permite calcular la correlación intraclase (ICC), indicador clave para cuantificar la dependencia intragrupo.</p>
+<p>En el capítulo 8 se aborda el problema de la no respuesta parcial en encuestas de hogares, el cual genera datos faltantes que pueden comprometer la validez de las estimaciones si no se tratan adecuadamente. El capítulo examina la identificación de patrones de datos faltantes, su impacto sobre distintos tipos de estimadores y los procedimientos computacionales disponibles para mitigarlo mediante técnicas de imputación. El capítulo presenta métodos modernos de imputación, incluyendo la imputación múltiple con el paquete <code>mice</code> y la imputación fraccional, y propone criterios para comparar estimaciones antes y después de la imputación. Finalmente, se abordan herramientas de diagnóstico para evaluar la calidad de las imputaciones —como el análisis de convergencia y la comparación de distribuciones— y se discute la integración de los datos imputados con el objeto de diseño muestral, asegurando así la validez de la inferencia en etapas posteriores del análisis.</p>
+<p>El lector que los recorra en orden los capítulos habrá construido la capacidad de tomar cualquier encuesta de hogares latinoamericana, entender su diseño, procesar sus datos, estimar los indicadores de interés con la precisión estadística correcta, modelar las relaciones entre variables de manera válida bajo el diseño complejo, y manejar la no respuesta con métodos apropiados. Esa capacidad es, en esencia, lo que la producción rigurosa de estadísticas sociales exige.</p>
+
+</div>
+</div>
+<h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-binder1983variances" class="csl-entry">
+Binder, D. A. (1983). On the variances of asymptotically normal estimators from complex surveys. <em>International Statistical Review/Revue Internationale de Statistique</em>, 279-292.
+</div>
+<div id="ref-cochran1977sampling" class="csl-entry">
+Cochran, W. G. (1977). <em>Sampling techniques</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-Freedman2024" class="csl-entry">
+Freedman Ellis, G., &amp; Schneider, B. (2024). <em>srvyr: ’dplyr’-Like Syntax for Summary Statistics of Survey Data</em>. <a href="https://doi.org/10.32614/CRAN.package.srvyr">https://doi.org/10.32614/CRAN.package.srvyr</a>
+</div>
+<div id="ref-fuller1975regression" class="csl-entry">
+Fuller, W. A. (1975). Regression analysis for sample survey. <em>Sankhya, Series C</em>, <em>37</em>, 117-132.
+</div>
+<div id="ref-Gutierrez2016" class="csl-entry">
+Gutiérrez, H. A. (2016). <em>Estrategias de muestreo: diseño de encuestas y estimación de parámetros</em> (Segunda edición). Ediciones de la U.
+</div>
+<div id="ref-Gutierrez2020" class="csl-entry">
+Gutiérrez, H. A. (2020a). <em>samplesize4surveys: Sample Size Calculations for Complex Surveys</em>. <a href="https://doi.org/10.32614/CRAN.package.samplesize4surveys">https://doi.org/10.32614/CRAN.package.samplesize4surveys</a>
+</div>
+<div id="ref-GutierrezT2020" class="csl-entry">
+Gutiérrez, H. A. (2020b). <em>TeachingSampling: Selection of Samples and Parameter Estimation in Finite Population</em>. <a href="https://doi.org/10.32614/CRAN.package.TeachingSampling">https://doi.org/10.32614/CRAN.package.TeachingSampling</a>
+</div>
+<div id="ref-hansen1953sample" class="csl-entry">
+<span class="nocase">Hansen, M. H., Hurwitz, W. N., Madow, W. G., et al.</span> (1953). <em>Sample survey methods and theory</em>.
+</div>
+<div id="ref-heeringa2017applied" class="csl-entry">
+Heeringa, S. G., West, B. T., Heeringa, S. G., &amp; Berglund, P. A. (2017). <em>Applied survey data analysis</em>. chapman; hall/CRC.
+</div>
+<div id="ref-covey2024" class="csl-entry">
+Jacob, G., Pessoa, D., &amp; Damico, A. (2024). <em>Poverty and Inequality with Complex Survey Data</em>. <a href="https://www.convey-r.org/">https://www.convey-r.org/</a>
+</div>
+<div id="ref-kim2004fractional" class="csl-entry">
+Kim, J. K., &amp; Fuller, W. A. (2004). Fractional Hot Deck Imputation. <em>Biometrika</em>, <em>91</em>(3), 559-578. <a href="https://doi.org/10.1093/biomet/91.3.559">https://doi.org/10.1093/biomet/91.3.559</a>
+</div>
+<div id="ref-kish1974inference" class="csl-entry">
+Kish, L., &amp; Frankel, M. R. (1974). Inference from complex samples. <em>Journal of the Royal Statistical Society, Series B</em>, <em>36</em>, 1-37.
+</div>
+<div id="ref-Lumley2024" class="csl-entry">
+Lumley, T. (2024). <em>survey: analysis of complex survey samples</em>.
+</div>
+<div id="ref-nelder1972generalized" class="csl-entry">
+Nelder, J. A., &amp; Wedderburn, R. W. M. (1972). Generalized Linear Models. <em>Journal of the Royal Statistical Society: Series A (General)</em>, <em>135</em>(3), 370-384. <a href="https://doi.org/10.2307/2344614">https://doi.org/10.2307/2344614</a>
+</div>
+<div id="ref-pfeffermann1993role" class="csl-entry">
+Pfeffermann, D. (1993). The Role of Sampling Weights When Modeling Survey Data. <em>International Statistical Review</em>, <em>61</em>(2), 317-337. <a href="https://doi.org/10.2307/1403631">https://doi.org/10.2307/1403631</a>
+</div>
+<div id="ref-sarndal2003model" class="csl-entry">
+Särndal, C.-E., Swensson, B., &amp; Wretman, J. (2003). <em>Model assisted survey sampling</em>. Springer Science &amp; Business Media.
+</div>
+<div id="ref-Valliant2025" class="csl-entry">
+Valliant, R., &amp; Zipf, G. (2025). <em>PracTools: Designing and Weighting Survey Samples</em>. <a href="https://doi.org/10.32614/CRAN.package.PracTools">https://doi.org/10.32614/CRAN.package.PracTools</a>
+</div>
+<div id="ref-vanbuuren2012flexible" class="csl-entry">
+<span class="nocase">van Buuren, S.</span> (2018). <em>Flexible Imputation of Missing Data</em> (2.ª ed.). CRC Press. <a href="https://stefvanbuuren.name/fimd/">https://stefvanbuuren.name/fimd/</a>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="resumen.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conceptos-básicos-en-encuestas-de-hogares.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Libro.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

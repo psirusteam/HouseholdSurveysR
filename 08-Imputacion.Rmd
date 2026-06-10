@@ -1,0 +1,1552 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning  = FALSE,
+                      message  = FALSE,
+                      cache    = FALSE,
+                      error    = FALSE,
+                      fig.align = "center",
+                      fig.width = 6,
+                      fig.height = 4,
+                      out.width = "70%")
+source("_tabla_helper.R")
+```
+
+# Procedimientos de imputación {#cap-imputacion}
+
+La no respuesta en encuestas de hogares es un fenómeno estructural que se ha intensificado en los años posteriores a la pandemia de covid-19. Sus causas son diversas: cuestionarios largos, el desconocimiento de algunas características del hogar o la renuencia a proporcionar información de carácter sensible, entre otras. Cuando la no respuesta en un indicador es elevada, la calidad de las estimaciones obtenidas con los estimadores clásicos puede verse comprometida.
+
+La literatura especializada ha desarrollado diversas metodologías para abordar este problema. Entre las más utilizadas en el contexto de muestras complejas se encuentran la imputación múltiple [@vanbuuren2012flexible; @carpenter2013multiple; @berglund2014multiple; @raghunathan2016missing], la imputación fraccional [@kim2004fractional; @kim2014statistical], el bootstrap bayesiano de población finita [@zhou2016resampling], los métodos de máxima verosimilitud [@chambers2012maximum], entre otros.
+
+El objetivo de este capítulo es abordar el problema de los datos faltantes en encuestas de hogares, revisar las posibles causas y el impacto en la estimación de indicadores, y presentar soluciones aplicadas en `R`.
+
+## Mecanismos de datos faltantes {#sec-mecanismos}
+
+Sea $\boldsymbol{X}_{n \times p} = x_{ij}$ una matriz completa de datos, donde $x_{ij}$ es el valor de la variable $j$, con $j = 1, \ldots, p$, para el individuo $i$, con $i = 1, \ldots, n$. Se define la matriz indicadora $\boldsymbol{M}_{n \times p} = m_{ij}$, donde $m_{ij} = 1$ si el valor $x_{ij}$ es un dato faltante y $m_{ij} = 0$ si está presente. La media marginal de cada columna de $\boldsymbol{M}$ puede interpretarse como la probabilidad de que $x_{ij}$ sea faltante.
+
+La literatura distingue tres mecanismos de datos faltantes:
+
+- **MCAR** (*Missing Completely at Random*): la probabilidad de respuesta es independiente tanto de las variables observadas como de las no observadas. El mecanismo de pérdida es ignorable para inferencias basadas en muestreo y en máxima verosimilitud.
+
+- **MAR** (*Missing at Random*): la probabilidad de respuesta es independiente de las variables no observadas, pero puede depender de las variables observadas. El mecanismo es ignorable para inferencias basadas en máxima verosimilitud.
+
+- **MNAR** (*Missing Not at Random*): la probabilidad de respuesta no es independiente de las variables no observadas y, posiblemente, tampoco de las observadas. El mecanismo no es ignorable.
+
+Las figuras de la sección introductoria del capítulo ilustran los patrones de observaciones faltantes de manera aleatoria y con un patrón identificado.
+
+## Configuración de los datos de ejemplo {#sec-configuracion}
+
+```{r, echo=FALSE}
+options(tinytex.verbose = TRUE)
+```
+
+Se cargan primero las librerías necesarias:
+
+```{r imputacion-setup}
+library(survey)
+library(srvyr)
+library(TeachingSampling)
+library(broom)
+library(patchwork)
+library(ggplot2)
+library(dplyr)
+library(magrittr)
+library(tidyr)
+```
+
+Se lee la base de datos y se restringe a personas mayores de 15 años. Como referencia, se calculan las proporciones de empleo y el ingreso medio antes de introducir valores faltantes, presentada en la Tabla \@ref(tab:tab-prop-empleo-antes) y en la Tabla \@ref(tab:tab-ingreso-medio-antes).
+
+```{r}
+encuesta <- readRDS("Data/encuesta.rds")
+encuesta  <- encuesta %>% filter(Age >= 15)
+```
+
+```{r, echo=FALSE}
+tab_antes <- prop.table(table(encuesta$Employment))
+res <- tab_antes %>% as.data.frame() %>%
+  setNames(c("Estado de empleo", "Proporción")) 
+```
+
+```{r eval=FALSE}
+res
+```
+```{r tab-prop-empleo-antes, tab.cap="Distribución del estado de empleo antes de introducir valores faltantes", echo=FALSE}
+res |>  tabla_fmt()
+```
+
+```{r eval=FALSE}
+data.frame(
+  Estadístico = "Ingreso medio",
+  Valor       = round(mean(encuesta$Income, na.rm = TRUE), 1)
+)
+```
+```{r tab-ingreso-medio-antes, tab.cap="Ingreso medio de la muestra antes de introducir valores faltantes", echo=FALSE}
+data.frame(
+  Estadístico = "Ingreso medio",
+  Valor       = round(mean(encuesta$Income, na.rm = TRUE), 1)
+) %>% tabla_fmt()
+```
+
+## Simulación de esquemas de datos faltantes {#sec-simulacion}
+
+Para ejemplificar los distintos mecanismos, se introducen valores faltantes en la base de datos de forma controlada. Esto permite comparar las distribuciones con y sin datos faltantes, así como evaluar el desempeño de los métodos de imputación.
+
+### Esquema MCAR
+
+Se elimina aleatoriamente el 20% de las observaciones, de forma independiente de cualquier variable del estudio:
+
+```{r}
+set.seed(1234)
+encuesta_MCAR <- sample_frac(encuesta, 0.8)
+dat_plot <- bind_rows(
+  list(encuesta_MCAR = encuesta_MCAR, encuesta = encuesta),
+  .id = "Caso"
+)
+```
+
+La Figura \@ref(fig:fig-mcar-zona-sexo) muestra la distribución del ingreso por zona y sexo con y sin datos faltantes bajo el esquema MCAR. Al ser la eliminación completamente aleatoria, las distribuciones permanecen prácticamente inalteradas:
+
+```{r fig-mcar-zona-sexo, fig.cap="Distribución del ingreso por zona y sexo: muestra completa versus esquema MCAR", echo=TRUE, eval=TRUE}
+p1 <- ggplot(dat_plot, aes(x = Zone, y = Income)) +
+  geom_boxplot() + facet_grid(. ~ Caso) + theme_bw() +
+  geom_hline(yintercept = mean(encuesta$Income), col = "red")
+
+p2 <- ggplot(dat_plot, aes(x = Sex, y = Income)) +
+  geom_boxplot() + facet_grid(. ~ Caso) + theme_bw() +
+  geom_hline(yintercept = mean(encuesta$Income), col = "red")
+
+p1 | p2
+```
+
+La Figura \@ref(fig:fig-mcar-densidad-ingreso) confirma que la distribución del ingreso no se altera bajo MCAR. La línea roja indica la media de la muestra completa:
+
+```{r fig-mcar-densidad-ingreso, fig.cap="Densidad del ingreso: muestra completa versus esquema MCAR, total y por sexo", echo=TRUE, eval=TRUE}
+p1 <- ggplot(dat_plot, aes(x = Income, fill = Caso)) +
+  geom_density(alpha = 0.3) + theme_bw() +
+  theme(legend.position = "bottom") +
+  geom_vline(xintercept = mean(encuesta$Income), col = "red")
+
+p2 <- ggplot(dat_plot, aes(x = Income, fill = Caso)) +
+  geom_density(alpha = 0.3) + facet_grid(. ~ Sex) + theme_bw() +
+  geom_vline(xintercept = mean(encuesta$Income), col = "red") +
+  theme(legend.position = "none")
+
+p1 / p2
+```
+
+La Figura \@ref(fig:fig-mcar-densidad-gasto) presenta el mismo análisis para la variable gasto, con resultados análogos:
+
+```{r fig-mcar-densidad-gasto, fig.cap="Densidad del gasto: muestra completa versus esquema MCAR, total y por sexo", echo=TRUE, eval=TRUE}
+p1 <- ggplot(dat_plot, aes(x = Expenditure, fill = Caso)) +
+  geom_density(alpha = 0.3) + theme_bw() +
+  theme(legend.position = "bottom") +
+  geom_vline(xintercept = mean(encuesta$Expenditure), col = "red")
+
+p2 <- ggplot(dat_plot, aes(x = Expenditure, fill = Caso)) +
+  geom_density(alpha = 0.3) + facet_grid(. ~ Sex) + theme_bw() +
+  geom_vline(xintercept = mean(encuesta$Expenditure), col = "red") +
+  theme(legend.position = "none")
+
+p1 / p2
+```
+
+### Esquema MAR
+
+En el esquema MAR, la probabilidad de que un dato falte depende de variables observadas pero no del valor de la propia variable. Se simula una pérdida de información mediante muestreo estratificado por zona y sexo, con proporciones de respuesta muy distintas entre grupos:
+
+```{r}
+set.seed(1234)
+temp_estrato <- paste0(encuesta$Zone, encuesta$Sex)
+sel <- S.STSI(S  = temp_estrato,
+              Nh = c(481, 428, 531, 439),
+              nh = c(20,  380,  20, 280))
+encuesta_MAR <- encuesta[-sel, ]
+dat_plot2    <- bind_rows(
+  list(encuesta_MAR = encuesta_MAR, encuesta = encuesta),
+  .id = "Caso"
+)
+```
+
+Dado que en el esquema MAR la probabilidad de no respuesta varía sistemáticamente entre grupos, la distribución de la variable de interés se ve afectada cuando se analiza a nivel global o por dominio. La Figura \@ref(fig:fig-mar-boxplot-zona) ilustra este efecto sobre la distribución del gasto por zona y sexo:
+
+```{r fig-mar-boxplot-zona, fig.cap="Distribución del gasto por zona y sexo: muestra completa versus esquema MAR", echo=TRUE, eval=TRUE}
+ggplot(dat_plot2, aes(x = Caso, y = Expenditure)) +
+  geom_hline(yintercept = mean(encuesta$Expenditure), col = "red") +
+  geom_boxplot() +
+  facet_grid(Zone ~ Sex) +
+  theme_bw()
+```
+
+La Figura \@ref(fig:fig-mar-densidad-ingreso) muestra el cambio distribucional en el ingreso bajo MAR. A diferencia del esquema MCAR, las curvas difieren notablemente, en especial al desagregar por sexo:
+
+```{r fig-mar-densidad-ingreso, fig.cap="Densidad del ingreso: muestra completa versus esquema MAR, total y por sexo", echo=TRUE, eval=TRUE}
+p1 <- ggplot(dat_plot2, aes(x = Income, fill = Caso)) +
+  geom_density(alpha = 0.3) + theme_bw() +
+  theme(legend.position = "bottom") +
+  geom_vline(xintercept = mean(encuesta$Income), col = "red")
+
+p2 <- ggplot(dat_plot2, aes(x = Income, fill = Caso)) +
+  facet_grid(. ~ Sex) +
+  geom_density(alpha = 0.3) + theme_bw() +
+  theme(legend.position = "none") +
+  geom_vline(xintercept = mean(encuesta$Income), col = "red")
+
+p1 / p2
+```
+
+La Figura \@ref(fig:fig-mar-densidad-gasto) presenta el mismo análisis para el gasto, mostrando un cambio distribucional entre hombres y mujeres:
+
+```{r fig-mar-densidad-gasto, fig.cap="Densidad del gasto: muestra completa versus esquema MAR, total y por sexo", echo=TRUE, eval=TRUE}
+p1 <- ggplot(dat_plot2, aes(x = Expenditure, fill = Caso)) +
+  geom_density(alpha = 0.3) + theme_bw() +
+  theme(legend.position = "bottom") +
+  geom_vline(xintercept = mean(encuesta$Expenditure), col = "red")
+
+p2 <- ggplot(dat_plot2, aes(x = Expenditure, fill = Caso)) +
+  facet_grid(. ~ Sex) +
+  geom_density(alpha = 0.3) + theme_bw() +
+  theme(legend.position = "none") +
+  geom_vline(xintercept = mean(encuesta$Expenditure), col = "red")
+
+p1 / p2
+```
+
+### Esquema MNAR
+
+En el esquema MNAR, la probabilidad de no respuesta depende del propio valor de la variable de interés. Para simularlo, se retienen únicamente las 1 300 observaciones con menores ingresos, lo que trunca la parte superior de la distribución:
+
+```{r}
+encuesta_MNAR <- encuesta %>%
+  arrange(Income) %>%
+  slice(1:1300L)
+
+dat_plot3 <- bind_rows(
+  list(encuesta_MNAR = encuesta_MNAR, encuesta = encuesta),
+  .id = "Caso"
+)
+```
+
+La Figura \@ref(fig:fig-mnar-densidad-ingreso) ilustra el efecto más severo del esquema MNAR sobre el ingreso. La línea azul indica la media de la submuestra MNAR, claramente desplazada hacia la izquierda respecto a la media de la muestra completa (línea roja):
+
+```{r fig-mnar-densidad-ingreso, fig.cap="Densidad del ingreso: muestra completa versus esquema MNAR. La línea roja indica la media de la muestra completa; la línea azul, la de la submuestra MNAR.", echo=TRUE, eval=TRUE}
+ggplot(dat_plot3, aes(x = Income, fill = Caso)) +
+  geom_density(alpha = 0.2) + theme_bw() +
+  theme(legend.position = "bottom") +
+  geom_vline(xintercept = mean(encuesta$Income),      col = "red") +
+  geom_vline(xintercept = mean(encuesta_MNAR$Income), col = "blue")
+```
+
+La Figura \@ref(fig:fig-mnar-densidad-gasto) presenta el mismo efecto para la variable gasto:
+
+```{r fig-mnar-densidad-gasto, fig.cap="Densidad del gasto: muestra completa versus esquema MNAR", echo=TRUE, eval=TRUE}
+ggplot(dat_plot3, aes(x = Expenditure, fill = Caso)) +
+  geom_density(alpha = 0.2) + theme_bw() +
+  theme(legend.position = "bottom") +
+  geom_vline(xintercept = mean(encuesta$Expenditure),      col = "red") +
+  geom_vline(xintercept = mean(encuesta_MNAR$Expenditure), col = "blue")
+```
+
+La Figura \@ref(fig:fig-mnar-boxplot-zona) desagrega el efecto del esquema MNAR por zona y sexo, evidenciando cambios distribucionales importantes en todos los subgrupos:
+
+```{r fig-mnar-boxplot-zona, fig.cap="Distribución del ingreso por zona y sexo: muestra completa versus esquema MNAR", echo=TRUE, eval=TRUE}
+ggplot(dat_plot3, aes(x = Caso, y = Income)) +
+  geom_hline(yintercept = mean(encuesta$Income), col = "red") +
+  geom_boxplot() +
+  facet_grid(Zone ~ Sex) +
+  theme_bw()
+```
+
+## Construcción de la base con datos faltantes {#sec-construccion-base}
+
+Para los ejercicios de imputación, se construye una base de trabajo que combina la encuesta completa con la versión MCAR, preservando los valores faltantes en las variables ingreso y empleo:
+
+```{r}
+encuesta <- full_join(
+  encuesta,
+  encuesta_MCAR %>%
+    dplyr::select(HHID, PersonID, Income, Employment) %>%
+    mutate(
+      Income_missin     = Income,
+      Employment_missin = Employment,
+      Employment        = NULL,
+      Income            = NULL
+    )
+)
+```
+
+La Tabla \@ref(tab:tab-porcentaje-faltantes) presenta el porcentaje de valores faltantes en la variable ingreso según zona y sexo:
+
+```{r eval=FALSE}
+bind_rows(
+  encuesta %>% group_by(Dominio = Zone) %>%
+    summarise(Variable = "Zona",
+              `% faltante` = round(100 * mean(is.na(Income_missin)), 1)),
+  encuesta %>% group_by(Dominio = Sex) %>%
+    summarise(Variable = "Sexo",
+              `% faltante` = round(100 * mean(is.na(Income_missin)), 1))
+)
+```
+```{r tab-porcentaje-faltantes, tab.cap="Porcentaje de valores faltantes en la variable ingreso por zona y sexo", echo=FALSE}
+bind_rows(
+  encuesta %>% group_by(Dominio = Zone) %>%
+    summarise(Variable = "Zona",
+              `% faltante` = round(100 * mean(is.na(Income_missin)), 1)),
+  encuesta %>% group_by(Dominio = Sex) %>%
+    summarise(Variable = "Sexo",
+              `% faltante` = round(100 * mean(is.na(Income_missin)), 1))
+) %>% tabla_fmt()
+```
+
+## Imputación por la media no condicional {#sec-media-incondicional}
+
+La imputación por la media no condicional consiste en reemplazar cada valor faltante con la media aritmética calculada a partir de todos los valores disponibles en la variable, sin condicionar en ninguna covariable. Es el método más simple y no afecta la media, pero sí reduce la varianza y altera la distribución de la variable, en especial cuando esta es asimétrica.
+
+```{r}
+promedio <- mean(encuesta$Income_missin, na.rm = TRUE)
+encuesta %<>% dplyr::mutate(
+  Income_imp = ifelse(is.na(Income_missin), promedio, Income_missin)
+)
+```
+
+La Tabla \@ref(tab:tab-sesgo-media-inc) resume la media y la desviación estándar del ingreso original y del imputado, junto con el sesgo relativo:
+
+```{r eval=FALSE}
+encuesta %>%
+  summarise(
+    `Media original`    = round(mean(Income), 1),
+    `Media imputada`    = round(mean(Income_imp), 1),
+    `DS original`       = round(sd(Income), 1),
+    `DS imputada`       = round(sd(Income_imp), 1)
+  )
+```
+```{r tab-sesgo-media-inc, tab.cap="Comparación entre ingreso original e imputado por la media no condicional: media y desviación estándar", echo=FALSE}
+encuesta %>%
+  summarise(
+    `Media original`    = round(mean(Income), 1),
+    `Media imputada`    = round(mean(Income_imp), 1),
+    `DS original`       = round(sd(Income), 1),
+    `DS imputada`       = round(sd(Income_imp), 1)
+  ) %>% tabla_fmt()
+```
+
+El sesgo relativo para la media es inferior al 1.5% y para la desviación estándar es inferior al 5%, lo que indica una imputación razonable a nivel global. No obstante, la Figura \@ref(fig:fig-media-inc-densidad) muestra que la distribución imputada difiere notablemente de la original, efecto esperable dada la asimetría positiva del ingreso:
+
+```{r}
+dat_plot4 <- tidyr::gather(
+  encuesta %>% dplyr::select(Zone, Sex, Income, Income_imp),
+  key = "Caso", value = "Income2", -Zone, -Sex
+)
+```
+
+```{r fig-media-inc-densidad, fig.cap="Densidad del ingreso original versus imputado por la media no condicional", echo=TRUE, eval=TRUE}
+ggplot(dat_plot4, aes(x = Income2, fill = Caso)) +
+  geom_density(alpha = 0.2) + theme_bw() +
+  theme(legend.position = "bottom") +
+  geom_vline(xintercept = mean(encuesta$Income),     col = "red") +
+  geom_vline(xintercept = mean(encuesta$Income_imp), col = "blue")
+```
+
+La Figura \@ref(fig:fig-media-inc-boxplot) presenta los boxplots por zona y sexo, donde se aprecia que la imputación introduce una concentración artificial de observaciones en el valor de la media:
+
+```{r fig-media-inc-boxplot, fig.cap="Boxplots del ingreso original e imputado por la media no condicional, por zona y sexo", echo=TRUE, eval=TRUE}
+ggplot(dat_plot4, aes(x = Caso, y = Income2)) +
+  geom_hline(yintercept = mean(encuesta$Income), col = "red") +
+  geom_boxplot() +
+  facet_grid(Zone ~ Sex) +
+  theme_bw()
+```
+
+## Imputación por la media condicional {#sec-media-condicional}
+
+La imputación por la media condicional reemplaza cada valor faltante por la media de la variable calculada dentro de un grupo definido por una o más covariables. Este enfoque es más preciso que el incondicional cuando existe una relación entre la variable imputada y las covariables de agrupación.
+
+A continuación, se imputa el ingreso condicionando en el estrato socioeconómico. Cuando algún estrato no tiene observaciones válidas para calcular la media, se usa como respaldo la media global:
+
+```{r}
+encuesta %<>%
+  group_by(Stratum) %>%
+  mutate(Income_imp = ifelse(
+    is.na(Income_missin),
+    mean(Income_missin, na.rm = TRUE),
+    Income_missin
+  )) %>%
+  data.frame()
+
+encuesta %<>%
+  mutate(Income_imp = ifelse(is.na(Income_imp), promedio, Income_imp))
+```
+
+La Tabla \@ref(tab:tab-sesgo-media-cond-global) compara la media y la desviación estándar globales. El sesgo relativo de la media es inferior al 1.5% y el de la desviación estándar es inferior al 5%:
+
+```{r eval=FALSE}
+encuesta %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  )
+```
+```{r tab-sesgo-media-cond-global, tab.cap="Comparación global entre ingreso original e imputado por la media condicional", echo=FALSE}
+encuesta %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  ) %>% tabla_fmt()
+```
+
+La Tabla \@ref(tab:tab-sesgo-media-cond-zona) presenta los resultados desagregados por zona. El sesgo relativo de la media es de 1.87% para la zona rural y de 0.8% para la urbana:
+
+```{r eval=FALSE}
+encuesta %>%
+  group_by(Zona = Zone) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  )
+```
+```{r tab-sesgo-media-cond-zona, tab.cap="Comparación entre ingreso original e imputado por la media condicional, por zona", echo=FALSE}
+encuesta %>%
+  group_by(Zona = Zone) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  ) %>% tabla_fmt()
+```
+
+La Tabla \@ref(tab:tab-sesgo-media-cond-sexo) presenta el análisis por sexo:
+
+```{r eval=FALSE}
+encuesta %>%
+  group_by(Sexo = Sex) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  )
+```
+```{r tab-sesgo-media-cond-sexo, tab.cap="Comparación entre ingreso original e imputado por la media condicional, por sexo", echo=FALSE}
+encuesta %>%
+  group_by(Sexo = Sex) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  ) %>% tabla_fmt()
+```
+
+La Figura \@ref(fig:fig-media-cond-densidad) muestra que la distribución imputada por la media condicional se aproxima mejor a la original que en el método incondicional, presentada en la Tabla \@ref(fig:fig-media-cond-boxplot)::
+
+```{r}
+dat_plot5 <- tidyr::gather(
+  encuesta %>% dplyr::select(Zone, Sex, Income, Income_imp),
+  key = "Caso", value = "Income2", -Zone, -Sex
+)
+```
+
+```{r fig-media-cond-densidad, fig.cap="Densidad del ingreso original versus imputado por la media condicional por estrato", echo=TRUE, eval=TRUE}
+ggplot(dat_plot5, aes(x = Income2, fill = Caso)) +
+  geom_density(alpha = 0.2) + theme_bw() +
+  theme(legend.position = "bottom") +
+  geom_vline(xintercept = mean(encuesta$Income),     col = "red") +
+  geom_vline(xintercept = mean(encuesta$Income_imp), col = "blue")
+```
+```{r fig-media-cond-boxplot, fig.cap="Boxplots del ingreso original e imputado por la media condicional, por zona y sexo", echo=TRUE, eval=TRUE}
+ggplot(dat_plot5, aes(x = Caso, y = Income2)) +
+  geom_hline(yintercept = mean(encuesta$Income), col = "red") +
+  geom_boxplot() +
+  facet_grid(Zone ~ Sex) +
+  theme_bw()
+```
+
+## Imputación por hot-deck y cold-deck {#sec-hotdeck}
+
+La imputación por **hot-deck** consiste en reemplazar el valor faltante de una observación receptora por el valor observado en una observación donante que comparte características similares, extraída de la misma muestra. El término proviene de los primeros sistemas de procesamiento de datos, donde las tarjetas perforadas activas se denominaban "hot deck". La técnica es efectiva cuando se cuenta con observaciones suficientemente similares en la muestra, aunque puede ser menos precisa en conjuntos de datos grandes o con estructuras complejas.
+
+La imputación por **cold-deck** es análoga, pero la fuente donante es externa a la muestra en estudio, como registros administrativos o datos históricos. Su aplicación está condicionada a la disponibilidad y representatividad de esa fuente externa.
+
+### Imputación hot-deck para el ingreso
+
+```{r}
+donante  <- which(!is.na(encuesta$Income_missin))
+receptor <- which(is.na(encuesta$Income_missin))
+encuesta$Income_imp <- encuesta$Income_missin
+set.seed(1234)
+for (ii in receptor) {
+  don_ii <- sample(x = donante, size = 1)
+  encuesta$Income_imp[ii] <- encuesta$Income_missin[don_ii]
+}
+```
+
+La Tabla \@ref(tab:tab-sesgo-hotdeck-global) compara los estadísticos globales. El sesgo relativo de la media es de 2.3%:
+
+```{r eval=FALSE}
+encuesta %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  )
+```
+```{r tab-sesgo-hotdeck-global, tab.cap="Comparación global entre ingreso original e imputado por hot-deck", echo=FALSE}
+encuesta %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  ) %>% tabla_fmt()
+```
+
+La Tabla \@ref(tab:tab-sesgo-hotdeck-zona) presenta los resultados por zona. El sesgo relativo es de 7.4% en la zona rural y de 0.7% en la urbana, lo que sugiere mayor variabilidad en el proceso de donación en zonas con menor tamaño muestral:
+
+```{r eval=FALSE}
+encuesta %>%
+  group_by(Zona = Zone) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  )
+```
+```{r tab-sesgo-hotdeck-zona, tab.cap="Comparación entre ingreso original e imputado por hot-deck, por zona", echo=FALSE}
+encuesta %>%
+  group_by(Zona = Zone) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  ) %>% tabla_fmt()
+```
+
+La Tabla \@ref(tab:tab-sesgo-hotdeck-sexo) presenta los resultados por sexo:
+
+```{r eval=FALSE}
+encuesta %>%
+  group_by(Sexo = Sex) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  )
+```
+```{r tab-sesgo-hotdeck-sexo, tab.cap="Comparación entre ingreso original e imputado por hot-deck, por sexo", echo=FALSE}
+encuesta %>%
+  group_by(Sexo = Sex) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  ) %>% tabla_fmt()
+```
+
+Las Figuras \@ref(fig:fig-hotdeck-densidad) y \@ref(fig:fig-hotdeck-boxplot) muestran que la distribución imputada es similar a la original, con diferencias algo mayores que en el método de media condicional:
+
+```{r}
+dat_plot6 <- tidyr::gather(
+  encuesta %>% dplyr::select(Zone, Sex, Income, Income_imp),
+  key = "Caso", value = "Income2", -Zone, -Sex
+)
+```
+
+```{r fig-hotdeck-densidad, fig.cap="Densidad del ingreso original versus imputado por hot-deck", echo=TRUE, eval=TRUE}
+ggplot(dat_plot6, aes(x = Income2, fill = Caso)) +
+  geom_density(alpha = 0.2) + theme_bw() +
+  theme(legend.position = "bottom") +
+  geom_vline(xintercept = mean(encuesta$Income),     col = "red") +
+  geom_vline(xintercept = mean(encuesta$Income_imp), col = "blue")
+```
+
+```{r fig-hotdeck-boxplot, fig.cap="Boxplots del ingreso original e imputado por hot-deck, por zona y sexo", echo=TRUE, eval=TRUE}
+ggplot(dat_plot6, aes(x = Caso, y = Income2)) +
+  geom_hline(yintercept = mean(encuesta$Income), col = "red") +
+  geom_boxplot() +
+  facet_grid(Zone ~ Sex) +
+  theme_bw()
+```
+
+### Imputación hot-deck para la variable empleo
+
+Para la variable categórica empleo, el método consiste en seleccionar un donante aleatorio y asignar su categoría al receptor. La probabilidad de selección de cada categoría es proporcional a su frecuencia observada:
+
+```{r}
+donante  <- which(!is.na(encuesta$Income_missin))
+receptor <- which(is.na(encuesta$Income_missin))
+encuesta$Employment_imp <- encuesta$Employment_missin
+prop <- prop.table(table(na.omit(encuesta$Employment_missin)))
+
+set.seed(1234)
+imp <- sample(
+  x       = c("Unemployed", "Inactive", "Employed"),
+  size    = length(receptor),
+  prob    = prop,
+  replace = TRUE
+)
+encuesta$Employment_imp[receptor] <- imp
+```
+
+## Imputación por regresión {#sec-regresion}
+
+La imputación por regresión ajusta un modelo estadístico a partir de los datos observados y utiliza sus predicciones para estimar los valores faltantes. Para la variable ingreso se emplea un modelo lineal múltiple; para la variable empleo, un modelo de regresión multinomial dado su carácter politómico:
+
+```{r}
+require(nnet)
+encuesta$Income_imp     <- encuesta$Income_missin
+encuesta$Employment_imp <- encuesta$Employment_missin
+encuesta_obs    <- filter(encuesta, !is.na(Income_missin))
+encuesta_no_obs <- filter(encuesta, is.na(Income_missin))
+
+mod      <- lm(Income ~ Zone + Sex + Expenditure, data = encuesta_obs)
+mod.mult <- multinom(Employment ~ Zone + Sex + Expenditure, data = encuesta_obs,
+                     trace = FALSE)
+```
+
+```{r}
+imp      <- predict(mod, encuesta_no_obs)
+imp.mult <- predict(mod.mult, encuesta_no_obs, type = "class")
+encuesta_no_obs$Income_imp     <- imp
+encuesta_no_obs$Employment_imp <- imp.mult
+encuesta <- bind_rows(encuesta_obs, encuesta_no_obs)
+```
+
+La Tabla \@ref(tab:tab-regresion-empleo-antes) presenta la distribución de la variable empleo antes de la imputación, y la Tabla \@ref(tab:tab-regresion-empleo-despues) muestra cómo se redistribuyen las categorías después de imputar el 20% de observaciones faltantes:
+
+```{r eval=FALSE}
+prop.table(table(encuesta$Employment_missin, useNA = "a")) %>%
+  as.data.frame() %>%
+  setNames(c("Estado", "Proporción"))
+```
+```{r tab-regresion-empleo-antes, tab.cap="Distribución de la variable empleo antes de la imputación por regresión (con valores faltantes)", echo=FALSE}
+prop.table(table(encuesta$Employment_missin, useNA = "a")) %>%
+  as.data.frame() %>%
+  setNames(c("Estado", "Proporción")) %>%
+  tabla_fmt()
+```
+
+```{r eval=FALSE}
+prop.table(table(encuesta$Employment_imp, useNA = "a")) %>%
+  as.data.frame() %>%
+  setNames(c("Estado", "Proporción"))
+```
+```{r tab-regresion-empleo-despues, tab.cap="Distribución de la variable empleo después de la imputación por regresión", echo=FALSE}
+prop.table(table(encuesta$Employment_imp, useNA = "a")) %>%
+  as.data.frame() %>%
+  setNames(c("Estado", "Proporción")) %>%
+  tabla_fmt()
+```
+
+La Tabla \@ref(tab:tab-regresion-empleo-zona-antes) y la Tabla \@ref(tab:tab-regresion-empleo-zona-despues) muestran que la distribución marginal por zona se preserva tras la imputación:
+
+```{r eval=FALSE}
+prop.table(table(encuesta$Zone, encuesta$Employment_missin, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix()
+```
+```{r tab-regresion-empleo-zona-antes, tab.cap="Distribución conjunta de zona y empleo antes de la imputación por regresión", echo=FALSE}
+prop.table(table(encuesta$Zone, encuesta$Employment_missin, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix() %>% tabla_fmt()
+```
+
+```{r eval=FALSE}
+prop.table(table(encuesta$Zone, encuesta$Employment_imp, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix()
+```
+```{r tab-regresion-empleo-zona-despues, tab.cap="Distribución conjunta de zona y empleo después de la imputación por regresión", echo=FALSE}
+prop.table(table(encuesta$Zone, encuesta$Employment_imp, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix() %>% tabla_fmt()
+```
+
+La Tabla \@ref(tab:tab-regresion-empleo-sexo-antes) y la Tabla \@ref(tab:tab-regresion-empleo-sexo-despues) presentan el análisis análogo por sexo:
+
+```{r eval=FALSE}
+prop.table(table(encuesta$Sex, encuesta$Employment_missin, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix()
+```
+```{r tab-regresion-empleo-sexo-antes, tab.cap="Distribución conjunta de sexo y empleo antes de la imputación por regresión", echo=FALSE}
+prop.table(table(encuesta$Sex, encuesta$Employment_missin, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix() %>% tabla_fmt()
+```
+
+```{r eval=FALSE}
+prop.table(table(encuesta$Sex, encuesta$Employment_imp, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix()
+```
+```{r tab-regresion-empleo-sexo-despues, tab.cap="Distribución conjunta de sexo y empleo después de la imputación por regresión", echo=FALSE}
+prop.table(table(encuesta$Sex, encuesta$Employment_imp, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix() %>% tabla_fmt()
+```
+
+La Tabla \@ref(tab:tab-sesgo-regresion-global) resume los estadísticos del ingreso. El sesgo relativo de la media es de 1.2%, lo que indica una imputación precisa:
+
+```{r eval=FALSE}
+encuesta %>%
+  summarise(
+    `Media original`  = round(mean(Income), 4),
+    `DS original`     = round(sd(Income), 4),
+    `Media imputada`  = round(mean(Income_imp), 4),
+    `DS imputada`     = round(sd(Income_imp), 4)
+  )
+```
+```{r tab-sesgo-regresion-global, tab.cap="Comparación global entre ingreso original e imputado por regresión", echo=FALSE}
+encuesta %>%
+  summarise(
+    `Media original`  = round(mean(Income), 4),
+    `DS original`     = round(sd(Income), 4),
+    `Media imputada`  = round(mean(Income_imp), 4),
+    `DS imputada`     = round(sd(Income_imp), 4)
+  ) %>% tabla_fmt()
+```
+
+La Tabla \@ref(tab:tab-sesgo-regresion-zona) y la Tabla \@ref(tab:tab-sesgo-regresion-sexo) presentan los resultados desagregados. Los sesgos relativos por zona son de 1.5% (rural) y 1.0% (urbana):
+
+```{r eval=FALSE}
+encuesta %>%
+  group_by(Zona = Zone) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  )
+```
+```{r tab-sesgo-regresion-zona, tab.cap="Comparación entre ingreso original e imputado por regresión, por zona", echo=FALSE}
+encuesta %>%
+  group_by(Zona = Zone) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  ) %>% tabla_fmt()
+```
+
+```{r eval=FALSE}
+encuesta %>%
+  group_by(Sexo = Sex) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  )
+```
+```{r tab-sesgo-regresion-sexo, tab.cap="Comparación entre ingreso original e imputado por regresión, por sexo", echo=FALSE}
+encuesta %>%
+  group_by(Sexo = Sex) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  ) %>% tabla_fmt()
+```
+
+Las Figuras \@ref(fig:fig-regresion-densidad) y \@ref(fig:fig-regresion-boxplot) muestran que la distribución imputada por regresión se aproxima bien a la original:
+
+```{r}
+dat_plot7 <- tidyr::gather(
+  encuesta %>% dplyr::select(Zone, Sex, Income, Income_imp),
+  key = "Caso", value = "Income2", -Zone, -Sex
+)
+```
+
+```{r fig-regresion-densidad, fig.cap="Densidad del ingreso original versus imputado por regresión", echo=TRUE, eval=TRUE}
+ggplot(dat_plot7, aes(x = Income2, fill = Caso)) +
+  geom_density(alpha = 0.2) + theme_bw() +
+  theme(legend.position = "bottom") +
+  geom_vline(xintercept = mean(encuesta$Income),     col = "red") +
+  geom_vline(xintercept = mean(encuesta$Income_imp), col = "blue")
+```
+
+```{r fig-regresion-boxplot, fig.cap="Boxplots del ingreso original e imputado por regresión, por zona y sexo", echo=TRUE, eval=TRUE}
+ggplot(dat_plot7, aes(x = Caso, y = Income2)) +
+  geom_hline(yintercept = mean(encuesta$Income), col = "red") +
+  geom_boxplot() +
+  facet_grid(Zone ~ Sex) +
+  theme_bw()
+```
+
+## Imputación por el vecino más cercano {#sec-knn}
+
+La imputación por el vecino más cercano (*k-nearest neighbor*, KNN) reemplaza cada valor faltante por el valor observado en la observación más similar según una medida de distancia definida sobre las covariables disponibles. Los pasos del método son:
+
+1. Definir una medida de distancia (por ejemplo, la distancia euclidiana).
+2. Para cada observación receptora, identificar el donante más cercano.
+3. Imputar el valor faltante con la información del donante identificado.
+
+A continuación, se imputan el ingreso y el empleo utilizando el gasto como covariable y la distancia euclidiana como medida de similitud:
+
+```{r}
+encuesta$Income_imp     <- encuesta$Income_missin
+encuesta$Employment_imp <- encuesta$Employment_missin
+encuesta_obs    <- filter(encuesta, !is.na(Income_missin))
+encuesta_no_obs <- filter(encuesta, is.na(Income_missin))
+
+for (ii in 1:nrow(encuesta_no_obs)) {
+  Expen_ii  <- encuesta_no_obs$Expenditure[[ii]]
+  don_ii    <- which.min(abs(Expen_ii - encuesta_obs$Expenditure))
+  encuesta_no_obs$Income_imp[[ii]]     <- encuesta_obs$Income_missin[[don_ii]]
+  encuesta_no_obs$Employment_imp[[ii]] <- encuesta_obs$Employment_missin[[don_ii]]
+}
+
+encuesta <- bind_rows(encuesta_obs, encuesta_no_obs)
+```
+
+La Tabla \@ref(tab:tab-knn-empleo-antes) y la Tabla \@ref(tab:tab-knn-empleo-despues) muestran la distribución de la variable empleo antes y después de la imputación:
+
+```{r eval=FALSE}
+prop.table(table(encuesta$Employment_missin, useNA = "a")) %>%
+  as.data.frame() %>% setNames(c("Estado", "Proporción"))
+```
+```{r tab-knn-empleo-antes, tab.cap="Distribución de la variable empleo antes de la imputación KNN", echo=FALSE}
+prop.table(table(encuesta$Employment_missin, useNA = "a")) %>%
+  as.data.frame() %>% setNames(c("Estado", "Proporción")) %>%
+  tabla_fmt()
+```
+
+```{r eval=FALSE}
+prop.table(table(encuesta$Employment_imp, useNA = "a")) %>%
+  as.data.frame() %>% setNames(c("Estado", "Proporción"))
+```
+```{r tab-knn-empleo-despues, tab.cap="Distribución de la variable empleo después de la imputación KNN", echo=FALSE}
+prop.table(table(encuesta$Employment_imp, useNA = "a")) %>%
+  as.data.frame() %>% setNames(c("Estado", "Proporción")) %>%
+  tabla_fmt()
+```
+
+La Tabla \@ref(tab:tab-knn-zona-antes), la Tabla \@ref(tab:tab-knn-zona-despues), la Tabla \@ref(tab:tab-knn-sexo-antes) y la Tabla \@ref(tab:tab-knn-sexo-despues) verifican que las distribuciones marginales por zona y sexo se preservan:
+
+```{r eval=FALSE}
+prop.table(table(encuesta$Zone, encuesta$Employment_missin, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix()
+```
+```{r tab-knn-zona-antes, tab.cap="Distribución conjunta de zona y empleo antes de la imputación KNN", echo=FALSE}
+prop.table(table(encuesta$Zone, encuesta$Employment_missin, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix() %>% tabla_fmt()
+```
+
+```{r eval=FALSE}
+prop.table(table(encuesta$Zone, encuesta$Employment_imp, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix()
+```
+```{r tab-knn-zona-despues, tab.cap="Distribución conjunta de zona y empleo después de la imputación KNN", echo=FALSE}
+prop.table(table(encuesta$Zone, encuesta$Employment_imp, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix() %>% tabla_fmt()
+```
+
+```{r eval=FALSE}
+prop.table(table(encuesta$Sex, encuesta$Employment_missin, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix()
+```
+```{r tab-knn-sexo-antes, tab.cap="Distribución conjunta de sexo y empleo antes de la imputación KNN", echo=FALSE}
+prop.table(table(encuesta$Sex, encuesta$Employment_missin, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix() %>% tabla_fmt()
+```
+
+```{r eval=FALSE}
+prop.table(table(encuesta$Sex, encuesta$Employment_imp, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix()
+```
+```{r tab-knn-sexo-despues, tab.cap="Distribución conjunta de sexo y empleo después de la imputación KNN", echo=FALSE}
+prop.table(table(encuesta$Sex, encuesta$Employment_imp, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix() %>% tabla_fmt()
+```
+
+La Tabla \@ref(tab:tab-sesgo-knn-global), la Tabla \@ref(tab:tab-sesgo-knn-zona) y la Tabla \@ref(tab:tab-sesgo-knn-sexo) resumen los estadísticos del ingreso. La diferencia entre la media real y la estimada es de aproximadamente 6 unidades monetarias a nivel global, presentada en la Tabla \@ref(fig:fig-knn-densidad):, presentada en la Tabla \@ref(fig:fig-knn-boxplot)::
+
+```{r eval=FALSE}
+encuesta %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  )
+```
+```{r tab-sesgo-knn-global, tab.cap="Comparación global entre ingreso original e imputado por KNN", echo=FALSE}
+encuesta %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  ) %>% tabla_fmt()
+```
+
+```{r eval=FALSE}
+encuesta %>%
+  group_by(Zona = Zone) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  )
+```
+```{r tab-sesgo-knn-zona, tab.cap="Comparación entre ingreso original e imputado por KNN, por zona", echo=FALSE}
+encuesta %>%
+  group_by(Zona = Zone) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  ) %>% tabla_fmt()
+```
+
+```{r eval=FALSE}
+encuesta %>%
+  group_by(Sexo = Sex) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  )
+```
+```{r tab-sesgo-knn-sexo, tab.cap="Comparación entre ingreso original e imputado por KNN, por sexo", echo=FALSE}
+encuesta %>%
+  group_by(Sexo = Sex) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  ) %>% tabla_fmt()
+```
+
+```{r}
+dat_plot8 <- tidyr::gather(
+  encuesta %>% dplyr::select(Zone, Sex, Income, Income_imp),
+  key = "Caso", value = "Income2", -Zone, -Sex
+)
+```
+```{r fig-knn-densidad, fig.cap="Densidad del ingreso original versus imputado por KNN", echo=TRUE, eval=TRUE}
+ggplot(dat_plot8, aes(x = Income2, fill = Caso)) +
+  geom_density(alpha = 0.2) + theme_bw() +
+  theme(legend.position = "bottom") +
+  geom_vline(xintercept = mean(encuesta$Income),     col = "red") +
+  geom_vline(xintercept = mean(encuesta$Income_imp), col = "blue")
+```
+```{r fig-knn-boxplot, fig.cap="Boxplots del ingreso original e imputado por KNN, por zona y sexo", echo=TRUE, eval=TRUE}
+ggplot(dat_plot8, aes(x = Caso, y = Income2)) +
+  geom_hline(yintercept = mean(encuesta$Income), col = "red") +
+  geom_boxplot() +
+  facet_grid(Zone ~ Sex) +
+  theme_bw()
+```
+
+## Imputación por el vecino más cercano con regresión {#sec-knn-regresion}
+
+Este método combina la imputación por regresión con la lógica del vecino más cercano. El donante se identifica como la observación observada cuyo valor predicho por el modelo es más próximo al valor predicho para el receptor. De esta manera, la selección del donante se basa en la similitud en el espacio del predictor lineal, y el valor imputado es el valor observado del donante, no la predicción del modelo. Los pasos son:
+
+1. Ajustar un modelo de regresión con los datos observados.
+2. Calcular las predicciones para observaciones observadas y no observadas.
+3. Para cada receptor, identificar el donante con la predicción más cercana.
+4. Imputar el valor observado del donante (no el valor predicho).
+
+```{r}
+encuesta$Income_imp     <- encuesta$Income_missin
+encuesta$Employment_imp <- encuesta$Employment_missin
+encuesta_obs    <- filter(encuesta, !is.na(Income_missin))
+encuesta_no_obs <- filter(encuesta, is.na(Income_missin))
+mod <- lm(Income ~ Zone + Sex + Expenditure, data = encuesta_obs)
+```
+
+```{r}
+pred_Obs    <- predict(mod, encuesta_obs)
+pred_no_Obs <- predict(mod, encuesta_no_obs)
+
+for (ii in 1:nrow(encuesta_no_obs)) {
+  don_ii <- which.min(abs(pred_no_Obs[ii] - pred_Obs))
+  encuesta_no_obs$Income_imp[[ii]]     <- encuesta_obs$Income_missin[[don_ii]]
+  encuesta_no_obs$Employment_imp[[ii]] <- encuesta_obs$Employment_missin[[don_ii]]
+}
+
+encuesta <- bind_rows(encuesta_obs, encuesta_no_obs)
+```
+
+La Tabla \@ref(tab:tab-knn-reg-empleo-antes) y la Tabla \@ref(tab:tab-knn-reg-empleo-despues) muestran la distribución de la variable empleo antes y después de la imputación:
+
+```{r eval=FALSE}
+prop.table(table(encuesta$Employment_missin, useNA = "a")) %>%
+  as.data.frame() %>% setNames(c("Estado", "Proporción"))
+```
+```{r tab-knn-reg-empleo-antes, tab.cap="Distribución de la variable empleo antes de la imputación KNN con regresión", echo=FALSE}
+prop.table(table(encuesta$Employment_missin, useNA = "a")) %>%
+  as.data.frame() %>% setNames(c("Estado", "Proporción")) %>%
+  tabla_fmt()
+```
+
+```{r eval=FALSE}
+prop.table(table(encuesta$Employment_imp, useNA = "a")) %>%
+  as.data.frame() %>% setNames(c("Estado", "Proporción"))
+```
+```{r tab-knn-reg-empleo-despues, tab.cap="Distribución de la variable empleo después de la imputación KNN con regresión", echo=FALSE}
+prop.table(table(encuesta$Employment_imp, useNA = "a")) %>%
+  as.data.frame() %>% setNames(c("Estado", "Proporción")) %>%
+  tabla_fmt()
+```
+
+La Tabla \@ref(tab:tab-knn-reg-zona-antes), la Tabla \@ref(tab:tab-knn-reg-zona-despues), la Tabla \@ref(tab:tab-knn-reg-sexo-antes) y la Tabla \@ref(tab:tab-knn-reg-sexo-despues) verifican la preservación de las distribuciones marginales:
+
+```{r eval=FALSE}
+prop.table(table(encuesta$Zone, encuesta$Employment_missin, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix()
+```
+```{r tab-knn-reg-zona-antes, tab.cap="Distribución conjunta de zona y empleo antes de la imputación KNN con regresión", echo=FALSE}
+prop.table(table(encuesta$Zone, encuesta$Employment_missin, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix() %>% tabla_fmt()
+```
+
+```{r eval=FALSE}
+prop.table(table(encuesta$Zone, encuesta$Employment_imp, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix()
+```
+```{r tab-knn-reg-zona-despues, tab.cap="Distribución conjunta de zona y empleo después de la imputación KNN con regresión", echo=FALSE}
+prop.table(table(encuesta$Zone, encuesta$Employment_imp, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix() %>% tabla_fmt()
+```
+
+```{r eval=FALSE}
+prop.table(table(encuesta$Sex, encuesta$Employment_missin, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix()
+```
+```{r tab-knn-reg-sexo-antes, tab.cap="Distribución conjunta de sexo y empleo antes de la imputación KNN con regresión", echo=FALSE}
+prop.table(table(encuesta$Sex, encuesta$Employment_missin, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix() %>% tabla_fmt()
+```
+
+```{r eval=FALSE}
+prop.table(table(encuesta$Sex, encuesta$Employment_imp, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix()
+```
+```{r tab-knn-reg-sexo-despues, tab.cap="Distribución conjunta de sexo y empleo después de la imputación KNN con regresión", echo=FALSE}
+prop.table(table(encuesta$Sex, encuesta$Employment_imp, useNA = "a")) %>%
+  addmargins() %>% as.data.frame.matrix() %>% tabla_fmt()
+```
+
+La Tabla \@ref(tab:tab-sesgo-knn-reg-global), la Tabla \@ref(tab:tab-sesgo-knn-reg-zona) y la Tabla \@ref(tab:tab-sesgo-knn-reg-sexo) muestran que la diferencia máxima entre el ingreso real y el imputado es de aproximadamente 5 unidades monetarias, presentada en la Tabla \@ref(fig:fig-knn-reg-densidad):, presentada en la Tabla \@ref(fig:fig-knn-reg-boxplot)::
+
+```{r eval=FALSE}
+encuesta %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  )
+```
+```{r tab-sesgo-knn-reg-global, tab.cap="Comparación global entre ingreso original e imputado por KNN con regresión", echo=FALSE}
+encuesta %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  ) %>% tabla_fmt()
+```
+
+```{r eval=FALSE}
+encuesta %>%
+  group_by(Zona = Zone) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  )
+```
+```{r tab-sesgo-knn-reg-zona, tab.cap="Comparación entre ingreso original e imputado por KNN con regresión, por zona", echo=FALSE}
+encuesta %>%
+  group_by(Zona = Zone) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  ) %>% tabla_fmt()
+```
+
+```{r eval=FALSE}
+encuesta %>%
+  group_by(Sexo = Sex) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  )
+```
+```{r tab-sesgo-knn-reg-sexo, tab.cap="Comparación entre ingreso original e imputado por KNN con regresión, por sexo", echo=FALSE}
+encuesta %>%
+  group_by(Sexo = Sex) %>%
+  summarise(
+    `Media original`  = round(mean(Income), 1),
+    `DS original`     = round(sd(Income), 1),
+    `Media imputada`  = round(mean(Income_imp), 1),
+    `DS imputada`     = round(sd(Income_imp), 1)
+  ) %>% tabla_fmt()
+```
+
+```{r}
+dat_plot9 <- tidyr::gather(
+  encuesta %>% dplyr::select(Zone, Sex, Income, Income_imp),
+  key = "Caso", value = "Income2", -Zone, -Sex
+)
+```
+```{r fig-knn-reg-densidad, fig.cap="Densidad del ingreso original versus imputado por KNN con regresión", echo=TRUE, eval=TRUE}
+ggplot(dat_plot9, aes(x = Income2, fill = Caso)) +
+  geom_density(alpha = 0.2) + theme_bw() +
+  theme(legend.position = "bottom") +
+  geom_vline(xintercept = mean(encuesta$Income),     col = "red") +
+  geom_vline(xintercept = mean(encuesta$Income_imp), col = "blue")
+```
+```{r fig-knn-reg-boxplot, fig.cap="Boxplots del ingreso original e imputado por KNN con regresión, por zona y sexo", echo=TRUE, eval=TRUE}
+ggplot(dat_plot9, aes(x = Caso, y = Income2)) +
+  geom_hline(yintercept = mean(encuesta$Income), col = "red") +
+  geom_boxplot() +
+  facet_grid(Zone ~ Sex) +
+  theme_bw()
+```
+
+## Imputación múltiple {#sec-im}
+
+La imputación múltiple [@rubin1987multiple] aborda el problema de los datos faltantes generando $M > 1$ conjuntos de valores plausibles para las observaciones no observadas. Cada conjunto corresponde a una realización del modelo de imputación, de modo que la incertidumbre asociada a los valores faltantes queda explícitamente representada en la variabilidad entre imputaciones.
+
+En este enfoque, el objetivo es aproximar la distribución condicional de los datos faltantes dado la información observada, es decir,
+
+$$P(Y_{NoObs} \mid Y_{Obs}, X),$$
+donde $Y_{Obs}$ el subconjunto de $n_1$ valores observados de $Y$, y $Y_{NoObs}$ el subconjunto de $n_0 = n - n_1$ valores no observados. Se asume que la covariable $X$ es completamente observada.
+
+Para ilustrar el procedimiento, se considera un esquema generador de datos donde las variables X e Y se relacionan mediante el siguiente modelo de regresión sin intercepto:
+
+$$
+y_i = \beta x_i + \varepsilon_i,
+\qquad
+\varepsilon_i \sim N(0,\sigma^2),
+\qquad
+i=1,\ldots,n.
+$$
+Este modelo se utiliza únicamente como mecanismo generador de datos para la simulación y la ilustración del método. En el marco de la imputación múltiple, el modelo de imputación tiene carácter auxiliar y busca aproximar la distribución condicional de los datos faltantes dado la información observada, independientemente de que el modelo sustantivo incluya o no intercepto.
+
+En imputación múltiple, el modelo de imputación no tiene por qué coincidir con el modelo de análisis final. Su función es aproximar adecuadamente la distribución de los datos faltantes condicional a la información disponible, de forma que la variabilidad entre imputaciones refleje correctamente la incertidumbre asociada al proceso de imputación.
+
+### Estimadores de la imputación múltiple
+
+Para el parámetro de interés $\beta$, la estimación combinada sobre las $M$ imputaciones es:
+
+$$\bar{\hat{\beta}} = \frac{1}{M} \sum_{m=1}^{M} \hat{\beta}_m$$
+
+La varianza total estimada combina la varianza dentro de las imputaciones ($\bar{U}$) y la varianza entre imputaciones ($B$), con una corrección por el número finito de imputaciones:
+
+$$\hat{V}(\hat{\beta} \mid Y_{obs}) = \bar{U} + \left(1 + \frac{1}{M}\right) B$$
+
+donde:
+
+$$\bar{U} = \frac{1}{M} \sum_{m=1}^{M} \widehat{Var}(\hat{\beta}_m)$$
+
+$$B = \frac{1}{M-1} \sum_{m=1}^{M} \left(\hat{\beta}_m - \bar{\hat{\beta}}\right)^2$$
+
+### Implementación mediante bootstrap
+
+Para ilustrar la metodología, se simula un conjunto de datos con $n = 500$ observaciones y $n_0 = 200$ valores faltantes, con pendiente $\beta = 10$ y desviación estándar $\sigma = 2$, presentada en la Tabla \@ref(tab:tab-datos-simulados)::
+
+```{r}
+generar <- function(n = 500, n_0 = 200, beta = 10, sigma = 2) {
+  x       <- runif(n)
+  mu      <- beta * x
+  y       <- mu + rnorm(n, mean = 0, sd = sigma)
+  datos   <- data.frame(x = x, y = y)
+  faltantes <- sample(n, n_0)
+  datos$faltantes       <- "No"
+  datos$faltantes[faltantes] <- "Si"
+  datos$y.per           <- y
+  datos$y.per[faltantes] <- NA
+  return(datos)
+}
+```
+```{r}
+
+set.seed(1234)
+datos <- generar()
+```
+
+```{r eval=FALSE}
+head(datos, 12)
+
+```
+```{r tab-datos-simulados, tab.cap="Primeras 12 observaciones del conjunto de datos simulado con valores faltantes", echo=FALSE}
+head(datos, 12) %>% tabla_fmt()
+
+```
+
+La Figura \@ref(fig:fig-datos-sim-completos) compara la relación entre $x$ e $y$ para los datos completos y para los datos con valores faltantes. Las distribuciones son muy similares, lo que indica que los faltantes se introdujeron de forma aproximadamente aleatoria:
+
+```{r fig-datos-sim-completos, fig.cap="Relación entre x e y: datos completos (izquierda) y datos con valores faltantes (derecha)", echo=TRUE, eval=TRUE}
+library(patchwork)
+p1 <- ggplot(data = datos, aes(x = x, y = y)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(formula = y ~ x, method = "lm") +
+  labs(title = "Datos completos")
+
+p2 <- ggplot(data = datos, aes(x = x, y = y.per)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(formula = y ~ x, method = "lm") +
+  labs(title = "Con valores faltantes")
+
+p1 | p2
+```
+
+La función de imputación por bootstrap genera $M$ conjuntos de valores plausibles y devuelve el estimador combinado de $\beta$ junto con su error estándar:
+
+```{r boot0, eval=TRUE, echo=TRUE}
+im.bootstrap <- function(datos, M = 15) {
+  library(dplyr)
+  n     <- nrow(datos)
+  datos1 <- na.omit(datos)
+  n1    <- nrow(datos1)
+  n0    <- n - n1
+  Ind   <- is.na(datos$y.per)
+  beta1 <- sigma1 <- NULL
+
+  for (m in 1:M) {
+    datos.m      <- dplyr::sample_n(datos1, n1, replace = TRUE)
+    model1       <- lm(y ~ 0 + x, data = datos.m)
+    beta         <- model1$coeff
+    sigma        <- sqrt(anova(model1)[["Mean Sq"]][2])
+    faltantes.bt <- rnorm(n0, datos$x[Ind] * beta, sd = sigma)
+    datos$y.per[Ind] <- faltantes.bt
+    model.input  <- lm(y.per ~ 0 + x, data = datos)
+    beta1[m]     <- model.input$coeff
+    sigma1[m]    <- summary(model.input)$coeff[2]
+  }
+
+  beta.input <- mean(beta1)
+  u.bar      <- mean(sigma1^2)
+  B          <- var(beta1)
+  beta.sd    <- sqrt(u.bar + B + B / M)
+  list(new = datos, beta = beta.input, sd = beta.sd)
+}
+```
+
+La Tabla \@ref(tab:tab-im-bootstrap-result) presenta los resultados de la imputación por bootstrap:
+
+```{r}
+datos <- generar()
+```
+
+```{r eval=FALSE}
+data.frame(
+  `Estimación de beta`  = round(im.bootstrap(datos)$beta, 1),
+  `Error estándar`      = round(im.bootstrap(datos)$sd, 4)
+)
+
+```
+```{r tab-im-bootstrap-result, tab.cap="Estimación de la pendiente y su error estándar mediante imputación múltiple por bootstrap", echo=FALSE}
+data.frame(
+  `Estimación de beta`  = round(im.bootstrap(datos)$beta, 1),
+  `Error estándar`      = round(im.bootstrap(datos)$sd, 4)
+) %>% tabla_fmt()
+
+```
+
+La Figura \@ref(fig:fig-im-bootstrap-dispersion) visualiza la distribución de los valores imputados diferenciados según si eran faltantes o no, confirmando que los valores plausibles presentan una dispersión coherente con el modelo:
+
+```{r fig-im-bootstrap-dispersion, fig.cap="Dispersión de los valores imputados por bootstrap: faltantes (Si) versus observados (No)", echo=TRUE, message=FALSE, warning=FALSE}
+nuevos <- im.bootstrap(datos)$new
+ggplot(data = nuevos, aes(x = x, y = y.per, color = faltantes)) +
+  geom_point(alpha = 0.6) +
+  labs(x = "x", y = "y (con imputación)", color = "Era faltante") +
+  theme_bw()
+```
+
+### Imputación múltiple para la encuesta de hogares
+
+A continuación, se aplica la imputación múltiple a la encuesta de hogares. Se generan $M = 10$ valores plausibles para el ingreso y el empleo, ajustando en cada iteración un modelo lineal y uno multinomial a una muestra bootstrap de los datos observados:
+
+```{r}
+encuesta$Income_imp     <- encuesta$Income_missin
+encuesta$Employment_imp <- encuesta$Employment_missin
+encuesta_obs    <- filter(encuesta, !is.na(Income_missin))
+encuesta_no_obs <- filter(encuesta, is.na(Income_missin))
+n0 <- nrow(encuesta_no_obs)
+n1 <- nrow(encuesta_obs)
+```
+
+```{r}
+M <- 10
+set.seed(1234)
+for (ii in 1:M) {
+  vp  <- paste0("Income_vp_",     ii)
+  vp2 <- paste0("Employment_vp_", ii)
+
+  encuesta_temp <- encuesta_obs %>% sample_n(size = n1, replace = TRUE)
+
+  mod      <- lm(Income ~ Zone + Sex + Expenditure, data = encuesta_temp)
+  mod.mult <- multinom(Employment ~ Zone + Sex + Expenditure,
+                       data = encuesta_temp, trace = FALSE)
+
+  encuesta_no_obs[[vp]]  <- predict(mod,      encuesta_no_obs)
+  encuesta_obs[[vp]]     <- encuesta_obs$Income
+
+  encuesta_no_obs[[vp2]] <- predict(mod.mult, encuesta_no_obs, type = "class")
+  encuesta_obs[[vp2]]    <- encuesta_obs$Employment
+}
+```
+
+La Tabla \@ref(tab:tab-vp-ingreso) presenta las primeras columnas del conjunto de valores plausibles para el ingreso en las observaciones no observadas:
+
+```{r eval=FALSE}
+dplyr::select(encuesta_no_obs, Income, matches("Income_vp_"))[1:10, 1:4]
+```
+```{r tab-vp-ingreso, tab.cap="Valores plausibles del ingreso para las primeras 10 observaciones no observadas (primeras 4 imputaciones)", echo=FALSE}
+dplyr::select(encuesta_no_obs, Income, matches("Income_vp_"))[1:10, 1:4] %>%
+  tabla_fmt()
+```
+
+La Figura \@ref(fig:fig-vp-ingreso-densidad) muestra que las distribuciones de los 10 valores plausibles son muy similares entre sí y con respecto a la distribución del ingreso completo:
+
+```{r}
+encuesta <- bind_rows(encuesta_obs, encuesta_no_obs)
+dat_plot10 <- tidyr::gather(
+  encuesta %>% dplyr::select(Zone, Sex, matches("Income_vp_")),
+  key = "Caso", value = "Income2", -Zone, -Sex
+)
+```
+
+```{r fig-vp-ingreso-densidad, fig.cap="Distribución de los 10 valores plausibles del ingreso versus la distribución del ingreso completo (línea negra)", echo=TRUE, eval=TRUE}
+ggplot(dat_plot10, aes(x = Income2, col = Caso)) +
+  geom_density(alpha = 0.2) + theme_bw() +
+  theme(legend.position = "bottom") +
+  geom_density(data = encuesta, aes(x = Income), col = "black", linewidth = 1.2)
+```
+
+La Figura \@ref(fig:fig-vp-empleo-frecuencias) compara las frecuencias de los valores plausibles para la variable empleo con la distribución de la variable completa, verificando que las proporciones son coherentes:
+
+```{r}
+dat_plot11 <- tidyr::gather(
+  encuesta %>%
+    dplyr::select(Zone, Sex, Employment, matches("Employment_vp_")),
+  key = "Caso", value = "Employment2", -Zone, -Sex
+) %>%
+  group_by(Caso, Employment2) %>%
+  tally() %>%
+  group_by(Caso) %>%
+  mutate(prop = n / sum(n))
+```
+
+```{r fig-vp-empleo-frecuencias, fig.cap="Proporciones de los valores plausibles para la variable empleo comparadas con la variable completa", echo=TRUE, eval=TRUE}
+ggplot(dat_plot11,
+       aes(x = Employment2, y = prop, fill = Caso)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.5)) +
+  scale_fill_manual(values = c("Employment" = "black"),
+                    na.value = "grey70") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
+### Estimación del ingreso medio mediante imputación múltiple
+
+Se define el diseño muestral y se estima el ingreso medio para cada uno de los 10 valores plausibles:
+
+```{r}
+library(srvyr)
+diseno <- encuesta %>%
+  as_survey_design(strata = Stratum, ids = PSU, weights = wk, nest = TRUE)
+```
+
+```{r}
+estimacion_vp <- diseno %>%
+  summarise(
+    vp1  = survey_mean(Income_vp_1,  vartype = "var"),
+    vp2  = survey_mean(Income_vp_2,  vartype = "var"),
+    vp3  = survey_mean(Income_vp_3,  vartype = "var"),
+    vp4  = survey_mean(Income_vp_4,  vartype = "var"),
+    vp5  = survey_mean(Income_vp_5,  vartype = "var"),
+    vp6  = survey_mean(Income_vp_6,  vartype = "var"),
+    vp7  = survey_mean(Income_vp_7,  vartype = "var"),
+    vp8  = survey_mean(Income_vp_8,  vartype = "var"),
+    vp9  = survey_mean(Income_vp_9,  vartype = "var"),
+    vp10 = survey_mean(Income_vp_10, vartype = "var")
+  )
+```
+
+La Tabla \@ref(tab:tab-vp-estimaciones) presenta las estimaciones del ingreso medio y su varianza para cada valor plausible:
+
+```{r}
+
+estimacion_vp %<>%
+  tidyr::gather() %>%
+  separate(key, c("vp", "estimacion")) %>%
+  mutate(estimacion = ifelse(is.na(estimacion), "promedio", "var")) %>%
+  spread(estimacion, value) %>%
+  mutate(vp = 1:10)
+```
+
+```{r eval=FALSE}
+  
+estimacion_vp
+
+```
+```{r tab-vp-estimaciones, tab.cap="Estimaciones del ingreso medio y su varianza para cada valor plausible", echo=FALSE}
+  
+estimacion_vp %>% tabla_fmt()
+
+```
+
+Aplicando las reglas de combinación de @rubin1987multiple, la Tabla \@ref(tab:tab-im-resultado-media) presenta la estimación combinada del ingreso medio y su error estándar:
+
+```{r}
+
+Media_vp <- mean(estimacion_vp$promedio)
+Ubar     <- mean(estimacion_vp$var)
+B        <- var(estimacion_vp$promedio)
+var_vp   <- Ubar + (1 + 1 / M) * B
+```
+
+```{r eval=FALSE}
+data.frame(
+  `Media estimada`  = round(Media_vp, 4),
+  `Error estándar`  = round(sqrt(var_vp), 4)
+)
+
+```
+```{r tab-im-resultado-media, tab.cap="Estimación combinada del ingreso medio mediante imputación múltiple (reglas de Rubin)", echo=FALSE}
+data.frame(
+  `Media estimada`  = round(Media_vp, 4),
+  `Error estándar`  = round(sqrt(var_vp), 4)
+) %>% tabla_fmt()
+
+```
+
+### Estimación de la varianza del ingreso
+
+```{r}
+estimacion_var_vp <- diseno %>%
+  summarise_at(vars(matches("Income_vp")), survey_var, vartype = "var")
+```
+
+La Tabla \@ref(tab:tab-vp-varianza-ingreso) presenta las estimaciones de la varianza del ingreso para cada valor plausible:
+
+```{r}
+
+estimacion_var_vp %<>%
+  tidyr::gather() %>%
+  separate(key, c("A", "B", "vp", "estimacion")) %>%
+  mutate(
+    estimacion = ifelse(is.na(estimacion), "promedio", "var"),
+    A = NULL, B = NULL,
+    vp = as.numeric(vp)
+  ) %>%
+  spread(estimacion, value)
+```
+
+```{r eval=FALSE}
+estimacion_var_vp
+
+```
+```{r tab-vp-varianza-ingreso, tab.cap="Estimaciones de la varianza del ingreso para cada valor plausible", echo=FALSE}
+estimacion_var_vp %>% tabla_fmt()
+
+```
+
+La Tabla \@ref(tab:tab-im-resultado-varianza) presenta la estimación combinada de la varianza del ingreso:
+
+```{r}
+
+Media_var_vp <- mean(estimacion_var_vp$promedio)
+Ubar_var     <- mean(estimacion_var_vp$var)
+B_var        <- var(estimacion_var_vp$promedio)
+var_var_vp   <- Ubar_var + (1 + 1 / M) * B_var
+```
+
+```{r eval=FALSE}
+data.frame(
+  `Varianza estimada`  = round(Media_var_vp, 4),
+  `Error estándar`     = round(sqrt(var_var_vp), 4)
+)
+
+```
+```{r tab-im-resultado-varianza, tab.cap="Estimación combinada de la varianza del ingreso mediante imputación múltiple (reglas de Rubin)", echo=FALSE}
+data.frame(
+  `Varianza estimada`  = round(Media_var_vp, 4),
+  `Error estándar`     = round(sqrt(var_var_vp), 4)
+) %>% tabla_fmt()
+
+```
+
+### Estimación de proporciones de empleo
+
+```{r}
+estimacion_prop_vp <- lapply(
+  paste0("Employment_vp_", 1:10),
+  function(vp) {
+    diseno %>%
+      group_by_at(vars(Employment = vp)) %>%
+      summarise(prop = survey_mean(vartype = "var"), .groups = "drop") %>%
+      mutate(vp = vp)
+  }
+) %>% bind_rows()
+```
+
+La Tabla \@ref(tab:tab-vp-proporciones) muestra las estimaciones de la proporción por estado de empleo para los primeros 12 registros:
+
+```{r}
+
+estimacion_prop_vp %<>%
+  separate(vp, c("A", "B", "vp")) %>%
+  mutate(A = NULL, B = NULL, vp = as.numeric(vp)) %>%
+  dplyr::select(vp, Employment:prop_var)
+```
+
+```{r eval=FALSE}
+  
+estimacion_prop_vp %>% slice(1:12L)
+
+```
+```{r tab-vp-proporciones, tab.cap="Estimaciones de la proporción por estado de empleo para cada valor plausible (primeras 12 filas)", echo=FALSE}
+  
+estimacion_prop_vp %>% slice(1:12L) %>% tabla_fmt()
+
+```
+
+La Tabla \@ref(tab:tab-im-resultado-proporciones) presenta la estimación combinada de las proporciones de empleo mediante las reglas de Rubin:
+
+```{r eval=FALSE}
+estimacion_prop_vp %>%
+  group_by(Employment) %>%
+  summarise(
+    `Proporción estimada` = round(mean(prop), 4),
+    Ubar                  = mean(prop_var),
+    B                     = var(prop)
+  ) %>%
+  mutate(
+    `Varianza total` = round(Ubar + (1 + 1 / M) * B, 6),
+    Ubar = NULL, B = NULL
+  )
+```
+```{r tab-im-resultado-proporciones, tab.cap="Estimación combinada de proporciones de empleo mediante imputación múltiple (reglas de Rubin)", echo=FALSE}
+estimacion_prop_vp %>%
+  group_by(Employment) %>%
+  summarise(
+    `Proporción estimada` = round(mean(prop), 4),
+    Ubar                  = mean(prop_var),
+    B                     = var(prop)
+  ) %>%
+  mutate(
+    `Varianza total` = round(Ubar + (1 + 1 / M) * B, 6),
+    Ubar = NULL, B = NULL
+  ) %>%
+  tabla_fmt()
+```

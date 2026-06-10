@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 3 Análisis de las variables continuas | Análisis de encuestas de hogares con R</title>
+  <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 3 Análisis de las variables continuas | Análisis de encuestas de hogares con R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="github-repo" content="psirusteam/2021ASDA" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 3 Análisis de las variables continuas | Análisis de encuestas de hogares con R" />
+  
+  <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  
+
+<meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
+
+
+<meta name="date" content="2026-06-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="conceptos-básicos-en-encuestas-de-hogares.html"/>
+<link rel="next" href="análisis-de-variables-categóricas.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
+<li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="1" data-path="cap-intro.html"><a href="cap-intro.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="03-Continuas.html"><a href="#justificaci%C3%B3n"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
+<li class="chapter" data-level="1.2" data-path="03-Continuas.html"><a href="#uso-del-software-r-para-el-an%C3%A1lisis-de-encuestas"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
+<li class="chapter" data-level="1.3" data-path="cap-intro.html"><a href="cap-intro.html#estructura-del-documento"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="03-Continuas.html"><a href="#conceptos-b%C3%A1sicos-en-encuestas-de-hogares"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="03-Continuas.html"><a href="#poblaci%C3%B3n-objetivo-y-unidades-de-muestreo"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
+<li class="chapter" data-level="2.2" data-path="conceptos-básicos-en-encuestas-de-hogares.html"><a href="conceptos-básicos-en-encuestas-de-hogares.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
+<li class="chapter" data-level="2.3" data-path="03-Continuas.html"><a href="#fundamentos-te%C3%B3ricos"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="03-Continuas.html"><a href="#estimaci%C3%B3n-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
+<li class="chapter" data-level="2.3.2" data-path="03-Continuas.html"><a href="#estimaci%C3%B3n-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="conceptos-básicos-en-encuestas-de-hogares.html"><a href="conceptos-básicos-en-encuestas-de-hogares.html#intervalos-de-confianza"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="03-Continuas.html"><a href="#estimaci%C3%B3n-de-par%C3%A1metros-descriptivos"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="03-Continuas.html"><a href="#estimaci%C3%B3n-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
+<li class="chapter" data-level="3.1.2" data-path="03-Continuas.html"><a href="#estimaci%C3%B3n-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
+<li class="chapter" data-level="3.1.3" data-path="03-Continuas.html"><a href="#estimaci%C3%B3n-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="03-Continuas.html"><a href="#estimaci%C3%B3n-de-par%C3%A1metros-de-distribuci%C3%B3n-y-desigualdad"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="03-Continuas.html"><a href="#estimaci%C3%B3n-de-la-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
+<li class="chapter" data-level="3.2.2" data-path="03-Continuas.html"><a href="#estimaci%C3%B3n-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
+<li class="chapter" data-level="3.2.3" data-path="03-Continuas.html"><a href="#estimaci%C3%B3n-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
+<li class="chapter" data-level="3.2.4" data-path="03-Continuas.html"><a href="#estimaci%C3%B3n-de-la-correlaci%C3%B3n"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="03-Continuas.html"><a href="#pruebas-de-hip%C3%B3tesis"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
+<li class="chapter" data-level="3.4" data-path="03-Continuas.html"><a href="#estimaci%C3%B3n-de-contrastes"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
+<li class="chapter" data-level="3.5" data-path="cap4.html"><a href="cap4.html#viz-continuas"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="cap4.html"><a href="cap4.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="cap4.html"><a href="cap4.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.5.3" data-path="03-Continuas.html"><a href="#diagramas-de-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="03-Continuas.html"><a href="#an%C3%A1lisis-de-variables-categ%C3%B3ricas"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="03-Continuas.html"><a href="#estimaci%C3%B3n-del-tama%C3%B1o-poblacional"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
+<li class="chapter" data-level="4.2" data-path="03-Continuas.html"><a href="#estimaci%C3%B3n-de-proporciones"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
+<li class="chapter" data-level="4.3" data-path="análisis-de-variables-categóricas.html"><a href="análisis-de-variables-categóricas.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
+<li class="chapter" data-level="4.4" data-path="análisis-de-variables-categóricas.html"><a href="análisis-de-variables-categóricas.html#tablas-cruzadas"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
+<li class="chapter" data-level="4.5" data-path="03-Continuas.html"><a href="#la-raz%C3%B3n-de-odds"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
+<li class="chapter" data-level="4.6" data-path="análisis-de-variables-categóricas.html"><a href="análisis-de-variables-categóricas.html#prueba-de-independencia-chi2"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="análisis-de-variables-categóricas.html"><a href="análisis-de-variables-categóricas.html#viz-categoricas"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="03-Continuas.html"><a href="#gr%C3%A1ficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
+<li class="chapter" data-level="4.7.2" data-path="análisis-de-variables-categóricas.html"><a href="análisis-de-variables-categóricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="03-Continuas.html"><a href="#formulaci%C3%B3n-del-modelo"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
+<li class="chapter" data-level="5.2" data-path="cap6.html"><a href="cap6.html#uso-de-los-pesos-de-muestreo"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
+<li class="chapter" data-level="5.3" data-path="03-Continuas.html"><a href="#estimaci%C3%B3n-de-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.4" data-path="03-Continuas.html"><a href="#diagn%C3%B3stico-del-modelo"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="03-Continuas.html"><a href="#coeficiente-de-determinaci%C3%B3n"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="5.4.2" data-path="cap6.html"><a href="cap6.html#residuales"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
+<li class="chapter" data-level="5.4.3" data-path="cap6.html"><a href="cap6.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="03-Continuas.html"><a href="#inferencia-sobre-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.6" data-path="03-Continuas.html"><a href="#estimaci%C3%B3n-y-predicci%C3%B3n"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cap-glm.html"><a href="cap-glm.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="cap-glm.html"><a href="cap-glm.html#sec-logistica"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
+<li class="chapter" data-level="6.2" data-path="cap-glm.html"><a href="cap-glm.html#sec-multinomial"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
+<li class="chapter" data-level="6.3" data-path="cap-glm.html"><a href="cap-glm.html#sec-gamma"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cap-multinivel.html"><a href="cap-multinivel.html"><i class="fa fa-check"></i><b>7</b> Modelos multinivel</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="cap-multinivel.html"><a href="cap-multinivel.html#sec-motivacionMult"><i class="fa fa-check"></i><b>7.1</b> Motivación</a></li>
+<li class="chapter" data-level="7.2" data-path="cap-multinivel.html"><a href="cap-multinivel.html#pesos-q-weighted"><i class="fa fa-check"></i><b>7.2</b> Pesos <em>q-weighted</em></a></li>
+<li class="chapter" data-level="7.3" data-path="cap-multinivel.html"><a href="cap-multinivel.html#modelo-lineal-multinivel"><i class="fa fa-check"></i><b>7.3</b> Modelo lineal multinivel</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="cap-multinivel.html"><a href="cap-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Modelo nulo</a></li>
+<li class="chapter" data-level="7.3.2" data-path="cap-multinivel.html"><a href="cap-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Modelo con intercepto aleatorio</a></li>
+<li class="chapter" data-level="7.3.3" data-path="cap-multinivel.html"><a href="cap-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Modelo con intercepto y pendiente aleatoria</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="cap-multinivel.html"><a href="cap-multinivel.html#sec-logistica-multinivel"><i class="fa fa-check"></i><b>7.4</b> Modelo logístico multinivel</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="03-Continuas.html"><a href="#modelo-nulo-log%C3%ADstico"><i class="fa fa-check"></i><b>7.4.1</b> Modelo nulo logístico</a></li>
+<li class="chapter" data-level="7.4.2" data-path="03-Continuas.html"><a href="#modelo-log%C3%ADstico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Modelo logístico con intercepto aleatorio</a></li>
+<li class="chapter" data-level="7.4.3" data-path="03-Continuas.html"><a href="#modelo-log%C3%ADstico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Modelo logístico con intercepto y pendiente aleatoria</a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>Anexos</b></span></li>
+<li class="chapter" data-level="A" data-path="ap1.html"><a href="ap1.html"><i class="fa fa-check"></i><b>A</b> Manejo de bases de datos con <code>R</code></a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="03-Continuas.html"><a href="#preparaci%C3%B3n-del-entorno-de-trabajo"><i class="fa fa-check"></i><b>A.1</b> Preparación del entorno de trabajo</a></li>
+<li class="chapter" data-level="A.2" data-path="03-Continuas.html"><a href="#carga-e-inspecci%C3%B3n-inicial-de-la-base"><i class="fa fa-check"></i><b>A.2</b> Carga e inspección inicial de la base</a></li>
+<li class="chapter" data-level="A.3" data-path="ap1.html"><a href="ap1.html#encadenamiento-de-operaciones"><i class="fa fa-check"></i><b>A.3</b> Encadenamiento de operaciones</a>
+<ul>
+<li class="chapter" data-level="A.3.1" data-path="03-Continuas.html"><a href="#filter-selecci%C3%B3n-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selección de registros</a></li>
+<li class="chapter" data-level="A.3.2" data-path="ap1.html"><a href="ap1.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: seleccionar variables</a></li>
+<li class="chapter" data-level="A.3.3" data-path="ap1.html"><a href="ap1.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: ordenamiento de filas</a></li>
+<li class="chapter" data-level="A.3.4" data-path="03-Continuas.html"><a href="#mutate-creaci%C3%B3n-o-transformaci%C3%B3n-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creación o transformación de variables</a></li>
+<li class="chapter" data-level="A.3.5" data-path="03-Continuas.html"><a href="#summarise-res%C3%BAmenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: resúmenes descriptivos</a></li>
+<li class="chapter" data-level="A.3.6" data-path="03-Continuas.html"><a href="#group_by-agrupaci%C3%B3n-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: agrupación de casos</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Inferencia en poblaciones finitas</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="ap2.html"><a href="ap2.html#dos-posibles-inferencias"><i class="fa fa-check"></i><b>B.1</b> Dos posibles inferencias</a></li>
+<li class="chapter" data-level="B.2" data-path="03-Continuas.html"><a href="#la-integraci%C3%B3n-de-ambas-inferencias"><i class="fa fa-check"></i><b>B.2</b> La integración de ambas inferencias</a>
+<ul>
+<li class="chapter" data-level="B.2.1" data-path="ap2.html"><a href="ap2.html#sec-mv"><i class="fa fa-check"></i><b>B.2.1</b> Método de la máxima verosimilitud</a></li>
+<li class="chapter" data-level="B.2.2" data-path="ap2.html"><a href="ap2.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Método de máxima pseudo-verosimilitud</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis de encuestas de hogares con R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cap4" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Capítulo 3</span> Análisis de las variables continuas<a href="cap4.html#cap4" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>El análisis estadístico de encuestas ha evolucionado de manera constante, impulsado por el desarrollo de nuevas metodologías y enfoques que buscan mejorar la precisión y la representatividad de los resultados. En general, estos avances surgen en el ámbito académico y, con el tiempo, son adoptados por instituciones públicas, empresas privadas y organismos estadísticos, que demandan su incorporación en los principales programas de análisis de datos.</p>
+<p>Este capítulo presenta los principales procedimientos para el análisis estadístico de variables continuas utilizando <code>R</code>, incorporando adecuadamente las características del diseño muestral, tales como los pesos de expansión, la estratificación y la conglomeración. A lo largo del capítulo se ilustran métodos para estimar parámetros poblacionales, medir su precisión y realizar inferencias válidas a partir de datos provenientes de encuestas complejas. Asimismo, se introducen funciones y herramientas del paquete <code>survey</code>, uno de los recursos más utilizados en <code>R</code> para el análisis de encuestas.</p>
+<p>Las bases de datos utilizadas en el análisis de encuestas pueden encontrarse en una amplia variedad de formatos (.xlsx, .dat, .csv, .parquet, .sas7bdat, .sav, .txt, entre otros). Sin embargo, una buena práctica consiste en importar la información desde cualquiera de estos formatos y guardarla inmediatamente en un archivo con extensión <code>.rds</code>, que es el formato nativo de <code>R</code>.</p>
+<p>Los archivos <code>.rds</code> permiten almacenar cualquier objeto o información en <code>R</code>, como marcos de datos, vectores, matrices o listas, y se caracterizan por su compatibilidad completa con el entorno de trabajo R. Además, facilitan la lectura y escritura eficiente de los datos, reduciendo los tiempos de carga y evitando problemas de compatibilidad entre sesiones. Otro formato propio de <code>R</code> es <code>.Rdata</code>, el cual permite guardar múltiples objetos en un solo archivo. En contraste, los archivos <code>.rds</code> almacenan únicamente un objeto, lo que hace su uso más controlado y reproducible. Por esta razón, se recomienda trabajar preferentemente con el formato <code>.rds</code> al documentar proyectos o reproducir análisis.</p>
+<p>Para ilustrar la sintaxis computacional que se utilizará a lo largo del capítulo, se empleará la misma base del capítulo anterior, que contiene una muestra de 2.605 registros que proviene de un muestreo complejo. A continuación, se muestra cómo cargar un archivo con extensión <code>.rds</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="cap4.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="cap4.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1-3"><a href="cap4.html#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="cap4.html#cb1-4" tabindex="-1"></a>encuesta <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;Data/encuesta.rds&quot;</span>)</span></code></pre></div>
+<p>De acuerdo con <span class="citation">Naciones Unidas (<a href="#ref-ONUDeff">2009, Sección 7.8</a>)</span>, es fundamental que la estructura del diseño muestral sea tenida en cuenta en el proceso de inferencia al estimar estadísticas oficiales basadas en encuestas de hogares. Como se ha insistido en este docuemnto, ignorar este aspecto puede generar estimaciones sesgadas y errores de muestreo subestimados. En este sentido, los programas estadísticos incorporan funcionalidades específicas para manejar datos provenientes de encuestas con diseños complejos <span class="citation">(<a href="#ref-heeringa2017applied">Heeringa et al., 2017</a>, apéndice A)</span>.</p>
+<p>Una vez cargada la muestra de hogares en <code>R</code>, el siguiente paso es definir el diseño muestral del cual proviene dicha muestra. Para ello se utilizará el paquete <code>srvyr</code> que surge como un complemento del paquete <code>survey</code>. Estas librerías permiten definir objetos tipo <code>survey.design</code>, a los que se aplican las funciones de estimación y análisis de encuestas, y que pueden ser combinadas con la programación del paquete <code>tidyverse</code>. A continuación, se muestra un ejemplo en el que se define un objeto de tipo <code>survey_design</code> para la encuesta:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="cap4.html#cb2-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">survey.lonely.UPM =</span> <span class="st">&quot;adjust&quot;</span>) </span>
+<span id="cb2-2"><a href="cap4.html#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="cap4.html#cb2-3" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb2-4"><a href="cap4.html#cb2-4" tabindex="-1"></a><span class="fu">library</span>(srvyr)</span>
+<span id="cb2-5"><a href="cap4.html#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="cap4.html#cb2-6" tabindex="-1"></a>diseno <span class="ot">&lt;-</span> encuesta <span class="sc">%&gt;%</span> </span>
+<span id="cb2-7"><a href="cap4.html#cb2-7" tabindex="-1"></a>          <span class="fu">as_survey_design</span>(</span>
+<span id="cb2-8"><a href="cap4.html#cb2-8" tabindex="-1"></a>            <span class="at">strata =</span> Stratum,  </span>
+<span id="cb2-9"><a href="cap4.html#cb2-9" tabindex="-1"></a>            <span class="at">ids =</span> PSU,  </span>
+<span id="cb2-10"><a href="cap4.html#cb2-10" tabindex="-1"></a>            <span class="at">weights =</span> wk,      </span>
+<span id="cb2-11"><a href="cap4.html#cb2-11" tabindex="-1"></a>            <span class="at">nest =</span> T)</span></code></pre></div>
+<p>En este código, <code>encuesta</code> corresponde a la base de datos que contiene la muestra seleccionada. A partir de estos datos, la función <code>as_survey_design()</code> convierte la información en un objeto de clase <code>survey_design</code>, el cual almacena todos los elementos necesarios para describir el diseño muestral de la encuesta. Entre ellos se incluyen la variable de estratificación (<code>strata</code>), que identifica los estratos definidos en el diseño, y la variable especificada en <code>ids</code>, que representa las unidades primarias de muestreo (UPM) o conglomerados seleccionados en la primera etapa del muestreo. Asimismo, el argumento <code>weights</code> define la variable que contiene los factores de expansión asociados a cada observación. Finalmente, la opción <code>nest = TRUE</code> indica que las UPM están anidadas dentro de los estratos, una característica necesaria para representar correctamente la estructura jerárquica del diseño de muestreo.</p>
+<div id="estimación-de-parámetros-descriptivos" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Estimación de parámetros descriptivos<a href="#estimaci%C3%B3n-de-par%C3%A1metros-descriptivos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En las encuestas de hogares es común estimar parámetros descriptivos asociados a variables numéricas, tales como totales, medias, razones y desviaciones estándar. Estas medidas permiten caracterizar distintos fenómenos sociales y económicos de la población, por ejemplo el ingreso, el gasto, las horas trabajadas o el tamaño de los hogares. En esta sección se presentan la lógica detrás de la sintaxis utilizada para este tipo de estimación, junto con sus correspondientes medidas de precisión.</p>
+<div id="estimación-del-total" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Estimación del total<a href="#estimaci%C3%B3n-del-total" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En <code>R</code>, la función <code>survey_total()</code> se utiliza para estimar totales a partir del objeto de diseño. Esta función incorpora automáticamente los factores de expansión y la estructura del diseño, garantizando que las estimaciones reflejen correctamente el modelo de inferencia.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="cap4.html#cb3-1" tabindex="-1"></a><span class="fu">survey_total</span>(</span>
+<span id="cb3-2"><a href="cap4.html#cb3-2" tabindex="-1"></a>  x,</span>
+<span id="cb3-3"><a href="cap4.html#cb3-3" tabindex="-1"></a>  <span class="at">na.rm =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb3-4"><a href="cap4.html#cb3-4" tabindex="-1"></a>  <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>, <span class="st">&quot;var&quot;</span>, <span class="st">&quot;cv&quot;</span>),</span>
+<span id="cb3-5"><a href="cap4.html#cb3-5" tabindex="-1"></a>  <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb3-6"><a href="cap4.html#cb3-6" tabindex="-1"></a>  <span class="at">deff =</span> <span class="cn">FALSE</span></span>
+<span id="cb3-7"><a href="cap4.html#cb3-7" tabindex="-1"></a>)</span></code></pre></div>
+<p>Los argumentos principales de la función <code>survey_total()</code> son <code>x</code>, <code>na.rm</code>, <code>vartype</code>, <code>level</code> y <code>deff</code>. El argumento <code>x</code> corresponde a la variable sobre la cual se desea calcular el total; también puede dejarse vacío cuando se busca obtener únicamente el total ponderado de casos de la muestra. Por su parte, <code>na.rm</code> indica si los valores faltantes (<code>NA</code>) deben eliminarse antes de realizar el cálculo, siendo <code>FALSE</code> el valor predeterminado.</p>
+<p>El argumento <code>vartype</code> permite especificar el tipo de medida de incertidumbre que se desea estimar, pudiendo solicitarse uno o varios resultados simultáneamente, tales como el error estándar (<code>"se"</code>), el intervalo de confianza (<code>"ci"</code>), la varianza (<code>"var"</code>) o el coeficiente de variación (<code>"cv"</code>). Asimismo, <code>level</code> define el nivel de confianza utilizado para el cálculo de los intervalos de confianza, cuyo valor por defecto es 0.95. Por otro lado, el intervalo de confianza puede obtenerse directamente al incluir el argumento <code>vartype = "ci"</code> dentro de <code>survey_total()</code>, o bien utilizando la función <code>confint()</code> sobre el objeto resultante, especificando el nivel de confianza requerido. Finalmente, <code>deff</code> es un valor lógico que indica si se debe retornar el efecto del diseño (DEFF).</p>
+<p>El siguiente ejemplo presenta cómo estimar totales y sus intervalos de confianza para diferentes variables de interés en <code>R</code>, utilizando la función <code>survey_total()</code>, y presentada en la Tabla <a href="cap4.html#tab:tab-total-ingreso">3.1</a>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="cap4.html#cb4-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="cap4.html#cb4-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ty =</span> <span class="fu">survey_total</span>(Income, <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>), <span class="at">deff =</span> T))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-total-ingreso">Cuadro 3.1: </span>Estimación del total de ingresos de los hogares con intervalo de confianza al 95%</caption>
+<thead>
+<tr class="header">
+<th align="left">ty</th>
+<th align="center">ty_se</th>
+<th align="center">ty_low</th>
+<th align="center">ty_upp</th>
+<th align="center">ty_deff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">85793667</td>
+<td align="center">4778674</td>
+<td align="center">76331414</td>
+<td align="center">95255920</td>
+<td align="center">11</td>
+</tr>
+</tbody>
+</table>
+<p>De la tabla, se obtiene que la estimación del total poblacional para el ingreso total es de 85.793.667. Este valor corresponde al estimador puntual obtenido a partir de la encuesta, incorporando los factores de expansión y las características del diseño muestral. El error estándar asociado a esta estimación es de 4.778.674, lo que refleja la variabilidad muestral del estimador. A partir de este valor se construye un intervalo de confianza del 95%, cuyos límites inferior y superior son 76.331.414 y 95.255.920, respectivamente. El efecto de diseño (<code>deff</code>) es igual a 11, lo cual sugiere una pérdida importante de precisión asociada principalmente a las características del diseño complejo. En consecuencia, aunque el tamaño muestral nominal pueda ser grande, el tamaño muestral efectivo resultaría considerablemente menor debido a la correlación entre observaciones dentro de los conglomerados.</p>
+<p>Para continuar ilustrando el uso de la función <code>survey_total()</code> dentro del enfoque de <code>srvyr</code>, estimemos el total de gastos de los hogares, pero ahora calculando el intervalo de confianza al 90%. El siguiente código realiza esta estimación, presentada en la Tabla <a href="cap4.html#tab:tab-total-gasto">3.2</a>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="cap4.html#cb5-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="cap4.html#cb5-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ty =</span> <span class="fu">survey_total</span>(Expenditure, </span>
+<span id="cb5-3"><a href="cap4.html#cb5-3" tabindex="-1"></a>                              <span class="at">vartype =</span> <span class="st">&quot;ci&quot;</span>, <span class="at">level =</span> <span class="fl">0.9</span>, </span>
+<span id="cb5-4"><a href="cap4.html#cb5-4" tabindex="-1"></a>                              <span class="at">deff =</span> T))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-total-gasto">Cuadro 3.2: </span>Estimación del total de gastos de los hogares con intervalo de confianza al 90%</caption>
+<thead>
+<tr class="header">
+<th align="left">ty</th>
+<th align="center">ty_low</th>
+<th align="center">ty_upp</th>
+<th align="center">ty_deff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">55677504</td>
+<td align="center">51360469</td>
+<td align="center">59994539</td>
+<td align="center">10.2</td>
+</tr>
+</tbody>
+</table>
+<p>Si el objetivo es estimar el total de ingresos de los hogares, pero desagregado por sexo, se puede utilizar la función <code>group_by()</code> para agrupar por la variable de interés, junto con <code>cascade()</code> de la librería <code>srvyr</code>, que permite agregar una fila con el total general al final de la tabla. De esta manera, se pueden obtener fácilmente los totales por categoría y el total global dentro del mismo marco de resumen, como se muestra en la Tabla <a href="cap4.html#tab:tab-total-ingreso-sexo">3.3</a>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="cap4.html#cb6-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="cap4.html#cb6-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="cap4.html#cb6-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">Total =</span> <span class="fu">survey_total</span>(Income, </span>
+<span id="cb6-4"><a href="cap4.html#cb6-4" tabindex="-1"></a>                               <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>),</span>
+<span id="cb6-5"><a href="cap4.html#cb6-5" tabindex="-1"></a>                               <span class="at">level =</span> <span class="fl">0.95</span>),</span>
+<span id="cb6-6"><a href="cap4.html#cb6-6" tabindex="-1"></a>          <span class="at">.fill =</span> <span class="st">&quot;Total ingreso&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-total-ingreso-sexo">Cuadro 3.3: </span>Total de ingresos de los hogares desagregado por sexo</caption>
+<thead>
+<tr class="header">
+<th align="left">Sex</th>
+<th align="center">Total</th>
+<th align="center">Total_se</th>
+<th align="center">Total_low</th>
+<th align="center">Total_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Female</td>
+<td align="center">44153820</td>
+<td align="center">2324452</td>
+<td align="center">39551172</td>
+<td align="center">48756467</td>
+</tr>
+<tr class="even">
+<td align="left">Male</td>
+<td align="center">41639847</td>
+<td align="center">2870194</td>
+<td align="center">35956576</td>
+<td align="center">47323118</td>
+</tr>
+<tr class="odd">
+<td align="left">Total ingreso</td>
+<td align="center">85793667</td>
+<td align="center">4778674</td>
+<td align="center">76331414</td>
+<td align="center">95255920</td>
+</tr>
+</tbody>
+</table>
+<p>Como se observa en los códigos anteriores, una forma practica de obtener las estimaciones del total, su error estándar y su intervalo de confianza es mediante el argumento <code>vartype</code>, especificando las opciones <code>"se"</code> y <code>"ci"</code> respectivamente.</p>
+</div>
+<div id="estimación-de-la-media" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Estimación de la media<a href="#estimaci%C3%B3n-de-la-media" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La estimación de la media poblacional ocupa un lugar central en las encuestas de hogares, ya que muchos de los indicadores utilizados para el análisis socioeconómico corresponden a valores promedio, como el ingreso medio del hogar, el gasto per cápita o las horas promedio trabajadas. Este tipo de parámetros permite resumir el comportamiento general de las variables de interés y describir las tendencias centrales de la población objetivo. De acuerdo con <span class="citation">Gutiérrez (<a href="#ref-Gutierrez2016">2016</a>)</span>, el estimador de la media poblacional puede expresarse como una razón no lineal entre dos totales poblacionales, los cuales se estiman de la siguiente manera:</p>
+<p><span class="math display">\[
+\hat{\bar{y}}=  \frac{\hat{t}_y}{\hat{N}}  =  \frac{\sum_{h}\sum_{i}\sum_{k} w_{h i k} \ y_{hik}}{\sum_{h}\sum_{i}\sum_{k} w_{h i k}}
+\]</span></p>
+<p>Como <span class="math inline">\(\hat{\bar{y}}\)</span> no es una estadística lineal, no existe una fórmula cerrada para la varianza de este estimador. Por esta razón, es necesario recurrir a métodos de remuestreo o a la linealización de Taylor para aproximar su varianza. En este caso particular, utilizando series de Taylor, la varianza se define como:</p>
+<p><span class="math display">\[
+\widehat{Var}\left(\hat{\bar{y}}\right)  \approx  \frac{\widehat{Var}\left(\hat{t}_y\right)+\hat{\bar{y}}^{2}\ \widehat{Var}\left(\hat{N}\right)-2\ \hat{\bar{y}} \  \widehat{Cov}\left(\hat{t}_y,\hat{N}\right)}{\hat{N}^{2}}
+\]</span></p>
+<p>Como se puede observar, el cálculo de la varianza de la media poblacional implica componentes analíticos complejos, como la covarianza entre el total estimado y el tamaño poblacional estimado. Sin embargo, el paquete <code>srvyr</code> en <code>R</code> facilita estos cálculos al incorporar funciones que estiman directamente la media, su error estándar, el intervalo de confianza y el efecto del diseño. A continuación, se presenta la sintaxis para estimar la media de los ingresos de los hogares, junto con su intervalo de confianza al 95%, presentada en la Tabla <a href="cap4.html#tab:tab-media-ingreso">3.4</a>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="cap4.html#cb7-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="cap4.html#cb7-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media_ing =</span> <span class="fu">survey_mean</span>(Income,</span>
+<span id="cb7-3"><a href="cap4.html#cb7-3" tabindex="-1"></a>                                <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>),</span>
+<span id="cb7-4"><a href="cap4.html#cb7-4" tabindex="-1"></a>                                <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb7-5"><a href="cap4.html#cb7-5" tabindex="-1"></a>                                <span class="at">deff =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-media-ingreso">Cuadro 3.4: </span>Estimación de la media de ingresos de los hogares</caption>
+<colgroup>
+<col width="14%" />
+<col width="20%" />
+<col width="21%" />
+<col width="21%" />
+<col width="22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">media_ing</th>
+<th align="center">media_ing_se</th>
+<th align="center">media_ing_low</th>
+<th align="center">media_ing_upp</th>
+<th align="center">media_ing_deff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">571</td>
+<td align="center">28.5</td>
+<td align="center">515</td>
+<td align="center">627</td>
+<td align="center">8.82</td>
+</tr>
+</tbody>
+</table>
+<p>Como se aprecia, los argumentos utilizados en la función <code>survey_mean()</code> son similares a los de <code>survey_total()</code>. En este caso, <code>vartype</code> permite obtener el error estándar (<code>"se"</code>) y el intervalo de confianza (<code>"ci"</code>), mientras que el argumento <code>deff = TRUE</code> solicita el cálculo del efecto del diseño. De forma análoga, es posible estimar la media de los gastos de los hogares, empleando la misma estructura de código, presentada en la Tabla <a href="cap4.html#tab:tab-media-gasto">3.5</a>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="cap4.html#cb8-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="cap4.html#cb8-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media_gastos =</span> <span class="fu">survey_mean</span>(Expenditure,</span>
+<span id="cb8-3"><a href="cap4.html#cb8-3" tabindex="-1"></a>                                    <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>),</span>
+<span id="cb8-4"><a href="cap4.html#cb8-4" tabindex="-1"></a>                                    <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb8-5"><a href="cap4.html#cb8-5" tabindex="-1"></a>                                    <span class="at">deff =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-media-gasto">Cuadro 3.5: </span>Estimación de la media de gastos de los hogares</caption>
+<colgroup>
+<col width="15%" />
+<col width="20%" />
+<col width="21%" />
+<col width="21%" />
+<col width="22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">media_gastos</th>
+<th align="center">media_gastos_se</th>
+<th align="center">media_gastos_low</th>
+<th align="center">media_gastos_upp</th>
+<th align="center">media_gastos_deff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">371</td>
+<td align="center">13.3</td>
+<td align="center">344</td>
+<td align="center">397</td>
+<td align="center">6.02</td>
+</tr>
+</tbody>
+</table>
+<p>También se pueden realizar estimaciones de la media por subgrupos siguiendo el mismo esquema mostrado previamente. Particularmente, los gastos de los hogares discriminados por sexo se presentan en la Tabla <a href="cap4.html#tab:tab-media-gasto-sexo">3.6</a>:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="cap4.html#cb9-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="cap4.html#cb9-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="cap4.html#cb9-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">Media =</span> <span class="fu">survey_mean</span>(Expenditure, </span>
+<span id="cb9-4"><a href="cap4.html#cb9-4" tabindex="-1"></a>                              <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb9-5"><a href="cap4.html#cb9-5" tabindex="-1"></a>                              <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
+<span id="cb9-6"><a href="cap4.html#cb9-6" tabindex="-1"></a>        <span class="at">.fill =</span> <span class="st">&quot;El gasto medio&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-7"><a href="cap4.html#cb9-7" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Sex))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-media-gasto-sexo">Cuadro 3.6: </span>Media de gastos de los hogares desagregada por sexo</caption>
+<thead>
+<tr class="header">
+<th align="left">Sex</th>
+<th align="center">Media</th>
+<th align="center">Media_se</th>
+<th align="center">Media_low</th>
+<th align="center">Media_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Male</td>
+<td align="center">374</td>
+<td align="center">16.1</td>
+<td align="center">343</td>
+<td align="center">406</td>
+</tr>
+<tr class="even">
+<td align="left">Female</td>
+<td align="center">367</td>
+<td align="center">12.3</td>
+<td align="center">343</td>
+<td align="center">391</td>
+</tr>
+<tr class="odd">
+<td align="left">El gasto medio</td>
+<td align="center">371</td>
+<td align="center">13.3</td>
+<td align="center">344</td>
+<td align="center">397</td>
+</tr>
+</tbody>
+</table>
+<p>De manera análoga, se pueden calcular las medias del gasto por zona, las cuales son presentadas en la Tabla <a href="cap4.html#tab:tab-media-gasto-zona">3.7</a>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="cap4.html#cb10-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="cap4.html#cb10-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="cap4.html#cb10-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">Media =</span> <span class="fu">survey_mean</span>(Expenditure, </span>
+<span id="cb10-4"><a href="cap4.html#cb10-4" tabindex="-1"></a>                              <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb10-5"><a href="cap4.html#cb10-5" tabindex="-1"></a>                              <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
+<span id="cb10-6"><a href="cap4.html#cb10-6" tabindex="-1"></a>        <span class="at">.fill =</span> <span class="st">&quot;El gasto medio&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-7"><a href="cap4.html#cb10-7" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Zone))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-media-gasto-zona">Cuadro 3.7: </span>Media de gastos de los hogares desagregada por zona</caption>
+<thead>
+<tr class="header">
+<th align="left">Zone</th>
+<th align="center">Media</th>
+<th align="center">Media_se</th>
+<th align="center">Media_low</th>
+<th align="center">Media_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Urban</td>
+<td align="center">460</td>
+<td align="center">22.2</td>
+<td align="center">416</td>
+<td align="center">504</td>
+</tr>
+<tr class="even">
+<td align="left">Rural</td>
+<td align="center">274</td>
+<td align="center">10.3</td>
+<td align="center">254</td>
+<td align="center">294</td>
+</tr>
+<tr class="odd">
+<td align="left">El gasto medio</td>
+<td align="center">371</td>
+<td align="center">13.3</td>
+<td align="center">344</td>
+<td align="center">397</td>
+</tr>
+</tbody>
+</table>
+<p>Asimismo, es posible realizar una estimación combinada por sexo y zona, presentada en la Tabla <a href="cap4.html#tab:tab-media-gasto-zona-sexo">3.8</a>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="cap4.html#cb11-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="cap4.html#cb11-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone, Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="cap4.html#cb11-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">Media =</span> <span class="fu">survey_mean</span>(Expenditure, </span>
+<span id="cb11-4"><a href="cap4.html#cb11-4" tabindex="-1"></a>                              <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb11-5"><a href="cap4.html#cb11-5" tabindex="-1"></a>                              <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
+<span id="cb11-6"><a href="cap4.html#cb11-6" tabindex="-1"></a>        <span class="at">.fill =</span> <span class="st">&quot;El gasto medio&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-7"><a href="cap4.html#cb11-7" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Zone), <span class="fu">desc</span>(Sex))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-media-gasto-zona-sexo">Cuadro 3.8: </span>Media de gastos de los hogares desagregada por zona y sexo</caption>
+<colgroup>
+<col width="21%" />
+<col width="22%" />
+<col width="10%" />
+<col width="14%" />
+<col width="15%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Zone</th>
+<th align="center">Sex</th>
+<th align="center">Media</th>
+<th align="center">Media_se</th>
+<th align="center">Media_low</th>
+<th align="center">Media_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Urban</td>
+<td align="center">Male</td>
+<td align="center">470</td>
+<td align="center">27.0</td>
+<td align="center">416</td>
+<td align="center">523</td>
+</tr>
+<tr class="even">
+<td align="left">Urban</td>
+<td align="center">Female</td>
+<td align="center">451</td>
+<td align="center">20.1</td>
+<td align="center">411</td>
+<td align="center">491</td>
+</tr>
+<tr class="odd">
+<td align="left">Urban</td>
+<td align="center">El gasto medio</td>
+<td align="center">460</td>
+<td align="center">22.2</td>
+<td align="center">416</td>
+<td align="center">504</td>
+</tr>
+<tr class="even">
+<td align="left">Rural</td>
+<td align="center">Male</td>
+<td align="center">275</td>
+<td align="center">10.2</td>
+<td align="center">255</td>
+<td align="center">296</td>
+</tr>
+<tr class="odd">
+<td align="left">Rural</td>
+<td align="center">Female</td>
+<td align="center">273</td>
+<td align="center">11.6</td>
+<td align="center">250</td>
+<td align="center">296</td>
+</tr>
+<tr class="even">
+<td align="left">Rural</td>
+<td align="center">El gasto medio</td>
+<td align="center">274</td>
+<td align="center">10.3</td>
+<td align="center">254</td>
+<td align="center">294</td>
+</tr>
+<tr class="odd">
+<td align="left">El gasto medio</td>
+<td align="center">El gasto medio</td>
+<td align="center">371</td>
+<td align="center">13.3</td>
+<td align="center">344</td>
+<td align="center">397</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="estimación-de-razones" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Estimación de razones<a href="#estimaci%C3%B3n-de-razones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Un caso particular de funciones no lineales de totales es la razón poblacional, definida como el cociente entre dos totales poblacionales asociados a características de interés. Las razones permiten expresar la relación entre dos variables, lo cual resulta especialmente útil para construir indicadores comparativos y de seguimiento.</p>
+<p>Este tipo de parámetro es ampliamente utilizado en encuestas de hogares para construir indicadores relativos, por ejemplo, la cantidad de hombres por cada mujer, la proporción de personas ocupadas respecto a la población en edad de trabajar o el número promedio de mascotas por hogar. Las razones también se utilizan en marcos internacionales. Por ejemplo, el Indicador 2.1.1 de los Objetivos de Desarrollo Sostenible (ODS) (prevalencia de subalimentación) se calcula a partir de la razón entre el consumo de alimentos, medido en calorías ingeridas, y los requerimientos energéticos mínimos de la dieta, determinados según edad, sexo y nivel de actividad física.</p>
+<p>Dado que la razón corresponde al cociente entre dos parámetros poblacionales desconocidos, tanto el numerador como el denominador deben ser estimados a partir de la muestra <span class="citation">(<a href="#ref-bautista1998">Bautista, 1998</a>)</span>. Siendo <span class="math inline">\(Y\)</span> el total de la varaible <span class="math inline">\(y\)</span> y <span class="math inline">\(X\)</span> el total de la varaible <span class="math inline">\(x\)</span>, la razón poblacional se define como <span class="math inline">\(R = \frac{t_y}{t_x}\)</span> y su estimador puntual en el marco de un muestreo complejo se expresa como:</p>
+<p><span class="math display">\[
+\hat{R} = \frac{\hat{t}_y}{\hat{t}_x}
+= \frac{\sum_{h}\sum_{i}\sum_{k} w_{hik} \ y_{hik}}
+       {\sum_{h}\sum_{i}\sum_{k} w_{hik} \ x_{hik}}
+\]</span></p>
+<p>Sin embargo, dado que <span class="math inline">\(\hat{R}\)</span> es un cociente entre dos estimadores, es decir, dos variables aleatorias, el cálculo de su varianza no es trivial. Para ello se emplea la linealización de Taylor, como lo muestra <span class="citation">Gutiérrez (<a href="#ref-Gutierrez2016">2016</a>)</span>, o bien métodos de remuestreo. En particular, la función <code>survey_ratio</code> implementa la estimación de razones y sus varianzas en el marco de encuestas complejas.</p>
+<p>Un ejemplo directo en encuestas de hogares es la razón <strong>gasto/ingreso</strong>, que ayuda a identificar patrones de consumo y niveles de sostenibilidad económica de los hogares. A continuación, se ilustra cómo estimar la razón entre el gasto y el ingreso de los hogares, presentada en la Tabla <a href="cap4.html#tab:tab-razon-gasto-ingreso">3.9</a>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="cap4.html#cb12-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="cap4.html#cb12-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Razon =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> Expenditure,</span>
+<span id="cb12-3"><a href="cap4.html#cb12-3" tabindex="-1"></a>                                 <span class="at">denominator =</span> Income,</span>
+<span id="cb12-4"><a href="cap4.html#cb12-4" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb12-5"><a href="cap4.html#cb12-5" tabindex="-1"></a>                                 <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb12-6"><a href="cap4.html#cb12-6" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-razon-gasto-ingreso">Cuadro 3.9: </span>Razón gasto/ingreso de los hogares</caption>
+<thead>
+<tr class="header">
+<th align="left">Razon</th>
+<th align="center">Razon_se</th>
+<th align="center">Razon_low</th>
+<th align="center">Razon_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0.649</td>
+<td align="center">0.023</td>
+<td align="center">0.603</td>
+<td align="center">0.695</td>
+</tr>
+</tbody>
+</table>
+<p>En este caso, se especificaron la variable de gasto como numerador (<code>numerator</code>), la variable de ingreso como denominador (<code>denominator</code>), el nivel de confianza (<code>level</code>) utilizado para la construcción de los intervalos de confianza y las medidas de precisión requeridas mediante el argumento (<code>vartype</code>). Como se puede observar, la razón entre el gasto y el ingreso es, aproximando, 0.65. Lo que implica que por cada unidad 100 unidades monetarias que le ingrese al hogar, se gastan 65 unidades, consiguiendo un intervalo de confianza al 95% de 0.60 y 0.69.</p>
+<p>Si ahora el objetivo es estimar la razón entre mujeres y hombres en la base de ejemplo, se realiza de la siguiente manera, presentada en la Tabla <a href="cap4.html#tab:tab-razon-sexo">3.10</a>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="cap4.html#cb13-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="cap4.html#cb13-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Razon =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>),</span>
+<span id="cb13-3"><a href="cap4.html#cb13-3" tabindex="-1"></a>                                 <span class="at">denominator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>),</span>
+<span id="cb13-4"><a href="cap4.html#cb13-4" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb13-5"><a href="cap4.html#cb13-5" tabindex="-1"></a>                                 <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb13-6"><a href="cap4.html#cb13-6" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-razon-sexo">Cuadro 3.10: </span>Razón de mujeres por hombre en la población</caption>
+<thead>
+<tr class="header">
+<th align="left">Razon</th>
+<th align="center">Razon_se</th>
+<th align="center">Razon_low</th>
+<th align="center">Razon_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1.11</td>
+<td align="center">0.035</td>
+<td align="center">1.04</td>
+<td align="center">1.18</td>
+</tr>
+</tbody>
+</table>
+<p>Dado que la variable sexo en la base de datos es categórica, fue necesario acudir a variables indicadoras para realizar el cálculo de la razón, utilizando <code>Sex == "Female"</code> para identificar a las mujeres y <code>Sex == "Male"</code> para los hombres. Los resultados muestran que en la población analizada hay una mayor cantidad de mujeres que de hombres, obteniéndose una razón estimada de 1.11. Esto indica que, por cada 100 hombres, existen aproximadamente 111 mujeres. Además, el intervalo de confianza al 95% sugiere que esta razón podría variar entre 1.05 y 1.18. Si se desea hacer la razón de mujeres y hombres pero en la zona rural, se haría de la siguiente manera, presentada en la Tabla <a href="cap4.html#tab:tab-razon-sexo-rural">3.11</a>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="cap4.html#cb14-1" tabindex="-1"></a>sub_Rural  <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(Zone <span class="sc">==</span> <span class="st">&quot;Rural&quot;</span>)</span>
+<span id="cb14-2"><a href="cap4.html#cb14-2" tabindex="-1"></a>sub_Rural <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="cap4.html#cb14-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Razon =</span>  <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>),</span>
+<span id="cb14-4"><a href="cap4.html#cb14-4" tabindex="-1"></a>                                  <span class="at">denominator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>),</span>
+<span id="cb14-5"><a href="cap4.html#cb14-5" tabindex="-1"></a>                                  <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb14-6"><a href="cap4.html#cb14-6" tabindex="-1"></a>                                  <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb14-7"><a href="cap4.html#cb14-7" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-razon-sexo-rural">Cuadro 3.11: </span>Razón de mujeres por hombre en zona rural</caption>
+<thead>
+<tr class="header">
+<th align="left">Razon</th>
+<th align="center">Razon_se</th>
+<th align="center">Razon_low</th>
+<th align="center">Razon_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1.07</td>
+<td align="center">0.035</td>
+<td align="center">0.997</td>
+<td align="center">1.14</td>
+</tr>
+</tbody>
+</table>
+<p>Ahora bien, otro análisis de interés es estimar la razón de gastos pero solo en la población femenina. A continuación, se presentan los códigos computacionales, como se muestra en la Tabla <a href="cap4.html#tab:tab-razon-gasto-ingreso-mujer">3.12</a>.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="cap4.html#cb15-1" tabindex="-1"></a>sub_Mujer <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>)</span>
+<span id="cb15-2"><a href="cap4.html#cb15-2" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="cap4.html#cb15-3" tabindex="-1"></a>sub_Mujer <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="cap4.html#cb15-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Razon =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> Expenditure,</span>
+<span id="cb15-5"><a href="cap4.html#cb15-5" tabindex="-1"></a>                                 <span class="at">denominator =</span> Income,</span>
+<span id="cb15-6"><a href="cap4.html#cb15-6" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb15-7"><a href="cap4.html#cb15-7" tabindex="-1"></a>                                 <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb15-8"><a href="cap4.html#cb15-8" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-razon-gasto-ingreso-mujer">Cuadro 3.12: </span>Razón gasto/ingreso en hogares con jefatura femenina</caption>
+<thead>
+<tr class="header">
+<th align="left">Razon</th>
+<th align="center">Razon_se</th>
+<th align="center">Razon_low</th>
+<th align="center">Razon_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0.658</td>
+<td align="center">0.02</td>
+<td align="center">0.619</td>
+<td align="center">0.698</td>
+</tr>
+</tbody>
+</table>
+<p>Dando como resultado que por cada 100 unidades monetarias que le ingresan a las mujeres se gastan 66 con un intervalo de confianza entre 0.62 y 0.69. Por último, análogamente para los hombres, la razón de gastos resulta muy similar que para las mujeres, como se muestra en la Tabla <a href="cap4.html#tab:tab-razon-gasto-ingreso-hombre">3.13</a>.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="cap4.html#cb16-1" tabindex="-1"></a>sub_Hombre <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>)</span>
+<span id="cb16-2"><a href="cap4.html#cb16-2" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="cap4.html#cb16-3" tabindex="-1"></a>sub_Hombre <span class="sc">%&gt;%</span> </span>
+<span id="cb16-4"><a href="cap4.html#cb16-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Razon =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> Expenditure,</span>
+<span id="cb16-5"><a href="cap4.html#cb16-5" tabindex="-1"></a>                                 <span class="at">denominator =</span> Income,</span>
+<span id="cb16-6"><a href="cap4.html#cb16-6" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb16-7"><a href="cap4.html#cb16-7" tabindex="-1"></a>                                 <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb16-8"><a href="cap4.html#cb16-8" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-razon-gasto-ingreso-hombre">Cuadro 3.13: </span>Razón gasto/ingreso en hogares con jefatura masculina</caption>
+<thead>
+<tr class="header">
+<th align="left">Razon</th>
+<th align="center">Razon_se</th>
+<th align="center">Razon_low</th>
+<th align="center">Razon_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0.639</td>
+<td align="center">0.029</td>
+<td align="center">0.582</td>
+<td align="center">0.696</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="estimación-de-parámetros-de-distribución-y-desigualdad" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Estimación de parámetros de distribución y desigualdad<a href="#estimaci%C3%B3n-de-par%C3%A1metros-de-distribuci%C3%B3n-y-desigualdad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="estimación-de-la-dispersión" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Estimación de la dispersión<a href="#estimaci%C3%B3n-de-la-dispersi%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En las encuestas de hogares también es fundamental estimar medidas de dispersión de las variables estudiadas, ya que estas permiten evaluar el grado de heterogeneidad existente en la población. Por ejemplo, conocer qué tan dispersos son los ingresos de los hogares resulta clave para analizar desigualdades económicas y orientar el diseño de políticas públicas. Entre las medidas de dispersión más utilizadas se encuentra la desviación estándar, la cual cuantifica qué tan alejados se encuentran los valores observados respecto a su media. A continuación, se presenta el estimador de este parámetro:</p>
+<p><span class="math display">\[
+\hat s_y  =  \sqrt{\frac{\sum_{h}\sum_{i}\sum_{k} w_{hik} \ \left(y_{hik}-\hat{\bar{y}}\right)^{2}}{\sum_{h}\sum_{i}\sum_{k} w_{hik}-1}}
+\]</span>
+Para estimar la desviación estándar de variables numéricas en encuestas de hogares utilizando <code>R</code>, puede emplearse la función <code>survey_var</code>. A continuación, se presenta un ejemplo de su uso aplicado a la estimación de la desviación estándar del ingreso, cuyos resultados se muestran en la Tabla <a href="cap4.html#tab:tab-sd-ingreso-zona">3.14</a>.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="cap4.html#cb17-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="cap4.html#cb17-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="cap4.html#cb17-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Sd =</span> <span class="fu">sqrt</span>(<span class="fu">survey_var</span>(Income,</span>
+<span id="cb17-4"><a href="cap4.html#cb17-4" tabindex="-1"></a>                               <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb17-5"><a href="cap4.html#cb17-5" tabindex="-1"></a>                               <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)</span>
+<span id="cb17-6"><a href="cap4.html#cb17-6" tabindex="-1"></a>                               ) </span>
+<span id="cb17-7"><a href="cap4.html#cb17-7" tabindex="-1"></a>                      )</span>
+<span id="cb17-8"><a href="cap4.html#cb17-8" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-sd-ingreso-zona">Cuadro 3.14: </span>Desviación estándar de los ingresos desagregada por zona</caption>
+<thead>
+<tr class="header">
+<th align="left">Zone</th>
+<th align="center">Sd</th>
+<th align="center">Sd_se</th>
+<th align="center">Sd_low</th>
+<th align="center">Sd_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Rural</td>
+<td align="center">310</td>
+<td align="center">117</td>
+<td align="center">263</td>
+<td align="center">352</td>
+</tr>
+<tr class="even">
+<td align="left">Urban</td>
+<td align="center">582</td>
+<td align="center">285</td>
+<td align="center">422</td>
+<td align="center">707</td>
+</tr>
+</tbody>
+</table>
+<p>Como se observó en el ejemplo anterior, se estimó la desviación estándar de los ingresos por zona, reportando además su correspondiente intervalo de confianza al 95%. Los argumentos de la función <code>survey_var()</code> son equivalentes a los utilizados previamente para la estimación de medias y totales. Si el interés es estimar la desviación estándar de los ingresos desagregando simultáneamente por sexo y zona, los códigos computacionales correspondientes se presentan en la Tabla <a href="cap4.html#tab:tab-sd-ingreso-zona-sexo">3.15</a>.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="cap4.html#cb18-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="cap4.html#cb18-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone, Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="cap4.html#cb18-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Sd =</span> <span class="fu">sqrt</span>(<span class="fu">survey_var</span>(Income,</span>
+<span id="cb18-4"><a href="cap4.html#cb18-4" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb18-5"><a href="cap4.html#cb18-5" tabindex="-1"></a>                                 <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)</span>
+<span id="cb18-6"><a href="cap4.html#cb18-6" tabindex="-1"></a>                                 )</span>
+<span id="cb18-7"><a href="cap4.html#cb18-7" tabindex="-1"></a>                      )</span>
+<span id="cb18-8"><a href="cap4.html#cb18-8" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-sd-ingreso-zona-sexo">Cuadro 3.15: </span>Desviación estándar de los ingresos desagregada por zona y sexo</caption>
+<thead>
+<tr class="header">
+<th align="left">Zone</th>
+<th align="center">Sex</th>
+<th align="center">Sd</th>
+<th align="center">Sd_se</th>
+<th align="center">Sd_low</th>
+<th align="center">Sd_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Rural</td>
+<td align="center">Female</td>
+<td align="center">295</td>
+<td align="center">112</td>
+<td align="center">250</td>
+<td align="center">334</td>
+</tr>
+<tr class="even">
+<td align="left">Rural</td>
+<td align="center">Male</td>
+<td align="center">326</td>
+<td align="center">125</td>
+<td align="center">274</td>
+<td align="center">370</td>
+</tr>
+<tr class="odd">
+<td align="left">Urban</td>
+<td align="center">Female</td>
+<td align="center">568</td>
+<td align="center">286</td>
+<td align="center">401</td>
+<td align="center">697</td>
+</tr>
+<tr class="even">
+<td align="left">Urban</td>
+<td align="center">Male</td>
+<td align="center">597</td>
+<td align="center">289</td>
+<td align="center">437</td>
+<td align="center">722</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="estimación-de-percentiles" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Estimación de percentiles<a href="#estimaci%C3%B3n-de-percentiles" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Las medidas de posición no central, como los percentiles y la mediana, permiten identificar puntos específicos de la distribución de una variable de interés distintos de su valor promedio. En las encuestas de hogares, este tipo de medidas resulta especialmente útil para caracterizar la distribución de variables económicas y sociales, como el ingreso, el gasto o las horas trabajadas. La mediana, por ejemplo, corresponde al valor que divide a la población en dos partes iguales: el 50% de las observaciones se encuentra por debajo de dicho valor y el otro 50% por encima. A diferencia de la media, la mediana es poco sensible a valores extremos, razón por la cual suele considerarse una medida robusta de tendencia central.</p>
+<p>De manera similar, los percentiles permiten identificar segmentos específicos de la distribución poblacional. Por ejemplo, los percentiles de ingreso pueden utilizarse para identificar a la población perteneciente al 10% superior de la distribución con fines tributarios, o para focalizar subsidios dirigidos a los hogares ubicados en los percentiles más bajos. Según <span class="citation">Loomis et al. (<a href="#ref-loomis2005">2005</a>)</span>, la estimación de cuantiles en encuestas complejas se basa en el uso de estimadores ponderados y en la estimación de la función de distribución acumulada (FDA) de la población. Para una población finita de tamaño <span class="math inline">\(N\)</span>, un estimador de esta distribución está dado por:</p>
+<p><span class="math display">\[
+\hat{F}\left(x\right) = \frac{\sum_{h} \sum_{i} \sum_{k} w_{hik} \ I\left(y_{k}\leq x\right)}{\sum_{h}\sum_{i}\sum_{k} w_{hik}}
+\]</span></p>
+<p>en donde la función <span class="math inline">\(I\left(y_{k}\leq x\right)\)</span> es una variable indicadora que toma el valor uno si <span class="math inline">\(y_i \leq x\)</span> y cero en otro caso.</p>
+<p>Una vez estimada la FDA utilizando los pesos del diseño muestral, el cuantil <span class="math inline">\(q\)</span>-ésimo de una variable <span class="math inline">\(y\)</span> se define como el menor valor de <span class="math inline">\(y\)</span> para el cual la FDA es mayor o igual que <span class="math inline">\(q\)</span>. En particular, la mediana corresponde al valor para el cual la FDA alcanza o supera 0.5; por tanto, la mediana estimada es el valor donde la FDA estimada es mayor o igual a 0.5. De esta forma, siguiendo las recomendaciones de <span class="citation">Heeringa et al. (<a href="#ref-heeringa2017applied">2017</a>)</span> para la estimación de cuantiles en encuestas complejas, se ordenan las observaciones en orden ascendente (estadísticas de orden) de forma que <span class="math inline">\(y_{(1)} \geq y_{(2)} \geq  \ldots \geq y_{(n)}\)</span> y se identifica el valor de <span class="math inline">\(j\)</span> <span class="math inline">\((j=1,\ldots,n)\)</span> tal que:</p>
+<p><span class="math display">\[
+\hat{F}\left(y_{(j)}\right)\leq q\leq\hat{F}\left(y_{(j+1)}\right)
+\]</span></p>
+<p>Bajo esta condición, el estimador del cuantil <span class="math inline">\(q\)</span>-ésimo se obtiene mediante interpolación lineal, la cual permite obtener estimaciones más estables y precisas de los cuantiles, especialmente cuando la FDA presenta saltos importantes asociados al uso de pesos muestrales. En cuanto a la estimación de la varianza de percentiles y medianas, así como a la construcción de intervalos de confianza, <span class="citation">Kovar et al. (<a href="#ref-kovar1988">1988</a>)</span> realizaron un estudio de simulación en el contexto de diseños complejos y recomiendan el uso de métodos de replicación debido a su buen desempeño para este tipo de parámetros no lineales.</p>
+<p>Tanto los estimadores de cuantiles como los métodos para estimar sus varianzas se encuentran implementados en <code>R</code>. En particular, la función <code>survey_median()</code> permite obtener la mediana junto con su error estándar e intervalo de confianza. A continuación, se presenta la sintaxis para estimar la mediana del gasto de los hogares utilizando la base de datos de ejemplo, cuyos resultados se muestran en la Tabla <a href="cap4.html#tab:tab-mediana-gasto">3.16</a>.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="cap4.html#cb19-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="cap4.html#cb19-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mediana =</span> <span class="fu">survey_median</span>(Expenditure,</span>
+<span id="cb19-3"><a href="cap4.html#cb19-3" tabindex="-1"></a>                                    <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb19-4"><a href="cap4.html#cb19-4" tabindex="-1"></a>                                    <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)</span>
+<span id="cb19-5"><a href="cap4.html#cb19-5" tabindex="-1"></a>                                    )</span>
+<span id="cb19-6"><a href="cap4.html#cb19-6" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-mediana-gasto">Cuadro 3.16: </span>Estimación de la mediana de los gastos de los hogares</caption>
+<thead>
+<tr class="header">
+<th align="left">mediana</th>
+<th align="center">mediana_se</th>
+<th align="center">mediana_low</th>
+<th align="center">mediana_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">298</td>
+<td align="center">8.82</td>
+<td align="center">282</td>
+<td align="center">317</td>
+</tr>
+</tbody>
+</table>
+<p>Como puede observarse, los argumentos de la función <code>survey_median()</code> son equivalentes a los utilizados previamente para estimar totales y medias. Al igual que con otros parámetros poblacionales, la mediana también puede estimarse para distintos dominios de estudio, como zona geográfica, sexo o grupos de edad. La Tabla <a href="cap4.html#tab:tab-mediana-gasto-zona">3.17</a> muestra los resultados por zona geográfica.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="cap4.html#cb20-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="cap4.html#cb20-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="cap4.html#cb20-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mediana =</span> <span class="fu">survey_median</span>(Expenditure,</span>
+<span id="cb20-4"><a href="cap4.html#cb20-4" tabindex="-1"></a>                                    <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb20-5"><a href="cap4.html#cb20-5" tabindex="-1"></a>                                    <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)</span>
+<span id="cb20-6"><a href="cap4.html#cb20-6" tabindex="-1"></a>                                    )</span>
+<span id="cb20-7"><a href="cap4.html#cb20-7" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-mediana-gasto-zona">Cuadro 3.17: </span>Estimación de la mediana de los gastos desagregada por zona</caption>
+<thead>
+<tr class="header">
+<th align="left">Zone</th>
+<th align="center">mediana</th>
+<th align="center">mediana_se</th>
+<th align="center">mediana_low</th>
+<th align="center">mediana_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Rural</td>
+<td align="center">241</td>
+<td align="center">11.0</td>
+<td align="center">214</td>
+<td align="center">258</td>
+</tr>
+<tr class="even">
+<td align="left">Urban</td>
+<td align="center">381</td>
+<td align="center">19.8</td>
+<td align="center">337</td>
+<td align="center">416</td>
+</tr>
+</tbody>
+</table>
+<p>Si el objetivo es estimar un percentil específico diferente de la mediana, por ejemplo el percentil 25 (primer cuartil), puede utilizarse la función <code>survey_quantile()</code> de la siguiente manera. Los resultados correspondientes se presentan en la Tabla <a href="cap4.html#tab:tab-cuantil-gasto">3.18</a>.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="cap4.html#cb21-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="cap4.html#cb21-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">q =</span> <span class="fu">survey_quantile</span>(Expenditure,</span>
+<span id="cb21-3"><a href="cap4.html#cb21-3" tabindex="-1"></a>                                <span class="at">quantiles =</span> <span class="fl">0.25</span>,</span>
+<span id="cb21-4"><a href="cap4.html#cb21-4" tabindex="-1"></a>                                <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb21-5"><a href="cap4.html#cb21-5" tabindex="-1"></a>                                <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>),</span>
+<span id="cb21-6"><a href="cap4.html#cb21-6" tabindex="-1"></a>                                <span class="at">interval_type =</span> <span class="st">&quot;score&quot;</span></span>
+<span id="cb21-7"><a href="cap4.html#cb21-7" tabindex="-1"></a>                                )</span>
+<span id="cb21-8"><a href="cap4.html#cb21-8" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-cuantil-gasto">Cuadro 3.18: </span>Estimación del primer cuartil de los gastos de los hogares</caption>
+<thead>
+<tr class="header">
+<th align="left">q_q25</th>
+<th align="center">q_q25_se</th>
+<th align="center">q_q25_low</th>
+<th align="center">q_q25_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="center">13.8</td>
+<td align="center">163</td>
+<td align="center">218</td>
+</tr>
+</tbody>
+</table>
+<p>Observe que se incorporó el argumento <code>interval_type = "score"</code>, el cual indica que los intervalos de confianza se construyen mediante el método <em>score</em> basado en la función de influencia del percentil. Este enfoque es recomendado por <span class="citation">Lumley (<a href="#ref-Lumley2010">2010</a>)</span> para el análisis de datos provenientes de diseños muestrales complejos. De manera análoga, la estimación del percentil 25 puede obtenerse para distintos subgrupos de la población, como sexo o zona geográfica, utilizando <code>group_by()</code>, tal como se muestra en la Tabla <a href="cap4.html#tab:tab-cuantil-gasto-zona-sexo">3.19</a>.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="cap4.html#cb22-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="cap4.html#cb22-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone, Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="cap4.html#cb22-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">q =</span> <span class="fu">survey_quantile</span>(Expenditure,</span>
+<span id="cb22-4"><a href="cap4.html#cb22-4" tabindex="-1"></a>                                <span class="at">quantiles =</span> <span class="fl">0.25</span>,</span>
+<span id="cb22-5"><a href="cap4.html#cb22-5" tabindex="-1"></a>                                <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb22-6"><a href="cap4.html#cb22-6" tabindex="-1"></a>                                <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>),</span>
+<span id="cb22-7"><a href="cap4.html#cb22-7" tabindex="-1"></a>                                <span class="at">interval_type =</span> <span class="st">&quot;score&quot;</span></span>
+<span id="cb22-8"><a href="cap4.html#cb22-8" tabindex="-1"></a>                                )</span>
+<span id="cb22-9"><a href="cap4.html#cb22-9" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-cuantil-gasto-zona-sexo">Cuadro 3.19: </span>Primer cuartil de los gastos desagregado por zona y sexo</caption>
+<thead>
+<tr class="header">
+<th align="left">Zone</th>
+<th align="center">Sex</th>
+<th align="center">q_q25</th>
+<th align="center">q_q25_se</th>
+<th align="center">q_q25_low</th>
+<th align="center">q_q25_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Rural</td>
+<td align="center">Female</td>
+<td align="center">160</td>
+<td align="center">7.18</td>
+<td align="center">135</td>
+<td align="center">163</td>
+</tr>
+<tr class="even">
+<td align="left">Rural</td>
+<td align="center">Male</td>
+<td align="center">163</td>
+<td align="center">3.45</td>
+<td align="center">150</td>
+<td align="center">163</td>
+</tr>
+<tr class="odd">
+<td align="left">Urban</td>
+<td align="center">Female</td>
+<td align="center">258</td>
+<td align="center">10.40</td>
+<td align="center">249</td>
+<td align="center">291</td>
+</tr>
+<tr class="even">
+<td align="left">Urban</td>
+<td align="center">Male</td>
+<td align="center">259</td>
+<td align="center">10.03</td>
+<td align="center">257</td>
+<td align="center">297</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="estimación-del-coeficiente-de-gini" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Estimación del coeficiente de Gini<a href="#estimaci%C3%B3n-del-coeficiente-de-gini" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El tema sobre desigualdad económica trasciende el ámbito estrictamente estadístico y constituye uno de los temas centrales del análisis social contemporáneo. Existe un amplio consenso respecto a la importancia de comprender cómo las desigualdades económicas condicionan las oportunidades, el bienestar y la calidad de vida de las personas. En este sentido, la medición rigurosa de la desigualdad representa un insumo fundamental para el diseño, seguimiento y evaluación de políticas públicas orientadas a la equidad social.</p>
+<p>Entre los indicadores más ampliamente utilizados para cuantificar la desigualdad económica se encuentra el coeficiente de Gini (<span class="math inline">\(G\)</span>), el cual mide el grado de concentración del ingreso comparando la distribución observada con una situación hipotética de igualdad perfecta. Este coeficiente toma valores entre 0 y 1, donde <span class="math inline">\(G = 0\)</span> representa igualdad perfecta y <span class="math inline">\(G = 1\)</span> corresponde al máximo nivel de desigualdad posible. Valores más elevados indican una mayor concentración del ingreso en un grupo reducido de la población.</p>
+<p>En el contexto de las encuestas de hogares, la estimación del coeficiente de Gini debe incorporar adecuadamente las características del diseño muestral, incluyendo los factores de expansión, la estratificación y la conglomeración. En muchos casos, los pesos muestrales son previamente normalizados con el fin de simplificar los procedimientos de estimación y facilitar el procesamiento computacional. De acuerdo con <span class="citation">Binder &amp; Kovacevic (<a href="#ref-binder1995">1995</a>)</span>, el estimador del coeficiente de Gini puede expresarse como:</p>
+<p><span class="math display">\[
+\hat{G} = \frac{2\sum_{h}\sum_{i}\sum_{k}w_{hik}^{*}
+\ \hat{F}_{hik} \ y_{hik}-1}{\hat{\bar{y}}}
+\]</span></p>
+<p>donde <span class="math inline">\(w_{hik}^{*}=\dfrac{w_{hik}}{\sum_{h}\sum_{i}\sum_{k}w_{hik}}\)</span> corresponde al peso muestral normalizado, <span class="math inline">\(\hat{F}_{hik}\)</span> representa la función de distribución acumulada (FDA) estimada para la observación <span class="math inline">\(k\)</span> dentro del conglomerado <span class="math inline">\(i\)</span> del estrato <span class="math inline">\(h\)</span>, y <span class="math inline">\(\hat{\bar{y}}\)</span> denota la media ponderada de la variable de ingreso en la población.</p>
+<p>Autores como <span class="citation">Osier (<a href="#ref-osier2009variance">2009</a>)</span> y <span class="citation">Langel &amp; Tillé (<a href="#ref-langel2013variance">2013</a>)</span> profundizan en aspectos técnicos adicionales, especialmente en lo relacionado con la estimación de la varianza del coeficiente de Gini bajo diseños complejos. El paquete <code>convey</code> (<span class="citation">Jacob et al. (<a href="#ref-covey2024">2024</a>)</span>) implementa los procedimientos recomendados para calcular el coeficiente de Gini y su varianza en encuestas de hogares. Primero, se prepara el diseño muestral mediante <code>convey_prep()</code>. Luego, la función <code>svygini()</code> calcula el índice de Gini utilizando la variable de ingreso y el diseño de encuesta complejo especificado. A continuación se muestra la sintaxis para estimarlo en la base de datos de ejemplo, presentada en la Tabla <a href="cap4.html#tab:tab-gini">3.20</a>:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="cap4.html#cb23-1" tabindex="-1"></a><span class="fu">library</span>(convey)</span>
+<span id="cb23-2"><a href="cap4.html#cb23-2" tabindex="-1"></a>diseno_gini <span class="ot">&lt;-</span> <span class="fu">convey_prep</span>(diseno)</span>
+<span id="cb23-3"><a href="cap4.html#cb23-3" tabindex="-1"></a>gini <span class="ot">&lt;-</span> <span class="fu">svygini</span>(<span class="sc">~</span>Income, <span class="at">design =</span> diseno_gini) </span>
+<span id="cb23-4"><a href="cap4.html#cb23-4" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="cap4.html#cb23-5" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">Gini =</span> <span class="fu">coef</span>(gini),</span>
+<span id="cb23-6"><a href="cap4.html#cb23-6" tabindex="-1"></a>           <span class="at">SE =</span> <span class="fu">SE</span>(gini),</span>
+<span id="cb23-7"><a href="cap4.html#cb23-7" tabindex="-1"></a>           <span class="at">IC_Lower =</span> <span class="fu">confint</span>(gini)[<span class="dv">1</span>],</span>
+<span id="cb23-8"><a href="cap4.html#cb23-8" tabindex="-1"></a>           <span class="at">IC_Upper =</span> <span class="fu">confint</span>(gini)[<span class="dv">2</span>])</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-gini">Cuadro 3.20: </span>Estimación del coeficiente de Gini para el ingreso de los hogares</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Gini</th>
+<th align="center">Income</th>
+<th align="center">IC_Lower</th>
+<th align="center">IC_Upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Income</td>
+<td align="left">0.413</td>
+<td align="center">0.019</td>
+<td align="center">0.377</td>
+<td align="center">0.45</td>
+</tr>
+</tbody>
+</table>
+<p>Si el interés se centra en la estimación de la curva de Lorenz, es importante recordar que, de acuerdo con <span class="citation">Kovacevic &amp; Binder (<a href="#ref-kovacevic1997">1997</a>)</span>, esta representa la relación entre el porcentaje acumulado de la población (ordenada desde los hogares con menores ingresos hasta aquellos con mayores ingresos) y la proporción acumulada del ingreso total que concentra dicha población. La línea diagonal de 45 grados corresponde a una situación hipotética de igualdad perfecta, en la cual todos los individuos participan proporcionalmente del ingreso total.</p>
+<p>El área comprendida entre la curva de Lorenz y la diagonal de igualdad se conoce como el área de Lorenz, y el coeficiente de Gini puede interpretarse como el doble de esta área relativa. En consecuencia, cuanto más cercana se encuentre la curva de Lorenz a la diagonal, mayor será el nivel de equidad en la distribución del ingreso; por el contrario, curvas más alejadas reflejan mayores niveles de desigualdad económica.</p>
+<p>Para realizar la curva de Lorenz en <code>R</code> se utiliza la función <code>svylorenz()</code>, presentada en la Figura <a href="cap4.html#fig:fig-lorenz">3.1</a>:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="cap4.html#cb24-1" tabindex="-1"></a><span class="fu">library</span>(convey)</span>
+<span id="cb24-2"><a href="cap4.html#cb24-2" tabindex="-1"></a>clorenz <span class="ot">&lt;-</span> <span class="fu">svylorenz</span>(<span class="at">formula =</span> <span class="sc">~</span>Income,</span>
+<span id="cb24-3"><a href="cap4.html#cb24-3" tabindex="-1"></a>                     <span class="at">design =</span> diseno_gini,</span>
+<span id="cb24-4"><a href="cap4.html#cb24-4" tabindex="-1"></a>                     <span class="at">quantiles =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,.<span class="dv">05</span>),</span>
+<span id="cb24-5"><a href="cap4.html#cb24-5" tabindex="-1"></a>                     <span class="at">alpha =</span> .<span class="dv">01</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-lorenz"></span>
+<img src="03-Continuas_files/figure-html/fig-lorenz-1.png" alt="Curva de Lorenz estimada para el ingreso de los hogares" width="65%" />
+<p class="caption">
+Figura 3.1: Curva de Lorenz estimada para el ingreso de los hogares
+</p>
+</div>
+<p>El argumento <code>formula = ~Income</code> especifica la variable de ingreso sobre la cual se calculará la distribución acumulada. El argumento <code>design = diseno_gini</code> indica el objeto de diseño muestral previamente definido, el cual contiene la información relacionada con pesos, estratos y conglomerados de la encuesta. Por su parte, <code>quantiles = seq(0,1,.05)</code> define los puntos de la distribución en los cuales se evaluará la curva de Lorenz, generando percentiles desde 0 hasta 1 en incrementos de 0.05. Finalmente, el argumento <code>alpha = .01</code> establece un nivel de significación del 1%, lo que equivale a construir intervalos de confianza del 99% para las estimaciones asociadas a la curva.</p>
+</div>
+<div id="estimación-de-la-correlación" class="section level3 hasAnchor" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> Estimación de la correlación<a href="#estimaci%C3%B3n-de-la-correlaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En el estudio de encuestas de hogares, además de describir variables de forma individual, resulta fundamental analizar cómo se relacionan entre sí. Una de las herramientas más utilizadas para este propósito es el coeficiente de correlación de Pearson, el cual mide la fuerza y la dirección de la relación lineal entre dos variables numéricas. Este coeficiente toma valores entre –1 y 1. Un valor positivo indica que ambas variables tienden a aumentar simultáneamente, mientras que un valor negativo señala que cuando una variable aumenta, la otra tiende a disminuir. Por su parte, valores cercanos a cero sugieren la ausencia de una relación lineal fuerte entre las variables analizadas.</p>
+<p>Por ejemplo, en una encuesta de hogares puede ser de interés estudiar si existe una asociación entre el ingreso de los hogares y su nivel de gasto, así como evaluar la magnitud de dicha relación. Este tipo de análisis permite comprender mejor los patrones económicos y sociales observados en la población.</p>
+<p>En encuestas complejas, es necesario incorporar los pesos muestrales para que la estimación sea representativa de la población. Este ajuste tiene en cuenta la estratificación, la conglomeración y las probabilidades de selección desiguales. El cálculo ponderado implica evaluar la covarianza entre las dos variables y dividirla entre el producto de sus desviaciones estándar ponderadas, eliminando así la influencia de las unidades de medida. Asumiendo que <span class="math inline">\(\hat{\bar{x}}\)</span> es una estimación de la media poblacional de la variabnel <span class="math inline">\(x\)</span>, entonces el coeficiente de correlación de Pearson ajustado por pesos se expresa como:</p>
+<p><span class="math display">\[
+\hat{\rho}_{xy} = \frac{\displaystyle \sum_{h} \sum_{i} \sum_{k} w_{hik} (y_{hik} - \hat{\bar{y}})(x_{hik} - \hat{\bar{x}})} {\sqrt{\displaystyle \sum_{h} \sum_{i} \sum_{k} w_{hik} (y_{hik} - \hat{\bar{y}})^2} \sqrt{\displaystyle \sum_{h} \sum_{i} \sum_{k} w_{hik} (x_{hik} - \hat{\bar{x}})^2}}
+\]</span></p>
+<p>El paquete <code>survey</code> cuenta con la función <code>svyvar()</code> que permite obtener matrices de covarianzas ponderadas, a partir de las cuales se puede calcular la correlación. La Tabla <a href="cap4.html#tab:tab-covarianza">3.21</a> presenta un ejemplo de estimación para la matriz de varianzas covarianzas entre el ingreso y el gasto de los hogares.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="cap4.html#cb25-1" tabindex="-1"></a>cov <span class="ot">&lt;-</span> <span class="fu">svyvar</span>(<span class="sc">~</span>Income <span class="sc">+</span> Expenditure, <span class="at">design =</span> diseno) </span></code></pre></div>
+<table>
+<caption><span id="tab:tab-covarianza">Cuadro 3.21: </span>Matriz de varianzas y covarianzas ponderada entre ingreso y gasto</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Variable</th>
+<th align="center">Income</th>
+<th align="center">Expenditure</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Income</td>
+<td align="left">Income</td>
+<td align="center">243719</td>
+<td align="center">98337</td>
+</tr>
+<tr class="even">
+<td align="left">Expenditure</td>
+<td align="left">Expenditure</td>
+<td align="center">98337</td>
+<td align="center">77887</td>
+</tr>
+</tbody>
+</table>
+<p>La función <code>svyvar</code> estima la matriz de varianzas y covarianzas considerando el diseño muestral. A partir de dicha matriz puede obtenerse la correlación aplicando las siguientes instrucciones:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="cap4.html#cb26-1" tabindex="-1"></a>cov_xy <span class="ot">&lt;-</span> cov[<span class="dv">1</span>,<span class="dv">2</span>]</span>
+<span id="cb26-2"><a href="cap4.html#cb26-2" tabindex="-1"></a>sd_x <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(cov[<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb26-3"><a href="cap4.html#cb26-3" tabindex="-1"></a>sd_y <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(cov[<span class="dv">2</span>,<span class="dv">2</span>])</span>
+<span id="cb26-4"><a href="cap4.html#cb26-4" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="cap4.html#cb26-5" tabindex="-1"></a>cor <span class="ot">&lt;-</span> cov_xy <span class="sc">/</span> (sd_x <span class="sc">*</span> sd_y)</span>
+<span id="cb26-6"><a href="cap4.html#cb26-6" tabindex="-1"></a>cor</span></code></pre></div>
+<pre><code>## [1] 0.714</code></pre>
+<p>Si además se desea realizar inferencia estadística sobre la correlación, por ejemplo obtener errores estándar o intervalos de confianza, puede utilizarse métodos de replicación (bootstrap/jackknife) compatibles con el paquete survey. Otra opción es utilizar la función <code>svycor</code> del paquete <code>jtools</code> para estimar directamente la correlación:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="cap4.html#cb28-1" tabindex="-1"></a><span class="fu">library</span>(jtools)</span>
+<span id="cb28-2"><a href="cap4.html#cb28-2" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="cap4.html#cb28-3" tabindex="-1"></a><span class="fu">svycor</span>(<span class="sc">~</span>Income <span class="sc">+</span> Expenditure, <span class="at">design =</span> diseno) </span></code></pre></div>
+<pre><code>##             Income Expenditure
+## Income        1.00        0.71
+## Expenditure   0.71        1.00</code></pre>
+</div>
+</div>
+<div id="pruebas-de-hipótesis" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Pruebas de hipótesis<a href="#pruebas-de-hip%C3%B3tesis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En el análisis de datos provenientes de encuestas de hogares no basta con estudiar cada variable de manera aislada, como estimar el ingreso medio de hombres y mujeres en un país. También es fundamental comparar grupos y evaluar si las diferencias observadas entre ellos reflejan desigualdades reales en la población o si podrían explicarse simplemente por el error de muestreo. Por ejemplo, una pregunta frecuente consiste en determinar si existen diferencias estadísticamente significativas en el ingreso medio entre hogares dirigidos por hombres y hogares dirigidos por mujeres. Este tipo de análisis permite identificar brechas sociales y económicas, además de generar evidencia útil para el diseño y evaluación de políticas públicas.</p>
+<p>Para responder este tipo de interrogantes se utilizan pruebas de hipótesis, es decir, procedimientos estadísticos que permiten contrastar afirmaciones sobre parámetros poblacionales utilizando la información observada en la muestra. En el contexto de encuestas de hogares, estas pruebas deben incorporar adecuadamente las características del diseño muestral con el fin de garantizar inferencias válidas y resultados confiables.</p>
+<p>Las pruebas de hipótesis constituyen una herramienta fundamental para evaluar afirmaciones sobre parámetros poblacionales a partir de la información observada en una muestra. En términos generales, toda prueba de hipótesis se basa en el contraste entre dos proposiciones opuestas: la hipótesis nula, denotada por <span class="math inline">\(H_0\)</span>, y la hipótesis alternativa, denotada por <span class="math inline">\(H_1\)</span>. En el caso más común de una prueba bilateral, estas hipótesis se expresan como:</p>
+<p><span class="math display">\[
+\begin{cases}
+H_{0}: &amp; \theta = \theta_0 \\
+H_{1}: &amp; \theta \neq \theta_0
+\end{cases}
+\]</span></p>
+<p>donde <span class="math inline">\(\theta\)</span> representa el parámetro poblacional de interés y <span class="math inline">\(\theta_0\)</span> un valor de referencia especificado bajo la hipótesis nula. Dependiendo del objetivo del análisis, la hipótesis alternativa también puede formularse de manera unilateral, por ejemplo, cuando se desea evaluar si <span class="math inline">\(\theta &gt; \theta_0\)</span> o si <span class="math inline">\(\theta &lt; \theta_0\)</span>. El propósito de la prueba es determinar si la evidencia contenida en la muestra resulta suficientemente fuerte para rechazar la hipótesis nula en favor de la hipótesis alternativa.</p>
+<p>Supóngase que <span class="math inline">\(\bar{y}_1\)</span> y <span class="math inline">\(\bar{y}_2\)</span> representan las medias poblacionales de una variable <span class="math inline">\(y\)</span> en dos dominios distintos, por ejemplo, el ingreso medio de hogares con jefatura masculina y el ingreso medio de hogares con jefatura femenina. Entonces, el parámetro de interés corresponde entonces a la diferencia:</p>
+<p><span class="math display">\[
+\Delta = \bar{y}_1 - \bar{y}_2
+\]</span></p>
+<p>Su estimador muestral se define como:</p>
+<p><span class="math display">\[
+\hat{\Delta} = \hat{\bar{y}}_1 - \hat{\bar{y}}_2
+\]</span></p>
+<p>Para el cual, su error estándar se estima mediante la siguiente expresión:</p>
+<p><span class="math display">\[
+\widehat{se}(\hat{\Delta}) =
+\sqrt{
+\widehat{Var}(\hat{\bar{y}}_1)
++
+\widehat{Var}(\hat{\bar{y}}_2)
+-
+2\widehat{Cov}(\hat{\bar{y}}_1, \hat{\bar{y}}_2)
+}
+\]</span></p>
+<p>La presencia del término de covarianza es importante porque las estimaciones de ambos dominios suelen provenir de la misma muestra y, por tanto, no necesariamente son independientes. Una vez calculado el estimador y su error estándar, el contraste de hipótesis se realiza utilizando el siguiente estadístico de prueba:</p>
+<p><span class="math display">\[
+t =
+\frac{\hat{\Delta}}
+{\widehat{se}(\hat{\Delta})} \sim t_{df}
+\]</span></p>
+<p>el cual sigue aproximadamente una distribución <span class="math inline">\(t\)</span> de Student con <span class="math inline">\((df)\)</span> grados de libertad. En la práctica, estos grados de libertad suelen aproximarse mediante <span class="math inline">\(df = n_I - H\)</span>, donde <span class="math inline">\(n_I\)</span> representa el número de unidades primarias de muestreo y <span class="math inline">\(H\)</span> el número de estratos. Bajo la hipótesis nula, valores absolutos elevados del estadístico <span class="math inline">\(t\)</span> constituyen evidencia en contra de <span class="math inline">\(H_0\)</span>. De manera complementaria, también puede construirse un intervalo de confianza para el parámetro <span class="math inline">\(\Delta\)</span>. Para un nivel de confianza de <span class="math inline">\((1-\alpha)100\%\)</span>, dicho intervalo está dado por:</p>
+<p><span class="math display">\[
+\hat{\Delta}
+\;\pm\;
+t_{(1-\alpha/2,df)}
+\,
+\hat{se}(\hat{\Delta}).
+\]</span></p>
+<p>Este intervalo proporciona un rango de valores plausibles para la diferencia poblacional y constituye una herramienta útil para evaluar tanto la magnitud como la significación estadística de las diferencias observadas entre grupos.</p>
+<p>En <code>R</code>, estas pruebas pueden implementarse mediante la función <code>svyttest()</code> del paquete <code>survey</code>, la cual incorpora automáticamente los ajustes asociados al diseño muestral. A partir de los resultados presentados en la Tabla <a href="cap4.html#tab:tab-ttest-sexo">3.22</a> puede concluirse que, con un nivel de confianza del 95%, no existe evidencia estadística suficiente para afirmar que los ingresos medios difieren según el sexo.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="cap4.html#cb30-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">svyttest</span>(Income <span class="sc">~</span> Sex, <span class="at">design =</span> diseno, <span class="at">level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-ttest-sexo">Cuadro 3.22: </span>Prueba de diferencia de ingresos medios por sexo (población total)</caption>
+<thead>
+<tr class="header">
+<th align="left">Estadístico</th>
+<th align="center">p_valor</th>
+<th align="center">gl</th>
+<th align="center">IC_inf</th>
+<th align="center">IC_sup</th>
+<th align="center">Dif_estimada</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1.36</td>
+<td align="center">0.176</td>
+<td align="center">118</td>
+<td align="center">-12.8</td>
+<td align="center">69.4</td>
+<td align="center">28.3</td>
+</tr>
+</tbody>
+</table>
+<p>Otra hipótesis de interés consiste en evaluar si los ingresos medios de los hogares difieren según el sexo de la jefatura dentro del área urbana, como se presenta en la Tabla <a href="cap4.html#tab:tab-ttest-sexo-urbano">3.23</a>. Los resultados indican que no se rechaza la hipótesis nula <span class="math inline">\(H_0\)</span>, por lo que no existe evidencia estadística suficiente para afirmar que los ingresos medios difieren por sexo en la zona urbana.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="cap4.html#cb31-1" tabindex="-1"></a>sub_Urbano <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(Zone <span class="sc">==</span> <span class="st">&quot;Urban&quot;</span>)</span>
+<span id="cb31-2"><a href="cap4.html#cb31-2" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">svyttest</span>(Income <span class="sc">~</span> Sex, <span class="at">design =</span> sub_Urbano, <span class="at">level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-ttest-sexo-urbano">Cuadro 3.23: </span>Prueba de diferencia de ingresos medios por sexo en zona urbana</caption>
+<thead>
+<tr class="header">
+<th align="left">Estadístico</th>
+<th align="center">p_valor</th>
+<th align="center">gl</th>
+<th align="center">IC_inf</th>
+<th align="center">IC_sup</th>
+<th align="center">Diferencia_estimada</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1.57</td>
+<td align="center">0.122</td>
+<td align="center">63</td>
+<td align="center">-12.3</td>
+<td align="center">102</td>
+<td align="center">44.7</td>
+</tr>
+</tbody>
+</table>
+<p>El procedimiento descrito no se limita a las medias, sino que también puede aplicarse a proporciones, totales, razones o cualquier función diferenciable de totales. En todos los casos, el contraste se fundamenta en la estimación puntual, su varianza (incluyendo covarianzas cuando corresponde) y la comparación con la distribución <span class="math inline">\(t\)</span> ajustada al diseño muestral.</p>
+</div>
+<div id="estimación-de-contrastes" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Estimación de contrastes<a href="#estimaci%C3%B3n-de-contrastes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En el análisis de encuestas de hogares es frecuente que el interés no se limite a comparar únicamente dos poblaciones, sino varias de manera simultánea. Por ejemplo, puede ser necesario comparar los ingresos medios de los hogares entre distintas regiones, áreas geográficas o grupos poblacionales, con el propósito de identificar diferencias y establecer patrones de desigualdad entre ellos. En este tipo de situaciones, las pruebas de diferencia de medias presentadas anteriormente resultan limitadas, ya que están diseñadas para comparar únicamente pares de poblaciones.</p>
+<p>Para abordar comparaciones más generales se utilizan los contrastes, que constituyen una herramienta flexible para evaluar combinaciones lineales de parámetros poblacionales. En términos generales, un contraste se define como:</p>
+<p><span class="math display">\[
+f\left(\theta_1,\theta_2,\ldots,\theta_J\right)
+=
+\sum_{j=1}^{J} a_j \theta_j,
+\]</span></p>
+<p>donde los coeficientes <span class="math inline">\(a_j\)</span> son constantes conocidas y <span class="math inline">\(\theta_j\)</span> representan los parámetros de interés. Este enfoque permite formular y evaluar una amplia variedad de comparaciones entre grupos, incluyendo diferencias entre medias, comparaciones múltiples y combinaciones más complejas de parámetros.</p>
+<p>En <code>R</code>, los procedimientos metodológicos para implementar contrastes en diseños de muestreo complejos se encuentran disponibles mediante la función <code>svycontrast()</code> del paquete <code>survey</code>. Por ejemplo, si se quiere comparar los ingresos medios de dos subpoblaciones particulares (las regiones Norte y Sur) se puede usar el contraste <span class="math inline">\(\bar{y}_{Norte} - \bar{y}_{Sur}\)</span>. Dado que la muestra cubre cinco regiones en total, el contraste debe construirse asignando coeficientes únicamente a las regiones involucradas en la comparación y dejando coeficientes iguales a cero para las demás regiones. De esta manera, el contraste se define como:</p>
+<p><span class="math display">\[
+1\times\hat{\bar{y}}_{Norte}+\left(-1\right)\times\hat{\bar{y}}_{Sur}+0\times\hat{\bar{y}}_{Centro}+0\times\hat{\bar{y}}_{Occidente}+0\times\hat{\bar{y}}_{Oriente}.
+\]</span></p>
+<p>Esta expresión indica que el contraste corresponde a la diferencia entre las medias estimadas de las regiones Norte y Sur, mientras que las demás regiones no participan en la comparación. De forma matricial, el contraste puede escribirse como:</p>
+<p><span class="math display">\[
+\left[1,\,-1,\,0,\,0,\,0\right]
+\times
+\left[\begin{array}{c}
+\hat{\bar{y}}_{Norte}\\
+\hat{\bar{y}}_{Sur}\\
+\hat{\bar{y}}_{Centro}\\
+\hat{\bar{y}}_{Occidente}\\
+\hat{\bar{y}}_{Oriente}
+\end{array}\right].
+\]</span></p>
+<p>En consecuencia, el vector de contraste asociado a esta comparación es <span class="math inline">\(\left[1,\,-1,\,0,\,0,\,0\right]\)</span>, donde los coeficientes positivos y negativos indican las poblaciones que se desean comparar y los ceros representan las poblaciones excluidas del contraste. El primer paso consiste en calcular las medias estimadas para cada región mediante la función <code>svyby()</code>, como se presenta en la Tabla <a href="cap4.html#tab:tab-prom-region">3.24</a>. Note que la función <code>svyby()</code> permite aplicar una función, en este caso la media (<code>svymean</code>) por región (<code>by</code>) utilizando el diseño muestral empleado (<code>design</code>). Las demás componentes de la función ya se han utilizado previamente. Como resultado de aplicar esta función se obtienen las medias estimadas de los ingresos por región.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="cap4.html#cb32-1" tabindex="-1"></a>prom_region <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>Income,</span>
+<span id="cb32-2"><a href="cap4.html#cb32-2" tabindex="-1"></a>                     <span class="at">by =</span> <span class="sc">~</span>Region,</span>
+<span id="cb32-3"><a href="cap4.html#cb32-3" tabindex="-1"></a>                     <span class="at">design =</span> diseno,</span>
+<span id="cb32-4"><a href="cap4.html#cb32-4" tabindex="-1"></a>                     <span class="at">FUN =</span> svymean,</span>
+<span id="cb32-5"><a href="cap4.html#cb32-5" tabindex="-1"></a>                     <span class="at">na.rm=</span>T,</span>
+<span id="cb32-6"><a href="cap4.html#cb32-6" tabindex="-1"></a>                     <span class="at">covmat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb32-7"><a href="cap4.html#cb32-7" tabindex="-1"></a>                     <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-prom-region">Cuadro 3.24: </span>Ingreso medio estimado por región</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Region</th>
+<th align="center">Income</th>
+<th align="center">se</th>
+<th align="center">ci_l</th>
+<th align="center">ci_u</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Norte</td>
+<td align="left">Norte</td>
+<td align="center">552</td>
+<td align="center">55.4</td>
+<td align="center">444</td>
+<td align="center">661</td>
+</tr>
+<tr class="even">
+<td align="left">Sur</td>
+<td align="left">Sur</td>
+<td align="center">626</td>
+<td align="center">62.4</td>
+<td align="center">503</td>
+<td align="center">748</td>
+</tr>
+<tr class="odd">
+<td align="left">Centro</td>
+<td align="left">Centro</td>
+<td align="center">651</td>
+<td align="center">61.5</td>
+<td align="center">530</td>
+<td align="center">771</td>
+</tr>
+<tr class="even">
+<td align="left">Occidente</td>
+<td align="left">Occidente</td>
+<td align="center">517</td>
+<td align="center">46.2</td>
+<td align="center">426</td>
+<td align="center">608</td>
+</tr>
+<tr class="odd">
+<td align="left">Oriente</td>
+<td align="left">Oriente</td>
+<td align="center">542</td>
+<td align="center">71.7</td>
+<td align="center">401</td>
+<td align="center">682</td>
+</tr>
+</tbody>
+</table>
+<p>La función <code>svycontrast()</code> devuelve el contraste estimado y su error estándar. Los argumentos de esta función son los promedios de los ingresos estimados (<code>stat</code>) y las constantes de contraste (<code>contrasts</code>), como se muestra en la Tabla <a href="cap4.html#tab:tab-contraste-ns">3.25</a>.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="cap4.html#cb33-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">svycontrast</span>(<span class="at">stat =</span> prom_region,</span>
+<span id="cb33-2"><a href="cap4.html#cb33-2" tabindex="-1"></a>                   <span class="at">contrasts =</span> <span class="fu">list</span>(<span class="at">diff_NS =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-contraste-ns">Cuadro 3.25: </span>Contraste de ingresos medios: región Norte menos región Sur</caption>
+<thead>
+<tr class="header">
+<th align="left">Contraste</th>
+<th align="center">Estimacion</th>
+<th align="center">Varianza</th>
+<th align="center">SE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">diff_NS</td>
+<td align="center">-73.4</td>
+<td align="center">6959</td>
+<td align="center">83.4</td>
+</tr>
+</tbody>
+</table>
+<p>Nótese que estos mismos resultados podrían obtenerse realizando explícitamente el proceso de construcción del estimador del contraste y de su varianza estimada. Si se consideran únicamente los ingresos medios estimados de las regiones Norte y Sur, su diferencia es:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="cap4.html#cb34-1" tabindex="-1"></a><span class="co"># Paso 1: diferencia de estimaciones (Norte - Sur)</span></span>
+<span id="cb34-2"><a href="cap4.html#cb34-2" tabindex="-1"></a><span class="fl">552.4</span> <span class="sc">-</span> <span class="fl">625.8</span></span></code></pre></div>
+<pre><code>## [1] -73.4</code></pre>
+<p>El paso siguiente es calcular la matriz de varianzas y covarianzas y de allí extraer las varianzas y covarianzas de las regiones Norte y Sur, presentada en la Tabla <a href="cap4.html#tab:tab-vcov-region">3.26</a>:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="cap4.html#cb36-1" tabindex="-1"></a><span class="co"># Paso 2: Matriz de varianzas y covarianzas</span></span>
+<span id="cb36-2"><a href="cap4.html#cb36-2" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">vcov</span>(prom_region)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-vcov-region">Cuadro 3.26: </span>Matriz de varianzas y covarianzas de los ingresos medios por región</caption>
+<thead>
+<tr class="header">
+<th align="left">Region</th>
+<th align="center">Norte</th>
+<th align="center">Sur</th>
+<th align="center">Centro</th>
+<th align="center">Occidente</th>
+<th align="center">Oriente</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Norte</td>
+<td align="center">3065</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="left">Sur</td>
+<td align="center">0</td>
+<td align="center">3894</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Centro</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">3778</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="left">Occidente</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">2136</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Oriente</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">5136</td>
+</tr>
+</tbody>
+</table>
+<p>Para calcular el error estándar de la diferencia (contraste) se usará las propiedades de la varianza, de la siguiente forma:</p>
+<p><span class="math display">\[
+\widehat{se}\left(\hat{\bar{y}}_{Norte}-\hat{\bar{y}}_{Sur}\right)=\sqrt{\widehat {Var}\left(\hat{\bar{y}}_{Norte}\right)+
+\widehat{Var}\left(\hat{\bar{y}}_{Sur}\right)-
+2\, \widehat{Cov}\left(\hat{\bar{y}}_{Norte},\hat{\bar{y}}_{Sur}\right)}
+\]</span></p>
+<p>Por tanto:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="cap4.html#cb37-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">2650</span> <span class="sc">+</span> <span class="dv">3460</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="dv">0</span>)</span></code></pre></div>
+<pre><code>## [1] 78.2</code></pre>
+<p>El cual corresponde al mismo resultado obtenido anteriormente con la función <code>svycontrast()</code>. Además de comparar únicamente dos poblaciones, los contrastes permiten evaluar simultáneamente varias comparaciones de interés entre diferentes grupos.</p>
+<p>Por otro lado, supóngase que se desea comparar los ingresos medios entre distintas regiones geográficas. En particular, podrían considerarse contrastes como <span class="math inline">\(\bar{y}_{Norte} - \bar{y}_{Centro}\)</span>, <span class="math inline">\(\bar{y}_{Sur} - \bar{y}_{Centro}\)</span> y <span class="math inline">\(\bar{y}_{Occidente} - \bar{y}_{Oriente}\)</span>. Cada una de estas expresiones representa un contraste lineal específico entre medias regionales. De manera conjunta, dichos contrastes pueden organizarse mediante la siguiente matriz de contrastes:</p>
+<p><span class="math display">\[
+\left[\begin{array}{ccccc}
+1 &amp; 0 &amp; -1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; -1 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; -1
+\end{array}\right]
+\]</span></p>
+<p>En esta matriz, cada fila define un contraste distinto y cada columna corresponde a una de las regiones consideradas en el análisis. Los coeficientes positivos y negativos indican las medias que participan en cada comparación, mientras que los ceros representan las regiones que no intervienen en el contraste correspondiente. A continuación, se muestra la implementación de los contrastes en <code>R</code>, cuyos resultados se presentan en la Tabla <a href="cap4.html#tab:tab-contraste-regiones">3.27</a>. A partir de estos resultados, puede concluirse que las regiones Sur y Centro presentan los ingresos medios de los hogares más similares, dado que la diferencia estimada entre ambas regiones es la menor entre los contrastes evaluados.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="cap4.html#cb39-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">svycontrast</span>(</span>
+<span id="cb39-2"><a href="cap4.html#cb39-2" tabindex="-1"></a>  <span class="at">stat =</span> prom_region,</span>
+<span id="cb39-3"><a href="cap4.html#cb39-3" tabindex="-1"></a>  <span class="at">contrasts =</span> <span class="fu">list</span>(</span>
+<span id="cb39-4"><a href="cap4.html#cb39-4" tabindex="-1"></a>    <span class="at">Norte_sur         =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>,  <span class="dv">0</span>),</span>
+<span id="cb39-5"><a href="cap4.html#cb39-5" tabindex="-1"></a>    <span class="at">Sur_centro        =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>,  <span class="dv">0</span>),</span>
+<span id="cb39-6"><a href="cap4.html#cb39-6" tabindex="-1"></a>    <span class="at">Occidente_Oriente =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>,  <span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb39-7"><a href="cap4.html#cb39-7" tabindex="-1"></a>  )</span>
+<span id="cb39-8"><a href="cap4.html#cb39-8" tabindex="-1"></a>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-contraste-regiones">Cuadro 3.27: </span>Contrastes de ingresos medios entre regiones</caption>
+<thead>
+<tr class="header">
+<th align="left">Contraste</th>
+<th align="center">Estimacion</th>
+<th align="center">Varianza</th>
+<th align="center">SE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Norte_sur</td>
+<td align="center">-98.4</td>
+<td align="center">6843</td>
+<td align="center">82.7</td>
+</tr>
+<tr class="even">
+<td align="left">Sur_centro</td>
+<td align="center">-25.0</td>
+<td align="center">7673</td>
+<td align="center">87.6</td>
+</tr>
+<tr class="odd">
+<td align="left">Occidente_Oriente</td>
+<td align="center">-24.7</td>
+<td align="center">7272</td>
+<td align="center">85.3</td>
+</tr>
+</tbody>
+</table>
+<p>También es posible construir contrastes entre variables asociadas a diferentes grupos poblacionales, como ocurre al comparar el ingreso medio según el sexo. Siguiendo el mismo procedimiento del ejemplo anterior, el primer paso consiste en estimar el ingreso medio para cada grupo, en este caso hombres y mujeres, como se presenta en la Tabla <a href="cap4.html#tab:tab-prom-sexo">3.28</a>.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="cap4.html#cb40-1" tabindex="-1"></a>prom_sexo <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>Income,</span>
+<span id="cb40-2"><a href="cap4.html#cb40-2" tabindex="-1"></a>                   <span class="at">by =</span> <span class="sc">~</span>Sex,</span>
+<span id="cb40-3"><a href="cap4.html#cb40-3" tabindex="-1"></a>                   <span class="at">design =</span> diseno,</span>
+<span id="cb40-4"><a href="cap4.html#cb40-4" tabindex="-1"></a>                   <span class="at">FUN =</span> svymean,</span>
+<span id="cb40-5"><a href="cap4.html#cb40-5" tabindex="-1"></a>                   <span class="at">na.rm=</span>T,</span>
+<span id="cb40-6"><a href="cap4.html#cb40-6" tabindex="-1"></a>                   <span class="at">covmat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb40-7"><a href="cap4.html#cb40-7" tabindex="-1"></a>                   <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-prom-sexo">Cuadro 3.28: </span>Ingreso medio estimado por sexo</caption>
+<thead>
+<tr class="header">
+<th align="left">Sex</th>
+<th align="center">Income</th>
+<th align="center">se</th>
+<th align="center">ci_l</th>
+<th align="center">ci_u</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Female</td>
+<td align="center">558</td>
+<td align="center">25.8</td>
+<td align="center">507</td>
+<td align="center">608</td>
+</tr>
+<tr class="even">
+<td align="left">Male</td>
+<td align="center">586</td>
+<td align="center">34.6</td>
+<td align="center">518</td>
+<td align="center">654</td>
+</tr>
+</tbody>
+</table>
+<p>En este caso, el contraste de interés está dado por <span class="math inline">\(\bar{y}_{F} - \bar{y}_{M}\)</span>, el cual permite cuantificar la diferencia entre el ingreso medio de las mujeres y el correspondiente a los hombres. A continuación, utilizando la función <code>svycontrast()</code> del paquete <code>survey</code>, se obtiene la estimación del contraste, cuyos resultados se presentan en la Tabla <a href="cap4.html#tab:tab-contraste-sexo">3.29</a>. A partir de estos resultados, se concluye que, en promedio, los hombres perciben 28.3 unidades monetarias más que las mujeres, con un error estándar estimado de 19.8 unidades monetarias.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="cap4.html#cb41-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">svycontrast</span>(<span class="at">stat =</span> prom_sexo,</span>
+<span id="cb41-2"><a href="cap4.html#cb41-2" tabindex="-1"></a>                   <span class="at">contrasts =</span> <span class="fu">list</span>(<span class="at">diff_Sexo =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-contraste-sexo">Cuadro 3.29: </span>Contraste de ingresos medios entre mujeres y hombres</caption>
+<thead>
+<tr class="header">
+<th align="left">Contraste</th>
+<th align="center">Estimacion</th>
+<th align="center">Varianza</th>
+<th align="center">SE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">diff_Sexo</td>
+<td align="center">-28.3</td>
+<td align="center">431</td>
+<td align="center">20.8</td>
+</tr>
+</tbody>
+</table>
+<p>Dado que los contrastes corresponden a funciones lineales de parámetros, también es posible aplicarlos a estimadores de razón. Un ejemplo de ello consiste en comparar la relación entre gastos e ingresos según el sexo. En este caso, primero se estima la razón gasto-ingreso para cada grupo y posteriormente se construye el contraste entre dichas razones. A continuación, se presentan los códigos computacionales utilizados para realizar este análisis, cuyos resultados se muestran en la Tabla <a href="cap4.html#tab:tab-razon-ingreso-gasto-sexo">3.30</a>:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="cap4.html#cb42-1" tabindex="-1"></a>razon_sexo <span class="ot">&lt;-</span> <span class="fu">svyby</span>( <span class="at">formula =</span> <span class="sc">~</span>Income,</span>
+<span id="cb42-2"><a href="cap4.html#cb42-2" tabindex="-1"></a>                     <span class="at">by =</span> <span class="sc">~</span>Sex,</span>
+<span id="cb42-3"><a href="cap4.html#cb42-3" tabindex="-1"></a>                     <span class="at">denominator =</span> <span class="sc">~</span>Expenditure,</span>
+<span id="cb42-4"><a href="cap4.html#cb42-4" tabindex="-1"></a>                     <span class="at">design =</span> diseno,</span>
+<span id="cb42-5"><a href="cap4.html#cb42-5" tabindex="-1"></a>                     <span class="at">FUN =</span> svyratio,</span>
+<span id="cb42-6"><a href="cap4.html#cb42-6" tabindex="-1"></a>                     <span class="at">na.rm=</span>T, <span class="at">covmat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb42-7"><a href="cap4.html#cb42-7" tabindex="-1"></a>                     <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-razon-ingreso-gasto-sexo">Cuadro 3.30: </span>Razón ingreso/gasto desagregada por sexo</caption>
+<thead>
+<tr class="header">
+<th align="left">Sexo</th>
+<th align="center">Razon</th>
+<th align="center">SE</th>
+<th align="center">CI_Lower</th>
+<th align="center">CI_Upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Female</td>
+<td align="center">1.52</td>
+<td align="center">0.046</td>
+<td align="center">1.43</td>
+<td align="center">1.61</td>
+</tr>
+<tr class="even">
+<td align="left">Male</td>
+<td align="center">1.56</td>
+<td align="center">0.070</td>
+<td align="center">1.43</td>
+<td align="center">1.70</td>
+</tr>
+</tbody>
+</table>
+<p>La función <code>svycontrast()</code> no se limita únicamente a la comparación de medias o totales, sino que también permite construir contrastes entre otros parámetros de interés, como razones y proporciones estimadas a partir de diseños de muestreo complejos. A continuación, se presentan los códigos computacionales utilizados para realizar este análisis, cuyos resultados se muestran en la Tabla <a href="cap4.html#tab:tab-razon-ingreso-gasto-sexo">3.30</a>. A partir de dichos resultados, puede concluirse que la diferencia entre las proporciones estimadas es de 0.045 a favor de los hombres.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="cap4.html#cb43-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">svycontrast</span>(<span class="at">stat =</span> razon_sexo,</span>
+<span id="cb43-2"><a href="cap4.html#cb43-2" tabindex="-1"></a>                   <span class="at">contrasts =</span> <span class="fu">list</span>(</span>
+<span id="cb43-3"><a href="cap4.html#cb43-3" tabindex="-1"></a>                          <span class="at">diff_sexo =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb43-4"><a href="cap4.html#cb43-4" tabindex="-1"></a>                   )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-contraste-razon-sexo">Cuadro 3.31: </span>Contraste de la razón ingreso/gasto entre sexos</caption>
+<thead>
+<tr class="header">
+<th align="left">Contraste</th>
+<th align="center">Estimacion</th>
+<th align="center">SE</th>
+<th align="center">Varianza</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">diff_sexo</td>
+<td align="center">-0.046</td>
+<td align="center">0.042</td>
+<td align="center">0.002</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="viz-continuas" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Visualización de variables continuas<a href="cap4.html#viz-continuas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La representación gráfica de variables continuas es un componente esencial en el análisis de encuestas de hogares. Los gráficos bien diseñados permiten identificar distribuciones, tendencias y relaciones entre variables, facilitando la interpretación de los hallazgos y su comunicación a distintos públicos <span class="citation">(<a href="#ref-wilkinson2005grammar">Wilkinson, 2005</a>)</span>. Un aspecto fundamental en este contexto es que los gráficos deben incorporar los pesos muestrales para reflejar la distribución de la población de interés.</p>
+<p>En esta sección se utilizan los paquetes <code>ggplot2</code> <span class="citation">(<a href="#ref-Wickham2023">Wickham et al., 2023</a>)</span> y <code>patchwork</code> <span class="citation">(<a href="#ref-patchwork">Pedersen, 2024</a>)</span> para la construcción y composición de gráficos, combinados con <code>survey</code> <span class="citation">(<a href="#ref-Lumley2024">Lumley, 2024</a>)</span> y <code>srvyr</code> <span class="citation">(<a href="#ref-Freedman2024">Freedman Ellis &amp; Schneider, 2024</a>)</span>.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="cap4.html#cb44-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb44-2"><a href="cap4.html#cb44-2" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb44-3"><a href="cap4.html#cb44-3" tabindex="-1"></a><span class="fu">data</span>(BigCity, <span class="at">package =</span> <span class="st">&quot;TeachingSampling&quot;</span>)</span></code></pre></div>
+<p>Para la elaboración de los gráficos presentados en este capítulo se adopta el siguiente tema visual, con el propósito de estandarizar la presentación de los resultados estadísticos y facilitar su interpretación.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="cap4.html#cb45-1" tabindex="-1"></a>theme_cepal <span class="ot">&lt;-</span> <span class="cf">function</span>(...) {</span>
+<span id="cb45-2"><a href="cap4.html#cb45-2" tabindex="-1"></a>  <span class="fu">theme_light</span>(<span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb45-3"><a href="cap4.html#cb45-3" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb45-4"><a href="cap4.html#cb45-4" tabindex="-1"></a>      <span class="at">axis.text.x  =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb45-5"><a href="cap4.html#cb45-5" tabindex="-1"></a>      <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb45-6"><a href="cap4.html#cb45-6" tabindex="-1"></a>      <span class="at">axis.text.y  =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb45-7"><a href="cap4.html#cb45-7" tabindex="-1"></a>      <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb45-8"><a href="cap4.html#cb45-8" tabindex="-1"></a>      <span class="at">legend.position  =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb45-9"><a href="cap4.html#cb45-9" tabindex="-1"></a>      <span class="at">legend.justification =</span> <span class="st">&quot;left&quot;</span>,</span>
+<span id="cb45-10"><a href="cap4.html#cb45-10" tabindex="-1"></a>      <span class="at">legend.direction =</span> <span class="st">&quot;horizontal&quot;</span>,</span>
+<span id="cb45-11"><a href="cap4.html#cb45-11" tabindex="-1"></a>      <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb45-12"><a href="cap4.html#cb45-12" tabindex="-1"></a>      ...</span>
+<span id="cb45-13"><a href="cap4.html#cb45-13" tabindex="-1"></a>    )</span>
+<span id="cb45-14"><a href="cap4.html#cb45-14" tabindex="-1"></a>}</span></code></pre></div>
+<p>La función <code>theme_cepal()</code> define un tema gráfico personalizado basado en <code>theme_light(10)</code>, que establece un estilo claro con tamaño base de fuente igual a 10. Posteriormente, mediante la función <code>theme()</code>, se realizan ajustes específicos sobre distintos componentes del gráfico. Los argumentos <code>axis.text.x</code> y <code>axis.text.y</code> eliminan las etiquetas de los ejes horizontal y vertical, respectivamente, mientras que <code>axis.ticks.x</code> y <code>axis.ticks.y</code> eliminan las marcas de ambos ejes. Los argumentos <code>legend.position = "bottom"</code> y <code>legend.direction = "horizontal"</code> ubican la leyenda en la parte inferior del gráfico y organizan sus elementos de manera horizontal. Por su parte, <code>legend.justification = "left"</code> alinea la leyenda hacia la izquierda dentro de su posición. Finalmente, <code>plot.title = element_text(size = 11, hjust = 0.5)</code> define el tamaño del título y lo centra horizontalmente. El argumento <code>...</code> permite incorporar opciones adicionales al tema cuando la función es utilizada.</p>
+<div id="histogramas" class="section level3 hasAnchor" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Histogramas<a href="cap4.html#histogramas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Un histograma es una representación gráfica de la distribución de una variable numérica continua, construida a partir de rectángulos cuya altura es proporcional a la frecuencia de observaciones dentro de determinados intervalos de clase. En el contexto de encuestas de hogares, los histogramas ponderados permiten aproximar la distribución de la variable en la población, incorporando los factores de expansión asociados al diseño muestral.</p>
+<p>A continuación, se presenta el histograma ponderado de la variable <code>Income</code>, construido incorporando los pesos muestrales (<code>wk</code>) con el fin de representar la distribución estimada del ingreso en la población. Los resultados obtenidos se muestran en la Figura <a href="cap4.html#fig:fig-hist-ingreso-ponde">3.2</a>:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="cap4.html#cb46-1" tabindex="-1"></a>plot1_Ponde <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
+<span id="cb46-2"><a href="cap4.html#cb46-2" tabindex="-1"></a>  <span class="at">data =</span> encuesta,</span>
+<span id="cb46-3"><a href="cap4.html#cb46-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Income, <span class="at">weight =</span> wk)) <span class="sc">+</span></span>
+<span id="cb46-4"><a href="cap4.html#cb46-4" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..)) <span class="sc">+</span></span>
+<span id="cb46-5"><a href="cap4.html#cb46-5" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb46-6"><a href="cap4.html#cb46-6" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Histograma ponderado&quot;</span>) <span class="sc">+</span></span>
+<span id="cb46-7"><a href="cap4.html#cb46-7" tabindex="-1"></a>  <span class="fu">theme_cepal</span>()</span>
+<span id="cb46-8"><a href="cap4.html#cb46-8" tabindex="-1"></a>plot1_Ponde</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-hist-ingreso-ponde"></span>
+<img src="03-Continuas_files/figure-html/fig-hist-ingreso-ponde-1.png" alt="Histograma ponderado del ingreso de los hogares" width="65%" />
+<p class="caption">
+Figura 3.2: Histograma ponderado del ingreso de los hogares
+</p>
+</div>
+<p>En este código, se inicia la construcción del gráfico utilizando la base de datos <code>encuesta</code>. Dentro de <code>aes()</code>, el argumento <code>x = Income</code> indica que la variable representada en el eje horizontal corresponde al ingreso, mientras que <code>weight = wk</code> incorpora los pesos muestrales para construir un histograma ponderado que refleje la distribución estimada en la población. La función <code>geom_histogram()</code> genera el histograma y, mediante <code>aes(y = ..density..)</code>, la altura de las barras se expresa en términos de densidad en lugar de frecuencias absolutas. Posteriormente, <code>ylab("")</code> elimina la etiqueta del eje vertical, y <code>ggtitle("Histograma ponderado")</code> agrega un título descriptivo al gráfico. Finalmente, <code>theme_cepal()</code> aplica el tema gráfico personalizado definido previamente para estandarizar la apariencia visual del histograma.</p>
+<p>Los histogramas también permiten comparar visualmente la distribución de una variable entre distintos subgrupos de la población mediante el argumento <code>fill</code>, el cual asigna un color diferente a cada categoría. Por ejemplo, es posible comparar la distribución del ingreso entre zonas urbanas y rurales, como se muestra en la Figura <a href="cap4.html#fig:fig-hist-zona">3.3</a>:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="cap4.html#cb47-1" tabindex="-1"></a>colorZona <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">Urban =</span> <span class="st">&quot;#48C9B0&quot;</span>, <span class="at">Rural =</span> <span class="st">&quot;#117864&quot;</span>)</span>
+<span id="cb47-2"><a href="cap4.html#cb47-2" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="cap4.html#cb47-3" tabindex="-1"></a>plot3_Ponde <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(encuesta, <span class="fu">aes</span>(<span class="at">x =</span> Income, <span class="at">weight =</span> wk)) <span class="sc">+</span></span>
+<span id="cb47-4"><a href="cap4.html#cb47-4" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb47-5"><a href="cap4.html#cb47-5" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y =</span> ..density.., <span class="at">fill =</span> Zone),</span>
+<span id="cb47-6"><a href="cap4.html#cb47-6" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">position =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb47-7"><a href="cap4.html#cb47-7" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colorZona) <span class="sc">+</span></span>
+<span id="cb47-8"><a href="cap4.html#cb47-8" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb47-9"><a href="cap4.html#cb47-9" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Ponderado&quot;</span>) <span class="sc">+</span></span>
+<span id="cb47-10"><a href="cap4.html#cb47-10" tabindex="-1"></a>  <span class="fu">theme_cepal</span>()</span>
+<span id="cb47-11"><a href="cap4.html#cb47-11" tabindex="-1"></a></span>
+<span id="cb47-12"><a href="cap4.html#cb47-12" tabindex="-1"></a>plot3_Ponde</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-hist-zona"></span>
+<img src="03-Continuas_files/figure-html/fig-hist-zona-1.png" alt="Histograma ponderado del ingreso por zona geográfica" width="65%" />
+<p class="caption">
+Figura 3.3: Histograma ponderado del ingreso por zona geográfica
+</p>
+</div>
+<p>En este código, se construye un histograma ponderado utilizando la base de datos <code>encuesta</code>, donde <code>x = Income</code> define la variable representada en el eje horizontal y <code>weight = wk</code> incorpora los pesos muestrales para reflejar la distribución poblacional del ingreso. La función <code>geom_histogram()</code> genera el histograma y, mediante <code>aes(y = ..density.., fill = Zone)</code>, representa las barras en términos de densidad y asigna colores diferentes según la variable <code>Zone</code>, permitiendo comparar visualmente la distribución del ingreso entre zonas. El argumento <code>alpha = 0.5</code> agrega transparencia a las barras para facilitar la superposición de los histogramas, mientras que <code>position = "identity"</code> permite que las distribuciones se dibujen una encima de otra en lugar de apilarse. Posteriormente, <code>scale_fill_manual(values = colorZona)</code> define manualmente los colores asociados a cada zona. Finalmente, <code>ylab("")</code> elimina la etiqueta del eje vertical, <code>ggtitle("Ponderado")</code> agrega un título al gráfico y <code>theme_cepal()</code> aplica el tema gráfico personalizado utilizado en el capítulo.</p>
+<p>Adicionalmente, es posible superponer curvas de densidad suavizadas mediante la función <code>geom_density()</code>, lo que permite visualizar de manera continua la forma de la distribución de la variable analizada. Este tipo de representación facilita la identificación de patrones como asimetrías, concentración de observaciones o la presencia de múltiples modas. Un ejemplo de este tipo de gráfico se presenta en la Figura <a href="cap4.html#fig:fig-densidades">3.4</a>:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="cap4.html#cb48-1" tabindex="-1"></a>plot1_Ponde <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">|</span></span>
+<span id="cb48-2"><a href="cap4.html#cb48-2" tabindex="-1"></a>  plot3_Ponde <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Zone), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb48-3"><a href="cap4.html#cb48-3" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-densidades"></span>
+<img src="03-Continuas_files/figure-html/fig-densidades-1.png" alt="Histogramas con curvas de densidad superpuestas para ingreso y gasto" width="90%" />
+<p class="caption">
+Figura 3.4: Histogramas con curvas de densidad superpuestas para ingreso y gasto
+</p>
+</div>
+</div>
+<div id="diagramas-de-caja-boxplots" class="section level3 hasAnchor" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Diagramas de caja (<em>boxplots</em>)<a href="cap4.html#diagramas-de-caja-boxplots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Los diagramas de caja (<em>boxplots</em>) permiten identificar valores atípicos y evaluar la dispersión de la distribución. Introducido por John Tukey en 1977 son una representación gráfica que resume la distribución de una variable mediante estadísticas basadas en cuartiles, permitiendo identificar la mediana, la dispersión de los datos y la presencia de valores atípicos. En el contexto de encuestas de hogares, este tipo de gráfico resulta útil para comparar distribuciones entre distintos grupos poblacionales de manera compacta y visualmente intuitiva.</p>
+<p>Para construir <em>boxplots</em> ponderados en <code>ggplot2</code> se utiliza la función <code>geom_boxplot()</code>, como se muestra en la Figura <a href="cap4.html#fig:fig-boxplot-zona-sexo">3.5</a>. En este caso, la función <code>ggplot()</code> inicia la construcción del gráfico utilizando la base de datos <code>encuesta</code>, donde <code>x = Income</code> define la variable numérica analizada y <code>weight = wk</code> incorpora los pesos muestrales para representar la distribución estimada en la población. Posteriormente, <code>geom_boxplot()</code> genera los diagramas de caja y, mediante <code>aes(fill = Zone)</code> o <code>aes(fill = Sex)</code>, asigna colores diferentes a cada categoría de las variables <code>Zone</code> y <code>Sex</code>, respectivamente, facilitando la comparación visual entre grupos. La función <code>coord_flip()</code> invierte los ejes para presentar los <em>boxplots</em> de forma horizontal, mejorando así su legibilidad. Por su parte, <code>scale_fill_manual()</code> permite definir manualmente los colores asociados a cada categoría mediante los vectores <code>colorZona</code> y <code>colorSex</code>.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="cap4.html#cb49-1" tabindex="-1"></a>plot9_Ponde <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(encuesta, <span class="fu">aes</span>(<span class="at">x =</span> Income, <span class="at">weight =</span> wk)) <span class="sc">+</span></span>
+<span id="cb49-2"><a href="cap4.html#cb49-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Zone)) <span class="sc">+</span></span>
+<span id="cb49-3"><a href="cap4.html#cb49-3" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Ponderado&quot;</span>) <span class="sc">+</span></span>
+<span id="cb49-4"><a href="cap4.html#cb49-4" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb49-5"><a href="cap4.html#cb49-5" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colorZona) <span class="sc">+</span></span>
+<span id="cb49-6"><a href="cap4.html#cb49-6" tabindex="-1"></a>  <span class="fu">theme_cepal</span>()</span>
+<span id="cb49-7"><a href="cap4.html#cb49-7" tabindex="-1"></a></span>
+<span id="cb49-8"><a href="cap4.html#cb49-8" tabindex="-1"></a>colorSex <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">Male =</span> <span class="st">&quot;#5DADE2&quot;</span>, <span class="at">Female =</span> <span class="st">&quot;#2874A6&quot;</span>)</span>
+<span id="cb49-9"><a href="cap4.html#cb49-9" tabindex="-1"></a></span>
+<span id="cb49-10"><a href="cap4.html#cb49-10" tabindex="-1"></a>plot11_Ponde <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(encuesta, <span class="fu">aes</span>(<span class="at">x =</span> Income, <span class="at">weight =</span> wk)) <span class="sc">+</span></span>
+<span id="cb49-11"><a href="cap4.html#cb49-11" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Sex)) <span class="sc">+</span></span>
+<span id="cb49-12"><a href="cap4.html#cb49-12" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Ponderado&quot;</span>) <span class="sc">+</span></span>
+<span id="cb49-13"><a href="cap4.html#cb49-13" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb49-14"><a href="cap4.html#cb49-14" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colorSex) <span class="sc">+</span></span>
+<span id="cb49-15"><a href="cap4.html#cb49-15" tabindex="-1"></a>  <span class="fu">theme_cepal</span>()</span>
+<span id="cb49-16"><a href="cap4.html#cb49-16" tabindex="-1"></a></span>
+<span id="cb49-17"><a href="cap4.html#cb49-17" tabindex="-1"></a>plot9_Ponde <span class="sc">|</span> plot11_Ponde</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-boxplot-zona-sexo"></span>
+<img src="03-Continuas_files/figure-html/fig-boxplot-zona-sexo-1.png" alt="Boxplots ponderados del ingreso por zona y sexo" width="90%" />
+<p class="caption">
+Figura 3.5: Boxplots ponderados del ingreso por zona y sexo
+</p>
+</div>
+<p>Además de las herramientas disponibles en <code>ggplot2</code>, el paquete <code>survey</code> ofrece funciones especializadas como <code>svyhist()</code> y <code>svyboxplot()</code>, las cuales incorporan directamente las características del diseño muestral complejo en la construcción de los gráficos. Estas funciones permiten obtener representaciones gráficas coherentes con el diseño de la encuesta, facilitando el análisis exploratorio de las variables numéricas. Un ejemplo de su aplicación se presenta en la Figura <a href="cap4.html#fig:fig-svyhist-svybox">3.6</a>.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="cap4.html#cb50-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb50-2"><a href="cap4.html#cb50-2" tabindex="-1"></a><span class="fu">svyhist</span>(<span class="sc">~</span>Income, diseno,</span>
+<span id="cb50-3"><a href="cap4.html#cb50-3" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">&quot;Ingresos por hogar&quot;</span>,</span>
+<span id="cb50-4"><a href="cap4.html#cb50-4" tabindex="-1"></a>  <span class="at">col  =</span> <span class="st">&quot;grey80&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Ingreso&quot;</span>,</span>
+<span id="cb50-5"><a href="cap4.html#cb50-5" tabindex="-1"></a>  <span class="at">probability =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb50-6"><a href="cap4.html#cb50-6" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="cap4.html#cb50-7" tabindex="-1"></a><span class="fu">svyboxplot</span>(Income <span class="sc">~</span> Zone, diseno,</span>
+<span id="cb50-8"><a href="cap4.html#cb50-8" tabindex="-1"></a>  <span class="at">col  =</span> <span class="st">&quot;grey80&quot;</span>,</span>
+<span id="cb50-9"><a href="cap4.html#cb50-9" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Ingreso&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Zona&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-svyhist-svybox"></span>
+<img src="03-Continuas_files/figure-html/fig-svyhist-svybox-1.png" alt="Histograma y boxplot del ingreso ajustados al diseño muestral complejo" width="80%" />
+<p class="caption">
+Figura 3.6: Histograma y boxplot del ingreso ajustados al diseño muestral complejo
+</p>
+</div>
+</div>
+<div id="diagramas-de-dispersión" class="section level3 hasAnchor" number="3.5.3">
+<h3><span class="header-section-number">3.5.3</span> Diagramas de dispersión<a href="#diagramas-de-dispersi%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Los diagramas de dispersión permiten explorar visualmente la relación entre dos variables continuas, facilitando la identificación de patrones de asociación, tendencias y posibles valores atípicos. En el contexto de encuestas con diseños muestrales complejos, resulta importante incorporar la información de los pesos de muestreo para que la representación gráfica refleje adecuadamente la contribución relativa de cada observación en la población.</p>
+<p>Según <span class="citation">Lumley (<a href="#ref-Lumley2010">2010</a>)</span>, cuando se trabaja con conjuntos de datos de gran tamaño, representar todos los puntos simultáneamente puede generar gráficos difíciles de interpretar debido a la sobreposición de observaciones. Sin embargo, en muestras de tamaño moderado, una estrategia sencilla y efectiva consiste en representar los pesos mediante el tamaño de los símbolos en el gráfico de dispersión. De esta manera, las observaciones con mayor peso poblacional aparecen resaltadas visualmente. Un ejemplo de este tipo de representación se presenta en la Figura <a href="cap4.html#fig:fig-scatter-basico">3.7</a>:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="cap4.html#cb51-1" tabindex="-1"></a>plot20_Ponde <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
+<span id="cb51-2"><a href="cap4.html#cb51-2" tabindex="-1"></a>  <span class="at">data =</span> encuesta,</span>
+<span id="cb51-3"><a href="cap4.html#cb51-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> Income, <span class="at">x =</span> Expenditure)) <span class="sc">+</span></span>
+<span id="cb51-4"><a href="cap4.html#cb51-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> wk), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb51-5"><a href="cap4.html#cb51-5" tabindex="-1"></a>  <span class="fu">theme_cepal</span>()</span>
+<span id="cb51-6"><a href="cap4.html#cb51-6" tabindex="-1"></a>plot20_Ponde</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-scatter-basico"></span>
+<img src="03-Continuas_files/figure-html/fig-scatter-basico-1.png" alt="Diagrama de dispersión entre ingreso y gasto de los hogares" width="65%" />
+<p class="caption">
+Figura 3.7: Diagrama de dispersión entre ingreso y gasto de los hogares
+</p>
+</div>
+<p>En este código, se construye un diagrama de dispersión entre las variables <code>x = Expenditure</code> y <code>y = Income</code>. La función <code>geom_point()</code> agrega los puntos del gráfico y, mediante <code>aes(size = wk)</code>, utiliza los pesos muestrales (<code>wk</code>) para controlar el tamaño de cada punto, de modo que las observaciones con mayor representación poblacional aparezcan visualmente más destacadas. El argumento <code>alpha = 0.3</code> incorpora transparencia a los puntos, reduciendo el problema de sobreposición y facilitando la visualización de áreas con alta concentración de observaciones.</p>
+<p>Adicionalmente, es posible incorporar variables de agrupamiento en los diagramas de dispersión mediante los argumentos <code>shape</code> y <code>color</code>, los cuales permiten diferenciar visualmente las observaciones según categorías específicas de la población. Esto facilita la identificación de patrones diferenciados entre grupos y mejora la interpretación de la relación entre las variables analizadas. Un ejemplo de este tipo de representación se presenta en la Figura <a href="cap4.html#fig:fig-scatter-zona">3.8</a>.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="cap4.html#cb52-1" tabindex="-1"></a>plot22_Ponde <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
+<span id="cb52-2"><a href="cap4.html#cb52-2" tabindex="-1"></a>  <span class="at">data =</span> encuesta,</span>
+<span id="cb52-3"><a href="cap4.html#cb52-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> Income, <span class="at">x =</span> Expenditure, <span class="at">shape =</span> Zone)) <span class="sc">+</span></span>
+<span id="cb52-4"><a href="cap4.html#cb52-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> wk, <span class="at">color =</span> Zone), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb52-5"><a href="cap4.html#cb52-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">size =</span> <span class="st">&quot;Peso&quot;</span>) <span class="sc">+</span></span>
+<span id="cb52-6"><a href="cap4.html#cb52-6" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> colorZona) <span class="sc">+</span></span>
+<span id="cb52-7"><a href="cap4.html#cb52-7" tabindex="-1"></a>  <span class="fu">theme_cepal</span>()</span>
+<span id="cb52-8"><a href="cap4.html#cb52-8" tabindex="-1"></a>plot22_Ponde</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-scatter-zona"></span>
+<img src="03-Continuas_files/figure-html/fig-scatter-zona-1.png" alt="Diagrama de dispersión entre ingreso y gasto por zona geográfica" width="65%" />
+<p class="caption">
+Figura 3.8: Diagrama de dispersión entre ingreso y gasto por zona geográfica
+</p>
+</div>
+
+</div>
+</div>
+</div>
+<h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-bautista1998" class="csl-entry">
+Bautista, L. (1998). Diseños de muestreo estadístico. <em>Universidad Nacional de Colombia</em>.
+</div>
+<div id="ref-binder1995" class="csl-entry">
+Binder, D. A., &amp; Kovacevic, M. S. (1995). Estimating some measures of income inequality from survey data: an application of the estimating equations approach. <em>Survey Methodology</em>, <em>21</em>, 137-146.
+</div>
+<div id="ref-Freedman2024" class="csl-entry">
+Freedman Ellis, G., &amp; Schneider, B. (2024). <em>srvyr: ’dplyr’-Like Syntax for Summary Statistics of Survey Data</em>. <a href="https://doi.org/10.32614/CRAN.package.srvyr">https://doi.org/10.32614/CRAN.package.srvyr</a>
+</div>
+<div id="ref-Gutierrez2016" class="csl-entry">
+Gutiérrez, H. A. (2016). <em>Estrategias de muestreo: diseño de encuestas y estimación de parámetros</em> (Segunda edición). Ediciones de la U.
+</div>
+<div id="ref-heeringa2017applied" class="csl-entry">
+Heeringa, S. G., West, B. T., Heeringa, S. G., &amp; Berglund, P. A. (2017). <em>Applied survey data analysis</em>. chapman; hall/CRC.
+</div>
+<div id="ref-covey2024" class="csl-entry">
+Jacob, G., Pessoa, D., &amp; Damico, A. (2024). <em>Poverty and Inequality with Complex Survey Data</em>. <a href="https://www.convey-r.org/">https://www.convey-r.org/</a>
+</div>
+<div id="ref-kovacevic1997" class="csl-entry">
+Kovacevic, M. S., &amp; Binder, D. A. (1997). Variance estimation for measures of income inequality and polarization-the estimating equations approach. <em>Journal of Official Statistics</em>, <em>13</em>(1), 41.
+</div>
+<div id="ref-kovar1988" class="csl-entry">
+Kovar, J., Rao, J., &amp; Wu, C. (1988). Bootstrap and other methods to measure errors in survey estimates. <em>Canadian Journal of Statistics</em>, <em>16</em>(S1), 25-45.
+</div>
+<div id="ref-langel2013variance" class="csl-entry">
+Langel, M., &amp; Tillé, Y. (2013). Variance estimation of the Gini index: revisiting a result several times published. <em>Journal of the Royal Statistical Society Series A: Statistics in Society</em>, <em>176</em>(2), 521-540.
+</div>
+<div id="ref-loomis2005" class="csl-entry">
+Loomis, D., Richardson, D. B., &amp; Elliott, L. (2005). Poisson regression analysis of ungrouped data. <em>Occupational and environmental medicine</em>, <em>62</em>(5), 325-329.
+</div>
+<div id="ref-Lumley2010" class="csl-entry">
+Lumley, T. (2010). <em>Complex Surveys: A Guide to Analysis Using R: A Guide to Analysis Using R</em>. John Wiley; Sons.
+</div>
+<div id="ref-Lumley2024" class="csl-entry">
+Lumley, T. (2024). <em>survey: analysis of complex survey samples</em>.
+</div>
+<div id="ref-ONUDeff" class="csl-entry">
+Naciones Unidas. (2009). <em>Diseño de Muestras para Encuestas de Hogares: Directrices Prácticas.</em> Naciones Unidas. <a href="https://unstats.un.org/unsd/publication/seriesf/seriesf_98s.pdf">https://unstats.un.org/unsd/publication/seriesf/seriesf_98s.pdf</a>
+</div>
+<div id="ref-osier2009variance" class="csl-entry">
+Osier, G. (2009). Variance estimation for complex indicators of poverty and inequality using linearization techniques. <em>Survey research methods</em>, <em>3</em>, 167-195.
+</div>
+<div id="ref-patchwork" class="csl-entry">
+Pedersen, T. L. (2024). <em>patchwork: The composer of plots</em>. <a href="https://CRAN.R-project.org/package=patchwork">https://CRAN.R-project.org/package=patchwork</a>
+</div>
+<div id="ref-Wickham2023" class="csl-entry">
+Wickham, H., Navarro, D., &amp; Pedersen, T. L. (2023). <em>ggplot2: Elegant Graphics for Data Analysis</em> (3.ª ed.). Springer. <a href="https://doi.org/10.1007/978-3-319-24277-4">https://doi.org/10.1007/978-3-319-24277-4</a>
+</div>
+<div id="ref-wilkinson2005grammar" class="csl-entry">
+Wilkinson, L. (2005). <em>The grammar of graphics</em> (2.ª ed.). Springer.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="conceptos-básicos-en-encuestas-de-hogares.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="análisis-de-variables-categóricas.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Libro.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

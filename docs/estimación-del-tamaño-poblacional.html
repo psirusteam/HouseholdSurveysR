@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.1 Estimación del tamaño poblacional | Análisis de encuestas con R</title>
+  <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.1 Estimación del tamaño poblacional | Análisis de encuestas con R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="github-repo" content="psirusteam/2021ASDA" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.1 Estimación del tamaño poblacional | Análisis de encuestas con R" />
+  
+  <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  
+
+<meta name="author" content="Andrés Gutiérrez, Giovany Babativa-Márquez, Stalyn Guerrero, Cristian Téllez" />
+
+
+<meta name="date" content="2026-06-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="análisis-de-variables-categóricas.html"/>
+<link rel="next" href="estimación-de-proporciones.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis de encuestas de hogares con R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
+<li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="1" data-path="cap-intro.html"><a href="cap-intro.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="04-Categoricas.html"><a href="justificación.html#justificaci%C3%B3n"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
+<li class="chapter" data-level="1.2" data-path="04-Categoricas.html"><a href="uso-del-software-r-para-el-análisis-de-encuestas.html#uso-del-software-r-para-el-an%C3%A1lisis-de-encuestas"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
+<li class="chapter" data-level="1.3" data-path="estructura-del-documento.html"><a href="estructura-del-documento.html"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="04-Categoricas.html"><a href="conceptos-básicos-en-encuestas-de-hogares.html#conceptos-b%C3%A1sicos-en-encuestas-de-hogares"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="04-Categoricas.html"><a href="población-objetivo-y-unidades-de-muestreo.html#poblaci%C3%B3n-objetivo-y-unidades-de-muestreo"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
+<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
+<li class="chapter" data-level="2.3" data-path="04-Categoricas.html"><a href="fundamentos-teóricos.html#fundamentos-te%C3%B3ricos"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="04-Categoricas.html"><a href="fundamentos-teóricos.html#estimaci%C3%B3n-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
+<li class="chapter" data-level="2.3.2" data-path="04-Categoricas.html"><a href="fundamentos-teóricos.html#estimaci%C3%B3n-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-par%C3%A1metros-descriptivos"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
+<li class="chapter" data-level="3.1.2" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
+<li class="chapter" data-level="3.1.3" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-par%C3%A1metros-de-distribuci%C3%B3n-y-desigualdad"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-la-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
+<li class="chapter" data-level="3.2.2" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
+<li class="chapter" data-level="3.2.3" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
+<li class="chapter" data-level="3.2.4" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-la-correlaci%C3%B3n"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="04-Categoricas.html"><a href="pruebas-de-hipótesis.html#pruebas-de-hip%C3%B3tesis"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
+<li class="chapter" data-level="3.4" data-path="04-Categoricas.html"><a href="estimación-de-contrastes.html#estimaci%C3%B3n-de-contrastes"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
+<li class="chapter" data-level="3.5" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.5.3" data-path="04-Categoricas.html"><a href="viz-continuas.html#diagramas-de-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="04-Categoricas.html"><a href="análisis-de-variables-categóricas.html#an%C3%A1lisis-de-variables-categ%C3%B3ricas"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="04-Categoricas.html"><a href="#estimaci%C3%B3n-del-tama%C3%B1o-poblacional"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
+<li class="chapter" data-level="4.2" data-path="04-Categoricas.html"><a href="estimación-de-proporciones.html#estimaci%C3%B3n-de-proporciones"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
+<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
+<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
+<li class="chapter" data-level="4.5" data-path="04-Categoricas.html"><a href="la-razón-de-odds.html#la-raz%C3%B3n-de-odds"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
+<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi2.html"><a href="prueba-de-independencia-chi2.html"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="04-Categoricas.html"><a href="viz-categoricas.html#gr%C3%A1ficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
+<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="04-Categoricas.html"><a href="formulación-del-modelo.html#formulaci%C3%B3n-del-modelo"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
+<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
+<li class="chapter" data-level="5.3" data-path="04-Categoricas.html"><a href="estimación-de-los-parámetros-del-modelo.html#estimaci%C3%B3n-de-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.4" data-path="04-Categoricas.html"><a href="diagnóstico-del-modelo.html#diagn%C3%B3stico-del-modelo"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="04-Categoricas.html"><a href="diagnóstico-del-modelo.html#coeficiente-de-determinaci%C3%B3n"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="5.4.2" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
+<li class="chapter" data-level="5.4.3" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="04-Categoricas.html"><a href="inferencia-sobre-los-parámetros-del-modelo.html#inferencia-sobre-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.6" data-path="04-Categoricas.html"><a href="estimación-y-predicción.html#estimaci%C3%B3n-y-predicci%C3%B3n"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cap-glm.html"><a href="cap-glm.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
+<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+</ul></li>
+<li class="divider"></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis de encuestas con R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="estimación-del-tamaño-poblacional" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Estimación del tamaño poblacional<a href="#estimaci%C3%B3n-del-tama%C3%B1o-poblacional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En el análisis de encuestas de hogares, es fundamental estimar el tamaño de las subpoblaciones, entendido como el número de personas u hogares que pertenecen a categorías específicas y la proporción que representan dentro de la población. Estas estimaciones, basadas en variables categóricas, permiten caracterizar el perfil demográfico y socioeconómico de la población, información clave para orientar la asignación de recursos, diseñar políticas públicas y formular programas sociales. Por ejemplo, estimar cuántas personas se encuentran por debajo de la línea de pobreza, cuántas están desempleadas o cuántas alcanzaron determinado nivel educativo es esencial para identificar brechas y evaluar condiciones de bienestar.</p>
+<p>La estimación del tamaño de una población o subpoblación se realiza a partir de variables categóricas, que segmentan a la población en grupos mutuamente excluyentes (particiones). El tamaño poblacional hace referencia al número total de individuos u hogares que, en la base de datos de la encuesta, pertenecen a una categoría determinada. Estas categorías pueden corresponder, por ejemplo, a estados de ocupación o niveles educativos alcanzados. Para obtener estas estimaciones, se combinan las respuestas de los encuestados con los pesos muestrales, que indican cuántas personas u hogares representa cada unidad de la muestra dentro de la población total.</p>
+<p>El estimador del tamaño de la población se define como:</p>
+<p><span class="math display">\[
+\hat{N} = \sum_{h} \sum_{i} \sum_{k} w_{hik}
+\]</span></p>
+<p>En donde, <span class="math inline">\(w_{hik}\)</span> es el peso o factor de expansión de la unidad <span class="math inline">\(k\)</span> en la UPM <span class="math inline">\(i\)</span> del estrato <span class="math inline">\(h\)</span>. Asimismo, la estimación del tamaño de una subpoblación sigue el mismo principio, pero se enmarcado en un subconjunto definido por una característica específica. Para determinar cuántas personas pertenecen a una categoría particular, se identifica dicho grupo en la base de datos y se suman sus pesos muestrales. Esto permite cuantificar grupos de interés específicos y conocer su tamaño dentro de la población:</p>
+<p><span class="math display">\[
+\hat{N}_d = \sum_{h} \sum_{i} \sum_{k} w_{hik} \ I(y_{hik}=d)
+\]</span></p>
+<p>En donde <span class="math inline">\(I(y_{hik}=d)\)</span> es una variable binaria que toma el valor de 1 si la unidad <span class="math inline">\(k\)</span> de la UPM <span class="math inline">\(i\)</span> en el estrato <span class="math inline">\(h\)</span> pertenece a la categoría <span class="math inline">\(d\)</span> de la variable de interés <span class="math inline">\(y\)</span>, y 0 en caso contrario. Nótese además que, si <span class="math inline">\(d\)</span> fue utilizada en la calibración de los pesos, el valor de <span class="math inline">\(\hat{N}_d\)</span> coincidirá con el control externo aplicado.</p>
+<p>En <code>R</code>, y utilizando el diseño muestral definido previamente, es posible generar resúmenes de la información de la encuesta para cada categoría de la variable <code>Zone</code>. Para ello, los datos se agrupan según la zona geográfica, lo que permite obtener resultados independientes para cada uno de estos dominios de estudio. A partir de este procedimiento se producen dos tipos principales de resultados. En primer lugar, se calcula el número de observaciones efectivamente recolectadas en la muestra, sin considerar los factores de expansión, lo que corresponde al tamaño muestral disponible en cada zona. En segundo lugar, se estima el tamaño poblacional asociado a cada dominio incorporando la información del diseño de muestreo.</p>
+<p>Junto con las estimaciones poblacionales también se obtienen medidas de precisión, como el error estándar y el intervalo de confianza, las cuales permiten evaluar el nivel de incertidumbre asociado a los resultados producidos a partir de la muestra. Los resultados se presentan en la Tabla <a href="estimación-del-tamaño-poblacional.html#tab:tab-tamano-zona">4.1</a>. En dicha tabla, <code>n</code> representa el número de observaciones de la muestra en cada zona, mientras que <code>Nd</code> corresponde a la estimación del total poblacional de la subpoblación. Por su parte, la función <code>unweighted()</code> se utiliza para calcular resúmenes no ponderados directamente a partir de los datos observados en la muestra.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="estimación-del-tamaño-poblacional.html#cb56-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<span id="cb56-2"><a href="estimación-del-tamaño-poblacional.html#cb56-2" tabindex="-1"></a>     <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-3"><a href="estimación-del-tamaño-poblacional.html#cb56-3" tabindex="-1"></a>     <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">unweighted</span>(<span class="fu">n</span>()), </span>
+<span id="cb56-4"><a href="estimación-del-tamaño-poblacional.html#cb56-4" tabindex="-1"></a>               <span class="at">Nd =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-tamano-zona">Cuadro 4.1: </span>Tamaño poblacional estimado por zona geográfica</caption>
+<thead>
+<tr class="header">
+<th align="left">Zone</th>
+<th align="center">n</th>
+<th align="center">Nd</th>
+<th align="center">Nd_se</th>
+<th align="center">Nd_low</th>
+<th align="center">Nd_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Rural</td>
+<td align="center">1297</td>
+<td align="center">72102</td>
+<td align="center">3062.204</td>
+<td align="center">66038.53</td>
+<td align="center">78165.47</td>
+</tr>
+<tr class="even">
+<td align="left">Urban</td>
+<td align="center">1308</td>
+<td align="center">78164</td>
+<td align="center">2847.221</td>
+<td align="center">72526.22</td>
+<td align="center">83801.78</td>
+</tr>
+</tbody>
+</table>
+<p>En efecto, el tamaño de muestra fue de 1297 personas en la zona rural y de 1308 en la zona urbana. A partir de estas muestras se estimó una población de 72,102 personas para la zona rural, con un error estándar de 3,062, y de 78,164 personas para la zona urbana, con un error estándar de 2,847. Estos resultados reflejan no solo el tamaño estimado de la población en cada dominio, sino también el nivel de precisión asociado a las estimaciones obtenidas a partir del diseño muestral.</p>
+<p>Considerando un nivel de confianza del 95%, los intervalos de confianza para las estimaciones poblacionales fueron de 66,038.5 a 78,165.4 personas en la zona rural y de 72,526.2 a 83,801.7 personas en la zona urbana. De manera análoga, también es posible estimar el número de personas según los distintos niveles de pobreza, cuyos resultados se presentan en la Tabla <a href="estimación-del-tamaño-poblacional.html#tab:tab-tamano-pobreza">4.2</a>.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="estimación-del-tamaño-poblacional.html#cb57-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<span id="cb57-2"><a href="estimación-del-tamaño-poblacional.html#cb57-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Poverty) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-3"><a href="estimación-del-tamaño-poblacional.html#cb57-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Nd =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-tamano-pobreza">Cuadro 4.2: </span>Tamaño poblacional estimado por condición de pobreza</caption>
+<thead>
+<tr class="header">
+<th align="left">Poverty</th>
+<th align="center">Nd</th>
+<th align="center">Nd_se</th>
+<th align="center">Nd_low</th>
+<th align="center">Nd_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">NotPoor</td>
+<td align="center">91398.33</td>
+<td align="center">4394.855</td>
+<td align="center">82696.08</td>
+<td align="center">100100.58</td>
+</tr>
+<tr class="even">
+<td align="left">Extreme</td>
+<td align="center">21518.77</td>
+<td align="center">4949.354</td>
+<td align="center">11718.55</td>
+<td align="center">31318.98</td>
+</tr>
+<tr class="odd">
+<td align="left">Relative</td>
+<td align="center">37348.90</td>
+<td align="center">3695.399</td>
+<td align="center">30031.64</td>
+<td align="center">44666.16</td>
+</tr>
+</tbody>
+</table>
+<p>Otra variable categórica relevante en las encuestas de hogares es el estado de ocupación. A continuación se presenta el código correspondiente, cuyos resultados se muestran en la Tabla <a href="estimación-del-tamaño-poblacional.html#tab:tab-tamano-empleo">4.3</a>. En este caso, la información se agrupa según las categorías de la variable <code>Employment</code>, lo que permite obtener estimaciones separadas para cada condición de actividad laboral de la población. Mediante el uso de la función <code>group_by()</code> es posible desagregar las estimaciones en niveles más detallados, facilitando el análisis comparativo entre los distintos grupos ocupacionales.</p>
+<p>Antes de realizar las estimaciones, se excluyen los registros con valores faltantes en la variable de empleo, garantizando que los resultados se calculen únicamente con información válida. Posteriormente, para cada categoría de ocupación se estima el tamaño poblacional utilizando el diseño muestral definido previamente. Además de la estimación puntual, también se calculan medidas de precisión, específicamente el error estándar y los intervalos de confianza, lo que permite evaluar el grado de incertidumbre asociado a cada estimación.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="estimación-del-tamaño-poblacional.html#cb58-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<span id="cb58-2"><a href="estimación-del-tamaño-poblacional.html#cb58-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Employment)) <span class="sc">%&gt;%</span></span>
+<span id="cb58-3"><a href="estimación-del-tamaño-poblacional.html#cb58-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Employment) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-4"><a href="estimación-del-tamaño-poblacional.html#cb58-4" tabindex="-1"></a>  <span class="fu">summarise</span>( <span class="at">Nd =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-tamano-empleo">Cuadro 4.3: </span>Tamaño poblacional estimado por estado de ocupación</caption>
+<thead>
+<tr class="header">
+<th align="left">Employment</th>
+<th align="center">Nd</th>
+<th align="center">Nd_se</th>
+<th align="center">Nd_low</th>
+<th align="center">Nd_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Unemployed</td>
+<td align="center">4634.807</td>
+<td align="center">760.624</td>
+<td align="center">3128.695</td>
+<td align="center">6140.919</td>
+</tr>
+<tr class="even">
+<td align="left">Inactive</td>
+<td align="center">41465.248</td>
+<td align="center">2162.804</td>
+<td align="center">37182.680</td>
+<td align="center">45747.816</td>
+</tr>
+<tr class="odd">
+<td align="left">Employed</td>
+<td align="center">61877.020</td>
+<td align="center">2540.076</td>
+<td align="center">56847.415</td>
+<td align="center">66906.624</td>
+</tr>
+</tbody>
+</table>
+<p>A partir de los resultados obtenidos se estima que 4,634.8 personas se encuentran desempleadas, con un intervalo de confianza del 95% entre 3,128.6 y 6,140.9 personas. Asimismo, se estima que 41,465.2 personas pertenecen a la población inactiva, con un intervalo de confianza entre 37,182.6 y 45,747.8. Finalmente, la población ocupada se estimó en 61,877.0 personas, con un intervalo de confianza de 36,784.2 a 47,793.5 personas.</p>
+<p>Finalmente, las estimaciones también pueden desagregarse simultáneamente por más de una variable categórica. Por ejemplo, es posible analizar el estado ocupacional según el nivel de pobreza, cuyos resultados se presentan en la Tabla <a href="estimación-del-tamaño-poblacional.html#tab:tab-tamano-empleo-pobreza">4.4</a>, de donde se puede concluir, entre otros aspectos, que aproximadamente 44,600.3 personas ocupadas no se encuentran en condición de pobreza, con un intervalo de confianza del 95% entre 39,459.6 y 49,741.0 personas. Asimismo, se estima que 6,421.8 personas inactivas se encuentran en situación de pobreza extrema, con un intervalo de confianza al 95% entre 3,806.6 y 9,037.0 personas.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="estimación-del-tamaño-poblacional.html#cb59-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<span id="cb59-2"><a href="estimación-del-tamaño-poblacional.html#cb59-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Employment)) <span class="sc">%&gt;%</span></span>
+<span id="cb59-3"><a href="estimación-del-tamaño-poblacional.html#cb59-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Employment, Poverty) <span class="sc">%&gt;%</span> </span>
+<span id="cb59-4"><a href="estimación-del-tamaño-poblacional.html#cb59-4" tabindex="-1"></a>  <span class="fu">cascade</span>( <span class="at">Nd =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span><span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)), </span>
+<span id="cb59-5"><a href="estimación-del-tamaño-poblacional.html#cb59-5" tabindex="-1"></a>           <span class="at">.fill =</span> <span class="st">&quot;Total&quot;</span>)</span></code></pre></div>
+<table style="width:100%;">
+<caption><span id="tab:tab-tamano-empleo-pobreza">Cuadro 4.4: </span>Tamaño poblacional estimado por estado de ocupación y condición de pobreza</caption>
+<colgroup>
+<col width="16%" />
+<col width="14%" />
+<col width="17%" />
+<col width="14%" />
+<col width="17%" />
+<col width="17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Employment</th>
+<th align="center">Poverty</th>
+<th align="center">Nd</th>
+<th align="center">Nd_se</th>
+<th align="center">Nd_low</th>
+<th align="center">Nd_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Unemployed</td>
+<td align="center">NotPoor</td>
+<td align="center">1768.375</td>
+<td align="center">405.377</td>
+<td align="center">965.689</td>
+<td align="center">2571.061</td>
+</tr>
+<tr class="even">
+<td align="left">Unemployed</td>
+<td align="center">Extreme</td>
+<td align="center">1169.201</td>
+<td align="center">348.134</td>
+<td align="center">479.860</td>
+<td align="center">1858.541</td>
+</tr>
+<tr class="odd">
+<td align="left">Unemployed</td>
+<td align="center">Relative</td>
+<td align="center">1697.231</td>
+<td align="center">457.808</td>
+<td align="center">790.726</td>
+<td align="center">2603.736</td>
+</tr>
+<tr class="even">
+<td align="left">Unemployed</td>
+<td align="center">Total</td>
+<td align="center">4634.807</td>
+<td align="center">760.624</td>
+<td align="center">3128.695</td>
+<td align="center">6140.919</td>
+</tr>
+<tr class="odd">
+<td align="left">Inactive</td>
+<td align="center">NotPoor</td>
+<td align="center">24346.008</td>
+<td align="center">1736.277</td>
+<td align="center">20908.006</td>
+<td align="center">27784.010</td>
+</tr>
+<tr class="even">
+<td align="left">Inactive</td>
+<td align="center">Extreme</td>
+<td align="center">6421.825</td>
+<td align="center">1320.735</td>
+<td align="center">3806.638</td>
+<td align="center">9037.012</td>
+</tr>
+<tr class="odd">
+<td align="left">Inactive</td>
+<td align="center">Relative</td>
+<td align="center">10697.414</td>
+<td align="center">1460.279</td>
+<td align="center">7805.915</td>
+<td align="center">13588.913</td>
+</tr>
+<tr class="even">
+<td align="left">Inactive</td>
+<td align="center">Total</td>
+<td align="center">41465.248</td>
+<td align="center">2162.804</td>
+<td align="center">37182.680</td>
+<td align="center">45747.816</td>
+</tr>
+<tr class="odd">
+<td align="left">Employed</td>
+<td align="center">NotPoor</td>
+<td align="center">44600.347</td>
+<td align="center">2596.191</td>
+<td align="center">39459.628</td>
+<td align="center">49741.065</td>
+</tr>
+<tr class="even">
+<td align="left">Employed</td>
+<td align="center">Extreme</td>
+<td align="center">5127.531</td>
+<td align="center">1121.646</td>
+<td align="center">2906.560</td>
+<td align="center">7348.503</td>
+</tr>
+<tr class="odd">
+<td align="left">Employed</td>
+<td align="center">Relative</td>
+<td align="center">12149.142</td>
+<td align="center">1346.616</td>
+<td align="center">9482.708</td>
+<td align="center">14815.576</td>
+</tr>
+<tr class="even">
+<td align="left">Employed</td>
+<td align="center">Total</td>
+<td align="center">61877.020</td>
+<td align="center">2540.076</td>
+<td align="center">56847.415</td>
+<td align="center">66906.624</td>
+</tr>
+<tr class="odd">
+<td align="left">Total</td>
+<td align="center">Total</td>
+<td align="center">107977.074</td>
+<td align="center">3465.568</td>
+<td align="center">101114.903</td>
+<td align="center">114839.246</td>
+</tr>
+</tbody>
+</table>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="análisis-de-variables-categóricas.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="estimación-de-proporciones.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/psirusteam/2021ASDA/04-Categoricas.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Libro.pdf", "Libro.epub", "Libro.mobi"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  },
+  "tconfig": null
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

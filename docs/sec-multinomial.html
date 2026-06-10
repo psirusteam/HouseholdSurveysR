@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6.2 Modelo de regresión multinomial | Análisis de encuestas con R</title>
+  <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6.2 Modelo de regresión multinomial | Análisis de encuestas con R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="github-repo" content="psirusteam/2021ASDA" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6.2 Modelo de regresión multinomial | Análisis de encuestas con R" />
+  
+  <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  
+
+<meta name="author" content="Andrés Gutiérrez, Giovany Babativa-Márquez, Stalyn Guerrero, Cristian Téllez" />
+
+
+<meta name="date" content="2026-06-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="sec-logistica.html"/>
+<link rel="next" href="sec-gamma.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis de encuestas de hogares con R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
+<li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="1" data-path="cap-intro.html"><a href="cap-intro.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="06-GLM.html"><a href="justificación.html#justificaci%C3%B3n"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
+<li class="chapter" data-level="1.2" data-path="06-GLM.html"><a href="uso-del-software-r-para-el-análisis-de-encuestas.html#uso-del-software-r-para-el-an%C3%A1lisis-de-encuestas"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
+<li class="chapter" data-level="1.3" data-path="estructura-del-documento.html"><a href="estructura-del-documento.html"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="06-GLM.html"><a href="conceptos-básicos-en-encuestas-de-hogares.html#conceptos-b%C3%A1sicos-en-encuestas-de-hogares"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="06-GLM.html"><a href="población-objetivo-y-unidades-de-muestreo.html#poblaci%C3%B3n-objetivo-y-unidades-de-muestreo"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
+<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
+<li class="chapter" data-level="2.3" data-path="06-GLM.html"><a href="fundamentos-teóricos.html#fundamentos-te%C3%B3ricos"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="06-GLM.html"><a href="fundamentos-teóricos.html#estimaci%C3%B3n-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
+<li class="chapter" data-level="2.3.2" data-path="06-GLM.html"><a href="fundamentos-teóricos.html#estimaci%C3%B3n-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="06-GLM.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-par%C3%A1metros-descriptivos"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="06-GLM.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
+<li class="chapter" data-level="3.1.2" data-path="06-GLM.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
+<li class="chapter" data-level="3.1.3" data-path="06-GLM.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="06-GLM.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-par%C3%A1metros-de-distribuci%C3%B3n-y-desigualdad"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="06-GLM.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-la-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
+<li class="chapter" data-level="3.2.2" data-path="06-GLM.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
+<li class="chapter" data-level="3.2.3" data-path="06-GLM.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
+<li class="chapter" data-level="3.2.4" data-path="06-GLM.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-la-correlaci%C3%B3n"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="06-GLM.html"><a href="pruebas-de-hipótesis.html#pruebas-de-hip%C3%B3tesis"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
+<li class="chapter" data-level="3.4" data-path="06-GLM.html"><a href="estimación-de-contrastes.html#estimaci%C3%B3n-de-contrastes"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
+<li class="chapter" data-level="3.5" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.5.3" data-path="06-GLM.html"><a href="viz-continuas.html#diagramas-de-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="06-GLM.html"><a href="análisis-de-variables-categóricas.html#an%C3%A1lisis-de-variables-categ%C3%B3ricas"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="06-GLM.html"><a href="estimación-del-tamaño-poblacional.html#estimaci%C3%B3n-del-tama%C3%B1o-poblacional"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
+<li class="chapter" data-level="4.2" data-path="06-GLM.html"><a href="estimación-de-proporciones.html#estimaci%C3%B3n-de-proporciones"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
+<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
+<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
+<li class="chapter" data-level="4.5" data-path="06-GLM.html"><a href="la-razón-de-odds.html#la-raz%C3%B3n-de-odds"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
+<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi2.html"><a href="prueba-de-independencia-chi2.html"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="06-GLM.html"><a href="viz-categoricas.html#gr%C3%A1ficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
+<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="06-GLM.html"><a href="formulación-del-modelo.html#formulaci%C3%B3n-del-modelo"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
+<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
+<li class="chapter" data-level="5.3" data-path="06-GLM.html"><a href="estimación-de-los-parámetros-del-modelo.html#estimaci%C3%B3n-de-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.4" data-path="06-GLM.html"><a href="diagnóstico-del-modelo.html#diagn%C3%B3stico-del-modelo"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="06-GLM.html"><a href="diagnóstico-del-modelo.html#coeficiente-de-determinaci%C3%B3n"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="5.4.2" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
+<li class="chapter" data-level="5.4.3" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="06-GLM.html"><a href="inferencia-sobre-los-parámetros-del-modelo.html#inferencia-sobre-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.6" data-path="06-GLM.html"><a href="estimación-y-predicción.html#estimaci%C3%B3n-y-predicci%C3%B3n"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cap-glm.html"><a href="cap-glm.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
+<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+</ul></li>
+<li class="divider"></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis de encuestas con R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="sec-multinomial" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Modelo de regresión multinomial<a href="sec-multinomial.html#sec-multinomial" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En las encuestas de hogares es frecuente encontrar variables de respuesta con más de dos categorías, como la situación laboral, cuyos posibles estados incluyen empleado, desempleado e inactivo. Cuando estas categorías son mutuamente excluyentes y no poseen un orden natural, una herramienta adecuada para modelar su relación con un conjunto de covariables es la regresión logística multinomial, la cual constituye una extensión del modelo de regresión logística binaria.</p>
+<p>Este modelo permite estimar la probabilidad de pertenecer a cada categoría de la variable respuesta en función de variables explicativas de naturaleza continua o categórica. Su aplicación requiere que las categorías de respuesta sean exhaustivas y mutuamente excluyentes y que no exista multicolinealidad severa entre las covariables. Además, para las covariables continuas, se asume una relación lineal entre estas y el logaritmo de las razones de probabilidades (<em>log-odds</em>) de cada categoría respecto a una categoría de referencia.</p>
+<p>El modelo logístico multinomial especifica la probabilidad <span class="math inline">\(\theta_{k(j)}\)</span> de que la unidad <span class="math inline">\(k\)</span> pertenezca a la categoría <span class="math inline">\(j\)</span>, con <span class="math inline">\(j=1,\ldots,J\)</span>, dado el vector de covariables <span class="math inline">\(\mathbf{x}_k\)</span>, mediante la siguiente expresión:</p>
+<p><span class="math display">\[
+Pr(Y_{k} = j \mid \mathbf{x}_{k})
+=
+\theta_{k(j)}
+=
+\frac{\exp(\mathbf{x}_{k}\boldsymbol{\beta}_j)}
+     {\sum_{l=1}^{J} \exp(\mathbf{x}_{k}\boldsymbol{\beta}_l)}
+\]</span></p>
+<p>En donde <span class="math inline">\(\boldsymbol{\beta}_j\)</span> es el vector de coeficientes de regresión para la <span class="math inline">\(j\)</span>-ésima categoría. Esta formulación expresa directamente las probabilidades de pertenencia a cada categoría, en la práctica resulta más conveniente reescribir el modelo utilizando una categoría de referencia. Hay parametrizaciones alternativas que facilitan la interpretación de los parámetros, ya que cada conjunto de coeficientes describe el efecto de las covariables sobre el logaritmo de las razones de probabilidades (<em>log-odds</em>) de pertenecer a una determinada categoría en comparación con la categoría de referencia.</p>
+<p>La estimación de los parámetros del modelo se realiza mediante el enfoque de pseudo-máxima verosimilitud. Siguiendo a <span class="citation">Heeringa et al. (<a href="#ref-heeringa2017applied">2017</a>)</span>, la función de pseudo-verosimilitud multinomial se define como</p>
+<p><span class="math display">\[
+PL(\boldsymbol{\beta} \mid \mathbf{X}) =
+\prod_{k}
+\left\{
+\prod_{j=1}^{J}
+\theta_{k(j)}^{y_{k(j)}}
+\right\}^{w_{k}}
+\]</span></p>
+<p>En donde <span class="math inline">\(k\)</span> representa las unidades de observación pertenecientes a la muestra compleja. Asimismo, <span class="math inline">\(y_{k(j)}\)</span> es una variable indicadora que toma el valor de uno cuando dicha unidad pertenece a la categoría <span class="math inline">\(j\)</span> y cero en caso contrario, y <span class="math inline">\(w_{k}\)</span> corresponde al factor de expansión asociado a la unidad observada. Por conveniencia matemática y computacional, la estimación de los parámetros se realiza a partir de la pseudo-logverosimilitud, cuya maximización conduce a los mismos estimadores que la pseudo-verosimilitud original.</p>
+<p><span class="math display">\[
+\ell(\boldsymbol{\beta})
+=
+\sum_{k} w_k
+\sum_{j=1}^{J}
+y_{k(j)}
+\log(\theta_{k(j)})
+\]</span></p>
+<p>Como se mencionó anteriormente, los estimadores obtenidos mediante este procedimiento son consistentes y asintóticamente normales bajo condiciones regulares <span class="citation">(<a href="#ref-molina1992pseudo">Molina &amp; Skinner, 1992</a>)</span>. La inferencia estadística para los parámetros de interés se basa en estimaciones de varianza obtenidas mediante técnicas de linealización de Taylor que incorporan explícitamente las características del diseño muestral complejo, permitiendo calcular errores estándar, intervalos de confianza y pruebas de hipótesis apropiados para datos de encuestas <span class="citation">(<a href="#ref-binder1983variances">Binder, 1983</a>)</span>.</p>
+<p>Para el ajuste del modelo usando <code>R</code>, como referencia inicial, se estiman las proporciones de personas por estado de empleo, restringiendo las unidades de interés a mayores de 15 años, como se presenta en la Tabla <a href="sec-multinomial.html#tab:tab-prop-empleo-15">6.3</a>.</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="sec-multinomial.html#cb151-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
+<span id="cb151-2"><a href="sec-multinomial.html#cb151-2" tabindex="-1"></a>  <span class="fu">filter</span>(Age <span class="sc">&gt;=</span> <span class="dv">15</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb151-3"><a href="sec-multinomial.html#cb151-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Employment) <span class="sc">%&gt;%</span></span>
+<span id="cb151-4"><a href="sec-multinomial.html#cb151-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Prop =</span> <span class="fu">survey_mean</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-prop-empleo-15">Cuadro 6.3: </span>Proporción estimada de personas por estado de empleo (mayores de 15 años)</caption>
+<thead>
+<tr class="header">
+<th align="left">Employment</th>
+<th align="center">Prop</th>
+<th align="center">Prop_se</th>
+<th align="center">Prop_low</th>
+<th align="center">Prop_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Unemployed</td>
+<td align="center">0.043</td>
+<td align="center">0.007</td>
+<td align="center">0.029</td>
+<td align="center">0.057</td>
+</tr>
+<tr class="even">
+<td align="left">Inactive</td>
+<td align="center">0.384</td>
+<td align="center">0.015</td>
+<td align="center">0.354</td>
+<td align="center">0.414</td>
+</tr>
+<tr class="odd">
+<td align="left">Employed</td>
+<td align="center">0.573</td>
+<td align="center">0.014</td>
+<td align="center">0.545</td>
+<td align="center">0.601</td>
+</tr>
+</tbody>
+</table>
+<p>Para modelar una variable de respuesta multinomial se emplea la función <code>svy_vglm()</code> del paquete <code>svyVGAM</code>, que permite ajustar modelos de regresión multinomial incorporando explícitamente las características del diseño complejo de la encuesta. En este ejemplo, se especifica un modelo donde la condición de actividad se explica en función de la edad, el sexo y la zona de residencia. A diferencia de los modelos multinomiales convencionales, <code>svy_vglm()</code> calcula las varianzas de los estimadores considerando la complejidad del diseño muestral, incluyendo la estratificación, la conglomeración y los pesos de expansión. De esta forma, tanto las estimaciones puntuales como sus errores estándar e inferencias asociadas son consistentes con el diseño de la encuesta.</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="sec-multinomial.html#cb152-1" tabindex="-1"></a><span class="fu">library</span>(svyVGAM)</span>
+<span id="cb152-2"><a href="sec-multinomial.html#cb152-2" tabindex="-1"></a>diseno_15  <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Age <span class="sc">&gt;=</span> <span class="dv">15</span>)</span>
+<span id="cb152-3"><a href="sec-multinomial.html#cb152-3" tabindex="-1"></a>model_mul  <span class="ot">&lt;-</span> <span class="fu">svy_vglm</span>(</span>
+<span id="cb152-4"><a href="sec-multinomial.html#cb152-4" tabindex="-1"></a>  <span class="at">formula  =</span> Employment <span class="sc">~</span> Age <span class="sc">+</span> Sex <span class="sc">+</span> Zone,</span>
+<span id="cb152-5"><a href="sec-multinomial.html#cb152-5" tabindex="-1"></a>  <span class="at">design   =</span> diseno_15,</span>
+<span id="cb152-6"><a href="sec-multinomial.html#cb152-6" tabindex="-1"></a>  <span class="at">crit     =</span> <span class="st">&quot;coef&quot;</span>,</span>
+<span id="cb152-7"><a href="sec-multinomial.html#cb152-7" tabindex="-1"></a>  <span class="at">family   =</span> <span class="fu">multinomial</span>(<span class="at">refLevel =</span> <span class="st">&quot;Unemployed&quot;</span>)</span>
+<span id="cb152-8"><a href="sec-multinomial.html#cb152-8" tabindex="-1"></a>)</span></code></pre></div>
+<p>El argumento <code>family = multinomial(refLevel = "Unemployed")</code> define un modelo logístico multinomial tomando la categoría <code>Unemployed</code> como referencia. Bajo esta especificación, se estiman de manera simultánea los logaritmos de las razones de probabilidades (<em>log-odds</em>) entre cada una de las categorías de <code>Employment</code> y la categoría de referencia. Los parámetros se obtienen mediante pseudo-máxima verosimilitud, incorporando los factores de expansión de la encuesta en la función objetivo.</p>
+<p>Dado que <code>broom::tidy()</code> no puede aplicarse directamente a objetos de clase <code>svyVGAM</code>, se define la siguiente función auxiliar para estructurar los resultados del modelo en un formato tabular estandarizado<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>:</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="sec-multinomial.html#cb153-1" tabindex="-1"></a>tidy.svyVGAM <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">conf.int =</span> <span class="cn">FALSE</span>, <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb153-2"><a href="sec-multinomial.html#cb153-2" tabindex="-1"></a>                          <span class="at">exponentiate =</span> <span class="cn">FALSE</span>, ...) {</span>
+<span id="cb153-3"><a href="sec-multinomial.html#cb153-3" tabindex="-1"></a>  ret  <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">summary</span>(x)<span class="sc">$</span>coeftable, <span class="at">rownames =</span> <span class="st">&quot;term&quot;</span>)</span>
+<span id="cb153-4"><a href="sec-multinomial.html#cb153-4" tabindex="-1"></a>  <span class="fu">colnames</span>(ret) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;term&quot;</span>, <span class="st">&quot;estimate&quot;</span>, <span class="st">&quot;std.error&quot;</span>, <span class="st">&quot;statistic&quot;</span>, <span class="st">&quot;p.value&quot;</span>)</span>
+<span id="cb153-5"><a href="sec-multinomial.html#cb153-5" tabindex="-1"></a>  coefs <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">enframe</span>(stats<span class="sc">::</span><span class="fu">coef</span>(x), <span class="at">name =</span> <span class="st">&quot;term&quot;</span>, <span class="at">value =</span> <span class="st">&quot;estimate&quot;</span>)</span>
+<span id="cb153-6"><a href="sec-multinomial.html#cb153-6" tabindex="-1"></a>  ret   <span class="ot">&lt;-</span> <span class="fu">left_join</span>(coefs, ret, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;term&quot;</span>, <span class="st">&quot;estimate&quot;</span>))</span>
+<span id="cb153-7"><a href="sec-multinomial.html#cb153-7" tabindex="-1"></a>  <span class="cf">if</span> (conf.int) {</span>
+<span id="cb153-8"><a href="sec-multinomial.html#cb153-8" tabindex="-1"></a>    ci  <span class="ot">&lt;-</span> broom<span class="sc">:::</span><span class="fu">broom_confint_terms</span>(x, <span class="at">level =</span> conf.level, ...)</span>
+<span id="cb153-9"><a href="sec-multinomial.html#cb153-9" tabindex="-1"></a>    ret <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">left_join</span>(ret, ci, <span class="at">by =</span> <span class="st">&quot;term&quot;</span>)</span>
+<span id="cb153-10"><a href="sec-multinomial.html#cb153-10" tabindex="-1"></a>  }</span>
+<span id="cb153-11"><a href="sec-multinomial.html#cb153-11" tabindex="-1"></a>  <span class="cf">if</span> (exponentiate) ret <span class="ot">&lt;-</span> broom<span class="sc">:::</span><span class="fu">exponentiate</span>(ret)</span>
+<span id="cb153-12"><a href="sec-multinomial.html#cb153-12" tabindex="-1"></a>  ret <span class="sc">%&gt;%</span></span>
+<span id="cb153-13"><a href="sec-multinomial.html#cb153-13" tabindex="-1"></a>    tidyr<span class="sc">::</span><span class="fu">separate</span>(term, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;term&quot;</span>, <span class="st">&quot;y.level&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;:&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb153-14"><a href="sec-multinomial.html#cb153-14" tabindex="-1"></a>    <span class="fu">arrange</span>(y.level) <span class="sc">%&gt;%</span></span>
+<span id="cb153-15"><a href="sec-multinomial.html#cb153-15" tabindex="-1"></a>    <span class="fu">relocate</span>(y.level, <span class="at">.before =</span> term)</span>
+<span id="cb153-16"><a href="sec-multinomial.html#cb153-16" tabindex="-1"></a>}</span></code></pre></div>
+<p>La Tabla <a href="#tab:tab-multinomial-coef">6.4</a> presenta los coeficientes estimados del modelo logístico multinomial, tomando la categoría <em>Unemployed</em> como referencia. Los resultados muestran que la edad tiene un efecto positivo y estadísticamente significativo sobre las probabilidades relativas de pertenecer a las categorías 1 y 2 frente al desempleo. Asimismo, la variable <code>SexMale</code> presenta coeficientes negativos y significativos, indicando que los hombres tienen menores probabilidades relativas que las mujeres de ubicarse en dichas categorías. Por el contrario, la variable de zona de residencia no muestra efectos estadísticamente significativos al nivel convencional del 5%.</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="sec-multinomial.html#cb154-1" tabindex="-1"></a><span class="fu">tidy.svyVGAM</span>(model_mul, <span class="at">exponentiate =</span> <span class="cn">FALSE</span>, <span class="at">conf.int =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-multinomial-coef">Cuadro 6.4: </span>Coeficientes estimados del modelo de regresión multinomial</caption>
+<thead>
+<tr class="header">
+<th align="left">y.level</th>
+<th align="center">term</th>
+<th align="center">estimate</th>
+<th align="center">std.error</th>
+<th align="center">statistic</th>
+<th align="center">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="center">(Intercept)</td>
+<td align="center">2.556</td>
+<td align="center">0.550</td>
+<td align="center">4.648</td>
+<td align="center">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="center">Age</td>
+<td align="center">0.022</td>
+<td align="center">0.010</td>
+<td align="center">2.117</td>
+<td align="center">0.034</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="center">SexMale</td>
+<td align="center">-2.185</td>
+<td align="center">0.317</td>
+<td align="center">-6.901</td>
+<td align="center">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="center">ZoneUrban</td>
+<td align="center">-0.254</td>
+<td align="center">0.404</td>
+<td align="center">-0.627</td>
+<td align="center">0.531</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="center">(Intercept)</td>
+<td align="center">2.306</td>
+<td align="center">0.461</td>
+<td align="center">4.998</td>
+<td align="center">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="center">Age</td>
+<td align="center">0.018</td>
+<td align="center">0.009</td>
+<td align="center">2.056</td>
+<td align="center">0.040</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="center">SexMale</td>
+<td align="center">-0.578</td>
+<td align="center">0.277</td>
+<td align="center">-2.091</td>
+<td align="center">0.037</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="center">ZoneUrban</td>
+<td align="center">0.039</td>
+<td align="center">0.361</td>
+<td align="center">0.109</td>
+<td align="center">0.913</td>
+</tr>
+</tbody>
+</table>
+<p>La Figura <a href="sec-multinomial.html#fig:fig-multinomial-ic">6.3</a> muestra los intervalos de confianza de los coeficientes estimados para cada ecuación del modelo multinomial. Las covariables cuyos intervalos no incluyen el valor cero presentan evidencia de asociación estadísticamente significativa con la variable respuesta, mientras que aquellos cuyos intervalos contienen el cero no muestran efectos significativos al nivel de confianza considerado.</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="sec-multinomial.html#cb155-1" tabindex="-1"></a><span class="fu">library</span>(dotwhisker)</span>
+<span id="cb155-2"><a href="sec-multinomial.html#cb155-2" tabindex="-1"></a><span class="fu">tidy.svyVGAM</span>(model_mul, <span class="at">exponentiate =</span> <span class="cn">FALSE</span>, <span class="at">conf.int =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb155-3"><a href="sec-multinomial.html#cb155-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb155-4"><a href="sec-multinomial.html#cb155-4" tabindex="-1"></a>    <span class="at">model =</span> <span class="fu">if_else</span>(y.level <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;Inactive&quot;</span>, <span class="st">&quot;Employed&quot;</span>),</span>
+<span id="cb155-5"><a href="sec-multinomial.html#cb155-5" tabindex="-1"></a>    <span class="at">sig   =</span> gtools<span class="sc">::</span><span class="fu">stars.pval</span>(p.value)</span>
+<span id="cb155-6"><a href="sec-multinomial.html#cb155-6" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb155-7"><a href="sec-multinomial.html#cb155-7" tabindex="-1"></a>  dotwhisker<span class="sc">::</span><span class="fu">dwplot</span>(</span>
+<span id="cb155-8"><a href="sec-multinomial.html#cb155-8" tabindex="-1"></a>    <span class="at">dodge_size =</span> <span class="fl">0.3</span>,</span>
+<span id="cb155-9"><a href="sec-multinomial.html#cb155-9" tabindex="-1"></a>    <span class="at">vline =</span> <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">colour =</span> <span class="st">&quot;grey60&quot;</span>, <span class="at">linetype =</span> <span class="dv">2</span>)</span>
+<span id="cb155-10"><a href="sec-multinomial.html#cb155-10" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb155-11"><a href="sec-multinomial.html#cb155-11" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">reverse =</span> <span class="cn">TRUE</span>)) <span class="sc">+</span></span>
+<span id="cb155-12"><a href="sec-multinomial.html#cb155-12" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb155-13"><a href="sec-multinomial.html#cb155-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-multinomial-ic"></span>
+<img src="06-GLM_files/figure-html/fig-multinomial-ic-1.svg" alt="Intervalos de confianza para los coeficientes del modelo multinomial" width="75%" />
+<p class="caption">
+Figura 6.3: Intervalos de confianza para los coeficientes del modelo multinomial
+</p>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-binder1983variances" class="csl-entry">
+Binder, D. A. (1983). On the variances of asymptotically normal estimators from complex surveys. <em>International Statistical Review/Revue Internationale de Statistique</em>, 279-292.
+</div>
+<div id="ref-heeringa2017applied" class="csl-entry">
+Heeringa, S. G., West, B. T., Heeringa, S. G., &amp; Berglund, P. A. (2017). <em>Applied survey data analysis</em>. chapman; hall/CRC.
+</div>
+<div id="ref-molina1992pseudo" class="csl-entry">
+Molina, E. A., &amp; Skinner, C. J. (1992). Pseudo-likelihood and quasi-likelihood estimation for complex sampling schemes. <em>Computational Statistics &amp; Data Analysis</em>, <em>13</em>, 395-405.
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="5">
+<li id="fn5"><p>Adaptada de <a href="https://tech.popdata.org/pma-data-hub/posts/2021-08-15-covid-analysis/" class="uri">https://tech.popdata.org/pma-data-hub/posts/2021-08-15-covid-analysis/</a><a href="sec-multinomial.html#fnref5" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="sec-logistica.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="sec-gamma.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/psirusteam/2021ASDA/06-GLM.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Libro.pdf", "Libro.epub", "Libro.mobi"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  },
+  "tconfig": null
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.4 Tablas cruzadas | Análisis de encuestas con R</title>
+  <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.4 Tablas cruzadas | Análisis de encuestas con R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="github-repo" content="psirusteam/2021ASDA" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.4 Tablas cruzadas | Análisis de encuestas con R" />
+  
+  <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  
+
+<meta name="author" content="Andrés Gutiérrez, Giovany Babativa-Márquez, Stalyn Guerrero, Cristian Téllez" />
+
+
+<meta name="date" content="2026-06-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="contrastes-y-diferencias-de-proporciones.html"/>
+<link rel="next" href="la-razón-de-odds.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis de encuestas de hogares con R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
+<li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="1" data-path="cap-intro.html"><a href="cap-intro.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="04-Categoricas.html"><a href="justificación.html#justificaci%C3%B3n"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
+<li class="chapter" data-level="1.2" data-path="04-Categoricas.html"><a href="uso-del-software-r-para-el-análisis-de-encuestas.html#uso-del-software-r-para-el-an%C3%A1lisis-de-encuestas"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
+<li class="chapter" data-level="1.3" data-path="estructura-del-documento.html"><a href="estructura-del-documento.html"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="04-Categoricas.html"><a href="conceptos-básicos-en-encuestas-de-hogares.html#conceptos-b%C3%A1sicos-en-encuestas-de-hogares"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="04-Categoricas.html"><a href="población-objetivo-y-unidades-de-muestreo.html#poblaci%C3%B3n-objetivo-y-unidades-de-muestreo"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
+<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
+<li class="chapter" data-level="2.3" data-path="04-Categoricas.html"><a href="fundamentos-teóricos.html#fundamentos-te%C3%B3ricos"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="04-Categoricas.html"><a href="fundamentos-teóricos.html#estimaci%C3%B3n-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
+<li class="chapter" data-level="2.3.2" data-path="04-Categoricas.html"><a href="fundamentos-teóricos.html#estimaci%C3%B3n-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-par%C3%A1metros-descriptivos"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
+<li class="chapter" data-level="3.1.2" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
+<li class="chapter" data-level="3.1.3" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-par%C3%A1metros-de-distribuci%C3%B3n-y-desigualdad"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-la-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
+<li class="chapter" data-level="3.2.2" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
+<li class="chapter" data-level="3.2.3" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
+<li class="chapter" data-level="3.2.4" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-la-correlaci%C3%B3n"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="04-Categoricas.html"><a href="pruebas-de-hipótesis.html#pruebas-de-hip%C3%B3tesis"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
+<li class="chapter" data-level="3.4" data-path="04-Categoricas.html"><a href="estimación-de-contrastes.html#estimaci%C3%B3n-de-contrastes"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
+<li class="chapter" data-level="3.5" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.5.3" data-path="04-Categoricas.html"><a href="viz-continuas.html#diagramas-de-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="04-Categoricas.html"><a href="análisis-de-variables-categóricas.html#an%C3%A1lisis-de-variables-categ%C3%B3ricas"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="04-Categoricas.html"><a href="estimación-del-tamaño-poblacional.html#estimaci%C3%B3n-del-tama%C3%B1o-poblacional"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
+<li class="chapter" data-level="4.2" data-path="04-Categoricas.html"><a href="estimación-de-proporciones.html#estimaci%C3%B3n-de-proporciones"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
+<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
+<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
+<li class="chapter" data-level="4.5" data-path="04-Categoricas.html"><a href="la-razón-de-odds.html#la-raz%C3%B3n-de-odds"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
+<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi2.html"><a href="prueba-de-independencia-chi2.html"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="04-Categoricas.html"><a href="viz-categoricas.html#gr%C3%A1ficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
+<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="04-Categoricas.html"><a href="formulación-del-modelo.html#formulaci%C3%B3n-del-modelo"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
+<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
+<li class="chapter" data-level="5.3" data-path="04-Categoricas.html"><a href="estimación-de-los-parámetros-del-modelo.html#estimaci%C3%B3n-de-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.4" data-path="04-Categoricas.html"><a href="diagnóstico-del-modelo.html#diagn%C3%B3stico-del-modelo"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="04-Categoricas.html"><a href="diagnóstico-del-modelo.html#coeficiente-de-determinaci%C3%B3n"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="5.4.2" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
+<li class="chapter" data-level="5.4.3" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="04-Categoricas.html"><a href="inferencia-sobre-los-parámetros-del-modelo.html#inferencia-sobre-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.6" data-path="04-Categoricas.html"><a href="estimación-y-predicción.html#estimaci%C3%B3n-y-predicci%C3%B3n"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cap-glm.html"><a href="cap-glm.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
+<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+</ul></li>
+<li class="divider"></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis de encuestas con R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tablas-cruzadas" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Tablas cruzadas<a href="tablas-cruzadas.html#tablas-cruzadas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Además de analizar cada variable de manera individual, resulta especialmente relevante estudiar si existe asociación entre dos variables categóricas. Este tipo de análisis permite identificar patrones y relaciones que aportan información valiosa para la toma de decisiones y la comprensión de fenómenos sociales. Por ejemplo, en el ámbito de las políticas públicas es posible relacionar educación y empleo para diseñar estrategias orientadas al mercado laboral; en la evaluación de programas sociales, analizar diferencias en el acceso a servicios de salud según el nivel de ingresos; y en investigación social, estudiar cómo variables demográficas y condiciones de vida se relacionan entre sí para comprender dinámicas y tendencias de la población.</p>
+<p>Formalmente, sean <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span> dos variables categóricas con <span class="math inline">\(R\)</span> categorías para las filas y <span class="math inline">\(C\)</span> categorías para las columnas, respectivamente. En el contexto de encuestas por muestreo, el interés suele centrarse en estimar la distribución conjunta de ambas variables, es decir, la proporción de unidades poblacionales que pertenecen simultáneamente a cada combinación posible de categorías. Para ello, las entradas de una tabla cruzada, también conocida como tabla de contingencia, se estiman mediante frecuencias ponderadas obtenidas a partir de los factores de expansión y del diseño muestral. La estimación del total poblacional asociado a cada celda <span class="math inline">\((r,c)\)</span> se define como:</p>
+<p><span class="math display">\[
+\hat{N}_{rc} = \sum_{h} \sum_{i} \sum_{k} w_{hik} \ I(x_{hik}=r,\ y_{hik}=c),
+\]</span></p>
+<p>donde <span class="math inline">\(w_{hik}\)</span> representa el factor de expansión asociado al elemento <span class="math inline">\(k\)</span> de la UPM <span class="math inline">\(i\)</span> perteneciente al estrato <span class="math inline">\(h\)</span>, mientras que <span class="math inline">\(I(x_{hik}=r,\ y_{hik}=c)\)</span> corresponde a una función indicadora que toma el valor de uno cuando la unidad observada pertenece simultáneamente a la categoría <span class="math inline">\(r\)</span> de la variable <span class="math inline">\(x\)</span> y a la categoría <span class="math inline">\(c\)</span> de la variable <span class="math inline">\(y\)</span>, y toma el valor de cero en cualquier otro caso.</p>
+<p>Además de las frecuencias conjuntas, también es posible estimar los tamaños marginales por filas y columnas, definidos respectivamente como <span class="math inline">\(\hat{N}_{r+} = \sum_{c=1}^{C} \hat{N}_{rc}\)</span> y <span class="math inline">\(\hat{N}_{+c} = \sum_{r=1}^{R} \hat{N}_{rc}\)</span>. Mientras que el total general se expresa como <span class="math inline">\(\hat{N}_{++} = \sum_{r=1}^{R}\sum_{c=1}^{C} \hat{N}_{rc}\)</span>. La estructura general de una tabla de contingencia con <span class="math inline">\(R\)</span> filas y <span class="math inline">\(C\)</span> columnas puede representarse de la siguiente forma:</p>
+<table style="width:100%;">
+<colgroup>
+<col width="21%" />
+<col width="14%" />
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable 2</th>
+<th>Variable 1</th>
+<th></th>
+<th><span class="math inline">\(\cdots\)</span></th>
+<th></th>
+<th>Marginal fila</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><span class="math inline">\(1\)</span></td>
+<td><span class="math inline">\(2\)</span></td>
+<td><span class="math inline">\(\cdots\)</span></td>
+<td><span class="math inline">\(C\)</span></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(1\)</span></td>
+<td><span class="math inline">\(\hat{N}_{11}\)</span></td>
+<td><span class="math inline">\(\hat{N}_{12}\)</span></td>
+<td><span class="math inline">\(\cdots\)</span></td>
+<td><span class="math inline">\(\hat{N}_{1C}\)</span></td>
+<td><span class="math inline">\(\hat{N}_{1+}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(2\)</span></td>
+<td><span class="math inline">\(\hat{N}_{21}\)</span></td>
+<td><span class="math inline">\(\hat{N}_{22}\)</span></td>
+<td><span class="math inline">\(\cdots\)</span></td>
+<td><span class="math inline">\(\hat{N}_{2C}\)</span></td>
+<td><span class="math inline">\(\hat{N}_{2+}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\vdots\)</span></td>
+<td><span class="math inline">\(\vdots\)</span></td>
+<td><span class="math inline">\(\vdots\)</span></td>
+<td><span class="math inline">\(\ddots\)</span></td>
+<td><span class="math inline">\(\vdots\)</span></td>
+<td><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(R\)</span></td>
+<td><span class="math inline">\(\hat{N}_{R1}\)</span></td>
+<td><span class="math inline">\(\hat{N}_{R2}\)</span></td>
+<td><span class="math inline">\(\cdots\)</span></td>
+<td><span class="math inline">\(\hat{N}_{RC}\)</span></td>
+<td><span class="math inline">\(\hat{N}_{R+}\)</span></td>
+</tr>
+<tr class="even">
+<td>Marginal columna</td>
+<td><span class="math inline">\(\hat{N}_{+1}\)</span></td>
+<td><span class="math inline">\(\hat{N}_{+2}\)</span></td>
+<td><span class="math inline">\(\cdots\)</span></td>
+<td><span class="math inline">\(\hat{N}_{+C}\)</span></td>
+<td><span class="math inline">\(\hat{N}_{++}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>De manera tradicional, las tablas de contingencia suelen representarse como arreglos bidimensionales de dimensión <span class="math inline">\(R \times C\)</span>. Sin embargo, también pueden extenderse para incorporar una o más variables adicionales, generando subconjuntos o subtablas que permiten estudiar relaciones más complejas entre variables categóricas. A partir de los tamaños estimados, también pueden estimarse proporciones para cada celda de la tabla de contingencia, de la siguiente manera:</p>
+<p><span class="math display">\[
+\hat{p}_{rc}=\frac{\hat{N}_{rc}}{\hat{N}_{++}}
+\]</span></p>
+<p>A continuación, y siguiendo con la base de datos de ejemplo, se estima la distribución porcentual de hombres y mujeres según su condición de pobreza, incorporando además sus respectivos errores estándar e intervalos de confianza. Los resultados se presentan en la Tabla <a href="tablas-cruzadas.html#tab:tab-contingencia-pobreza-sexo">4.15</a>. Este tipo de análisis permite describir la composición de la población pobre según sexo y evaluar la precisión de las estimaciones obtenidas a partir del diseño muestral.</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="tablas-cruzadas.html#cb85-1" tabindex="-1"></a>dsg <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span> </span>
+<span id="cb85-2"><a href="tablas-cruzadas.html#cb85-2" tabindex="-1"></a>       <span class="fu">mutate</span>(<span class="at">pobreza =</span> <span class="fu">factor</span>(pobreza, <span class="at">levels =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>,</span>
+<span id="cb85-3"><a href="tablas-cruzadas.html#cb85-3" tabindex="-1"></a>                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No pobre&quot;</span>, <span class="st">&quot;Pobre&quot;</span>))) </span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="tablas-cruzadas.html#cb86-1" tabindex="-1"></a>dsg <span class="sc">%&gt;%</span></span>
+<span id="cb86-2"><a href="tablas-cruzadas.html#cb86-2" tabindex="-1"></a>  <span class="fu">group_by</span>(pobreza,Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb86-3"><a href="tablas-cruzadas.html#cb86-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prop =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-contingencia-pobreza-sexo">Cuadro 4.15: </span>Proporción de hombres y mujeres en condición de pobreza y no pobreza</caption>
+<thead>
+<tr class="header">
+<th align="left">pobreza</th>
+<th align="center">Sex</th>
+<th align="center">prop</th>
+<th align="center">prop_se</th>
+<th align="center">prop_low</th>
+<th align="center">prop_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">No pobre</td>
+<td align="center">Female</td>
+<td align="center">0.529</td>
+<td align="center">0.012</td>
+<td align="center">0.505</td>
+<td align="center">0.554</td>
+</tr>
+<tr class="even">
+<td align="left">No pobre</td>
+<td align="center">Male</td>
+<td align="center">0.471</td>
+<td align="center">0.012</td>
+<td align="center">0.446</td>
+<td align="center">0.495</td>
+</tr>
+<tr class="odd">
+<td align="left">Pobre</td>
+<td align="center">Female</td>
+<td align="center">0.524</td>
+<td align="center">0.016</td>
+<td align="center">0.492</td>
+<td align="center">0.555</td>
+</tr>
+<tr class="even">
+<td align="left">Pobre</td>
+<td align="center">Male</td>
+<td align="center">0.476</td>
+<td align="center">0.016</td>
+<td align="center">0.445</td>
+<td align="center">0.508</td>
+</tr>
+</tbody>
+</table>
+<p>Los resultados indican que el 52.3% de la población en condición de pobreza corresponde a mujeres, mientras que el 47.6% corresponde a hombres. Para las mujeres, el intervalo de confianza al 95% se encuentra entre 49.2% y 55.5%, mientras que para los hombres el intervalo correspondiente se ubica entre 44.5% y 50.7%. Estas estimaciones permiten observar la distribución relativa de la pobreza según sexo, considerando además la incertidumbre inherente al proceso de muestreo.</p>
+<p>En la librería <code>survey</code> existe una alternativa para estimar tablas de contingencia mediante la función <code>svyby()</code>, la cual permite calcular estimaciones desagregadas para distintos grupos definidos por una o más variables categóricas. Para ello, es necesario especificar la variable sobre la cual se desea realizar la estimación (<code>formula</code>), las categorías o grupos de análisis (<code>by</code>), el diseño muestral (<code>design</code>) y la función asociada al parámetro que se desea estimar (<code>FUN</code>), como proporciones, medias o totales. En el siguiente ejemplo se estima la distribución de la condición de pobreza según sexo, obteniendo además medidas de precisión como errores estándar e intervalos de confianza. El código correspondiente y sus resultados se presentan en la Tabla <a href="tablas-cruzadas.html#tab:tab-svyby-pobreza-sexo">4.16</a>.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="tablas-cruzadas.html#cb87-1" tabindex="-1"></a>tab_Sex_Pobr <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>Sex, <span class="at">by =</span>  <span class="sc">~</span>pobreza, <span class="at">design =</span> dsg, <span class="at">FUN =</span> svymean) </span></code></pre></div>
+<table>
+<caption><span id="tab:tab-svyby-pobreza-sexo">Cuadro 4.16: </span>Proporción de hombres y mujeres por condición de pobreza (svyby)</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">pobreza</th>
+<th align="center">SexFemale</th>
+<th align="center">SexMale</th>
+<th align="center">se.SexFemale</th>
+<th align="center">se.SexMale</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">No pobre</td>
+<td align="left">No pobre</td>
+<td align="center">0.529</td>
+<td align="center">0.471</td>
+<td align="center">0.012</td>
+<td align="center">0.012</td>
+</tr>
+<tr class="even">
+<td align="left">Pobre</td>
+<td align="left">Pobre</td>
+<td align="center">0.524</td>
+<td align="center">0.476</td>
+<td align="center">0.016</td>
+<td align="center">0.016</td>
+</tr>
+</tbody>
+</table>
+<p>Adicionalmente, los intervalos de confianza pueden obtenerse mediante la función <code>confint()</code>, la cual permite calcular automáticamente los límites inferior y superior asociados a las estimaciones realizadas. El procedimiento para la estimación de los intervalos de confianza se presenta en la Tabla <a href="tablas-cruzadas.html#tab:tab-confint-sexo-pobreza">4.17</a>. Nótese que lso intervalos coinciden con los generados anteriormente usando la función <code>group_by</code>.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="tablas-cruzadas.html#cb88-1" tabindex="-1"></a><span class="fu">confint</span>(tab_Sex_Pobr) <span class="sc">%&gt;%</span> </span>
+<span id="cb88-2"><a href="tablas-cruzadas.html#cb88-2" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb88-3"><a href="tablas-cruzadas.html#cb88-3" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">&quot;Dominio&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-confint-sexo-pobreza">Cuadro 4.17: </span>Intervalos de confianza para la proporción por sexo y pobreza</caption>
+<thead>
+<tr class="header">
+<th align="left">Dominio</th>
+<th align="center">2.5 %</th>
+<th align="center">97.5 %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">No pobre:SexFemale</td>
+<td align="center">0.505</td>
+<td align="center">0.554</td>
+</tr>
+<tr class="even">
+<td align="left">Pobre:SexFemale</td>
+<td align="center">0.493</td>
+<td align="center">0.555</td>
+</tr>
+<tr class="odd">
+<td align="left">No pobre:SexMale</td>
+<td align="center">0.446</td>
+<td align="center">0.495</td>
+</tr>
+<tr class="even">
+<td align="left">Pobre:SexMale</td>
+<td align="center">0.445</td>
+<td align="center">0.507</td>
+</tr>
+</tbody>
+</table>
+<p>Otro análisis de interés relacionado con tablas de doble entrada en encuestas de hogares consiste en estimar el porcentaje de personas desempleadas según sexo. El procedimiento correspondiente y sus resultados se presentan en la Tabla <a href="tablas-cruzadas.html#tab:tab-svyby-empleo-sexo">4.18</a>.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="tablas-cruzadas.html#cb89-1" tabindex="-1"></a>tab_Sex_Ocupa <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>Sex, <span class="at">by =</span> <span class="sc">~</span>Employment,</span>
+<span id="cb89-2"><a href="tablas-cruzadas.html#cb89-2" tabindex="-1"></a>                       <span class="at">design =</span> diseno, <span class="at">FUN =</span> svymean)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-svyby-empleo-sexo">Cuadro 4.18: </span>Proporción de hombres y mujeres por estado de ocupación (svyby)</caption>
+<colgroup>
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="13%" />
+<col width="20%" />
+<col width="17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Employment</th>
+<th align="center">SexFemale</th>
+<th align="center">SexMale</th>
+<th align="center">se.SexFemale</th>
+<th align="center">se.SexMale</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Unemployed</td>
+<td align="left">Unemployed</td>
+<td align="center">0.273</td>
+<td align="center">0.727</td>
+<td align="center">0.054</td>
+<td align="center">0.054</td>
+</tr>
+<tr class="even">
+<td align="left">Inactive</td>
+<td align="left">Inactive</td>
+<td align="center">0.770</td>
+<td align="center">0.230</td>
+<td align="center">0.023</td>
+<td align="center">0.023</td>
+</tr>
+<tr class="odd">
+<td align="left">Employed</td>
+<td align="left">Employed</td>
+<td align="center">0.405</td>
+<td align="center">0.595</td>
+<td align="center">0.019</td>
+<td align="center">0.019</td>
+</tr>
+</tbody>
+</table>
+<p>De la anterior salida se puede observar que, el 27.2% de las mujeres y el 72.7% de los hombres están desempleados con errores estándares para estas estimaciones de 5.3% para mujeres y hombres. cuyos intervalos de confianza se calculan a continuación, presentada en la Tabla <a href="tablas-cruzadas.html#tab:tab-confint-empleo-sexo">4.19</a>:</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="tablas-cruzadas.html#cb90-1" tabindex="-1"></a><span class="fu">confint</span>(tab_Sex_Ocupa) <span class="sc">%&gt;%</span> </span>
+<span id="cb90-2"><a href="tablas-cruzadas.html#cb90-2" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb90-3"><a href="tablas-cruzadas.html#cb90-3" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">&quot;Dominio&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-confint-empleo-sexo">Cuadro 4.19: </span>Intervalos de confianza para la proporción por sexo y ocupación</caption>
+<thead>
+<tr class="header">
+<th align="left">Dominio</th>
+<th align="center">2.5 %</th>
+<th align="center">97.5 %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Unemployed:SexFemale</td>
+<td align="center">0.168</td>
+<td align="center">0.378</td>
+</tr>
+<tr class="even">
+<td align="left">Inactive:SexFemale</td>
+<td align="center">0.724</td>
+<td align="center">0.816</td>
+</tr>
+<tr class="odd">
+<td align="left">Employed:SexFemale</td>
+<td align="center">0.369</td>
+<td align="center">0.441</td>
+</tr>
+<tr class="even">
+<td align="left">Unemployed:SexMale</td>
+<td align="center">0.622</td>
+<td align="center">0.832</td>
+</tr>
+<tr class="odd">
+<td align="left">Inactive:SexMale</td>
+<td align="center">0.184</td>
+<td align="center">0.276</td>
+</tr>
+<tr class="even">
+<td align="left">Employed:SexMale</td>
+<td align="center">0.559</td>
+<td align="center">0.631</td>
+</tr>
+</tbody>
+</table>
+<p>Si ahora el objetivo es estimar la pobreza, pero por las distintas regiones que se tienen en la base de datos. Primero, dado que la variable <code>pobreza</code> es de tipo numérica, es necesario convertirla en factor y luego realizar la estimación con la función <code>svyby</code>, como se muestra en la Tabla <a href="tablas-cruzadas.html#tab:tab-svyby-region-pobreza">4.20</a>.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="tablas-cruzadas.html#cb91-1" tabindex="-1"></a>tab_region_pobreza <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span><span class="fu">as.factor</span>(pobreza),  <span class="at">by =</span> <span class="sc">~</span>Region,</span>
+<span id="cb91-2"><a href="tablas-cruzadas.html#cb91-2" tabindex="-1"></a>                            <span class="at">design =</span>  diseno, <span class="at">FUN =</span> svymean)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-svyby-region-pobreza">Cuadro 4.20: </span>Proporción en condición de pobreza por región</caption>
+<colgroup>
+<col width="9%" />
+<col width="9%" />
+<col width="19%" />
+<col width="19%" />
+<col width="21%" />
+<col width="21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Region</th>
+<th align="center">as.factor(pobreza)0</th>
+<th align="center">as.factor(pobreza)1</th>
+<th align="center">se.as.factor(pobreza)0</th>
+<th align="center">se.as.factor(pobreza)1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Norte</td>
+<td align="left">Norte</td>
+<td align="center">0.641</td>
+<td align="center">0.359</td>
+<td align="center">0.055</td>
+<td align="center">0.055</td>
+</tr>
+<tr class="even">
+<td align="left">Sur</td>
+<td align="left">Sur</td>
+<td align="center">0.656</td>
+<td align="center">0.344</td>
+<td align="center">0.043</td>
+<td align="center">0.043</td>
+</tr>
+<tr class="odd">
+<td align="left">Centro</td>
+<td align="left">Centro</td>
+<td align="center">0.635</td>
+<td align="center">0.365</td>
+<td align="center">0.079</td>
+<td align="center">0.079</td>
+</tr>
+<tr class="even">
+<td align="left">Occidente</td>
+<td align="left">Occidente</td>
+<td align="center">0.599</td>
+<td align="center">0.401</td>
+<td align="center">0.047</td>
+<td align="center">0.047</td>
+</tr>
+<tr class="odd">
+<td align="left">Oriente</td>
+<td align="left">Oriente</td>
+<td align="center">0.548</td>
+<td align="center">0.452</td>
+<td align="center">0.088</td>
+<td align="center">0.088</td>
+</tr>
+</tbody>
+</table>
+<p>De lo anterior se puede concluir que, en la región Norte, el 35% de las personas están en estado de pobreza mientras que en el sur es el 34%. La pobreza más alta se tiene en la región oriente con un 45% de pobres. Los errores estándares de las estimaciones.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="contrastes-y-diferencias-de-proporciones.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="la-razón-de-odds.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/psirusteam/2021ASDA/04-Categoricas.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Libro.pdf", "Libro.epub", "Libro.mobi"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  },
+  "tconfig": null
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

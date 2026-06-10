@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.3 Contrastes y diferencias de proporciones | Análisis de encuestas con R</title>
+  <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.3 Contrastes y diferencias de proporciones | Análisis de encuestas con R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="github-repo" content="psirusteam/2021ASDA" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.3 Contrastes y diferencias de proporciones | Análisis de encuestas con R" />
+  
+  <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  
+
+<meta name="author" content="Andrés Gutiérrez, Giovany Babativa-Márquez, Stalyn Guerrero, Cristian Téllez" />
+
+
+<meta name="date" content="2026-06-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="estimación-de-proporciones.html"/>
+<link rel="next" href="tablas-cruzadas.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis de encuestas de hogares con R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
+<li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="1" data-path="cap-intro.html"><a href="cap-intro.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="04-Categoricas.html"><a href="justificación.html#justificaci%C3%B3n"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
+<li class="chapter" data-level="1.2" data-path="04-Categoricas.html"><a href="uso-del-software-r-para-el-análisis-de-encuestas.html#uso-del-software-r-para-el-an%C3%A1lisis-de-encuestas"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
+<li class="chapter" data-level="1.3" data-path="estructura-del-documento.html"><a href="estructura-del-documento.html"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="04-Categoricas.html"><a href="conceptos-básicos-en-encuestas-de-hogares.html#conceptos-b%C3%A1sicos-en-encuestas-de-hogares"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="04-Categoricas.html"><a href="población-objetivo-y-unidades-de-muestreo.html#poblaci%C3%B3n-objetivo-y-unidades-de-muestreo"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
+<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
+<li class="chapter" data-level="2.3" data-path="04-Categoricas.html"><a href="fundamentos-teóricos.html#fundamentos-te%C3%B3ricos"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="04-Categoricas.html"><a href="fundamentos-teóricos.html#estimaci%C3%B3n-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
+<li class="chapter" data-level="2.3.2" data-path="04-Categoricas.html"><a href="fundamentos-teóricos.html#estimaci%C3%B3n-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-par%C3%A1metros-descriptivos"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
+<li class="chapter" data-level="3.1.2" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
+<li class="chapter" data-level="3.1.3" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-par%C3%A1metros-de-distribuci%C3%B3n-y-desigualdad"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-la-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
+<li class="chapter" data-level="3.2.2" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
+<li class="chapter" data-level="3.2.3" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
+<li class="chapter" data-level="3.2.4" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-la-correlaci%C3%B3n"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="04-Categoricas.html"><a href="pruebas-de-hipótesis.html#pruebas-de-hip%C3%B3tesis"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
+<li class="chapter" data-level="3.4" data-path="04-Categoricas.html"><a href="estimación-de-contrastes.html#estimaci%C3%B3n-de-contrastes"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
+<li class="chapter" data-level="3.5" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.5.3" data-path="04-Categoricas.html"><a href="viz-continuas.html#diagramas-de-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="04-Categoricas.html"><a href="análisis-de-variables-categóricas.html#an%C3%A1lisis-de-variables-categ%C3%B3ricas"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="04-Categoricas.html"><a href="estimación-del-tamaño-poblacional.html#estimaci%C3%B3n-del-tama%C3%B1o-poblacional"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
+<li class="chapter" data-level="4.2" data-path="04-Categoricas.html"><a href="estimación-de-proporciones.html#estimaci%C3%B3n-de-proporciones"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
+<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
+<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
+<li class="chapter" data-level="4.5" data-path="04-Categoricas.html"><a href="la-razón-de-odds.html#la-raz%C3%B3n-de-odds"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
+<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi2.html"><a href="prueba-de-independencia-chi2.html"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="04-Categoricas.html"><a href="viz-categoricas.html#gr%C3%A1ficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
+<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="04-Categoricas.html"><a href="formulación-del-modelo.html#formulaci%C3%B3n-del-modelo"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
+<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
+<li class="chapter" data-level="5.3" data-path="04-Categoricas.html"><a href="estimación-de-los-parámetros-del-modelo.html#estimaci%C3%B3n-de-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.4" data-path="04-Categoricas.html"><a href="diagnóstico-del-modelo.html#diagn%C3%B3stico-del-modelo"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="04-Categoricas.html"><a href="diagnóstico-del-modelo.html#coeficiente-de-determinaci%C3%B3n"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="5.4.2" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
+<li class="chapter" data-level="5.4.3" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="04-Categoricas.html"><a href="inferencia-sobre-los-parámetros-del-modelo.html#inferencia-sobre-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.6" data-path="04-Categoricas.html"><a href="estimación-y-predicción.html#estimaci%C3%B3n-y-predicci%C3%B3n"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cap-glm.html"><a href="cap-glm.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
+<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+</ul></li>
+<li class="divider"></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis de encuestas con R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="contrastes-y-diferencias-de-proporciones" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Contrastes y diferencias de proporciones<a href="contrastes-y-diferencias-de-proporciones.html#contrastes-y-diferencias-de-proporciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Según <span class="citation">Heeringa et al. (<a href="#ref-heeringa2017applied">2017</a>)</span>, las proporciones obtenidas en las filas de una tabla de doble entrada pueden interpretarse como estimaciones para distintas subpoblaciones, definidas a partir de los niveles de una variable categórica. En este contexto, no solo resulta relevante estimar las proporciones asociadas a cada grupo, sino también evaluar las diferencias existentes entre ellas mediante contrastes lineales.</p>
+<p>Por ejemplo, suponga que el interés está en comparar la proporción de mujeres en condición de pobreza con la proporción de hombres en esta misma situación. Formalmente, este contraste puede expresarse como <span class="math inline">\(\hat{p}_F - \hat{p}_M\)</span>, donde <span class="math inline">\(\hat{p}_F\)</span> representa la proporción estimada de mujeres en pobreza y <span class="math inline">\(\hat{p}_M\)</span> la proporción estimada de hombres en dicha condición. Para construir este contraste, primero se estiman las proporciones de hombres y mujeres en estado de pobreza utilizando el mismo procedimiento descrito en capítulos anteriores. Los resultados correspondientes se presentan en la Tabla <a href="contrastes-y-diferencias-de-proporciones.html#tab:tab-svyby-pobreza-sexo2">4.12</a>:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb67-1" tabindex="-1"></a>tab_sex_pobreza <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>pobreza, <span class="at">by =</span> <span class="sc">~</span>Sex,</span>
+<span id="cb67-2"><a href="contrastes-y-diferencias-de-proporciones.html#cb67-2" tabindex="-1"></a>                         <span class="at">design =</span> diseno, svymean, <span class="at">na.rm=</span>T,</span>
+<span id="cb67-3"><a href="contrastes-y-diferencias-de-proporciones.html#cb67-3" tabindex="-1"></a>                         <span class="at">covmat =</span> <span class="cn">TRUE</span>, <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-svyby-pobreza-sexo2">Cuadro 4.12: </span>Proporción en condición de pobreza por sexo</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Sex</th>
+<th align="center">pobreza</th>
+<th align="center">se</th>
+<th align="center">ci_l</th>
+<th align="center">ci_u</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Female</td>
+<td align="left">Female</td>
+<td align="center">0.389</td>
+<td align="center">0.032</td>
+<td align="center">0.327</td>
+<td align="center">0.451</td>
+</tr>
+<tr class="even">
+<td align="left">Male</td>
+<td align="left">Male</td>
+<td align="center">0.395</td>
+<td align="center">0.037</td>
+<td align="center">0.323</td>
+<td align="center">0.466</td>
+</tr>
+</tbody>
+</table>
+<p>Una vez estimadas las proporciones de hombres y mujeres en condición de pobreza, es posible calcular la diferencia entre ambas proporciones junto con su correspondiente error estándar. En este caso, la diferencia estimada se obtiene restando la proporción de hombres en pobreza a la proporción de mujeres en esta misma condición:</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb68-1" tabindex="-1"></a><span class="fl">0.3892</span> <span class="sc">-</span> <span class="fl">0.3946</span>          </span></code></pre></div>
+<pre><code>## [1] -0.0054</code></pre>
+<p>Para calcular correctamente la variabilidad asociada a esta diferencia, no basta con considerar únicamente las varianzas de cada estimación por separado. También es necesario incorporar la covarianza entre ambas proporciones, dado que las estimaciones provienen de una misma muestra y, por tanto, no son independientes. La matriz de varianzas y covarianzas puede obtenerse mediante la función <code>vcov</code>, cuyos resultados se presentan en la Tabla <a href="contrastes-y-diferencias-de-proporciones.html#tab:tab-vcov-sex-pobreza">4.13</a>:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb70-1" tabindex="-1"></a><span class="fu">vcov</span>(tab_sex_pobreza) <span class="sc">%&gt;%</span></span>
+<span id="cb70-2"><a href="contrastes-y-diferencias-de-proporciones.html#cb70-2" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-vcov-sex-pobreza">Cuadro 4.13: </span>Matriz de varianzas y covarianzas de la proporción de pobreza por sexo</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Female</th>
+<th align="center">Male</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Female</td>
+<td align="left">0.0009982953</td>
+<td align="center">0.0009182927</td>
+</tr>
+<tr class="even">
+<td align="left">Male</td>
+<td align="left">0.0009182927</td>
+<td align="center">0.0013415823</td>
+</tr>
+</tbody>
+</table>
+<p>A partir de esta matriz, el error estándar de la diferencia de proporciones se estima utilizando la expresión general para la varianza de una diferencia entre estimadores, la cual corresponde a la suma de las varianzas de cada estimación menos dos veces la covarianza entre ellas. En este caso, el cálculo se realiza de la siguiente manera:</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb71-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fl">0.0009983</span> <span class="sc">+</span> <span class="fl">0.0013416</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="fl">0.0009183</span>)</span></code></pre></div>
+<pre><code>## [1] 0.02243435</code></pre>
+<p>No obstante, el paquete <code>survey</code> permite realizar este procedimiento de forma directa mediante la función <code>svycontrast</code>, la cual calcula tanto el contraste lineal como su error estándar asociado. Para obtener la diferencia entre las proporciones de mujeres y hombres en condición de pobreza, se utiliza el siguiente código:</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb73-1" tabindex="-1"></a><span class="fu">svycontrast</span>(tab_sex_pobreza,</span>
+<span id="cb73-2"><a href="contrastes-y-diferencias-de-proporciones.html#cb73-2" tabindex="-1"></a>            <span class="fu">list</span>(<span class="at">diff_Sex =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb73-3"><a href="contrastes-y-diferencias-de-proporciones.html#cb73-3" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span></code></pre></div>
+<pre><code>##              contrast   diff_Sex
+## diff_Sex -0.005322297 0.02243418</code></pre>
+<p>De lo que se concluye que, la diferencia entre las proporciones de mujeres y hombres en estado de pobreza es -0.005 (-0.5%) con una error estándar de 0.022, indicando que la proporción estimada de mujeres en condición de pobreza es ligeramente menor que la observada en los hombres.</p>
+<p>Otro ejercicio que puede desarrollarse a partir de una encuesta de hogares consiste en estimar la proporción de personas desempleadas según la región de residencia. Para ello, estima las proporciones de desempleo para cada una de las regiones consideradas en el análisis. Los resultados obtenidos se presentan en la Tabla <a href="contrastes-y-diferencias-de-proporciones.html#tab:tab-svyby-desempleo-region">4.14</a>:</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb75-1" tabindex="-1"></a>tab_region_desempleo <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span>  <span class="sc">~</span>desempleo, <span class="at">by =</span> <span class="sc">~</span>Region,</span>
+<span id="cb75-2"><a href="contrastes-y-diferencias-de-proporciones.html#cb75-2" tabindex="-1"></a>                              <span class="at">design  =</span> diseno <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(desempleo)),</span>
+<span id="cb75-3"><a href="contrastes-y-diferencias-de-proporciones.html#cb75-3" tabindex="-1"></a>                              <span class="at">FUN     =</span> svymean, <span class="at">na.rm=</span>T, <span class="at">covmat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb75-4"><a href="contrastes-y-diferencias-de-proporciones.html#cb75-4" tabindex="-1"></a>                              <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-svyby-desempleo-region">Cuadro 4.14: </span>Proporción en condición de desempleo por región</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Region</th>
+<th align="center">desempleo</th>
+<th align="center">se</th>
+<th align="center">ci_l</th>
+<th align="center">ci_u</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Norte</td>
+<td align="left">Norte</td>
+<td align="center">0.049</td>
+<td align="center">0.020</td>
+<td align="center">0.010</td>
+<td align="center">0.088</td>
+</tr>
+<tr class="even">
+<td align="left">Sur</td>
+<td align="left">Sur</td>
+<td align="center">0.066</td>
+<td align="center">0.024</td>
+<td align="center">0.019</td>
+<td align="center">0.112</td>
+</tr>
+<tr class="odd">
+<td align="left">Centro</td>
+<td align="left">Centro</td>
+<td align="center">0.039</td>
+<td align="center">0.012</td>
+<td align="center">0.014</td>
+<td align="center">0.063</td>
+</tr>
+<tr class="even">
+<td align="left">Occidente</td>
+<td align="left">Occidente</td>
+<td align="center">0.040</td>
+<td align="center">0.012</td>
+<td align="center">0.016</td>
+<td align="center">0.064</td>
+</tr>
+<tr class="odd">
+<td align="left">Oriente</td>
+<td align="left">Oriente</td>
+<td align="center">0.030</td>
+<td align="center">0.013</td>
+<td align="center">0.005</td>
+<td align="center">0.054</td>
+</tr>
+</tbody>
+</table>
+<p>Una vez estimadas las proporciones de desempleo por región, el siguiente paso consiste en evaluar si existen diferencias estadísticamente significativas entre algunas de estas proporciones mediante contrastes lineales. En particular, el interés se centra en comparar las diferencias entre las proporciones estimadas de desempleo de distintas regiones. Los contrastes considerados corresponden a <span class="math inline">\(\hat{p}_{Norte} - \hat{p}_{Centro} = 0.01004\)</span>, <span class="math inline">\(\hat{p}_{Sur} - \hat{p}_{Centro} = 0.02691\)</span> y <span class="math inline">\(\hat{p}_{Occidente} - \hat{p}_{Oriente} = 0.01046\)</span>. De manera matricial, estos contrastes entre regiones pueden escribirse así:</p>
+<p><span class="math display">\[
+\left[\begin{array}{ccccc}
+1 &amp; 0 &amp; -1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; -1 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; -1
+\end{array}\right]
+\]</span></p>
+<p>Para calcular los errores estándar asociados a cada uno de los contrastes anteriores, es necesario considerar no solo las varianzas de las estimaciones regionales, sino también las covarianzas entre ellas. Esta información se resume en la matriz de varianzas y covarianzas de las proporciones estimadas de desempleo por región, presentada a continuación:</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb76-1" tabindex="-1"></a><span class="fu">vcov</span>(tab_region_desempleo) <span class="sc">%&gt;%</span></span>
+<span id="cb76-2"><a href="contrastes-y-diferencias-de-proporciones.html#cb76-2" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Norte</th>
+<th align="center">Sur</th>
+<th align="center">Centro</th>
+<th align="center">Occidente</th>
+<th align="center">Oriente</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Norte</td>
+<td align="left">0</td>
+<td align="center">0.000</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="left">Sur</td>
+<td align="left">0</td>
+<td align="center">0.001</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Centro</td>
+<td align="left">0</td>
+<td align="center">0.000</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="left">Occidente</td>
+<td align="left">0</td>
+<td align="center">0.000</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Oriente</td>
+<td align="left">0</td>
+<td align="center">0.000</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<p>Nótese que las covarianzas entre las estimaciones regionales son iguales a cero debido a que las muestras seleccionadas en cada región son independientes entre sí. Por tanto, el error estándar de cada contraste se obtiene aplicando la expresión de la varianza para la diferencia entre dos estimadores. En este caso, dado que, el cálculo se reduce a la raíz cuadrada de la suma de las varianzas correspondientes:</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb77-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fl">0.0002981</span> <span class="sc">+</span> <span class="fl">0.0002884</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="dv">0</span>)</span></code></pre></div>
+<pre><code>## [1] 0.02421776</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb79-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fl">0.0001968</span> <span class="sc">+</span> <span class="fl">0.0002884</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="dv">0</span>)</span></code></pre></div>
+<pre><code>## [1] 0.02202726</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb81-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fl">0.0001267</span> <span class="sc">+</span> <span class="fl">0.0004093</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="dv">0</span>)</span></code></pre></div>
+<pre><code>## [1] 0.02315167</code></pre>
+<p>Alternativamente, el paquete <code>survey</code> permite calcular estos contrastes de manera directa mediante la función <code>svycontrast</code>, la cual obtiene tanto las diferencias estimadas entre proporciones como sus respectivos errores estándar. En este caso, la estimación de los contrastes definidos anteriormente se realiza de la siguiente manera:</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb83-1" tabindex="-1"></a><span class="fu">svycontrast</span>(tab_region_desempleo, <span class="fu">list</span>(</span>
+<span id="cb83-2"><a href="contrastes-y-diferencias-de-proporciones.html#cb83-2" tabindex="-1"></a>                             <span class="at">Norte_sur =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb83-3"><a href="contrastes-y-diferencias-de-proporciones.html#cb83-3" tabindex="-1"></a>                             <span class="at">Sur_centro =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb83-4"><a href="contrastes-y-diferencias-de-proporciones.html#cb83-4" tabindex="-1"></a>                             <span class="at">Occidente_Oriente =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb83-5"><a href="contrastes-y-diferencias-de-proporciones.html#cb83-5" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span></code></pre></div>
+<pre><code>##                     contrast         SE
+## Norte_sur         0.01004463 0.02355327
+## Sur_centro        0.02690618 0.02679477
+## Occidente_Oriente 0.01046292 0.01758365</code></pre>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-heeringa2017applied" class="csl-entry">
+Heeringa, S. G., West, B. T., Heeringa, S. G., &amp; Berglund, P. A. (2017). <em>Applied survey data analysis</em>. chapman; hall/CRC.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="estimación-de-proporciones.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tablas-cruzadas.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/psirusteam/2021ASDA/04-Categoricas.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Libro.pdf", "Libro.epub", "Libro.mobi"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  },
+  "tconfig": null
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

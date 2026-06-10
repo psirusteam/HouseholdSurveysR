@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.7 Visualización de variables categóricas | Análisis de encuestas con R</title>
+  <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.7 Visualización de variables categóricas | Análisis de encuestas con R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="github-repo" content="psirusteam/2021ASDA" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.7 Visualización de variables categóricas | Análisis de encuestas con R" />
+  
+  <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  
+
+<meta name="author" content="Andrés Gutiérrez, Giovany Babativa-Márquez, Stalyn Guerrero, Cristian Téllez" />
+
+
+<meta name="date" content="2026-06-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="prueba-de-independencia-chi2.html"/>
+<link rel="next" href="cap6.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis de encuestas de hogares con R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
+<li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="1" data-path="cap-intro.html"><a href="cap-intro.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="04-Categoricas.html"><a href="justificación.html#justificaci%C3%B3n"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
+<li class="chapter" data-level="1.2" data-path="04-Categoricas.html"><a href="uso-del-software-r-para-el-análisis-de-encuestas.html#uso-del-software-r-para-el-an%C3%A1lisis-de-encuestas"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
+<li class="chapter" data-level="1.3" data-path="estructura-del-documento.html"><a href="estructura-del-documento.html"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="04-Categoricas.html"><a href="conceptos-básicos-en-encuestas-de-hogares.html#conceptos-b%C3%A1sicos-en-encuestas-de-hogares"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="04-Categoricas.html"><a href="población-objetivo-y-unidades-de-muestreo.html#poblaci%C3%B3n-objetivo-y-unidades-de-muestreo"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
+<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
+<li class="chapter" data-level="2.3" data-path="04-Categoricas.html"><a href="fundamentos-teóricos.html#fundamentos-te%C3%B3ricos"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="04-Categoricas.html"><a href="fundamentos-teóricos.html#estimaci%C3%B3n-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
+<li class="chapter" data-level="2.3.2" data-path="04-Categoricas.html"><a href="fundamentos-teóricos.html#estimaci%C3%B3n-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-par%C3%A1metros-descriptivos"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
+<li class="chapter" data-level="3.1.2" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
+<li class="chapter" data-level="3.1.3" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-descriptivos.html#estimaci%C3%B3n-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-par%C3%A1metros-de-distribuci%C3%B3n-y-desigualdad"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-la-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
+<li class="chapter" data-level="3.2.2" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
+<li class="chapter" data-level="3.2.3" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
+<li class="chapter" data-level="3.2.4" data-path="04-Categoricas.html"><a href="estimación-de-parámetros-de-distribución-y-desigualdad.html#estimaci%C3%B3n-de-la-correlaci%C3%B3n"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="04-Categoricas.html"><a href="pruebas-de-hipótesis.html#pruebas-de-hip%C3%B3tesis"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
+<li class="chapter" data-level="3.4" data-path="04-Categoricas.html"><a href="estimación-de-contrastes.html#estimaci%C3%B3n-de-contrastes"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
+<li class="chapter" data-level="3.5" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.5.3" data-path="04-Categoricas.html"><a href="viz-continuas.html#diagramas-de-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="04-Categoricas.html"><a href="análisis-de-variables-categóricas.html#an%C3%A1lisis-de-variables-categ%C3%B3ricas"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="04-Categoricas.html"><a href="estimación-del-tamaño-poblacional.html#estimaci%C3%B3n-del-tama%C3%B1o-poblacional"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
+<li class="chapter" data-level="4.2" data-path="04-Categoricas.html"><a href="estimación-de-proporciones.html#estimaci%C3%B3n-de-proporciones"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
+<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
+<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
+<li class="chapter" data-level="4.5" data-path="04-Categoricas.html"><a href="la-razón-de-odds.html#la-raz%C3%B3n-de-odds"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
+<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi2.html"><a href="prueba-de-independencia-chi2.html"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="04-Categoricas.html"><a href="#gr%C3%A1ficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
+<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="04-Categoricas.html"><a href="formulación-del-modelo.html#formulaci%C3%B3n-del-modelo"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
+<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
+<li class="chapter" data-level="5.3" data-path="04-Categoricas.html"><a href="estimación-de-los-parámetros-del-modelo.html#estimaci%C3%B3n-de-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.4" data-path="04-Categoricas.html"><a href="diagnóstico-del-modelo.html#diagn%C3%B3stico-del-modelo"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="04-Categoricas.html"><a href="diagnóstico-del-modelo.html#coeficiente-de-determinaci%C3%B3n"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="5.4.2" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
+<li class="chapter" data-level="5.4.3" data-path="diagnóstico-del-modelo.html"><a href="diagnóstico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="04-Categoricas.html"><a href="inferencia-sobre-los-parámetros-del-modelo.html#inferencia-sobre-los-par%C3%A1metros-del-modelo"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.6" data-path="04-Categoricas.html"><a href="estimación-y-predicción.html#estimaci%C3%B3n-y-predicci%C3%B3n"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cap-glm.html"><a href="cap-glm.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
+<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+</ul></li>
+<li class="divider"></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis de encuestas con R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="viz-categoricas" class="section level2 hasAnchor" number="4.7">
+<h2><span class="header-section-number">4.7</span> Visualización de variables categóricas<a href="viz-categoricas.html#viz-categoricas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La visualización de variables categóricas es fundamental en el análisis de encuestas de hogares, ya que permite comunicar de manera clara la distribución de grupos poblacionales y las comparaciones entre ellos. Al igual que en el análisis de variables continuas, los gráficos deben incorporar los pesos muestrales para que la representación visual corresponda a estimaciones válidas a nivel poblacional. Cuando la precisión estadística es relevante, es recomendable acompañar las barras con intervalos de confianza, que comunican tanto el valor central como la incertidumbre asociada al proceso de estimación.</p>
+<p>En esta sección se utilizan los paquetes <code>ggplot2</code> <span class="citation">(<a href="#ref-Wickham2023">Wickham et al., 2023</a>)</span> y <code>patchwork</code> <span class="citation">(<a href="#ref-patchwork">Pedersen, 2024</a>)</span>.</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="viz-categoricas.html#cb101-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb101-2"><a href="viz-categoricas.html#cb101-2" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code></pre></div>
+<div id="gráficos-de-barras" class="section level3 hasAnchor" number="4.7.1">
+<h3><span class="header-section-number">4.7.1</span> Gráficos de barras<a href="#gr%C3%A1ficos-de-barras" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La construcción de gráficos de barras en <code>R</code> requiere, como paso previo, obtener las estimaciones que se desean representar visualmente. En el contexto de encuestas complejas, estas estimaciones pueden calcularse mediante las funciones <code>survey_total()</code> o <code>survey_prop()</code> del paquete <code>srvyr</code>, dependiendo de si el interés se centra en totales poblacionales o proporciones.</p>
+<p>A continuación, se ilustra este procedimiento utilizando el tamaño poblacional estimado por zona de residencia. Los resultados gráficos correspondientes se presentan en la Figura <a href="viz-categoricas.html#fig:fig-barras-zona">4.1</a>:</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="viz-categoricas.html#cb102-1" tabindex="-1"></a>tamano_zona <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span></span>
+<span id="cb102-2"><a href="viz-categoricas.html#cb102-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span></span>
+<span id="cb102-3"><a href="viz-categoricas.html#cb102-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Nd =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span>
+<span id="cb102-4"><a href="viz-categoricas.html#cb102-4" tabindex="-1"></a></span>
+<span id="cb102-5"><a href="viz-categoricas.html#cb102-5" tabindex="-1"></a>colorZona <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">Urban =</span> <span class="st">&quot;#48C9B0&quot;</span>, <span class="at">Rural =</span> <span class="st">&quot;#117864&quot;</span>)</span>
+<span id="cb102-6"><a href="viz-categoricas.html#cb102-6" tabindex="-1"></a></span>
+<span id="cb102-7"><a href="viz-categoricas.html#cb102-7" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tamano_zona,</span>
+<span id="cb102-8"><a href="viz-categoricas.html#cb102-8" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Zone, <span class="at">y =</span> Nd,</span>
+<span id="cb102-9"><a href="viz-categoricas.html#cb102-9" tabindex="-1"></a>      <span class="at">ymax =</span> Nd_upp, <span class="at">ymin =</span> Nd_low,</span>
+<span id="cb102-10"><a href="viz-categoricas.html#cb102-10" tabindex="-1"></a>      <span class="at">fill =</span> Zone)) <span class="sc">+</span></span>
+<span id="cb102-11"><a href="viz-categoricas.html#cb102-11" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
+<span id="cb102-12"><a href="viz-categoricas.html#cb102-12" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.9</span>), <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb102-13"><a href="viz-categoricas.html#cb102-13" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colorZona) <span class="sc">+</span></span>
+<span id="cb102-14"><a href="viz-categoricas.html#cb102-14" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb102-15"><a href="viz-categoricas.html#cb102-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-barras-zona"></span>
+<img src="04-Categoricas_files/figure-html/fig-barras-zona-1.svg" alt="Gráfico de barras del tamaño poblacional por zona geográfica" width="70%" />
+<p class="caption">
+Figura 4.1: Gráfico de barras del tamaño poblacional por zona geográfica
+</p>
+</div>
+<p>El procedimiento anterior también puede aplicarse a variables con más de dos categorías. En estos casos, el gráfico de barras permite comparar de manera sencilla las estimaciones asociadas a cada categoría de la variable de interés. Por ejemplo, a continuación se presenta la distribución estimada de la población según la condición de pobreza, cuyos resultados gráficos se muestran en la Figura <a href="viz-categoricas.html#fig:fig-barras-pobreza">4.2</a>.</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="viz-categoricas.html#cb103-1" tabindex="-1"></a>tamano_pobreza <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span></span>
+<span id="cb103-2"><a href="viz-categoricas.html#cb103-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Poverty) <span class="sc">%&gt;%</span></span>
+<span id="cb103-3"><a href="viz-categoricas.html#cb103-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Nd =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span>
+<span id="cb103-4"><a href="viz-categoricas.html#cb103-4" tabindex="-1"></a></span>
+<span id="cb103-5"><a href="viz-categoricas.html#cb103-5" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tamano_pobreza,</span>
+<span id="cb103-6"><a href="viz-categoricas.html#cb103-6" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Poverty, <span class="at">y =</span> Nd,</span>
+<span id="cb103-7"><a href="viz-categoricas.html#cb103-7" tabindex="-1"></a>      <span class="at">ymax =</span> Nd_upp, <span class="at">ymin =</span> Nd_low,</span>
+<span id="cb103-8"><a href="viz-categoricas.html#cb103-8" tabindex="-1"></a>      <span class="at">fill =</span> Poverty)) <span class="sc">+</span></span>
+<span id="cb103-9"><a href="viz-categoricas.html#cb103-9" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
+<span id="cb103-10"><a href="viz-categoricas.html#cb103-10" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.9</span>), <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb103-11"><a href="viz-categoricas.html#cb103-11" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb103-12"><a href="viz-categoricas.html#cb103-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-barras-pobreza"></span>
+<img src="04-Categoricas_files/figure-html/fig-barras-pobreza-1.svg" alt="Gráfico de barras del tamaño poblacional por condición de pobreza" width="70%" />
+<p class="caption">
+Figura 4.2: Gráfico de barras del tamaño poblacional por condición de pobreza
+</p>
+</div>
+<p>Una de las ventajas de los gráficos de barras es que pueden extenderse fácilmente a comparaciones entre dos variables categóricas. Por ejemplo, se puede analizar el tamaño poblacional por nivel de pobreza cruzado con el estado de ocupación, presentada en la Figura <a href="viz-categoricas.html#fig:fig-barras-empleo-pobreza">4.3</a>:</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="viz-categoricas.html#cb104-1" tabindex="-1"></a>tamano_ocupacion_pobreza <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span></span>
+<span id="cb104-2"><a href="viz-categoricas.html#cb104-2" tabindex="-1"></a>  <span class="fu">group_by</span>(desempleo, Poverty) <span class="sc">%&gt;%</span></span>
+<span id="cb104-3"><a href="viz-categoricas.html#cb104-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Nd =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb104-4"><a href="viz-categoricas.html#cb104-4" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb104-5"><a href="viz-categoricas.html#cb104-5" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb104-6"><a href="viz-categoricas.html#cb104-6" tabindex="-1"></a>    <span class="at">desempleo =</span> <span class="fu">case_when</span>(</span>
+<span id="cb104-7"><a href="viz-categoricas.html#cb104-7" tabindex="-1"></a>      desempleo <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;Occupied&quot;</span>,</span>
+<span id="cb104-8"><a href="viz-categoricas.html#cb104-8" tabindex="-1"></a>      desempleo <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;Unemployed&quot;</span>,</span>
+<span id="cb104-9"><a href="viz-categoricas.html#cb104-9" tabindex="-1"></a>      <span class="fu">is.na</span>(desempleo) <span class="sc">~</span> <span class="st">&quot;Not in the Labour Force&quot;</span></span>
+<span id="cb104-10"><a href="viz-categoricas.html#cb104-10" tabindex="-1"></a>    )</span>
+<span id="cb104-11"><a href="viz-categoricas.html#cb104-11" tabindex="-1"></a>  )</span>
+<span id="cb104-12"><a href="viz-categoricas.html#cb104-12" tabindex="-1"></a></span>
+<span id="cb104-13"><a href="viz-categoricas.html#cb104-13" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tamano_ocupacion_pobreza,</span>
+<span id="cb104-14"><a href="viz-categoricas.html#cb104-14" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Poverty, <span class="at">y =</span> Nd,</span>
+<span id="cb104-15"><a href="viz-categoricas.html#cb104-15" tabindex="-1"></a>      <span class="at">ymax =</span> Nd_upp, <span class="at">ymin =</span> Nd_low,</span>
+<span id="cb104-16"><a href="viz-categoricas.html#cb104-16" tabindex="-1"></a>      <span class="at">fill =</span> <span class="fu">as.factor</span>(desempleo))) <span class="sc">+</span></span>
+<span id="cb104-17"><a href="viz-categoricas.html#cb104-17" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
+<span id="cb104-18"><a href="viz-categoricas.html#cb104-18" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.9</span>), <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb104-19"><a href="viz-categoricas.html#cb104-19" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb104-20"><a href="viz-categoricas.html#cb104-20" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-barras-empleo-pobreza"></span>
+<img src="04-Categoricas_files/figure-html/fig-barras-empleo-pobreza-1.svg" alt="Gráfico de barras del tamaño poblacional por estado de ocupación y pobreza" width="80%" />
+<p class="caption">
+Figura 4.3: Gráfico de barras del tamaño poblacional por estado de ocupación y pobreza
+</p>
+</div>
+<p>Este tipo de análisis gráfico resulta especialmente útil para identificar intersecciones de vulnerabilidad, al mostrar de manera simultánea dos o más características poblacionales. También es posible presentar proporciones en lugar de conteos. Por ejemplo, la proporción de hombres en condición de pobreza por zona, presentada en la Figura <a href="viz-categoricas.html#fig:fig-barras-prop-zona-hombre">4.4</a>:</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="viz-categoricas.html#cb105-1" tabindex="-1"></a>prop_ZonaH_Pobreza <span class="ot">&lt;-</span> sub_Hombre <span class="sc">%&gt;%</span></span>
+<span id="cb105-2"><a href="viz-categoricas.html#cb105-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone, Poverty) <span class="sc">%&gt;%</span></span>
+<span id="cb105-3"><a href="viz-categoricas.html#cb105-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prop =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span>
+<span id="cb105-4"><a href="viz-categoricas.html#cb105-4" tabindex="-1"></a></span>
+<span id="cb105-5"><a href="viz-categoricas.html#cb105-5" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> prop_ZonaH_Pobreza,</span>
+<span id="cb105-6"><a href="viz-categoricas.html#cb105-6" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Poverty, <span class="at">y =</span> prop,</span>
+<span id="cb105-7"><a href="viz-categoricas.html#cb105-7" tabindex="-1"></a>      <span class="at">ymax =</span> prop_upp, <span class="at">ymin =</span> prop_low,</span>
+<span id="cb105-8"><a href="viz-categoricas.html#cb105-8" tabindex="-1"></a>      <span class="at">fill =</span> Zone)) <span class="sc">+</span></span>
+<span id="cb105-9"><a href="viz-categoricas.html#cb105-9" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
+<span id="cb105-10"><a href="viz-categoricas.html#cb105-10" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.9</span>), <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb105-11"><a href="viz-categoricas.html#cb105-11" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colorZona) <span class="sc">+</span></span>
+<span id="cb105-12"><a href="viz-categoricas.html#cb105-12" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb105-13"><a href="viz-categoricas.html#cb105-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-barras-prop-zona-hombre"></span>
+<img src="04-Categoricas_files/figure-html/fig-barras-prop-zona-hombre-1.svg" alt="Proporción de hombres en condición de pobreza por zona geográfica" width="70%" />
+<p class="caption">
+Figura 4.4: Proporción de hombres en condición de pobreza por zona geográfica
+</p>
+</div>
+<p>De forma análoga, se puede graficar la proporción de hombres en condición de pobreza desagregada por región, presentada en la Figura <a href="viz-categoricas.html#fig:fig-barras-prop-region-hombre">4.5</a>:</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="viz-categoricas.html#cb106-1" tabindex="-1"></a>prop_RegionH_Pobreza <span class="ot">&lt;-</span> sub_Hombre <span class="sc">%&gt;%</span></span>
+<span id="cb106-2"><a href="viz-categoricas.html#cb106-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Region, pobreza) <span class="sc">%&gt;%</span></span>
+<span id="cb106-3"><a href="viz-categoricas.html#cb106-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prop =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb106-4"><a href="viz-categoricas.html#cb106-4" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span>
+<span id="cb106-5"><a href="viz-categoricas.html#cb106-5" tabindex="-1"></a></span>
+<span id="cb106-6"><a href="viz-categoricas.html#cb106-6" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> prop_RegionH_Pobreza,</span>
+<span id="cb106-7"><a href="viz-categoricas.html#cb106-7" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Region, <span class="at">y =</span> prop,</span>
+<span id="cb106-8"><a href="viz-categoricas.html#cb106-8" tabindex="-1"></a>      <span class="at">ymax =</span> prop_upp, <span class="at">ymin =</span> prop_low,</span>
+<span id="cb106-9"><a href="viz-categoricas.html#cb106-9" tabindex="-1"></a>      <span class="at">fill =</span> <span class="fu">as.factor</span>(pobreza))) <span class="sc">+</span></span>
+<span id="cb106-10"><a href="viz-categoricas.html#cb106-10" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
+<span id="cb106-11"><a href="viz-categoricas.html#cb106-11" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.9</span>), <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb106-12"><a href="viz-categoricas.html#cb106-12" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb106-13"><a href="viz-categoricas.html#cb106-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-barras-prop-region-hombre"></span>
+<img src="04-Categoricas_files/figure-html/fig-barras-prop-region-hombre-1.svg" alt="Proporción de hombres en condición de pobreza por región" width="75%" />
+<p class="caption">
+Figura 4.5: Proporción de hombres en condición de pobreza por región
+</p>
+</div>
+<p>En síntesis, los gráficos de barras junto con sus correspondientes errores estánar permiten una descripción clara de los patrones de pobreza, empleo u otras variables categóricas en la población, y cuando se aplican correctamente, constituyen una herramienta poderosa para comunicar hallazgos de encuestas de hogares manteniendo el rigor estadístico en la representación de los resultados.</p>
+</div>
+<div id="viz-mapas" class="section level3 hasAnchor" number="4.7.2">
+<h3><span class="header-section-number">4.7.2</span> Mapas<a href="viz-categoricas.html#viz-mapas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Los mapas temáticos constituyen una herramienta de visualización especialmente útil en el análisis de encuestas de hogares, ya que permiten representar la distribución territorial de indicadores sociales y demográficos. En este contexto, las estimaciones de proporciones calculadas en secciones anteriores —como el porcentaje de pobreza o desempleo por región— pueden proyectarse directamente sobre unidades geográficas, facilitando así la identificación de patrones espaciales y desigualdades regionales.</p>
+<p>Para construir este tipo de mapas en <code>R</code> se requiere información geoespacial en formato <em>shapefile</em>, la cual contiene los polígonos asociados a cada unidad geográfica de análisis. En este capítulo se utiliza el archivo <code>shapeBigCity/BigCity.shp</code>, cuyas regiones corresponden a las definidas en la base de datos <code>BigCity</code>. Los paquetes <code>sf</code> <span class="citation">(<a href="#ref-sf2018">Pebesma, 2018</a>)</span> y <code>tmap</code> <span class="citation">(<a href="#ref-tmap2023">Tennekes, 2023</a>)</span> permiten cargar, manipular y visualizar esta información geográfica de manera integrada con los resultados obtenidos a partir de la encuesta.</p>
+<p>El siguiente código carga los paquetes necesarios para trabajar con información geoespacial y visualización cartográfica en <code>R</code>. En primer lugar, la librería <code>sf</code> permite leer y manipular objetos espaciales modernos, mientras que <code>tmap</code> proporciona herramientas para la elaboración de mapas temáticos. La instrucción <code>tmap_mode("plot")</code> establece el modo de visualización estática de los mapas, apropiado para documentos y reportes. Finalmente, la función <code>read_sf()</code> importa el archivo geográfico <code>BigCity.shp</code>, almacenándolo en el objeto <code>shapeBigCity</code>, el cual contiene los polígonos correspondientes a las regiones de análisis.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="viz-categoricas.html#cb107-1" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb107-2"><a href="viz-categoricas.html#cb107-2" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
+<span id="cb107-3"><a href="viz-categoricas.html#cb107-3" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb107-4"><a href="viz-categoricas.html#cb107-4" tabindex="-1"></a>shapeBigCity <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">&quot;Data/shapeBigCity/BigCity.shp&quot;</span>)</span></code></pre></div>
+<p>Con el shapefile cargado, se puede generar un mapa de las regiones usando <code>tm_shape()</code> y <code>tm_polygons()</code>, como se muestra en la Figura <a href="viz-categoricas.html#fig:fig-mapa-regiones">4.6</a>:</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="viz-categoricas.html#cb108-1" tabindex="-1"></a><span class="fu">tm_shape</span>(shapeBigCity) <span class="sc">+</span></span>
+<span id="cb108-2"><a href="viz-categoricas.html#cb108-2" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">&quot;Region&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-mapa-regiones"></span>
+<img src="04-Categoricas_files/figure-html/fig-mapa-regiones-1.svg" alt="Mapa de regiones geográficas de BigCity" width="70%" />
+<p class="caption">
+Figura 4.6: Mapa de regiones geográficas de BigCity
+</p>
+</div>
+<p>Por ejemplo, si se desea representar geográficamente la proporción de hombres en condición de pobreza por región, estimada previamente en la Figura <a href="viz-categoricas.html#fig:fig-barras-prop-region-hombre">4.5</a>, es necesario integrar las estimaciones obtenidas con la información espacial del shapefile. Para ello, el objeto <code>prop_RegionH_Pobreza</code>, que contiene las proporciones estimadas para cada región, se vincula con el archivo geográfico mediante la función <code>left_join()</code>. Posteriormente, se filtran únicamente las observaciones correspondientes a la categoría de pobreza (<code>pobreza == 1</code>), de manera que el mapa represente exclusivamente la distribución espacial de la población masculina en condición de pobreza.</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="viz-categoricas.html#cb109-1" tabindex="-1"></a>shape_temp <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(</span>
+<span id="cb109-2"><a href="viz-categoricas.html#cb109-2" tabindex="-1"></a>  shapeBigCity <span class="sc">%&gt;%</span></span>
+<span id="cb109-3"><a href="viz-categoricas.html#cb109-3" tabindex="-1"></a>    <span class="fu">left_join</span>(</span>
+<span id="cb109-4"><a href="viz-categoricas.html#cb109-4" tabindex="-1"></a>      prop_RegionH_Pobreza <span class="sc">%&gt;%</span></span>
+<span id="cb109-5"><a href="viz-categoricas.html#cb109-5" tabindex="-1"></a>        <span class="fu">filter</span>(pobreza <span class="sc">==</span> <span class="dv">1</span>),</span>
+<span id="cb109-6"><a href="viz-categoricas.html#cb109-6" tabindex="-1"></a>      <span class="at">by =</span> <span class="st">&quot;Region&quot;</span>))</span></code></pre></div>
+<p>Una vez construido el objeto espacial con las estimaciones de interés, el argumento <code>breaks</code> ayuda a definir los puntos de corte que determinarán los intervalos de la escala de color utilizada en el mapa. Posteriormente, se genera el mapa temático, permitiendo visualizar la distribución regional de la proporción de hombres en condición de pobreza, como se presenta en la Figura <a href="viz-categoricas.html#fig:fig-mapa-pobreza-hombre">4.7</a>.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="viz-categoricas.html#cb110-1" tabindex="-1"></a>brks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.6</span>, <span class="fl">0.8</span>, <span class="dv">1</span>)</span>
+<span id="cb110-2"><a href="viz-categoricas.html#cb110-2" tabindex="-1"></a>shape_temp <span class="sc">+</span></span>
+<span id="cb110-3"><a href="viz-categoricas.html#cb110-3" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(</span>
+<span id="cb110-4"><a href="viz-categoricas.html#cb110-4" tabindex="-1"></a>    <span class="at">col    =</span> <span class="st">&quot;prop&quot;</span>,</span>
+<span id="cb110-5"><a href="viz-categoricas.html#cb110-5" tabindex="-1"></a>    <span class="at">breaks =</span> brks,</span>
+<span id="cb110-6"><a href="viz-categoricas.html#cb110-6" tabindex="-1"></a>    <span class="at">title  =</span> <span class="st">&quot;Proporción en pobreza&quot;</span>,</span>
+<span id="cb110-7"><a href="viz-categoricas.html#cb110-7" tabindex="-1"></a>    <span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-mapa-pobreza-hombre"></span>
+<img src="04-Categoricas_files/figure-html/fig-mapa-pobreza-hombre-1.svg" alt="Proporción de hombres en condición de pobreza por región" width="70%" />
+<p class="caption">
+Figura 4.7: Proporción de hombres en condición de pobreza por región
+</p>
+</div>
+<p>Otro uso de los mapas en encuestas es la visualización de la precisión de las estimaciones. Por ejemplo, usando el coeficiente de variación del ingreso medio por región es posible identificar las áreas donde las estimaciones son menos confiables, como se muestra en la Figura <a href="viz-categoricas.html#fig:fig-mapa-cv-ingreso">4.8</a>.</p>
+<p>El siguiente código calcula y representa geográficamente el coeficiente de variación del ingreso medio por región. En primer lugar, la función se estima el ingreso promedio para cada región. El argumento <code>vartype = "cv"</code> solicita el cálculo del coeficiente de variación de cada estimación. Posteriormente, se definen los intervalos de clasificación de la escala de color mediante el objeto <code>brks_cv</code>, y las estimaciones se integran con la información geográfica del shapefile usando <code>left_join()</code>. Finalmente, mediante las funciones <code>tm_shape()</code> y <code>tm_polygons()</code> del paquete <code>tmap</code>, se construye el mapa que representa espacialmente los coeficientes de variación utilizando una escala de colores en blanco y negro y ajustando la proporción del mapa con <code>tm_layout(asp = 0)</code>.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="viz-categoricas.html#cb111-1" tabindex="-1"></a>prom_region <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="sc">~</span>Income, <span class="sc">~</span>Region, diseno,</span>
+<span id="cb111-2"><a href="viz-categoricas.html#cb111-2" tabindex="-1"></a>  svymean,</span>
+<span id="cb111-3"><a href="viz-categoricas.html#cb111-3" tabindex="-1"></a>  <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">covmat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb111-4"><a href="viz-categoricas.html#cb111-4" tabindex="-1"></a>  <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;cv&quot;</span>))</span>
+<span id="cb111-5"><a href="viz-categoricas.html#cb111-5" tabindex="-1"></a></span>
+<span id="cb111-6"><a href="viz-categoricas.html#cb111-6" tabindex="-1"></a>brks_cv <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="dv">1</span>)</span>
+<span id="cb111-7"><a href="viz-categoricas.html#cb111-7" tabindex="-1"></a>shape_cv <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(</span>
+<span id="cb111-8"><a href="viz-categoricas.html#cb111-8" tabindex="-1"></a>  shapeBigCity <span class="sc">%&gt;%</span></span>
+<span id="cb111-9"><a href="viz-categoricas.html#cb111-9" tabindex="-1"></a>    <span class="fu">left_join</span>(prom_region, <span class="at">by =</span> <span class="st">&quot;Region&quot;</span>))</span>
+<span id="cb111-10"><a href="viz-categoricas.html#cb111-10" tabindex="-1"></a></span>
+<span id="cb111-11"><a href="viz-categoricas.html#cb111-11" tabindex="-1"></a>shape_cv <span class="sc">+</span></span>
+<span id="cb111-12"><a href="viz-categoricas.html#cb111-12" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(</span>
+<span id="cb111-13"><a href="viz-categoricas.html#cb111-13" tabindex="-1"></a>    <span class="st">&quot;cv&quot;</span>,</span>
+<span id="cb111-14"><a href="viz-categoricas.html#cb111-14" tabindex="-1"></a>    <span class="at">breaks =</span> brks_cv,</span>
+<span id="cb111-15"><a href="viz-categoricas.html#cb111-15" tabindex="-1"></a>    <span class="at">title  =</span> <span class="st">&quot;CV del ingreso medio&quot;</span>,</span>
+<span id="cb111-16"><a href="viz-categoricas.html#cb111-16" tabindex="-1"></a>    <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;#FFFFFF&quot;</span>, <span class="st">&quot;#000000&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb111-17"><a href="viz-categoricas.html#cb111-17" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">asp =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-mapa-cv-ingreso"></span>
+<img src="04-Categoricas_files/figure-html/fig-mapa-cv-ingreso-1.svg" alt="Coeficiente de variación del ingreso medio por región" width="70%" />
+<p class="caption">
+Figura 4.8: Coeficiente de variación del ingreso medio por región
+</p>
+</div>
+<p>Los polígonos con tonos más oscuros corresponden a regiones donde la estimación del ingreso presenta mayor variabilidad relativa, lo que puede indicar tamaños muestrales insuficientes para obtener estimaciones precisas en esas áreas.</p>
+<p>Cuando se desea representar simultáneamente dos variables —por ejemplo, la proporción de pobreza y su coeficiente de variación— es posible construir un mapa bivariante utilizando <code>ggplot2</code> junto con los paquetes <code>biscale</code> y <code>cowplot</code>. Este tipo de visualización permite identificar regiones con alta pobreza y alta incertidumbre en la estimación de forma conjunta, como se presenta en la Figura <a href="viz-categoricas.html#fig:fig-mapa-bivariante">4.9</a>. El siguiente código estima la proporción de mujeres en condición de pobreza en zonas rurales para cada región, incorporando además el cálculo del coeficiente de variación de las estimaciones, generando así una base de datos lista para la construcción de un mapa bivariado.</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="viz-categoricas.html#cb112-1" tabindex="-1"></a>prom_region_Sex <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span></span>
+<span id="cb112-2"><a href="viz-categoricas.html#cb112-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Region, Zone, Sex, pobreza) <span class="sc">%&gt;%</span></span>
+<span id="cb112-3"><a href="viz-categoricas.html#cb112-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prop =</span> <span class="fu">survey_mean</span>(<span class="at">vartype =</span> <span class="st">&quot;cv&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb112-4"><a href="viz-categoricas.html#cb112-4" tabindex="-1"></a>  <span class="fu">filter</span>(pobreza <span class="sc">==</span> <span class="dv">1</span>, Zone <span class="sc">==</span> <span class="st">&quot;Rural&quot;</span>, Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>)</span></code></pre></div>
+<p>El siguiente código construye un mapa bivariado que permite visualizar simultáneamente la proporción de pobreza femenina rural y el coeficiente de variación asociado a dicha estimación por región. En primer lugar, se integran las estimaciones contenidas en <code>prom_region_Sex</code> con la información geográfica del shapefile mediante <code>left_join()</code>. Posteriormente, utilizando la función <code>bi_class()</code> del paquete <code>biscale</code>, se clasifican conjuntamente las variables <code>prop</code> y <code>prop_cv</code> en una cuadrícula de <span class="math inline">\(3 \times 3\)</span> categorías (<code>dim = 3</code>), empleando el método de clasificación de Fisher (<code>style = "fisher"</code>). Luego, con <code>ggplot2</code> y <code>geom_sf()</code>, se genera el mapa temático utilizando colores bivariados definidos por <code>bi_scale_fill()</code>, mientras que <code>bi_theme()</code> aplica un estilo minimalista y se elimina la leyenda predeterminada.</p>
+<p>A continuación, la función <code>bi_legend()</code> crea una leyenda especializada que permite interpretar simultáneamente ambas dimensiones del mapa: el coeficiente de variación y la pobreza femenina rural. Finalmente, mediante las funciones <code>ggdraw()</code> y <code>draw_plot()</code> del paquete <code>cowplot</code>, se combinan el mapa y la leyenda en una única visualización.</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="viz-categoricas.html#cb113-1" tabindex="-1"></a><span class="fu">library</span>(biscale)</span>
+<span id="cb113-2"><a href="viz-categoricas.html#cb113-2" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb113-3"><a href="viz-categoricas.html#cb113-3" tabindex="-1"></a></span>
+<span id="cb113-4"><a href="viz-categoricas.html#cb113-4" tabindex="-1"></a>temp_shape <span class="ot">&lt;-</span> shapeBigCity <span class="sc">%&gt;%</span></span>
+<span id="cb113-5"><a href="viz-categoricas.html#cb113-5" tabindex="-1"></a>  <span class="fu">left_join</span>(prom_region_Sex, <span class="at">by =</span> <span class="st">&quot;Region&quot;</span>)</span>
+<span id="cb113-6"><a href="viz-categoricas.html#cb113-6" tabindex="-1"></a></span>
+<span id="cb113-7"><a href="viz-categoricas.html#cb113-7" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb113-8"><a href="viz-categoricas.html#cb113-8" tabindex="-1"></a>datos_bi <span class="ot">&lt;-</span> <span class="fu">bi_class</span>(temp_shape,</span>
+<span id="cb113-9"><a href="viz-categoricas.html#cb113-9" tabindex="-1"></a>  <span class="at">y =</span> prop, <span class="at">x =</span> prop_cv, <span class="at">dim =</span> k,</span>
+<span id="cb113-10"><a href="viz-categoricas.html#cb113-10" tabindex="-1"></a>  <span class="at">style =</span> <span class="st">&quot;fisher&quot;</span>)</span>
+<span id="cb113-11"><a href="viz-categoricas.html#cb113-11" tabindex="-1"></a></span>
+<span id="cb113-12"><a href="viz-categoricas.html#cb113-12" tabindex="-1"></a>map_bi <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb113-13"><a href="viz-categoricas.html#cb113-13" tabindex="-1"></a>  <span class="fu">geom_sf</span>(</span>
+<span id="cb113-14"><a href="viz-categoricas.html#cb113-14" tabindex="-1"></a>    <span class="at">data =</span> datos_bi,</span>
+<span id="cb113-15"><a href="viz-categoricas.html#cb113-15" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">fill =</span> bi_class, <span class="at">geometry =</span> geometry),</span>
+<span id="cb113-16"><a href="viz-categoricas.html#cb113-16" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>, <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb113-17"><a href="viz-categoricas.html#cb113-17" tabindex="-1"></a>  <span class="fu">bi_scale_fill</span>(<span class="at">pal =</span> <span class="st">&quot;GrPink&quot;</span>, <span class="at">dim =</span> k) <span class="sc">+</span></span>
+<span id="cb113-18"><a href="viz-categoricas.html#cb113-18" tabindex="-1"></a>  <span class="fu">bi_theme</span>() <span class="sc">+</span></span>
+<span id="cb113-19"><a href="viz-categoricas.html#cb113-19" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb113-20"><a href="viz-categoricas.html#cb113-20" tabindex="-1"></a></span>
+<span id="cb113-21"><a href="viz-categoricas.html#cb113-21" tabindex="-1"></a>legend_bi <span class="ot">&lt;-</span> <span class="fu">bi_legend</span>(</span>
+<span id="cb113-22"><a href="viz-categoricas.html#cb113-22" tabindex="-1"></a>  <span class="at">pal  =</span> <span class="st">&quot;GrPink&quot;</span>, <span class="at">dim =</span> k,</span>
+<span id="cb113-23"><a href="viz-categoricas.html#cb113-23" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;Coeficiente de variación&quot;</span>,</span>
+<span id="cb113-24"><a href="viz-categoricas.html#cb113-24" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Pobreza femenina rural&quot;</span>,</span>
+<span id="cb113-25"><a href="viz-categoricas.html#cb113-25" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">8</span>)</span>
+<span id="cb113-26"><a href="viz-categoricas.html#cb113-26" tabindex="-1"></a></span>
+<span id="cb113-27"><a href="viz-categoricas.html#cb113-27" tabindex="-1"></a><span class="fu">ggdraw</span>() <span class="sc">+</span></span>
+<span id="cb113-28"><a href="viz-categoricas.html#cb113-28" tabindex="-1"></a>  <span class="fu">draw_plot</span>(map_bi,     <span class="dv">0</span>,    <span class="dv">0</span>,    <span class="dv">1</span>, <span class="at">scale =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb113-29"><a href="viz-categoricas.html#cb113-29" tabindex="-1"></a>  <span class="fu">draw_plot</span>(legend_bi,  <span class="fl">0.75</span>, <span class="fl">0.4</span>,  <span class="fl">0.2</span>, <span class="fl">0.2</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-mapa-bivariante"></span>
+<img src="04-Categoricas_files/figure-html/fig-mapa-bivariante-1.svg" alt="Mapa bivariante: proporción de pobreza femenina rural y su coeficiente de variación por región" width="80%" />
+<p class="caption">
+Figura 4.9: Mapa bivariante: proporción de pobreza femenina rural y su coeficiente de variación por región
+</p>
+</div>
+<p>En este mapa, cada celda de la leyenda combina un tono de la proporción de pobreza (eje vertical) con un tono del coeficiente de variación (eje horizontal), permitiendo identificar simultáneamente regiones con alta pobreza y alta incertidumbre en la estimación. Este tipo de representación es especialmente valioso para orientar decisiones sobre la necesidad de ampliar el tamaño muestral en zonas geográficas específicas.</p>
+
+</div>
+</div>
+<!-- </div> -->
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-sf2018" class="csl-entry">
+Pebesma, E. (2018). <span>Simple Features for R: Standardized Support for Spatial Vector Data</span>. <em><span>The R Journal</span></em>, <em>10</em>(1), 439-446. <a href="https://doi.org/10.32614/RJ-2018-009">https://doi.org/10.32614/RJ-2018-009</a>
+</div>
+<div id="ref-patchwork" class="csl-entry">
+Pedersen, T. L. (2024). <em>patchwork: The composer of plots</em>. <a href="https://CRAN.R-project.org/package=patchwork">https://CRAN.R-project.org/package=patchwork</a>
+</div>
+<div id="ref-tmap2023" class="csl-entry">
+Tennekes, M. (2023). <em>tmap: Thematic Maps</em>. <a href="https://CRAN.R-project.org/package=tmap">https://CRAN.R-project.org/package=tmap</a>
+</div>
+<div id="ref-Wickham2023" class="csl-entry">
+Wickham, H., Navarro, D., &amp; Pedersen, T. L. (2023). <em>ggplot2: Elegant Graphics for Data Analysis</em> (3.ª ed.). Springer. <a href="https://doi.org/10.1007/978-3-319-24277-4">https://doi.org/10.1007/978-3-319-24277-4</a>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="prueba-de-independencia-chi2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cap6.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/psirusteam/2021ASDA/04-Categoricas.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Libro.pdf", "Libro.epub", "Libro.mobi"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  },
+  "tconfig": null
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
