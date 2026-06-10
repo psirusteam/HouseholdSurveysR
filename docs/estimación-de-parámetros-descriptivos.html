@@ -319,8 +319,8 @@ div.csl-indent {
 <p>Los argumentos principales de la función <code>survey_total()</code> son <code>x</code>, <code>na.rm</code>, <code>vartype</code>, <code>level</code> y <code>deff</code>. El argumento <code>x</code> corresponde a la variable sobre la cual se desea calcular el total; también puede dejarse vacío cuando se busca obtener únicamente el total ponderado de casos de la muestra. Por su parte, <code>na.rm</code> indica si los valores faltantes (<code>NA</code>) deben eliminarse antes de realizar el cálculo, siendo <code>FALSE</code> el valor predeterminado.</p>
 <p>El argumento <code>vartype</code> permite especificar el tipo de medida de incertidumbre que se desea estimar, pudiendo solicitarse uno o varios resultados simultáneamente, tales como el error estándar (<code>"se"</code>), el intervalo de confianza (<code>"ci"</code>), la varianza (<code>"var"</code>) o el coeficiente de variación (<code>"cv"</code>). Asimismo, <code>level</code> define el nivel de confianza utilizado para el cálculo de los intervalos de confianza, cuyo valor por defecto es 0.95. Por otro lado, el intervalo de confianza puede obtenerse directamente al incluir el argumento <code>vartype = "ci"</code> dentro de <code>survey_total()</code>, o bien utilizando la función <code>confint()</code> sobre el objeto resultante, especificando el nivel de confianza requerido. Finalmente, <code>deff</code> es un valor lógico que indica si se debe retornar el efecto del diseño (DEFF).</p>
 <p>El siguiente ejemplo presenta cómo estimar totales y sus intervalos de confianza para diferentes variables de interés en <code>R</code>, utilizando la función <code>survey_total()</code>, y presentada en la Tabla <a href="estimación-de-parámetros-descriptivos.html#tab:tab-total-ingreso">3.1</a>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="estimación-de-parámetros-descriptivos.html#cb4-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
-<span id="cb4-2"><a href="estimación-de-parámetros-descriptivos.html#cb4-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ty =</span> <span class="fu">survey_total</span>(Income, <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>), <span class="at">deff =</span> T))</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="estimación-de-parámetros-descriptivos.html#cb4-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="estimación-de-parámetros-descriptivos.html#cb4-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ty =</span> <span class="fu">survey_total</span>(Income, <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>), <span class="at">deff =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-total-ingreso">Cuadro 3.1: </span>Estimación del total de ingresos de los hogares con intervalo de confianza al 95%</caption>
 <thead>
@@ -347,7 +347,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="estimación-de-parámetros-descriptivos.html#cb5-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href="estimación-de-parámetros-descriptivos.html#cb5-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ty =</span> <span class="fu">survey_total</span>(Expenditure, </span>
 <span id="cb5-3"><a href="estimación-de-parámetros-descriptivos.html#cb5-3" tabindex="-1"></a>                              <span class="at">vartype =</span> <span class="st">&quot;ci&quot;</span>, <span class="at">level =</span> <span class="fl">0.9</span>, </span>
-<span id="cb5-4"><a href="estimación-de-parámetros-descriptivos.html#cb5-4" tabindex="-1"></a>                              <span class="at">deff =</span> T))</span></code></pre></div>
+<span id="cb5-4"><a href="estimación-de-parámetros-descriptivos.html#cb5-4" tabindex="-1"></a>                              <span class="at">deff =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-total-gasto">Cuadro 3.2: </span>Estimación del total de gastos de los hogares con intervalo de confianza al 90%</caption>
 <thead>
@@ -368,7 +368,7 @@ div.csl-indent {
 </tbody>
 </table>
 <p>Si el objetivo es estimar el total de ingresos de los hogares, pero desagregado por sexo, se puede utilizar la función <code>group_by()</code> para agrupar por la variable de interés, junto con <code>cascade()</code> de la librería <code>srvyr</code>, que permite agregar una fila con el total general al final de la tabla. De esta manera, se pueden obtener fácilmente los totales por categoría y el total global dentro del mismo marco de resumen, como se muestra en la Tabla <a href="estimación-de-parámetros-descriptivos.html#tab:tab-total-ingreso-sexo">3.3</a>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="estimación-de-parámetros-descriptivos.html#cb6-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="estimación-de-parámetros-descriptivos.html#cb6-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="estimación-de-parámetros-descriptivos.html#cb6-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
 <span id="cb6-3"><a href="estimación-de-parámetros-descriptivos.html#cb6-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">Total =</span> <span class="fu">survey_total</span>(Income, </span>
 <span id="cb6-4"><a href="estimación-de-parámetros-descriptivos.html#cb6-4" tabindex="-1"></a>                               <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>),</span>
@@ -490,7 +490,7 @@ div.csl-indent {
 </tbody>
 </table>
 <p>También se pueden realizar estimaciones de la media por subgrupos siguiendo el mismo esquema mostrado previamente. Particularmente, los gastos de los hogares discriminados por sexo se presentan en la Tabla <a href="estimación-de-parámetros-descriptivos.html#tab:tab-media-gasto-sexo">3.6</a>:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="estimación-de-parámetros-descriptivos.html#cb9-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="estimación-de-parámetros-descriptivos.html#cb9-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
 <span id="cb9-2"><a href="estimación-de-parámetros-descriptivos.html#cb9-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
 <span id="cb9-3"><a href="estimación-de-parámetros-descriptivos.html#cb9-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">Media =</span> <span class="fu">survey_mean</span>(Expenditure, </span>
 <span id="cb9-4"><a href="estimación-de-parámetros-descriptivos.html#cb9-4" tabindex="-1"></a>                              <span class="at">level =</span> <span class="fl">0.95</span>,</span>
@@ -533,7 +533,7 @@ div.csl-indent {
 </tbody>
 </table>
 <p>De manera análoga, se pueden calcular las medias del gasto por zona, las cuales son presentadas en la Tabla <a href="estimación-de-parámetros-descriptivos.html#tab:tab-media-gasto-zona">3.7</a>:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="estimación-de-parámetros-descriptivos.html#cb10-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="estimación-de-parámetros-descriptivos.html#cb10-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="estimación-de-parámetros-descriptivos.html#cb10-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span></span>
 <span id="cb10-3"><a href="estimación-de-parámetros-descriptivos.html#cb10-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">Media =</span> <span class="fu">survey_mean</span>(Expenditure, </span>
 <span id="cb10-4"><a href="estimación-de-parámetros-descriptivos.html#cb10-4" tabindex="-1"></a>                              <span class="at">level =</span> <span class="fl">0.95</span>,</span>
@@ -576,7 +576,7 @@ div.csl-indent {
 </tbody>
 </table>
 <p>Asimismo, es posible realizar una estimación combinada por sexo y zona, presentada en la Tabla <a href="estimación-de-parámetros-descriptivos.html#tab:tab-media-gasto-zona-sexo">3.8</a>:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="estimación-de-parámetros-descriptivos.html#cb11-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="estimación-de-parámetros-descriptivos.html#cb11-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
 <span id="cb11-2"><a href="estimación-de-parámetros-descriptivos.html#cb11-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone, Sex) <span class="sc">%&gt;%</span></span>
 <span id="cb11-3"><a href="estimación-de-parámetros-descriptivos.html#cb11-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">Media =</span> <span class="fu">survey_mean</span>(Expenditure, </span>
 <span id="cb11-4"><a href="estimación-de-parámetros-descriptivos.html#cb11-4" tabindex="-1"></a>                              <span class="at">level =</span> <span class="fl">0.95</span>,</span>
@@ -675,7 +675,7 @@ div.csl-indent {
 \]</span></p>
 <p>Sin embargo, dado que <span class="math inline">\(\hat{R}\)</span> es un cociente entre dos estimadores, es decir, dos variables aleatorias, el cálculo de su varianza no es trivial. Para ello se emplea la linealización de Taylor, como lo muestra <span class="citation">Gutiérrez (<a href="#ref-Gutierrez2016">2016</a>)</span>, o bien métodos de remuestreo. En particular, la función <code>survey_ratio</code> implementa la estimación de razones y sus varianzas en el marco de encuestas complejas.</p>
 <p>Un ejemplo directo en encuestas de hogares es la razón <strong>gasto/ingreso</strong>, que ayuda a identificar patrones de consumo y niveles de sostenibilidad económica de los hogares. A continuación, se ilustra cómo estimar la razón entre el gasto y el ingreso de los hogares, presentada en la Tabla <a href="estimación-de-parámetros-descriptivos.html#tab:tab-razon-gasto-ingreso">3.9</a>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="estimación-de-parámetros-descriptivos.html#cb12-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="estimación-de-parámetros-descriptivos.html#cb12-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
 <span id="cb12-2"><a href="estimación-de-parámetros-descriptivos.html#cb12-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Razon =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> Expenditure,</span>
 <span id="cb12-3"><a href="estimación-de-parámetros-descriptivos.html#cb12-3" tabindex="-1"></a>                                 <span class="at">denominator =</span> Income,</span>
 <span id="cb12-4"><a href="estimación-de-parámetros-descriptivos.html#cb12-4" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
@@ -702,7 +702,7 @@ div.csl-indent {
 </table>
 <p>En este caso, se especificaron la variable de gasto como numerador (<code>numerator</code>), la variable de ingreso como denominador (<code>denominator</code>), el nivel de confianza (<code>level</code>) utilizado para la construcción de los intervalos de confianza y las medidas de precisión requeridas mediante el argumento (<code>vartype</code>). Como se puede observar, la razón entre el gasto y el ingreso es, aproximando, 0.65. Lo que implica que por cada unidad 100 unidades monetarias que le ingrese al hogar, se gastan 65 unidades, consiguiendo un intervalo de confianza al 95% de 0.60 y 0.69.</p>
 <p>Si ahora el objetivo es estimar la razón entre mujeres y hombres en la base de ejemplo, se realiza de la siguiente manera, presentada en la Tabla <a href="estimación-de-parámetros-descriptivos.html#tab:tab-razon-sexo">3.10</a>:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="estimación-de-parámetros-descriptivos.html#cb13-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="estimación-de-parámetros-descriptivos.html#cb13-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="estimación-de-parámetros-descriptivos.html#cb13-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Razon =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>),</span>
 <span id="cb13-3"><a href="estimación-de-parámetros-descriptivos.html#cb13-3" tabindex="-1"></a>                                 <span class="at">denominator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>),</span>
 <span id="cb13-4"><a href="estimación-de-parámetros-descriptivos.html#cb13-4" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
@@ -728,13 +728,14 @@ div.csl-indent {
 </tbody>
 </table>
 <p>Dado que la variable sexo en la base de datos es categórica, fue necesario acudir a variables indicadoras para realizar el cálculo de la razón, utilizando <code>Sex == "Female"</code> para identificar a las mujeres y <code>Sex == "Male"</code> para los hombres. Los resultados muestran que en la población analizada hay una mayor cantidad de mujeres que de hombres, obteniéndose una razón estimada de 1.11. Esto indica que, por cada 100 hombres, existen aproximadamente 111 mujeres. Además, el intervalo de confianza al 95% sugiere que esta razón podría variar entre 1.05 y 1.18. Si se desea hacer la razón de mujeres y hombres pero en la zona rural, se haría de la siguiente manera, presentada en la Tabla <a href="estimación-de-parámetros-descriptivos.html#tab:tab-razon-sexo-rural">3.11</a>:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="estimación-de-parámetros-descriptivos.html#cb14-1" tabindex="-1"></a>sub_Rural  <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(Zone <span class="sc">==</span> <span class="st">&quot;Rural&quot;</span>)</span>
-<span id="cb14-2"><a href="estimación-de-parámetros-descriptivos.html#cb14-2" tabindex="-1"></a>sub_Rural <span class="sc">%&gt;%</span> </span>
-<span id="cb14-3"><a href="estimación-de-parámetros-descriptivos.html#cb14-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Razon =</span>  <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>),</span>
-<span id="cb14-4"><a href="estimación-de-parámetros-descriptivos.html#cb14-4" tabindex="-1"></a>                                  <span class="at">denominator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>),</span>
-<span id="cb14-5"><a href="estimación-de-parámetros-descriptivos.html#cb14-5" tabindex="-1"></a>                                  <span class="at">level =</span> <span class="fl">0.95</span>,</span>
-<span id="cb14-6"><a href="estimación-de-parámetros-descriptivos.html#cb14-6" tabindex="-1"></a>                                  <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
-<span id="cb14-7"><a href="estimación-de-parámetros-descriptivos.html#cb14-7" tabindex="-1"></a>            )</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="estimación-de-parámetros-descriptivos.html#cb14-1" tabindex="-1"></a>sub_Rural  <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="estimación-de-parámetros-descriptivos.html#cb14-2" tabindex="-1"></a>  <span class="fu">filter</span>(Zone <span class="sc">==</span> <span class="st">&quot;Rural&quot;</span>)</span>
+<span id="cb14-3"><a href="estimación-de-parámetros-descriptivos.html#cb14-3" tabindex="-1"></a>sub_Rural <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="estimación-de-parámetros-descriptivos.html#cb14-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Razon =</span>  <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>),</span>
+<span id="cb14-5"><a href="estimación-de-parámetros-descriptivos.html#cb14-5" tabindex="-1"></a>                                  <span class="at">denominator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>),</span>
+<span id="cb14-6"><a href="estimación-de-parámetros-descriptivos.html#cb14-6" tabindex="-1"></a>                                  <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb14-7"><a href="estimación-de-parámetros-descriptivos.html#cb14-7" tabindex="-1"></a>                                  <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb14-8"><a href="estimación-de-parámetros-descriptivos.html#cb14-8" tabindex="-1"></a>            )</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-razon-sexo-rural">Cuadro 3.11: </span>Razón de mujeres por hombre en zona rural</caption>
 <thead>
@@ -755,14 +756,15 @@ div.csl-indent {
 </tbody>
 </table>
 <p>Ahora bien, otro análisis de interés es estimar la razón de gastos pero solo en la población femenina. A continuación, se presentan los códigos computacionales, como se muestra en la Tabla <a href="estimación-de-parámetros-descriptivos.html#tab:tab-razon-gasto-ingreso-mujer">3.12</a>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="estimación-de-parámetros-descriptivos.html#cb15-1" tabindex="-1"></a>sub_Mujer <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>)</span>
-<span id="cb15-2"><a href="estimación-de-parámetros-descriptivos.html#cb15-2" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="estimación-de-parámetros-descriptivos.html#cb15-3" tabindex="-1"></a>sub_Mujer <span class="sc">%&gt;%</span> </span>
-<span id="cb15-4"><a href="estimación-de-parámetros-descriptivos.html#cb15-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Razon =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> Expenditure,</span>
-<span id="cb15-5"><a href="estimación-de-parámetros-descriptivos.html#cb15-5" tabindex="-1"></a>                                 <span class="at">denominator =</span> Income,</span>
-<span id="cb15-6"><a href="estimación-de-parámetros-descriptivos.html#cb15-6" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
-<span id="cb15-7"><a href="estimación-de-parámetros-descriptivos.html#cb15-7" tabindex="-1"></a>                                 <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
-<span id="cb15-8"><a href="estimación-de-parámetros-descriptivos.html#cb15-8" tabindex="-1"></a>            )</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="estimación-de-parámetros-descriptivos.html#cb15-1" tabindex="-1"></a>sub_Mujer <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="estimación-de-parámetros-descriptivos.html#cb15-2" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>)</span>
+<span id="cb15-3"><a href="estimación-de-parámetros-descriptivos.html#cb15-3" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="estimación-de-parámetros-descriptivos.html#cb15-4" tabindex="-1"></a>sub_Mujer <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="estimación-de-parámetros-descriptivos.html#cb15-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Razon =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> Expenditure,</span>
+<span id="cb15-6"><a href="estimación-de-parámetros-descriptivos.html#cb15-6" tabindex="-1"></a>                                 <span class="at">denominator =</span> Income,</span>
+<span id="cb15-7"><a href="estimación-de-parámetros-descriptivos.html#cb15-7" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb15-8"><a href="estimación-de-parámetros-descriptivos.html#cb15-8" tabindex="-1"></a>                                 <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb15-9"><a href="estimación-de-parámetros-descriptivos.html#cb15-9" tabindex="-1"></a>            )</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-razon-gasto-ingreso-mujer">Cuadro 3.12: </span>Razón gasto/ingreso en hogares con jefatura femenina</caption>
 <thead>
@@ -783,14 +785,15 @@ div.csl-indent {
 </tbody>
 </table>
 <p>Dando como resultado que por cada 100 unidades monetarias que le ingresan a las mujeres se gastan 66 con un intervalo de confianza entre 0.62 y 0.69. Por último, análogamente para los hombres, la razón de gastos resulta muy similar que para las mujeres, como se muestra en la Tabla <a href="estimación-de-parámetros-descriptivos.html#tab:tab-razon-gasto-ingreso-hombre">3.13</a>.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="estimación-de-parámetros-descriptivos.html#cb16-1" tabindex="-1"></a>sub_Hombre <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>)</span>
-<span id="cb16-2"><a href="estimación-de-parámetros-descriptivos.html#cb16-2" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="estimación-de-parámetros-descriptivos.html#cb16-3" tabindex="-1"></a>sub_Hombre <span class="sc">%&gt;%</span> </span>
-<span id="cb16-4"><a href="estimación-de-parámetros-descriptivos.html#cb16-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Razon =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> Expenditure,</span>
-<span id="cb16-5"><a href="estimación-de-parámetros-descriptivos.html#cb16-5" tabindex="-1"></a>                                 <span class="at">denominator =</span> Income,</span>
-<span id="cb16-6"><a href="estimación-de-parámetros-descriptivos.html#cb16-6" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
-<span id="cb16-7"><a href="estimación-de-parámetros-descriptivos.html#cb16-7" tabindex="-1"></a>                                 <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
-<span id="cb16-8"><a href="estimación-de-parámetros-descriptivos.html#cb16-8" tabindex="-1"></a>            )</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="estimación-de-parámetros-descriptivos.html#cb16-1" tabindex="-1"></a>sub_Hombre <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="estimación-de-parámetros-descriptivos.html#cb16-2" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>)</span>
+<span id="cb16-3"><a href="estimación-de-parámetros-descriptivos.html#cb16-3" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="estimación-de-parámetros-descriptivos.html#cb16-4" tabindex="-1"></a>sub_Hombre <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a href="estimación-de-parámetros-descriptivos.html#cb16-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Razon =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> Expenditure,</span>
+<span id="cb16-6"><a href="estimación-de-parámetros-descriptivos.html#cb16-6" tabindex="-1"></a>                                 <span class="at">denominator =</span> Income,</span>
+<span id="cb16-7"><a href="estimación-de-parámetros-descriptivos.html#cb16-7" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb16-8"><a href="estimación-de-parámetros-descriptivos.html#cb16-8" tabindex="-1"></a>                                 <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb16-9"><a href="estimación-de-parámetros-descriptivos.html#cb16-9" tabindex="-1"></a>            )</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-razon-gasto-ingreso-hombre">Cuadro 3.13: </span>Razón gasto/ingreso en hogares con jefatura masculina</caption>
 <thead>

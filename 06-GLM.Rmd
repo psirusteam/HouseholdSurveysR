@@ -1,4 +1,4 @@
-﻿```{r setup, include=FALSE}
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE,
                       message = FALSE,
                       cache   = TRUE,
@@ -48,20 +48,6 @@ diseno <- diseno %>%
   )
 ```
 
-```{r theme-cepal-glm, echo=FALSE, eval=TRUE}
-theme_cepal <- function(...) theme_light(10) +
-  theme(
-    axis.text.x      = element_blank(),
-    axis.ticks.x     = element_blank(),
-    axis.text.y      = element_blank(),
-    axis.ticks.y     = element_blank(),
-    legend.position  = "top",
-    legend.justification = "left",
-    legend.direction = "horizontal",
-    plot.title       = element_text(size = 11, hjust = 0.5),
-    ...
-  )
-```
 
 
 
@@ -152,7 +138,7 @@ confint(mod_loglin, level = 0.95)
 
 
 ```{r tab-ic-logistica, tab.cap="Intervalos de confianza al 95% para los parámetros del modelo logístico", echo=FALSE}
-res%>%
+res %>%
   as.data.frame() %>%
   tibble::rownames_to_column("Parámetro") %>%
   tabla_fmt()
@@ -269,7 +255,8 @@ Para modelar una variable de respuesta multinomial se emplea la función `svy_vg
 
 ```{r mod-multinomial, echo=TRUE, eval=TRUE}
 library(svyVGAM)
-diseno_15  <- diseno %>% filter(Age >= 15)
+diseno_15  <- diseno %>%
+  filter(Age >= 15)
 model_mul  <- svy_vglm(
   formula  = Employment ~ Age + Sex + Zone,
   design   = diseno_15,
@@ -413,7 +400,8 @@ res <- broom::tidy(modelo_gamma)
 ```
 
 ```{r tab-gamma-coeficientes, tab.cap="Coeficientes del modelo Gamma para el ingreso de los hogares", echo=FALSE}
-res %>% tabla_fmt()
+res %>%
+  tabla_fmt()
 ```
 
 Dado que el modelo utiliza un enlace logarítmico, los coeficientes pueden interpretarse como efectos multiplicativos sobre el ingreso esperado. El coeficiente asociado al gasto del hogar es positivo y estadísticamente significativo ($p<0.001$), indicando que, manteniendo constantes las demás variables del modelo, un incremento de una unidad en el gasto se asocia con un aumento aproximado del $0.2\%$ en el ingreso esperado, ya que $\exp(0.002)\approx 1.002$. La edad también presenta un efecto positivo y significativo ($p=0.017$). En promedio, cada año adicional de edad se asocia con un incremento cercano al $0.2\%$ en el ingreso esperado, manteniendo constantes las demás covariables. Por el contrario, las variables de sexo y zona de residencia no muestran evidencia estadística suficiente para concluir que influyen sobre el ingreso.

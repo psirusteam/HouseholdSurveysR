@@ -107,7 +107,8 @@ Como se observa en la salida anterior, la función `str` permite identificar la 
 Una de las contribuciones más útiles de `R` es la incorporación de las tuberías (*pipelines*), las cuales permiten construir consultas, transformaciones y nuevos objetos a partir de una base de datos de manera más intuitiva, ordenada y fácil de interpretar. El operador de encadenamiento `%>%`, proveniente del paquete `magrittr` [@pipe] y cargado automáticamente al utilizar la librería `tidyverse`, permite enlazar varias operaciones sucesivas, de modo que el resultado obtenido en un paso se convierte en el insumo del paso siguiente. A continuación, se presenta un ejemplo sencillo de su uso con la base de datos `BigLucy`, en el cual se calcula el número total de elementos que contiene la base mediante la función `count`.
 
 ```{r, eval=TRUE}
-data1 %>% count()
+data1 %>%
+  count()
 ```
 
 La línea de código anterior puede interpretarse de forma sencilla: se toma la base de datos como punto de partida y, sobre ella, se realiza un conteo de sus registros. Además de la función `count`, existe una amplia variedad de funciones que pueden combinarse con el operador `%>%` para realizar consultas, transformaciones y resúmenes sobre los datos. El paquete `dplyr` toma ventaja de este operador, permitiendo organizar las operaciones más comunes sobre una base rectangular. En las siguientes subsecciones se presentan algunas de ellas, siguiendo un orden típico de trabajo: reducir observaciones, conservar variables, ordenar la información, crear nuevas columnas y producir resultados agregados.
@@ -287,7 +288,8 @@ data1 %>%
 También pueden calcularse medidas de localización para describir la posición de los valores dentro de la distribución. En este caso, se obtiene la mediana, el primer decil, el noveno decil y la diferencia entre estos dos últimos. El resultado permite resumir distintos puntos de la distribución del ingreso, mientras que el rango decílico muestra la distancia entre el 10% inferior y el 10% superior de los ingresos observados.
 
 ```{r}
-data1 %>% summarise(
+data1 %>%
+  summarise(
   mediana = median(Income),
   decil1 = quantile(Income, 0.1),
   decil9 = quantile(Income, 0.9),
@@ -300,7 +302,8 @@ Con `summarise()` también es posible calcular medidas de dispersión, tales com
 
 
 ```{r}
-data1 %>% summarise(
+data1 %>%
+  summarise(
   varianza = var(Income),
   desv = sd(Income),
   mini = min(Income),
@@ -313,13 +316,12 @@ data1 %>% summarise(
 
 ### `group_by`: agrupación de casos 
 
-La función `group_by()` permite agrupar la base de datos de acuerdo con una o más variables. Al combinarla con `summarise()`, las estadísticas se calculan de manera independiente dentro de cada grupo definido. En el siguiente ejemplo, se cuenta el número de registros por región y luego se ordena el resultado de mayor a menor. La siguiente salida permite identificar cuántos registros están asociados con cada región de la base de datos.
+La función `group_by()` permite agrupar la base de datos de acuerdo con una o más variables. Al combinarla con `summarise()`, las estadísticas se calculan de manera independiente dentro de cada grupo definido. Para los conteos simples, `count()` ofrece una forma abreviada de escribir `group_by()` junto con `summarise(n = n())`. En el siguiente ejemplo, se cuenta el número de registros por región y luego se ordena el resultado de mayor a menor. La siguiente salida permite identificar cuántos registros están asociados con cada región de la base de datos.
 
 
 ```{r, eval=TRUE}
 data1 %>%
-  group_by(Region) %>%
-  summarise(n = n()) %>%
+  count(Region) %>%
   arrange(desc(n))
 ```
 
@@ -328,8 +330,7 @@ Para obtener el número de encuestas efectivas por sexo, se aplica la misma lóg
 
 ```{r}
 data1 %>%
-  group_by(Sex) %>%
-  summarise(n = n()) %>%
+  count(Sex) %>%
   arrange(desc(n))
 ```
 
@@ -339,8 +340,7 @@ El conteo también puede realizarse según la zona geográfica. En este caso, la
 
 ```{r}
 data1 %>%
-  group_by(Zone) %>%
-  summarise(n = n()) %>%
+  count(Zone) %>%
   arrange(desc(n))
 ```
 
@@ -370,7 +370,8 @@ Por último, se calculan la media, la desviación estándar y el rango intercuar
 
 
 ```{r}
-data1 %>% group_by(Employment) %>%
+data1 %>%
+  group_by(Employment) %>%
   summarise(
     n = n(),
     media = mean(Income),
@@ -378,5 +379,4 @@ data1 %>% group_by(Employment) %>%
     rangoiq = IQR(Income)
   )
 ```
-
 

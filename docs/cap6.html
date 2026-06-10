@@ -308,33 +308,33 @@ div.csl-indent {
 <p>Cuando la variable de interés no es continua o los supuestos del modelo lineal clásico no se satisfacen, los modelos lineales generalizados constituyen una alternativa adecuada para modelar las relaciones de interés. Este enfoque fue introducido por <span class="citation">Nelder &amp; Wedderburn (<a href="#ref-nelder1972generalized">1972</a>)</span>, quienes demostraron que diversos métodos estadísticos ampliamente utilizados, como la regresión logística, los modelos log-lineales para datos de conteo y ciertos modelos avanzados de regresión para variables continuas, podían integrarse dentro de un mismo marco teórico unificado. Esta formulación permitió extender las herramientas de regresión más allá de los escenarios en los que la variable respuesta sigue una distribución normal.</p>
 <p>La necesidad de esta generalización surge porque los modelos lineales clásicos asumen, entre otras cosas, normalidad y homogeneidad de varianza en la variable respuesta, condiciones que rara vez se cumplen cuando se analizan variables categóricas, proporciones o conteos. En este tipo de situaciones, los modelos lineales generalizados ofrecen un marco flexible para modelar adecuadamente la relación entre las variables mediante la selección de una distribución de probabilidad apropiada para la respuesta y una función de enlace que conecte la media de dicha distribución con el predictor lineal.</p>
 <p>Para ilustrar los modelos presentados en este capítulo se utilizan la base de datos <code>encuesta</code> y la población <code>BigCity</code>, siguiendo la misma estructura utilizada en capítulos anteriores. Después de cargar <code>tidyverse</code> <span class="citation">(<a href="#ref-tidyverse2026">Wickham, Averick, et al., 2026</a>)</span>, <code>survey</code> <span class="citation">(<a href="#ref-Lumley2024">Lumley, 2024</a>)</span>, <code>srvyr</code> <span class="citation">(<a href="#ref-Freedman2024">Freedman Ellis &amp; Schneider, 2024</a>)</span>, <code>broom</code> <span class="citation">(<a href="#ref-broom2026">Robinson et al., 2026</a>)</span> y <code>jtools</code> <span class="citation">(<a href="#ref-jtools2026">Long, 2026</a>)</span>, el siguiente bloque de código crea dos nuevas variables categóricas (<code>pobreza</code> y <code>desempleo</code>) a partir de las variables originales <code>Poverty</code> y <code>Employment</code>, respectivamente.</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="cap6.html#cb145-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">digits =</span> <span class="dv">4</span>)</span>
-<span id="cb145-2"><a href="cap6.html#cb145-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb145-3"><a href="cap6.html#cb145-3" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
-<span id="cb145-4"><a href="cap6.html#cb145-4" tabindex="-1"></a><span class="fu">library</span>(srvyr)</span>
-<span id="cb145-5"><a href="cap6.html#cb145-5" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb145-6"><a href="cap6.html#cb145-6" tabindex="-1"></a><span class="fu">library</span>(jtools)</span>
-<span id="cb145-7"><a href="cap6.html#cb145-7" tabindex="-1"></a></span>
-<span id="cb145-8"><a href="cap6.html#cb145-8" tabindex="-1"></a>encuesta <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;Data/encuesta.rds&quot;</span>)</span>
-<span id="cb145-9"><a href="cap6.html#cb145-9" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;BigCity&quot;</span>, <span class="at">package =</span> <span class="st">&quot;TeachingSampling&quot;</span>)</span>
-<span id="cb145-10"><a href="cap6.html#cb145-10" tabindex="-1"></a></span>
-<span id="cb145-11"><a href="cap6.html#cb145-11" tabindex="-1"></a>diseno <span class="ot">&lt;-</span> encuesta <span class="sc">%&gt;%</span></span>
-<span id="cb145-12"><a href="cap6.html#cb145-12" tabindex="-1"></a>  <span class="fu">as_survey_design</span>(</span>
-<span id="cb145-13"><a href="cap6.html#cb145-13" tabindex="-1"></a>    <span class="at">strata  =</span> Stratum,</span>
-<span id="cb145-14"><a href="cap6.html#cb145-14" tabindex="-1"></a>    <span class="at">ids     =</span> PSU,</span>
-<span id="cb145-15"><a href="cap6.html#cb145-15" tabindex="-1"></a>    <span class="at">weights =</span> wk,</span>
-<span id="cb145-16"><a href="cap6.html#cb145-16" tabindex="-1"></a>    <span class="at">nest    =</span> <span class="cn">TRUE</span></span>
-<span id="cb145-17"><a href="cap6.html#cb145-17" tabindex="-1"></a>  )</span>
-<span id="cb145-18"><a href="cap6.html#cb145-18" tabindex="-1"></a></span>
-<span id="cb145-19"><a href="cap6.html#cb145-19" tabindex="-1"></a>diseno <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span></span>
-<span id="cb145-20"><a href="cap6.html#cb145-20" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb145-21"><a href="cap6.html#cb145-21" tabindex="-1"></a>    <span class="at">pobreza   =</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(Poverty <span class="sc">!=</span> <span class="st">&quot;NotPoor&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>), </span>
-<span id="cb145-22"><a href="cap6.html#cb145-22" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
-<span id="cb145-23"><a href="cap6.html#cb145-23" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;=Pobre&quot;</span>, <span class="st">&quot;=No pobre&quot;</span>)),</span>
-<span id="cb145-24"><a href="cap6.html#cb145-24" tabindex="-1"></a>    <span class="at">desempleo =</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(Employment <span class="sc">==</span> <span class="st">&quot;Unemployed&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
-<span id="cb145-25"><a href="cap6.html#cb145-25" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
-<span id="cb145-26"><a href="cap6.html#cb145-26" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;=Desempleado&quot;</span>, <span class="st">&quot;=No desempleado&quot;</span>))</span>
-<span id="cb145-27"><a href="cap6.html#cb145-27" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="cap6.html#cb144-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">digits =</span> <span class="dv">4</span>)</span>
+<span id="cb144-2"><a href="cap6.html#cb144-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb144-3"><a href="cap6.html#cb144-3" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb144-4"><a href="cap6.html#cb144-4" tabindex="-1"></a><span class="fu">library</span>(srvyr)</span>
+<span id="cb144-5"><a href="cap6.html#cb144-5" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb144-6"><a href="cap6.html#cb144-6" tabindex="-1"></a><span class="fu">library</span>(jtools)</span>
+<span id="cb144-7"><a href="cap6.html#cb144-7" tabindex="-1"></a></span>
+<span id="cb144-8"><a href="cap6.html#cb144-8" tabindex="-1"></a>encuesta <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;Data/encuesta.rds&quot;</span>)</span>
+<span id="cb144-9"><a href="cap6.html#cb144-9" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;BigCity&quot;</span>, <span class="at">package =</span> <span class="st">&quot;TeachingSampling&quot;</span>)</span>
+<span id="cb144-10"><a href="cap6.html#cb144-10" tabindex="-1"></a></span>
+<span id="cb144-11"><a href="cap6.html#cb144-11" tabindex="-1"></a>diseno <span class="ot">&lt;-</span> encuesta <span class="sc">%&gt;%</span></span>
+<span id="cb144-12"><a href="cap6.html#cb144-12" tabindex="-1"></a>  <span class="fu">as_survey_design</span>(</span>
+<span id="cb144-13"><a href="cap6.html#cb144-13" tabindex="-1"></a>    <span class="at">strata  =</span> Stratum,</span>
+<span id="cb144-14"><a href="cap6.html#cb144-14" tabindex="-1"></a>    <span class="at">ids     =</span> PSU,</span>
+<span id="cb144-15"><a href="cap6.html#cb144-15" tabindex="-1"></a>    <span class="at">weights =</span> wk,</span>
+<span id="cb144-16"><a href="cap6.html#cb144-16" tabindex="-1"></a>    <span class="at">nest    =</span> <span class="cn">TRUE</span></span>
+<span id="cb144-17"><a href="cap6.html#cb144-17" tabindex="-1"></a>  )</span>
+<span id="cb144-18"><a href="cap6.html#cb144-18" tabindex="-1"></a></span>
+<span id="cb144-19"><a href="cap6.html#cb144-19" tabindex="-1"></a>diseno <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span></span>
+<span id="cb144-20"><a href="cap6.html#cb144-20" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb144-21"><a href="cap6.html#cb144-21" tabindex="-1"></a>    <span class="at">pobreza   =</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(Poverty <span class="sc">!=</span> <span class="st">&quot;NotPoor&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>), </span>
+<span id="cb144-22"><a href="cap6.html#cb144-22" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb144-23"><a href="cap6.html#cb144-23" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;=Pobre&quot;</span>, <span class="st">&quot;=No pobre&quot;</span>)),</span>
+<span id="cb144-24"><a href="cap6.html#cb144-24" tabindex="-1"></a>    <span class="at">desempleo =</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(Employment <span class="sc">==</span> <span class="st">&quot;Unemployed&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb144-25"><a href="cap6.html#cb144-25" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb144-26"><a href="cap6.html#cb144-26" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;=Desempleado&quot;</span>, <span class="st">&quot;=No desempleado&quot;</span>))</span>
+<span id="cb144-27"><a href="cap6.html#cb144-27" tabindex="-1"></a>  )</span></code></pre></div>
 </div>
 <h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">

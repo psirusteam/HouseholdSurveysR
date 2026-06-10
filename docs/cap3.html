@@ -320,12 +320,12 @@ div.csl-indent {
 <span id="cb2-3"><a href="cap3.html#cb2-3" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
 <span id="cb2-4"><a href="cap3.html#cb2-4" tabindex="-1"></a><span class="fu">library</span>(srvyr)</span>
 <span id="cb2-5"><a href="cap3.html#cb2-5" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="cap3.html#cb2-6" tabindex="-1"></a>diseno <span class="ot">&lt;-</span> encuesta <span class="sc">%&gt;%</span> </span>
+<span id="cb2-6"><a href="cap3.html#cb2-6" tabindex="-1"></a>diseno <span class="ot">&lt;-</span> encuesta <span class="sc">%&gt;%</span></span>
 <span id="cb2-7"><a href="cap3.html#cb2-7" tabindex="-1"></a>          <span class="fu">as_survey_design</span>(</span>
 <span id="cb2-8"><a href="cap3.html#cb2-8" tabindex="-1"></a>            <span class="at">strata =</span> Stratum,  </span>
 <span id="cb2-9"><a href="cap3.html#cb2-9" tabindex="-1"></a>            <span class="at">ids =</span> PSU,  </span>
 <span id="cb2-10"><a href="cap3.html#cb2-10" tabindex="-1"></a>            <span class="at">weights =</span> wk,      </span>
-<span id="cb2-11"><a href="cap3.html#cb2-11" tabindex="-1"></a>            <span class="at">nest =</span> T)</span></code></pre></div>
+<span id="cb2-11"><a href="cap3.html#cb2-11" tabindex="-1"></a>            <span class="at">nest =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>En este código, <code>encuesta</code> corresponde a la base de datos que contiene la muestra seleccionada. A partir de estos datos, la función <code>as_survey_design()</code> convierte la información en un objeto de clase <code>survey_design</code>, el cual almacena todos los elementos necesarios para describir el diseño muestral de la encuesta. Entre ellos se incluyen la variable de estratificación (<code>strata</code>), que identifica los estratos definidos en el diseño, y la variable especificada en <code>ids</code>, que representa las unidades primarias de muestreo (UPM) o conglomerados seleccionados en la primera etapa del muestreo. Asimismo, el argumento <code>weights</code> define la variable que contiene los factores de expansión asociados a cada observación. Finalmente, la opción <code>nest = TRUE</code> indica que las UPM están anidadas dentro de los estratos, una característica necesaria para representar correctamente la estructura jerárquica del diseño de muestreo.</p>
 </div>
 <h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>

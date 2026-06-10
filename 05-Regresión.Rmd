@@ -1,4 +1,4 @@
-﻿```{r setup, include=FALSE}
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, 
                       message = FALSE,
                       cache = TRUE,
@@ -154,32 +154,21 @@ diseno <- encuesta %>%
     strata = Stratum,
     ids = PSU,
     weights = wk,
-    nest = T
+    nest = TRUE
   )
 ```
 
 En los ejemplos desarrollados a lo largo de este capítulo se emplerán los mismos subgrupos considerados en los capítulos anteriores.
 
 ```{r}
-sub_Urbano <- diseno %>%  filter(Zone == "Urban")
-sub_Rural  <- diseno %>%  filter(Zone == "Rural")
-sub_Mujer  <- diseno %>%  filter(Sex == "Female")
-sub_Hombre <- diseno %>%  filter(Sex == "Male")
-```
-
-Debido a que los modelos de regresión recurren ampliamente al uso de representaciones gráficas, a continuación se define el tema visual que será utilizado de manera consistente en todas las figuras de este capítulo.
-
-```{r, echo=FALSE, eval=TRUE}
-theme_cepal <- function(...) theme_light(10) + 
-  theme(axis.text.x = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks.y = element_blank(),
-        legend.position="bottom", 
-        legend.justification = "left", 
-        legend.direction="horizontal",
-        plot.title = element_text(size = 11, hjust = 0.5),
-        ...) 
+sub_Urbano <- diseno %>%
+  filter(Zone == "Urban")
+sub_Rural  <- diseno %>%
+  filter(Zone == "Rural")
+sub_Mujer  <- diseno %>%
+  filter(Sex == "Female")
+sub_Hombre <- diseno %>%
+  filter(Sex == "Male")
 ```
 
 Con el objetivo de ajustar un modelo de regresión entre las variables ingreso y gasto, resulta conveniente explorar previamente la relación existente entre ambas variables. Para ello, se construye un diagrama de dispersión mediante `ggplot2`, el cual permite evaluar visualmente la forma y la intensidad de la asociación. El resultado se presenta en la Figura \@ref(fig:fig-scatter-muestra-sinP).
@@ -189,7 +178,7 @@ plot_sin <- ggplot(data = encuesta,
             aes(x = Expenditure, y = Income)) +
             geom_point() +
             geom_smooth(method = "lm",
-            se = FALSE) + theme_cepal()
+            se = FALSE)
 
 plot_sin 
 ```
@@ -280,7 +269,7 @@ A continuación, estos diagnósticos se aplican a los modelos previamente ajusta
 ```{r, echo = TRUE, eval=TRUE}
 library(svydiags)
 stdresids = as.numeric(svystdres(fit_svy)$stdresids)
-diseno$variables <- diseno$variables %>% 
+diseno$variables <- diseno$variables %>%
   mutate(stdresids = stdresids)
 ```
 
@@ -295,7 +284,7 @@ ggplot(data = diseno$variables,
   geom_density(size = 1, colour = "blue") +
   geom_function(fun = dnorm, colour = "red",
                 size = 1) +
-  theme_cepal() + labs(y = "")
+  labs(y = "")
 ```
 
 
@@ -309,17 +298,17 @@ library(patchwork)
 g1 <- ggplot(data = diseno$variables,
        aes(x = Expenditure, y = stdresids)) +
   geom_point() +
-  geom_hline(yintercept = 0) + theme_cepal()
+  geom_hline(yintercept = 0)
 
 g2 <- ggplot(data = diseno$variables,
        aes(x = Zone, y = stdresids)) +
   geom_point() +
-  geom_hline(yintercept = 0) + theme_cepal()
+  geom_hline(yintercept = 0)
 
 g3 <- ggplot(data = diseno$variables,
        aes(x = Sex, y = stdresids)) +
   geom_point() +
-  geom_hline(yintercept = 0) + theme_cepal()
+  geom_hline(yintercept = 0)
 
 (g1|g2|g3)
 ```
@@ -342,7 +331,8 @@ En `R`, se evalúa la presencia de observaciones influyentes mediante la distanc
 
 
 ```{r fig-cook, fig.cap="Distancia de Cook para cada observación de la muestra", fig.align='center', out.width='65%', echo=TRUE, eval=TRUE}
-svyCooksD(fit_svy, doplot=TRUE) %>% head(10)
+svyCooksD(fit_svy, doplot=TRUE) %>%
+  head(10)
 ```
 
 Otro estadístico que mide el grado de influencia de una observación es el DFBETA, denotado como $D_f\text{Beta}_{(k)j}$, que mide el cambio que experimenta el coeficiente de regresión $\hat{\beta}_{j}$ cuando la observación $k$ es eliminada del proceso de estimación. En consecuencia, esta medida evalúa la influencia individual de cada observación sobre los parámetros del modelo, identificando aquellas unidades cuya presencia altera de manera importante las estimaciones obtenidas. Valores elevados de $D_f\text{Beta}_{(k)j}$ indican que la observación ejerce una influencia considerable sobre el coeficiente correspondiente, lo que puede afectar la estabilidad e interpretación del modelo.
@@ -377,7 +367,8 @@ Una vez obtenidos los valores de la medida DFBETA para cada observación y coefi
 d_dfbetas$id <- 1:nrow(d_dfbetas)
 d_dfbetas <- reshape2::melt(d_dfbetas, id.vars = "id")
 cutoff <- svydfbetas(fit_svy)$cutoff
-d_dfbetas <- d_dfbetas %>% mutate(Criterio = ifelse(abs(value) > cutoff, "Si", "No"))
+d_dfbetas <- d_dfbetas %>%
+  mutate(Criterio = ifelse(abs(value) > cutoff, "Si", "No"))
 
 tex_label <- d_dfbetas %>%
   filter(Criterio == "Si") %>%
@@ -390,7 +381,8 @@ tex_label
 d_dfbetas$id <- 1:nrow(d_dfbetas)
 d_dfbetas <- reshape2::melt(d_dfbetas, id.vars = "id")
 cutoff <- svydfbetas(fit_svy)$cutoff
-d_dfbetas <- d_dfbetas %>% mutate(Criterio = ifelse(abs(value) > cutoff, "Si", "No"))
+d_dfbetas <- d_dfbetas %>%
+  mutate(Criterio = ifelse(abs(value) > cutoff, "Si", "No"))
 
 tex_label <- d_dfbetas %>%
   filter(Criterio == "Si") %>%
@@ -413,8 +405,7 @@ ggplot(d_dfbetas, aes(y = abs(value), x = id)) +
   geom_hline(aes(yintercept = cutoff)) +
   facet_wrap(. ~ variable, nrow = 2) +
   scale_color_manual(
-    values = c("Si" = "red", "No" = "black")) +
-  theme_cepal()
+    values = c("Si" = "red", "No" = "black"))
 ```
 
 
@@ -431,14 +422,14 @@ En `R`, el cálculo de este estadístico puede realizarse mediante la función `
 d_dffits = data.frame(dffits = svydffits(fit_svy)$Dffits,
                       id = 1:length(svydffits(fit_svy)$Dffits))
 cutoff <- svydffits(fit_svy)$cutoff
-d_dffits <- d_dffits %>% mutate(C_cutoff = ifelse(abs(dffits) > cutoff, "Si", "No"))
+d_dffits <- d_dffits %>%
+  mutate(C_cutoff = ifelse(abs(dffits) > cutoff, "Si", "No"))
 
 ggplot(d_dffits, aes(y = abs(dffits), x = id)) +
   geom_point(aes(col = C_cutoff)) +
   geom_hline(yintercept = cutoff) +
   scale_color_manual(
-    values = c("Si" = "red", "No" = "black")) +
-  theme_cepal()
+    values = c("Si" = "red", "No" = "black"))
 ```
 
 ## Inferencia sobre los parámetros del modelo
@@ -483,7 +474,8 @@ resumen <- summary(fit_svy)$coefficients %>%
 ```
 
 ```{r tab-inferencia-modelo, tab.cap="Pruebas t e intervalos de confianza al 95% para los parámetros del modelo", echo=FALSE}
-resumen %>% tabla_fmt()
+resumen %>%
+  tabla_fmt()
 ```
 
 Los resultados del modelo indican que la variable `Expenditure` presenta una asociación estadísticamente significativa con la variable de interés (`Income`). Este efecto resulta altamente significativo desde el punto de vista estadístico ($p < 0.001$), lo que proporciona evidencia sólida de una relación lineal positiva entre ambas variables. Por su parte, las variables categóricas `ZoneUrban` y `SexMale`, su nivel de significación estadística es marginal ($p = 0.096$ y $p = 0.189$, respectivamente), por lo que la evidencia no resulta concluyente al nivel convencional del 5%. 
@@ -523,10 +515,12 @@ El siguiente código calcula las predicciones del modelo de regresión para las 
 
 ```{r, echo=TRUE}
 xobs <- model.matrix(fit_svy) %>%
-        data.frame() %>% as.matrix()
+        data.frame() %>%
+          as.matrix()
 hatbeta <- fit_svy$coe
 hatmu <- as.numeric(xobs %*% hatbeta)
-hatmu %>% head(10)
+hatmu %>%
+  head(10)
 ```
 
 En primer lugar, la instrucción `model.matrix(fit_svy)` construye la matriz de diseño asociada al modelo ajustado, incorporando automáticamente las variables explicativas. A continuación, el objeto `hatbeta` almacena el vector de coeficientes estimados del modelo de regresión. Posteriormente, se obtienen las estimaciones mediante el producto matricial `xobs %*% hatbeta`. Finalmente, la función `head(10)` permite visualizar las primeras diez estimaciones obtenidas.
@@ -549,9 +543,11 @@ vcov(fit_svy) %>%
 En términos computacionales, esto implica combinar el vector de covariables de cada observación con la matriz $\hat{\boldsymbol{\Sigma}}$ para obtener la precisión de las predicciones individuales. El siguiente código calcula la varianza asociada a las predicciones obtenidas a partir del modelo de regresión:
 
 ```{r, echo=TRUE}
-cov_beta <- vcov(fit_svy) %>% as.matrix()
+cov_beta <- vcov(fit_svy) %>%
+  as.matrix()
 Varmu <- as.numeric(xobs %*% cov_beta %*% t(xobs))  
-Varmu %>% head(10)
+Varmu %>%
+  head(10)
 ```
 
 El intervalo de confianza, que proporciona un rango de valores plausibles para el valor esperado de la variable respuesta condicionado a las covariables observadas, se obtiene mediante:
@@ -577,7 +573,8 @@ Las estimaciones obtenidas a partir del modelo, junto con sus respectivos interv
 pred <- cbind(hatmu, mu_IC)
 pred$Expenditure <- encuesta$Expenditure
 pd <- position_dodge(width = 0.2)
-ggplot(pred %>% slice(1:100L),
+ggplot(pred %>%
+  slice(1:100L),
        aes(x = Expenditure, y = link)) +
   geom_errorbar(aes(ymin = Lim_Inf,
                     ymax = Lim_Sup),

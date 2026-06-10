@@ -416,45 +416,45 @@ w_1 &amp; 0 &amp; \cdots &amp; 0\\
 \]</span></p>
 <p>Este resultado extiende de manera natural el estimador ordinario al contexto de encuestas complejas: cada observación contribuye al ajuste del modelo en proporción a su peso muestral. No obstante, para la inferencia no basta con ponderar la estimación puntual; también se requiere estimar correctamente la varianza considerando estratos, conglomerados y pesos.</p>
 <p>La siguiente simulación de Monte Carlo anidada ilustra la inferencia doble. En el ciclo externo se genera una nueva población bajo el modelo Bernoulli. En el ciclo interno se seleccionan muchas muestras por diseño y se comparan el estimador que incorpora el diseño y el promedio simple de la muestra.</p>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="la-integración-de-ambas-inferencias.html#cb256-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
-<span id="cb256-2"><a href="la-integración-de-ambas-inferencias.html#cb256-2" tabindex="-1"></a>N     <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb256-3"><a href="la-integración-de-ambas-inferencias.html#cb256-3" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
-<span id="cb256-4"><a href="la-integración-de-ambas-inferencias.html#cb256-4" tabindex="-1"></a>nsim1 <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb256-5"><a href="la-integración-de-ambas-inferencias.html#cb256-5" tabindex="-1"></a>Esp1 <span class="ot">&lt;-</span> Esp2 <span class="ot">&lt;-</span> Theta_U <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, nsim1)</span>
-<span id="cb256-6"><a href="la-integración-de-ambas-inferencias.html#cb256-6" tabindex="-1"></a></span>
-<span id="cb256-7"><a href="la-integración-de-ambas-inferencias.html#cb256-7" tabindex="-1"></a>cluster_size <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">each =</span> <span class="dv">5</span>)</span>
-<span id="cb256-8"><a href="la-integración-de-ambas-inferencias.html#cb256-8" tabindex="-1"></a>NI           <span class="ot">&lt;-</span> <span class="fu">length</span>(cluster_size)</span>
-<span id="cb256-9"><a href="la-integración-de-ambas-inferencias.html#cb256-9" tabindex="-1"></a>cluster_id   <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">seq_len</span>(NI), cluster_size)</span>
-<span id="cb256-10"><a href="la-integración-de-ambas-inferencias.html#cb256-10" tabindex="-1"></a>size_center  <span class="ot">&lt;-</span> <span class="fu">weighted.mean</span>(cluster_size, cluster_size)</span>
-<span id="cb256-11"><a href="la-integración-de-ambas-inferencias.html#cb256-11" tabindex="-1"></a>prob_person  <span class="ot">&lt;-</span> theta <span class="sc">+</span> <span class="fu">rep</span>((cluster_size <span class="sc">-</span> size_center) <span class="sc">/</span> <span class="dv">12</span>, cluster_size)</span>
-<span id="cb256-12"><a href="la-integración-de-ambas-inferencias.html#cb256-12" tabindex="-1"></a>nI           <span class="ot">&lt;-</span> <span class="fu">floor</span>(NI <span class="sc">*</span> <span class="fl">0.3</span>)</span>
-<span id="cb256-13"><a href="la-integración-de-ambas-inferencias.html#cb256-13" tabindex="-1"></a></span>
-<span id="cb256-14"><a href="la-integración-de-ambas-inferencias.html#cb256-14" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nsim1) {</span>
-<span id="cb256-15"><a href="la-integración-de-ambas-inferencias.html#cb256-15" tabindex="-1"></a>  y        <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(N, <span class="dv">1</span>, prob_person)</span>
-<span id="cb256-16"><a href="la-integración-de-ambas-inferencias.html#cb256-16" tabindex="-1"></a>  Theta_U[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
-<span id="cb256-17"><a href="la-integración-de-ambas-inferencias.html#cb256-17" tabindex="-1"></a>  Ty_i     <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, cluster_id, sum)</span>
-<span id="cb256-18"><a href="la-integración-de-ambas-inferencias.html#cb256-18" tabindex="-1"></a>  Mean_i   <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, cluster_id, mean)</span>
-<span id="cb256-19"><a href="la-integración-de-ambas-inferencias.html#cb256-19" tabindex="-1"></a></span>
-<span id="cb256-20"><a href="la-integración-de-ambas-inferencias.html#cb256-20" tabindex="-1"></a>  Est1 <span class="ot">&lt;-</span> Est2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">100</span>)</span>
-<span id="cb256-21"><a href="la-integración-de-ambas-inferencias.html#cb256-21" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
-<span id="cb256-22"><a href="la-integración-de-ambas-inferencias.html#cb256-22" tabindex="-1"></a>    res       <span class="ot">&lt;-</span> <span class="fu">S.piPS</span>(nI, cluster_size)</span>
-<span id="cb256-23"><a href="la-integración-de-ambas-inferencias.html#cb256-23" tabindex="-1"></a>    sam       <span class="ot">&lt;-</span> res[, <span class="dv">1</span>]</span>
-<span id="cb256-24"><a href="la-integración-de-ambas-inferencias.html#cb256-24" tabindex="-1"></a>    size_sam  <span class="ot">&lt;-</span> cluster_size[sam]</span>
-<span id="cb256-25"><a href="la-integración-de-ambas-inferencias.html#cb256-25" tabindex="-1"></a>    total_sam <span class="ot">&lt;-</span> Ty_i[sam]</span>
-<span id="cb256-26"><a href="la-integración-de-ambas-inferencias.html#cb256-26" tabindex="-1"></a>    mean_sam  <span class="ot">&lt;-</span> Mean_i[sam]</span>
-<span id="cb256-27"><a href="la-integración-de-ambas-inferencias.html#cb256-27" tabindex="-1"></a>    Est1[j] <span class="ot">&lt;-</span> <span class="fu">mean</span>(mean_sam)</span>
-<span id="cb256-28"><a href="la-integración-de-ambas-inferencias.html#cb256-28" tabindex="-1"></a>    Est2[j] <span class="ot">&lt;-</span> <span class="fu">sum</span>(total_sam) <span class="sc">/</span> <span class="fu">sum</span>(size_sam)</span>
-<span id="cb256-29"><a href="la-integración-de-ambas-inferencias.html#cb256-29" tabindex="-1"></a>  }</span>
-<span id="cb256-30"><a href="la-integración-de-ambas-inferencias.html#cb256-30" tabindex="-1"></a>  Esp1[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(Est1)</span>
-<span id="cb256-31"><a href="la-integración-de-ambas-inferencias.html#cb256-31" tabindex="-1"></a>  Esp2[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(Est2)</span>
-<span id="cb256-32"><a href="la-integración-de-ambas-inferencias.html#cb256-32" tabindex="-1"></a>}</span>
-<span id="cb256-33"><a href="la-integración-de-ambas-inferencias.html#cb256-33" tabindex="-1"></a></span>
-<span id="cb256-34"><a href="la-integración-de-ambas-inferencias.html#cb256-34" tabindex="-1"></a><span class="fu">cbind</span>(theta,</span>
-<span id="cb256-35"><a href="la-integración-de-ambas-inferencias.html#cb256-35" tabindex="-1"></a>      <span class="at">Media_U =</span> <span class="fu">mean</span>(Theta_U),</span>
-<span id="cb256-36"><a href="la-integración-de-ambas-inferencias.html#cb256-36" tabindex="-1"></a>      <span class="at">Esp_piS =</span> <span class="fu">mean</span>(Esp1),</span>
-<span id="cb256-37"><a href="la-integración-de-ambas-inferencias.html#cb256-37" tabindex="-1"></a>      <span class="at">Sesgo_piS =</span> <span class="fu">mean</span>(Esp1) <span class="sc">-</span> theta,</span>
-<span id="cb256-38"><a href="la-integración-de-ambas-inferencias.html#cb256-38" tabindex="-1"></a>      <span class="at">Esp_S =</span> <span class="fu">mean</span>(Esp2),</span>
-<span id="cb256-39"><a href="la-integración-de-ambas-inferencias.html#cb256-39" tabindex="-1"></a>      <span class="at">Sesgo_S =</span> <span class="fu">mean</span>(Esp2) <span class="sc">-</span> theta)</span></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="la-integración-de-ambas-inferencias.html#cb254-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb254-2"><a href="la-integración-de-ambas-inferencias.html#cb254-2" tabindex="-1"></a>N     <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb254-3"><a href="la-integración-de-ambas-inferencias.html#cb254-3" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
+<span id="cb254-4"><a href="la-integración-de-ambas-inferencias.html#cb254-4" tabindex="-1"></a>nsim1 <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb254-5"><a href="la-integración-de-ambas-inferencias.html#cb254-5" tabindex="-1"></a>Esp1 <span class="ot">&lt;-</span> Esp2 <span class="ot">&lt;-</span> Theta_U <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, nsim1)</span>
+<span id="cb254-6"><a href="la-integración-de-ambas-inferencias.html#cb254-6" tabindex="-1"></a></span>
+<span id="cb254-7"><a href="la-integración-de-ambas-inferencias.html#cb254-7" tabindex="-1"></a>cluster_size <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">each =</span> <span class="dv">5</span>)</span>
+<span id="cb254-8"><a href="la-integración-de-ambas-inferencias.html#cb254-8" tabindex="-1"></a>NI           <span class="ot">&lt;-</span> <span class="fu">length</span>(cluster_size)</span>
+<span id="cb254-9"><a href="la-integración-de-ambas-inferencias.html#cb254-9" tabindex="-1"></a>cluster_id   <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">seq_len</span>(NI), cluster_size)</span>
+<span id="cb254-10"><a href="la-integración-de-ambas-inferencias.html#cb254-10" tabindex="-1"></a>size_center  <span class="ot">&lt;-</span> <span class="fu">weighted.mean</span>(cluster_size, cluster_size)</span>
+<span id="cb254-11"><a href="la-integración-de-ambas-inferencias.html#cb254-11" tabindex="-1"></a>prob_person  <span class="ot">&lt;-</span> theta <span class="sc">+</span> <span class="fu">rep</span>((cluster_size <span class="sc">-</span> size_center) <span class="sc">/</span> <span class="dv">12</span>, cluster_size)</span>
+<span id="cb254-12"><a href="la-integración-de-ambas-inferencias.html#cb254-12" tabindex="-1"></a>nI           <span class="ot">&lt;-</span> <span class="fu">floor</span>(NI <span class="sc">*</span> <span class="fl">0.3</span>)</span>
+<span id="cb254-13"><a href="la-integración-de-ambas-inferencias.html#cb254-13" tabindex="-1"></a></span>
+<span id="cb254-14"><a href="la-integración-de-ambas-inferencias.html#cb254-14" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nsim1) {</span>
+<span id="cb254-15"><a href="la-integración-de-ambas-inferencias.html#cb254-15" tabindex="-1"></a>  y        <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(N, <span class="dv">1</span>, prob_person)</span>
+<span id="cb254-16"><a href="la-integración-de-ambas-inferencias.html#cb254-16" tabindex="-1"></a>  Theta_U[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb254-17"><a href="la-integración-de-ambas-inferencias.html#cb254-17" tabindex="-1"></a>  Ty_i     <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, cluster_id, sum)</span>
+<span id="cb254-18"><a href="la-integración-de-ambas-inferencias.html#cb254-18" tabindex="-1"></a>  Mean_i   <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, cluster_id, mean)</span>
+<span id="cb254-19"><a href="la-integración-de-ambas-inferencias.html#cb254-19" tabindex="-1"></a></span>
+<span id="cb254-20"><a href="la-integración-de-ambas-inferencias.html#cb254-20" tabindex="-1"></a>  Est1 <span class="ot">&lt;-</span> Est2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">100</span>)</span>
+<span id="cb254-21"><a href="la-integración-de-ambas-inferencias.html#cb254-21" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb254-22"><a href="la-integración-de-ambas-inferencias.html#cb254-22" tabindex="-1"></a>    res       <span class="ot">&lt;-</span> <span class="fu">S.piPS</span>(nI, cluster_size)</span>
+<span id="cb254-23"><a href="la-integración-de-ambas-inferencias.html#cb254-23" tabindex="-1"></a>    sam       <span class="ot">&lt;-</span> res[, <span class="dv">1</span>]</span>
+<span id="cb254-24"><a href="la-integración-de-ambas-inferencias.html#cb254-24" tabindex="-1"></a>    size_sam  <span class="ot">&lt;-</span> cluster_size[sam]</span>
+<span id="cb254-25"><a href="la-integración-de-ambas-inferencias.html#cb254-25" tabindex="-1"></a>    total_sam <span class="ot">&lt;-</span> Ty_i[sam]</span>
+<span id="cb254-26"><a href="la-integración-de-ambas-inferencias.html#cb254-26" tabindex="-1"></a>    mean_sam  <span class="ot">&lt;-</span> Mean_i[sam]</span>
+<span id="cb254-27"><a href="la-integración-de-ambas-inferencias.html#cb254-27" tabindex="-1"></a>    Est1[j] <span class="ot">&lt;-</span> <span class="fu">mean</span>(mean_sam)</span>
+<span id="cb254-28"><a href="la-integración-de-ambas-inferencias.html#cb254-28" tabindex="-1"></a>    Est2[j] <span class="ot">&lt;-</span> <span class="fu">sum</span>(total_sam) <span class="sc">/</span> <span class="fu">sum</span>(size_sam)</span>
+<span id="cb254-29"><a href="la-integración-de-ambas-inferencias.html#cb254-29" tabindex="-1"></a>  }</span>
+<span id="cb254-30"><a href="la-integración-de-ambas-inferencias.html#cb254-30" tabindex="-1"></a>  Esp1[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(Est1)</span>
+<span id="cb254-31"><a href="la-integración-de-ambas-inferencias.html#cb254-31" tabindex="-1"></a>  Esp2[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(Est2)</span>
+<span id="cb254-32"><a href="la-integración-de-ambas-inferencias.html#cb254-32" tabindex="-1"></a>}</span>
+<span id="cb254-33"><a href="la-integración-de-ambas-inferencias.html#cb254-33" tabindex="-1"></a></span>
+<span id="cb254-34"><a href="la-integración-de-ambas-inferencias.html#cb254-34" tabindex="-1"></a><span class="fu">cbind</span>(theta,</span>
+<span id="cb254-35"><a href="la-integración-de-ambas-inferencias.html#cb254-35" tabindex="-1"></a>      <span class="at">Media_U =</span> <span class="fu">mean</span>(Theta_U),</span>
+<span id="cb254-36"><a href="la-integración-de-ambas-inferencias.html#cb254-36" tabindex="-1"></a>      <span class="at">Esp_piS =</span> <span class="fu">mean</span>(Esp1),</span>
+<span id="cb254-37"><a href="la-integración-de-ambas-inferencias.html#cb254-37" tabindex="-1"></a>      <span class="at">Sesgo_piS =</span> <span class="fu">mean</span>(Esp1) <span class="sc">-</span> theta,</span>
+<span id="cb254-38"><a href="la-integración-de-ambas-inferencias.html#cb254-38" tabindex="-1"></a>      <span class="at">Esp_S =</span> <span class="fu">mean</span>(Esp2),</span>
+<span id="cb254-39"><a href="la-integración-de-ambas-inferencias.html#cb254-39" tabindex="-1"></a>      <span class="at">Sesgo_S =</span> <span class="fu">mean</span>(Esp2) <span class="sc">-</span> theta)</span></code></pre></div>
 <pre><code>##      theta Media_U Esp_piS Sesgo_piS  Esp_S Sesgo_S
 ## [1,]   0.3  0.3039  0.3025  0.002477 0.3317 0.03168</code></pre>
 <p>El código reproduce las dos fuentes de aleatoriedad. El ciclo externo representa el modelo <span class="math inline">\(\xi\)</span>, porque genera nuevas poblaciones finitas con <code>rbinom()</code>. El ciclo interno representa el diseño <span class="math inline">\(p\)</span>, porque para cada población se seleccionan múltiples muestras con <code>S.piPS()</code>. La salida incluye <code>Media_U</code>, que es el promedio de las medias poblacionales generadas; <code>Esp_piS</code>, que resume el comportamiento del estimador que incorpora el diseño; y <code>Esp_S</code>, que resume el promedio simple de la muestra seleccionada. Cuando el diseño se incorpora correctamente, el sesgo Monte Carlo respecto de <code>theta</code> debe ser pequeño. La comparación con <code>Esp_S</code> muestra por qué la inferencia basada en encuestas requiere pesos y varianzas de diseño, incluso cuando se parte de un modelo estadístico sencillo.</p>

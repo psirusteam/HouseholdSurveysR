@@ -375,8 +375,9 @@ t_{(1-\alpha/2,df)}
 </tbody>
 </table>
 <p>Otra hipótesis de interés consiste en evaluar si los ingresos medios de los hogares difieren según el sexo de la jefatura dentro del área urbana, como se presenta en la Tabla <a href="pruebas-de-hipótesis.html#tab:tab-ttest-sexo-urbano">3.23</a>. Los resultados indican que no se rechaza la hipótesis nula <span class="math inline">\(H_0\)</span>, por lo que no existe evidencia estadística suficiente para afirmar que los ingresos medios difieren por sexo en la zona urbana.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="pruebas-de-hipótesis.html#cb31-1" tabindex="-1"></a>sub_Urbano <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(Zone <span class="sc">==</span> <span class="st">&quot;Urban&quot;</span>)</span>
-<span id="cb31-2"><a href="pruebas-de-hipótesis.html#cb31-2" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">svyttest</span>(Income <span class="sc">~</span> Sex, <span class="at">design =</span> sub_Urbano, <span class="at">level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="pruebas-de-hipótesis.html#cb31-1" tabindex="-1"></a>sub_Urbano <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="pruebas-de-hipótesis.html#cb31-2" tabindex="-1"></a>  <span class="fu">filter</span>(Zone <span class="sc">==</span> <span class="st">&quot;Urban&quot;</span>)</span>
+<span id="cb31-3"><a href="pruebas-de-hipótesis.html#cb31-3" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">svyttest</span>(Income <span class="sc">~</span> Sex, <span class="at">design =</span> sub_Urbano, <span class="at">level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-ttest-sexo-urbano">Cuadro 3.23: </span>Prueba de diferencia de ingresos medios por sexo en zona urbana</caption>
 <thead>

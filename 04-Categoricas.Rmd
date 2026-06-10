@@ -1,4 +1,4 @@
-﻿```{r setup, include=FALSE}
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, 
                       message = FALSE,
                       cache = TRUE,
@@ -30,7 +30,7 @@ library(srvyr)
 encuesta <- readRDS("Data/encuesta.rds")
 options(survey.lonely.psu = "adjust")
 
-diseno <- encuesta %>% 
+diseno <- encuesta %>%
           as_survey_design(strata = Stratum,  
                            ids = PSU,         
                            weights = wk,      
@@ -41,7 +41,7 @@ diseno <- encuesta %>%
 Luego, se generan algunas variables categóricas derivadas de la información original de la encuesta, las cuales serán utilizadas en los ejercicios desarrollados a lo largo de este capítulo. Entre ellas, se construye una variable que identifica si la persona se encuentra o no en condición de pobreza. De manera complementaria, también se crean otras variables categóricas de interés analítico que permitirán realizar desagregaciones y comparaciones entre distintos grupos de la población:
 
 ```{r, tabs1, echo=TRUE, eval=TRUE}
-diseno <- diseno %>% 
+diseno <- diseno %>%
           mutate(pobreza   = ifelse(Poverty != "NotPoor", 1, 0),
                  desempleo = ifelse(Employment == "Unemployed", 1, 0),
                  edad_18   = case_when(Age < 18 ~ "< 18 anios", 
@@ -53,10 +53,14 @@ En el código anterior se crean nuevas variables derivadas utilizando la funció
 Además de lo anterior, se hace necesario generar subgrupos de la población para realizar estimaciones desagregadas. En este capítulo se emplean cuatro subpoblaciones de ejemplo:
 
 ```{r, eval=TRUE}
-sub_Urbano <- diseno %>%  filter(Zone == "Urban")
-sub_Rural  <- diseno %>%  filter(Zone == "Rural")
-sub_Mujer  <- diseno %>%  filter(Sex == "Female")
-sub_Hombre <- diseno %>%  filter(Sex == "Male")
+sub_Urbano <- diseno %>%
+  filter(Zone == "Urban")
+sub_Rural  <- diseno %>%
+  filter(Zone == "Rural")
+sub_Mujer  <- diseno %>%
+  filter(Sex == "Female")
+sub_Hombre <- diseno %>%
+  filter(Sex == "Male")
 ```
 
 ## Estimación del tamaño poblacional
@@ -84,15 +88,15 @@ En `R`, y utilizando el diseño muestral definido previamente, es posible genera
 Junto con las estimaciones poblacionales también se obtienen medidas de precisión, como el error estándar y el intervalo de confianza, las cuales permiten evaluar el nivel de incertidumbre asociado a los resultados producidos a partir de la muestra. Los resultados se presentan en la Tabla \@ref(tab:tab-tamano-zona). En dicha tabla, `n` representa el número de observaciones de la muestra en cada zona, mientras que `Nd` corresponde a la estimación del total poblacional de la subpoblación. Por su parte, la función `unweighted()` se utiliza para calcular resúmenes no ponderados directamente a partir de los datos observados en la muestra.
 
 ```{r eval=FALSE}
-diseno %>% 
-     group_by(Zone) %>% 
+diseno %>%
+     group_by(Zone) %>%
      summarise(n = unweighted(n()), 
                Nd = survey_total(vartype = c("se","ci")))
 ```
 
 ```{r tab-tamano-zona, tab.cap="Tamaño poblacional estimado por zona geográfica", echo=FALSE}
-diseno %>% 
-     group_by(Zone) %>% 
+diseno %>%
+     group_by(Zone) %>%
      summarise(n = unweighted(n()), 
                Nd = survey_total(vartype = c("se","ci"))) %>%
   tabla_fmt()
@@ -104,14 +108,14 @@ En efecto, el tamaño de muestra fue de 1297 personas en la zona rural y de 1308
 Considerando un nivel de confianza del 95%, los intervalos de confianza para las estimaciones poblacionales fueron de 66,038.5 a 78,165.4 personas en la zona rural y de 72,526.2 a 83,801.7 personas en la zona urbana. De manera análoga, también es posible estimar el número de personas según los distintos niveles de pobreza, cuyos resultados se presentan en la Tabla \@ref(tab:tab-tamano-pobreza).
   
 ```{r eval=FALSE}
-diseno %>% 
-  group_by(Poverty) %>% 
+diseno %>%
+  group_by(Poverty) %>%
   summarise(Nd = survey_total(vartype = c("se","ci")))
 ```
 
 ```{r tab-tamano-pobreza, tab.cap="Tamaño poblacional estimado por condición de pobreza", echo=FALSE}
-diseno %>% 
-  group_by(Poverty) %>% 
+diseno %>%
+  group_by(Poverty) %>%
   summarise(Nd = survey_total(vartype = c("se","ci"))) %>%
   tabla_fmt()
 ```
@@ -121,15 +125,15 @@ Otra variable categórica relevante en las encuestas de hogares es el estado de 
 Antes de realizar las estimaciones, se excluyen los registros con valores faltantes en la variable de empleo, garantizando que los resultados se calculen únicamente con información válida. Posteriormente, para cada categoría de ocupación se estima el tamaño poblacional utilizando el diseño muestral definido previamente. Además de la estimación puntual, también se calculan medidas de precisión, específicamente el error estándar y los intervalos de confianza, lo que permite evaluar el grado de incertidumbre asociado a cada estimación.
   
 ```{r eval=FALSE}
-diseno %>% 
+diseno %>%
   filter(!is.na(Employment)) %>%
-  group_by(Employment) %>% 
+  group_by(Employment) %>%
   summarise( Nd = survey_total(vartype = c("se","ci")))
 ```
 ```{r tab-tamano-empleo, tab.cap="Tamaño poblacional estimado por estado de ocupación", echo=FALSE}
-diseno %>% 
+diseno %>%
   filter(!is.na(Employment)) %>%
-  group_by(Employment) %>% 
+  group_by(Employment) %>%
   summarise( Nd = survey_total(vartype = c("se","ci"))) %>%
   tabla_fmt()
 ```
@@ -139,16 +143,16 @@ A partir de los resultados obtenidos se estima que 4,634.8 personas se encuentra
 Finalmente, las estimaciones también pueden desagregarse simultáneamente por más de una variable categórica. Por ejemplo, es posible analizar el estado ocupacional según el nivel de pobreza, cuyos resultados se presentan en la Tabla \@ref(tab:tab-tamano-empleo-pobreza), de donde se puede concluir, entre otros aspectos, que aproximadamente 44,600.3 personas ocupadas no se encuentran en condición de pobreza, con un intervalo de confianza del 95% entre 39,459.6 y 49,741.0 personas. Asimismo, se estima que 6,421.8 personas inactivas se encuentran en situación de pobreza extrema, con un intervalo de confianza al 95% entre 3,806.6 y 9,037.0 personas.
   
 ```{r eval=FALSE}
-diseno %>% 
+diseno %>%
   filter(!is.na(Employment)) %>%
-  group_by(Employment, Poverty) %>% 
+  group_by(Employment, Poverty) %>%
   cascade( Nd = survey_total(vartype =c("se","ci")), 
            .fill = "Total")
 ```
 ```{r tab-tamano-empleo-pobreza, echo=TRUE, tab.cap="Tamaño poblacional estimado por estado de ocupación y condición de pobreza", echo=FALSE}
-diseno %>% 
+diseno %>%
   filter(!is.na(Employment)) %>%
-  group_by(Employment, Poverty) %>% 
+  group_by(Employment, Poverty) %>%
   cascade( Nd = survey_total(vartype =c("se","ci")), 
            .fill = "Total") %>%
   tabla_fmt()
@@ -178,14 +182,14 @@ En donde $\widehat{me}$ corresponde al margen de error estimado y se obtiene a p
 A diferencia de otros programas estadísticos que presentan los resultados en porcentaje, `R` reporta las proporciones en la escala [0,1]. Las funciones de estos paquetes permiten calcular directamente las estimaciones, sus errores estándar e intervalos de confianza, lo que facilita el análisis de variables categóricas en encuestas de hogares. A continuación se ilustra cómo obtener la proporción de personas por zona usando el diseño muestral previamente definido, presentada en la Tabla \@ref(tab:tab-prop-zona):
 
 ```{r eval=FALSE}
-diseno %>% 
-  group_by(Zone) %>% 
+diseno %>%
+  group_by(Zone) %>%
   summarise(prop = survey_mean(vartype = c("se","ci"), 
                                proportion = TRUE))
 ```
 ```{r tab-prop-zona, tab.cap="Proporción de personas por zona geográfica", echo=FALSE}
-diseno %>% 
-  group_by(Zone) %>% 
+diseno %>%
+  group_by(Zone) %>%
   summarise(prop = survey_mean(vartype = c("se","ci"), 
                                proportion = TRUE)) %>%
   tabla_fmt()
@@ -199,13 +203,13 @@ La librería `survey` también dispone de la función `survey_prop()`, diseñada
 A partir de estas estimaciones se observa que, en la zona urbana, el 53.6% de la población corresponde a mujeres, con un intervalo de confianza del 95% entre 51.0% y 56.2%, mientras que el 46.4% corresponde a hombres, con un intervalo de confianza entre 43.7% y 48.9%. Estos resultados permiten apreciar no solo la distribución porcentual de la población según sexo, sino también el nivel de precisión asociado a las estimaciones.
 
 ```{r eval=FALSE}
-diseno %>% 
-  group_by(Zone) %>% 
+diseno %>%
+  group_by(Zone) %>%
   summarise(prop = survey_prop(vartype = c("se","ci")))
 ```
 ```{r tab-prop-zona2, tab.cap="Proporción de personas por zona geográfica (función survey_prop)", echo=FALSE}
-diseno %>% 
-  group_by(Zone) %>% 
+diseno %>%
+  group_by(Zone) %>%
   summarise(prop = survey_prop(vartype = c("se","ci"))) %>%
   tabla_fmt()
 ```
@@ -214,13 +218,13 @@ diseno %>%
 Si el interés se centra ahora en estimar proporciones para subpoblaciones específicas, por ejemplo, la proporción de hombres y mujeres que residen en la zona urbana, es necesario restringir el análisis a dicho dominio de estudio y posteriormente calcular las estimaciones correspondientes para cada categoría de sexo. El código computacional correspondiente se presenta en la Tabla \@ref(tab:tab-prop-sexo-urbano).
 
 ```{r eval=FALSE}
-sub_Urbano %>% 
-  group_by(Sex) %>% 
+sub_Urbano %>%
+  group_by(Sex) %>%
   summarise(prop = survey_prop(vartype = c("se","ci")))
 ```
 ```{r tab-prop-sexo-urbano, tab.cap="Proporción de hombres y mujeres en zona urbana", echo=FALSE}
-sub_Urbano %>% 
-  group_by(Sex) %>% 
+sub_Urbano %>%
+  group_by(Sex) %>%
   summarise(prop = survey_prop(vartype = c("se","ci"))) %>%
   tabla_fmt()
 ```
@@ -229,14 +233,14 @@ sub_Urbano %>%
 De manera análoga, es posible realizar el mismo ejercicio para la población residente en la zona rural, estimando la proporción de hombres y mujeres. Este tipo de desagregación permite comparar la composición poblacional según sexo entre las áreas urbana y rural, proporcionando una visión más detallada de las características demográficas de la población encuestada. Los resultados correspondientes se presentan en la Tabla \@ref(tab:tab-prop-sexo-rural).
 
 ```{r eval=FALSE}
-sub_Rural %>% 
-  group_by(Sex) %>% 
+sub_Rural %>%
+  group_by(Sex) %>%
   summarise(n    = unweighted(n()),
             prop = survey_prop(vartype = c("se","ci")))
 ```
 ```{r tab-prop-sexo-rural, tab.cap="Proporción de hombres y mujeres en zona rural", echo=FALSE}
-sub_Rural %>% 
-  group_by(Sex) %>% 
+sub_Rural %>%
+  group_by(Sex) %>%
   summarise(n    = unweighted(n()),
             prop = survey_prop(vartype = c("se","ci"))) %>%
   tabla_fmt()
@@ -246,13 +250,13 @@ Ahora bien, si el análisis se restringe únicamente a la población masculina i
 
 
 ```{r eval=FALSE}
-sub_Hombre %>% 
-  group_by(Zone) %>% 
+sub_Hombre %>%
+  group_by(Zone) %>%
   summarise(prop = survey_prop(vartype = c("se","ci")))
 ```
 ```{r tab-prop-zona-hombre, tab.cap="Distribución por zona en la subpoblación masculina", echo=FALSE}
-sub_Hombre %>% 
-  group_by(Zone) %>% 
+sub_Hombre %>%
+  group_by(Zone) %>%
   summarise(prop = survey_prop(vartype = c("se","ci"))) %>%
   tabla_fmt()
 ```
@@ -262,12 +266,12 @@ Si se desea estimar resultados con varios niveles de desagregación, al igual qu
 
 ```{r eval=FALSE}
 sub_Hombre %>%
-  group_by(Zone, Poverty) %>% 
+  group_by(Zone, Poverty) %>%
   summarise(prop = survey_prop(vartype = c("se","ci")))
 ```
 ```{r tab-prop-zona-pobreza-hombre, tab.cap="Proporción de hombres por zona y condición de pobreza", echo=FALSE}
 sub_Hombre %>%
-  group_by(Zone, Poverty) %>% 
+  group_by(Zone, Poverty) %>%
   summarise(prop = survey_prop(vartype = c("se","ci"))) %>%
   tabla_fmt()
 ```
@@ -279,21 +283,21 @@ También es posible categorizar variables cuantitativas para facilitar su análi
 A continuación, la variable edad se clasifica en dos categorías para la población femenina: mujeres entre 18 y 35 años, y mujeres pertenecientes a otros rangos de edad. Posteriormente, estas categorías se analizan en conjunto con la variable de empleabilidad, permitiendo estimar la distribución de la condición laboral según grupo etario. Los resultados correspondientes se presentan en la Tabla \@ref(tab:tab-prop-edad-rango-empleo-mujer).
 
 ```{r eval=FALSE}
-sub_Mujer %>% 
-  filter(!is.na(Employment)) %>% 
+sub_Mujer %>%
+  filter(!is.na(Employment)) %>%
   mutate(edad_rango = case_when(
                       Age>= 18 & Age <=35  ~ "18 - 35", 
                       TRUE ~ "Otro")) %>%
-  group_by(edad_rango, Employment) %>% 
+  group_by(edad_rango, Employment) %>%
   summarise(Prop = survey_prop(vartype =  c("se", "ci")))
 ```
 ```{r tab-prop-edad-rango-empleo-mujer, tab.cap="Proporción de mujeres por rango de edad y estado de ocupación", echo=FALSE}
-sub_Mujer %>% 
-  filter(!is.na(Employment)) %>% 
+sub_Mujer %>%
+  filter(!is.na(Employment)) %>%
   mutate(edad_rango = case_when(
                       Age>= 18 & Age <=35  ~ "18 - 35", 
                       TRUE ~ "Otro")) %>%
-  group_by(edad_rango, Employment) %>% 
+  group_by(edad_rango, Employment) %>%
   summarise(Prop = survey_prop(vartype =  c("se", "ci"))) %>%
   tabla_fmt()
 ```
@@ -306,7 +310,7 @@ Por ejemplo, suponga que el interés está en comparar la proporción de mujeres
 
 ```{r}
 tab_sex_pobreza <- svyby(formula = ~pobreza, by = ~Sex,
-                         design = diseno, svymean, na.rm=T,
+                         design = diseno, svymean, na.rm = TRUE,
                          covmat = TRUE, vartype = c("se", "ci"))
 ```
 
@@ -353,8 +357,9 @@ Otro ejercicio que puede desarrollarse a partir de una encuesta de hogares consi
 
 ```{r}
 tab_region_desempleo <- svyby(formula =  ~desempleo, by = ~Region,
-                              design  = diseno %>% filter(!is.na(desempleo)),
-                              FUN     = svymean, na.rm=T, covmat = TRUE,
+                              design  = diseno %>%
+                                filter(!is.na(desempleo)),
+                              FUN     = svymean, na.rm = TRUE, covmat = TRUE,
                               vartype = c("se", "ci"))
 ```
 
@@ -441,7 +446,7 @@ A continuación, y siguiendo con la base de datos de ejemplo, se estima la distr
 
 ```{r}
 
-dsg <- diseno %>% 
+dsg <- diseno %>%
        mutate(pobreza = factor(pobreza, levels = 0:1,
                           labels = c("No pobre", "Pobre"))) 
 ```
@@ -476,13 +481,13 @@ tab_Sex_Pobr %>%
 Adicionalmente, los intervalos de confianza pueden obtenerse mediante la función `confint()`, la cual permite calcular automáticamente los límites inferior y superior asociados a las estimaciones realizadas. El procedimiento para la estimación de los intervalos de confianza se presenta en la Tabla \@ref(tab:tab-confint-sexo-pobreza). Nótese que lso intervalos coinciden con los generados anteriormente usando la función `group_by`.
 
 ```{r eval=FALSE}
-confint(tab_Sex_Pobr) %>% 
+confint(tab_Sex_Pobr) %>%
   as.data.frame() %>%
   rownames_to_column("Dominio")
 ```
 
 ```{r tab-confint-sexo-pobreza, tab.cap="Intervalos de confianza para la proporción por sexo y pobreza", echo=FALSE}
-confint(tab_Sex_Pobr) %>% 
+confint(tab_Sex_Pobr) %>%
   as.data.frame() %>%
   rownames_to_column("Dominio") %>%
   tabla_fmt()
@@ -503,12 +508,12 @@ tab_Sex_Ocupa %>%
 De la anterior salida se puede observar que, el 27.2% de las mujeres y el 72.7% de los hombres están desempleados con errores estándares para estas estimaciones de 5.3% para mujeres y hombres. cuyos intervalos de confianza se calculan a continuación, presentada en la Tabla \@ref(tab:tab-confint-empleo-sexo):
 
 ```{r eval=FALSE}
-confint(tab_Sex_Ocupa) %>% 
+confint(tab_Sex_Ocupa) %>%
   as.data.frame() %>%
   rownames_to_column("Dominio")
 ```
 ```{r tab-confint-empleo-sexo, tab.cap="Intervalos de confianza para la proporción por sexo y ocupación", echo=FALSE}
-confint(tab_Sex_Ocupa) %>% 
+confint(tab_Sex_Ocupa) %>%
   as.data.frame() %>%
   rownames_to_column("Dominio") %>%
   tabla_fmt()
@@ -559,11 +564,12 @@ El procedimiento para realizarlo en `R` sería, primero estimar las proporciones
 ```{r}
 tab_Sex_Pobr <- svymean(x = ~interaction (Sex, pobreza),
                         design = diseno,
-                        se=T, na.rm=T, ci=T, keep.vars=T)
+                        se = TRUE, na.rm = TRUE, ci = TRUE, keep.vars = TRUE)
 ```
 
 ```{r tab-interaccion-sexo-pobreza, echo=TRUE, tab.cap="Proporciones conjuntas de sexo y condición de pobreza", echo=FALSE}
-tab_Sex_Pobr %>% as.data.frame() %>%
+tab_Sex_Pobr %>%
+  as.data.frame() %>%
   tabla_fmt()
 
 ```

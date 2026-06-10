@@ -1,4 +1,4 @@
-﻿```{r setup, include=FALSE}
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, 
                       message = FALSE,
                       cache = TRUE,
@@ -24,7 +24,7 @@ Los archivos `.rds` permiten almacenar cualquier objeto o información en `R`, c
 
 Para ilustrar la sintaxis computacional que se utilizará a lo largo del capítulo, se empleará la misma base del capítulo anterior, que contiene una muestra de 2.605 registros que proviene de un muestreo complejo. A continuación, se muestra cómo cargar un archivo con extensión `.rds`:
 
-```{r, eval=T}
+```{r, eval=TRUE}
 library(tidyverse)
 
 encuesta <- readRDS("Data/encuesta.rds")
@@ -40,12 +40,12 @@ options(survey.lonely.UPM = "adjust")
 library(survey)
 library(srvyr)
 
-diseno <- encuesta %>% 
+diseno <- encuesta %>%
           as_survey_design(
             strata = Stratum,  
             ids = PSU,  
             weights = wk,      
-            nest = T)
+            nest = TRUE)
 ```
 
 En este código, `encuesta` corresponde a la base de datos que contiene la muestra seleccionada. A partir de estos datos, la función `as_survey_design()` convierte la información en un objeto de clase `survey_design`, el cual almacena todos los elementos necesarios para describir el diseño muestral de la encuesta. Entre ellos se incluyen la variable de estratificación (`strata`), que identifica los estratos definidos en el diseño, y la variable especificada en `ids`, que representa las unidades primarias de muestreo (UPM) o conglomerados seleccionados en la primera etapa del muestreo. Asimismo, el argumento `weights` define la variable que contiene los factores de expansión asociados a cada observación. Finalmente, la opción `nest = TRUE` indica que las UPM están anidadas dentro de los estratos, una característica necesaria para representar correctamente la estructura jerárquica del diseño de muestreo.
@@ -76,12 +76,12 @@ El siguiente ejemplo presenta cómo estimar totales y sus intervalos de confianz
 
 
 ```{r eval=FALSE}
-diseno %>% 
-  summarise(ty = survey_total(Income, vartype = c("se", "ci"), deff = T))
+diseno %>%
+  summarise(ty = survey_total(Income, vartype = c("se", "ci"), deff = TRUE))
 ```
 ```{r tab-total-ingreso, tab.cap="Estimación del total de ingresos de los hogares con intervalo de confianza al 95%", echo=FALSE}
-diseno %>% 
-  summarise(ty = survey_total(Income, vartype = c("se", "ci"), deff = T)) %>%
+diseno %>%
+  summarise(ty = survey_total(Income, vartype = c("se", "ci"), deff = TRUE)) %>%
   tabla_fmt()
 ```
 
@@ -93,13 +93,13 @@ Para continuar ilustrando el uso de la función `survey_total()` dentro del enfo
 diseno %>%
   summarise(ty = survey_total(Expenditure, 
                               vartype = "ci", level = 0.9, 
-                              deff = T))
+                              deff = TRUE))
 ```
 ```{r tab-total-gasto, tab.cap="Estimación del total de gastos de los hogares con intervalo de confianza al 90%", echo=FALSE}
 diseno %>%
   summarise(ty = survey_total(Expenditure, 
                               vartype = "ci", level = 0.9, 
-                              deff = T)) %>%
+                              deff = TRUE)) %>%
   tabla_fmt()
 ```
 
@@ -107,7 +107,7 @@ diseno %>%
 Si el objetivo es estimar el total de ingresos de los hogares, pero desagregado por sexo, se puede utilizar la función `group_by()` para agrupar por la variable de interés, junto con `cascade()` de la librería `srvyr`, que permite agregar una fila con el total general al final de la tabla. De esta manera, se pueden obtener fácilmente los totales por categoría y el total global dentro del mismo marco de resumen, como se muestra en la Tabla \@ref(tab:tab-total-ingreso-sexo).
 
 ```{r eval=FALSE}
-diseno %>% 
+diseno %>%
   group_by(Sex) %>%
   cascade(Total = survey_total(Income, 
                                vartype =  c("se", "ci"),
@@ -115,7 +115,7 @@ diseno %>%
           .fill = "Total ingreso")
 ```
 ```{r tab-total-ingreso-sexo, tab.cap="Total de ingresos de los hogares desagregado por sexo", echo=FALSE}
-diseno %>% 
+diseno %>%
   group_by(Sex) %>%
   cascade(Total = survey_total(Income, 
                                vartype =  c("se", "ci"),
@@ -181,7 +181,7 @@ También se pueden realizar estimaciones de la media por subgrupos siguiendo el 
 
 
 ```{r eval=FALSE}
-diseno %>% 
+diseno %>%
   group_by(Sex) %>%
   cascade(Media = survey_mean(Expenditure, 
                               level = 0.95,
@@ -190,7 +190,7 @@ diseno %>%
   arrange(desc(Sex))
 ```
 ```{r tab-media-gasto-sexo, tab.cap="Media de gastos de los hogares desagregada por sexo", echo=FALSE}
-diseno %>% 
+diseno %>%
   group_by(Sex) %>%
   cascade(Media = survey_mean(Expenditure, 
                               level = 0.95,
@@ -203,7 +203,7 @@ diseno %>%
 De manera análoga, se pueden calcular las medias del gasto por zona, las cuales son presentadas en la Tabla \@ref(tab:tab-media-gasto-zona):
 
 ```{r eval=FALSE}
-diseno %>% 
+diseno %>%
   group_by(Zone) %>%
   cascade(Media = survey_mean(Expenditure, 
                               level = 0.95,
@@ -212,7 +212,7 @@ diseno %>%
   arrange(desc(Zone))
 ```
 ```{r tab-media-gasto-zona, tab.cap="Media de gastos de los hogares desagregada por zona", echo=FALSE}
-diseno %>% 
+diseno %>%
   group_by(Zone) %>%
   cascade(Media = survey_mean(Expenditure, 
                               level = 0.95,
@@ -226,7 +226,7 @@ Asimismo, es posible realizar una estimación combinada por sexo y zona, present
 
 
 ```{r eval=FALSE}
-diseno %>% 
+diseno %>%
   group_by(Zone, Sex) %>%
   cascade(Media = survey_mean(Expenditure, 
                               level = 0.95,
@@ -235,7 +235,7 @@ diseno %>%
   arrange(desc(Zone), desc(Sex))
 ```
 ```{r tab-media-gasto-zona-sexo, tab.cap="Media de gastos de los hogares desagregada por zona y sexo", echo=FALSE}
-diseno %>% 
+diseno %>%
   group_by(Zone, Sex) %>%
   cascade(Media = survey_mean(Expenditure, 
                               level = 0.95,
@@ -267,7 +267,7 @@ Un ejemplo directo en encuestas de hogares es la razón **gasto/ingreso**, que a
 
 
 ```{r eval=FALSE}
-diseno %>% 
+diseno %>%
   summarise(Razon = survey_ratio(numerator = Expenditure,
                                  denominator = Income,
                                  level = 0.95,
@@ -275,7 +275,7 @@ diseno %>%
             )
 ```
 ```{r tab-razon-gasto-ingreso, tab.cap="Razón gasto/ingreso de los hogares", echo=FALSE}
-diseno %>% 
+diseno %>%
   summarise(Razon = survey_ratio(numerator = Expenditure,
                                  denominator = Income,
                                  level = 0.95,
@@ -290,7 +290,7 @@ Si ahora el objetivo es estimar la razón entre mujeres y hombres en la base de 
 
 
 ```{r eval=FALSE}
-diseno %>% 
+diseno %>%
   summarise(Razon = survey_ratio(numerator = (Sex == "Female"),
                                  denominator = (Sex == "Male"),
                                  level = 0.95,
@@ -298,7 +298,7 @@ diseno %>%
             )
 ```
 ```{r tab-razon-sexo, tab.cap="Razón de mujeres por hombre en la población", echo=FALSE}
-diseno %>% 
+diseno %>%
   summarise(Razon = survey_ratio(numerator = (Sex == "Female"),
                                  denominator = (Sex == "Male"),
                                  level = 0.95,
@@ -310,8 +310,9 @@ diseno %>%
 Dado que la variable sexo en la base de datos es categórica, fue necesario acudir a variables indicadoras para realizar el cálculo de la razón, utilizando `Sex == "Female"` para identificar a las mujeres y `Sex == "Male"` para los hombres. Los resultados muestran que en la población analizada hay una mayor cantidad de mujeres que de hombres, obteniéndose una razón estimada de 1.11. Esto indica que, por cada 100 hombres, existen aproximadamente 111 mujeres. Además, el intervalo de confianza al 95% sugiere que esta razón podría variar entre 1.05 y 1.18. Si se desea hacer la razón de mujeres y hombres pero en la zona rural, se haría de la siguiente manera, presentada en la Tabla \@ref(tab:tab-razon-sexo-rural):
 
 ```{r eval=FALSE}
-sub_Rural  <- diseno %>%  filter(Zone == "Rural")
-sub_Rural %>% 
+sub_Rural  <- diseno %>%
+  filter(Zone == "Rural")
+sub_Rural %>%
   summarise(Razon =  survey_ratio(numerator = (Sex == "Female"),
                                   denominator = (Sex == "Male"),
                                   level = 0.95,
@@ -319,8 +320,9 @@ sub_Rural %>%
             )
 ```
 ```{r tab-razon-sexo-rural, tab.cap="Razón de mujeres por hombre en zona rural", echo=FALSE}
-sub_Rural  <- diseno %>%  filter(Zone == "Rural")
-sub_Rural %>% 
+sub_Rural  <- diseno %>%
+  filter(Zone == "Rural")
+sub_Rural %>%
   summarise(Razon =  survey_ratio(numerator = (Sex == "Female"),
                                   denominator = (Sex == "Male"),
                                   level = 0.95,
@@ -332,9 +334,10 @@ sub_Rural %>%
 Ahora bien, otro análisis de interés es estimar la razón de gastos pero solo en la población femenina. A continuación, se presentan los códigos computacionales, como se muestra en la Tabla \@ref(tab:tab-razon-gasto-ingreso-mujer).
 
 ```{r eval=FALSE}
-sub_Mujer <- diseno %>% filter(Sex == "Female")
+sub_Mujer <- diseno %>%
+  filter(Sex == "Female")
 
-sub_Mujer %>% 
+sub_Mujer %>%
   summarise(Razon = survey_ratio(numerator = Expenditure,
                                  denominator = Income,
                                  level = 0.95,
@@ -343,9 +346,10 @@ sub_Mujer %>%
 ```
 
 ```{r tab-razon-gasto-ingreso-mujer, tab.cap="Razón gasto/ingreso en hogares con jefatura femenina", echo=FALSE}
-sub_Mujer <- diseno %>% filter(Sex == "Female")
+sub_Mujer <- diseno %>%
+  filter(Sex == "Female")
 
-sub_Mujer %>% 
+sub_Mujer %>%
   summarise(Razon = survey_ratio(numerator = Expenditure,
                                  denominator = Income,
                                  level = 0.95,
@@ -357,9 +361,10 @@ sub_Mujer %>%
 Dando como resultado que por cada 100 unidades monetarias que le ingresan a las mujeres se gastan 66 con un intervalo de confianza entre 0.62 y 0.69. Por último, análogamente para los hombres, la razón de gastos resulta muy similar que para las mujeres, como se muestra en la Tabla \@ref(tab:tab-razon-gasto-ingreso-hombre).
 
 ```{r eval=FALSE}
-sub_Hombre <- diseno %>% filter(Sex == "Male")
+sub_Hombre <- diseno %>%
+  filter(Sex == "Male")
 
-sub_Hombre %>% 
+sub_Hombre %>%
   summarise(Razon = survey_ratio(numerator = Expenditure,
                                  denominator = Income,
                                  level = 0.95,
@@ -368,9 +373,10 @@ sub_Hombre %>%
 ```
 
 ```{r tab-razon-gasto-ingreso-hombre, tab.cap="Razón gasto/ingreso en hogares con jefatura masculina", echo=FALSE}
-sub_Hombre <- diseno %>% filter(Sex == "Male")
+sub_Hombre <- diseno %>%
+  filter(Sex == "Male")
 
-sub_Hombre %>% 
+sub_Hombre %>%
   summarise(Razon = survey_ratio(numerator = Expenditure,
                                  denominator = Income,
                                  level = 0.95,
@@ -394,7 +400,7 @@ Para estimar la desviación estándar de variables numéricas en encuestas de ho
 
 
 ```{r eval=FALSE}
-diseno %>% 
+diseno %>%
   group_by(Zone) %>%
   summarise(Sd = sqrt(survey_var(Income,
                                level = 0.95,
@@ -404,7 +410,7 @@ diseno %>%
             )
 ```
 ```{r tab-sd-ingreso-zona, tab.cap="Desviación estándar de los ingresos desagregada por zona", echo=FALSE}
-diseno %>% 
+diseno %>%
   group_by(Zone) %>%
   summarise(Sd = sqrt(survey_var(Income,
                                level = 0.95,
@@ -419,7 +425,7 @@ Como se observó en el ejemplo anterior, se estimó la desviación estándar de 
 
 
 ```{r eval=FALSE}
-diseno %>% 
+diseno %>%
   group_by(Zone, Sex) %>%
   summarise(Sd = sqrt(survey_var(Income,
                                  level = 0.95,
@@ -429,7 +435,7 @@ diseno %>%
             )
 ```
 ```{r tab-sd-ingreso-zona-sexo, tab.cap="Desviación estándar de los ingresos desagregada por zona y sexo", echo=FALSE}
-diseno %>% 
+diseno %>%
   group_by(Zone, Sex) %>%
   summarise(Sd = sqrt(survey_var(Income,
                                  level = 0.95,
@@ -463,7 +469,7 @@ Bajo esta condición, el estimador del cuantil $q$-ésimo se obtiene mediante in
 Tanto los estimadores de cuantiles como los métodos para estimar sus varianzas se encuentran implementados en `R`. En particular, la función `survey_median()` permite obtener la mediana junto con su error estándar e intervalo de confianza. A continuación, se presenta la sintaxis para estimar la mediana del gasto de los hogares utilizando la base de datos de ejemplo, cuyos resultados se muestran en la Tabla \@ref(tab:tab-mediana-gasto).
 
 ```{r eval=FALSE}
-diseno %>% 
+diseno %>%
   summarise(mediana = survey_median(Expenditure,
                                     level = 0.95,
                                     vartype =  c("se", "ci")
@@ -471,7 +477,7 @@ diseno %>%
             )
 ```
 ```{r tab-mediana-gasto, tab.cap="Estimación de la mediana de los gastos de los hogares", echo=FALSE}
-diseno %>% 
+diseno %>%
   summarise(mediana = survey_median(Expenditure,
                                     level = 0.95,
                                     vartype =  c("se", "ci")
@@ -483,7 +489,7 @@ diseno %>%
 Como puede observarse, los argumentos de la función `survey_median()` son equivalentes a los utilizados previamente para estimar totales y medias. Al igual que con otros parámetros poblacionales, la mediana también puede estimarse para distintos dominios de estudio, como zona geográfica, sexo o grupos de edad. La Tabla \@ref(tab:tab-mediana-gasto-zona) muestra los resultados por zona geográfica.
 
 ```{r eval=FALSE}
-diseno %>% 
+diseno %>%
   group_by(Zone) %>%
   summarise(mediana = survey_median(Expenditure,
                                     level = 0.95,
@@ -493,7 +499,7 @@ diseno %>%
 ```
 
 ```{r tab-mediana-gasto-zona, tab.cap="Estimación de la mediana de los gastos desagregada por zona", echo=FALSE}
-diseno %>% 
+diseno %>%
   group_by(Zone) %>%
   summarise(mediana = survey_median(Expenditure,
                                     level = 0.95,
@@ -532,7 +538,7 @@ Observe que se incorporó el argumento `interval_type = "score"`, el cual indica
 
 
 ```{r eval=FALSE}
-diseno %>% 
+diseno %>%
   group_by(Zone, Sex) %>%
   summarise(q = survey_quantile(Expenditure,
                                 quantiles = 0.25,
@@ -543,7 +549,7 @@ diseno %>%
             )
 ```
 ```{r tab-cuantil-gasto-zona-sexo, tab.cap="Primer cuartil de los gastos desagregado por zona y sexo", echo=FALSE}
-diseno %>% 
+diseno %>%
   group_by(Zone, Sex) %>%
   summarise(q = survey_quantile(Expenditure,
                                 quantiles = 0.25,
@@ -634,7 +640,8 @@ cov <- svyvar(~Income + Expenditure, design = diseno)
 
 ```{r tab-covarianza, echo=FALSE, tab.cap="Matriz de varianzas y covarianzas ponderada entre ingreso y gasto"}
 data.frame(Variable = rownames(cov), 
-           as.matrix(cov)) %>% slice(1:2) %>%
+           as.matrix(cov)) %>%
+             slice(1:2) %>%
   tabla_fmt()
 ```
 
@@ -742,7 +749,8 @@ df_res %>%
 Otra hipótesis de interés consiste en evaluar si los ingresos medios de los hogares difieren según el sexo de la jefatura dentro del área urbana, como se presenta en la Tabla \@ref(tab:tab-ttest-sexo-urbano). Los resultados indican que no se rechaza la hipótesis nula $H_0$, por lo que no existe evidencia estadística suficiente para afirmar que los ingresos medios difieren por sexo en la zona urbana. 
 
 ```{r, eval=TRUE}
-sub_Urbano <- diseno %>%  filter(Zone == "Urban")
+sub_Urbano <- diseno %>%
+  filter(Zone == "Urban")
 res <- svyttest(Income ~ Sex, design = sub_Urbano, level = 0.95)
 ```
 
@@ -802,12 +810,12 @@ $$
 En consecuencia, el vector de contraste asociado a esta comparación es $\left[1,\,-1,\,0,\,0,\,0\right]$, donde los coeficientes positivos y negativos indican las poblaciones que se desean comparar y los ceros representan las poblaciones excluidas del contraste. El primer paso consiste en calcular las medias estimadas para cada región mediante la función `svyby()`, como se presenta en la Tabla \@ref(tab:tab-prom-region). Note que la función `svyby()` permite aplicar una función, en este caso la media (`svymean`) por región (`by`) utilizando el diseño muestral empleado (`design`). Las demás componentes de la función ya se han utilizado previamente. Como resultado de aplicar esta función se obtienen las medias estimadas de los ingresos por región.
 
 
-```{r, eval =T}
+```{r, eval=TRUE}
 prom_region <- svyby(formula = ~Income,
                      by = ~Region,
                      design = diseno,
                      FUN = svymean,
-                     na.rm=T,
+                     na.rm = TRUE,
                      covmat = TRUE,
                      vartype = c("se", "ci"))
 ```
@@ -849,7 +857,7 @@ Nótese que estos mismos resultados podrían obtenerse realizando explícitament
 El paso siguiente es calcular la matriz de varianzas y covarianzas y de allí extraer las varianzas y covarianzas de las regiones Norte y Sur, presentada en la Tabla \@ref(tab:tab-vcov-region):
 
 
-```{r,contr1_var,eval=T}
+```{r,contr1_var,eval=TRUE}
 # Paso 2: Matriz de varianzas y covarianzas
 mat <- vcov(prom_region)
 ```
@@ -919,12 +927,12 @@ df_con %>%
 
 También es posible construir contrastes entre variables asociadas a diferentes grupos poblacionales, como ocurre al comparar el ingreso medio según el sexo. Siguiendo el mismo procedimiento del ejemplo anterior, el primer paso consiste en estimar el ingreso medio para cada grupo, en este caso hombres y mujeres, como se presenta en la Tabla \@ref(tab:tab-prom-sexo). 
 
-```{r, eval=T}
+```{r, eval=TRUE}
 prom_sexo <- svyby(formula = ~Income,
                    by = ~Sex,
                    design = diseno,
                    FUN = svymean,
-                   na.rm=T,
+                   na.rm = TRUE,
                    covmat = TRUE,
                    vartype = c("se", "ci"))
 
@@ -960,13 +968,13 @@ df_con %>%
 
 Dado que los contrastes corresponden a funciones lineales de parámetros, también es posible aplicarlos a estimadores de razón. Un ejemplo de ello consiste en comparar la relación entre gastos e ingresos según el sexo. En este caso, primero se estima la razón gasto-ingreso para cada grupo y posteriormente se construye el contraste entre dichas razones. A continuación, se presentan los códigos computacionales utilizados para realizar este análisis, cuyos resultados se muestran en la Tabla \@ref(tab:tab-razon-ingreso-gasto-sexo):
 
-```{r,c2, echo=TRUE, eval=T}
+```{r,c2, echo=TRUE, eval=TRUE}
 razon_sexo <- svyby( formula = ~Income,
                      by = ~Sex,
                      denominator = ~Expenditure,
                      design = diseno,
                      FUN = svyratio,
-                     na.rm=T, covmat = TRUE,
+                     na.rm = TRUE, covmat = TRUE,
                      vartype = c("se", "ci"))
 ```
 
@@ -1022,27 +1030,6 @@ library(patchwork)
 data(BigCity, package = "TeachingSampling")
 ```
 
-Para la elaboración de los gráficos presentados en este capítulo se adopta el siguiente tema visual, con el propósito de estandarizar la presentación de los resultados estadísticos y facilitar su interpretación.
-
-```{r}
-theme_cepal <- function(...) {
-  theme_light(10) +
-    theme(
-      axis.text.x  = element_blank(),
-      axis.ticks.x = element_blank(),
-      axis.text.y  = element_blank(),
-      axis.ticks.y = element_blank(),
-      legend.position  = "bottom",
-      legend.justification = "left",
-      legend.direction = "horizontal",
-      plot.title = element_text(size = 11, hjust = 0.5),
-      ...
-    )
-}
-```
-
-La función `theme_cepal()` define un tema gráfico personalizado basado en `theme_light(10)`, que establece un estilo claro con tamaño base de fuente igual a 10. Posteriormente, mediante la función `theme()`, se realizan ajustes específicos sobre distintos componentes del gráfico. Los argumentos `axis.text.x` y `axis.text.y` eliminan las etiquetas de los ejes horizontal y vertical, respectivamente, mientras que `axis.ticks.x` y `axis.ticks.y` eliminan las marcas de ambos ejes. Los argumentos `legend.position = "bottom"` y `legend.direction = "horizontal"` ubican la leyenda en la parte inferior del gráfico y organizan sus elementos de manera horizontal. Por su parte, `legend.justification = "left"` alinea la leyenda hacia la izquierda dentro de su posición. Finalmente, `plot.title = element_text(size = 11, hjust = 0.5)` define el tamaño del título y lo centra horizontalmente. El argumento `...` permite incorporar opciones adicionales al tema cuando la función es utilizada.
-
 ### Histogramas
 
 Un histograma es una representación gráfica de la distribución de una variable numérica continua, construida a partir de rectángulos cuya altura es proporcional a la frecuencia de observaciones dentro de determinados intervalos de clase. En el contexto de encuestas de hogares, los histogramas ponderados permiten aproximar la distribución de la variable en la población, incorporando los factores de expansión asociados al diseño muestral.
@@ -1055,12 +1042,11 @@ plot1_Ponde <- ggplot(
   aes(x = Income, weight = wk)) +
   geom_histogram(aes(y = ..density..)) +
   ylab("") +
-  ggtitle("Histograma ponderado") +
-  theme_cepal()
+  ggtitle("Histograma ponderado")
 plot1_Ponde
 ```
 
-En este código, se inicia la construcción del gráfico utilizando la base de datos `encuesta`. Dentro de `aes()`, el argumento `x = Income` indica que la variable representada en el eje horizontal corresponde al ingreso, mientras que `weight = wk` incorpora los pesos muestrales para construir un histograma ponderado que refleje la distribución estimada en la población. La función `geom_histogram()` genera el histograma y, mediante `aes(y = ..density..)`, la altura de las barras se expresa en términos de densidad en lugar de frecuencias absolutas. Posteriormente, `ylab("")` elimina la etiqueta del eje vertical, y `ggtitle("Histograma ponderado")` agrega un título descriptivo al gráfico. Finalmente, `theme_cepal()` aplica el tema gráfico personalizado definido previamente para estandarizar la apariencia visual del histograma.
+En este código, se inicia la construcción del gráfico utilizando la base de datos `encuesta`. Dentro de `aes()`, el argumento `x = Income` indica que la variable representada en el eje horizontal corresponde al ingreso, mientras que `weight = wk` incorpora los pesos muestrales para construir un histograma ponderado que refleje la distribución estimada en la población. La función `geom_histogram()` genera el histograma y, mediante `aes(y = ..density..)`, la altura de las barras se expresa en términos de densidad en lugar de frecuencias absolutas. Posteriormente, `ylab("")` elimina la etiqueta del eje vertical, y `ggtitle("Histograma ponderado")` agrega un título descriptivo al gráfico.
 
 Los histogramas también permiten comparar visualmente la distribución de una variable entre distintos subgrupos de la población mediante el argumento `fill`, el cual asigna un color diferente a cada categoría. Por ejemplo, es posible comparar la distribución del ingreso entre zonas urbanas y rurales, como se muestra en la Figura \@ref(fig:fig-hist-zona):
 
@@ -1073,13 +1059,12 @@ plot3_Ponde <- ggplot(encuesta, aes(x = Income, weight = wk)) +
     alpha = 0.5, position = "identity") +
   scale_fill_manual(values = colorZona) +
   ylab("") +
-  ggtitle("Ponderado") +
-  theme_cepal()
+  ggtitle("Ponderado")
 
 plot3_Ponde
 ```
 
-En este código, se construye un histograma ponderado utilizando la base de datos `encuesta`, donde `x = Income` define la variable representada en el eje horizontal y `weight = wk` incorpora los pesos muestrales para reflejar la distribución poblacional del ingreso. La función `geom_histogram()` genera el histograma y, mediante `aes(y = ..density.., fill = Zone)`, representa las barras en términos de densidad y asigna colores diferentes según la variable `Zone`, permitiendo comparar visualmente la distribución del ingreso entre zonas. El argumento `alpha = 0.5` agrega transparencia a las barras para facilitar la superposición de los histogramas, mientras que `position = "identity"` permite que las distribuciones se dibujen una encima de otra en lugar de apilarse. Posteriormente, `scale_fill_manual(values = colorZona)` define manualmente los colores asociados a cada zona. Finalmente, `ylab("")` elimina la etiqueta del eje vertical, `ggtitle("Ponderado")` agrega un título al gráfico y `theme_cepal()` aplica el tema gráfico personalizado utilizado en el capítulo.
+En este código, se construye un histograma ponderado utilizando la base de datos `encuesta`, donde `x = Income` define la variable representada en el eje horizontal y `weight = wk` incorpora los pesos muestrales para reflejar la distribución poblacional del ingreso. La función `geom_histogram()` genera el histograma y, mediante `aes(y = ..density.., fill = Zone)`, representa las barras en términos de densidad y asigna colores diferentes según la variable `Zone`, permitiendo comparar visualmente la distribución del ingreso entre zonas. El argumento `alpha = 0.5` agrega transparencia a las barras para facilitar la superposición de los histogramas, mientras que `position = "identity"` permite que las distribuciones se dibujen una encima de otra en lugar de apilarse. Posteriormente, `scale_fill_manual(values = colorZona)` define manualmente los colores asociados a cada zona. Finalmente, `ylab("")` elimina la etiqueta del eje vertical, `ggtitle("Ponderado")` agrega un título al gráfico.
 
 Adicionalmente, es posible superponer curvas de densidad suavizadas mediante la función `geom_density()`, lo que permite visualizar de manera continua la forma de la distribución de la variable analizada. Este tipo de representación facilita la identificación de patrones como asimetrías, concentración de observaciones o la presencia de múltiples modas. Un ejemplo de este tipo de gráfico se presenta en la Figura \@ref(fig:fig-densidades):
 
@@ -1100,8 +1085,7 @@ plot9_Ponde <- ggplot(encuesta, aes(x = Income, weight = wk)) +
   geom_boxplot(aes(fill = Zone)) +
   ggtitle("Ponderado") +
   coord_flip() +
-  scale_fill_manual(values = colorZona) +
-  theme_cepal()
+  scale_fill_manual(values = colorZona)
 
 colorSex <- c(Male = "#5DADE2", Female = "#2874A6")
 
@@ -1109,8 +1093,7 @@ plot11_Ponde <- ggplot(encuesta, aes(x = Income, weight = wk)) +
   geom_boxplot(aes(fill = Sex)) +
   ggtitle("Ponderado") +
   coord_flip() +
-  scale_fill_manual(values = colorSex) +
-  theme_cepal()
+  scale_fill_manual(values = colorSex)
 
 plot9_Ponde | plot11_Ponde
 ```
@@ -1139,8 +1122,7 @@ Según @Lumley2010, cuando se trabaja con conjuntos de datos de gran tamaño, re
 plot20_Ponde <- ggplot(
   data = encuesta,
   aes(y = Income, x = Expenditure)) +
-  geom_point(aes(size = wk), alpha = 0.3) +
-  theme_cepal()
+  geom_point(aes(size = wk), alpha = 0.3)
 plot20_Ponde
 ```
 
@@ -1155,7 +1137,6 @@ plot22_Ponde <- ggplot(
   aes(y = Income, x = Expenditure, shape = Zone)) +
   geom_point(aes(size = wk, color = Zone), alpha = 0.3) +
   labs(size = "Peso") +
-  scale_color_manual(values = colorZona) +
-  theme_cepal()
+  scale_color_manual(values = colorZona)
 plot22_Ponde
 ```
