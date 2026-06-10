@@ -39,7 +39,7 @@ $$
 Este resultado coincide con el valor verdadero de la población y muestra cómo el uso adecuado de los pesos corrige el sesgo introducido por un análisis que ignora el diseño muestral.
 
 
-## Población objetivo y unidades de muestreo 
+## Población objetivo y unidades de muestreo {#poblacion-objetivo-y-unidades-de-muestreo}
 
 @gambino2009sampling menciona que, desde la popularización de las encuestas de hogares en la década de 1940, se han evidenciado diversas tendencias asociadas a los avances tecnológicos tanto en las agencias estadísticas como en la sociedad en general, las cuales se aceleraron con la introducción del computador. En este contexto, el muestreo surge como una respuesta a la necesidad de obtener información estadística precisa sobre una población objetivo sin recurrir a la realización de un censo completo. Como señala @Gutierrez2016, el muestreo consiste en realizar investigaciones parciales sobre una población con el propósito de inferir resultados para el conjunto total.
 
@@ -55,7 +55,7 @@ Otra característica fundamental de las encuestas de hogares es la conglomeraci�
 
 Por ejemplo, supóngase una encuesta que selecciona 100 conglomerados y, dentro de cada uno, 10 hogares, obteniendo así una muestra total de 1.000 hogares. Si los hogares de un mismo conglomerado presentan comportamientos muy parecidos (por ejemplo, si todos cuentan con acceso a electricidad), la variabilidad efectiva de la muestra se reduce considerablemente. En términos prácticos, la precisión obtenida podría ser equivalente a la de una muestra aleatoria simple de apenas 100 hogares. Analizar los 1.000 hogares como si fueran observaciones completamente independientes, ignorando la estructura de conglomeración, conduce a una subestimación de los errores estándar y, en consecuencia, a intervalos de confianza artificialmente estrechos y conclusiones potencialmente erróneas sobre la significancia estadística de los resultados.
 
-##  Estimadores de muestreo
+##  Estimadores de muestreo {#estimadores-de-muestreo}
 
 Al analizar datos de encuestas, también es imprescindible definir el parámetro de interés: un valor numérico fijo que describe una característica de toda la población, denotada como $U$. Entre los parámetros más comunes se encuentran las proporciones, los tamaños, los totales, las medias y las razones, entre otros. Dado que, en la práctica, no es posible observar a toda la población, las encuestas por muestreo permiten inferir estos parámetros a partir de una muestra, denotada como $s$.
 
@@ -140,13 +140,13 @@ En el análisis de encuestas, el efecto del diseño (DEFF) constituye un indicad
 
 La interpretación de un DEFF alto debe hacerse con precaución, ya que no siempre implica que el diseño muestral sea inadecuado. Es fundamental considerar el contexto de la encuesta: un valor superior a tres podría parecer alarmante, pero a menudo se debe a limitaciones prácticas como restricciones presupuestales, dificultades logísticas o la necesidad de garantizar la participación de los entrevistados. En ciertos levantamientos de hogares, puede ser indispensable seleccionar solo una fracción de los individuos elegibles en cada hogar. Además, problemas de cobertura o tasas de no respuesta pueden aumentar la variabilidad de los pesos muestrales y, en consecuencia, elevar los valores del DEFF. @GutierrezBabativa2023 realizan un análisis detallado de los efectos de diseño en encuestas de hogares en América Latina usando los datos de BADEHOG.
 
-## Fundamentos teóricos 
+## Fundamentos teóricos {#fundamentos-teoricos}
 
 Tal como destacan @heeringa2017applied, el cálculo de totales y medias poblacionales, junto con sus varianzas, ha sido esencial para el desarrollo de la teoría del muestreo probabilístico y la interpretación adecuada de los resultados de encuestas de hogares. La determinación de los totales poblacionales constituye uno de los pilares fundamentales del análisis de encuestas. Tanto las medias como las proporciones y las razones se derivan de estos totales. Un total se define como la suma de una variable específica (por ejemplo, ingreso o gasto) a nivel de toda la población. 
 
 Con encuestas de hogares, el análisis de datos numéricoséricos  implica con frecuencia calcular estadísticas descriptivas como medias, totales y razones, ya que estas permiten sintetizar las principales características de la población y sirven de base para la toma de decisiones. Dichas estimaciones pueden calcularse para la población en su conjunto o para subgrupos específicos, según los objetivos de la investigación. 
 
-### Estimación puntual
+### Estimación puntual {#estimacion-puntual}
 
 Una vez definido el objeto del diseño muestral, se procede a realizar los procesos de estimación de los parámetros de interés. Para efectos de este documento, se iniciará con la estimación del total de ingresos de los hogares. Para la estimación de totales en diseños muestrales complejos, se denotará a los estratos con la letra $h$; a las unidades primarias de muestreo, las cuales están contenidas dentro de los estratos, con la letra $i$; mientras que las unidades observadas (hogares o personas), se denotarán con la letra $k$. De esta forma, el estimador del total puede expresarse como:
 
@@ -158,7 +158,7 @@ En donde, $w_{hik}$ corresponde al factor de expansión de la unidad $k$, mientr
 
 En términos de notación y con el propósito de simplificar la escritura a lo largo de este documento, a menos que se indique lo contrario, $\sum_{h}$ denotará la suma sobre todos los estratos de la población; $\sum_{i}$ representará la suma sobre todas las unidades primarias de muestreo seleccionadas en la muestra dentro del estrato $h$; y $\sum_{k}$ corresponderá a la suma sobre todos los elementos observados en la muestra de la UPM $i$, perteneciente al estrato $h$ de la población de interés.
 
-### Estimación de la varianza
+### Estimación de la varianza {#estimacion-de-la-varianza}
 
 Al trabajar con encuestas de hogares es fundamental no solo obtener estimaciones puntuales, sino también cuantificar la incertidumbre asociada a dichas estimaciones. Comprender y estimar esta incertidumbre constituye una parte esencial del análisis de los datos de encuestas de hogares. Mediante la aplicación de métodos apropiados, los usuarios pueden evaluar la precisión de sus estimaciones. Existen diversos métodos para estimar dicha precisión y, con el apoyo de software moderno, estos enfoques pueden implementarse de manera eficiente para respaldar análisis rigurosos y confiables. Entre los principales métodos se encuentran:
 
@@ -193,7 +193,7 @@ $$
 
 Este resultado es particularmente importante porque incluye numerosos casos de interés práctico que se desarrollarán a lo largo de este documento.  
 
-#### Ecuaciones de estimación
+#### Ecuaciones de estimación {#ecuaciones-de-estimacion}
 
 Muchos parámetros poblacionales pueden expresarse como soluciones de ecuaciones de estimación que involucran totales poblacionales. Aunque los detalles técnicos pueden ser complejos, la idea fundamental es que los mismos principios utilizados para estimar totales pueden aplicarse también para la estimación de varianzas. Este marco general hace que el método sea sencillo y flexible, facilitando su implementación en software estadístico especializado. Una ecuación de estimación poblacional genérica puede expresarse de la siguiente manera:
 
@@ -213,7 +213,7 @@ $$
 
 donde $w_k$ son los factores de expansión y $z_k(\theta)$ la función de estimación evaluada para cada unidad de la muestra. Bajo un muestreo probabilístico y asumiendo respuesta completa, la suma muestral $\sum_{k\in s} d_k\, z_k(\theta)$ es insesgada respecto a su análoga poblacional, lo que garantiza que las soluciones de estas ecuaciones sean estimadores consistentes de los parámetros poblacionales.
 
-#### Linealización de Taylor 
+#### Linealización de Taylor {#linealizacion-de-taylor}
 
 Esta técnica permite aproximar la varianza de estimadores no lineales. El procedimiento consiste en aplicar una expansión de Taylor de primer orden alrededor del parámetro estimado, con el fin de reemplazar el estimador no lineal por una expresión lineal. De esta manera, se facilita el cálculo de varianzas en situaciones donde no existen fórmulas exactas o su derivación resulta demasiado compleja. Un estimador consistente de la varianza, derivado mediante linealización de Taylor para soluciones de ecuaciones de estimación muestrales, puede expresarse como:
 
@@ -224,7 +224,7 @@ $$
 donde $\hat{J}(\hat{\theta}) = \sum_{k\in s} w_k \left[ \frac{\partial z_k(\theta)}{\partial \theta} \right]_{\theta=\hat{\theta}}$. Este resultado muestra cómo la linealización de Taylor convierte la estimación de varianzas de parámetros complejos en un problema de estimación de totales, lo que explica su amplia adopción en software especializado para el análisis de encuestas.
 
 
-#### Último conglomerado
+#### Último conglomerado {#ultimo-conglomerado}
 
 El método del último conglomerado constituye un enfoque directo y robusto para estimar la varianza de totales en encuestas que emplean diseños de muestreo por conglomerados estratificados en múltiples etapas. Propuesto por @hansen1953sample, este método simplifica la complejidad de los diseños multinivel al centrarse únicamente en la variación entre las Unidades Primarias de Muestreo (UPM). Se asume que, dentro de cada estrato de muestreo, las UPM fueron seleccionadas de manera independiente con reemplazo (posiblemente con probabilidades desiguales), aunque en la práctica la selección suele realizarse sin reemplazo.
 
@@ -254,7 +254,7 @@ Un supuesto fundamental de esta técnica es que, dentro de cada estrato, las UPM
 
 Este método destaca por su simplicidad y robustez, lo que lo hace muy atractivo en la práctica. Aunque los métodos más sofisticados que consideran todas las etapas del diseño pueden ofrecer estimaciones de varianza ligeramente más precisas, su aplicación requiere información más detallada y mayor complejidad computacional. Por el contrario, el método del último conglomerado proporciona una aproximación confiable y eficiente, especialmente útil al estimar totales o medias en encuestas de hogares. Para un análisis detallado sobre la precisión de esta aproximación y posibles alternativas, véase @sarndal2003model.
 
-#### Bootstrap 
+#### Bootstrap {#bootstrap}
 
 En muchos casos, los microdatos de encuestas públicas omiten información esencial del diseño, como identificadores de estratos o de unidades primarias de muestreo (UPM), para proteger la confidencialidad de los encuestados. Esta omisión limita la capacidad de los usuarios para calcular varianzas válidas. En tales situaciones, se recomienda que las oficinas nacionales de estadística proporcionen pesos de replicación, lo que permite a los analistas estimar errores estándar de manera correcta. Sin estos datos, los usuarios secundarios no pueden reproducir los errores estándar publicados ni considerar adecuadamente el diseño complejo de la encuesta.
 
@@ -285,7 +285,7 @@ Este enfoque asegura que la dispersión entre réplicas capture fielmente la inc
 
 La simplicidad del método facilita su aplicación incluso sin software estadístico especializado. Sin embargo, la mayoría de los paquetes estadísticos modernos ya incluyen procedimientos para aplicar Bootstrap y calcular varianzas, ampliando su disponibilidad y robustez. No obstante, su uso no es recomendable en encuestas repetidas con muestras superpuestas ni en situaciones con fracciones de muestreo grandes y tamaños de muestra pequeños [@bruch2011variance].
 
-## Intervalos de confianza
+## Intervalos de confianza {#intervalos-de-confianza}
 
 Además de producir estimaciones puntuales, uno de los objetivos fundamentales de una encuesta es cuantificar la incertidumbre asociada a dichas estimaciones. En este contexto, los intervalos de confianza permiten construir un rango de valores plausibles para el parámetro poblacional de interés, incorporando explícitamente la variabilidad introducida por el diseño muestral. El intervalo de confianza de nivel $(1-\alpha)100\%$ para el total poblacional $Y$ se calcula como:
 

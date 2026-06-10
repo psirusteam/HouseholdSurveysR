@@ -144,7 +144,7 @@ Aunque esta última especificación ofrece una representación más flexible de 
 
 Los modelos multinivel superan esta dificultad mediante un mecanismo conocido como encogimiento (*shrinkage*), en el cual las estimaciones específicas de cada grupo se obtienen combinando la información propia del grupo con la información proveniente del conjunto de la población. De esta manera, se logra un equilibrio entre la representación de las diferencias entre estratos y la eficiencia estadística de las estimaciones.
 
-## Pesos *q-weighted*
+## Pesos *q-weighted* {#pesos-q-weighted}
 
 En relación con la incorporación de pesos de muestreo en modelos multinivel, aunque existe un consenso general sobre la necesidad de utilizarlos para garantizar inferencias representativas de la población objetivo [@cai2013investigation], no existe una única estrategia metodológica para su implementación. En este contexto, @pfeffermann1998weighting y @asparouhov2006general proponen enfoques basados en pseudo-máxima verosimilitud, en particular mediante procedimientos de mínimos cuadrados generalizados ponderados. Alternativamente, @rabehesketh2006multilevel proponen métodos basados en algoritmos EM para la estimación de modelos jerárquicos con ponderaciones.
 
@@ -188,7 +188,7 @@ encuesta$qk <- encuesta$wk / predict(mod_qw)
 ```
 
 
-## Modelo lineal multinivel 
+## Modelo lineal multinivel {#modelo-lineal-multinivel}
 
 
 Los modelos multinivel más utilizados en la práctica corresponden a extensiones del modelo lineal clásico para datos con estructura jerárquica. En su formulación básica, estos modelos asumen que la variable respuesta es continua y sigue una distribución normal condicional a los efectos fijos y aleatorios incluidos en el modelo. Asimismo, se supone que los efectos aleatorios y los errores residuales son independientes entre sí y se distribuyen normalmente con media cero y varianzas constantes. 
@@ -453,7 +453,7 @@ ggplot(data = encuesta, aes(y = pobreza, x = Expenditure)) +
 
 La curva ajustada resume la asociación marginal entre el gasto y la condición de pobreza, sin incorporar todavía la estructura jerárquica de los estratos. En términos generales, la forma descendente de la curva indica que, a medida que aumenta el gasto del hogar, disminuye la probabilidad estimada de encontrarse en condición de pobreza. Sin embargo, esta relación promedio puede ocultar diferencias relevantes entre estratos, especialmente cuando los hogares pertenecen a contextos socioeconómicos distintos.
 
-### Modelo nulo logístico
+### Modelo nulo logístico {#modelo-nulo-logistico}
 
 Como en el caso de variables continuas, el modelo nulo logístico constituye el punto de partida para estudiar la estructura jerárquica de la variable respuesta. Este modelo no incorpora covariables y permite evaluar si la probabilidad promedio del evento varía entre estratos. En el ejemplo considerado, el evento de interés corresponde a la condición de pobreza, de modo que el modelo permite separar la heterogeneidad atribuible a diferencias entre estratos de la variación individual propia de una respuesta binaria. 
 
@@ -518,7 +518,7 @@ La correlación intraclase asciende a 0.315. Dado que el modelo no incluye covar
 performance::icc(mod_logist_null)
 ```
 
-### Modelo logístico con intercepto aleatorio
+### Modelo logístico con intercepto aleatorio {#modelo-logistico-con-intercepto-aleatorio}
 
 El modelo logístico con intercepto aleatorio incorpora covariables individuales o del hogar, permitiendo que el nivel base del evento varíe entre estratos. Su lógica es paralela a la del modelo con intercepto aleatorio para variables continuas: los efectos de las covariables se consideran comunes a todos los grupos, mientras que cada estrato puede tener su propio intercepto. En este caso, las diferencias entre interceptos se interpretan como diferencias en los log-odds base del evento. 
 
@@ -576,7 +576,7 @@ ggplot(data = dat_pred,
 ```
 
 
-### Modelo logístico con intercepto y pendiente aleatoria
+### Modelo logístico con intercepto y pendiente aleatoria {#modelo-logistico-con-intercepto-y-pendiente-aleatoria}
 
 El modelo logístico con intercepto y pendiente aleatoria extiende la especificación anterior permitiendo que no sólo varíe el nivel base del evento entre estratos, sino también el efecto de una covariable específica. Esta formulación es análoga al modelo de intercepto y pendiente aleatorios para variables continuas, con la salvedad de que las diferencias entre estratos se expresan en la escala logit y se traducen en curvas de probabilidad no lineales.
 

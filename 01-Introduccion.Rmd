@@ -5,7 +5,7 @@ knitr::opts_chunk$set(warning = FALSE,
                       fig.path = "docs/figures/")
 ```
 
-# Resumen {-}
+# Resumen {#resumen .unnumbered}
 
 Las encuestas de hogares son la principal fuente de información cuantitativa para medir indicadores sociales y económicos (pobreza, desigualdad, empleo, educación, entreo muchos otros) en América Latina y en el mundo. A partir de ellas se estiman indicadores que orientan el diseño, la evaluación y el seguimiento de políticas públicas, y también constituyen una fuente principal de información para el monitoreo de los Objetivos de Desarrollo Sostenible en el marco de la Agenda 2030 de las Naciones Unidas. La Comisión Económica para América Latina y el Caribe (CEPAL) gestionan repositorios de microdatos, entre ellos el Banco de Datos de Encuestas de Hogares (BADEHOG), que reúnen, armonizan y documentan encuestas de más de 18 países de la región desde el año 2000, precisamente porque la información que producen estas fuentes es de vital importancia para la toma de decisiones basada en evidencia.
 
@@ -29,7 +29,7 @@ Este documento está dirigido a lectores con formación en estadística o cienci
 
 En este contexto, el documento se posiciona como un texto de nivel intermedio-avanzado, orientado a profundizar y consolidar estos conocimientos, facilitando su aplicación rigurosa en contextos complejos y de alta exigencia técnica. Su propósito es acompañar al investigador en la transición desde los fundamentos hacia su implementación adecuada en la producción de estadísticas oficiales, la investigación académica en ciencias sociales, la evaluación de políticas públicas y el análisis de datos bajo estándares internacionales de calidad.
 
-## Justificación 
+## Justificación {#justificacion}
 
 A pesar de la riqueza metodológica disponible en la literatura especializada, persiste una brecha significativa entre el estado del arte y la práctica cotidiana del análisis de encuestas en la región. Una de las principales manifestaciones de esta brecha se relaciona con el acceso y uso del software estadístico. Algunos textos de referencia ampliamente reconocidos en análisis de encuestas, como @heeringa2017applied, @cochran1977sampling y @sarndal2003model, constituyen fuentes fundamentales desde el punto de vista teórico; sin embargo, están orientados principalmente hacia software con licencia, como `SAS`, `Stata` o `SPSS`, o bien no logran integrarse plenamente con el ecosistema computacional de `R`. En contraste, muchos tutoriales disponibles en línea sobre análisis de encuestas en `R` suelen privilegiar los aspectos operativos del software, pero rara vez alcanzan el nivel de profundidad conceptual necesario para un uso adecuado y responsable en la producción de estadísticas oficiales.
 
@@ -39,7 +39,7 @@ Otro aspecto relevante corresponde a la contextualización regional de los ejemp
 
 Finalmente, este documento constituye en sí mismo un ejercicio de investigación reproducible. Todo su contenido, incluyendo tablas, figuras, ecuaciones y resultados numéricos, es generado íntegramente mediante código en R incorporado directamente en los capítulos. De esta manera, el lector no solo puede estudiar los métodos presentados, sino también replicarlos, modificarlos y adaptarlos a sus propios contextos y bases de datos, fortaleciendo así las capacidades analíticas y la transparencia en la producción estadística.
 
-## Uso del software R para el análisis de encuestas
+## Uso del software R para el análisis de encuestas {#uso-del-software-r-para-el-analisis-de-encuestas}
 
 La elección de R como entorno computacional para este documento no es arbitraria. R reúne al menos tres características que lo convierten en una opción idónea para el análisis de encuestas de hogares en el contexto latinoamericano.
 
@@ -49,7 +49,7 @@ En segundo lugar, destaca su ecosistema especializado. El paquete `survey` [@Lum
 
 Finalmente, R ofrece una sólida integración con herramientas de reproducibilidad científica. En particular, su combinación con R Markdown y el sistema `bookdown` permite generar documentos en los que resultados, tablas y figuras se producen directamente a partir del código fuente. Esta capacidad resulta especialmente relevante en el ámbito de la estadística oficial, donde la trazabilidad y la transparencia metodológica son requisitos fundamentales.
 
-## Estructura del documento
+## Estructura del documento {#estructura-del-documento}
 
 Este documento está organizado siguiendo una progresión lógica que va desde los fundamentos conceptuales del muestreo hasta las aplicaciones más avanzadas de modelamiento estadístico y tratamiento de la no respuesta. Esta secuencia no es arbitraria: cada nivel de conocimiento constituye un requisito necesario para comprender el siguiente, de modo que el lector pueda transitar de los principios básicos hacia herramientas analíticas más sofisticadas de manera coherente.
 

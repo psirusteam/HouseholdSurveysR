@@ -38,7 +38,7 @@ output:
 # bookdown::preview_chapter("01.Rmd", "bookdown::word_document2")
 ---
 
-# Prefacio {-}
+# Prefacio {#prefacio .unnumbered}
 
 
 ```{r results = 'asis', out.width="100px", fig.cap="Licencia de Creative Commons", echo=FALSE}

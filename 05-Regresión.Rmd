@@ -28,7 +28,7 @@ Más adelante, @shah1977inference abordaron el problema de las violaciones a los
 
 En los años siguientes, @skinner1989analysis ampliaron estos aportes mediante estimadores de varianza para los coeficientes de regresión que incorporaban la estratificación y la conglomeración, recomendando explícitamente el uso de métodos de linealización o técnicas alternativas para la estimación de la varianza. Posteriormente, @fuller2002regression realizó un compendio de los métodos de estimación aplicables a modelos de regresión en encuestas complejas, mientras que @pfeffermann2011modelling discutió desarrollos más recientes, como los métodos de ponderación *q-weighted*, mostrando evidencia empírica de su utilidad.
 
-## Formulación del modelo
+## Formulación del modelo {#formulacion-del-modelo}
 
 Los modelos de regresión bajo diseños de muestreo complejos permiten trascender las estadísticas descriptivas y aproximarse a explicaciones causales o predictivas, siempre que se reconozcan y ajusten las particularidades del diseño muestral. Su correcta aplicación abre la posibilidad de examinar cómo las características sociodemográficas y económicas se asocian con distintos resultados de interés, aportando evidencia clave para la formulación de políticas públicas.
 
@@ -62,7 +62,7 @@ Los modelos de regresión lineal se sustentan en una serie de supuestos teórico
 
 La validez de los modelos de regresión lineal depende del cumplimiento de algunos supuestos clásicos ampliamente discutidos en la literatura especializada. En conjunto, estos supuestos permiten que los estimadores obtenidos mediante el modelo posean propiedades estadísticas deseables, tales como insesgamiento, eficiencia y consistencia. 
 
-## Uso de los pesos de muestreo
+## Uso de los pesos de muestreo {#uso-de-los-pesos-de-muestreo}
 
 Cuando se trabaja con datos provenientes de encuestas basadas en diseños muestrales complejos, los supuestos clásicos de los modelos de regresión rara vez se cumplen de manera estricta, puesto que las observaciones no provienen de muestras aleatorias simples e independientes, sino de esquemas de selección que incorporan elementos como estratificación, conglomeración y probabilidades desiguales de selección. Por ejemplo, la presencia de conglomeración puede violar el supuesto de independencia de los errores, ya que individuos pertenecientes a un mismo hogar, segmento o área geográfica tienden a compartir características similares. Del mismo modo, las probabilidades desiguales de selección y los ajustes de ponderación pueden generar heterogeneidad en la varianza de las observaciones, incumpliendo el supuesto de homocedasticidad. 
 
@@ -86,7 +86,7 @@ En cualquier caso, si el modelo se encuentra mal especificado, ignorar las ponde
 
 Es importante destacar que, en ambos métodos, los pesos ajustados se obtienen mediante transformaciones multiplicativas directas de los pesos muestrales originales. Por ello, no deben emplearse para calcular tamaños o totales poblacionales. Asimismo, estos procedimientos no alteran las estimaciones de razones, como medias o proporciones, ya que en tales casos los pesos se cancelan en el cociente. En la práctica, el uso de estos ajustes puede considerarse una solución pragmática en contextos donde no se dispone de software especializado para encuestas. No obstante,  cuando se cuenta con herramientas como los paquetes  `survey` [@Lumley2024] y `srvyr` [@Freedman2024] de R, descritos en los capítulos anteriores, el reescalamiento deja de ser necesario, pues dichos paquetes realizan el tratamiento adecuado para preservar tanto la representatividad como las propiedades inferenciales del modelo. 
 
-## Estimación de los parámetros del modelo
+## Estimación de los parámetros del modelo {#estimacion-de-los-parametros-del-modelo}
 
 En términos del ajuste de modelos de regresión con encuestas de hogares, se han desarrollado metodologías inferenciales avanzadas que integran las fuentes de incertidumbre en un mismo marco analítico, buscando reflejar tanto la estructura del diseño como los supuestos y limitaciones del modelo. Entre las aproximaciones más relevantes se encuentran la pseudo-verosimilitud [@molina1992pseudo] y la inferencia combinada [@binder2011estimating].
 
@@ -199,7 +199,7 @@ La salida anterior corresponde al ajuste de un modelo de regresión lineal en el
 
 Asimismo, se evidencian diferencias sistemáticas asociadas a las características sociodemográficas incluidas en el modelo: residir en zona urbana se asocia con un incremento promedio de 66.65 unidades en el ingreso respecto de la categoría de referencia, mientras que ser hombre se asocia con un aumento de 20.64 unidades en comparación con la categoría base del sexo. El intercepto estimado, igual a 73.58, representa el nivel esperado de ingreso para la categoría de referencia del modelo (zona rural y sexo femenino) cuando el gasto es igual a cero. 
 
-## Diagnóstico del modelo
+## Diagnóstico del modelo {#diagnostico-del-modelo}
 
 En el análisis de encuestas de hogares, la evaluación de un modelo estadístico constituye un aspecto importante que garantiza la validez de las inferencias. La literatura señala que un modelo adecuadamente especificado no depende únicamente de la selección de las covariables, sino también del cumplimiento de los supuestos que sustentan la consistencia y confiabilidad de los resultados [@tellez2015estadistica].
 
@@ -208,7 +208,7 @@ En el caso de los modelos de regresión lineal aplicados a encuestas complejas, 
 Estas verificaciones adquieren particular importancia en el contexto de diseños muestrales complejos, donde características como la estratificación, la conglomeración y el uso de factores de expansión pueden intensificar problemas asociados con la heterocedasticidad, la dependencia entre observaciones o la sensibilidad a valores extremos. Por esta razón, el diagnóstico del modelo no debe limitarse a los supuestos clásicos de la regresión, sino incorporar también las particularidades derivadas del diseño de la encuesta. La aplicación sistemática de estos procedimientos permite evaluar la solidez del modelo, fortalecer la confianza en las inferencias y asegurar que los resultados obtenidos sean representativos y útiles tanto para la investigación social aplicada como para el análisis de políticas públicas.
 
 
-### Coeficiente de determinación
+### Coeficiente de determinación {#coeficiente-de-determinacion}
 
 Una de las medidas más utilizadas para evaluar el ajuste de un modelo de regresión es el coeficiente de determinación, denotado por $R^{2}$ y conocido también como coeficiente de correlación múltiple. Este indicador cuantifica la proporción de la variabilidad de la variable dependiente que es explicada por el modelo. Sus valores oscilan entre cero y uno: cuanto más cercano se encuentre a la unidad, mayor será la capacidad explicativa del modelo; en contraste, valores próximos a cero indican un bajo nivel de explicación de la variabilidad observada. La magnitud del $R^{2}$ no debe evaluarse en términos absolutos, sino considerando el fenómeno estudiado y el tipo de información disponible.
 
@@ -248,7 +248,7 @@ R2
 R2Adj
 ```
 
-### Residuales
+### Residuales {#residuales}
 
 En el diagnóstico de modelos, el análisis de los residuales es una de las herramientas más relevantes. Si el modelo está correctamente especificado, los residuales actúan como una aproximación de los errores no observados y permiten evaluar, de forma indirecta, si los supuestos del modelo se cumplen razonablemente en los datos. Su revisión sistemática permite identificar posibles desviaciones en la especificación, lo que ayuda a determinar si el ajuste es adecuado o si, por el contrario, es necesario reconsiderar la forma funcional del modelo o el método de estimación utilizado.
 
@@ -315,7 +315,7 @@ g3 <- ggplot(data = diseno$variables,
 
 La Figura \@ref(fig:fig-residuales-covariables) presenta los gráficos de dispersión de los residuos estandarizados frente a las covariables del modelo. En conjunto, estos resultados sugieren posibles limitaciones en la especificación funcional. En particular, para `Expenditure` se observa una ligera curvatura en la tendencia de los residuos, lo que podría indicar la presencia de una relación no lineal no completamente capturada por el modelo. Por su parte, en los gráficos asociados a `Zone` y `Sex` se aprecia una dispersión desigual de los residuos entre categorías, lo que sugiere diferencias en la variabilidad condicional o en el ajuste de la media entre grupos.
 
-### Observaciones influyentes
+### Observaciones influyentes {#observaciones-influyentes}
 
 En el análisis diagnóstico, la identificación de observaciones influyentes es una técnica de especial importancia. Estas son unidades muestrales cuyo impacto sobre el ajuste del modelo resulta desproporcionado respecto al resto de la muestra. Conviene subrayar que una observación influyente no necesariamente corresponde a un valor atípico: mientras un atípico puede estar alejado del patrón general de los datos sin afectar sustancialmente el ajuste, una observación influyente puede alterar de manera significativa las estimaciones de los parámetros, incluso si no luce inusual.
 
@@ -432,7 +432,7 @@ ggplot(d_dffits, aes(y = abs(dffits), x = id)) +
     values = c("Si" = "red", "No" = "black"))
 ```
 
-## Inferencia sobre los parámetros del modelo
+## Inferencia sobre los parámetros del modelo {#inferencia-sobre-los-parametros-del-modelo}
 
 Una vez evaluado el ajuste del modelo y verificado el cumplimiento de los supuestos asociados a los errores, el siguiente paso consiste en determinar la significación estadística de los parámetros estimados. Este análisis permite establecer si las covariables incluidas en el modelo aportan información relevante para explicar la variabilidad de la variable respuesta.
 
@@ -480,7 +480,7 @@ resumen %>%
 
 Los resultados del modelo indican que la variable `Expenditure` presenta una asociación estadísticamente significativa con la variable de interés (`Income`). Este efecto resulta altamente significativo desde el punto de vista estadístico ($p < 0.001$), lo que proporciona evidencia sólida de una relación lineal positiva entre ambas variables. Por su parte, las variables categóricas `ZoneUrban` y `SexMale`, su nivel de significación estadística es marginal ($p = 0.096$ y $p = 0.189$, respectivamente), por lo que la evidencia no resulta concluyente al nivel convencional del 5%. 
 
-## Estimación y predicción
+## Estimación y predicción {#estimacion-y-prediccion}
 
 Segun @heeringa2017applied, los modelos de regresión cumplen dos objetivos fundamentales. El primero consiste en explicar la variabilidad de la variable respuesta a partir de las covariables disponibles, propósito que ha sido desarrollado a lo largo de este capítulo. El segundo corresponde a la predicción del valor esperado de la variable de interés para nuevas observaciones, tanto dentro como fuera del dominio muestral. La siguiente expresión representa el valor esperado de la variable respuesta $y_k$ condicionada al vector de covariables observadas $\mathbf{x}_{k}$. En otras palabras, el modelo utiliza la información disponible de las variables explicativas para estimar el valor promedio esperado de la variable de interés para la unidad $i$.
 

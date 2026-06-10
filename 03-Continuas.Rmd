@@ -6,8 +6,8 @@ knitr::opts_chunk$set(warning = FALSE,
                       fig.width = 6,
                       fig.height = 4,
                       out.width = "70%",
-                      fig.path = "docs/figures/")
-
+                      fig.path = "figures/")
+knitr::opts_knit$set(base.dir = "docs")
 options(scipen = 999, digits = 3)
 source("_tabla_helper.R")
 ```
@@ -50,11 +50,11 @@ diseno <- encuesta %>%
 
 En este código, `encuesta` corresponde a la base de datos que contiene la muestra seleccionada. A partir de estos datos, la función `as_survey_design()` convierte la información en un objeto de clase `survey_design`, el cual almacena todos los elementos necesarios para describir el diseño muestral de la encuesta. Entre ellos se incluyen la variable de estratificación (`strata`), que identifica los estratos definidos en el diseño, y la variable especificada en `ids`, que representa las unidades primarias de muestreo (UPM) o conglomerados seleccionados en la primera etapa del muestreo. Asimismo, el argumento `weights` define la variable que contiene los factores de expansión asociados a cada observación. Finalmente, la opción `nest = TRUE` indica que las UPM están anidadas dentro de los estratos, una característica necesaria para representar correctamente la estructura jerárquica del diseño de muestreo.
 
-## Estimación de parámetros descriptivos
+## Estimación de parámetros descriptivos {#estimacion-de-parametros-descriptivos}
 
 En las encuestas de hogares es común estimar parámetros descriptivos asociados a variables numéricas, tales como totales, medias, razones y desviaciones estándar. Estas medidas permiten caracterizar distintos fenómenos sociales y económicos de la población, por ejemplo el ingreso, el gasto, las horas trabajadas o el tamaño de los hogares. En esta sección se presentan la lógica detrás de la sintaxis utilizada para este tipo de estimación, junto con sus correspondientes medidas de precisión.
 
-### Estimación del total
+### Estimación del total {#estimacion-del-total}
 
 En `R`, la función `survey_total()` se utiliza para estimar totales a partir del objeto de diseño. Esta función incorpora automáticamente los factores de expansión y la estructura del diseño, garantizando que las estimaciones reflejen correctamente el modelo de inferencia.
 
@@ -126,7 +126,7 @@ diseno %>%
 
 Como se observa en los códigos anteriores, una forma practica de obtener las estimaciones del total, su error estándar y su intervalo de confianza es mediante el argumento `vartype`, especificando las opciones `"se"` y `"ci"` respectivamente.
 
-### Estimación de la media
+### Estimación de la media {#estimacion-de-la-media}
 
 La estimación de la media poblacional ocupa un lugar central en las encuestas de hogares, ya que muchos de los indicadores utilizados para el análisis socioeconómico corresponden a valores promedio, como el ingreso medio del hogar, el gasto per cápita o las horas promedio trabajadas. Este tipo de parámetros permite resumir el comportamiento general de las variables de interés y describir las tendencias centrales de la población objetivo. De acuerdo con @Gutierrez2016, el estimador de la media poblacional puede expresarse como una razón no lineal entre dos totales poblacionales, los cuales se estiman de la siguiente manera:
 
@@ -246,7 +246,7 @@ diseno %>%
 ```
 
 
-### Estimación de razones
+### Estimación de razones {#estimacion-de-razones}
 
 Un caso particular de funciones no lineales de totales es la razón poblacional, definida como el cociente entre dos totales poblacionales asociados a características de interés. Las razones permiten expresar la relación entre dos variables, lo cual resulta especialmente útil para construir indicadores comparativos y de seguimiento. 
 
@@ -386,10 +386,10 @@ sub_Hombre %>%
 ```
 
 
-## Estimación de parámetros de distribución y desigualdad
+## Estimación de parámetros de distribución y desigualdad {#estimacion-de-parametros-de-distribucion-y-desigualdad}
 
 
-### Estimación de la dispersión
+### Estimación de la dispersión {#estimacion-de-la-dispersion}
 
 En las encuestas de hogares también es fundamental estimar medidas de dispersión de las variables estudiadas, ya que estas permiten evaluar el grado de heterogeneidad existente en la población. Por ejemplo, conocer qué tan dispersos son los ingresos de los hogares resulta clave para analizar desigualdades económicas y orientar el diseño de políticas públicas. Entre las medidas de dispersión más utilizadas se encuentra la desviación estándar, la cual cuantifica qué tan alejados se encuentran los valores observados respecto a su media. A continuación, se presenta el estimador de este parámetro:
 
@@ -446,7 +446,7 @@ diseno %>%
   tabla_fmt()
 ```
 
-### Estimación de percentiles 
+### Estimación de percentiles {#estimacion-de-percentiles}
 
 Las medidas de posición no central, como los percentiles y la mediana, permiten identificar puntos específicos de la distribución de una variable de interés distintos de su valor promedio. En las encuestas de hogares, este tipo de medidas resulta especialmente útil para caracterizar la distribución de variables económicas y sociales, como el ingreso, el gasto o las horas trabajadas. La mediana, por ejemplo, corresponde al valor que divide a la población en dos partes iguales: el 50% de las observaciones se encuentra por debajo de dicho valor y el otro 50% por encima. A diferencia de la media, la mediana es poco sensible a valores extremos, razón por la cual suele considerarse una medida robusta de tendencia central.
 
@@ -561,7 +561,7 @@ diseno %>%
   tabla_fmt()
 ```
 
-### Estimación del coeficiente de Gini
+### Estimación del coeficiente de Gini {#estimacion-del-coeficiente-de-gini}
 
 El tema sobre desigualdad económica trasciende el ámbito estrictamente estadístico y constituye uno de los temas centrales del análisis social contemporáneo. Existe un amplio consenso respecto a la importancia de comprender cómo las desigualdades económicas condicionan las oportunidades, el bienestar y la calidad de vida de las personas. En este sentido, la medición rigurosa de la desigualdad representa un insumo fundamental para el diseño, seguimiento y evaluación de políticas públicas orientadas a la equidad social.
 
@@ -618,7 +618,7 @@ clorenz <- svylorenz(formula = ~Income,
 
 El argumento `formula = ~Income` especifica la variable de ingreso sobre la cual se calculará la distribución acumulada. El argumento `design = diseno_gini` indica el objeto de diseño muestral previamente definido, el cual contiene la información relacionada con pesos, estratos y conglomerados de la encuesta. Por su parte, `quantiles = seq(0,1,.05)` define los puntos de la distribución en los cuales se evaluará la curva de Lorenz, generando percentiles desde 0 hasta 1 en incrementos de 0.05. Finalmente, el argumento `alpha = .01` establece un nivel de significación del 1%, lo que equivale a construir intervalos de confianza del 99% para las estimaciones asociadas a la curva.
 
-### Estimación de la correlación
+### Estimación de la correlación {#estimacion-de-la-correlacion}
 
 En el estudio de encuestas de hogares, además de describir variables de forma individual, resulta fundamental analizar cómo se relacionan entre sí. Una de las herramientas más utilizadas para este propósito es el coeficiente de correlación de Pearson, el cual mide la fuerza y la dirección de la relación lineal entre dos variables numéricas. Este coeficiente toma valores entre –1 y 1. Un valor positivo indica que ambas variables tienden a aumentar simultáneamente, mientras que un valor negativo señala que cuando una variable aumenta, la otra tiende a disminuir. Por su parte, valores cercanos a cero sugieren la ausencia de una relación lineal fuerte entre las variables analizadas.
 
@@ -664,7 +664,7 @@ library(jtools)
 svycor(~Income + Expenditure, design = diseno) 
 ```
 
-## Pruebas de hipótesis
+## Pruebas de hipótesis {#pruebas-de-hipotesis}
 
 En el análisis de datos provenientes de encuestas de hogares no basta con estudiar cada variable de manera aislada, como estimar el ingreso medio de hombres y mujeres en un país. También es fundamental comparar grupos y evaluar si las diferencias observadas entre ellos reflejan desigualdades reales en la población o si podrían explicarse simplemente por el error de muestreo. Por ejemplo, una pregunta frecuente consiste en determinar si existen diferencias estadísticamente significativas en el ingreso medio entre hogares dirigidos por hombres y hogares dirigidos por mujeres. Este tipo de análisis permite identificar brechas sociales y económicas, además de generar evidencia útil para el diseño y evaluación de políticas públicas.
 
@@ -773,7 +773,7 @@ df_res %>%
 
 El procedimiento descrito no se limita a las medias, sino que también puede aplicarse a proporciones, totales, razones o cualquier función diferenciable de totales. En todos los casos, el contraste se fundamenta en la estimación puntual, su varianza (incluyendo covarianzas cuando corresponde) y la comparación con la distribución $t$ ajustada al diseño muestral.
 
-## Estimación de contrastes
+## Estimación de contrastes {#estimacion-de-contrastes}
 
 En el análisis de encuestas de hogares es frecuente que el interés no se limite a comparar únicamente dos poblaciones, sino varias de manera simultánea. Por ejemplo, puede ser necesario comparar los ingresos medios de los hogares entre distintas regiones, áreas geográficas o grupos poblacionales, con el propósito de identificar diferencias y establecer patrones de desigualdad entre ellos. En este tipo de situaciones, las pruebas de diferencia de medias presentadas anteriormente resultan limitadas, ya que están diseñadas para comparar únicamente pares de poblaciones.
 
@@ -1030,7 +1030,7 @@ library(patchwork)
 data(BigCity, package = "TeachingSampling")
 ```
 
-### Histogramas
+### Histogramas {#histogramas}
 
 Un histograma es una representación gráfica de la distribución de una variable numérica continua, construida a partir de rectángulos cuya altura es proporcional a la frecuencia de observaciones dentro de determinados intervalos de clase. En el contexto de encuestas de hogares, los histogramas ponderados permiten aproximar la distribución de la variable en la población, incorporando los factores de expansión asociados al diseño muestral.
 
@@ -1074,7 +1074,7 @@ plot1_Ponde + geom_density(fill = "blue", alpha = 0.3) |
   theme(legend.position = "top")
 ```
 
-### Diagramas de caja (*boxplots*)
+### Diagramas de caja (*boxplots*) {#diagramas-de-caja-boxplots}
 
 Los diagramas de caja (*boxplots*) permiten identificar valores atípicos y evaluar la dispersión de la distribución. Introducido por John Tukey en 1977 son una representación gráfica que resume la distribución de una variable mediante estadísticas basadas en cuartiles, permitiendo identificar la mediana, la dispersión de los datos y la presencia de valores atípicos. En el contexto de encuestas de hogares, este tipo de gráfico resulta útil para comparar distribuciones entre distintos grupos poblacionales de manera compacta y visualmente intuitiva. 
 
@@ -1112,7 +1112,7 @@ svyboxplot(Income ~ Zone, diseno,
   ylab = "Ingreso", xlab = "Zona")
 ```
 
-### Diagramas de dispersión
+### Diagramas de dispersión {#diagramas-de-dispersion}
 
 Los diagramas de dispersión permiten explorar visualmente la relación entre dos variables continuas, facilitando la identificación de patrones de asociación, tendencias y posibles valores atípicos. En el contexto de encuestas con diseños muestrales complejos, resulta importante incorporar la información de los pesos de muestreo para que la representación gráfica refleje adecuadamente la contribución relativa de cada observación en la población. 
 

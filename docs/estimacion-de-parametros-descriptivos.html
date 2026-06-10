@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.1 Estimación de parámetros descriptivos | Análisis de encuestas de hogares con R</title>
+  <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.1 Estimación de parámetros descriptivos | Análisis de encuestas de hogares con R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="github-repo" content="psirusteam/LibroEncuestasR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.1 Estimación de parámetros descriptivos | Análisis de encuestas de hogares con R" />
+  
+  <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  
+
+<meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
+
+
+<meta name="date" content="2026-06-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="cap3.html"/>
+<link rel="next" href="estimacion-de-parametros-de-distribucion-y-desigualdad.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis de encuestas de hogares con R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
+<li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="1" data-path="cap1.html"><a href="cap1.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="justificacion.html"><a href="justificacion.html"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
+<li class="chapter" data-level="1.2" data-path="uso-del-software-r-para-el-analisis-de-encuestas.html"><a href="uso-del-software-r-para-el-analisis-de-encuestas.html"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
+<li class="chapter" data-level="1.3" data-path="estructura-del-documento.html"><a href="estructura-del-documento.html"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="cap2.html"><a href="cap2.html"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="poblacion-objetivo-y-unidades-de-muestreo.html"><a href="poblacion-objetivo-y-unidades-de-muestreo.html"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
+<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
+<li class="chapter" data-level="2.3" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
+<li class="chapter" data-level="2.3.2" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cap3.html"><a href="cap3.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
+<li class="chapter" data-level="3.1.2" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
+<li class="chapter" data-level="3.1.3" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-dispersion"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
+<li class="chapter" data-level="3.2.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
+<li class="chapter" data-level="3.2.3" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
+<li class="chapter" data-level="3.2.4" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-correlacion"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="pruebas-de-hipotesis.html"><a href="pruebas-de-hipotesis.html"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
+<li class="chapter" data-level="3.4" data-path="estimacion-de-contrastes.html"><a href="estimacion-de-contrastes.html"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
+<li class="chapter" data-level="3.5" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.5.3" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-dispersion"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="estimacion-del-tamano-poblacional.html"><a href="estimacion-del-tamano-poblacional.html"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
+<li class="chapter" data-level="4.2" data-path="estimacion-de-proporciones.html"><a href="estimacion-de-proporciones.html"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
+<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
+<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
+<li class="chapter" data-level="4.5" data-path="la-razon-de-odds.html"><a href="la-razon-de-odds.html"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
+<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi.html"><a href="prueba-de-independencia-chi.html"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="viz-categoricas.html"><a href="viz-categoricas.html#graficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
+<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cap5.html"><a href="cap5.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="formulacion-del-modelo.html"><a href="formulacion-del-modelo.html"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
+<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
+<li class="chapter" data-level="5.3" data-path="estimacion-de-los-parametros-del-modelo.html"><a href="estimacion-de-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.4" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#coeficiente-de-determinacion"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="5.4.2" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#residuales"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
+<li class="chapter" data-level="5.4.3" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="inferencia-sobre-los-parametros-del-modelo.html"><a href="inferencia-sobre-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
+<li class="chapter" data-level="5.6" data-path="estimacion-y-prediccion.html"><a href="estimacion-y-prediccion.html"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
+<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cap7.html"><a href="cap7.html"><i class="fa fa-check"></i><b>7</b> Modelos multinivel</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="sec-motivacionMult.html"><a href="sec-motivacionMult.html"><i class="fa fa-check"></i><b>7.1</b> Motivación</a></li>
+<li class="chapter" data-level="7.2" data-path="pesos-q-weighted.html"><a href="pesos-q-weighted.html"><i class="fa fa-check"></i><b>7.2</b> Pesos <em>q-weighted</em></a></li>
+<li class="chapter" data-level="7.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html"><i class="fa fa-check"></i><b>7.3</b> Modelo lineal multinivel</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Modelo nulo</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Modelo con intercepto aleatorio</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Modelo con intercepto y pendiente aleatoria</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html"><i class="fa fa-check"></i><b>7.4</b> Modelo logístico multinivel</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-nulo-logistico"><i class="fa fa-check"></i><b>7.4.1</b> Modelo nulo logístico</a></li>
+<li class="chapter" data-level="7.4.2" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Modelo logístico con intercepto aleatorio</a></li>
+<li class="chapter" data-level="7.4.3" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Modelo logístico con intercepto y pendiente aleatoria</a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>Anexos</b></span></li>
+<li class="chapter" data-level="A" data-path="ap1.html"><a href="ap1.html"><i class="fa fa-check"></i><b>A</b> Manejo de bases de datos con <code>R</code></a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="preparacion-del-entorno-de-trabajo.html"><a href="preparacion-del-entorno-de-trabajo.html"><i class="fa fa-check"></i><b>A.1</b> Preparación del entorno de trabajo</a></li>
+<li class="chapter" data-level="A.2" data-path="carga-e-inspeccion-inicial-de-la-base.html"><a href="carga-e-inspeccion-inicial-de-la-base.html"><i class="fa fa-check"></i><b>A.2</b> Carga e inspección inicial de la base</a></li>
+<li class="chapter" data-level="A.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html"><i class="fa fa-check"></i><b>A.3</b> Encadenamiento de operaciones</a>
+<ul>
+<li class="chapter" data-level="A.3.1" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#filter-seleccion-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selección de registros</a></li>
+<li class="chapter" data-level="A.3.2" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: seleccionar variables</a></li>
+<li class="chapter" data-level="A.3.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: ordenamiento de filas</a></li>
+<li class="chapter" data-level="A.3.4" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#mutate-creacion-o-transformacion-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creación o transformación de variables</a></li>
+<li class="chapter" data-level="A.3.5" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#summarise-resumenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: resúmenes descriptivos</a></li>
+<li class="chapter" data-level="A.3.6" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#group-by-agrupacion-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: agrupación de casos</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Inferencia en poblaciones finitas</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="dos-posibles-inferencias.html"><a href="dos-posibles-inferencias.html"><i class="fa fa-check"></i><b>B.1</b> Dos posibles inferencias</a></li>
+<li class="chapter" data-level="B.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html"><i class="fa fa-check"></i><b>B.2</b> La integración de ambas inferencias</a>
+<ul>
+<li class="chapter" data-level="B.2.1" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mv"><i class="fa fa-check"></i><b>B.2.1</b> Método de la máxima verosimilitud</a></li>
+<li class="chapter" data-level="B.2.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Método de máxima pseudo-verosimilitud</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a Análisis de encuestas de hogares con R</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis de encuestas de hogares con R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="estimacion-de-parametros-descriptivos" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Estimación de parámetros descriptivos<a href="estimacion-de-parametros-descriptivos.html#estimacion-de-parametros-descriptivos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En las encuestas de hogares es común estimar parámetros descriptivos asociados a variables numéricas, tales como totales, medias, razones y desviaciones estándar. Estas medidas permiten caracterizar distintos fenómenos sociales y económicos de la población, por ejemplo el ingreso, el gasto, las horas trabajadas o el tamaño de los hogares. En esta sección se presentan la lógica detrás de la sintaxis utilizada para este tipo de estimación, junto con sus correspondientes medidas de precisión.</p>
+<div id="estimacion-del-total" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Estimación del total<a href="estimacion-de-parametros-descriptivos.html#estimacion-del-total" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En <code>R</code>, la función <code>survey_total()</code> se utiliza para estimar totales a partir del objeto de diseño. Esta función incorpora automáticamente los factores de expansión y la estructura del diseño, garantizando que las estimaciones reflejen correctamente el modelo de inferencia.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="estimacion-de-parametros-descriptivos.html#cb3-1" tabindex="-1"></a><span class="fu">survey_total</span>(</span>
+<span id="cb3-2"><a href="estimacion-de-parametros-descriptivos.html#cb3-2" tabindex="-1"></a>  x,</span>
+<span id="cb3-3"><a href="estimacion-de-parametros-descriptivos.html#cb3-3" tabindex="-1"></a>  <span class="at">na.rm =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb3-4"><a href="estimacion-de-parametros-descriptivos.html#cb3-4" tabindex="-1"></a>  <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>, <span class="st">&quot;var&quot;</span>, <span class="st">&quot;cv&quot;</span>),</span>
+<span id="cb3-5"><a href="estimacion-de-parametros-descriptivos.html#cb3-5" tabindex="-1"></a>  <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb3-6"><a href="estimacion-de-parametros-descriptivos.html#cb3-6" tabindex="-1"></a>  <span class="at">deff =</span> <span class="cn">FALSE</span></span>
+<span id="cb3-7"><a href="estimacion-de-parametros-descriptivos.html#cb3-7" tabindex="-1"></a>)</span></code></pre></div>
+<p>Los argumentos principales de la función <code>survey_total()</code> son <code>x</code>, <code>na.rm</code>, <code>vartype</code>, <code>level</code> y <code>deff</code>. El argumento <code>x</code> corresponde a la variable sobre la cual se desea calcular el total; también puede dejarse vacío cuando se busca obtener únicamente el total ponderado de casos de la muestra. Por su parte, <code>na.rm</code> indica si los valores faltantes (<code>NA</code>) deben eliminarse antes de realizar el cálculo, siendo <code>FALSE</code> el valor predeterminado.</p>
+<p>El argumento <code>vartype</code> permite especificar el tipo de medida de incertidumbre que se desea estimar, pudiendo solicitarse uno o varios resultados simultáneamente, tales como el error estándar (<code>"se"</code>), el intervalo de confianza (<code>"ci"</code>), la varianza (<code>"var"</code>) o el coeficiente de variación (<code>"cv"</code>). Asimismo, <code>level</code> define el nivel de confianza utilizado para el cálculo de los intervalos de confianza, cuyo valor por defecto es 0.95. Por otro lado, el intervalo de confianza puede obtenerse directamente al incluir el argumento <code>vartype = "ci"</code> dentro de <code>survey_total()</code>, o bien utilizando la función <code>confint()</code> sobre el objeto resultante, especificando el nivel de confianza requerido. Finalmente, <code>deff</code> es un valor lógico que indica si se debe retornar el efecto del diseño (DEFF).</p>
+<p>El siguiente ejemplo presenta cómo estimar totales y sus intervalos de confianza para diferentes variables de interés en <code>R</code>, utilizando la función <code>survey_total()</code>, y presentada en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-total-ingreso">3.1</a>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="estimacion-de-parametros-descriptivos.html#cb4-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="estimacion-de-parametros-descriptivos.html#cb4-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ty =</span> <span class="fu">survey_total</span>(Income, <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>), <span class="at">deff =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-total-ingreso">Cuadro 3.1: </span>Estimación del total de ingresos de los hogares con intervalo de confianza al 95%</caption>
+<thead>
+<tr class="header">
+<th align="left">ty</th>
+<th align="center">ty_se</th>
+<th align="center">ty_low</th>
+<th align="center">ty_upp</th>
+<th align="center">ty_deff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">85793667</td>
+<td align="center">4778674</td>
+<td align="center">76331414</td>
+<td align="center">95255920</td>
+<td align="center">11</td>
+</tr>
+</tbody>
+</table>
+<p>De la tabla, se obtiene que la estimación del total poblacional para el ingreso total es de 85.793.667. Este valor corresponde al estimador puntual obtenido a partir de la encuesta, incorporando los factores de expansión y las características del diseño muestral. El error estándar asociado a esta estimación es de 4.778.674, lo que refleja la variabilidad muestral del estimador. A partir de este valor se construye un intervalo de confianza del 95%, cuyos límites inferior y superior son 76.331.414 y 95.255.920, respectivamente. El efecto de diseño (<code>deff</code>) es igual a 11, lo cual sugiere una pérdida importante de precisión asociada principalmente a las características del diseño complejo. En consecuencia, aunque el tamaño muestral nominal pueda ser grande, el tamaño muestral efectivo resultaría considerablemente menor debido a la correlación entre observaciones dentro de los conglomerados.</p>
+<p>Para continuar ilustrando el uso de la función <code>survey_total()</code> dentro del enfoque de <code>srvyr</code>, estimemos el total de gastos de los hogares, pero ahora calculando el intervalo de confianza al 90%. El siguiente código realiza esta estimación, presentada en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-total-gasto">3.2</a>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="estimacion-de-parametros-descriptivos.html#cb5-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="estimacion-de-parametros-descriptivos.html#cb5-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ty =</span> <span class="fu">survey_total</span>(Expenditure, </span>
+<span id="cb5-3"><a href="estimacion-de-parametros-descriptivos.html#cb5-3" tabindex="-1"></a>                              <span class="at">vartype =</span> <span class="st">&quot;ci&quot;</span>, <span class="at">level =</span> <span class="fl">0.9</span>, </span>
+<span id="cb5-4"><a href="estimacion-de-parametros-descriptivos.html#cb5-4" tabindex="-1"></a>                              <span class="at">deff =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-total-gasto">Cuadro 3.2: </span>Estimación del total de gastos de los hogares con intervalo de confianza al 90%</caption>
+<thead>
+<tr class="header">
+<th align="left">ty</th>
+<th align="center">ty_low</th>
+<th align="center">ty_upp</th>
+<th align="center">ty_deff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">55677504</td>
+<td align="center">51360469</td>
+<td align="center">59994539</td>
+<td align="center">10.2</td>
+</tr>
+</tbody>
+</table>
+<p>Si el objetivo es estimar el total de ingresos de los hogares, pero desagregado por sexo, se puede utilizar la función <code>group_by()</code> para agrupar por la variable de interés, junto con <code>cascade()</code> de la librería <code>srvyr</code>, que permite agregar una fila con el total general al final de la tabla. De esta manera, se pueden obtener fácilmente los totales por categoría y el total global dentro del mismo marco de resumen, como se muestra en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-total-ingreso-sexo">3.3</a>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="estimacion-de-parametros-descriptivos.html#cb6-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="estimacion-de-parametros-descriptivos.html#cb6-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="estimacion-de-parametros-descriptivos.html#cb6-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">Total =</span> <span class="fu">survey_total</span>(Income, </span>
+<span id="cb6-4"><a href="estimacion-de-parametros-descriptivos.html#cb6-4" tabindex="-1"></a>                               <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>),</span>
+<span id="cb6-5"><a href="estimacion-de-parametros-descriptivos.html#cb6-5" tabindex="-1"></a>                               <span class="at">level =</span> <span class="fl">0.95</span>),</span>
+<span id="cb6-6"><a href="estimacion-de-parametros-descriptivos.html#cb6-6" tabindex="-1"></a>          <span class="at">.fill =</span> <span class="st">&quot;Total ingreso&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-total-ingreso-sexo">Cuadro 3.3: </span>Total de ingresos de los hogares desagregado por sexo</caption>
+<thead>
+<tr class="header">
+<th align="left">Sex</th>
+<th align="center">Total</th>
+<th align="center">Total_se</th>
+<th align="center">Total_low</th>
+<th align="center">Total_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Female</td>
+<td align="center">44153820</td>
+<td align="center">2324452</td>
+<td align="center">39551172</td>
+<td align="center">48756467</td>
+</tr>
+<tr class="even">
+<td align="left">Male</td>
+<td align="center">41639847</td>
+<td align="center">2870194</td>
+<td align="center">35956576</td>
+<td align="center">47323118</td>
+</tr>
+<tr class="odd">
+<td align="left">Total ingreso</td>
+<td align="center">85793667</td>
+<td align="center">4778674</td>
+<td align="center">76331414</td>
+<td align="center">95255920</td>
+</tr>
+</tbody>
+</table>
+<p>Como se observa en los códigos anteriores, una forma practica de obtener las estimaciones del total, su error estándar y su intervalo de confianza es mediante el argumento <code>vartype</code>, especificando las opciones <code>"se"</code> y <code>"ci"</code> respectivamente.</p>
+</div>
+<div id="estimacion-de-la-media" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Estimación de la media<a href="estimacion-de-parametros-descriptivos.html#estimacion-de-la-media" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La estimación de la media poblacional ocupa un lugar central en las encuestas de hogares, ya que muchos de los indicadores utilizados para el análisis socioeconómico corresponden a valores promedio, como el ingreso medio del hogar, el gasto per cápita o las horas promedio trabajadas. Este tipo de parámetros permite resumir el comportamiento general de las variables de interés y describir las tendencias centrales de la población objetivo. De acuerdo con <span class="citation">Gutiérrez (<a href="#ref-Gutierrez2016">2016</a>)</span>, el estimador de la media poblacional puede expresarse como una razón no lineal entre dos totales poblacionales, los cuales se estiman de la siguiente manera:</p>
+<p><span class="math display">\[
+\hat{\bar{y}}=  \frac{\hat{t}_y}{\hat{N}}  =  \frac{\sum_{h}\sum_{i}\sum_{k} w_{h i k} \ y_{hik}}{\sum_{h}\sum_{i}\sum_{k} w_{h i k}}
+\]</span></p>
+<p>Como <span class="math inline">\(\hat{\bar{y}}\)</span> no es una estadística lineal, no existe una fórmula cerrada para la varianza de este estimador. Por esta razón, es necesario recurrir a métodos de remuestreo o a la linealización de Taylor para aproximar su varianza. En este caso particular, utilizando series de Taylor, la varianza se define como:</p>
+<p><span class="math display">\[
+\widehat{Var}\left(\hat{\bar{y}}\right)  \approx  \frac{\widehat{Var}\left(\hat{t}_y\right)+\hat{\bar{y}}^{2}\ \widehat{Var}\left(\hat{N}\right)-2\ \hat{\bar{y}} \  \widehat{Cov}\left(\hat{t}_y,\hat{N}\right)}{\hat{N}^{2}}
+\]</span></p>
+<p>Como se puede observar, el cálculo de la varianza de la media poblacional implica componentes analíticos complejos, como la covarianza entre el total estimado y el tamaño poblacional estimado. Sin embargo, el paquete <code>srvyr</code> en <code>R</code> facilita estos cálculos al incorporar funciones que estiman directamente la media, su error estándar, el intervalo de confianza y el efecto del diseño. A continuación, se presenta la sintaxis para estimar la media de los ingresos de los hogares, junto con su intervalo de confianza al 95%, presentada en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-media-ingreso">3.4</a>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="estimacion-de-parametros-descriptivos.html#cb7-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="estimacion-de-parametros-descriptivos.html#cb7-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media_ing =</span> <span class="fu">survey_mean</span>(Income,</span>
+<span id="cb7-3"><a href="estimacion-de-parametros-descriptivos.html#cb7-3" tabindex="-1"></a>                                <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>),</span>
+<span id="cb7-4"><a href="estimacion-de-parametros-descriptivos.html#cb7-4" tabindex="-1"></a>                                <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb7-5"><a href="estimacion-de-parametros-descriptivos.html#cb7-5" tabindex="-1"></a>                                <span class="at">deff =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-media-ingreso">Cuadro 3.4: </span>Estimación de la media de ingresos de los hogares</caption>
+<colgroup>
+<col width="14%" />
+<col width="20%" />
+<col width="21%" />
+<col width="21%" />
+<col width="22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">media_ing</th>
+<th align="center">media_ing_se</th>
+<th align="center">media_ing_low</th>
+<th align="center">media_ing_upp</th>
+<th align="center">media_ing_deff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">571</td>
+<td align="center">28.5</td>
+<td align="center">515</td>
+<td align="center">627</td>
+<td align="center">8.82</td>
+</tr>
+</tbody>
+</table>
+<p>Como se aprecia, los argumentos utilizados en la función <code>survey_mean()</code> son similares a los de <code>survey_total()</code>. En este caso, <code>vartype</code> permite obtener el error estándar (<code>"se"</code>) y el intervalo de confianza (<code>"ci"</code>), mientras que el argumento <code>deff = TRUE</code> solicita el cálculo del efecto del diseño. De forma análoga, es posible estimar la media de los gastos de los hogares, empleando la misma estructura de código, presentada en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-media-gasto">3.5</a>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="estimacion-de-parametros-descriptivos.html#cb8-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="estimacion-de-parametros-descriptivos.html#cb8-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media_gastos =</span> <span class="fu">survey_mean</span>(Expenditure,</span>
+<span id="cb8-3"><a href="estimacion-de-parametros-descriptivos.html#cb8-3" tabindex="-1"></a>                                    <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>),</span>
+<span id="cb8-4"><a href="estimacion-de-parametros-descriptivos.html#cb8-4" tabindex="-1"></a>                                    <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb8-5"><a href="estimacion-de-parametros-descriptivos.html#cb8-5" tabindex="-1"></a>                                    <span class="at">deff =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-media-gasto">Cuadro 3.5: </span>Estimación de la media de gastos de los hogares</caption>
+<colgroup>
+<col width="15%" />
+<col width="20%" />
+<col width="21%" />
+<col width="21%" />
+<col width="22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">media_gastos</th>
+<th align="center">media_gastos_se</th>
+<th align="center">media_gastos_low</th>
+<th align="center">media_gastos_upp</th>
+<th align="center">media_gastos_deff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">371</td>
+<td align="center">13.3</td>
+<td align="center">344</td>
+<td align="center">397</td>
+<td align="center">6.02</td>
+</tr>
+</tbody>
+</table>
+<p>También se pueden realizar estimaciones de la media por subgrupos siguiendo el mismo esquema mostrado previamente. Particularmente, los gastos de los hogares discriminados por sexo se presentan en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-media-gasto-sexo">3.6</a>:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="estimacion-de-parametros-descriptivos.html#cb9-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="estimacion-de-parametros-descriptivos.html#cb9-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="estimacion-de-parametros-descriptivos.html#cb9-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">Media =</span> <span class="fu">survey_mean</span>(Expenditure, </span>
+<span id="cb9-4"><a href="estimacion-de-parametros-descriptivos.html#cb9-4" tabindex="-1"></a>                              <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb9-5"><a href="estimacion-de-parametros-descriptivos.html#cb9-5" tabindex="-1"></a>                              <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
+<span id="cb9-6"><a href="estimacion-de-parametros-descriptivos.html#cb9-6" tabindex="-1"></a>        <span class="at">.fill =</span> <span class="st">&quot;El gasto medio&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-7"><a href="estimacion-de-parametros-descriptivos.html#cb9-7" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Sex))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-media-gasto-sexo">Cuadro 3.6: </span>Media de gastos de los hogares desagregada por sexo</caption>
+<thead>
+<tr class="header">
+<th align="left">Sex</th>
+<th align="center">Media</th>
+<th align="center">Media_se</th>
+<th align="center">Media_low</th>
+<th align="center">Media_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Male</td>
+<td align="center">374</td>
+<td align="center">16.1</td>
+<td align="center">343</td>
+<td align="center">406</td>
+</tr>
+<tr class="even">
+<td align="left">Female</td>
+<td align="center">367</td>
+<td align="center">12.3</td>
+<td align="center">343</td>
+<td align="center">391</td>
+</tr>
+<tr class="odd">
+<td align="left">El gasto medio</td>
+<td align="center">371</td>
+<td align="center">13.3</td>
+<td align="center">344</td>
+<td align="center">397</td>
+</tr>
+</tbody>
+</table>
+<p>De manera análoga, se pueden calcular las medias del gasto por zona, las cuales son presentadas en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-media-gasto-zona">3.7</a>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="estimacion-de-parametros-descriptivos.html#cb10-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="estimacion-de-parametros-descriptivos.html#cb10-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="estimacion-de-parametros-descriptivos.html#cb10-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">Media =</span> <span class="fu">survey_mean</span>(Expenditure, </span>
+<span id="cb10-4"><a href="estimacion-de-parametros-descriptivos.html#cb10-4" tabindex="-1"></a>                              <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb10-5"><a href="estimacion-de-parametros-descriptivos.html#cb10-5" tabindex="-1"></a>                              <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
+<span id="cb10-6"><a href="estimacion-de-parametros-descriptivos.html#cb10-6" tabindex="-1"></a>        <span class="at">.fill =</span> <span class="st">&quot;El gasto medio&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-7"><a href="estimacion-de-parametros-descriptivos.html#cb10-7" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Zone))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-media-gasto-zona">Cuadro 3.7: </span>Media de gastos de los hogares desagregada por zona</caption>
+<thead>
+<tr class="header">
+<th align="left">Zone</th>
+<th align="center">Media</th>
+<th align="center">Media_se</th>
+<th align="center">Media_low</th>
+<th align="center">Media_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Urban</td>
+<td align="center">460</td>
+<td align="center">22.2</td>
+<td align="center">416</td>
+<td align="center">504</td>
+</tr>
+<tr class="even">
+<td align="left">Rural</td>
+<td align="center">274</td>
+<td align="center">10.3</td>
+<td align="center">254</td>
+<td align="center">294</td>
+</tr>
+<tr class="odd">
+<td align="left">El gasto medio</td>
+<td align="center">371</td>
+<td align="center">13.3</td>
+<td align="center">344</td>
+<td align="center">397</td>
+</tr>
+</tbody>
+</table>
+<p>Asimismo, es posible realizar una estimación combinada por sexo y zona, presentada en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-media-gasto-zona-sexo">3.8</a>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="estimacion-de-parametros-descriptivos.html#cb11-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="estimacion-de-parametros-descriptivos.html#cb11-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone, Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="estimacion-de-parametros-descriptivos.html#cb11-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">Media =</span> <span class="fu">survey_mean</span>(Expenditure, </span>
+<span id="cb11-4"><a href="estimacion-de-parametros-descriptivos.html#cb11-4" tabindex="-1"></a>                              <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb11-5"><a href="estimacion-de-parametros-descriptivos.html#cb11-5" tabindex="-1"></a>                              <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
+<span id="cb11-6"><a href="estimacion-de-parametros-descriptivos.html#cb11-6" tabindex="-1"></a>        <span class="at">.fill =</span> <span class="st">&quot;El gasto medio&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-7"><a href="estimacion-de-parametros-descriptivos.html#cb11-7" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Zone), <span class="fu">desc</span>(Sex))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-media-gasto-zona-sexo">Cuadro 3.8: </span>Media de gastos de los hogares desagregada por zona y sexo</caption>
+<colgroup>
+<col width="21%" />
+<col width="22%" />
+<col width="10%" />
+<col width="14%" />
+<col width="15%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Zone</th>
+<th align="center">Sex</th>
+<th align="center">Media</th>
+<th align="center">Media_se</th>
+<th align="center">Media_low</th>
+<th align="center">Media_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Urban</td>
+<td align="center">Male</td>
+<td align="center">470</td>
+<td align="center">27.0</td>
+<td align="center">416</td>
+<td align="center">523</td>
+</tr>
+<tr class="even">
+<td align="left">Urban</td>
+<td align="center">Female</td>
+<td align="center">451</td>
+<td align="center">20.1</td>
+<td align="center">411</td>
+<td align="center">491</td>
+</tr>
+<tr class="odd">
+<td align="left">Urban</td>
+<td align="center">El gasto medio</td>
+<td align="center">460</td>
+<td align="center">22.2</td>
+<td align="center">416</td>
+<td align="center">504</td>
+</tr>
+<tr class="even">
+<td align="left">Rural</td>
+<td align="center">Male</td>
+<td align="center">275</td>
+<td align="center">10.2</td>
+<td align="center">255</td>
+<td align="center">296</td>
+</tr>
+<tr class="odd">
+<td align="left">Rural</td>
+<td align="center">Female</td>
+<td align="center">273</td>
+<td align="center">11.6</td>
+<td align="center">250</td>
+<td align="center">296</td>
+</tr>
+<tr class="even">
+<td align="left">Rural</td>
+<td align="center">El gasto medio</td>
+<td align="center">274</td>
+<td align="center">10.3</td>
+<td align="center">254</td>
+<td align="center">294</td>
+</tr>
+<tr class="odd">
+<td align="left">El gasto medio</td>
+<td align="center">El gasto medio</td>
+<td align="center">371</td>
+<td align="center">13.3</td>
+<td align="center">344</td>
+<td align="center">397</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="estimacion-de-razones" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Estimación de razones<a href="estimacion-de-parametros-descriptivos.html#estimacion-de-razones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Un caso particular de funciones no lineales de totales es la razón poblacional, definida como el cociente entre dos totales poblacionales asociados a características de interés. Las razones permiten expresar la relación entre dos variables, lo cual resulta especialmente útil para construir indicadores comparativos y de seguimiento.</p>
+<p>Este tipo de parámetro es ampliamente utilizado en encuestas de hogares para construir indicadores relativos, por ejemplo, la cantidad de hombres por cada mujer, la proporción de personas ocupadas respecto a la población en edad de trabajar o el número promedio de mascotas por hogar. Las razones también se utilizan en marcos internacionales. Por ejemplo, el Indicador 2.1.1 de los Objetivos de Desarrollo Sostenible (ODS) (prevalencia de subalimentación) se calcula a partir de la razón entre el consumo de alimentos, medido en calorías ingeridas, y los requerimientos energéticos mínimos de la dieta, determinados según edad, sexo y nivel de actividad física.</p>
+<p>Dado que la razón corresponde al cociente entre dos parámetros poblacionales desconocidos, tanto el numerador como el denominador deben ser estimados a partir de la muestra <span class="citation">(<a href="#ref-bautista1998">Bautista, 1998</a>)</span>. Siendo <span class="math inline">\(Y\)</span> el total de la varaible <span class="math inline">\(y\)</span> y <span class="math inline">\(X\)</span> el total de la varaible <span class="math inline">\(x\)</span>, la razón poblacional se define como <span class="math inline">\(R = \frac{t_y}{t_x}\)</span> y su estimador puntual en el marco de un muestreo complejo se expresa como:</p>
+<p><span class="math display">\[
+\hat{R} = \frac{\hat{t}_y}{\hat{t}_x}
+= \frac{\sum_{h}\sum_{i}\sum_{k} w_{hik} \ y_{hik}}
+       {\sum_{h}\sum_{i}\sum_{k} w_{hik} \ x_{hik}}
+\]</span></p>
+<p>Sin embargo, dado que <span class="math inline">\(\hat{R}\)</span> es un cociente entre dos estimadores, es decir, dos variables aleatorias, el cálculo de su varianza no es trivial. Para ello se emplea la linealización de Taylor, como lo muestra <span class="citation">Gutiérrez (<a href="#ref-Gutierrez2016">2016</a>)</span>, o bien métodos de remuestreo. En particular, la función <code>survey_ratio</code> implementa la estimación de razones y sus varianzas en el marco de encuestas complejas.</p>
+<p>Un ejemplo directo en encuestas de hogares es la razón <strong>gasto/ingreso</strong>, que ayuda a identificar patrones de consumo y niveles de sostenibilidad económica de los hogares. A continuación, se ilustra cómo estimar la razón entre el gasto y el ingreso de los hogares, presentada en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-razon-gasto-ingreso">3.9</a>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="estimacion-de-parametros-descriptivos.html#cb12-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="estimacion-de-parametros-descriptivos.html#cb12-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Razon =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> Expenditure,</span>
+<span id="cb12-3"><a href="estimacion-de-parametros-descriptivos.html#cb12-3" tabindex="-1"></a>                                 <span class="at">denominator =</span> Income,</span>
+<span id="cb12-4"><a href="estimacion-de-parametros-descriptivos.html#cb12-4" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb12-5"><a href="estimacion-de-parametros-descriptivos.html#cb12-5" tabindex="-1"></a>                                 <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb12-6"><a href="estimacion-de-parametros-descriptivos.html#cb12-6" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-razon-gasto-ingreso">Cuadro 3.9: </span>Razón gasto/ingreso de los hogares</caption>
+<thead>
+<tr class="header">
+<th align="left">Razon</th>
+<th align="center">Razon_se</th>
+<th align="center">Razon_low</th>
+<th align="center">Razon_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0.649</td>
+<td align="center">0.023</td>
+<td align="center">0.603</td>
+<td align="center">0.695</td>
+</tr>
+</tbody>
+</table>
+<p>En este caso, se especificaron la variable de gasto como numerador (<code>numerator</code>), la variable de ingreso como denominador (<code>denominator</code>), el nivel de confianza (<code>level</code>) utilizado para la construcción de los intervalos de confianza y las medidas de precisión requeridas mediante el argumento (<code>vartype</code>). Como se puede observar, la razón entre el gasto y el ingreso es, aproximando, 0.65. Lo que implica que por cada unidad 100 unidades monetarias que le ingrese al hogar, se gastan 65 unidades, consiguiendo un intervalo de confianza al 95% de 0.60 y 0.69.</p>
+<p>Si ahora el objetivo es estimar la razón entre mujeres y hombres en la base de ejemplo, se realiza de la siguiente manera, presentada en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-razon-sexo">3.10</a>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="estimacion-de-parametros-descriptivos.html#cb13-1" tabindex="-1"></a>diseno <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="estimacion-de-parametros-descriptivos.html#cb13-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Razon =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>),</span>
+<span id="cb13-3"><a href="estimacion-de-parametros-descriptivos.html#cb13-3" tabindex="-1"></a>                                 <span class="at">denominator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>),</span>
+<span id="cb13-4"><a href="estimacion-de-parametros-descriptivos.html#cb13-4" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb13-5"><a href="estimacion-de-parametros-descriptivos.html#cb13-5" tabindex="-1"></a>                                 <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb13-6"><a href="estimacion-de-parametros-descriptivos.html#cb13-6" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-razon-sexo">Cuadro 3.10: </span>Razón de mujeres por hombre en la población</caption>
+<thead>
+<tr class="header">
+<th align="left">Razon</th>
+<th align="center">Razon_se</th>
+<th align="center">Razon_low</th>
+<th align="center">Razon_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1.11</td>
+<td align="center">0.035</td>
+<td align="center">1.04</td>
+<td align="center">1.18</td>
+</tr>
+</tbody>
+</table>
+<p>Dado que la variable sexo en la base de datos es categórica, fue necesario acudir a variables indicadoras para realizar el cálculo de la razón, utilizando <code>Sex == "Female"</code> para identificar a las mujeres y <code>Sex == "Male"</code> para los hombres. Los resultados muestran que en la población analizada hay una mayor cantidad de mujeres que de hombres, obteniéndose una razón estimada de 1.11. Esto indica que, por cada 100 hombres, existen aproximadamente 111 mujeres. Además, el intervalo de confianza al 95% sugiere que esta razón podría variar entre 1.05 y 1.18. Si se desea hacer la razón de mujeres y hombres pero en la zona rural, se haría de la siguiente manera, presentada en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-razon-sexo-rural">3.11</a>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="estimacion-de-parametros-descriptivos.html#cb14-1" tabindex="-1"></a>sub_Rural  <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="estimacion-de-parametros-descriptivos.html#cb14-2" tabindex="-1"></a>  <span class="fu">filter</span>(Zone <span class="sc">==</span> <span class="st">&quot;Rural&quot;</span>)</span>
+<span id="cb14-3"><a href="estimacion-de-parametros-descriptivos.html#cb14-3" tabindex="-1"></a>sub_Rural <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="estimacion-de-parametros-descriptivos.html#cb14-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Razon =</span>  <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>),</span>
+<span id="cb14-5"><a href="estimacion-de-parametros-descriptivos.html#cb14-5" tabindex="-1"></a>                                  <span class="at">denominator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>),</span>
+<span id="cb14-6"><a href="estimacion-de-parametros-descriptivos.html#cb14-6" tabindex="-1"></a>                                  <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb14-7"><a href="estimacion-de-parametros-descriptivos.html#cb14-7" tabindex="-1"></a>                                  <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb14-8"><a href="estimacion-de-parametros-descriptivos.html#cb14-8" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-razon-sexo-rural">Cuadro 3.11: </span>Razón de mujeres por hombre en zona rural</caption>
+<thead>
+<tr class="header">
+<th align="left">Razon</th>
+<th align="center">Razon_se</th>
+<th align="center">Razon_low</th>
+<th align="center">Razon_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1.07</td>
+<td align="center">0.035</td>
+<td align="center">0.997</td>
+<td align="center">1.14</td>
+</tr>
+</tbody>
+</table>
+<p>Ahora bien, otro análisis de interés es estimar la razón de gastos pero solo en la población femenina. A continuación, se presentan los códigos computacionales, como se muestra en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-razon-gasto-ingreso-mujer">3.12</a>.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="estimacion-de-parametros-descriptivos.html#cb15-1" tabindex="-1"></a>sub_Mujer <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="estimacion-de-parametros-descriptivos.html#cb15-2" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>)</span>
+<span id="cb15-3"><a href="estimacion-de-parametros-descriptivos.html#cb15-3" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="estimacion-de-parametros-descriptivos.html#cb15-4" tabindex="-1"></a>sub_Mujer <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="estimacion-de-parametros-descriptivos.html#cb15-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Razon =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> Expenditure,</span>
+<span id="cb15-6"><a href="estimacion-de-parametros-descriptivos.html#cb15-6" tabindex="-1"></a>                                 <span class="at">denominator =</span> Income,</span>
+<span id="cb15-7"><a href="estimacion-de-parametros-descriptivos.html#cb15-7" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb15-8"><a href="estimacion-de-parametros-descriptivos.html#cb15-8" tabindex="-1"></a>                                 <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb15-9"><a href="estimacion-de-parametros-descriptivos.html#cb15-9" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-razon-gasto-ingreso-mujer">Cuadro 3.12: </span>Razón gasto/ingreso en hogares con jefatura femenina</caption>
+<thead>
+<tr class="header">
+<th align="left">Razon</th>
+<th align="center">Razon_se</th>
+<th align="center">Razon_low</th>
+<th align="center">Razon_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0.658</td>
+<td align="center">0.02</td>
+<td align="center">0.619</td>
+<td align="center">0.698</td>
+</tr>
+</tbody>
+</table>
+<p>Dando como resultado que por cada 100 unidades monetarias que le ingresan a las mujeres se gastan 66 con un intervalo de confianza entre 0.62 y 0.69. Por último, análogamente para los hombres, la razón de gastos resulta muy similar que para las mujeres, como se muestra en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-razon-gasto-ingreso-hombre">3.13</a>.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="estimacion-de-parametros-descriptivos.html#cb16-1" tabindex="-1"></a>sub_Hombre <span class="ot">&lt;-</span> diseno <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="estimacion-de-parametros-descriptivos.html#cb16-2" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>)</span>
+<span id="cb16-3"><a href="estimacion-de-parametros-descriptivos.html#cb16-3" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="estimacion-de-parametros-descriptivos.html#cb16-4" tabindex="-1"></a>sub_Hombre <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a href="estimacion-de-parametros-descriptivos.html#cb16-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Razon =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> Expenditure,</span>
+<span id="cb16-6"><a href="estimacion-de-parametros-descriptivos.html#cb16-6" tabindex="-1"></a>                                 <span class="at">denominator =</span> Income,</span>
+<span id="cb16-7"><a href="estimacion-de-parametros-descriptivos.html#cb16-7" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb16-8"><a href="estimacion-de-parametros-descriptivos.html#cb16-8" tabindex="-1"></a>                                 <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb16-9"><a href="estimacion-de-parametros-descriptivos.html#cb16-9" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-razon-gasto-ingreso-hombre">Cuadro 3.13: </span>Razón gasto/ingreso en hogares con jefatura masculina</caption>
+<thead>
+<tr class="header">
+<th align="left">Razon</th>
+<th align="center">Razon_se</th>
+<th align="center">Razon_low</th>
+<th align="center">Razon_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0.639</td>
+<td align="center">0.029</td>
+<td align="center">0.582</td>
+<td align="center">0.696</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-bautista1998" class="csl-entry">
+Bautista, L. (1998). Diseños de muestreo estadístico. <em>Universidad Nacional de Colombia</em>.
+</div>
+<div id="ref-Gutierrez2016" class="csl-entry">
+Gutiérrez, H. A. (2016). <em>Estrategias de muestreo: diseño de encuestas y estimación de parámetros</em> (Segunda edición). Ediciones de la U.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="cap3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/psirusteam/LibroEncuestasR/03-Continuas.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Libro.pdf", "Libro.epub", "Libro.mobi"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  },
+  "tconfig": null
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

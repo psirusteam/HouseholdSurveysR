@@ -63,7 +63,7 @@ sub_Hombre <- diseno %>%
   filter(Sex == "Male")
 ```
 
-## Estimación del tamaño poblacional
+## Estimación del tamaño poblacional {#estimacion-del-tamano-poblacional}
 
 En el análisis de encuestas de hogares, es fundamental estimar el tamaño de las subpoblaciones, entendido como el número de personas u hogares que pertenecen a categorías específicas y la proporción que representan dentro de la población. Estas estimaciones, basadas en variables categóricas, permiten caracterizar el perfil demográfico y socioeconómico de la población, información clave para orientar la asignación de recursos, diseñar políticas públicas y formular programas sociales. Por ejemplo, estimar cuántas personas se encuentran por debajo de la línea de pobreza, cuántas están desempleadas o cuántas alcanzaron determinado nivel educativo es esencial para identificar brechas y evaluar condiciones de bienestar. 
 
@@ -159,7 +159,7 @@ diseno %>%
 ```
 
 
-## Estimación de proporciones
+## Estimación de proporciones {#estimacion-de-proporciones}
 
 Las proporciones permiten expresar el peso relativo que tienen determinados grupos dentro de la población. Por ejemplo, conocer el porcentaje de hogares que se encuentran por debajo de la línea de pobreza es esencial para evaluar desigualdades y caracterizar condiciones de bienestar. Para obtener este tipo de indicadores, se calcula el promedio ponderado de la variable dicotómica, lo que asegura que la estimación represente adecuadamente la distribución poblacional. De acuerdo con @heeringa2017applied, al convertir las categorías originales en variables indicadoras, la proporción estimada se calcula como:
 
@@ -302,7 +302,7 @@ sub_Mujer %>%
   tabla_fmt()
 ```
 
-## Contrastes y diferencias de proporciones
+## Contrastes y diferencias de proporciones {#contrastes-y-diferencias-de-proporciones}
 
 Según @heeringa2017applied, las proporciones obtenidas en las filas de una tabla de doble entrada pueden interpretarse como estimaciones para distintas subpoblaciones, definidas a partir de los niveles de una variable categórica. En este contexto, no solo resulta relevante estimar las proporciones asociadas a cada grupo, sino también evaluar las diferencias existentes entre ellas mediante contrastes lineales.
 
@@ -410,7 +410,7 @@ svycontrast(tab_region_desempleo, list(
   data.frame()
 ```
 
-## Tablas cruzadas
+## Tablas cruzadas {#tablas-cruzadas}
 
 Además de analizar cada variable de manera individual, resulta especialmente relevante estudiar si existe asociación entre dos variables categóricas. Este tipo de análisis permite identificar patrones y relaciones que aportan información valiosa para la toma de decisiones y la comprensión de fenómenos sociales. Por ejemplo, en el ámbito de las políticas públicas es posible relacionar educación y empleo para diseñar estrategias orientadas al mercado laboral; en la evaluación de programas sociales, analizar diferencias en el acceso a servicios de salud según el nivel de ingresos; y en investigación social, estudiar cómo variables demográficas y condiciones de vida se relacionan entre sí para comprender dinámicas y tendencias de la población.
 
@@ -535,7 +535,7 @@ tab_region_pobreza %>%
 
 De lo anterior se puede concluir que, en la región Norte, el 35% de las personas están en estado de pobreza mientras que en el sur es el 34%. La pobreza más alta se tiene en la región oriente con un 45% de pobres. Los errores estándares de las estimaciones.
 
-## La razón de *odds*
+## La razón de *odds* {#la-razon-de-odds}
 
 La razón de *odds* es una medida ampliamente utilizada para estudiar la asociación entre dos variables categóricas, especialmente cuando el interés se centra en comparar la probabilidad de ocurrencia de un evento entre distintos grupos poblacionales. Su interpretación se basa en comparar las ventajas relativas (*odds*) de ocurrencia de un evento entre dos categorías de análisis. 
 
@@ -591,7 +591,7 @@ svycontrast(stat = tab_Sex_Pobr,
 
 Obteniendo que el *odds* estimado de que una mujer no se encuentre en situación de pobreza, en comparación con un hombre, es igual a 1.02. Esto significa que, sin considerar otras variables de la encuesta, las mujeres presentan una razón de probabilidades de no estar en pobreza aproximadamente 2% mayor que la observada en los hombres. En otras palabras, la probabilidad relativa de no encontrarse en condición de pobreza es ligeramente superior para las mujeres respecto a los hombres.
 
-## Prueba de independencia $\chi^{2}$
+## Prueba de independencia $\chi^{2}$ {#prueba-de-independencia-chi}
 
 Como se introdujo en los capítulos anteriores, una prueba de hipótesis es un procedimiento estadístico utilizado para evaluar si la evidencia observada en una muestra es compatible con una afirmación acerca de la población. En el contexto de tablas de contingencia, las pruebas de independencia permiten analizar si existe asociación entre dos variables categóricas.
 
@@ -651,7 +651,7 @@ En esta sección se utiliza el paquete `ggplot2` [@ggplot22026].
 library(ggplot2)
 ```
 
-### Gráficos de barras
+### Gráficos de barras {#graficos-de-barras}
 
 La construcción de gráficos de barras en `R` requiere, como paso previo, obtener las estimaciones que se desean representar visualmente. En el contexto de encuestas complejas, estas estimaciones pueden calcularse mediante las funciones `survey_total()` o `survey_prop()` del paquete `srvyr`, dependiendo de si el interés se centra en totales poblacionales o proporciones.
 

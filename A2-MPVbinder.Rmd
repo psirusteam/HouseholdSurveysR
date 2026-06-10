@@ -15,7 +15,7 @@ options(digits = 4)
 
 Una cuestión fundamental en el análisis de encuestas es identificar cuál es la medida de probabilidad que rige la inferencia. En la inferencia estadística clásica se suele asumir que las observaciones disponibles son variables aleatorias independientes e idénticamente distribuidas (IID). Bajo ese enfoque, la aleatoriedad proviene del modelo que genera los datos. Sin embargo, como señala @kish1987statistical, este supuesto no describe adecuadamente la información proveniente de encuestas con diseños muestrales complejos, donde las observaciones son seleccionadas mediante estratificación, conglomeración y probabilidades de inclusión desiguales.
 
-## Dos posibles inferencias
+## Dos posibles inferencias {#dos-posibles-inferencias}
 
 En encuestas de hogares conviene distinguir tres objetos. Primero, la población finita, denotada como $U = \{1,2,\ldots,N\}$, la cual contiene todas las unidades de interés. Segundo, la variable de estudio $y_k$, observada o definida para cada unidad $k \in U$. Tercero, el diseño muestral $p(s)$, que asigna probabilidades a las posibles muestras $s \subset U$. En la notación utilizada a lo largo de este documento, una unidad puede identificarse como $k$ dentro del conglomerado o UPM $i$, perteneciente al estrato $h$, de modo que los estimadores ponderados suelen escribirse como sumas de la forma
 
@@ -153,7 +153,7 @@ cbind(theta_N,
 
 El primer bloque del código genera hogares de tamaños desiguales, entre 2 y 6 personas. Para hacer visible el efecto del diseño, la probabilidad individual de desempleo varía suavemente con el tamaño del hogar, pero se centra de manera que el promedio esperado de la población siga siendo cercano a `theta`. Luego se calcula `theta_N`, que es la proporción real de desempleo en esa población específica. En cada repetición, `S.piPS()` selecciona UPMs con probabilidades proporcionales al tamaño; después se calculan la media de las medias de las UPMs seleccionadas y el promedio simple de las personas observadas. La salida compara ambos estimadores con `theta_N`. El sesgo de Monte Carlo de `Esp_piS` es cercano a cero, mientras que el de `Esp_S` no lo es, mostrando resultado de ignorar el diseño en este ejercicio.
 
-## La integración de ambas inferencias
+## La integración de ambas inferencias {#la-integracion-de-ambas-inferencias}
 
 No obstante, en muchas aplicaciones ambos marcos inferenciales no se presentan como enfoques excluyentes, sino como componentes complementarios de un mismo problema. En particular, puede considerarse que la muestra ha sido obtenida mediante un diseño probabilístico complejo y que, al mismo tiempo, los valores de la variable de interés responden a un modelo de superpoblación. Esta formulación conduce a un esquema de inferencia doble, en el cual la incertidumbre no proviene de una única fuente, sino de la combinación entre el mecanismo que genera los valores poblacionales (modelo de superpoblación) y el mecanismo que determina qué unidades son observadas (diseño de muestreo). 
 
@@ -350,4 +350,4 @@ El código reproduce las dos fuentes de aleatoriedad. El ciclo externo represent
 
 En síntesis, la máxima verosimilitud ordinaria es adecuada cuando las observaciones pueden tratarse como IID bajo un modelo probabilístico. En encuestas complejas, la máxima pseudo-verosimilitud ofrece una extensión natural: conserva la estructura de las ecuaciones de estimación, pero pondera cada contribución individual por su peso muestral. Así, los modelos estadísticos se ajustan de manera más coherente con la población que la encuesta busca representar.
 
-# Referencias {-}
+# Referencias {#referencias .unnumbered}

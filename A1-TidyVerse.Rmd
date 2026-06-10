@@ -11,13 +11,13 @@ source("_tabla_helper.R")
 options(digits = 4)
 ```
 
-# (APPENDIX) Anexos {-}
+# (APPENDIX) Anexos {#anexos .unnumbered}
 
 # Manejo de bases de datos con `R`  {#ap1}
 
 `R` es un software estadístico ampliamente utilizado para el análisis de datos y la generación de gráficos y permite un ambiente integrado para el análisis estadístico, en particular de bases de datos. Esto significa que permite realizar procesos de análisis, programación, visualización y manejo de datos dentro de un mismo entorno. En este anexo se utiliza el enfoque del `tidyverse`, y en particular el paquete `dplyr`, para organizar una secuencia lógica de trabajo con bases de datos: cargar la información, inspeccionarla, seleccionar variables, filtrar registros, ordenar filas, crear variables y producir resúmenes.
 
-## Preparación del entorno de trabajo
+## Preparación del entorno de trabajo {#preparacion-del-entorno-de-trabajo}
 
 `R` es un lenguaje de programación de carácter colaborativo, lo que permite que su comunidad de usuarios y desarrolladores contribuya continuamente mediante la creación de funciones, paquetes y librerías especializadas. Gracias a este ecosistema abierto, es posible ampliar sus capacidades para distintos tipos de análisis estadístico y procesamiento de datos. Entre las librerías más utilizadas para el análisis de bases de datos se encuentran las siguientes:
 
@@ -47,7 +47,7 @@ library("TeachingSampling")
 
 Una vez se descargan e instalan las librerías o paquetes en `R`, el paso recomendado es que todos los procesamientos que se realicen se hagan a través de un la creación de proyectos. Un proyecto de `R` se define como un archivo que contiene los archivos de origen y contenido asociados con el trabajo que se está realizando. Adicionalmente, contiene información que permite la compilación de cada archivo de `R` que se va a utilizar, mantiene la información para integrarse con sistemas de control de código fuente y ayuda a organizar la aplicación de los procesamientos en componentes lógicos.
 
-## Carga e inspección inicial de la base
+## Carga e inspección inicial de la base {#carga-e-inspeccion-inicial-de-la-base}
 
 Es muy usual que al trabajar proyectos en `R` sea necesario importar bases de datos con información relevante para un estudio en particular. Los formatos de bases de datos que `R` permite importar son diversos, entre ellos se tienen `xlsx`, `csv`, `txt`, `STATA`, etc. Una vez leída la base de datos en el formato pertinente es recomendable transformarla al formato nativo de `R`, es decir `.RDS`. Este es un formato más eficiente y propio de `R`. 
 
@@ -102,7 +102,7 @@ str(data1)
 
 Como se observa en la salida anterior, la función `str` permite identificar la clase de cada variable incluida en la base de datos. Por ejemplo, la variable `HHID` es de tipo carácter, al igual que la variable `Sex`, mientras que las variables `Income` y `Expenditure` son de tipo numérico. Los demás atributos asociados con las variables también pueden revisarse directamente en la salida del código. Esta función resulta especialmente útil para obtener una visión general del contenido y la estructura de una base de datos.
 
-## Encadenamiento de operaciones 
+## Encadenamiento de operaciones {#encadenamiento-de-operaciones}
 
 Una de las contribuciones más útiles de `R` es la incorporación de las tuberías (*pipelines*), las cuales permiten construir consultas, transformaciones y nuevos objetos a partir de una base de datos de manera más intuitiva, ordenada y fácil de interpretar. El operador de encadenamiento `%>%`, proveniente del paquete `magrittr` [@pipe] y cargado automáticamente al utilizar la librería `tidyverse`, permite enlazar varias operaciones sucesivas, de modo que el resultado obtenido en un paso se convierte en el insumo del paso siguiente. A continuación, se presenta un ejemplo sencillo de su uso con la base de datos `BigLucy`, en el cual se calcula el número total de elementos que contiene la base mediante la función `count`.
 
@@ -113,7 +113,7 @@ data1 %>%
 
 La línea de código anterior puede interpretarse de forma sencilla: se toma la base de datos como punto de partida y, sobre ella, se realiza un conteo de sus registros. Además de la función `count`, existe una amplia variedad de funciones que pueden combinarse con el operador `%>%` para realizar consultas, transformaciones y resúmenes sobre los datos. El paquete `dplyr` toma ventaja de este operador, permitiendo organizar las operaciones más comunes sobre una base rectangular. En las siguientes subsecciones se presentan algunas de ellas, siguiendo un orden típico de trabajo: reducir observaciones, conservar variables, ordenar la información, crear nuevas columnas y producir resultados agregados.
 
-### `filter`: selección de registros
+### `filter`: selección de registros {#filter-seleccion-de-registros}
 
 `filter()` conserva las filas que cumplen una o varias condiciones. En el siguiente ejemplo se crean dos subconjuntos de `data1`: uno con los hombres y otro con las mujeres. El resultado son dos objetos nuevos. `datasexH` contiene únicamente registros con `Sex == "Male"`, mientras que `datasexM` contiene registros con `Sex == "Female"`. 
 
@@ -142,7 +142,7 @@ dataingreso2 <- data1 %>%
 ```
 
 
-### `select`: seleccionar variables
+### `select`: seleccionar variables {#select-seleccionar-variables}
 
 La función `select()` conserva columnas específicas. Para continuar con los ejemplos, se seleccionan variables de identificación de la persona y el hogar y otras como zona, sexo, edad e ingreso. El resultado es una base más reducida en columnas. Se mantiene `Age` porque será utilizada posteriormente para ordenar registros por edad.
 
@@ -161,7 +161,7 @@ datagrey <- datared %>%
 ```
 
 
-### `arrange`: ordenamiento de filas
+### `arrange`: ordenamiento de filas {#arrange-ordenamiento-de-filas}
 
 La función `arrange()` ordena las filas de una base según una o más variables. En el primer ejemplo, `datared` se ordena de menor a mayor ingreso, mientras que `datadog` contiene las mismas columnas que `datared`, pero sus filas quedan ordenadas por `Income`. La función `head()` muestra los primeros registros después del ordenamiento.
 
@@ -194,7 +194,7 @@ datared %>%
 ```
 
 
-### `mutate`: creación o transformación de variables
+### `mutate`: creación o transformación de variables {#mutate-creacion-o-transformacion-de-variables}
 
 La función `mutate()` crea nuevas variables o modifica variables existentes. Dado que `BigCity` no incluye una variable de región geográfica explícita, se construye `Region` a partir de `Stratum`. Primero se extrae la parte numérica del estrato con `gsub("\\D", "", Stratum)`, luego se convierte a número con `as.numeric()` y finalmente se divide en cinco intervalos con `cut()`. El resultado es una nueva columna `Region` dentro de `data1`, en la que sus categorías permiten producir resúmenes regionales en los pasos siguientes.
 
@@ -274,7 +274,7 @@ data1 <- data1 %>%
 ```
 
 
-### `summarise`: resúmenes descriptivos 
+### `summarise`: resúmenes descriptivos {#summarise-resumenes-descriptivos}
 
 La función `summarise()` permite construir una tabla resumen a partir de una o varias variables de la base de datos. En el siguiente ejemplo se calculan dos estadísticas descriptivas de la variable `Income`: el total y la media. Como resultado, se obtiene una tabla con una sola fila que contiene la suma de los ingresos observados y el ingreso promedio de los registros incluidos en la base.
 
@@ -314,7 +314,7 @@ data1 %>%
 ```
 
 
-### `group_by`: agrupación de casos 
+### `group_by`: agrupación de casos {#group-by-agrupacion-de-casos}
 
 La función `group_by()` permite agrupar la base de datos de acuerdo con una o más variables. Al combinarla con `summarise()`, las estadísticas se calculan de manera independiente dentro de cada grupo definido. Para los conteos simples, `count()` ofrece una forma abreviada de escribir `group_by()` junto con `summarise(n = n())`. En el siguiente ejemplo, se cuenta el número de registros por región y luego se ordena el resultado de mayor a menor. La siguiente salida permite identificar cuántos registros están asociados con cada región de la base de datos.
 
