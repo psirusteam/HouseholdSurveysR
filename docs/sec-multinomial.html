@@ -23,7 +23,7 @@
 <meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
 
 
-<meta name="date" content="2026-06-10" />
+<meta name="date" content="2026-06-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -340,16 +340,23 @@ y_{k(j)}
 <div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="sec-multinomial.html#cb150-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb150-2"><a href="sec-multinomial.html#cb150-2" tabindex="-1"></a>  <span class="fu">filter</span>(Age <span class="sc">&gt;=</span> <span class="dv">15</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb150-3"><a href="sec-multinomial.html#cb150-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Employment) <span class="sc">%&gt;%</span></span>
-<span id="cb150-4"><a href="sec-multinomial.html#cb150-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Prop =</span> <span class="fu">survey_mean</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
-<table>
+<span id="cb150-4"><a href="sec-multinomial.html#cb150-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">proportion =</span> <span class="fu">survey_mean</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
+<table style="width:100%;">
 <caption><span id="tab:tab-prop-empleo-15">Tabla 6.3: </span>Proporción estimada de personas por estado de empleo (mayores de 15 años)</caption>
+<colgroup>
+<col width="15%" />
+<col width="17%" />
+<col width="21%" />
+<col width="22%" />
+<col width="22%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Employment</th>
-<th align="center">Prop</th>
-<th align="center">Prop_se</th>
-<th align="center">Prop_low</th>
-<th align="center">Prop_upp</th>
+<th align="center">proportion</th>
+<th align="center">proportion_se</th>
+<th align="center">proportion_low</th>
+<th align="center">proportion_upp</th>
 </tr>
 </thead>
 <tbody>
@@ -406,82 +413,45 @@ y_{k(j)}
 <span id="cb152-16"><a href="sec-multinomial.html#cb152-16" tabindex="-1"></a>}</span></code></pre></div>
 <p>La Tabla <a href="sec-multinomial.html#tab:tab-multinomial-coef">6.4</a> presenta los coeficientes estimados del modelo logístico multinomial, tomando la categoría <em>Unemployed</em> como referencia. Los resultados muestran que la edad tiene un efecto positivo y estadísticamente significativo sobre las probabilidades relativas de pertenecer a las categorías 1 y 2 frente al desempleo. Asimismo, la variable <code>SexMale</code> presenta coeficientes negativos y significativos, indicando que los hombres tienen menores probabilidades relativas que las mujeres de ubicarse en dichas categorías. Por el contrario, la variable de zona de residencia no muestra efectos estadísticamente significativos al nivel convencional del 5%.</p>
 <div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="sec-multinomial.html#cb153-1" tabindex="-1"></a><span class="fu">tidy.svyVGAM</span>(multinomial_model, <span class="at">exponentiate =</span> <span class="cn">FALSE</span>, <span class="at">conf.int =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<table>
+<table style="width:100%;">
 <caption><span id="tab:tab-multinomial-coef">Tabla 6.4: </span>Coeficientes estimados del modelo de regresión multinomial</caption>
+<colgroup>
+<col width="15%" />
+<col width="17%" />
+<col width="21%" />
+<col width="22%" />
+<col width="22%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th align="left">y.level</th>
-<th align="center">term</th>
-<th align="center">estimate</th>
-<th align="center">std.error</th>
-<th align="center">statistic</th>
-<th align="center">p.value</th>
+<th align="left">Employment</th>
+<th align="center">proportion</th>
+<th align="center">proportion_se</th>
+<th align="center">proportion_low</th>
+<th align="center">proportion_upp</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">1</td>
-<td align="center">(Intercept)</td>
-<td align="center">2.556</td>
-<td align="center">0.550</td>
-<td align="center">4.648</td>
-<td align="center">0.000</td>
+<td align="left">Unemployed</td>
+<td align="center">0.043</td>
+<td align="center">0.007</td>
+<td align="center">0.029</td>
+<td align="center">0.057</td>
 </tr>
 <tr class="even">
-<td align="left">1</td>
-<td align="center">Age</td>
-<td align="center">0.022</td>
-<td align="center">0.010</td>
-<td align="center">2.117</td>
-<td align="center">0.034</td>
+<td align="left">Inactive</td>
+<td align="center">0.384</td>
+<td align="center">0.015</td>
+<td align="center">0.354</td>
+<td align="center">0.414</td>
 </tr>
 <tr class="odd">
-<td align="left">1</td>
-<td align="center">SexMale</td>
-<td align="center">-2.185</td>
-<td align="center">0.317</td>
-<td align="center">-6.901</td>
-<td align="center">0.000</td>
-</tr>
-<tr class="even">
-<td align="left">1</td>
-<td align="center">ZoneUrban</td>
-<td align="center">-0.254</td>
-<td align="center">0.404</td>
-<td align="center">-0.627</td>
-<td align="center">0.531</td>
-</tr>
-<tr class="odd">
-<td align="left">2</td>
-<td align="center">(Intercept)</td>
-<td align="center">2.306</td>
-<td align="center">0.461</td>
-<td align="center">4.998</td>
-<td align="center">0.000</td>
-</tr>
-<tr class="even">
-<td align="left">2</td>
-<td align="center">Age</td>
-<td align="center">0.018</td>
-<td align="center">0.009</td>
-<td align="center">2.056</td>
-<td align="center">0.040</td>
-</tr>
-<tr class="odd">
-<td align="left">2</td>
-<td align="center">SexMale</td>
-<td align="center">-0.578</td>
-<td align="center">0.277</td>
-<td align="center">-2.091</td>
-<td align="center">0.037</td>
-</tr>
-<tr class="even">
-<td align="left">2</td>
-<td align="center">ZoneUrban</td>
-<td align="center">0.039</td>
-<td align="center">0.361</td>
-<td align="center">0.109</td>
-<td align="center">0.913</td>
+<td align="left">Employed</td>
+<td align="center">0.573</td>
+<td align="center">0.014</td>
+<td align="center">0.545</td>
+<td align="center">0.601</td>
 </tr>
 </tbody>
 </table>

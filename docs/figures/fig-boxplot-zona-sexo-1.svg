@@ -257,7 +257,7 @@
 <polyline points='171.19,162.79 171.19,162.79 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt; stroke-linejoin: miter;' />
 <text x='178.40' y='148.66' style='font-size: 8.80px; font-family: "Arial";' textLength='21.02px' lengthAdjust='spacingAndGlyphs'>Rural</text>
 <text x='178.40' y='165.94' style='font-size: 8.80px; font-family: "Arial";' textLength='23.95px' lengthAdjust='spacingAndGlyphs'>Urban</text>
-<text x='48.39' y='20.41' style='font-size: 13.20px; font-family: "Arial";' textLength='64.48px' lengthAdjust='spacingAndGlyphs'>Ponderado</text>
+<text x='48.39' y='20.41' style='font-size: 13.20px; font-family: "Arial";' textLength='55.45px' lengthAdjust='spacingAndGlyphs'>Weighted</text>
 </g>
 <defs>
   <clipPath id='cpMjU2LjIyfDM0Ny4wNHwyOC42NnwyNjMuOTY='>
@@ -476,7 +476,7 @@
 <polyline points='379.03,162.79 379.03,162.79 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt; stroke-linejoin: miter;' />
 <text x='386.23' y='148.66' style='font-size: 8.80px; font-family: "Arial";' textLength='29.33px' lengthAdjust='spacingAndGlyphs'>Female</text>
 <text x='386.23' y='165.94' style='font-size: 8.80px; font-family: "Arial";' textLength='19.06px' lengthAdjust='spacingAndGlyphs'>Male</text>
-<text x='256.22' y='20.41' style='font-size: 13.20px; font-family: "Arial";' textLength='64.48px' lengthAdjust='spacingAndGlyphs'>Ponderado</text>
+<text x='256.22' y='20.41' style='font-size: 13.20px; font-family: "Arial";' textLength='55.45px' lengthAdjust='spacingAndGlyphs'>Weighted</text>
 </g>
 </g>
 </svg>

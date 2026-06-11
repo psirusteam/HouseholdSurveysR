@@ -213,7 +213,7 @@ bigcity_data <- bigcity_data %>%
     Region = cut(
       as.numeric(gsub("\\D", "", Stratum)),
       breaks = 5,
-      labels = c("Norte", "Sur", "Centro", "Occidente", "Oriente")
+      labels = c("North", "South", "Center", "West", "East")
     )
   )
 ```
@@ -227,7 +227,7 @@ bigcity_data <- bigcity_data %>%
   mutate(
     region_id = factor(
       Region,
-      levels = c("Norte", "Sur", "Centro", "Occidente", "Oriente"),
+      levels = c("North", "South", "Center", "West", "East"),
       labels = c("01", "02", "03", "04", "05")
     )
   )
@@ -271,12 +271,12 @@ bigcity_data <- bigcity_data %>%
       Age <= 30 ~ "16-30",
       Age <= 45 ~ "31-45",
       Age <= 60 ~ "46-60",
-      TRUE ~ "Más de 60"
+      TRUE ~ "Over 60"
     ),
     age_group = factor(
       age_group,
       levels = c("0-5", "6-15", "16-30",
-                 "31-45", "46-60", "Más de 60"),
+                 "31-45", "46-60", "Over 60"),
       ordered = TRUE
     )
   )
@@ -325,10 +325,20 @@ bigcity_data %>%
 
 ### `group_by`: agrupación de casos {#group-by-agrupacion-de-casos}
 
-La función `group_by()` permite agrupar la base de datos de acuerdo con una o más variables. Al combinarla con `summarise()`, las estadísticas se calculan de manera independiente dentro de cada grupo definido. Para los conteos simples, `count()` ofrece una forma abreviada de escribir `group_by()` junto con `summarise(n = n())`. En el siguiente ejemplo, se cuenta el número de registros por región y luego se ordena el resultado de mayor a menor. La siguiente salida permite identificar cuántos registros están asociados con cada región de la base de datos.
+La función `group_by()` permite agrupar la base de datos de acuerdo con una o más variables. Al combinarla con `summarise()`, las estadísticas se calculan de manera independiente dentro de cada grupo definido. En el siguiente ejemplo, se cuenta el número de registros por región y luego se ordena el resultado de mayor a menor. La siguiente salida permite identificar cuántos registros están asociados con cada región de la base de datos.
 
 
 ```{r, eval=TRUE}
+bigcity_data %>%
+  group_by(Region) %>%
+  summarise(n = n()) %>%
+  arrange(desc(n))
+```
+
+Para los conteos simples, `count()` ofrece una forma abreviada de escribir la combinación entre `group_by()` y `summarise(n = n())`. En la práctica, ambas alternativas producen el mismo resultado, pues agrupan la base de datos según una variable categórica y calculan cuántos registros pertenecen a cada grupo. Por ejemplo, el siguiente código reproduce los mismos resultados que el código anterior. 
+
+
+```{r}
 bigcity_data %>%
   count(Region) %>%
   arrange(desc(n))

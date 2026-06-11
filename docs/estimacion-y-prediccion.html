@@ -23,7 +23,7 @@
 <meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
 
 
-<meta name="date" content="2026-06-10" />
+<meta name="date" content="2026-06-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -375,12 +375,12 @@ div.csl-indent {
 <p>Para calcular la varianza de las estimaciones se requiere la matriz de varianzas y covarianzas de los parámetros del modelo. Los elementos de la diagonal principal corresponden a las varianzas de los parámetros estimados, mientras que los elementos fuera de la diagonal representan las covarianzas entre pares de coeficientes. La matriz estimada de varianzas y covarianzas se presenta en la Tabla <a href="estimacion-y-prediccion.html#tab:tab-vcov-modelo">5.5</a>:</p>
 <div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="estimacion-y-prediccion.html#cb135-1" tabindex="-1"></a><span class="fu">vcov</span>(fit_svy) <span class="sc">%&gt;%</span></span>
 <span id="cb135-2"><a href="estimacion-y-prediccion.html#cb135-2" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb135-3"><a href="estimacion-y-prediccion.html#cb135-3" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="st">&quot;Parámetro&quot;</span>)</span></code></pre></div>
+<span id="cb135-3"><a href="estimacion-y-prediccion.html#cb135-3" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="st">&quot;Parameter&quot;</span>)</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-vcov-modelo">Tabla 5.5: </span>Matriz de varianzas y covarianzas de los coeficientes del modelo</caption>
 <thead>
 <tr class="header">
-<th align="left">Parámetro</th>
+<th align="left">Parameter</th>
 <th align="center">(Intercept)</th>
 <th align="center">Expenditure</th>
 <th align="center">ZoneUrban</th>
@@ -424,7 +424,7 @@ div.csl-indent {
 <span id="cb136-3"><a href="estimacion-y-prediccion.html#cb136-3" tabindex="-1"></a>mu_variance <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(xobs <span class="sc">%*%</span> cov_beta <span class="sc">%*%</span> <span class="fu">t</span>(xobs))</span>
 <span id="cb136-4"><a href="estimacion-y-prediccion.html#cb136-4" tabindex="-1"></a>mu_variance <span class="sc">%&gt;%</span></span>
 <span id="cb136-5"><a href="estimacion-y-prediccion.html#cb136-5" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1] 1375 1003 1003 1375 1003 1108 1108 1480 1108  751</code></pre>
+<pre><code>##  [1] 1374.9 1002.6 1002.6 1374.9 1002.6 1107.8 1107.8 1480.1 1107.8  750.8</code></pre>
 <p>El intervalo de confianza, que proporciona un rango de valores plausibles para el valor esperado de la variable respuesta condicionado a las covariables observadas, se obtiene mediante:</p>
 <p><span class="math display">\[
 \mathbf{x}_{k}\hat{\beta}\pm t_{\left(1-\frac{\alpha}{2},df\right)}\sqrt{\mathbf{x}&#39;_{k} \

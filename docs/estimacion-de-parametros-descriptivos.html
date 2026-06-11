@@ -23,7 +23,7 @@
 <meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
 
 
-<meta name="date" content="2026-06-10" />
+<meta name="date" content="2026-06-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -320,16 +320,16 @@ div.csl-indent {
 <p>El argumento <code>vartype</code> permite especificar el tipo de medida de incertidumbre que se desea estimar, pudiendo solicitarse uno o varios resultados simultáneamente, tales como el error estándar (<code>"se"</code>), el intervalo de confianza (<code>"ci"</code>), la varianza (<code>"var"</code>) o el coeficiente de variación (<code>"cv"</code>). Asimismo, <code>level</code> define el nivel de confianza utilizado para el cálculo de los intervalos de confianza, cuyo valor por defecto es 0.95. Por otro lado, el intervalo de confianza puede obtenerse directamente al incluir el argumento <code>vartype = "ci"</code> dentro de <code>survey_total()</code>, o bien utilizando la función <code>confint()</code> sobre el objeto resultante, especificando el nivel de confianza requerido. Finalmente, <code>deff</code> es un valor lógico que indica si se debe retornar el efecto del diseño (DEFF).</p>
 <p>El siguiente ejemplo presenta cómo estimar totales y sus intervalos de confianza para diferentes variables de interés en <code>R</code>, utilizando la función <code>survey_total()</code>, y presentada en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-total-ingreso">3.1</a>:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="estimacion-de-parametros-descriptivos.html#cb4-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="estimacion-de-parametros-descriptivos.html#cb4-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ty =</span> <span class="fu">survey_total</span>(Income, <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>), <span class="at">deff =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<span id="cb4-2"><a href="estimacion-de-parametros-descriptivos.html#cb4-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">survey_total</span>(Income, <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>), <span class="at">deff =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-total-ingreso">Tabla 3.1: </span>Estimación del total de ingresos de los hogares con intervalo de confianza al 95%</caption>
 <thead>
 <tr class="header">
-<th align="left">ty</th>
-<th align="center">ty_se</th>
-<th align="center">ty_low</th>
-<th align="center">ty_upp</th>
-<th align="center">ty_deff</th>
+<th align="left">total</th>
+<th align="center">total_se</th>
+<th align="center">total_low</th>
+<th align="center">total_upp</th>
+<th align="center">total_deff</th>
 </tr>
 </thead>
 <tbody>
@@ -345,17 +345,17 @@ div.csl-indent {
 <p>De la tabla, se obtiene que la estimación del total poblacional para el ingreso total es de 85.793.667. Este valor corresponde al estimador puntual obtenido a partir de la encuesta, incorporando los factores de expansión y las características del diseño muestral. El error estándar asociado a esta estimación es de 4.778.674, lo que refleja la variabilidad muestral del estimador. A partir de este valor se construye un intervalo de confianza del 95%, cuyos límites inferior y superior son 76.331.414 y 95.255.920, respectivamente. El efecto de diseño (<code>deff</code>) es igual a 11, lo cual sugiere una pérdida importante de precisión asociada principalmente a las características del diseño complejo. En consecuencia, aunque el tamaño muestral nominal pueda ser grande, el tamaño muestral efectivo resultaría considerablemente menor debido a la correlación entre observaciones dentro de los conglomerados.</p>
 <p>Para continuar ilustrando el uso de la función <code>survey_total()</code> dentro del enfoque de <code>srvyr</code>, estimemos el total de gastos de los hogares, pero ahora calculando el intervalo de confianza al 90%. El siguiente código realiza esta estimación, presentada en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-total-gasto">3.2</a>:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="estimacion-de-parametros-descriptivos.html#cb5-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="estimacion-de-parametros-descriptivos.html#cb5-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ty =</span> <span class="fu">survey_total</span>(Expenditure,</span>
+<span id="cb5-2"><a href="estimacion-de-parametros-descriptivos.html#cb5-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">survey_total</span>(Expenditure,</span>
 <span id="cb5-3"><a href="estimacion-de-parametros-descriptivos.html#cb5-3" tabindex="-1"></a>                              <span class="at">vartype =</span> <span class="st">&quot;ci&quot;</span>, <span class="at">level =</span> <span class="fl">0.9</span>,</span>
 <span id="cb5-4"><a href="estimacion-de-parametros-descriptivos.html#cb5-4" tabindex="-1"></a>                              <span class="at">deff =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-total-gasto">Tabla 3.2: </span>Estimación del total de gastos de los hogares con intervalo de confianza al 90%</caption>
 <thead>
 <tr class="header">
-<th align="left">ty</th>
-<th align="center">ty_low</th>
-<th align="center">ty_upp</th>
-<th align="center">ty_deff</th>
+<th align="left">total</th>
+<th align="center">total_low</th>
+<th align="center">total_upp</th>
+<th align="center">total_deff</th>
 </tr>
 </thead>
 <tbody>
@@ -370,19 +370,19 @@ div.csl-indent {
 <p>Si el objetivo es estimar el total de ingresos de los hogares, pero desagregado por sexo, se puede utilizar la función <code>group_by()</code> para agrupar por la variable de interés, junto con <code>cascade()</code> de la librería <code>srvyr</code>, que permite agregar una fila con el total general al final de la tabla. De esta manera, se pueden obtener fácilmente los totales por categoría y el total global dentro del mismo marco de resumen, como se muestra en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-total-ingreso-sexo">3.3</a>.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="estimacion-de-parametros-descriptivos.html#cb6-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="estimacion-de-parametros-descriptivos.html#cb6-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="estimacion-de-parametros-descriptivos.html#cb6-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">Total =</span> <span class="fu">survey_total</span>(Income,</span>
+<span id="cb6-3"><a href="estimacion-de-parametros-descriptivos.html#cb6-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">total =</span> <span class="fu">survey_total</span>(Income,</span>
 <span id="cb6-4"><a href="estimacion-de-parametros-descriptivos.html#cb6-4" tabindex="-1"></a>                               <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>),</span>
 <span id="cb6-5"><a href="estimacion-de-parametros-descriptivos.html#cb6-5" tabindex="-1"></a>                               <span class="at">level =</span> <span class="fl">0.95</span>),</span>
-<span id="cb6-6"><a href="estimacion-de-parametros-descriptivos.html#cb6-6" tabindex="-1"></a>          <span class="at">.fill =</span> <span class="st">&quot;Total ingreso&quot;</span>)</span></code></pre></div>
+<span id="cb6-6"><a href="estimacion-de-parametros-descriptivos.html#cb6-6" tabindex="-1"></a>          <span class="at">.fill =</span> <span class="st">&quot;Total income&quot;</span>)</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-total-ingreso-sexo">Tabla 3.3: </span>Total de ingresos de los hogares desagregado por sexo</caption>
 <thead>
 <tr class="header">
 <th align="left">Sex</th>
-<th align="center">Total</th>
-<th align="center">Total_se</th>
-<th align="center">Total_low</th>
-<th align="center">Total_upp</th>
+<th align="center">total</th>
+<th align="center">total_se</th>
+<th align="center">total_low</th>
+<th align="center">total_upp</th>
 </tr>
 </thead>
 <tbody>
@@ -401,7 +401,7 @@ div.csl-indent {
 <td align="center">47323118</td>
 </tr>
 <tr class="odd">
-<td align="left">Total ingreso</td>
+<td align="left">Total income</td>
 <td align="center">85793667</td>
 <td align="center">4778674</td>
 <td align="center">76331414</td>
@@ -423,26 +423,19 @@ div.csl-indent {
 \]</span></p>
 <p>Como se puede observar, el cálculo de la varianza de la media poblacional implica componentes analíticos complejos, como la covarianza entre el total estimado y el tamaño poblacional estimado. Sin embargo, el paquete <code>srvyr</code> en <code>R</code> facilita estos cálculos al incorporar funciones que estiman directamente la media, su error estándar, el intervalo de confianza y el efecto del diseño. A continuación, se presenta la sintaxis para estimar la media de los ingresos de los hogares, junto con su intervalo de confianza al 95%, presentada en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-media-ingreso">3.4</a>:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="estimacion-de-parametros-descriptivos.html#cb7-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="estimacion-de-parametros-descriptivos.html#cb7-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media_ing =</span> <span class="fu">survey_mean</span>(Income,</span>
+<span id="cb7-2"><a href="estimacion-de-parametros-descriptivos.html#cb7-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">survey_mean</span>(Income,</span>
 <span id="cb7-3"><a href="estimacion-de-parametros-descriptivos.html#cb7-3" tabindex="-1"></a>                                <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>),</span>
 <span id="cb7-4"><a href="estimacion-de-parametros-descriptivos.html#cb7-4" tabindex="-1"></a>                                <span class="at">level =</span> <span class="fl">0.95</span>,</span>
 <span id="cb7-5"><a href="estimacion-de-parametros-descriptivos.html#cb7-5" tabindex="-1"></a>                                <span class="at">deff =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-media-ingreso">Tabla 3.4: </span>Estimación de la media de ingresos de los hogares</caption>
-<colgroup>
-<col width="14%" />
-<col width="20%" />
-<col width="21%" />
-<col width="21%" />
-<col width="22%" />
-</colgroup>
 <thead>
 <tr class="header">
-<th align="left">media_ing</th>
-<th align="center">media_ing_se</th>
-<th align="center">media_ing_low</th>
-<th align="center">media_ing_upp</th>
-<th align="center">media_ing_deff</th>
+<th align="left">mean</th>
+<th align="center">mean_se</th>
+<th align="center">mean_low</th>
+<th align="center">mean_upp</th>
+<th align="center">mean_deff</th>
 </tr>
 </thead>
 <tbody>
@@ -457,26 +450,19 @@ div.csl-indent {
 </table>
 <p>Como se aprecia, los argumentos utilizados en la función <code>survey_mean()</code> son similares a los de <code>survey_total()</code>. En este caso, <code>vartype</code> permite obtener el error estándar (<code>"se"</code>) y el intervalo de confianza (<code>"ci"</code>), mientras que el argumento <code>deff = TRUE</code> solicita el cálculo del efecto del diseño. De forma análoga, es posible estimar la media de los gastos de los hogares, empleando la misma estructura de código, presentada en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-media-gasto">3.5</a>:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="estimacion-de-parametros-descriptivos.html#cb8-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="estimacion-de-parametros-descriptivos.html#cb8-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media_gastos =</span> <span class="fu">survey_mean</span>(Expenditure,</span>
+<span id="cb8-2"><a href="estimacion-de-parametros-descriptivos.html#cb8-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">survey_mean</span>(Expenditure,</span>
 <span id="cb8-3"><a href="estimacion-de-parametros-descriptivos.html#cb8-3" tabindex="-1"></a>                                    <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>),</span>
 <span id="cb8-4"><a href="estimacion-de-parametros-descriptivos.html#cb8-4" tabindex="-1"></a>                                    <span class="at">level =</span> <span class="fl">0.95</span>,</span>
 <span id="cb8-5"><a href="estimacion-de-parametros-descriptivos.html#cb8-5" tabindex="-1"></a>                                    <span class="at">deff =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-media-gasto">Tabla 3.5: </span>Estimación de la media de gastos de los hogares</caption>
-<colgroup>
-<col width="15%" />
-<col width="20%" />
-<col width="21%" />
-<col width="21%" />
-<col width="22%" />
-</colgroup>
 <thead>
 <tr class="header">
-<th align="left">media_gastos</th>
-<th align="center">media_gastos_se</th>
-<th align="center">media_gastos_low</th>
-<th align="center">media_gastos_upp</th>
-<th align="center">media_gastos_deff</th>
+<th align="left">mean</th>
+<th align="center">mean_se</th>
+<th align="center">mean_low</th>
+<th align="center">mean_upp</th>
+<th align="center">mean_deff</th>
 </tr>
 </thead>
 <tbody>
@@ -492,63 +478,63 @@ div.csl-indent {
 <p>También se pueden realizar estimaciones de la media por subgrupos siguiendo el mismo esquema mostrado previamente. Particularmente, los gastos de los hogares discriminados por sexo se presentan en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-media-gasto-sexo">3.6</a>:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="estimacion-de-parametros-descriptivos.html#cb9-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb9-2"><a href="estimacion-de-parametros-descriptivos.html#cb9-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="estimacion-de-parametros-descriptivos.html#cb9-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">Media =</span> <span class="fu">survey_mean</span>(Expenditure,</span>
+<span id="cb9-3"><a href="estimacion-de-parametros-descriptivos.html#cb9-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">mean =</span> <span class="fu">survey_mean</span>(Expenditure,</span>
 <span id="cb9-4"><a href="estimacion-de-parametros-descriptivos.html#cb9-4" tabindex="-1"></a>                              <span class="at">level =</span> <span class="fl">0.95</span>,</span>
 <span id="cb9-5"><a href="estimacion-de-parametros-descriptivos.html#cb9-5" tabindex="-1"></a>                              <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
-<span id="cb9-6"><a href="estimacion-de-parametros-descriptivos.html#cb9-6" tabindex="-1"></a>        <span class="at">.fill =</span> <span class="st">&quot;El gasto medio&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="estimacion-de-parametros-descriptivos.html#cb9-6" tabindex="-1"></a>        <span class="at">.fill =</span> <span class="st">&quot;Mean expenditure&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb9-7"><a href="estimacion-de-parametros-descriptivos.html#cb9-7" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Sex))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-media-gasto-sexo">Tabla 3.6: </span>Media de gastos de los hogares desagregada por sexo</caption>
 <thead>
 <tr class="header">
 <th align="left">Sex</th>
-<th align="center">Media</th>
-<th align="center">Media_se</th>
-<th align="center">Media_low</th>
-<th align="center">Media_upp</th>
+<th align="center">mean</th>
+<th align="center">mean_se</th>
+<th align="center">mean_low</th>
+<th align="center">mean_upp</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
+<td align="left">Mean expenditure</td>
+<td align="center">371</td>
+<td align="center">13.3</td>
+<td align="center">344</td>
+<td align="center">397</td>
+</tr>
+<tr class="even">
 <td align="left">Male</td>
 <td align="center">374</td>
 <td align="center">16.1</td>
 <td align="center">343</td>
 <td align="center">406</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Female</td>
 <td align="center">367</td>
 <td align="center">12.3</td>
 <td align="center">343</td>
 <td align="center">391</td>
 </tr>
-<tr class="odd">
-<td align="left">El gasto medio</td>
-<td align="center">371</td>
-<td align="center">13.3</td>
-<td align="center">344</td>
-<td align="center">397</td>
-</tr>
 </tbody>
 </table>
 <p>De manera análoga, se pueden calcular las medias del gasto por zona, las cuales son presentadas en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-media-gasto-zona">3.7</a>:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="estimacion-de-parametros-descriptivos.html#cb10-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="estimacion-de-parametros-descriptivos.html#cb10-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span></span>
-<span id="cb10-3"><a href="estimacion-de-parametros-descriptivos.html#cb10-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">Media =</span> <span class="fu">survey_mean</span>(Expenditure,</span>
+<span id="cb10-3"><a href="estimacion-de-parametros-descriptivos.html#cb10-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">mean =</span> <span class="fu">survey_mean</span>(Expenditure,</span>
 <span id="cb10-4"><a href="estimacion-de-parametros-descriptivos.html#cb10-4" tabindex="-1"></a>                              <span class="at">level =</span> <span class="fl">0.95</span>,</span>
 <span id="cb10-5"><a href="estimacion-de-parametros-descriptivos.html#cb10-5" tabindex="-1"></a>                              <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
-<span id="cb10-6"><a href="estimacion-de-parametros-descriptivos.html#cb10-6" tabindex="-1"></a>        <span class="at">.fill =</span> <span class="st">&quot;El gasto medio&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-6"><a href="estimacion-de-parametros-descriptivos.html#cb10-6" tabindex="-1"></a>        <span class="at">.fill =</span> <span class="st">&quot;Mean expenditure&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb10-7"><a href="estimacion-de-parametros-descriptivos.html#cb10-7" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Zone))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-media-gasto-zona">Tabla 3.7: </span>Media de gastos de los hogares desagregada por zona</caption>
 <thead>
 <tr class="header">
 <th align="left">Zone</th>
-<th align="center">Media</th>
-<th align="center">Media_se</th>
-<th align="center">Media_low</th>
-<th align="center">Media_upp</th>
+<th align="center">mean</th>
+<th align="center">mean_se</th>
+<th align="center">mean_low</th>
+<th align="center">mean_upp</th>
 </tr>
 </thead>
 <tbody>
@@ -567,7 +553,7 @@ div.csl-indent {
 <td align="center">294</td>
 </tr>
 <tr class="odd">
-<td align="left">El gasto medio</td>
+<td align="left">Mean expenditure</td>
 <td align="center">371</td>
 <td align="center">13.3</td>
 <td align="center">344</td>
@@ -578,33 +564,41 @@ div.csl-indent {
 <p>Asimismo, es posible realizar una estimación combinada por sexo y zona, presentada en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-media-gasto-zona-sexo">3.8</a>:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="estimacion-de-parametros-descriptivos.html#cb11-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb11-2"><a href="estimacion-de-parametros-descriptivos.html#cb11-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone, Sex) <span class="sc">%&gt;%</span></span>
-<span id="cb11-3"><a href="estimacion-de-parametros-descriptivos.html#cb11-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">Media =</span> <span class="fu">survey_mean</span>(Expenditure,</span>
+<span id="cb11-3"><a href="estimacion-de-parametros-descriptivos.html#cb11-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">mean =</span> <span class="fu">survey_mean</span>(Expenditure,</span>
 <span id="cb11-4"><a href="estimacion-de-parametros-descriptivos.html#cb11-4" tabindex="-1"></a>                              <span class="at">level =</span> <span class="fl">0.95</span>,</span>
 <span id="cb11-5"><a href="estimacion-de-parametros-descriptivos.html#cb11-5" tabindex="-1"></a>                              <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
-<span id="cb11-6"><a href="estimacion-de-parametros-descriptivos.html#cb11-6" tabindex="-1"></a>        <span class="at">.fill =</span> <span class="st">&quot;El gasto medio&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a href="estimacion-de-parametros-descriptivos.html#cb11-6" tabindex="-1"></a>        <span class="at">.fill =</span> <span class="st">&quot;Mean expenditure&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb11-7"><a href="estimacion-de-parametros-descriptivos.html#cb11-7" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Zone), <span class="fu">desc</span>(Sex))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-media-gasto-zona-sexo">Tabla 3.8: </span>Media de gastos de los hogares desagregada por zona y sexo</caption>
 <colgroup>
-<col width="21%" />
-<col width="22%" />
-<col width="10%" />
+<col width="24%" />
+<col width="25%" />
+<col width="8%" />
+<col width="12%" />
 <col width="14%" />
-<col width="15%" />
-<col width="15%" />
+<col width="14%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="left">Zone</th>
 <th align="center">Sex</th>
-<th align="center">Media</th>
-<th align="center">Media_se</th>
-<th align="center">Media_low</th>
-<th align="center">Media_upp</th>
+<th align="center">mean</th>
+<th align="center">mean_se</th>
+<th align="center">mean_low</th>
+<th align="center">mean_upp</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
+<td align="left">Urban</td>
+<td align="center">Mean expenditure</td>
+<td align="center">460</td>
+<td align="center">22.2</td>
+<td align="center">416</td>
+<td align="center">504</td>
+</tr>
+<tr class="even">
 <td align="left">Urban</td>
 <td align="center">Male</td>
 <td align="center">470</td>
@@ -612,7 +606,7 @@ div.csl-indent {
 <td align="center">416</td>
 <td align="center">523</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Urban</td>
 <td align="center">Female</td>
 <td align="center">451</td>
@@ -620,15 +614,15 @@ div.csl-indent {
 <td align="center">411</td>
 <td align="center">491</td>
 </tr>
-<tr class="odd">
-<td align="left">Urban</td>
-<td align="center">El gasto medio</td>
-<td align="center">460</td>
-<td align="center">22.2</td>
-<td align="center">416</td>
-<td align="center">504</td>
-</tr>
 <tr class="even">
+<td align="left">Rural</td>
+<td align="center">Mean expenditure</td>
+<td align="center">274</td>
+<td align="center">10.3</td>
+<td align="center">254</td>
+<td align="center">294</td>
+</tr>
+<tr class="odd">
 <td align="left">Rural</td>
 <td align="center">Male</td>
 <td align="center">275</td>
@@ -636,7 +630,7 @@ div.csl-indent {
 <td align="center">255</td>
 <td align="center">296</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Rural</td>
 <td align="center">Female</td>
 <td align="center">273</td>
@@ -644,17 +638,9 @@ div.csl-indent {
 <td align="center">250</td>
 <td align="center">296</td>
 </tr>
-<tr class="even">
-<td align="left">Rural</td>
-<td align="center">El gasto medio</td>
-<td align="center">274</td>
-<td align="center">10.3</td>
-<td align="center">254</td>
-<td align="center">294</td>
-</tr>
 <tr class="odd">
-<td align="left">El gasto medio</td>
-<td align="center">El gasto medio</td>
+<td align="left">Mean expenditure</td>
+<td align="center">Mean expenditure</td>
 <td align="center">371</td>
 <td align="center">13.3</td>
 <td align="center">344</td>

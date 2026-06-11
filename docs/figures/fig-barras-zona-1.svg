@@ -72,7 +72,7 @@
 <text x='151.09' y='267.74' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";' textLength='21.02px' lengthAdjust='spacingAndGlyphs'>Rural</text>
 <text x='323.23' y='267.74' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";' textLength='23.95px' lengthAdjust='spacingAndGlyphs'>Urban</text>
 <text x='237.16' y='280.20' text-anchor='middle' style='font-size: 11.00px; font-family: "Arial";' textLength='25.09px' lengthAdjust='spacingAndGlyphs'>Zone</text>
-<text transform='translate(13.36,150.59) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: "Arial";' textLength='14.06px' lengthAdjust='spacingAndGlyphs'>Nd</text>
+<text transform='translate(13.36,150.59) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: "Arial";' textLength='19.56px' lengthAdjust='spacingAndGlyphs'>size</text>
 <rect x='168.41' y='5.48' width='137.50' height='28.24' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <text x='173.89' y='23.54' style='font-size: 11.00px; font-family: "Arial";' textLength='25.09px' lengthAdjust='spacingAndGlyphs'>Zone</text>
 <rect x='204.46' y='10.96' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />

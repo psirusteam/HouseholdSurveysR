@@ -23,7 +23,7 @@
 <meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
 
 
-<meta name="date" content="2026-06-10" />
+<meta name="date" content="2026-06-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -321,7 +321,7 @@ y_{kj} \mid \pi_{kj} \sim \text{Bernoulli}(\pi_{kj})
 <span id="cb181-2"><a href="sec-logistica-multinivel.html#cb181-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb181-3"><a href="sec-logistica-multinivel.html#cb181-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">method =</span> <span class="st">&quot;glm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb181-4"><a href="sec-logistica-multinivel.html#cb181-4" tabindex="-1"></a>              <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))) <span class="sc">+</span></span>
-<span id="cb181-5"><a href="sec-logistica-multinivel.html#cb181-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Pobreza (1 = pobre)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Gasto&quot;</span>)</span></code></pre></div>
+<span id="cb181-5"><a href="sec-logistica-multinivel.html#cb181-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Poverty (1 = poor)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Expenditure&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-logit-pobreza-gasto"></span>
 <img src="figures/fig-logit-pobreza-gasto-1.svg" alt="Relación entre gasto y condición de pobreza con curva logística ajustada" width="70%" />
 <p class="caption">
@@ -524,7 +524,7 @@ y_{kj} \mid \pi_{kj} \sim \text{Bernoulli}(\pi_{kj})
 <span id="cb190-2"><a href="sec-logistica-multinivel.html#cb190-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> probability, <span class="at">x =</span> Expenditure, <span class="at">colour =</span> Stratum)) <span class="sc">+</span></span>
 <span id="cb190-3"><a href="sec-logistica-multinivel.html#cb190-3" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
 <span id="cb190-4"><a href="sec-logistica-multinivel.html#cb190-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> plot_data, <span class="fu">aes</span>(<span class="at">y =</span> poverty, <span class="at">x =</span> Expenditure)) <span class="sc">+</span></span>
-<span id="cb190-5"><a href="sec-logistica-multinivel.html#cb190-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Probabilidad de pobreza&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Gasto&quot;</span>) <span class="sc">+</span></span>
+<span id="cb190-5"><a href="sec-logistica-multinivel.html#cb190-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Poverty probability&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Expenditure&quot;</span>) <span class="sc">+</span></span>
 <span id="cb190-6"><a href="sec-logistica-multinivel.html#cb190-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-logit-int-aleatorio"></span>
 <img src="figures/fig-logit-int-aleatorio-1.svg" alt="Curvas de probabilidad predichas por estrato: modelo logístico con intercepto aleatorio" width="70%" />
@@ -628,7 +628,7 @@ Figura 7.8: Curvas de probabilidad predichas por estrato: modelo logístico con 
 <span id="cb195-2"><a href="sec-logistica-multinivel.html#cb195-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> probability, <span class="at">x =</span> Expenditure, <span class="at">colour =</span> Stratum)) <span class="sc">+</span></span>
 <span id="cb195-3"><a href="sec-logistica-multinivel.html#cb195-3" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
 <span id="cb195-4"><a href="sec-logistica-multinivel.html#cb195-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> plot_data, <span class="fu">aes</span>(<span class="at">y =</span> poverty, <span class="at">x =</span> Expenditure)) <span class="sc">+</span></span>
-<span id="cb195-5"><a href="sec-logistica-multinivel.html#cb195-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Probabilidad de pobreza&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Gasto&quot;</span>) <span class="sc">+</span></span>
+<span id="cb195-5"><a href="sec-logistica-multinivel.html#cb195-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Poverty probability&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Expenditure&quot;</span>) <span class="sc">+</span></span>
 <span id="cb195-6"><a href="sec-logistica-multinivel.html#cb195-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-logit-pendiente-aleatoria"></span>
 <img src="figures/fig-logit-pendiente-aleatoria-1.svg" alt="Curvas de probabilidad predichas por estrato: modelo logístico con intercepto y pendiente aleatoria" width="70%" />

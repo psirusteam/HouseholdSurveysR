@@ -23,7 +23,7 @@
 <meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
 
 
-<meta name="date" content="2026-06-10" />
+<meta name="date" content="2026-06-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -319,17 +319,17 @@ CI(\hat{p}_d; 1-\alpha) = \frac{exp \left[ln\left(\frac{\hat{p}_d}{1-\hat{p}_d}\
 <p>A diferencia de otros programas estadísticos que presentan los resultados en porcentaje, <code>R</code> reporta las proporciones en la escala [0,1]. Las funciones de estos paquetes permiten calcular directamente las estimaciones, sus errores estándar e intervalos de confianza, lo que facilita el análisis de variables categóricas en encuestas de hogares. A continuación se ilustra cómo obtener la proporción de personas por zona usando el diseño muestral previamente definido, presentada en la Tabla <a href="estimacion-de-proporciones.html#tab:tab-prop-zona">4.5</a>:</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="estimacion-de-proporciones.html#cb59-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb59-2"><a href="estimacion-de-proporciones.html#cb59-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span></span>
-<span id="cb59-3"><a href="estimacion-de-proporciones.html#cb59-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prop =</span> <span class="fu">survey_mean</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>),</span>
+<span id="cb59-3"><a href="estimacion-de-proporciones.html#cb59-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">proportion =</span> <span class="fu">survey_mean</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>),</span>
 <span id="cb59-4"><a href="estimacion-de-proporciones.html#cb59-4" tabindex="-1"></a>                               <span class="at">proportion =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-prop-zona">Tabla 4.5: </span>Proporción de personas por zona geográfica</caption>
 <thead>
 <tr class="header">
 <th align="left">Zone</th>
-<th align="center">prop</th>
-<th align="center">prop_se</th>
-<th align="center">prop_low</th>
-<th align="center">prop_upp</th>
+<th align="center">proportion</th>
+<th align="center">proportion_se</th>
+<th align="center">proportion_low</th>
+<th align="center">proportion_upp</th>
 </tr>
 </thead>
 <tbody>
@@ -354,16 +354,16 @@ CI(\hat{p}_d; 1-\alpha) = \frac{exp \left[ln\left(\frac{\hat{p}_d}{1-\hat{p}_d}\
 <p>A partir de estas estimaciones se observa que, en la zona urbana, el 53.6% de la población corresponde a mujeres, con un intervalo de confianza del 95% entre 51.0% y 56.2%, mientras que el 46.4% corresponde a hombres, con un intervalo de confianza entre 43.7% y 48.9%. Estos resultados permiten apreciar no solo la distribución porcentual de la población según sexo, sino también el nivel de precisión asociado a las estimaciones.</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="estimacion-de-proporciones.html#cb60-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb60-2"><a href="estimacion-de-proporciones.html#cb60-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span></span>
-<span id="cb60-3"><a href="estimacion-de-proporciones.html#cb60-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prop =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
+<span id="cb60-3"><a href="estimacion-de-proporciones.html#cb60-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">proportion =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-prop-zona2">Tabla 4.6: </span>Proporción de personas por zona geográfica (función survey_prop)</caption>
 <thead>
 <tr class="header">
 <th align="left">Zone</th>
-<th align="center">prop</th>
-<th align="center">prop_se</th>
-<th align="center">prop_low</th>
-<th align="center">prop_upp</th>
+<th align="center">proportion</th>
+<th align="center">proportion_se</th>
+<th align="center">proportion_low</th>
+<th align="center">proportion_upp</th>
 </tr>
 </thead>
 <tbody>
@@ -386,16 +386,16 @@ CI(\hat{p}_d; 1-\alpha) = \frac{exp \left[ln\left(\frac{\hat{p}_d}{1-\hat{p}_d}\
 <p>Si el interés se centra ahora en estimar proporciones para subpoblaciones específicas, por ejemplo, la proporción de hombres y mujeres que residen en la zona urbana, es necesario restringir el análisis a dicho dominio de estudio y posteriormente calcular las estimaciones correspondientes para cada categoría de sexo. El código computacional correspondiente se presenta en la Tabla <a href="estimacion-de-proporciones.html#tab:tab-prop-sexo-urbano">4.7</a>.</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="estimacion-de-proporciones.html#cb61-1" tabindex="-1"></a>urban_subset <span class="sc">%&gt;%</span></span>
 <span id="cb61-2"><a href="estimacion-de-proporciones.html#cb61-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
-<span id="cb61-3"><a href="estimacion-de-proporciones.html#cb61-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prop =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
+<span id="cb61-3"><a href="estimacion-de-proporciones.html#cb61-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">proportion =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-prop-sexo-urbano">Tabla 4.7: </span>Proporción de hombres y mujeres en zona urbana</caption>
 <thead>
 <tr class="header">
 <th align="left">Sex</th>
-<th align="center">prop</th>
-<th align="center">prop_se</th>
-<th align="center">prop_low</th>
-<th align="center">prop_upp</th>
+<th align="center">proportion</th>
+<th align="center">proportion_se</th>
+<th align="center">proportion_low</th>
+<th align="center">proportion_upp</th>
 </tr>
 </thead>
 <tbody>
@@ -419,17 +419,25 @@ CI(\hat{p}_d; 1-\alpha) = \frac{exp \left[ln\left(\frac{\hat{p}_d}{1-\hat{p}_d}\
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="estimacion-de-proporciones.html#cb62-1" tabindex="-1"></a>rural_subset <span class="sc">%&gt;%</span></span>
 <span id="cb62-2"><a href="estimacion-de-proporciones.html#cb62-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
 <span id="cb62-3"><a href="estimacion-de-proporciones.html#cb62-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n    =</span> <span class="fu">unweighted</span>(<span class="fu">n</span>()),</span>
-<span id="cb62-4"><a href="estimacion-de-proporciones.html#cb62-4" tabindex="-1"></a>            <span class="at">prop =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
+<span id="cb62-4"><a href="estimacion-de-proporciones.html#cb62-4" tabindex="-1"></a>            <span class="at">proportion =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-prop-sexo-rural">Tabla 4.8: </span>Proporción de hombres y mujeres en zona rural</caption>
+<colgroup>
+<col width="9%" />
+<col width="7%" />
+<col width="16%" />
+<col width="21%" />
+<col width="22%" />
+<col width="22%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Sex</th>
 <th align="center">n</th>
-<th align="center">prop</th>
-<th align="center">prop_se</th>
-<th align="center">prop_low</th>
-<th align="center">prop_upp</th>
+<th align="center">proportion</th>
+<th align="center">proportion_se</th>
+<th align="center">proportion_low</th>
+<th align="center">proportion_upp</th>
 </tr>
 </thead>
 <tbody>
@@ -454,16 +462,16 @@ CI(\hat{p}_d; 1-\alpha) = \frac{exp \left[ln\left(\frac{\hat{p}_d}{1-\hat{p}_d}\
 <p>Ahora bien, si el análisis se restringe únicamente a la población masculina incluida en la base de datos y el interés consiste en estimar la distribución porcentual de los hombres según la zona de residencia, es posible calcular la proporción de hombres que viven en áreas urbanas y rurales utilizando el diseño muestral previamente definido. El código computacional correspondiente se presenta en la Tabla <a href="estimacion-de-proporciones.html#tab:tab-prop-zona-hombre">4.9</a>.</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="estimacion-de-proporciones.html#cb63-1" tabindex="-1"></a>male_subset <span class="sc">%&gt;%</span></span>
 <span id="cb63-2"><a href="estimacion-de-proporciones.html#cb63-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span></span>
-<span id="cb63-3"><a href="estimacion-de-proporciones.html#cb63-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prop =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
+<span id="cb63-3"><a href="estimacion-de-proporciones.html#cb63-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">proportion =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-prop-zona-hombre">Tabla 4.9: </span>Distribución por zona en la subpoblación masculina</caption>
 <thead>
 <tr class="header">
 <th align="left">Zone</th>
-<th align="center">prop</th>
-<th align="center">prop_se</th>
-<th align="center">prop_low</th>
-<th align="center">prop_upp</th>
+<th align="center">proportion</th>
+<th align="center">proportion_se</th>
+<th align="center">proportion_low</th>
+<th align="center">proportion_upp</th>
 </tr>
 </thead>
 <tbody>
@@ -486,17 +494,25 @@ CI(\hat{p}_d; 1-\alpha) = \frac{exp \left[ln\left(\frac{\hat{p}_d}{1-\hat{p}_d}\
 <p>Si se desea estimar resultados con varios niveles de desagregación, al igual que en los capítulos anteriores, el uso de la función <code>group_by()</code> permite generar distintos niveles de agregación mediante la combinación de dos o más variables categóricas. Por ejemplo, es posible estimar la proporción de hombres según zona de residencia y condición de pobreza de manera simultánea. Este tipo de análisis permite caracterizar con mayor detalle las condiciones socioeconómicas de subpoblaciones específicas. El procedimiento correspondiente se presenta en la Tabla <a href="estimacion-de-proporciones.html#tab:tab-prop-zona-pobreza-hombre">4.10</a>.</p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="estimacion-de-proporciones.html#cb64-1" tabindex="-1"></a>male_subset <span class="sc">%&gt;%</span></span>
 <span id="cb64-2"><a href="estimacion-de-proporciones.html#cb64-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone, Poverty) <span class="sc">%&gt;%</span></span>
-<span id="cb64-3"><a href="estimacion-de-proporciones.html#cb64-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prop =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
+<span id="cb64-3"><a href="estimacion-de-proporciones.html#cb64-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">proportion =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-prop-zona-pobreza-hombre">Tabla 4.10: </span>Proporción de hombres por zona y condición de pobreza</caption>
+<colgroup>
+<col width="8%" />
+<col width="13%" />
+<col width="16%" />
+<col width="20%" />
+<col width="21%" />
+<col width="21%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Zone</th>
 <th align="center">Poverty</th>
-<th align="center">prop</th>
-<th align="center">prop_se</th>
-<th align="center">prop_low</th>
-<th align="center">prop_upp</th>
+<th align="center">proportion</th>
+<th align="center">proportion_se</th>
+<th align="center">proportion_low</th>
+<th align="center">proportion_upp</th>
 </tr>
 </thead>
 <tbody>
@@ -557,19 +573,27 @@ CI(\hat{p}_d; 1-\alpha) = \frac{exp \left[ln\left(\frac{\hat{p}_d}{1-\hat{p}_d}\
 <span id="cb65-2"><a href="estimacion-de-proporciones.html#cb65-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Employment)) <span class="sc">%&gt;%</span></span>
 <span id="cb65-3"><a href="estimacion-de-proporciones.html#cb65-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age_range =</span> <span class="fu">case_when</span>(</span>
 <span id="cb65-4"><a href="estimacion-de-proporciones.html#cb65-4" tabindex="-1"></a>                      Age<span class="sc">&gt;=</span> <span class="dv">18</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;=</span><span class="dv">35</span>  <span class="sc">~</span> <span class="st">&quot;18 - 35&quot;</span>,</span>
-<span id="cb65-5"><a href="estimacion-de-proporciones.html#cb65-5" tabindex="-1"></a>                      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;Otro&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb65-5"><a href="estimacion-de-proporciones.html#cb65-5" tabindex="-1"></a>                      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;Other&quot;</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb65-6"><a href="estimacion-de-proporciones.html#cb65-6" tabindex="-1"></a>  <span class="fu">group_by</span>(age_range, Employment) <span class="sc">%&gt;%</span></span>
-<span id="cb65-7"><a href="estimacion-de-proporciones.html#cb65-7" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Prop =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
+<span id="cb65-7"><a href="estimacion-de-proporciones.html#cb65-7" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">proportion =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-prop-edad-rango-empleo-mujer">Tabla 4.11: </span>Proporción de mujeres por rango de edad y estado de ocupación</caption>
+<colgroup>
+<col width="12%" />
+<col width="14%" />
+<col width="14%" />
+<col width="18%" />
+<col width="19%" />
+<col width="19%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">age_range</th>
 <th align="center">Employment</th>
-<th align="center">Prop</th>
-<th align="center">Prop_se</th>
-<th align="center">Prop_low</th>
-<th align="center">Prop_upp</th>
+<th align="center">proportion</th>
+<th align="center">proportion_se</th>
+<th align="center">proportion_low</th>
+<th align="center">proportion_upp</th>
 </tr>
 </thead>
 <tbody>
@@ -598,7 +622,7 @@ CI(\hat{p}_d; 1-\alpha) = \frac{exp \left[ln\left(\frac{\hat{p}_d}{1-\hat{p}_d}\
 <td align="center">0.526</td>
 </tr>
 <tr class="even">
-<td align="left">Otro</td>
+<td align="left">Other</td>
 <td align="center">Unemployed</td>
 <td align="center">0.016</td>
 <td align="center">0.007</td>
@@ -606,7 +630,7 @@ CI(\hat{p}_d; 1-\alpha) = \frac{exp \left[ln\left(\frac{\hat{p}_d}{1-\hat{p}_d}\
 <td align="center">0.036</td>
 </tr>
 <tr class="odd">
-<td align="left">Otro</td>
+<td align="left">Other</td>
 <td align="center">Inactive</td>
 <td align="center">0.571</td>
 <td align="center">0.030</td>
@@ -614,7 +638,7 @@ CI(\hat{p}_d; 1-\alpha) = \frac{exp \left[ln\left(\frac{\hat{p}_d}{1-\hat{p}_d}\
 <td align="center">0.629</td>
 </tr>
 <tr class="even">
-<td align="left">Otro</td>
+<td align="left">Other</td>
 <td align="center">Employed</td>
 <td align="center">0.413</td>
 <td align="center">0.029</td>

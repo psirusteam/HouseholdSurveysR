@@ -69,7 +69,7 @@ ggplot(data = plot_data,
   geom_jitter() +
   geom_smooth(formula = y ~ x, method = "lm", se = FALSE) +
   ggtitle(latex2exp::TeX(
-    "$Ingreso_{i} \\sim \\hat{\\beta}_{0} + \\hat{\\beta}_{1}Gasto_{i} + \\epsilon_{i}$")) +
+    "$Income_{i} \\sim \\hat{\\beta}_{0} + \\hat{\\beta}_{1}Expenditure_{i} + \\epsilon_{i}$")) +
   theme(legend.position = "none",
         plot.title = element_text(hjust = 0.5))
 ```
@@ -95,7 +95,7 @@ ggplot(data = plot_data,
   geom_abline(data = model_coef,
               mapping = aes(slope = B1, intercept = B0, colour = Stratum)) +
   ggtitle(latex2exp::TeX(
-    "$Ingreso_{kj} \\sim \\hat{\\beta}_{0j} + \\hat{\\beta}_{1}Gasto_{kj} + \\epsilon_{kj}$")) +
+    "$Income_{kj} \\sim \\hat{\\beta}_{0j} + \\hat{\\beta}_{1}Expenditure_{kj} + \\epsilon_{kj}$")) +
   theme(legend.position = "none",
         plot.title = element_text(hjust = 0.5))
 ```
@@ -121,7 +121,7 @@ ggplot(data = plot_data,
   geom_abline(data = model_coef,
               mapping = aes(slope = B1, intercept = B0, colour = Stratum)) +
   ggtitle(latex2exp::TeX(
-    "$Ingreso_{kj} \\sim \\hat{\\beta}_{0} + \\hat{\\beta}_{1j}Gasto_{kj} + \\epsilon_{kj}$")) +
+    "$Income_{kj} \\sim \\hat{\\beta}_{0} + \\hat{\\beta}_{1j}Expenditure_{kj} + \\epsilon_{kj}$")) +
   theme(legend.position = "none",
         plot.title = element_text(hjust = 0.5))
 ```
@@ -144,7 +144,7 @@ ggplot(data = plot_data,
   geom_abline(data = model_coef,
               mapping = aes(slope = B1, intercept = B0, colour = Stratum)) +
   ggtitle(latex2exp::TeX(
-    "$Ingreso_{kj} \\sim \\hat{\\beta}_{0j} + \\hat{\\beta}_{1}Gasto_{kj} + \\epsilon_{kj}$")) +
+    "$Income_{kj} \\sim \\hat{\\beta}_{0j} + \\hat{\\beta}_{1}Expenditure_{kj} + \\epsilon_{kj}$")) +
   theme(legend.position = "none",
         plot.title = element_text(hjust = 0.5))
 ```
@@ -457,7 +457,7 @@ ggplot(data = survey_data, aes(y = poverty, x = Expenditure)) +
   geom_point(alpha = 0.5) +
   geom_smooth(formula = y ~ x, method = "glm", se = FALSE,
               method.args = list(family = binomial(link = "logit"))) +
-  labs(y = "Pobreza (1 = pobre)", x = "Gasto")
+  labs(y = "Poverty (1 = poor)", x = "Expenditure")
 ```
 
 La curva ajustada resume la asociación marginal entre el gasto y la condición de pobreza, sin incorporar todavía la estructura jerárquica de los estratos. En términos generales, la forma descendente de la curva indica que, a medida que aumenta el gasto del hogar, disminuye la probabilidad estimada de encontrarse en condición de pobreza. Sin embargo, esta relación promedio puede ocultar diferencias relevantes entre estratos, especialmente cuando los hogares pertenecen a contextos socioeconómicos distintos.
@@ -580,7 +580,7 @@ ggplot(data = prediction_data,
        aes(y = probability, x = Expenditure, colour = Stratum)) +
   geom_line() +
   geom_point(data = plot_data, aes(y = poverty, x = Expenditure)) +
-  labs(y = "Probabilidad de pobreza", x = "Gasto") +
+  labs(y = "Poverty probability", x = "Expenditure") +
   theme(legend.position = "none")
 ```
 
@@ -634,6 +634,6 @@ ggplot(data = prediction_data,
        aes(y = probability, x = Expenditure, colour = Stratum)) +
   geom_line() +
   geom_point(data = plot_data, aes(y = poverty, x = Expenditure)) +
-  labs(y = "Probabilidad de pobreza", x = "Gasto") +
+  labs(y = "Poverty probability", x = "Expenditure") +
   theme(legend.position = "none")
 ```

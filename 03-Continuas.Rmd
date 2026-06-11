@@ -85,11 +85,11 @@ El siguiente ejemplo presenta cómo estimar totales y sus intervalos de confianz
 
 ```{r eval=FALSE}
 survey_design %>%
-  summarise(ty = survey_total(Income, vartype = c("se", "ci"), deff = TRUE))
+  summarise(total = survey_total(Income, vartype = c("se", "ci"), deff = TRUE))
 ```
 ```{r tab-total-ingreso, tab.cap="Estimación del total de ingresos de los hogares con intervalo de confianza al 95%", echo=FALSE}
 survey_design %>%
-  summarise(ty = survey_total(Income, vartype = c("se", "ci"), deff = TRUE)) %>%
+  summarise(total = survey_total(Income, vartype = c("se", "ci"), deff = TRUE)) %>%
   tabla_fmt()
 ```
 
@@ -99,13 +99,13 @@ Para continuar ilustrando el uso de la función `survey_total()` dentro del enfo
 
 ```{r eval=FALSE}
 survey_design %>%
-  summarise(ty = survey_total(Expenditure,
+  summarise(total = survey_total(Expenditure,
                               vartype = "ci", level = 0.9,
                               deff = TRUE))
 ```
 ```{r tab-total-gasto, tab.cap="Estimación del total de gastos de los hogares con intervalo de confianza al 90%", echo=FALSE}
 survey_design %>%
-  summarise(ty = survey_total(Expenditure,
+  summarise(total = survey_total(Expenditure,
                               vartype = "ci", level = 0.9,
                               deff = TRUE)) %>%
   tabla_fmt()
@@ -117,18 +117,18 @@ Si el objetivo es estimar el total de ingresos de los hogares, pero desagregado 
 ```{r eval=FALSE}
 survey_design %>%
   group_by(Sex) %>%
-  cascade(Total = survey_total(Income,
+  cascade(total = survey_total(Income,
                                vartype =  c("se", "ci"),
                                level = 0.95),
-          .fill = "Total ingreso")
+          .fill = "Total income")
 ```
 ```{r tab-total-ingreso-sexo, tab.cap="Total de ingresos de los hogares desagregado por sexo", echo=FALSE}
 survey_design %>%
   group_by(Sex) %>%
-  cascade(Total = survey_total(Income,
+  cascade(total = survey_total(Income,
                                vartype =  c("se", "ci"),
                                level = 0.95),
-          .fill = "Total ingreso") %>%
+          .fill = "Total income") %>%
   tabla_fmt()
 ```
 
@@ -153,14 +153,14 @@ Como se puede observar, el cálculo de la varianza de la media poblacional impli
 
 ```{r eval=FALSE}
 survey_design %>%
-  summarise(media_ing = survey_mean(Income,
+  summarise(mean = survey_mean(Income,
                                 vartype = c("se", "ci"),
                                 level = 0.95,
                                 deff = TRUE))
 ```
 ```{r tab-media-ingreso, tab.cap="Estimación de la media de ingresos de los hogares", echo=FALSE}
 survey_design %>%
-  summarise(media_ing = survey_mean(Income,
+  summarise(mean = survey_mean(Income,
                                 vartype = c("se", "ci"),
                                 level = 0.95,
                                 deff = TRUE)) %>%
@@ -171,14 +171,14 @@ Como se aprecia, los argumentos utilizados en la función `survey_mean()` son si
 
 ```{r eval=FALSE}
 survey_design %>%
-  summarise(media_gastos = survey_mean(Expenditure,
+  summarise(mean = survey_mean(Expenditure,
                                     vartype = c("se", "ci"),
                                     level = 0.95,
                                     deff = TRUE))
 ```
 ```{r tab-media-gasto, tab.cap="Estimación de la media de gastos de los hogares", echo=FALSE}
 survey_design %>%
-  summarise(media_gastos = survey_mean(Expenditure,
+  summarise(mean = survey_mean(Expenditure,
                                     vartype = c("se", "ci"),
                                     level = 0.95,
                                     deff = TRUE)) %>%
@@ -191,19 +191,19 @@ También se pueden realizar estimaciones de la media por subgrupos siguiendo el 
 ```{r eval=FALSE}
 survey_design %>%
   group_by(Sex) %>%
-  cascade(Media = survey_mean(Expenditure,
+  cascade(mean = survey_mean(Expenditure,
                               level = 0.95,
                               vartype =  c("se", "ci")),
-        .fill = "El gasto medio") %>%
+        .fill = "Mean expenditure") %>%
   arrange(desc(Sex))
 ```
 ```{r tab-media-gasto-sexo, tab.cap="Media de gastos de los hogares desagregada por sexo", echo=FALSE}
 survey_design %>%
   group_by(Sex) %>%
-  cascade(Media = survey_mean(Expenditure,
+  cascade(mean = survey_mean(Expenditure,
                               level = 0.95,
                               vartype =  c("se", "ci")),
-        .fill = "El gasto medio") %>%
+        .fill = "Mean expenditure") %>%
   arrange(desc(Sex)) %>%
   tabla_fmt()
 ```
@@ -213,19 +213,19 @@ De manera análoga, se pueden calcular las medias del gasto por zona, las cuales
 ```{r eval=FALSE}
 survey_design %>%
   group_by(Zone) %>%
-  cascade(Media = survey_mean(Expenditure,
+  cascade(mean = survey_mean(Expenditure,
                               level = 0.95,
                               vartype =  c("se", "ci")),
-        .fill = "El gasto medio") %>%
+        .fill = "Mean expenditure") %>%
   arrange(desc(Zone))
 ```
 ```{r tab-media-gasto-zona, tab.cap="Media de gastos de los hogares desagregada por zona", echo=FALSE}
 survey_design %>%
   group_by(Zone) %>%
-  cascade(Media = survey_mean(Expenditure,
+  cascade(mean = survey_mean(Expenditure,
                               level = 0.95,
                               vartype =  c("se", "ci")),
-        .fill = "El gasto medio") %>%
+        .fill = "Mean expenditure") %>%
   arrange(desc(Zone)) %>%
   tabla_fmt()
 ```
@@ -236,19 +236,19 @@ Asimismo, es posible realizar una estimación combinada por sexo y zona, present
 ```{r eval=FALSE}
 survey_design %>%
   group_by(Zone, Sex) %>%
-  cascade(Media = survey_mean(Expenditure,
+  cascade(mean = survey_mean(Expenditure,
                               level = 0.95,
                               vartype =  c("se", "ci")),
-        .fill = "El gasto medio") %>%
+        .fill = "Mean expenditure") %>%
   arrange(desc(Zone), desc(Sex))
 ```
 ```{r tab-media-gasto-zona-sexo, tab.cap="Media de gastos de los hogares desagregada por zona y sexo", echo=FALSE}
 survey_design %>%
   group_by(Zone, Sex) %>%
-  cascade(Media = survey_mean(Expenditure,
+  cascade(mean = survey_mean(Expenditure,
                               level = 0.95,
                               vartype =  c("se", "ci")),
-        .fill = "El gasto medio") %>%
+        .fill = "Mean expenditure") %>%
   arrange(desc(Zone), desc(Sex)) %>%
   tabla_fmt()
 ```
@@ -410,22 +410,36 @@ Para estimar la desviación estándar de variables numéricas en encuestas de ho
 ```{r eval=FALSE}
 survey_design %>%
   group_by(Zone) %>%
-  summarise(Sd = sqrt(survey_var(Income,
-                               level = 0.95,
-                               vartype =  c("se", "ci")
-                               )
-                      )
-            )
+  summarise(
+    Var = survey_var(
+      Income,
+      level = 0.95,
+      vartype = c("se", "ci"),
+      na.rm = TRUE
+    )
+  ) %>%
+  mutate(
+    Sd     = sqrt(Var),
+    Sd_low = sqrt(Var_low),
+    Sd_upp = sqrt(Var_upp)
+  )
 ```
 ```{r tab-sd-ingreso-zona, tab.cap="Desviación estándar de los ingresos desagregada por zona", echo=FALSE}
 survey_design %>%
   group_by(Zone) %>%
-  summarise(Sd = sqrt(survey_var(Income,
-                               level = 0.95,
-                               vartype =  c("se", "ci")
-                               )
-                      )
-            ) %>%
+  summarise(
+    Var = survey_var(
+      Income,
+      level = 0.95,
+      vartype = c("se", "ci"),
+      na.rm = TRUE
+    )
+  ) %>%
+  mutate(
+    Sd     = sqrt(Var),
+    Sd_low = sqrt(Var_low),
+    Sd_upp = sqrt(Var_upp)
+  ) %>%
   tabla_fmt()
 ```
 
@@ -435,22 +449,36 @@ Como se observó en el ejemplo anterior, se estimó la desviación estándar de 
 ```{r eval=FALSE}
 survey_design %>%
   group_by(Zone, Sex) %>%
-  summarise(Sd = sqrt(survey_var(Income,
-                                 level = 0.95,
-                                 vartype =  c("se", "ci")
-                                 )
-                      )
-            )
+  summarise(
+    Var = survey_var(
+      Income,
+      level = 0.95,
+      vartype = c("se", "ci"),
+      na.rm = TRUE
+    )
+  ) %>%
+  mutate(
+    Sd     = sqrt(Var),
+    Sd_low = sqrt(Var_low),
+    Sd_upp = sqrt(Var_upp)
+  )
 ```
 ```{r tab-sd-ingreso-zona-sexo, tab.cap="Desviación estándar de los ingresos desagregada por zona y sexo", echo=FALSE}
 survey_design %>%
   group_by(Zone, Sex) %>%
-  summarise(Sd = sqrt(survey_var(Income,
-                                 level = 0.95,
-                                 vartype =  c("se", "ci")
-                                 )
-                      )
-            ) %>%
+  summarise(
+    Var = survey_var(
+      Income,
+      level = 0.95,
+      vartype = c("se", "ci"),
+      na.rm = TRUE
+    )
+  ) %>%
+  mutate(
+    Sd     = sqrt(Var),
+    Sd_low = sqrt(Var_low),
+    Sd_upp = sqrt(Var_upp)
+  ) %>%
   tabla_fmt()
 ```
 
@@ -478,7 +506,7 @@ Tanto los estimadores de cuantiles como los métodos para estimar sus varianzas 
 
 ```{r eval=FALSE}
 survey_design %>%
-  summarise(median_income = survey_median(Expenditure,
+  summarise(median = survey_median(Expenditure,
                                     level = 0.95,
                                     vartype =  c("se", "ci")
                                     )
@@ -486,7 +514,7 @@ survey_design %>%
 ```
 ```{r tab-mediana-gasto, tab.cap="Estimación de la mediana de los gastos de los hogares", echo=FALSE}
 survey_design %>%
-  summarise(median_income = survey_median(Expenditure,
+  summarise(median = survey_median(Expenditure,
                                     level = 0.95,
                                     vartype =  c("se", "ci")
                                     )
@@ -499,7 +527,7 @@ Como puede observarse, los argumentos de la función `survey_median()` son equiv
 ```{r eval=FALSE}
 survey_design %>%
   group_by(Zone) %>%
-  summarise(median_income = survey_median(Expenditure,
+  summarise(median = survey_median(Expenditure,
                                     level = 0.95,
                                     vartype =  c("se", "ci")
                                     )
@@ -509,7 +537,7 @@ survey_design %>%
 ```{r tab-mediana-gasto-zona, tab.cap="Estimación de la mediana de los gastos desagregada por zona", echo=FALSE}
 survey_design %>%
   group_by(Zone) %>%
-  summarise(median_income = survey_median(Expenditure,
+  summarise(median = survey_median(Expenditure,
                                     level = 0.95,
                                     vartype =  c("se", "ci")
                                     )
@@ -522,7 +550,7 @@ Si el objetivo es estimar un percentil específico diferente de la mediana, por 
 
 ```{r eval=FALSE}
 survey_design %>%
-  summarise(q = survey_quantile(Expenditure,
+  summarise(quantile = survey_quantile(Expenditure,
                                 quantiles = 0.25,
                                 level = 0.95,
                                 vartype =  c("se", "ci"),
@@ -532,7 +560,7 @@ survey_design %>%
 ```
 ```{r tab-cuantil-gasto, tab.cap="Estimación del primer cuartil de los gastos de los hogares", echo=FALSE}
 survey_design %>%
-  summarise(q = survey_quantile(Expenditure,
+  summarise(quantile = survey_quantile(Expenditure,
                                 quantiles = 0.25,
                                 level = 0.95,
                                 vartype =  c("se", "ci"),
@@ -548,7 +576,7 @@ Observe que se incorporó el argumento `interval_type = "score"`, el cual indica
 ```{r eval=FALSE}
 survey_design %>%
   group_by(Zone, Sex) %>%
-  summarise(q = survey_quantile(Expenditure,
+  summarise(quantile = survey_quantile(Expenditure,
                                 quantiles = 0.25,
                                 level = 0.95,
                                 vartype =  c("se", "ci"),
@@ -559,7 +587,7 @@ survey_design %>%
 ```{r tab-cuantil-gasto-zona-sexo, tab.cap="Primer cuartil de los gastos desagregado por zona y sexo", echo=FALSE}
 survey_design %>%
   group_by(Zone, Sex) %>%
-  summarise(q = survey_quantile(Expenditure,
+  summarise(quantile = survey_quantile(Expenditure,
                                 quantiles = 0.25,
                                 level = 0.95,
                                 vartype =  c("se", "ci"),
@@ -592,7 +620,7 @@ gini_design <- convey_prep(survey_design)
 gini <- svygini(~Income, design = gini_design)
 
 data.frame(Gini = coef(gini),
-           SE = SE(gini),
+           standard_error = SE(gini),
            ci_lower = confint(gini)[1],
            ci_upper = confint(gini)[2])
 ```
@@ -603,7 +631,7 @@ gini_design <- convey_prep(survey_design)
 gini <- svygini(~Income, design = gini_design)
 
 data.frame(Gini = coef(gini),
-           SE = SE(gini),
+           standard_error = SE(gini),
            ci_lower = confint(gini)[1],
            ci_upper = confint(gini)[2]) %>%
   tabla_fmt()
@@ -742,7 +770,7 @@ res <- svyttest(Income ~ Sex, design = survey_design, level = 0.95)
 
 ```{r tab-ttest-sexo, echo=FALSE, tab.cap="Prueba de diferencia de ingresos medios por sexo (población total)"}
 df_res <- tibble(
-  Estadístico = res$statistic,
+  statistic = res$statistic,
   p_value = res$p.value,
   gl = res$parameter,
   ci_lower = res$conf.int[1],
@@ -766,7 +794,7 @@ res <- svyttest(Income ~ Sex, design = urban_subset, level = 0.95)
 
 ```{r tab-ttest-sexo-urbano, echo=FALSE, tab.cap="Prueba de diferencia de ingresos medios por sexo en zona urbana"}
 df_res <- tibble(
-  Estadístico = res$statistic,
+  statistic = res$statistic,
   p_value = res$p.value,
   gl = res$parameter,
   ci_lower = res$conf.int[1],
@@ -815,17 +843,23 @@ $$
 \end{array}\right].
 $$
 
-En consecuencia, el vector de contraste asociado a esta comparación es $\left[1,\,-1,\,0,\,0,\,0\right]$, donde los coeficientes positivos y negativos indican las poblaciones que se desean comparar y los ceros representan las poblaciones excluidas del contraste. El primer paso consiste en calcular las medias estimadas para cada región mediante la función `svyby()`, como se presenta en la Tabla \@ref(tab:tab-prom-region). Note que la función `svyby()` permite aplicar una función, en este caso la media (`svymean`) por región (`by`) utilizando el diseño muestral empleado (`design`). Las demás componentes de la función ya se han utilizado previamente. Como resultado de aplicar esta función se obtienen las medias estimadas de los ingresos por región.
+En consecuencia, el vector de contraste asociado a esta comparacion es $\left[1,\,-1,\,0,\,0,\,0\right]$, donde los coeficientes positivos y negativos indican las poblaciones que se desean comparar y los ceros representan las poblaciones excluidas del contraste. El primer paso consiste en calcular las medias estimadas para cada region mediante `group_by()` y `survey_mean()`, como se presenta en la Tabla \@ref(tab:tab-prom-region). El objeto visible de resultados se construye con `srvyr`; adicionalmente se crea un objeto auxiliar con matriz de covarianzas para los contrastes posteriores. Como resultado se obtienen las medias estimadas de los ingresos por region.
 
 
 ```{r, eval=TRUE}
-region_mean <- svyby(formula = ~Income,
-                     by = ~Region,
-                     design = survey_design,
-                     FUN = svymean,
-                     na.rm = TRUE,
-                     covmat = TRUE,
-                     vartype = c("se", "ci"))
+region_mean <- survey_design %>%
+  group_by(Region) %>%
+  summarise(mean = survey_mean(Income,
+                               na.rm = TRUE,
+                               vartype = c("se", "ci")))
+
+region_mean_contrast <- svyby(formula = ~Income,
+                              by = ~Region,
+                              design = survey_design,
+                              FUN = svymean,
+                              na.rm = TRUE,
+                              covmat = TRUE,
+                              vartype = c("se", "ci"))
 ```
 
 ```{r tab-prom-region, echo=FALSE, tab.cap="Ingreso medio estimado por región"}
@@ -837,8 +871,8 @@ La función `svycontrast()` devuelve el contraste estimado y su error estándar.
 
 
 ```{r}
-res <- svycontrast(stat = region_mean,
-                   contrasts = list(diff_NS = c(1, -1, 0, 0, 0)))
+res <- svycontrast(stat = region_mean_contrast,
+                   contrasts = list(north_south_difference = c(1, -1, 0, 0, 0)))
 ```
 
 ```{r tab-contraste-ns, echo=FALSE, tab.cap="Contraste de ingresos medios: región Norte menos región Sur"}
@@ -846,7 +880,7 @@ df_con <- tibble::tibble(
   contrast = names(res),
   estimate = as.numeric(res),
   variance = attr(res, "var"),
-  SE = sqrt(attr(res, "var")))
+  standard_error = sqrt(attr(res, "var")))
 
 
 df_con %>%
@@ -858,7 +892,7 @@ Nótese que estos mismos resultados podrían obtenerse realizando explícitament
 
 
 ```{r, eval=TRUE}
-# Paso 1: diferencia de estimaciones (Norte - Sur)
+# Step 1: difference in estimates (North - South)
 552.4 - 625.8
 ```
 
@@ -866,8 +900,8 @@ El paso siguiente es calcular la matriz de varianzas y covarianzas y de allí ex
 
 
 ```{r,contr1_var,eval=TRUE}
-# Paso 2: Matriz de varianzas y covarianzas
-mat <- vcov(region_mean)
+# Step 2: variance-covariance matrix
+mat <- vcov(region_mean_contrast)
 ```
 
 
@@ -911,11 +945,11 @@ En esta matriz, cada fila define un contraste distinto y cada columna correspond
 
 ```{r, eval=TRUE}
 res <- svycontrast(
-  stat = region_mean,
+  stat = region_mean_contrast,
   contrasts = list(
-    north_south         = c(1, 0, -1, 0,  0),
-    south_center        = c(0, 1, -1, 0,  0),
-    west_east = c(0, 0,  0, 1, -1)
+    north_south         = c(1, 0, -1, 0, 0),
+    south_center        = c(0, 1, -1, 0, 0),
+    west_east           = c(0, 0, 0, 1, -1)
   )
 )
 ```
@@ -925,7 +959,7 @@ df_con <- tibble(
   contrast = names(res),
   estimate = as.numeric(res),
   variance = diag(attr(res, "var")),
-  SE = sqrt(diag(attr(res, "var")))
+  standard_error = sqrt(diag(attr(res, "var")))
 )
 
 df_con %>%
@@ -936,13 +970,19 @@ df_con %>%
 También es posible construir contrastes entre variables asociadas a diferentes grupos poblacionales, como ocurre al comparar el ingreso medio según el sexo. Siguiendo el mismo procedimiento del ejemplo anterior, el primer paso consiste en estimar el ingreso medio para cada grupo, en este caso hombres y mujeres, como se presenta en la Tabla \@ref(tab:tab-prom-sexo).
 
 ```{r, eval=TRUE}
-sex_mean <- svyby(formula = ~Income,
-                   by = ~Sex,
-                   design = survey_design,
-                   FUN = svymean,
-                   na.rm = TRUE,
-                   covmat = TRUE,
-                   vartype = c("se", "ci"))
+sex_mean <- survey_design %>%
+  group_by(Sex) %>%
+  summarise(mean = survey_mean(Income,
+                               na.rm = TRUE,
+                               vartype = c("se", "ci")))
+
+sex_mean_contrast <- svyby(formula = ~Income,
+                           by = ~Sex,
+                           design = survey_design,
+                           FUN = svymean,
+                           na.rm = TRUE,
+                           covmat = TRUE,
+                           vartype = c("se", "ci"))
 
 ```
 
@@ -956,8 +996,8 @@ sex_mean %>%
 En este caso, el contraste de interés está dado por $\bar{y}_{F} - \bar{y}_{M}$, el cual permite cuantificar la diferencia entre el ingreso medio de las mujeres y el correspondiente a los hombres. A continuación, utilizando la función `svycontrast()` del paquete `survey`, se obtiene la estimación del contraste, cuyos resultados se presentan en la Tabla \@ref(tab:tab-contraste-sexo). A partir de estos resultados, se concluye que, en promedio, los hombres perciben 28.3 unidades monetarias más que las mujeres, con un error estándar estimado de 19.8 unidades monetarias.
 
 ```{r}
-res <- svycontrast(stat = sex_mean,
-                   contrasts = list(sex_diff = c(1, -1)))
+res <- svycontrast(stat = sex_mean_contrast,
+                   contrasts = list(sex_difference = c(1, -1)))
 ```
 
 
@@ -966,7 +1006,7 @@ df_con <- tibble(
   contrast = names(res),
   estimate = as.numeric(res),
   variance = diag(attr(res, "var")),
-  SE = sqrt(diag(attr(res, "var")))
+  standard_error = sqrt(diag(attr(res, "var")))
 )
 
 df_con %>%
@@ -977,37 +1017,35 @@ df_con %>%
 Dado que los contrastes corresponden a funciones lineales de parámetros, también es posible aplicarlos a estimadores de razón. Un ejemplo de ello consiste en comparar la relación entre gastos e ingresos según el sexo. En este caso, primero se estima la razón gasto-ingreso para cada grupo y posteriormente se construye el contraste entre dichas razones. A continuación, se presentan los códigos computacionales utilizados para realizar este análisis, cuyos resultados se muestran en la Tabla \@ref(tab:tab-razon-ingreso-gasto-sexo):
 
 ```{r,c2, echo=TRUE, eval=TRUE}
-sex_ratio <- svyby( formula = ~Income,
-                     by = ~Sex,
-                     denominator = ~Expenditure,
-                     design = survey_design,
-                     FUN = svyratio,
-                     na.rm = TRUE, covmat = TRUE,
-                     vartype = c("se", "ci"))
+sex_ratio <- survey_design %>%
+  group_by(Sex) %>%
+  summarise(ratio = survey_ratio(Income,
+                                 Expenditure,
+                                 na.rm = TRUE,
+                                 vartype = c("se", "ci")))
+
+sex_ratio_contrast <- svyby(formula = ~Income,
+                            by = ~Sex,
+                            denominator = ~Expenditure,
+                            design = survey_design,
+                            FUN = svyratio,
+                            na.rm = TRUE,
+                            covmat = TRUE,
+                            vartype = c("se", "ci"))
 ```
 
 
 ```{r tab-razon-ingreso-gasto-sexo, echo=FALSE, tab.cap="Razón ingreso/gasto desagregada por sexo"}
-sex_ratio_df <- sex_ratio %>%
-  as_tibble() %>%
-  rename(
-    sex = Sex,
-    ratio = "Income/Expenditure",
-    SE = "se.Income/Expenditure",
-    CI_Lower = ci_l,
-    CI_Upper = ci_u
-  )
-
-sex_ratio_df %>%
+sex_ratio %>%
   tabla_fmt()
 ```
 
 La función `svycontrast()` no se limita únicamente a la comparación de medias o totales, sino que también permite construir contrastes entre otros parámetros de interés, como razones y proporciones estimadas a partir de diseños de muestreo complejos. A continuación, se presentan los códigos computacionales utilizados para realizar este análisis, cuyos resultados se muestran en la Tabla \@ref(tab:tab-razon-ingreso-gasto-sexo). A partir de dichos resultados, puede concluirse que la diferencia entre las proporciones estimadas es de 0.045 a favor de los hombres.
 
 ```{r}
-res <- svycontrast(stat = sex_ratio,
+res <- svycontrast(stat = sex_ratio_contrast,
                    contrasts = list(
-                          sex_diff = c(1, -1))
+                          sex_difference = c(1, -1))
                    )
 
 ```
@@ -1017,7 +1055,7 @@ res <- svycontrast(stat = sex_ratio,
 df_res <- tibble(
   contrast = names(res),
   estimate = as.numeric(res),
-  SE = sqrt(attr(res, "var")),
+  standard_error = sqrt(attr(res, "var")),
   variance = attr(res, "var")
 )
 
@@ -1067,12 +1105,12 @@ weighted_zone_hist <- ggplot(survey_data, aes(x = Income, weight = wk)) +
     alpha = 0.5, position = "identity") +
   scale_fill_manual(values = zone_colors) +
   ylab("") +
-  ggtitle("Ponderado")
+  ggtitle("Weighted")
 
 weighted_zone_hist
 ```
 
-En este código, se construye un histograma ponderado utilizando la base de datos `survey_data`, donde `x = Income` define la variable representada en el eje horizontal y `weight = wk` incorpora los pesos muestrales para reflejar la distribución poblacional del ingreso. La función `geom_histogram()` genera el histograma y, mediante `aes(y = ..density.., fill = Zone)`, representa las barras en términos de densidad y asigna colores diferentes según la variable `Zone`, permitiendo comparar visualmente la distribución del ingreso entre zonas. El argumento `alpha = 0.5` agrega transparencia a las barras para facilitar la superposición de los histogramas, mientras que `position = "identity"` permite que las distribuciones se dibujen una encima de otra en lugar de apilarse. Posteriormente, `scale_fill_manual(values = zone_colors)` define manualmente los colores asociados a cada zona. Finalmente, `ylab("")` elimina la etiqueta del eje vertical, `ggtitle("Ponderado")` agrega un título al gráfico.
+En este código, se construye un histograma ponderado utilizando la base de datos `survey_data`, donde `x = Income` define la variable representada en el eje horizontal y `weight = wk` incorpora los pesos muestrales para reflejar la distribución poblacional del ingreso. La función `geom_histogram()` genera el histograma y, mediante `aes(y = ..density.., fill = Zone)`, representa las barras en términos de densidad y asigna colores diferentes según la variable `Zone`, permitiendo comparar visualmente la distribución del ingreso entre zonas. El argumento `alpha = 0.5` agrega transparencia a las barras para facilitar la superposición de los histogramas, mientras que `position = "identity"` permite que las distribuciones se dibujen una encima de otra en lugar de apilarse. Posteriormente, `scale_fill_manual(values = zone_colors)` define manualmente los colores asociados a cada zona. Finalmente, `ylab("")` elimina la etiqueta del eje vertical, `ggtitle("Weighted")` agrega un título al gráfico.
 
 Adicionalmente, es posible superponer curvas de densidad suavizadas mediante la función `geom_density()`, lo que permite visualizar de manera continua la forma de la distribución de la variable analizada. Este tipo de representación facilita la identificación de patrones como asimetrías, concentración de observaciones o la presencia de múltiples modas. Un ejemplo de este tipo de gráfico se presenta en la Figura \@ref(fig:fig-densidades):
 
@@ -1091,7 +1129,7 @@ Para construir *boxplots* ponderados en `ggplot2` se utiliza la función `geom_b
 ```{r fig-boxplot-zona-sexo, fig.cap="Boxplots ponderados del ingreso por zona y sexo", fig.align='center', out.width='90%', echo=TRUE}
 weighted_zone_boxplot <- ggplot(survey_data, aes(x = Income, weight = wk)) +
   geom_boxplot(aes(fill = Zone)) +
-  ggtitle("Ponderado") +
+  ggtitle("Weighted") +
   coord_flip() +
   scale_fill_manual(values = zone_colors)
 
@@ -1099,7 +1137,7 @@ sex_colors <- c(Male = "#5DADE2", Female = "#2874A6")
 
 weighted_sex_boxplot <- ggplot(survey_data, aes(x = Income, weight = wk)) +
   geom_boxplot(aes(fill = Sex)) +
-  ggtitle("Ponderado") +
+  ggtitle("Weighted") +
   coord_flip() +
   scale_fill_manual(values = sex_colors)
 
@@ -1111,13 +1149,13 @@ Además de las herramientas disponibles en `ggplot2`, el paquete `survey` ofrece
 ```{r fig-svyhist-svybox, fig.cap="Histograma y boxplot del ingreso ajustados al diseño muestral complejo", fig.align='center', out.width='80%'}
 par(mfrow = c(1, 2))
 svyhist(~Income, survey_design,
-  main = "Ingresos por hogar",
-  col  = "grey80", xlab = "Ingreso",
+  main = "Household income",
+  col  = "grey80", xlab = "Income",
   probability = FALSE)
 
 svyboxplot(Income ~ Zone, survey_design,
   col  = "grey80",
-  ylab = "Ingreso", xlab = "Zona")
+  ylab = "Income", xlab = "Zone")
 ```
 
 ### Diagramas de dispersión {#diagramas-de-dispersion}
@@ -1131,6 +1169,7 @@ weighted_basic_scatter <- ggplot(
   data = survey_data,
   aes(y = Income, x = Expenditure)) +
   geom_point(aes(size = wk), alpha = 0.3)
+
 weighted_basic_scatter
 ```
 
@@ -1146,5 +1185,6 @@ weighted_zone_scatter <- ggplot(
   geom_point(aes(size = wk, color = Zone), alpha = 0.3) +
   labs(size = "Peso") +
   scale_color_manual(values = zone_colors)
+
 weighted_zone_scatter
 ```

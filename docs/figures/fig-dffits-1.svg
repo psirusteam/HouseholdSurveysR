@@ -2676,7 +2676,7 @@
 <rect x='349.06' y='138.83' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #EBEBEB;' />
 <circle cx='357.70' cy='147.47' r='1.95' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' />
 <text x='371.82' y='133.34' style='font-size: 8.80px; font-family: "Arial";' textLength='11.25px' lengthAdjust='spacingAndGlyphs'>No</text>
-<text x='371.82' y='150.62' style='font-size: 8.80px; font-family: "Arial";' textLength='7.83px' lengthAdjust='spacingAndGlyphs'>Si</text>
+<text x='371.82' y='150.62' style='font-size: 8.80px; font-family: "Arial";' textLength='14.36px' lengthAdjust='spacingAndGlyphs'>Yes</text>
 </g>
 </g>
 </svg>

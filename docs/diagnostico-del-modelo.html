@@ -23,7 +23,7 @@
 <meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
 
 
-<meta name="date" content="2026-06-10" />
+<meta name="date" content="2026-06-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -333,9 +333,9 @@ div.csl-indent {
 <span id="cb119-4"><a href="diagnostico-del-modelo.html#cb119-4" tabindex="-1"></a>R2Adj <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> ((n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> (n <span class="sc">-</span> p)) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> R2)</span>
 <span id="cb119-5"><a href="diagnostico-del-modelo.html#cb119-5" tabindex="-1"></a></span>
 <span id="cb119-6"><a href="diagnostico-del-modelo.html#cb119-6" tabindex="-1"></a>R2</span></code></pre></div>
-<pre><code>## [1] 0.514</code></pre>
+<pre><code>## [1] 0.5138</code></pre>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="diagnostico-del-modelo.html#cb121-1" tabindex="-1"></a>R2Adj</span></code></pre></div>
-<pre><code>## [1] 0.513</code></pre>
+<pre><code>## [1] 0.5133</code></pre>
 </div>
 <div id="residuales" class="section level3 hasAnchor" number="5.4.2">
 <h3><span class="header-section-number">5.4.2</span> Residuales<a href="diagnostico-del-modelo.html#residuales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -507,10 +507,10 @@ Figura 5.4: Distancia de Cook para cada observación de la muestra
 <span id="cb129-2"><a href="diagnostico-del-modelo.html#cb129-2" tabindex="-1"></a>d_dfbetas <span class="ot">&lt;-</span> reshape2<span class="sc">::</span><span class="fu">melt</span>(d_dfbetas, <span class="at">id.vars =</span> <span class="st">&quot;id&quot;</span>)</span>
 <span id="cb129-3"><a href="diagnostico-del-modelo.html#cb129-3" tabindex="-1"></a>cutoff <span class="ot">&lt;-</span> <span class="fu">svydfbetas</span>(fit_svy)<span class="sc">$</span>cutoff</span>
 <span id="cb129-4"><a href="diagnostico-del-modelo.html#cb129-4" tabindex="-1"></a>d_dfbetas <span class="ot">&lt;-</span> d_dfbetas <span class="sc">%&gt;%</span></span>
-<span id="cb129-5"><a href="diagnostico-del-modelo.html#cb129-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">criterion =</span> <span class="fu">ifelse</span>(<span class="fu">abs</span>(value) <span class="sc">&gt;</span> cutoff, <span class="st">&quot;Si&quot;</span>, <span class="st">&quot;No&quot;</span>))</span>
+<span id="cb129-5"><a href="diagnostico-del-modelo.html#cb129-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">criterion =</span> <span class="fu">ifelse</span>(<span class="fu">abs</span>(value) <span class="sc">&gt;</span> cutoff, <span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;No&quot;</span>))</span>
 <span id="cb129-6"><a href="diagnostico-del-modelo.html#cb129-6" tabindex="-1"></a></span>
 <span id="cb129-7"><a href="diagnostico-del-modelo.html#cb129-7" tabindex="-1"></a>label_text <span class="ot">&lt;-</span> d_dfbetas <span class="sc">%&gt;%</span></span>
-<span id="cb129-8"><a href="diagnostico-del-modelo.html#cb129-8" tabindex="-1"></a>  <span class="fu">filter</span>(criterion <span class="sc">==</span> <span class="st">&quot;Si&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb129-8"><a href="diagnostico-del-modelo.html#cb129-8" tabindex="-1"></a>  <span class="fu">filter</span>(criterion <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb129-9"><a href="diagnostico-del-modelo.html#cb129-9" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(value))) <span class="sc">%&gt;%</span></span>
 <span id="cb129-10"><a href="diagnostico-del-modelo.html#cb129-10" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span><span class="dt">L</span>)</span>
 <span id="cb129-11"><a href="diagnostico-del-modelo.html#cb129-11" tabindex="-1"></a></span>
@@ -530,61 +530,61 @@ Figura 5.4: Distancia de Cook para cada observación de la muestra
 <td align="left">889</td>
 <td align="center">Beta_1</td>
 <td align="center">0.284</td>
-<td align="center">Si</td>
+<td align="center">Yes</td>
 </tr>
 <tr class="even">
 <td align="left">891</td>
 <td align="center">Beta_1</td>
 <td align="center">0.284</td>
-<td align="center">Si</td>
+<td align="center">Yes</td>
 </tr>
 <tr class="odd">
 <td align="left">890</td>
 <td align="center">Beta_2</td>
 <td align="center">-0.280</td>
-<td align="center">Si</td>
+<td align="center">Yes</td>
 </tr>
 <tr class="even">
 <td align="left">889</td>
 <td align="center">Beta_2</td>
 <td align="center">-0.275</td>
-<td align="center">Si</td>
+<td align="center">Yes</td>
 </tr>
 <tr class="odd">
 <td align="left">891</td>
 <td align="center">Beta_2</td>
 <td align="center">-0.275</td>
-<td align="center">Si</td>
+<td align="center">Yes</td>
 </tr>
 <tr class="even">
 <td align="left">890</td>
 <td align="center">Beta_1</td>
 <td align="center">0.250</td>
-<td align="center">Si</td>
+<td align="center">Yes</td>
 </tr>
 <tr class="odd">
 <td align="left">890</td>
 <td align="center">Beta_3</td>
 <td align="center">0.161</td>
-<td align="center">Si</td>
+<td align="center">Yes</td>
 </tr>
 <tr class="even">
 <td align="left">890</td>
 <td align="center">Beta_4</td>
 <td align="center">0.158</td>
-<td align="center">Si</td>
+<td align="center">Yes</td>
 </tr>
 <tr class="odd">
 <td align="left">889</td>
 <td align="center">Beta_3</td>
 <td align="center">0.156</td>
-<td align="center">Si</td>
+<td align="center">Yes</td>
 </tr>
 <tr class="even">
 <td align="left">891</td>
 <td align="center">Beta_3</td>
 <td align="center">0.156</td>
-<td align="center">Si</td>
+<td align="center">Yes</td>
 </tr>
 </tbody>
 </table>
@@ -598,7 +598,7 @@ Figura 5.4: Distancia de Cook para cada observación de la muestra
 <span id="cb130-7"><a href="diagnostico-del-modelo.html#cb130-7" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> cutoff)) <span class="sc">+</span></span>
 <span id="cb130-8"><a href="diagnostico-del-modelo.html#cb130-8" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(. <span class="sc">~</span> variable, <span class="at">nrow =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb130-9"><a href="diagnostico-del-modelo.html#cb130-9" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(</span>
-<span id="cb130-10"><a href="diagnostico-del-modelo.html#cb130-10" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Si&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;No&quot;</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span>))</span></code></pre></div>
+<span id="cb130-10"><a href="diagnostico-del-modelo.html#cb130-10" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Yes&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;No&quot;</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-dfbetas"></span>
 <img src="figures/fig-dfbetas-1.svg" alt="Valores DfBetas por parámetro: observaciones influyentes señaladas en rojo" width="80%" />
 <p class="caption">
@@ -615,13 +615,13 @@ donde <span class="math inline">\(z\)</span> toma comúnmente valores de 2 o 3, 
 <span id="cb131-2"><a href="diagnostico-del-modelo.html#cb131-2" tabindex="-1"></a>                      <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">svydffits</span>(fit_svy)<span class="sc">$</span>Dffits))</span>
 <span id="cb131-3"><a href="diagnostico-del-modelo.html#cb131-3" tabindex="-1"></a>cutoff <span class="ot">&lt;-</span> <span class="fu">svydffits</span>(fit_svy)<span class="sc">$</span>cutoff</span>
 <span id="cb131-4"><a href="diagnostico-del-modelo.html#cb131-4" tabindex="-1"></a>d_dffits <span class="ot">&lt;-</span> d_dffits <span class="sc">%&gt;%</span></span>
-<span id="cb131-5"><a href="diagnostico-del-modelo.html#cb131-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cutoff_criterion =</span> <span class="fu">ifelse</span>(<span class="fu">abs</span>(dffits) <span class="sc">&gt;</span> cutoff, <span class="st">&quot;Si&quot;</span>, <span class="st">&quot;No&quot;</span>))</span>
+<span id="cb131-5"><a href="diagnostico-del-modelo.html#cb131-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cutoff_criterion =</span> <span class="fu">ifelse</span>(<span class="fu">abs</span>(dffits) <span class="sc">&gt;</span> cutoff, <span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;No&quot;</span>))</span>
 <span id="cb131-6"><a href="diagnostico-del-modelo.html#cb131-6" tabindex="-1"></a></span>
 <span id="cb131-7"><a href="diagnostico-del-modelo.html#cb131-7" tabindex="-1"></a><span class="fu">ggplot</span>(d_dffits, <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">abs</span>(dffits), <span class="at">x =</span> id)) <span class="sc">+</span></span>
 <span id="cb131-8"><a href="diagnostico-del-modelo.html#cb131-8" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">col =</span> cutoff_criterion)) <span class="sc">+</span></span>
 <span id="cb131-9"><a href="diagnostico-del-modelo.html#cb131-9" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> cutoff) <span class="sc">+</span></span>
 <span id="cb131-10"><a href="diagnostico-del-modelo.html#cb131-10" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(</span>
-<span id="cb131-11"><a href="diagnostico-del-modelo.html#cb131-11" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Si&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;No&quot;</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span>))</span></code></pre></div>
+<span id="cb131-11"><a href="diagnostico-del-modelo.html#cb131-11" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Yes&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;No&quot;</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-dffits"></span>
 <img src="figures/fig-dffits-1.svg" alt="Valores DfFits: observaciones influyentes sobre el ajuste global señaladas en rojo" width="65%" />
 <p class="caption">

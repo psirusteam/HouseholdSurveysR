@@ -23,7 +23,7 @@
 <meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
 
 
-<meta name="date" content="2026-06-10" />
+<meta name="date" content="2026-06-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -307,37 +307,40 @@ div.csl-indent {
 <h2><span class="header-section-number">4.3</span> Contrastes y diferencias de proporciones<a href="contrastes-y-diferencias-de-proporciones.html#contrastes-y-diferencias-de-proporciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Según <span class="citation">Heeringa et al. (<a href="#ref-heeringa2017applied">2017</a>)</span>, las proporciones obtenidas en las filas de una tabla de doble entrada pueden interpretarse como estimaciones para distintas subpoblaciones, definidas a partir de los niveles de una variable categórica. En este contexto, no solo resulta relevante estimar las proporciones asociadas a cada grupo, sino también evaluar las diferencias existentes entre ellas mediante contrastes lineales.</p>
 <p>Por ejemplo, suponga que el interés está en comparar la proporción de mujeres en condición de pobreza con la proporción de hombres en esta misma situación. Formalmente, este contraste puede expresarse como <span class="math inline">\(\hat{p}_F - \hat{p}_M\)</span>, donde <span class="math inline">\(\hat{p}_F\)</span> representa la proporción estimada de mujeres en pobreza y <span class="math inline">\(\hat{p}_M\)</span> la proporción estimada de hombres en dicha condición. Para construir este contraste, primero se estiman las proporciones de hombres y mujeres en estado de pobreza utilizando el mismo procedimiento descrito en capítulos anteriores. Los resultados correspondientes se presentan en la Tabla <a href="contrastes-y-diferencias-de-proporciones.html#tab:tab-svyby-pobreza-sexo2">4.12</a>:</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb66-1" tabindex="-1"></a>sex_poverty_table <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>poverty, <span class="at">by =</span> <span class="sc">~</span>Sex,</span>
-<span id="cb66-2"><a href="contrastes-y-diferencias-de-proporciones.html#cb66-2" tabindex="-1"></a>                         <span class="at">design =</span> survey_design, svymean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb66-3"><a href="contrastes-y-diferencias-de-proporciones.html#cb66-3" tabindex="-1"></a>                         <span class="at">covmat =</span> <span class="cn">TRUE</span>, <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb66-1" tabindex="-1"></a>sex_poverty_proportion <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb66-2"><a href="contrastes-y-diferencias-de-proporciones.html#cb66-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb66-3"><a href="contrastes-y-diferencias-de-proporciones.html#cb66-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">proportion =</span> <span class="fu">survey_mean</span>(poverty,</span>
+<span id="cb66-4"><a href="contrastes-y-diferencias-de-proporciones.html#cb66-4" tabindex="-1"></a>                                     <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb66-5"><a href="contrastes-y-diferencias-de-proporciones.html#cb66-5" tabindex="-1"></a>                                     <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span>
+<span id="cb66-6"><a href="contrastes-y-diferencias-de-proporciones.html#cb66-6" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="contrastes-y-diferencias-de-proporciones.html#cb66-7" tabindex="-1"></a>sex_poverty_contrast <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>poverty, <span class="at">by =</span> <span class="sc">~</span>Sex,</span>
+<span id="cb66-8"><a href="contrastes-y-diferencias-de-proporciones.html#cb66-8" tabindex="-1"></a>                              <span class="at">design =</span> survey_design, svymean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb66-9"><a href="contrastes-y-diferencias-de-proporciones.html#cb66-9" tabindex="-1"></a>                              <span class="at">covmat =</span> <span class="cn">TRUE</span>, <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-svyby-pobreza-sexo2">Tabla 4.12: </span>Proporción en condición de pobreza por sexo</caption>
 <thead>
 <tr class="header">
-<th align="left"></th>
 <th align="left">Sex</th>
-<th align="center">poverty</th>
-<th align="center">se</th>
-<th align="center">ci_l</th>
-<th align="center">ci_u</th>
+<th align="center">proportion</th>
+<th align="center">proportion_se</th>
+<th align="center">proportion_low</th>
+<th align="center">proportion_upp</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">Female</td>
-<td align="left">Female</td>
 <td align="center">0.389</td>
 <td align="center">0.032</td>
 <td align="center">0.327</td>
-<td align="center">0.451</td>
+<td align="center">0.452</td>
 </tr>
 <tr class="even">
 <td align="left">Male</td>
-<td align="left">Male</td>
 <td align="center">0.395</td>
 <td align="center">0.037</td>
-<td align="center">0.323</td>
-<td align="center">0.466</td>
+<td align="center">0.322</td>
+<td align="center">0.467</td>
 </tr>
 </tbody>
 </table>
@@ -345,7 +348,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb67-1" tabindex="-1"></a><span class="fl">0.3892</span> <span class="sc">-</span> <span class="fl">0.3946</span></span></code></pre></div>
 <pre><code>## [1] -0.0054</code></pre>
 <p>Para calcular correctamente la variabilidad asociada a esta diferencia, no basta con considerar únicamente las varianzas de cada estimación por separado. También es necesario incorporar la covarianza entre ambas proporciones, dado que las estimaciones provienen de una misma muestra y, por tanto, no son independientes. La matriz de varianzas y covarianzas puede obtenerse mediante la función <code>vcov</code>, cuyos resultados se presentan en la Tabla <a href="contrastes-y-diferencias-de-proporciones.html#tab:tab-vcov-sex-pobreza">4.13</a>:</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb69-1" tabindex="-1"></a><span class="fu">vcov</span>(sex_poverty_table) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb69-1" tabindex="-1"></a><span class="fu">vcov</span>(sex_poverty_contrast) <span class="sc">%&gt;%</span></span>
 <span id="cb69-2"><a href="contrastes-y-diferencias-de-proporciones.html#cb69-2" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-vcov-sex-pobreza">Tabla 4.13: </span>Matriz de varianzas y covarianzas de la proporción de pobreza por sexo</caption>
@@ -373,49 +376,59 @@ div.csl-indent {
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb70-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fl">0.0009983</span> <span class="sc">+</span> <span class="fl">0.0013416</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="fl">0.0009183</span>)</span></code></pre></div>
 <pre><code>## [1] 0.0224</code></pre>
 <p>No obstante, el paquete <code>survey</code> permite realizar este procedimiento de forma directa mediante la función <code>svycontrast</code>, la cual calcula tanto el contraste lineal como su error estándar asociado. Para obtener la diferencia entre las proporciones de mujeres y hombres en condición de pobreza, se utiliza el siguiente código:</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb72-1" tabindex="-1"></a><span class="fu">svycontrast</span>(sex_poverty_table,</span>
-<span id="cb72-2"><a href="contrastes-y-diferencias-de-proporciones.html#cb72-2" tabindex="-1"></a>            <span class="fu">list</span>(<span class="at">diff_Sex =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb72-1" tabindex="-1"></a><span class="fu">svycontrast</span>(sex_poverty_contrast,</span>
+<span id="cb72-2"><a href="contrastes-y-diferencias-de-proporciones.html#cb72-2" tabindex="-1"></a>            <span class="fu">list</span>(<span class="at">sex_differenceerence =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
 <span id="cb72-3"><a href="contrastes-y-diferencias-de-proporciones.html#cb72-3" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span></code></pre></div>
-<pre><code>##          contrast diff_Sex
-## diff_Sex -0.00532   0.0224</code></pre>
+<pre><code>##                      contrast sex_differenceerence
+## sex_differenceerence -0.00532               0.0224</code></pre>
 <p>De lo que se concluye que, la diferencia entre las proporciones de mujeres y hombres en estado de pobreza es -0.005 (-0.5%) con una error estándar de 0.022, indicando que la proporción estimada de mujeres en condición de pobreza es ligeramente menor que la observada en los hombres.</p>
 <p>Otro ejercicio que puede desarrollarse a partir de una encuesta de hogares consiste en estimar la proporción de personas desempleadas según la región de residencia. Para ello, estima las proporciones de desempleo para cada una de las regiones consideradas en el análisis. Los resultados obtenidos se presentan en la Tabla <a href="contrastes-y-diferencias-de-proporciones.html#tab:tab-svyby-desempleo-region">4.14</a>:</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb74-1" tabindex="-1"></a>region_unemployment_table <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span>  <span class="sc">~</span>unemployment, <span class="at">by =</span> <span class="sc">~</span>Region,</span>
-<span id="cb74-2"><a href="contrastes-y-diferencias-de-proporciones.html#cb74-2" tabindex="-1"></a>                              <span class="at">design  =</span> survey_design <span class="sc">%&gt;%</span></span>
-<span id="cb74-3"><a href="contrastes-y-diferencias-de-proporciones.html#cb74-3" tabindex="-1"></a>                                <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(unemployment)),</span>
-<span id="cb74-4"><a href="contrastes-y-diferencias-de-proporciones.html#cb74-4" tabindex="-1"></a>                              <span class="at">FUN     =</span> svymean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">covmat =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb74-5"><a href="contrastes-y-diferencias-de-proporciones.html#cb74-5" tabindex="-1"></a>                              <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb74-1" tabindex="-1"></a>region_unemployment_proportion <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb74-2"><a href="contrastes-y-diferencias-de-proporciones.html#cb74-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(unemployment)) <span class="sc">%&gt;%</span></span>
+<span id="cb74-3"><a href="contrastes-y-diferencias-de-proporciones.html#cb74-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Region) <span class="sc">%&gt;%</span></span>
+<span id="cb74-4"><a href="contrastes-y-diferencias-de-proporciones.html#cb74-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">proportion =</span> <span class="fu">survey_mean</span>(unemployment,</span>
+<span id="cb74-5"><a href="contrastes-y-diferencias-de-proporciones.html#cb74-5" tabindex="-1"></a>                                     <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb74-6"><a href="contrastes-y-diferencias-de-proporciones.html#cb74-6" tabindex="-1"></a>                                     <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span>
+<span id="cb74-7"><a href="contrastes-y-diferencias-de-proporciones.html#cb74-7" tabindex="-1"></a></span>
+<span id="cb74-8"><a href="contrastes-y-diferencias-de-proporciones.html#cb74-8" tabindex="-1"></a>region_unemployment_contrast <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>unemployment, <span class="at">by =</span> <span class="sc">~</span>Region,</span>
+<span id="cb74-9"><a href="contrastes-y-diferencias-de-proporciones.html#cb74-9" tabindex="-1"></a>                                      <span class="at">design =</span> survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb74-10"><a href="contrastes-y-diferencias-de-proporciones.html#cb74-10" tabindex="-1"></a>                                        <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(unemployment)),</span>
+<span id="cb74-11"><a href="contrastes-y-diferencias-de-proporciones.html#cb74-11" tabindex="-1"></a>                                      <span class="at">FUN =</span> svymean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">covmat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb74-12"><a href="contrastes-y-diferencias-de-proporciones.html#cb74-12" tabindex="-1"></a>                                      <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-svyby-desempleo-region">Tabla 4.14: </span>Proporción en condición de desempleo por región</caption>
+<colgroup>
+<col width="14%" />
+<col width="17%" />
+<col width="21%" />
+<col width="23%" />
+<col width="23%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th align="left"></th>
 <th align="left">Region</th>
-<th align="center">unemployment</th>
-<th align="center">se</th>
-<th align="center">ci_l</th>
-<th align="center">ci_u</th>
+<th align="center">proportion</th>
+<th align="center">proportion_se</th>
+<th align="center">proportion_low</th>
+<th align="center">proportion_upp</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">Norte</td>
-<td align="left">Norte</td>
 <td align="center">0.049</td>
 <td align="center">0.020</td>
-<td align="center">0.010</td>
+<td align="center">0.009</td>
 <td align="center">0.088</td>
 </tr>
 <tr class="even">
 <td align="left">Sur</td>
-<td align="left">Sur</td>
 <td align="center">0.066</td>
 <td align="center">0.024</td>
 <td align="center">0.019</td>
-<td align="center">0.112</td>
+<td align="center">0.113</td>
 </tr>
 <tr class="odd">
-<td align="left">Centro</td>
 <td align="left">Centro</td>
 <td align="center">0.039</td>
 <td align="center">0.012</td>
@@ -424,14 +437,12 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td align="left">Occidente</td>
-<td align="left">Occidente</td>
 <td align="center">0.040</td>
 <td align="center">0.012</td>
 <td align="center">0.016</td>
 <td align="center">0.064</td>
 </tr>
 <tr class="odd">
-<td align="left">Oriente</td>
 <td align="left">Oriente</td>
 <td align="center">0.030</td>
 <td align="center">0.013</td>
@@ -449,7 +460,7 @@ div.csl-indent {
 \end{array}\right]
 \]</span></p>
 <p>Para calcular los errores estándar asociados a cada uno de los contrastes anteriores, es necesario considerar no solo las varianzas de las estimaciones regionales, sino también las covarianzas entre ellas. Esta información se resume en la matriz de varianzas y covarianzas de las proporciones estimadas de desempleo por región, presentada a continuación:</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb75-1" tabindex="-1"></a><span class="fu">vcov</span>(region_unemployment_table) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb75-1" tabindex="-1"></a><span class="fu">vcov</span>(region_unemployment_contrast) <span class="sc">%&gt;%</span></span>
 <span id="cb75-2"><a href="contrastes-y-diferencias-de-proporciones.html#cb75-2" tabindex="-1"></a>  <span class="fu">data.frame</span>()</span></code></pre></div>
 <table>
 <thead>
@@ -513,7 +524,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb80-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fl">0.0001267</span> <span class="sc">+</span> <span class="fl">0.0004093</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="dv">0</span>)</span></code></pre></div>
 <pre><code>## [1] 0.0232</code></pre>
 <p>Alternativamente, el paquete <code>survey</code> permite calcular estos contrastes de manera directa mediante la función <code>svycontrast</code>, la cual obtiene tanto las diferencias estimadas entre proporciones como sus respectivos errores estándar. En este caso, la estimación de los contrastes definidos anteriormente se realiza de la siguiente manera:</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb82-1" tabindex="-1"></a><span class="fu">svycontrast</span>(region_unemployment_table, <span class="fu">list</span>(</span>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="contrastes-y-diferencias-de-proporciones.html#cb82-1" tabindex="-1"></a><span class="fu">svycontrast</span>(region_unemployment_contrast, <span class="fu">list</span>(</span>
 <span id="cb82-2"><a href="contrastes-y-diferencias-de-proporciones.html#cb82-2" tabindex="-1"></a>                             <span class="at">north_south =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
 <span id="cb82-3"><a href="contrastes-y-diferencias-de-proporciones.html#cb82-3" tabindex="-1"></a>                             <span class="at">south_center =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
 <span id="cb82-4"><a href="contrastes-y-diferencias-de-proporciones.html#cb82-4" tabindex="-1"></a>                             <span class="at">west_east =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>

@@ -51,10 +51,10 @@ survey_design <- survey_design %>%
   mutate(
     poverty   = factor(ifelse(Poverty != "NotPoor", 1, 0),
                        levels = c(0, 1),
-                       labels = c("=Pobre", "=No pobre")),
+                       labels = c("=Poor", "=Not poor")),
     unemployment = factor(ifelse(Employment == "Unemployed", 1, 0),
                        levels = c(0, 1),
-                       labels = c("=Desempleado", "=No desempleado"))
+                       labels = c("=Unemployed", "=Not unemployed"))
   )
 ```
 
@@ -150,7 +150,7 @@ confint(logit_model, level = 0.95)
 ```{r tab-ic-logistica, tab.cap="Intervalos de confianza al 95% para los parámetros del modelo logístico", echo=FALSE}
 res %>%
   as.data.frame() %>%
-  tibble::rownames_to_column("Parámetro") %>%
+  tibble::rownames_to_column("Parameter") %>%
   tabla_fmt()
 ```
 
@@ -246,18 +246,18 @@ Para el ajuste del modelo usando `R`, como referencia inicial, se estiman las pr
 survey_design %>%
   filter(Age >= 15) %>%
   group_by(Employment) %>%
-  summarise(Prop = survey_mean(vartype = c("se", "ci")))
+  summarise(proportion = survey_mean(vartype = c("se", "ci")))
 ```
 
 ```{r, echo=FALSE}
-res <- survey_design %>%
+employment_proportion <- survey_design %>%
   filter(Age >= 15) %>%
   group_by(Employment) %>%
-  summarise(Prop = survey_mean(vartype = c("se", "ci")))
+  summarise(proportion = survey_mean(vartype = c("se", "ci")))
 ```
 
 ```{r tab-prop-empleo-15, tab.cap="Proporción estimada de personas por estado de empleo (mayores de 15 años)", echo=FALSE}
- res %>%
+ employment_proportion %>%
   tabla_fmt()
 ```
 
@@ -312,7 +312,7 @@ res <- tidy.svyVGAM(multinomial_model, exponentiate = FALSE, conf.int = FALSE)
 
 
 ```{r tab-multinomial-coef, tab.cap="Coeficientes estimados del modelo de regresión multinomial", echo=FALSE}
- res %>%
+ employment_proportion %>%
   tabla_fmt()
 ```
 

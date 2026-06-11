@@ -23,7 +23,7 @@
 <meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
 
 
-<meta name="date" content="2026-06-10" />
+<meta name="date" content="2026-06-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -354,16 +354,16 @@ t_{(1-\alpha/2,df)}
 <table>
 <caption><span id="tab:tab-ttest-sexo">Tabla 3.22: </span>Prueba de diferencia de ingresos medios por sexo (población total)</caption>
 <colgroup>
-<col width="17%" />
+<col width="15%" />
 <col width="13%" />
 <col width="7%" />
-<col width="14%" />
-<col width="14%" />
-<col width="32%" />
+<col width="15%" />
+<col width="15%" />
+<col width="33%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">Estadístico</th>
+<th align="left">statistic</th>
 <th align="center">p_value</th>
 <th align="center">gl</th>
 <th align="center">ci_lower</th>
@@ -388,17 +388,9 @@ t_{(1-\alpha/2,df)}
 <span id="cb31-3"><a href="pruebas-de-hipotesis.html#cb31-3" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">svyttest</span>(Income <span class="sc">~</span> Sex, <span class="at">design =</span> urban_subset, <span class="at">level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-ttest-sexo-urbano">Tabla 3.23: </span>Prueba de diferencia de ingresos medios por sexo en zona urbana</caption>
-<colgroup>
-<col width="17%" />
-<col width="13%" />
-<col width="5%" />
-<col width="14%" />
-<col width="14%" />
-<col width="32%" />
-</colgroup>
 <thead>
 <tr class="header">
-<th align="left">Estadístico</th>
+<th align="left">statistic</th>
 <th align="center">p_value</th>
 <th align="center">gl</th>
 <th align="center">ci_lower</th>

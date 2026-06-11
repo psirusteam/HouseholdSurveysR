@@ -145,7 +145,7 @@
 <rect x='375.04' y='148.39' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #48C9B0; fill-opacity: 0.50;' />
 <text x='397.09' y='142.19' style='font-size: 8.80px; font-family: "Arial";' textLength='21.02px' lengthAdjust='spacingAndGlyphs'>Rural</text>
 <text x='397.09' y='159.47' style='font-size: 8.80px; font-family: "Arial";' textLength='23.95px' lengthAdjust='spacingAndGlyphs'>Urban</text>
-<text x='50.24' y='14.93' style='font-size: 13.20px; font-family: "Arial";' textLength='64.48px' lengthAdjust='spacingAndGlyphs'>Ponderado</text>
+<text x='50.24' y='14.93' style='font-size: 13.20px; font-family: "Arial";' textLength='55.45px' lengthAdjust='spacingAndGlyphs'>Weighted</text>
 </g>
 </g>
 </svg>

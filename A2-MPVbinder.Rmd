@@ -48,13 +48,9 @@ Un estimador que ignora los pesos de muestreo puede no representar adecuadamente
 
 Por el contrario, la inferencia basada en modelos considera que los valores de la variable de interés en toda la población se conciben como realizaciones de un proceso estocástico, usualmente denotado por $\xi$. Así, mientras la inferencia basada en los modelos estudia propiedades como $E_{\xi}(Y_k)$ y $Var_{\xi}(Y_k)$, la inferencia basada en el diseño se orienta a incorporar las características del plan muestral en los estimadores, para que sean insesgados $E_{p}(\hat{t}_y) = t_y$.
 
-Esta distinción permite entender por qué, aun cuando exista un modelo razonable para la variable de interés, el diseño muestral debe incorporarse explícitamente si se desea obtener inferencias válidas para la población objetivo. Para comprender la distinción entre inferencia basada en el modelo e inferencia basada en el diseño, partimos de un ejemplo sencillo, adaptado de @binder2011estimating. Supóngase que se generan $N=100$ realizaciones independientes de una variable Bernoulli con parámetro $\theta=0.3$, donde $\theta$ representa la proporción esperada de personas desempleadas en una población generada por un modelo. Si $Y_k \sim Bernoulli(\theta)$, entonces
+Esta distinción permite entender por qué, aun cuando exista un modelo razonable para la variable de interés, el diseño muestral debe incorporarse explícitamente si se desea obtener inferencias válidas para la población objetivo. Para comprender la distinción entre inferencia basada en el modelo e inferencia basada en el diseño, partimos de un ejemplo sencillo, adaptado de @binder2011estimating. Supóngase que se generan $N=100$ realizaciones independientes de una variable Bernoulli con parámetro $\theta=0.3$, donde $\theta$ representa la proporción esperada de personas desempleadas en una población generada por un modelo. Si $Y_k \sim Bernoulli(\theta)$, entonces la esperanza  bajo el modelo es $E_{\xi}(Y_k) = \theta$, mientras que la varianza bajo el modelo es $Var_{\xi}(Y_k) = \theta(1-\theta)$.
 
-$$
-E_{\xi}(Y_k) = \theta, \qquad Var_{\xi}(Y_k) = \theta(1-\theta).
-$$
-
-donde $E_{\xi}(\cdot)$ y $Var_{\xi}(\cdot)$ denotan la esperanza y la varianza bajo el modelo $\xi$ (conocido como modelo de superpoblación). Para una población finita generada por ese modelo, la media poblacional es $\bar{Y}_U = \frac{1}{N}\sum_{k \in U}Y_k$. Bajo el modelo, esta media es insesgada para $\theta$, puesto que
+En la literatura especializada, el modelo $\xi$ recibe el nombre de modelo de superpoblación, pues genera poblaciones finitas. De esta forma, para una población finita generada por ese modelo, la media poblacional es $\bar{Y}_U = \frac{1}{N}\sum_{k \in U}Y_k$. Nótese que, bajo el modelo $\xi$, esta media es insesgada para $\theta$, puesto que
 
 $$
 E_{\xi}(\bar{Y}_U) =

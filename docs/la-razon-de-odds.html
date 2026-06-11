@@ -23,7 +23,7 @@
 <meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
 
 
-<meta name="date" content="2026-06-10" />
+<meta name="date" content="2026-06-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -322,38 +322,66 @@ P(\text{Sex}=\text{Male} \mid \text{pobreza}=0)
 <p>La expresión del numerador representa la ventaja relativa de observar mujeres en condición de no pobreza respecto a observar mujeres en condición de pobreza. De manera análoga, el denominador representa la ventaja relativa de observar hombres en condición de pobreza respecto a hombres en condición de no pobreza. Por tanto, la razón de <em>odds</em> compara ambas ventajas relativas y permite cuantificar si la asociación entre sexo y pobreza favorece más a un grupo que a otro.</p>
 <p>Un valor igual a uno indicaría ausencia de asociación entre las variables, es decir, que la relación entre sexo y condición de pobreza es similar para hombres y mujeres. Valores superiores a uno indicarían una mayor ventaja relativa para las mujeres en comparación con los hombres, mientras que valores inferiores a uno sugerirían una mayor ventaja relativa para los hombres. En el contexto de encuestas de hogares, este tipo de medidas resulta especialmente útil para estudiar desigualdades sociodemográficas y brechas en condiciones de bienestar entre distintos grupos poblacionales.</p>
 <p>El procedimiento para realizarlo en <code>R</code> sería, primero estimar las proporciones de la tabla cruzada entre las variables sexo y pobreza, presentada en la Tabla <a href="la-razon-de-odds.html#tab:tab-interaccion-sexo-pobreza">4.21</a>:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="la-razon-de-odds.html#cb91-1" tabindex="-1"></a>sex_poverty_table <span class="ot">&lt;-</span> <span class="fu">svymean</span>(<span class="at">x =</span> <span class="sc">~</span><span class="fu">interaction</span> (Sex, poverty),</span>
-<span id="cb91-2"><a href="la-razon-de-odds.html#cb91-2" tabindex="-1"></a>                        <span class="at">design =</span> survey_design,</span>
-<span id="cb91-3"><a href="la-razon-de-odds.html#cb91-3" tabindex="-1"></a>                        <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">ci =</span> <span class="cn">TRUE</span>, <span class="at">keep.vars =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="la-razon-de-odds.html#cb91-1" tabindex="-1"></a>sex_poverty_interaction_proportion <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb91-2"><a href="la-razon-de-odds.html#cb91-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex, poverty) <span class="sc">%&gt;%</span></span>
+<span id="cb91-3"><a href="la-razon-de-odds.html#cb91-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">proportion =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span>
+<span id="cb91-4"><a href="la-razon-de-odds.html#cb91-4" tabindex="-1"></a></span>
+<span id="cb91-5"><a href="la-razon-de-odds.html#cb91-5" tabindex="-1"></a>sex_poverty_odds_contrast <span class="ot">&lt;-</span> <span class="fu">svymean</span>(<span class="at">x =</span> <span class="sc">~</span><span class="fu">interaction</span>(Sex, poverty),</span>
+<span id="cb91-6"><a href="la-razon-de-odds.html#cb91-6" tabindex="-1"></a>                                     <span class="at">design =</span> survey_design,</span>
+<span id="cb91-7"><a href="la-razon-de-odds.html#cb91-7" tabindex="-1"></a>                                     <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">ci =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb91-8"><a href="la-razon-de-odds.html#cb91-8" tabindex="-1"></a>                                     <span class="at">keep.vars =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-interaccion-sexo-pobreza">Tabla 4.21: </span>Proporciones conjuntas de sexo y condición de pobreza</caption>
+<colgroup>
+<col width="9%" />
+<col width="12%" />
+<col width="16%" />
+<col width="20%" />
+<col width="21%" />
+<col width="21%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th align="left"></th>
-<th align="left">mean</th>
-<th align="center">SE</th>
+<th align="left">Sex</th>
+<th align="center">poverty</th>
+<th align="center">proportion</th>
+<th align="center">proportion_se</th>
+<th align="center">proportion_low</th>
+<th align="center">proportion_upp</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">interaction(Sex, poverty)Female.0</td>
-<td align="left">0.322</td>
-<td align="center">0.018</td>
+<td align="left">Female</td>
+<td align="center">0</td>
+<td align="center">0.611</td>
+<td align="center">0.032</td>
+<td align="center">0.547</td>
+<td align="center">0.671</td>
 </tr>
 <tr class="even">
-<td align="left">interaction(Sex, poverty)Male.0</td>
-<td align="left">0.286</td>
-<td align="center">0.018</td>
+<td align="left">Female</td>
+<td align="center">1</td>
+<td align="center">0.389</td>
+<td align="center">0.032</td>
+<td align="center">0.329</td>
+<td align="center">0.453</td>
 </tr>
 <tr class="odd">
-<td align="left">interaction(Sex, poverty)Female.1</td>
-<td align="left">0.205</td>
-<td align="center">0.017</td>
+<td align="left">Male</td>
+<td align="center">0</td>
+<td align="center">0.605</td>
+<td align="center">0.037</td>
+<td align="center">0.531</td>
+<td align="center">0.675</td>
 </tr>
 <tr class="even">
-<td align="left">interaction(Sex, poverty)Male.1</td>
-<td align="left">0.187</td>
-<td align="center">0.018</td>
+<td align="left">Male</td>
+<td align="center">1</td>
+<td align="center">0.395</td>
+<td align="center">0.037</td>
+<td align="center">0.325</td>
+<td align="center">0.469</td>
 </tr>
 </tbody>
 </table>
@@ -365,7 +393,7 @@ P(\text{Sex}=\text{Male} \mid \text{pobreza}=0)
 <span id="cb92-5"><a href="la-razon-de-odds.html#cb92-5" tabindex="-1"></a>  <span class="st">`</span><span class="at">interaction(Sex, poverty)Male.1</span><span class="st">`</span>)</span>
 <span id="cb92-6"><a href="la-razon-de-odds.html#cb92-6" tabindex="-1"></a>)</span>
 <span id="cb92-7"><a href="la-razon-de-odds.html#cb92-7" tabindex="-1"></a></span>
-<span id="cb92-8"><a href="la-razon-de-odds.html#cb92-8" tabindex="-1"></a><span class="fu">svycontrast</span>(<span class="at">stat =</span> sex_poverty_table,</span>
+<span id="cb92-8"><a href="la-razon-de-odds.html#cb92-8" tabindex="-1"></a><span class="fu">svycontrast</span>(<span class="at">stat =</span> sex_poverty_odds_contrast,</span>
 <span id="cb92-9"><a href="la-razon-de-odds.html#cb92-9" tabindex="-1"></a>            <span class="at">contrasts =</span> odds_ratio)</span></code></pre></div>
 <pre><code>##          nlcon  SE
 ## contrast  1.02 0.1</code></pre>

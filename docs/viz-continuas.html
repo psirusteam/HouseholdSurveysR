@@ -23,7 +23,7 @@
 <meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
 
 
-<meta name="date" content="2026-06-10" />
+<meta name="date" content="2026-06-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -337,7 +337,7 @@ Figura 3.2: Histograma ponderado del ingreso de los hogares
 <span id="cb46-6"><a href="viz-continuas.html#cb46-6" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">position =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
 <span id="cb46-7"><a href="viz-continuas.html#cb46-7" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> zone_colors) <span class="sc">+</span></span>
 <span id="cb46-8"><a href="viz-continuas.html#cb46-8" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
-<span id="cb46-9"><a href="viz-continuas.html#cb46-9" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Ponderado&quot;</span>)</span>
+<span id="cb46-9"><a href="viz-continuas.html#cb46-9" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Weighted&quot;</span>)</span>
 <span id="cb46-10"><a href="viz-continuas.html#cb46-10" tabindex="-1"></a></span>
 <span id="cb46-11"><a href="viz-continuas.html#cb46-11" tabindex="-1"></a>weighted_zone_hist</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-hist-zona"></span>
@@ -346,7 +346,7 @@ Figura 3.2: Histograma ponderado del ingreso de los hogares
 Figura 3.3: Histograma ponderado del ingreso por zona geográfica
 </p>
 </div>
-<p>En este código, se construye un histograma ponderado utilizando la base de datos <code>survey_data</code>, donde <code>x = Income</code> define la variable representada en el eje horizontal y <code>weight = wk</code> incorpora los pesos muestrales para reflejar la distribución poblacional del ingreso. La función <code>geom_histogram()</code> genera el histograma y, mediante <code>aes(y = ..density.., fill = Zone)</code>, representa las barras en términos de densidad y asigna colores diferentes según la variable <code>Zone</code>, permitiendo comparar visualmente la distribución del ingreso entre zonas. El argumento <code>alpha = 0.5</code> agrega transparencia a las barras para facilitar la superposición de los histogramas, mientras que <code>position = "identity"</code> permite que las distribuciones se dibujen una encima de otra en lugar de apilarse. Posteriormente, <code>scale_fill_manual(values = zone_colors)</code> define manualmente los colores asociados a cada zona. Finalmente, <code>ylab("")</code> elimina la etiqueta del eje vertical, <code>ggtitle("Ponderado")</code> agrega un título al gráfico.</p>
+<p>En este código, se construye un histograma ponderado utilizando la base de datos <code>survey_data</code>, donde <code>x = Income</code> define la variable representada en el eje horizontal y <code>weight = wk</code> incorpora los pesos muestrales para reflejar la distribución poblacional del ingreso. La función <code>geom_histogram()</code> genera el histograma y, mediante <code>aes(y = ..density.., fill = Zone)</code>, representa las barras en términos de densidad y asigna colores diferentes según la variable <code>Zone</code>, permitiendo comparar visualmente la distribución del ingreso entre zonas. El argumento <code>alpha = 0.5</code> agrega transparencia a las barras para facilitar la superposición de los histogramas, mientras que <code>position = "identity"</code> permite que las distribuciones se dibujen una encima de otra en lugar de apilarse. Posteriormente, <code>scale_fill_manual(values = zone_colors)</code> define manualmente los colores asociados a cada zona. Finalmente, <code>ylab("")</code> elimina la etiqueta del eje vertical, <code>ggtitle("Weighted")</code> agrega un título al gráfico.</p>
 <p>Adicionalmente, es posible superponer curvas de densidad suavizadas mediante la función <code>geom_density()</code>, lo que permite visualizar de manera continua la forma de la distribución de la variable analizada. Este tipo de representación facilita la identificación de patrones como asimetrías, concentración de observaciones o la presencia de múltiples modas. Un ejemplo de este tipo de gráfico se presenta en la Figura <a href="viz-continuas.html#fig:fig-densidades">3.4</a>:</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="viz-continuas.html#cb47-1" tabindex="-1"></a>weighted_income_hist <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">|</span></span>
 <span id="cb47-2"><a href="viz-continuas.html#cb47-2" tabindex="-1"></a>  weighted_zone_hist <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Zone), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
@@ -364,7 +364,7 @@ Figura 3.4: Histogramas con curvas de densidad superpuestas para ingreso y gasto
 <p>Para construir <em>boxplots</em> ponderados en <code>ggplot2</code> se utiliza la función <code>geom_boxplot()</code>, como se muestra en la Figura <a href="viz-continuas.html#fig:fig-boxplot-zona-sexo">3.5</a>. En este caso, la función <code>ggplot()</code> inicia la construcción del gráfico utilizando la base de datos <code>survey_data</code>, donde <code>x = Income</code> define la variable numérica analizada y <code>weight = wk</code> incorpora los pesos muestrales para representar la distribución estimada en la población. Posteriormente, <code>geom_boxplot()</code> genera los diagramas de caja y, mediante <code>aes(fill = Zone)</code> o <code>aes(fill = Sex)</code>, asigna colores diferentes a cada categoría de las variables <code>Zone</code> y <code>Sex</code>, respectivamente, facilitando la comparación visual entre grupos. La función <code>coord_flip()</code> invierte los ejes para presentar los <em>boxplots</em> de forma horizontal, mejorando así su legibilidad. Por su parte, <code>scale_fill_manual()</code> permite definir manualmente los colores asociados a cada categoría mediante los vectores <code>zone_colors</code> y <code>sex_colors</code>.</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="viz-continuas.html#cb48-1" tabindex="-1"></a>weighted_zone_boxplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(survey_data, <span class="fu">aes</span>(<span class="at">x =</span> Income, <span class="at">weight =</span> wk)) <span class="sc">+</span></span>
 <span id="cb48-2"><a href="viz-continuas.html#cb48-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Zone)) <span class="sc">+</span></span>
-<span id="cb48-3"><a href="viz-continuas.html#cb48-3" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Ponderado&quot;</span>) <span class="sc">+</span></span>
+<span id="cb48-3"><a href="viz-continuas.html#cb48-3" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Weighted&quot;</span>) <span class="sc">+</span></span>
 <span id="cb48-4"><a href="viz-continuas.html#cb48-4" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
 <span id="cb48-5"><a href="viz-continuas.html#cb48-5" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> zone_colors)</span>
 <span id="cb48-6"><a href="viz-continuas.html#cb48-6" tabindex="-1"></a></span>
@@ -372,7 +372,7 @@ Figura 3.4: Histogramas con curvas de densidad superpuestas para ingreso y gasto
 <span id="cb48-8"><a href="viz-continuas.html#cb48-8" tabindex="-1"></a></span>
 <span id="cb48-9"><a href="viz-continuas.html#cb48-9" tabindex="-1"></a>weighted_sex_boxplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(survey_data, <span class="fu">aes</span>(<span class="at">x =</span> Income, <span class="at">weight =</span> wk)) <span class="sc">+</span></span>
 <span id="cb48-10"><a href="viz-continuas.html#cb48-10" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Sex)) <span class="sc">+</span></span>
-<span id="cb48-11"><a href="viz-continuas.html#cb48-11" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Ponderado&quot;</span>) <span class="sc">+</span></span>
+<span id="cb48-11"><a href="viz-continuas.html#cb48-11" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Weighted&quot;</span>) <span class="sc">+</span></span>
 <span id="cb48-12"><a href="viz-continuas.html#cb48-12" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
 <span id="cb48-13"><a href="viz-continuas.html#cb48-13" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> sex_colors)</span>
 <span id="cb48-14"><a href="viz-continuas.html#cb48-14" tabindex="-1"></a></span>
@@ -386,13 +386,13 @@ Figura 3.5: Boxplots ponderados del ingreso por zona y sexo
 <p>Además de las herramientas disponibles en <code>ggplot2</code>, el paquete <code>survey</code> ofrece funciones especializadas como <code>svyhist()</code> y <code>svyboxplot()</code>, las cuales incorporan directamente las características del diseño muestral complejo en la construcción de los gráficos. Estas funciones permiten obtener representaciones gráficas coherentes con el diseño de la encuesta, facilitando el análisis exploratorio de las variables numéricas. Un ejemplo de su aplicación se presenta en la Figura <a href="viz-continuas.html#fig:fig-svyhist-svybox">3.6</a>.</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="viz-continuas.html#cb49-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
 <span id="cb49-2"><a href="viz-continuas.html#cb49-2" tabindex="-1"></a><span class="fu">svyhist</span>(<span class="sc">~</span>Income, survey_design,</span>
-<span id="cb49-3"><a href="viz-continuas.html#cb49-3" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">&quot;Ingresos por hogar&quot;</span>,</span>
-<span id="cb49-4"><a href="viz-continuas.html#cb49-4" tabindex="-1"></a>  <span class="at">col  =</span> <span class="st">&quot;grey80&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Ingreso&quot;</span>,</span>
+<span id="cb49-3"><a href="viz-continuas.html#cb49-3" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">&quot;Household income&quot;</span>,</span>
+<span id="cb49-4"><a href="viz-continuas.html#cb49-4" tabindex="-1"></a>  <span class="at">col  =</span> <span class="st">&quot;grey80&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Income&quot;</span>,</span>
 <span id="cb49-5"><a href="viz-continuas.html#cb49-5" tabindex="-1"></a>  <span class="at">probability =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb49-6"><a href="viz-continuas.html#cb49-6" tabindex="-1"></a></span>
 <span id="cb49-7"><a href="viz-continuas.html#cb49-7" tabindex="-1"></a><span class="fu">svyboxplot</span>(Income <span class="sc">~</span> Zone, survey_design,</span>
 <span id="cb49-8"><a href="viz-continuas.html#cb49-8" tabindex="-1"></a>  <span class="at">col  =</span> <span class="st">&quot;grey80&quot;</span>,</span>
-<span id="cb49-9"><a href="viz-continuas.html#cb49-9" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Ingreso&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Zona&quot;</span>)</span></code></pre></div>
+<span id="cb49-9"><a href="viz-continuas.html#cb49-9" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Income&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Zone&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-svyhist-svybox"></span>
 <img src="figures/fig-svyhist-svybox-1.svg" alt="Histograma y boxplot del ingreso ajustados al diseño muestral complejo" width="80%" />
 <p class="caption">
@@ -408,7 +408,8 @@ Figura 3.6: Histograma y boxplot del ingreso ajustados al diseño muestral compl
 <span id="cb50-2"><a href="viz-continuas.html#cb50-2" tabindex="-1"></a>  <span class="at">data =</span> survey_data,</span>
 <span id="cb50-3"><a href="viz-continuas.html#cb50-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> Income, <span class="at">x =</span> Expenditure)) <span class="sc">+</span></span>
 <span id="cb50-4"><a href="viz-continuas.html#cb50-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> wk), <span class="at">alpha =</span> <span class="fl">0.3</span>)</span>
-<span id="cb50-5"><a href="viz-continuas.html#cb50-5" tabindex="-1"></a>weighted_basic_scatter</span></code></pre></div>
+<span id="cb50-5"><a href="viz-continuas.html#cb50-5" tabindex="-1"></a></span>
+<span id="cb50-6"><a href="viz-continuas.html#cb50-6" tabindex="-1"></a>weighted_basic_scatter</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-scatter-basico"></span>
 <img src="figures/fig-scatter-basico-1.svg" alt="Diagrama de dispersión entre ingreso y gasto de los hogares" width="65%" />
 <p class="caption">
@@ -423,7 +424,8 @@ Figura 3.7: Diagrama de dispersión entre ingreso y gasto de los hogares
 <span id="cb51-4"><a href="viz-continuas.html#cb51-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> wk, <span class="at">color =</span> Zone), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
 <span id="cb51-5"><a href="viz-continuas.html#cb51-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">size =</span> <span class="st">&quot;Peso&quot;</span>) <span class="sc">+</span></span>
 <span id="cb51-6"><a href="viz-continuas.html#cb51-6" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> zone_colors)</span>
-<span id="cb51-7"><a href="viz-continuas.html#cb51-7" tabindex="-1"></a>weighted_zone_scatter</span></code></pre></div>
+<span id="cb51-7"><a href="viz-continuas.html#cb51-7" tabindex="-1"></a></span>
+<span id="cb51-8"><a href="viz-continuas.html#cb51-8" tabindex="-1"></a>weighted_zone_scatter</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-scatter-zona"></span>
 <img src="figures/fig-scatter-zona-1.svg" alt="Diagrama de dispersión entre ingreso y gasto por zona geográfica" width="65%" />
 <p class="caption">

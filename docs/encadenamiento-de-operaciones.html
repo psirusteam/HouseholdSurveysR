@@ -23,7 +23,7 @@
 <meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
 
 
-<meta name="date" content="2026-06-10" />
+<meta name="date" content="2026-06-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -383,7 +383,7 @@ div.csl-indent {
 <span id="cb225-3"><a href="encadenamiento-de-operaciones.html#cb225-3" tabindex="-1"></a>    <span class="at">Region =</span> <span class="fu">cut</span>(</span>
 <span id="cb225-4"><a href="encadenamiento-de-operaciones.html#cb225-4" tabindex="-1"></a>      <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">D&quot;</span>, <span class="st">&quot;&quot;</span>, Stratum)),</span>
 <span id="cb225-5"><a href="encadenamiento-de-operaciones.html#cb225-5" tabindex="-1"></a>      <span class="at">breaks =</span> <span class="dv">5</span>,</span>
-<span id="cb225-6"><a href="encadenamiento-de-operaciones.html#cb225-6" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Norte&quot;</span>, <span class="st">&quot;Sur&quot;</span>, <span class="st">&quot;Centro&quot;</span>, <span class="st">&quot;Occidente&quot;</span>, <span class="st">&quot;Oriente&quot;</span>)</span>
+<span id="cb225-6"><a href="encadenamiento-de-operaciones.html#cb225-6" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;North&quot;</span>, <span class="st">&quot;South&quot;</span>, <span class="st">&quot;Center&quot;</span>, <span class="st">&quot;West&quot;</span>, <span class="st">&quot;East&quot;</span>)</span>
 <span id="cb225-7"><a href="encadenamiento-de-operaciones.html#cb225-7" tabindex="-1"></a>    )</span>
 <span id="cb225-8"><a href="encadenamiento-de-operaciones.html#cb225-8" tabindex="-1"></a>  )</span></code></pre></div>
 <p>En el análisis de bases de datos también es frecuente recodificar variables categóricas. El siguiente código crea <code>region_id</code>, una versión codificada de <code>Region</code> que conserva el orden de las regiones y asigna códigos de dos dígitos. Esta forma de recodificación facilita la presentación o el cruce con otras fuentes de información.</p>
@@ -391,7 +391,7 @@ div.csl-indent {
 <span id="cb226-2"><a href="encadenamiento-de-operaciones.html#cb226-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb226-3"><a href="encadenamiento-de-operaciones.html#cb226-3" tabindex="-1"></a>    <span class="at">region_id =</span> <span class="fu">factor</span>(</span>
 <span id="cb226-4"><a href="encadenamiento-de-operaciones.html#cb226-4" tabindex="-1"></a>      Region,</span>
-<span id="cb226-5"><a href="encadenamiento-de-operaciones.html#cb226-5" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Norte&quot;</span>, <span class="st">&quot;Sur&quot;</span>, <span class="st">&quot;Centro&quot;</span>, <span class="st">&quot;Occidente&quot;</span>, <span class="st">&quot;Oriente&quot;</span>),</span>
+<span id="cb226-5"><a href="encadenamiento-de-operaciones.html#cb226-5" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;North&quot;</span>, <span class="st">&quot;South&quot;</span>, <span class="st">&quot;Center&quot;</span>, <span class="st">&quot;West&quot;</span>, <span class="st">&quot;East&quot;</span>),</span>
 <span id="cb226-6"><a href="encadenamiento-de-operaciones.html#cb226-6" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;01&quot;</span>, <span class="st">&quot;02&quot;</span>, <span class="st">&quot;03&quot;</span>, <span class="st">&quot;04&quot;</span>, <span class="st">&quot;05&quot;</span>)</span>
 <span id="cb226-7"><a href="encadenamiento-de-operaciones.html#cb226-7" tabindex="-1"></a>    )</span>
 <span id="cb226-8"><a href="encadenamiento-de-operaciones.html#cb226-8" tabindex="-1"></a>  )</span></code></pre></div>
@@ -433,12 +433,12 @@ div.csl-indent {
 <span id="cb231-6"><a href="encadenamiento-de-operaciones.html#cb231-6" tabindex="-1"></a>      Age <span class="sc">&lt;=</span> <span class="dv">30</span> <span class="sc">~</span> <span class="st">&quot;16-30&quot;</span>,</span>
 <span id="cb231-7"><a href="encadenamiento-de-operaciones.html#cb231-7" tabindex="-1"></a>      Age <span class="sc">&lt;=</span> <span class="dv">45</span> <span class="sc">~</span> <span class="st">&quot;31-45&quot;</span>,</span>
 <span id="cb231-8"><a href="encadenamiento-de-operaciones.html#cb231-8" tabindex="-1"></a>      Age <span class="sc">&lt;=</span> <span class="dv">60</span> <span class="sc">~</span> <span class="st">&quot;46-60&quot;</span>,</span>
-<span id="cb231-9"><a href="encadenamiento-de-operaciones.html#cb231-9" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;Más de 60&quot;</span></span>
+<span id="cb231-9"><a href="encadenamiento-de-operaciones.html#cb231-9" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;Over 60&quot;</span></span>
 <span id="cb231-10"><a href="encadenamiento-de-operaciones.html#cb231-10" tabindex="-1"></a>    ),</span>
 <span id="cb231-11"><a href="encadenamiento-de-operaciones.html#cb231-11" tabindex="-1"></a>    <span class="at">age_group =</span> <span class="fu">factor</span>(</span>
 <span id="cb231-12"><a href="encadenamiento-de-operaciones.html#cb231-12" tabindex="-1"></a>      age_group,</span>
 <span id="cb231-13"><a href="encadenamiento-de-operaciones.html#cb231-13" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;0-5&quot;</span>, <span class="st">&quot;6-15&quot;</span>, <span class="st">&quot;16-30&quot;</span>,</span>
-<span id="cb231-14"><a href="encadenamiento-de-operaciones.html#cb231-14" tabindex="-1"></a>                 <span class="st">&quot;31-45&quot;</span>, <span class="st">&quot;46-60&quot;</span>, <span class="st">&quot;Más de 60&quot;</span>),</span>
+<span id="cb231-14"><a href="encadenamiento-de-operaciones.html#cb231-14" tabindex="-1"></a>                 <span class="st">&quot;31-45&quot;</span>, <span class="st">&quot;46-60&quot;</span>, <span class="st">&quot;Over 60&quot;</span>),</span>
 <span id="cb231-15"><a href="encadenamiento-de-operaciones.html#cb231-15" tabindex="-1"></a>      <span class="at">ordered =</span> <span class="cn">TRUE</span></span>
 <span id="cb231-16"><a href="encadenamiento-de-operaciones.html#cb231-16" tabindex="-1"></a>    )</span>
 <span id="cb231-17"><a href="encadenamiento-de-operaciones.html#cb231-17" tabindex="-1"></a>  )</span></code></pre></div>
@@ -476,62 +476,75 @@ div.csl-indent {
 </div>
 <div id="group-by-agrupacion-de-casos" class="section level3 hasAnchor" number="8.3.6">
 <h3><span class="header-section-number">A.3.6</span> <code>group_by</code>: agrupación de casos<a href="encadenamiento-de-operaciones.html#group-by-agrupacion-de-casos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>La función <code>group_by()</code> permite agrupar la base de datos de acuerdo con una o más variables. Al combinarla con <code>summarise()</code>, las estadísticas se calculan de manera independiente dentro de cada grupo definido. Para los conteos simples, <code>count()</code> ofrece una forma abreviada de escribir <code>group_by()</code> junto con <code>summarise(n = n())</code>. En el siguiente ejemplo, se cuenta el número de registros por región y luego se ordena el resultado de mayor a menor. La siguiente salida permite identificar cuántos registros están asociados con cada región de la base de datos.</p>
+<p>La función <code>group_by()</code> permite agrupar la base de datos de acuerdo con una o más variables. Al combinarla con <code>summarise()</code>, las estadísticas se calculan de manera independiente dentro de cada grupo definido. En el siguiente ejemplo, se cuenta el número de registros por región y luego se ordena el resultado de mayor a menor. La siguiente salida permite identificar cuántos registros están asociados con cada región de la base de datos.</p>
 <div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="encadenamiento-de-operaciones.html#cb238-1" tabindex="-1"></a>bigcity_data <span class="sc">%&gt;%</span></span>
-<span id="cb238-2"><a href="encadenamiento-de-operaciones.html#cb238-2" tabindex="-1"></a>  <span class="fu">count</span>(Region) <span class="sc">%&gt;%</span></span>
-<span id="cb238-3"><a href="encadenamiento-de-operaciones.html#cb238-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div>
-<pre><code>##      Region     n
-## 1   Oriente 39160
-## 2 Occidente 33868
-## 3    Centro 25944
-## 4       Sur 25898
-## 5     Norte 25396</code></pre>
-<p>Para obtener el número de encuestas efectivas por sexo, se aplica la misma lógica de agrupación y conteo. En este caso, la base se agrupa según la variable <code>Sex</code> y luego se calcula el número de registros asociados con cada una de sus categorías. El resultado permite identificar cuántas observaciones corresponden a cada sexo dentro de la base de datos.</p>
+<span id="cb238-2"><a href="encadenamiento-de-operaciones.html#cb238-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Region) <span class="sc">%&gt;%</span></span>
+<span id="cb238-3"><a href="encadenamiento-de-operaciones.html#cb238-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb238-4"><a href="encadenamiento-de-operaciones.html#cb238-4" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 2
+##   Region     n
+##   &lt;fct&gt;  &lt;int&gt;
+## 1 East   39160
+## 2 West   33868
+## 3 Center 25944
+## 4 South  25898
+## 5 North  25396</code></pre>
+<p>Para los conteos simples, <code>count()</code> ofrece una forma abreviada de escribir la combinación entre <code>group_by()</code> y <code>summarise(n = n())</code>. En la práctica, ambas alternativas producen el mismo resultado, pues agrupan la base de datos según una variable categórica y calculan cuántos registros pertenecen a cada grupo. Por ejemplo, el siguiente código reproduce los mismos resultados que el código anterior.</p>
 <div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="encadenamiento-de-operaciones.html#cb240-1" tabindex="-1"></a>bigcity_data <span class="sc">%&gt;%</span></span>
-<span id="cb240-2"><a href="encadenamiento-de-operaciones.html#cb240-2" tabindex="-1"></a>  <span class="fu">count</span>(Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb240-2"><a href="encadenamiento-de-operaciones.html#cb240-2" tabindex="-1"></a>  <span class="fu">count</span>(Region) <span class="sc">%&gt;%</span></span>
 <span id="cb240-3"><a href="encadenamiento-de-operaciones.html#cb240-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div>
+<pre><code>##   Region     n
+## 1   East 39160
+## 2   West 33868
+## 3 Center 25944
+## 4  South 25898
+## 5  North 25396</code></pre>
+<p>Para obtener el número de encuestas efectivas por sexo, se aplica la misma lógica de agrupación y conteo. En este caso, la base se agrupa según la variable <code>Sex</code> y luego se calcula el número de registros asociados con cada una de sus categorías. El resultado permite identificar cuántas observaciones corresponden a cada sexo dentro de la base de datos.</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="encadenamiento-de-operaciones.html#cb242-1" tabindex="-1"></a>bigcity_data <span class="sc">%&gt;%</span></span>
+<span id="cb242-2"><a href="encadenamiento-de-operaciones.html#cb242-2" tabindex="-1"></a>  <span class="fu">count</span>(Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb242-3"><a href="encadenamiento-de-operaciones.html#cb242-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div>
 <pre><code>##      Sex     n
 ## 1 Female 79190
 ## 2   Male 71076</code></pre>
 <p>El conteo también puede realizarse según la zona geográfica. En este caso, la base se agrupa por la variable <code>Zone</code> y se calcula el número de registros correspondiente a cada una de sus categorías. La siguiente salida permite conocer cómo se distribuyen las observaciones entre las distintas zonas de la base de datos.</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="encadenamiento-de-operaciones.html#cb242-1" tabindex="-1"></a>bigcity_data <span class="sc">%&gt;%</span></span>
-<span id="cb242-2"><a href="encadenamiento-de-operaciones.html#cb242-2" tabindex="-1"></a>  <span class="fu">count</span>(Zone) <span class="sc">%&gt;%</span></span>
-<span id="cb242-3"><a href="encadenamiento-de-operaciones.html#cb242-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="encadenamiento-de-operaciones.html#cb244-1" tabindex="-1"></a>bigcity_data <span class="sc">%&gt;%</span></span>
+<span id="cb244-2"><a href="encadenamiento-de-operaciones.html#cb244-2" tabindex="-1"></a>  <span class="fu">count</span>(Zone) <span class="sc">%&gt;%</span></span>
+<span id="cb244-3"><a href="encadenamiento-de-operaciones.html#cb244-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div>
 <pre><code>##    Zone     n
 ## 1 Urban 78164
 ## 2 Rural 72102</code></pre>
 <p>Además de los conteos, también es posible calcular medidas resumen por grupo, como la media. En este caso, para obtener el ingreso promedio por región junto con el número total de registros, se agrupa la base según la variable <code>Region</code> y luego se aplica <code>summarise()</code>. El resultado es una tabla regional que presenta, para cada región, el total de observaciones y el ingreso medio correspondiente.</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="encadenamiento-de-operaciones.html#cb244-1" tabindex="-1"></a>bigcity_data <span class="sc">%&gt;%</span></span>
-<span id="cb244-2"><a href="encadenamiento-de-operaciones.html#cb244-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Region) <span class="sc">%&gt;%</span></span>
-<span id="cb244-3"><a href="encadenamiento-de-operaciones.html#cb244-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb244-4"><a href="encadenamiento-de-operaciones.html#cb244-4" tabindex="-1"></a>            <span class="at">mean_income =</span> <span class="fu">mean</span>(Income))</span></code></pre></div>
-<pre><code>## # A tibble: 5 × 3
-##   Region        n mean_income
-##   &lt;fct&gt;     &lt;int&gt;       &lt;dbl&gt;
-## 1 Norte     25396        509.
-## 2 Sur       25898        644.
-## 3 Centro    25944        701.
-## 4 Occidente 33868        571.
-## 5 Oriente   39160        530.</code></pre>
-<p>El mismo procedimiento puede aplicarse para calcular el ingreso medio por sexo. En este caso, la base se agrupa según la variable <code>Sex</code> y luego se obtiene el promedio de <code>Income</code> para cada categoría. La tabla resultante permite comparar el ingreso medio observado entre los distintos grupos definidos por el sexo.</p>
 <div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="encadenamiento-de-operaciones.html#cb246-1" tabindex="-1"></a>bigcity_data <span class="sc">%&gt;%</span></span>
-<span id="cb246-2"><a href="encadenamiento-de-operaciones.html#cb246-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb246-2"><a href="encadenamiento-de-operaciones.html#cb246-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Region) <span class="sc">%&gt;%</span></span>
 <span id="cb246-3"><a href="encadenamiento-de-operaciones.html#cb246-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
 <span id="cb246-4"><a href="encadenamiento-de-operaciones.html#cb246-4" tabindex="-1"></a>            <span class="at">mean_income =</span> <span class="fu">mean</span>(Income))</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 3
+##   Region     n mean_income
+##   &lt;fct&gt;  &lt;int&gt;       &lt;dbl&gt;
+## 1 North  25396        509.
+## 2 South  25898        644.
+## 3 Center 25944        701.
+## 4 West   33868        571.
+## 5 East   39160        530.</code></pre>
+<p>El mismo procedimiento puede aplicarse para calcular el ingreso medio por sexo. En este caso, la base se agrupa según la variable <code>Sex</code> y luego se obtiene el promedio de <code>Income</code> para cada categoría. La tabla resultante permite comparar el ingreso medio observado entre los distintos grupos definidos por el sexo.</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="encadenamiento-de-operaciones.html#cb248-1" tabindex="-1"></a>bigcity_data <span class="sc">%&gt;%</span></span>
+<span id="cb248-2"><a href="encadenamiento-de-operaciones.html#cb248-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb248-3"><a href="encadenamiento-de-operaciones.html#cb248-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb248-4"><a href="encadenamiento-de-operaciones.html#cb248-4" tabindex="-1"></a>            <span class="at">mean_income =</span> <span class="fu">mean</span>(Income))</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 3
 ##   Sex        n mean_income
 ##   &lt;chr&gt;  &lt;int&gt;       &lt;dbl&gt;
 ## 1 Female 79190        579.
 ## 2 Male   71076        591.</code></pre>
 <p>Por último, se calculan la media, la desviación estándar y el rango intercuartílico de los ingresos según la condición de ocupación. Para ello, la base se agrupa por la variable <code>Employment</code> y luego se obtienen las estadísticas descriptivas de <code>Income</code> dentro de cada grupo. La siguiente salida presenta un resumen del comportamiento de los ingresos para cada categoría de ocupación.</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="encadenamiento-de-operaciones.html#cb248-1" tabindex="-1"></a>bigcity_data <span class="sc">%&gt;%</span></span>
-<span id="cb248-2"><a href="encadenamiento-de-operaciones.html#cb248-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Employment) <span class="sc">%&gt;%</span></span>
-<span id="cb248-3"><a href="encadenamiento-de-operaciones.html#cb248-3" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb248-4"><a href="encadenamiento-de-operaciones.html#cb248-4" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb248-5"><a href="encadenamiento-de-operaciones.html#cb248-5" tabindex="-1"></a>    <span class="at">mean_income =</span> <span class="fu">mean</span>(Income),</span>
-<span id="cb248-6"><a href="encadenamiento-de-operaciones.html#cb248-6" tabindex="-1"></a>    <span class="at">sd_income =</span> <span class="fu">sd</span>(Income),</span>
-<span id="cb248-7"><a href="encadenamiento-de-operaciones.html#cb248-7" tabindex="-1"></a>    <span class="at">iqr_income =</span> <span class="fu">IQR</span>(Income)</span>
-<span id="cb248-8"><a href="encadenamiento-de-operaciones.html#cb248-8" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="encadenamiento-de-operaciones.html#cb250-1" tabindex="-1"></a>bigcity_data <span class="sc">%&gt;%</span></span>
+<span id="cb250-2"><a href="encadenamiento-de-operaciones.html#cb250-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Employment) <span class="sc">%&gt;%</span></span>
+<span id="cb250-3"><a href="encadenamiento-de-operaciones.html#cb250-3" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb250-4"><a href="encadenamiento-de-operaciones.html#cb250-4" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb250-5"><a href="encadenamiento-de-operaciones.html#cb250-5" tabindex="-1"></a>    <span class="at">mean_income =</span> <span class="fu">mean</span>(Income),</span>
+<span id="cb250-6"><a href="encadenamiento-de-operaciones.html#cb250-6" tabindex="-1"></a>    <span class="at">sd_income =</span> <span class="fu">sd</span>(Income),</span>
+<span id="cb250-7"><a href="encadenamiento-de-operaciones.html#cb250-7" tabindex="-1"></a>    <span class="at">iqr_income =</span> <span class="fu">IQR</span>(Income)</span>
+<span id="cb250-8"><a href="encadenamiento-de-operaciones.html#cb250-8" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 5
 ##   Employment     n mean_income sd_income iqr_income
 ##   &lt;fct&gt;      &lt;int&gt;       &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;

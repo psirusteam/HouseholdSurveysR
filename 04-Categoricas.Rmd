@@ -95,20 +95,20 @@ En donde $I(y_{hik}=d)$ es una variable binaria que toma el valor de 1 si la uni
 
 En `R`, y utilizando el diseño muestral definido previamente, es posible generar resúmenes de la información de la encuesta para cada categoría de la variable `Zone`. Para ello, los datos se agrupan según la zona geográfica, lo que permite obtener resultados independientes para cada uno de estos dominios de estudio. A partir de este procedimiento se producen dos tipos principales de resultados. En primer lugar, se calcula el número de observaciones efectivamente recolectadas en la muestra, sin considerar los factores de expansión, lo que corresponde al tamaño muestral disponible en cada zona. En segundo lugar, se estima el tamaño poblacional asociado a cada dominio incorporando la información del diseño de muestreo.
 
-Junto con las estimaciones poblacionales también se obtienen medidas de precisión, como el error estándar y el intervalo de confianza, las cuales permiten evaluar el nivel de incertidumbre asociado a los resultados producidos a partir de la muestra. Los resultados se presentan en la Tabla \@ref(tab:tab-tamano-zona). En dicha tabla, `n` representa el número de observaciones de la muestra en cada zona, mientras que `Nd` corresponde a la estimación del total poblacional de la subpoblación. Por su parte, la función `unweighted()` se utiliza para calcular resúmenes no ponderados directamente a partir de los datos observados en la muestra.
+Junto con las estimaciones poblacionales también se obtienen medidas de precisión, como el error estándar y el intervalo de confianza, las cuales permiten evaluar el nivel de incertidumbre asociado a los resultados producidos a partir de la muestra. Los resultados se presentan en la Tabla \@ref(tab:tab-tamano-zona). En dicha tabla, `n` representa el número de observaciones de la muestra en cada zona, mientras que `size` corresponde a la estimación del total poblacional de la subpoblación. Por su parte, la función `unweighted()` se utiliza para calcular resúmenes no ponderados directamente a partir de los datos observados en la muestra.
 
 ```{r eval=FALSE}
 survey_design %>%
      group_by(Zone) %>%
      summarise(n = unweighted(n()),
-               Nd = survey_total(vartype = c("se","ci")))
+               size = survey_total(vartype = c("se","ci")))
 ```
 
 ```{r tab-tamano-zona, tab.cap="Tamaño poblacional estimado por zona geográfica", echo=FALSE}
 survey_design %>%
      group_by(Zone) %>%
      summarise(n = unweighted(n()),
-               Nd = survey_total(vartype = c("se","ci"))) %>%
+               size = survey_total(vartype = c("se","ci"))) %>%
   tabla_fmt()
 ```
 
@@ -120,13 +120,13 @@ Considerando un nivel de confianza del 95%, los intervalos de confianza para las
 ```{r eval=FALSE}
 survey_design %>%
   group_by(Poverty) %>%
-  summarise(Nd = survey_total(vartype = c("se","ci")))
+  summarise(size = survey_total(vartype = c("se","ci")))
 ```
 
 ```{r tab-tamano-pobreza, tab.cap="Tamaño poblacional estimado por condición de pobreza", echo=FALSE}
 survey_design %>%
   group_by(Poverty) %>%
-  summarise(Nd = survey_total(vartype = c("se","ci"))) %>%
+  summarise(size = survey_total(vartype = c("se","ci"))) %>%
   tabla_fmt()
 ```
 
@@ -138,13 +138,13 @@ Antes de realizar las estimaciones, se excluyen los registros con valores faltan
 survey_design %>%
   filter(!is.na(Employment)) %>%
   group_by(Employment) %>%
-  summarise( Nd = survey_total(vartype = c("se","ci")))
+  summarise( size = survey_total(vartype = c("se","ci")))
 ```
 ```{r tab-tamano-empleo, tab.cap="Tamaño poblacional estimado por estado de ocupación", echo=FALSE}
 survey_design %>%
   filter(!is.na(Employment)) %>%
   group_by(Employment) %>%
-  summarise( Nd = survey_total(vartype = c("se","ci"))) %>%
+  summarise( size = survey_total(vartype = c("se","ci"))) %>%
   tabla_fmt()
 ```
 
@@ -156,14 +156,14 @@ Finalmente, las estimaciones también pueden desagregarse simultáneamente por m
 survey_design %>%
   filter(!is.na(Employment)) %>%
   group_by(Employment, Poverty) %>%
-  cascade( Nd = survey_total(vartype =c("se","ci")),
+  cascade( size = survey_total(vartype =c("se","ci")),
            .fill = "Total")
 ```
 ```{r tab-tamano-empleo-pobreza, echo=TRUE, tab.cap="Tamaño poblacional estimado por estado de ocupación y condición de pobreza", echo=FALSE}
 survey_design %>%
   filter(!is.na(Employment)) %>%
   group_by(Employment, Poverty) %>%
-  cascade( Nd = survey_total(vartype =c("se","ci")),
+  cascade( size = survey_total(vartype =c("se","ci")),
            .fill = "Total") %>%
   tabla_fmt()
 ```
@@ -194,13 +194,13 @@ A diferencia de otros programas estadísticos que presentan los resultados en po
 ```{r eval=FALSE}
 survey_design %>%
   group_by(Zone) %>%
-  summarise(prop = survey_mean(vartype = c("se","ci"),
+  summarise(proportion = survey_mean(vartype = c("se","ci"),
                                proportion = TRUE))
 ```
 ```{r tab-prop-zona, tab.cap="Proporción de personas por zona geográfica", echo=FALSE}
 survey_design %>%
   group_by(Zone) %>%
-  summarise(prop = survey_mean(vartype = c("se","ci"),
+  summarise(proportion = survey_mean(vartype = c("se","ci"),
                                proportion = TRUE)) %>%
   tabla_fmt()
 ```
@@ -215,12 +215,12 @@ A partir de estas estimaciones se observa que, en la zona urbana, el 53.6% de la
 ```{r eval=FALSE}
 survey_design %>%
   group_by(Zone) %>%
-  summarise(prop = survey_prop(vartype = c("se","ci")))
+  summarise(proportion = survey_prop(vartype = c("se","ci")))
 ```
 ```{r tab-prop-zona2, tab.cap="Proporción de personas por zona geográfica (función survey_prop)", echo=FALSE}
 survey_design %>%
   group_by(Zone) %>%
-  summarise(prop = survey_prop(vartype = c("se","ci"))) %>%
+  summarise(proportion = survey_prop(vartype = c("se","ci"))) %>%
   tabla_fmt()
 ```
 
@@ -230,12 +230,12 @@ Si el interés se centra ahora en estimar proporciones para subpoblaciones espec
 ```{r eval=FALSE}
 urban_subset %>%
   group_by(Sex) %>%
-  summarise(prop = survey_prop(vartype = c("se","ci")))
+  summarise(proportion = survey_prop(vartype = c("se","ci")))
 ```
 ```{r tab-prop-sexo-urbano, tab.cap="Proporción de hombres y mujeres en zona urbana", echo=FALSE}
 urban_subset %>%
   group_by(Sex) %>%
-  summarise(prop = survey_prop(vartype = c("se","ci"))) %>%
+  summarise(proportion = survey_prop(vartype = c("se","ci"))) %>%
   tabla_fmt()
 ```
 
@@ -246,13 +246,13 @@ De manera análoga, es posible realizar el mismo ejercicio para la población re
 rural_subset %>%
   group_by(Sex) %>%
   summarise(n    = unweighted(n()),
-            prop = survey_prop(vartype = c("se","ci")))
+            proportion = survey_prop(vartype = c("se","ci")))
 ```
 ```{r tab-prop-sexo-rural, tab.cap="Proporción de hombres y mujeres en zona rural", echo=FALSE}
 rural_subset %>%
   group_by(Sex) %>%
   summarise(n    = unweighted(n()),
-            prop = survey_prop(vartype = c("se","ci"))) %>%
+            proportion = survey_prop(vartype = c("se","ci"))) %>%
   tabla_fmt()
 ```
 
@@ -262,12 +262,12 @@ Ahora bien, si el análisis se restringe únicamente a la población masculina i
 ```{r eval=FALSE}
 male_subset %>%
   group_by(Zone) %>%
-  summarise(prop = survey_prop(vartype = c("se","ci")))
+  summarise(proportion = survey_prop(vartype = c("se","ci")))
 ```
 ```{r tab-prop-zona-hombre, tab.cap="Distribución por zona en la subpoblación masculina", echo=FALSE}
 male_subset %>%
   group_by(Zone) %>%
-  summarise(prop = survey_prop(vartype = c("se","ci"))) %>%
+  summarise(proportion = survey_prop(vartype = c("se","ci"))) %>%
   tabla_fmt()
 ```
 
@@ -277,12 +277,12 @@ Si se desea estimar resultados con varios niveles de desagregación, al igual qu
 ```{r eval=FALSE}
 male_subset %>%
   group_by(Zone, Poverty) %>%
-  summarise(prop = survey_prop(vartype = c("se","ci")))
+  summarise(proportion = survey_prop(vartype = c("se","ci")))
 ```
 ```{r tab-prop-zona-pobreza-hombre, tab.cap="Proporción de hombres por zona y condición de pobreza", echo=FALSE}
 male_subset %>%
   group_by(Zone, Poverty) %>%
-  summarise(prop = survey_prop(vartype = c("se","ci"))) %>%
+  summarise(proportion = survey_prop(vartype = c("se","ci"))) %>%
   tabla_fmt()
 ```
 
@@ -297,18 +297,18 @@ female_subset %>%
   filter(!is.na(Employment)) %>%
   mutate(age_range = case_when(
                       Age>= 18 & Age <=35  ~ "18 - 35",
-                      TRUE ~ "Otro")) %>%
+                      TRUE ~ "Other")) %>%
   group_by(age_range, Employment) %>%
-  summarise(Prop = survey_prop(vartype =  c("se", "ci")))
+  summarise(proportion = survey_prop(vartype =  c("se", "ci")))
 ```
 ```{r tab-prop-edad-rango-empleo-mujer, tab.cap="Proporción de mujeres por rango de edad y estado de ocupación", echo=FALSE}
 female_subset %>%
   filter(!is.na(Employment)) %>%
   mutate(age_range = case_when(
                       Age>= 18 & Age <=35  ~ "18 - 35",
-                      TRUE ~ "Otro")) %>%
+                      TRUE ~ "Other")) %>%
   group_by(age_range, Employment) %>%
-  summarise(Prop = survey_prop(vartype =  c("se", "ci"))) %>%
+  summarise(proportion = survey_prop(vartype =  c("se", "ci"))) %>%
   tabla_fmt()
 ```
 
@@ -319,13 +319,19 @@ Según @heeringa2017applied, las proporciones obtenidas en las filas de una tabl
 Por ejemplo, suponga que el interés está en comparar la proporción de mujeres en condición de pobreza con la proporción de hombres en esta misma situación. Formalmente, este contraste puede expresarse como $\hat{p}_F - \hat{p}_M$, donde $\hat{p}_F$ representa la proporción estimada de mujeres en pobreza y $\hat{p}_M$ la proporción estimada de hombres en dicha condición. Para construir este contraste, primero se estiman las proporciones de hombres y mujeres en estado de pobreza utilizando el mismo procedimiento descrito en capítulos anteriores. Los resultados correspondientes se presentan en la Tabla \@ref(tab:tab-svyby-pobreza-sexo2):
 
 ```{r}
-sex_poverty_table <- svyby(formula = ~poverty, by = ~Sex,
-                         design = survey_design, svymean, na.rm = TRUE,
-                         covmat = TRUE, vartype = c("se", "ci"))
+sex_poverty_proportion <- survey_design %>%
+  group_by(Sex) %>%
+  summarise(proportion = survey_mean(poverty,
+                                     na.rm = TRUE,
+                                     vartype = c("se", "ci")))
+
+sex_poverty_contrast <- svyby(formula = ~poverty, by = ~Sex,
+                              design = survey_design, svymean, na.rm = TRUE,
+                              covmat = TRUE, vartype = c("se", "ci"))
 ```
 
 ```{r tab-svyby-pobreza-sexo2, tab.cap="Proporción en condición de pobreza por sexo", echo=FALSE}
-sex_poverty_table %>%
+sex_poverty_proportion %>%
   tabla_fmt()
 ```
 
@@ -338,11 +344,11 @@ Una vez estimadas las proporciones de hombres y mujeres en condición de pobreza
 Para calcular correctamente la variabilidad asociada a esta diferencia, no basta con considerar únicamente las varianzas de cada estimación por separado. También es necesario incorporar la covarianza entre ambas proporciones, dado que las estimaciones provienen de una misma muestra y, por tanto, no son independientes. La matriz de varianzas y covarianzas puede obtenerse mediante la función `vcov`, cuyos resultados se presentan en la Tabla \@ref(tab:tab-vcov-sex-pobreza):
 
 ```{r eval=FALSE}
-vcov(sex_poverty_table) %>%
+vcov(sex_poverty_contrast) %>%
   data.frame()
 ```
 ```{r tab-vcov-sex-pobreza, tab.cap="Matriz de varianzas y covarianzas de la proporción de pobreza por sexo", echo=FALSE}
-vcov(sex_poverty_table) %>%
+vcov(sex_poverty_contrast) %>%
   data.frame() %>%
   tabla_fmt(digits = 10)
 ```
@@ -356,8 +362,8 @@ sqrt(0.0009983 + 0.0013416 - 2*0.0009183)
 No obstante, el paquete `survey` permite realizar este procedimiento de forma directa mediante la función `svycontrast`, la cual calcula tanto el contraste lineal como su error estándar asociado. Para obtener la diferencia entre las proporciones de mujeres y hombres en condición de pobreza, se utiliza el siguiente código:
 
 ```{r}
-svycontrast(sex_poverty_table,
-            list(diff_Sex = c(1, -1))) %>%
+svycontrast(sex_poverty_contrast,
+            list(sex_differenceerence = c(1, -1))) %>%
   data.frame()
 ```
 
@@ -366,15 +372,22 @@ De lo que se concluye que, la diferencia entre las proporciones de mujeres y hom
 Otro ejercicio que puede desarrollarse a partir de una encuesta de hogares consiste en estimar la proporción de personas desempleadas según la región de residencia. Para ello, estima las proporciones de desempleo para cada una de las regiones consideradas en el análisis. Los resultados obtenidos se presentan en la Tabla \@ref(tab:tab-svyby-desempleo-region):
 
 ```{r}
-region_unemployment_table <- svyby(formula =  ~unemployment, by = ~Region,
-                              design  = survey_design %>%
-                                filter(!is.na(unemployment)),
-                              FUN     = svymean, na.rm = TRUE, covmat = TRUE,
-                              vartype = c("se", "ci"))
+region_unemployment_proportion <- survey_design %>%
+  filter(!is.na(unemployment)) %>%
+  group_by(Region) %>%
+  summarise(proportion = survey_mean(unemployment,
+                                     na.rm = TRUE,
+                                     vartype = c("se", "ci")))
+
+region_unemployment_contrast <- svyby(formula = ~unemployment, by = ~Region,
+                                      design = survey_design %>%
+                                        filter(!is.na(unemployment)),
+                                      FUN = svymean, na.rm = TRUE, covmat = TRUE,
+                                      vartype = c("se", "ci"))
 ```
 
 ```{r tab-svyby-desempleo-region, tab.cap="Proporción en condición de desempleo por región", echo=FALSE}
-region_unemployment_table %>%
+region_unemployment_proportion %>%
   tabla_fmt()
 ```
 
@@ -391,12 +404,12 @@ $$
 Para calcular los errores estándar asociados a cada uno de los contrastes anteriores, es necesario considerar no solo las varianzas de las estimaciones regionales, sino también las covarianzas entre ellas. Esta información se resume en la matriz de varianzas y covarianzas de las proporciones estimadas de desempleo por región, presentada a continuación:
 
 ```{r, echo=TRUE, eval=FALSE}
-vcov(region_unemployment_table) %>%
+vcov(region_unemployment_contrast) %>%
   data.frame()
 ```
 
 ```{r, echo=FALSE}
-vcov(region_unemployment_table) %>%
+vcov(region_unemployment_contrast) %>%
   data.frame() %>%
   tabla_fmt()
 ```
@@ -413,7 +426,7 @@ sqrt(0.0001267 + 0.0004093 - 2*0)
 Alternativamente, el paquete `survey` permite calcular estos contrastes de manera directa mediante la función `svycontrast`, la cual obtiene tanto las diferencias estimadas entre proporciones como sus respectivos errores estándar. En este caso, la estimación de los contrastes definidos anteriormente se realiza de la siguiente manera:
 
 ```{r}
-svycontrast(region_unemployment_table, list(
+svycontrast(region_unemployment_contrast, list(
                              north_south = c(1, 0, -1, 0, 0),
                              south_center = c(0, 1, -1, 0, 0),
                              west_east = c(0, 0, 0, 1, -1))) %>%
@@ -458,88 +471,89 @@ A continuación, y siguiendo con la base de datos de ejemplo, se estima la distr
 
 poverty_design <- survey_design %>%
        mutate(poverty = factor(poverty, levels = 0:1,
-                          labels = c("No pobre", "Pobre")))
+                          labels = c("Not poor", "Poor")))
 ```
 
 ```{r eval=FALSE}
 poverty_design %>%
   group_by(poverty,Sex) %>%
-  summarise(prop = survey_prop(vartype = c("se", "ci")))
+  summarise(proportion = survey_prop(vartype = c("se", "ci")))
 
 ```
 ```{r tab-contingencia-pobreza-sexo, tab.cap="Proporción de hombres y mujeres en condición de pobreza y no pobreza", echo=FALSE}
 poverty_design %>%
   group_by(poverty,Sex) %>%
-  summarise(prop = survey_prop(vartype = c("se", "ci"))) %>%
+  summarise(proportion = survey_prop(vartype = c("se", "ci"))) %>%
   tabla_fmt()
 
 ```
 
 Los resultados indican que el 52.3% de la población en condición de pobreza corresponde a mujeres, mientras que el 47.6% corresponde a hombres. Para las mujeres, el intervalo de confianza al 95% se encuentra entre 49.2% y 55.5%, mientras que para los hombres el intervalo correspondiente se ubica entre 44.5% y 50.7%. Estas estimaciones permiten observar la distribución relativa de la pobreza según sexo, considerando además la incertidumbre inherente al proceso de muestreo.
 
-En la librería `survey` existe una alternativa para estimar tablas de contingencia mediante la función `svyby()`, la cual permite calcular estimaciones desagregadas para distintos grupos definidos por una o más variables categóricas. Para ello, es necesario especificar la variable sobre la cual se desea realizar la estimación (`formula`), las categorías o grupos de análisis (`by`), el diseño muestral (`design`) y la función asociada al parámetro que se desea estimar (`FUN`), como proporciones, medias o totales. En el siguiente ejemplo se estima la distribución de la condición de pobreza según sexo, obteniendo además medidas de precisión como errores estándar e intervalos de confianza. El código correspondiente y sus resultados se presentan en la Tabla \@ref(tab:tab-svyby-pobreza-sexo).
+Con el mismo enfoque de `srvyr`, tambien puede estimarse la tabla de contingencia mediante `group_by()` y `summarise()`. En el siguiente ejemplo se estima la distribucion de la condicion de pobreza segun sexo, obteniendo ademas medidas de precision como errores estandar e intervalos de confianza. El codigo correspondiente y sus resultados se presentan en la Tabla \@ref(tab:tab-svyby-pobreza-sexo).
 
 ```{r}
-sex_poverty_table <- svyby(formula = ~Sex, by =  ~poverty, design = poverty_design, FUN = svymean)
+sex_by_poverty_proportion <- poverty_design %>%
+  group_by(poverty, Sex) %>%
+  summarise(proportion = survey_prop(vartype = c("se", "ci")))
 ```
 
-```{r tab-svyby-pobreza-sexo, tab.cap="Proporción de hombres y mujeres por condición de pobreza (svyby)", echo=FALSE}
-sex_poverty_table %>%
+```{r tab-svyby-pobreza-sexo, tab.cap="Proporción de hombres y mujeres por condición de pobreza ", echo=FALSE}
+sex_by_poverty_proportion %>%
   tabla_fmt()
 ```
 
 Adicionalmente, los intervalos de confianza pueden obtenerse mediante la función `confint()`, la cual permite calcular automáticamente los límites inferior y superior asociados a las estimaciones realizadas. El procedimiento para la estimación de los intervalos de confianza se presenta en la Tabla \@ref(tab:tab-confint-sexo-pobreza). Nótese que lso intervalos coinciden con los generados anteriormente usando la función `group_by`.
 
 ```{r eval=FALSE}
-confint(sex_poverty_table) %>%
-  as.data.frame() %>%
-  rownames_to_column("Dominio")
+sex_by_poverty_proportion %>%
+  dplyr::select(poverty, Sex, proportion_low, proportion_upp)
 ```
 
 ```{r tab-confint-sexo-pobreza, tab.cap="Intervalos de confianza para la proporción por sexo y pobreza", echo=FALSE}
-confint(sex_poverty_table) %>%
-  as.data.frame() %>%
-  rownames_to_column("Dominio") %>%
+sex_by_poverty_proportion %>%
+  dplyr::select(poverty, Sex, proportion_low, proportion_upp) %>%
   tabla_fmt()
 ```
 
 Otro análisis de interés relacionado con tablas de doble entrada en encuestas de hogares consiste en estimar el porcentaje de personas desempleadas según sexo. El procedimiento correspondiente y sus resultados se presentan en la Tabla \@ref(tab:tab-svyby-empleo-sexo).
 
 ```{r}
-sex_employment_table <- svyby(formula = ~Sex, by = ~Employment,
-                       design = survey_design, FUN = svymean)
+sex_by_employment_proportion <- survey_design %>%
+  filter(!is.na(Employment)) %>%
+  group_by(Employment, Sex) %>%
+  summarise(proportion = survey_prop(vartype = c("se", "ci")))
 ```
 
-```{r tab-svyby-empleo-sexo, tab.cap="Proporción de hombres y mujeres por estado de ocupación (svyby)", echo=FALSE}
-sex_employment_table %>%
+```{r tab-svyby-empleo-sexo, tab.cap="Proporción de hombres y mujeres por estado de ocupación ", echo=FALSE}
+sex_by_employment_proportion %>%
   tabla_fmt()
 ```
 
 De la anterior salida se puede observar que, el 27.2% de las mujeres y el 72.7% de los hombres están desempleados con errores estándares para estas estimaciones de 5.3% para mujeres y hombres. cuyos intervalos de confianza se calculan a continuación, presentada en la Tabla \@ref(tab:tab-confint-empleo-sexo):
 
 ```{r eval=FALSE}
-confint(sex_employment_table) %>%
-  as.data.frame() %>%
-  rownames_to_column("Dominio")
+sex_by_employment_proportion %>%
+  dplyr::select(Employment, Sex, proportion_low, proportion_upp)
 ```
 ```{r tab-confint-empleo-sexo, tab.cap="Intervalos de confianza para la proporción por sexo y ocupación", echo=FALSE}
-confint(sex_employment_table) %>%
-  as.data.frame() %>%
-  rownames_to_column("Dominio") %>%
+sex_by_employment_proportion %>%
+  dplyr::select(Employment, Sex, proportion_low, proportion_upp) %>%
   tabla_fmt()
 ```
 
 
-Si ahora el objetivo es estimar la pobreza, pero por las distintas regiones que se tienen en la base de datos. Primero, dado que la variable `poverty` es de tipo numérica, es necesario convertirla en factor y luego realizar la estimación con la función `svyby`, como se muestra en la Tabla \@ref(tab:tab-svyby-region-pobreza).
+Si ahora el objetivo es estimar la pobreza por region, se utiliza la variable numerica `poverty` dentro de un flujo `srvyr`, como se muestra en la Tabla \@ref(tab:tab-svyby-region-pobreza).
 
 
 ```{r}
-region_poverty_table <- svyby(formula = ~as.factor(poverty),  by = ~Region,
-                            design =  survey_design, FUN = svymean)
+region_poverty_proportion <- survey_design %>%
+  group_by(Region, poverty) %>%
+  summarise(proportion = survey_prop(vartype = c("se", "ci")))
 ```
 
 ```{r tab-svyby-region-pobreza, tab.cap="Proporción en condición de pobreza por región", echo=FALSE}
-region_poverty_table %>%
+region_poverty_proportion %>%
   tabla_fmt()
 ```
 
@@ -572,14 +586,18 @@ Un valor igual a uno indicaría ausencia de asociación entre las variables, es 
 El procedimiento para realizarlo en `R` sería, primero estimar las proporciones de la tabla cruzada entre las variables sexo y pobreza, presentada en la Tabla \@ref(tab:tab-interaccion-sexo-pobreza):
 
 ```{r}
-sex_poverty_table <- svymean(x = ~interaction (Sex, poverty),
-                        design = survey_design,
-                        se = TRUE, na.rm = TRUE, ci = TRUE, keep.vars = TRUE)
+sex_poverty_interaction_proportion <- survey_design %>%
+  group_by(Sex, poverty) %>%
+  summarise(proportion = survey_prop(vartype = c("se", "ci")))
+
+sex_poverty_odds_contrast <- svymean(x = ~interaction(Sex, poverty),
+                                     design = survey_design,
+                                     se = TRUE, na.rm = TRUE, ci = TRUE,
+                                     keep.vars = TRUE)
 ```
 
 ```{r tab-interaccion-sexo-pobreza, echo=TRUE, tab.cap="Proporciones conjuntas de sexo y condición de pobreza", echo=FALSE}
-sex_poverty_table %>%
-  as.data.frame() %>%
+sex_poverty_interaction_proportion %>%
   tabla_fmt()
 
 ```
@@ -595,7 +613,7 @@ odds_ratio <- quote(
   `interaction(Sex, poverty)Male.1`)
 )
 
-svycontrast(stat = sex_poverty_table,
+svycontrast(stat = sex_poverty_odds_contrast,
             contrasts = odds_ratio)
 ```
 
@@ -670,13 +688,13 @@ A continuación, se ilustra este procedimiento utilizando el tamaño poblacional
 ```{r fig-barras-zona, fig.cap="Gráfico de barras del tamaño poblacional por zona geográfica", fig.align='center', out.width='70%', echo=TRUE}
 zone_size <- survey_design %>%
   group_by(Zone) %>%
-  summarise(Nd = survey_total(vartype = c("se", "ci")))
+  summarise(size = survey_total(vartype = c("se", "ci")))
 
 zone_colors <- c(Urban = "#48C9B0", Rural = "#117864")
 
 ggplot(data = zone_size,
-  aes(x = Zone, y = Nd,
-      ymax = Nd_upp, ymin = Nd_low,
+  aes(x = Zone, y = size,
+      ymax = size_upp, ymin = size_low,
       fill = Zone)) +
   geom_bar(stat = "identity", position = "dodge") +
   geom_errorbar(position = position_dodge(width = 0.9), width = 0.3) +
@@ -690,11 +708,11 @@ El procedimiento anterior también puede aplicarse a variables con más de dos c
 ```{r fig-barras-pobreza, fig.cap="Gráfico de barras del tamaño poblacional por condición de pobreza", fig.align='center', out.width='70%', echo=TRUE}
 poverty_size <- survey_design %>%
   group_by(Poverty) %>%
-  summarise(Nd = survey_total(vartype = c("se", "ci")))
+  summarise(size = survey_total(vartype = c("se", "ci")))
 
 ggplot(data = poverty_size,
-  aes(x = Poverty, y = Nd,
-      ymax = Nd_upp, ymin = Nd_low,
+  aes(x = Poverty, y = size,
+      ymax = size_upp, ymin = size_low,
       fill = Poverty)) +
   geom_bar(stat = "identity", position = "dodge") +
   geom_errorbar(position = position_dodge(width = 0.9), width = 0.3) +
@@ -707,7 +725,7 @@ Una de las ventajas de los gráficos de barras es que pueden extenderse fácilme
 ```{r fig-barras-empleo-pobreza, fig.cap="Gráfico de barras del tamaño poblacional por estado de ocupación y pobreza", fig.align='center', out.width='80%', echo=TRUE}
 employment_poverty_size <- survey_design %>%
   group_by(unemployment, Poverty) %>%
-  summarise(Nd = survey_total(vartype = c("se", "ci"))) %>%
+  summarise(size = survey_total(vartype = c("se", "ci"))) %>%
   as.data.frame() %>%
   mutate(
     unemployment = case_when(
@@ -718,8 +736,8 @@ employment_poverty_size <- survey_design %>%
   )
 
 ggplot(data = employment_poverty_size,
-  aes(x = Poverty, y = Nd,
-      ymax = Nd_upp, ymin = Nd_low,
+  aes(x = Poverty, y = size,
+      ymax = size_upp, ymin = size_low,
       fill = as.factor(unemployment))) +
   geom_bar(stat = "identity", position = "dodge") +
   geom_errorbar(position = position_dodge(width = 0.9), width = 0.3) +
@@ -730,13 +748,13 @@ ggplot(data = employment_poverty_size,
 Este tipo de análisis gráfico resulta especialmente útil para identificar intersecciones de vulnerabilidad, al mostrar de manera simultánea dos o más características poblacionales. También es posible presentar proporciones en lugar de conteos. Por ejemplo, la proporción de hombres en condición de pobreza por zona, presentada en la Figura \@ref(fig:fig-barras-prop-zona-hombre):
 
 ```{r fig-barras-prop-zona-hombre, fig.cap="Proporción de hombres en condición de pobreza por zona geográfica", fig.align='center', out.width='70%', echo=TRUE}
-male_zone_poverty_prop <- male_subset %>%
+male_zone_poverty_proportion <- male_subset %>%
   group_by(Zone, Poverty) %>%
-  summarise(prop = survey_prop(vartype = c("se", "ci")))
+  summarise(proportion = survey_prop(vartype = c("se", "ci")))
 
-ggplot(data = male_zone_poverty_prop,
-  aes(x = Poverty, y = prop,
-      ymax = prop_upp, ymin = prop_low,
+ggplot(data = male_zone_poverty_proportion,
+  aes(x = Poverty, y = proportion,
+      ymax = proportion_upp, ymin = proportion_low,
       fill = Zone)) +
   geom_bar(stat = "identity", position = "dodge") +
   geom_errorbar(position = position_dodge(width = 0.9), width = 0.3) +
@@ -748,14 +766,14 @@ ggplot(data = male_zone_poverty_prop,
 De forma análoga, se puede graficar la proporción de hombres en condición de pobreza desagregada por región, presentada en la Figura \@ref(fig:fig-barras-prop-region-hombre):
 
 ```{r fig-barras-prop-region-hombre, fig.cap="Proporción de hombres en condición de pobreza por región", fig.align='center', out.width='75%', echo=TRUE}
-male_region_poverty_prop <- male_subset %>%
+male_region_poverty_proportion <- male_subset %>%
   group_by(Region, poverty) %>%
-  summarise(prop = survey_prop(vartype = c("se", "ci"))) %>%
+  summarise(proportion = survey_prop(vartype = c("se", "ci"))) %>%
   data.frame()
 
-ggplot(data = male_region_poverty_prop,
-  aes(x = Region, y = prop,
-      ymax = prop_upp, ymin = prop_low,
+ggplot(data = male_region_poverty_proportion,
+  aes(x = Region, y = proportion,
+      ymax = proportion_upp, ymin = proportion_low,
       fill = as.factor(poverty))) +
   geom_bar(stat = "identity", position = "dodge") +
   geom_errorbar(position = position_dodge(width = 0.9), width = 0.3) +
@@ -788,14 +806,14 @@ tm_shape(bigcity_shape) +
   tm_polygons(col = "Region")
 ```
 
-Por ejemplo, si se desea representar geográficamente la proporción de hombres en condición de pobreza por región, estimada previamente en la Figura \@ref(fig:fig-barras-prop-region-hombre), es necesario integrar las estimaciones obtenidas con la información espacial del shapefile. Para ello, el objeto `male_region_poverty_prop`, que contiene las proporciones estimadas para cada región, se vincula con el archivo geográfico mediante la función `left_join()`. Posteriormente, se filtran únicamente las observaciones correspondientes a la categoría de pobreza (`poverty == 1`), de manera que el mapa represente exclusivamente la distribución espacial de la población masculina en condición de pobreza.
+Por ejemplo, si se desea representar geográficamente la proporción de hombres en condición de pobreza por región, estimada previamente en la Figura \@ref(fig:fig-barras-prop-region-hombre), es necesario integrar las estimaciones obtenidas con la información espacial del shapefile. Para ello, el objeto `male_region_poverty_proportion`, que contiene las proporciones estimadas para cada región, se vincula con el archivo geográfico mediante la función `left_join()`. Posteriormente, se filtran únicamente las observaciones correspondientes a la categoría de pobreza (`poverty == 1`), de manera que el mapa represente exclusivamente la distribución espacial de la población masculina en condición de pobreza.
 
 
 ```{r mapas-pobreza-setup, echo=TRUE, eval=TRUE}
 shape_region_map <- tm_shape(
   bigcity_shape %>%
     left_join(
-      male_region_poverty_prop %>%
+      male_region_poverty_proportion %>%
         filter(poverty == 1),
       by = "Region"))
 ```
@@ -806,9 +824,9 @@ Una vez construido el objeto espacial con las estimaciones de interés, el argum
 poverty_breaks <- c(0, 0.2, 0.4, 0.6, 0.8, 1)
 shape_region_map +
   tm_polygons(
-    col    = "prop",
+    col    = "proportion",
     breaks = poverty_breaks,
-    title  = "Proporción en pobreza",
+    title  = "Poverty proportion",
     palette = "YlOrRd")
 ```
 
@@ -817,10 +835,11 @@ Otro uso de los mapas en encuestas es la visualización de la precisión de las 
 El siguiente código calcula y representa geográficamente el coeficiente de variación del ingreso medio por región. En primer lugar, la función se estima el ingreso promedio para cada región. El argumento `vartype = "cv"` solicita el cálculo del coeficiente de variación de cada estimación. Posteriormente, se definen los intervalos de clasificación de la escala de color mediante el objeto `cv_breaks`, y las estimaciones se integran con la información geográfica del shapefile usando `left_join()`. Finalmente, mediante las funciones `tm_shape()` y `tm_polygons()` del paquete `tmap`, se construye el mapa que representa espacialmente los coeficientes de variación utilizando una escala de colores en blanco y negro y ajustando la proporción del mapa con `tm_layout(asp = 0)`.
 
 ```{r fig-mapa-cv-ingreso, fig.cap="Coeficiente de variación del ingreso medio por región", fig.align='center', out.width='70%', echo=TRUE}
-region_mean <- svyby(~Income, ~Region, survey_design,
-  svymean,
-  na.rm = TRUE, covmat = TRUE,
-  vartype = c("cv"))
+region_mean <- survey_design %>%
+  group_by(Region) %>%
+  summarise(mean = survey_mean(Income,
+                               na.rm = TRUE,
+                               vartype = c("cv")))
 
 cv_breaks <- c(0, 0.1, 0.2, 1)
 shape_cv_map <- tm_shape(
@@ -829,9 +848,9 @@ shape_cv_map <- tm_shape(
 
 shape_cv_map +
   tm_polygons(
-    "cv",
+    "mean_cv",
     breaks = cv_breaks,
-    title  = "CV del ingreso medio",
+    title  = "Mean income CV",
     palette = c("#FFFFFF", "#000000")) +
   tm_layout(asp = 0)
 ```
@@ -841,14 +860,14 @@ Los polígonos con tonos más oscuros corresponden a regiones donde la estimaci�
 Cuando se desea representar simultáneamente dos variables —por ejemplo, la proporción de pobreza y su coeficiente de variación— es posible construir un mapa bivariante utilizando `ggplot2` junto con los paquetes `biscale` [@biscale2025] y `cowplot` [@cowplot2025]. Este tipo de visualización permite identificar regiones con alta pobreza y alta incertidumbre en la estimación de forma conjunta, como se presenta en la Figura \@ref(fig:fig-mapa-bivariante). El siguiente código estima la proporción de mujeres en condición de pobreza en zonas rurales para cada región, incorporando además el cálculo del coeficiente de variación de las estimaciones, generando así una base de datos lista para la construcción de un mapa bivariado.
 
 ```{r mapas-bivar-setup, echo=TRUE, eval=TRUE}
-region_sex_mean <- survey_design %>%
+region_sex_poverty_proportion <- survey_design %>%
   group_by(Region, Zone, Sex, poverty) %>%
-  summarise(prop = survey_mean(vartype = "cv")) %>%
+  summarise(proportion = survey_mean(vartype = "cv")) %>%
   filter(poverty == 1, Zone == "Rural", Sex == "Female")
 ```
 
 
-El siguiente código construye un mapa bivariado que permite visualizar simultáneamente la proporción de pobreza femenina rural y el coeficiente de variación asociado a dicha estimación por región. En primer lugar, se integran las estimaciones contenidas en `region_sex_mean` con la información geográfica del shapefile mediante `left_join()`. Posteriormente, utilizando la función `bi_class()` del paquete `biscale`, se clasifican conjuntamente las variables `prop` y `prop_cv` en una cuadrícula de \(3 \times 3\) categorías (`dim = 3`), empleando el método de clasificación de Fisher (`style = "fisher"`). Luego, con `ggplot2` y `geom_sf()`, se genera el mapa temático utilizando colores bivariados definidos por `bi_scale_fill()`, mientras que `bi_theme()` aplica un estilo minimalista y se elimina la leyenda predeterminada.
+El siguiente código construye un mapa bivariado que permite visualizar simultáneamente la proporción de pobreza femenina rural y el coeficiente de variación asociado a dicha estimación por región. En primer lugar, se integran las estimaciones contenidas en `region_sex_poverty_proportion` con la información geográfica del shapefile mediante `left_join()`. Posteriormente, utilizando la función `bi_class()` del paquete `biscale`, se clasifican conjuntamente las variables `proportion` y `proportion_cv` en una cuadrícula de \(3 \times 3\) categorías (`dim = 3`), empleando el método de clasificación de Fisher (`style = "fisher"`). Luego, con `ggplot2` y `geom_sf()`, se genera el mapa temático utilizando colores bivariados definidos por `bi_scale_fill()`, mientras que `bi_theme()` aplica un estilo minimalista y se elimina la leyenda predeterminada.
 
 A continuación, la función `bi_legend()` crea una leyenda especializada que permite interpretar simultáneamente ambas dimensiones del mapa: el coeficiente de variación y la pobreza femenina rural. Finalmente, mediante las funciones `ggdraw()` y `draw_plot()` del paquete `cowplot`, se combinan el mapa y la leyenda en una única visualización.
 
@@ -858,11 +877,11 @@ library(biscale)
 library(cowplot)
 
 bivariate_shape <- bigcity_shape %>%
-  left_join(region_sex_mean, by = "Region")
+  left_join(region_sex_poverty_proportion, by = "Region")
 
 k <- 3
 bivariate_data <- bi_class(bivariate_shape,
-  y = prop, x = prop_cv, dim = k,
+  y = proportion, x = proportion_cv, dim = k,
   style = "fisher")
 
 bivariate_map <- ggplot() +
@@ -876,8 +895,8 @@ bivariate_map <- ggplot() +
 
 bivariate_legend <- bi_legend(
   pal  = "GrPink", dim = k,
-  xlab = "Coeficiente de variación",
-  ylab = "Pobreza femenina rural",
+  xlab = "Coefficient of variation",
+  ylab = "Rural female poverty",
   size = 8)
 
 ggdraw() +
