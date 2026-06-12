@@ -4,7 +4,7 @@
 Andrés Gutiérrez · Stalyn Guerrero · Giovany Babativa-Márquez · Cristian Téllez  
 *Economic Commission for Latin America and the Caribbean (ECLAC)*
 
-The online version is available at: <https://psirusteam.github.io/LibroEncuestasR/>
+The online version is available at: <https://psirusteam.github.io/HouseholdSurveysR/>
 
 [![Creative Commons BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 

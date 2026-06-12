@@ -17,7 +17,7 @@ header-includes:
   - \usepackage{amsmath}
   - \usepackage[ruled,vlined,linesnumbered]{algorithm2e}
   - \usepackage{hyperref}
-github-repo: psirusteam/LibroEncuestasR
+github-repo: psirusteam/HouseholdSurveysR
 description: "This is the repository for the book *Household Survey Analysis with R*."
 knit: "bookdown::render_book"
 linkcolor: blue
