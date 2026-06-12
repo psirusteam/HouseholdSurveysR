@@ -54,13 +54,13 @@ Luego, se generan algunas variables categóricas derivadas de la información or
 survey_design <- survey_design %>%
   mutate(
     poor   = ifelse(Poverty != "NotPoor", 1, 0),
-    unemployment = ifelse(Employment == "Unemployed", 1, 0),
+    unemployed = ifelse(Employment == "Unemployed", 1, 0),
     age_18 = case_when(Age < 18 ~ "< 18 years", 
                        TRUE     ~ ">= 18 years")
   )
 ```
 
-En el código anterior se crean nuevas variables derivadas utilizando la función `mutate()` del paquete `dplyr` [@dplyr2026]. Las variables `poor` y `unemployment` se construyen mediante la función `ifelse()`, que evalúa una condición lógica y asigna un valor dependiendo de si esta se cumple o no. En este caso, las variables toman el valor `1` cuando la persona se encuentra en condición de pobreza o desempleo, respectivamente, y `0` en caso contrario. Por su parte, la variable `age_18` se genera mediante la función `case_when()`, la cual permite definir categorías a partir de una o varias condiciones de forma más clara y flexible que `ifelse()`. Esta función resulta especialmente útil cuando se requiere construir variables categóricas con múltiples niveles. En el ejemplo, las personas menores de 18 años se clasifican en la categoría `"< 18 years"`, mientras que el resto se agrupa en la categoría `">= 18 years"`.
+En el código anterior se crean nuevas variables derivadas utilizando la función `mutate()` del paquete `dplyr` [@dplyr2026]. Las variables `poor` y `unemployed` se construyen mediante la función `ifelse()`, que evalúa una condición lógica y asigna un valor dependiendo de si esta se cumple o no. En este caso, las variables toman el valor `1` cuando la persona se encuentra en condición de pobreza o desempleo, respectivamente, y `0` en caso contrario. Por su parte, la variable `age_18` se genera mediante la función `case_when()`, la cual permite definir categorías a partir de una o varias condiciones de forma más clara y flexible que `ifelse()`. Esta función resulta especialmente útil cuando se requiere construir variables categóricas con múltiples niveles. En el ejemplo, las personas menores de 18 años se clasifican en la categoría `"< 18 years"`, mientras que el resto se agrupa en la categoría `">= 18 years"`.
 
 Además de lo anterior, se hace necesario generar subgrupos de la población para realizar estimaciones desagregadas. En este capítulo se emplean cuatro subpoblaciones de ejemplo:
 
@@ -375,15 +375,15 @@ Otro ejercicio que puede desarrollarse a partir de una encuesta de hogares consi
 
 ```{r}
 region_unemployment_proportion <- survey_design %>%
-  filter(!is.na(unemployment)) %>%
+  filter(!is.na(unemployed)) %>%
   group_by(Region) %>%
-  summarise(proportion = survey_mean(unemployment,
+  summarise(proportion = survey_mean(unemployed,
                                      na.rm = TRUE,
                                      vartype = c("se", "ci")))
 
-region_unemployment_contrast <- svyby(formula = ~unemployment, by = ~Region,
+region_unemployment_contrast <- svyby(formula = ~unemployed, by = ~Region,
                                       design = survey_design %>%
-                                        filter(!is.na(unemployment)),
+                                        filter(!is.na(unemployed)),
                                       FUN = svymean, na.rm = TRUE, covmat = TRUE,
                                       vartype = c("se", "ci"))
 ```
@@ -726,21 +726,21 @@ Una de las ventajas de los gráficos de barras es que pueden extenderse fácilme
 
 ```{r fig-barras-empleo-pobreza, fig.cap="Gráfico de barras del tamaño poblacional por estado de ocupación y pobreza", fig.align='center', out.width='80%', echo=TRUE}
 employment_poverty_size <- survey_design %>%
-  group_by(unemployment, Poverty) %>%
+  group_by(unemployed, Poverty) %>%
   summarise(size = survey_total(vartype = c("se", "ci"))) %>%
   as.data.frame() %>%
   mutate(
-    unemployment = case_when(
-      unemployment == 0 ~ "Occupied",
-      unemployment == 1 ~ "Unemployed",
-      is.na(unemployment) ~ "Not in the Labour Force"
+    unemployed = case_when(
+      unemployed == 0 ~ "Occupied",
+      unemployed == 1 ~ "Unemployed",
+      is.na(unemployed) ~ "Not in the Labour Force"
     )
   )
 
 ggplot(data = employment_poverty_size,
   aes(x = Poverty, y = size,
       ymax = size_upp, ymin = size_low,
-      fill = as.factor(unemployment))) +
+      fill = as.factor(unemployed))) +
   geom_bar(stat = "identity", position = "dodge") +
   geom_errorbar(position = position_dodge(width = 0.9), width = 0.3) +
   theme_bw() +

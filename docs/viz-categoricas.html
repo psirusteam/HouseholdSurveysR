@@ -354,21 +354,21 @@ Figura 4.2: Gráfico de barras del tamaño poblacional por condición de pobreza
 </div>
 <p>Una de las ventajas de los gráficos de barras es que pueden extenderse fácilmente a comparaciones entre dos variables categóricas. Por ejemplo, se puede analizar el tamaño poblacional por nivel de pobreza cruzado con el estado de ocupación, presentada en la Figura <a href="viz-categoricas.html#fig:fig-barras-empleo-pobreza">4.3</a>:</p>
 <div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="viz-categoricas.html#cb103-1" tabindex="-1"></a>employment_poverty_size <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
-<span id="cb103-2"><a href="viz-categoricas.html#cb103-2" tabindex="-1"></a>  <span class="fu">group_by</span>(unemployment, Poverty) <span class="sc">%&gt;%</span></span>
+<span id="cb103-2"><a href="viz-categoricas.html#cb103-2" tabindex="-1"></a>  <span class="fu">group_by</span>(unemployed, Poverty) <span class="sc">%&gt;%</span></span>
 <span id="cb103-3"><a href="viz-categoricas.html#cb103-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">size =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))) <span class="sc">%&gt;%</span></span>
 <span id="cb103-4"><a href="viz-categoricas.html#cb103-4" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb103-5"><a href="viz-categoricas.html#cb103-5" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb103-6"><a href="viz-categoricas.html#cb103-6" tabindex="-1"></a>    <span class="at">unemployment =</span> <span class="fu">case_when</span>(</span>
-<span id="cb103-7"><a href="viz-categoricas.html#cb103-7" tabindex="-1"></a>      unemployment <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;Occupied&quot;</span>,</span>
-<span id="cb103-8"><a href="viz-categoricas.html#cb103-8" tabindex="-1"></a>      unemployment <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;Unemployed&quot;</span>,</span>
-<span id="cb103-9"><a href="viz-categoricas.html#cb103-9" tabindex="-1"></a>      <span class="fu">is.na</span>(unemployment) <span class="sc">~</span> <span class="st">&quot;Not in the Labour Force&quot;</span></span>
+<span id="cb103-6"><a href="viz-categoricas.html#cb103-6" tabindex="-1"></a>    <span class="at">unemployed =</span> <span class="fu">case_when</span>(</span>
+<span id="cb103-7"><a href="viz-categoricas.html#cb103-7" tabindex="-1"></a>      unemployed <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;Occupied&quot;</span>,</span>
+<span id="cb103-8"><a href="viz-categoricas.html#cb103-8" tabindex="-1"></a>      unemployed <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;Unemployed&quot;</span>,</span>
+<span id="cb103-9"><a href="viz-categoricas.html#cb103-9" tabindex="-1"></a>      <span class="fu">is.na</span>(unemployed) <span class="sc">~</span> <span class="st">&quot;Not in the Labour Force&quot;</span></span>
 <span id="cb103-10"><a href="viz-categoricas.html#cb103-10" tabindex="-1"></a>    )</span>
 <span id="cb103-11"><a href="viz-categoricas.html#cb103-11" tabindex="-1"></a>  )</span>
 <span id="cb103-12"><a href="viz-categoricas.html#cb103-12" tabindex="-1"></a></span>
 <span id="cb103-13"><a href="viz-categoricas.html#cb103-13" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> employment_poverty_size,</span>
 <span id="cb103-14"><a href="viz-categoricas.html#cb103-14" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Poverty, <span class="at">y =</span> size,</span>
 <span id="cb103-15"><a href="viz-categoricas.html#cb103-15" tabindex="-1"></a>      <span class="at">ymax =</span> size_upp, <span class="at">ymin =</span> size_low,</span>
-<span id="cb103-16"><a href="viz-categoricas.html#cb103-16" tabindex="-1"></a>      <span class="at">fill =</span> <span class="fu">as.factor</span>(unemployment))) <span class="sc">+</span></span>
+<span id="cb103-16"><a href="viz-categoricas.html#cb103-16" tabindex="-1"></a>      <span class="at">fill =</span> <span class="fu">as.factor</span>(unemployed))) <span class="sc">+</span></span>
 <span id="cb103-17"><a href="viz-categoricas.html#cb103-17" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
 <span id="cb103-18"><a href="viz-categoricas.html#cb103-18" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.9</span>), <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
 <span id="cb103-19"><a href="viz-categoricas.html#cb103-19" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
