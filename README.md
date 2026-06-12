@@ -1,19 +1,19 @@
-# Análisis de encuestas de hogares con R
+# Household Survey Analysis with R
 
-**Autores:**  
+**Authors:**  
 Andrés Gutiérrez · Stalyn Guerrero · Giovany Babativa-Márquez · Cristian Téllez  
-*Comisión Económica para América Latina y el Caribe (CEPAL)*
+*Economic Commission for Latin America and the Caribbean (ECLAC)*
 
-La versión online está disponible en: <https://psirusteam.github.io/LibroEncuestasR/>
+The online version is available at: <https://psirusteam.github.io/LibroEncuestasR/>
 
 [![Creative Commons BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 ---
 
-## Descripción
+## Description
 
-Este repositorio contiene el código fuente del libro ***Análisis de encuestas de hogares con R***, una guía práctica para el análisis estadístico de encuestas de hogares usando R. El libro cubre desde los fundamentos del muestreo complejo hasta modelos de regresión, modelos multinivel e imputación múltiple, con ejemplos basados en datos reales de encuestas latinoamericanas.
+This repository contains the source code for the book ***Household Survey Analysis with R***, a practical guide to the statistical analysis of household surveys using R. The book covers topics ranging from the foundations of complex sampling to regression models, multilevel models, and multiple imputation, with examples based on Latin American household survey data.
 
-## Licencia
+## License
 
-Este trabajo está licenciado bajo una [Licencia Internacional Creative Commons Atribución-NoComercial-CompartirIgual 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).

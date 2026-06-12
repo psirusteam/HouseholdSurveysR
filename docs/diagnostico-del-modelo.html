@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="es" xml:lang="es">
+<html lang="en" xml:lang="en">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.4 Diagnóstico del modelo | Análisis de encuestas de hogares con R</title>
-  <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <title>5.4 Model diagnostics | Household Surveys Analysis with R</title>
+  <meta name="description" content="This is the repository for the book Household Survey Analysis with R." />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.4 Diagnóstico del modelo | Análisis de encuestas de hogares con R" />
+  <meta property="og:title" content="5.4 Model diagnostics | Household Surveys Analysis with R" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta property="og:description" content="This is the repository for the book Household Survey Analysis with R." />
   <meta name="github-repo" content="psirusteam/LibroEncuestasR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.4 Diagnóstico del modelo | Análisis de encuestas de hogares con R" />
+  <meta name="twitter:title" content="5.4 Model diagnostics | Household Surveys Analysis with R" />
   
-  <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="twitter:description" content="This is the repository for the book Household Survey Analysis with R." />
   
 
 <meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
@@ -161,130 +161,123 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Análisis de encuestas de hogares con R</a></li>
+<li><a href="./">Household Surveys Analysis with R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
-<li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
-<li class="chapter" data-level="1" data-path="cap1.html"><a href="cap1.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i>Summary</a></li>
+<li class="chapter" data-level="1" data-path="cap1.html"><a href="cap1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="justificacion.html"><a href="justificacion.html"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
-<li class="chapter" data-level="1.2" data-path="uso-del-software-r-para-el-analisis-de-encuestas.html"><a href="uso-del-software-r-para-el-analisis-de-encuestas.html"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
-<li class="chapter" data-level="1.3" data-path="estructura-del-documento.html"><a href="estructura-del-documento.html"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+<li class="chapter" data-level="1.1" data-path="rationale.html"><a href="rationale.html"><i class="fa fa-check"></i><b>1.1</b> Rationale</a></li>
+<li class="chapter" data-level="1.2" data-path="use-of-r-software-for-survey-analysis.html"><a href="use-of-r-software-for-survey-analysis.html"><i class="fa fa-check"></i><b>1.2</b> Use of R Software for Survey Analysis</a></li>
+<li class="chapter" data-level="1.3" data-path="structure-of-the-document.html"><a href="structure-of-the-document.html"><i class="fa fa-check"></i><b>1.3</b> Structure of the Document</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="cap2.html"><a href="cap2.html"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
+<li class="chapter" data-level="2" data-path="cap2.html"><a href="cap2.html"><i class="fa fa-check"></i><b>2</b> Basic concepts in household surveys</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="poblacion-objetivo-y-unidades-de-muestreo.html"><a href="poblacion-objetivo-y-unidades-de-muestreo.html"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
-<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
-<li class="chapter" data-level="2.3" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<li class="chapter" data-level="2.1" data-path="poblacion-objetivo-y-unidades-de-muestreo.html"><a href="poblacion-objetivo-y-unidades-de-muestreo.html"><i class="fa fa-check"></i><b>2.1</b> Target population and sampling units</a></li>
+<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Sampling estimators</a></li>
+<li class="chapter" data-level="2.3" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html"><i class="fa fa-check"></i><b>2.3</b> Theoretical foundations</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
-<li class="chapter" data-level="2.3.2" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+<li class="chapter" data-level="2.3.1" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Point estimation</a></li>
+<li class="chapter" data-level="2.3.2" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Variance estimation</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Confidence intervals</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="cap3.html"><a href="cap3.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
+<li class="chapter" data-level="3" data-path="cap3.html"><a href="cap3.html"><i class="fa fa-check"></i><b>3</b> Analysis of continuous variables</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<li class="chapter" data-level="3.0.1" data-path="cap3.html"><a href="cap3.html#estimacion-de-razones"><i class="fa fa-check"></i><b>3.0.1</b> Ratio estimation</a></li>
+<li class="chapter" data-level="3.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><i class="fa fa-check"></i><b>3.1</b> Estimation of distribution and inequality parameters</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
-<li class="chapter" data-level="3.1.2" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
-<li class="chapter" data-level="3.1.3" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+<li class="chapter" data-level="3.1.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-dispersion"><i class="fa fa-check"></i><b>3.1.1</b> Dispersion estimation</a></li>
+<li class="chapter" data-level="3.1.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-percentiles"><i class="fa fa-check"></i><b>3.1.2</b> Percentile estimation</a></li>
+<li class="chapter" data-level="3.1.3" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.1.3</b> Estimation of the Gini coefficient</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<li class="chapter" data-level="3.2" data-path="pruebas-de-hipotesis.html"><a href="pruebas-de-hipotesis.html"><i class="fa fa-check"></i><b>3.2</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="3.3" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.3</b> Visualization of continuous variables</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-dispersion"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
-<li class="chapter" data-level="3.2.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
-<li class="chapter" data-level="3.2.3" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
-<li class="chapter" data-level="3.2.4" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-correlacion"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="pruebas-de-hipotesis.html"><a href="pruebas-de-hipotesis.html"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
-<li class="chapter" data-level="3.4" data-path="estimacion-de-contrastes.html"><a href="estimacion-de-contrastes.html"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
-<li class="chapter" data-level="3.5" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
-<li class="chapter" data-level="3.5.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
-<li class="chapter" data-level="3.5.3" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-dispersion"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+<li class="chapter" data-level="3.3.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.3.1</b> Histograms</a></li>
+<li class="chapter" data-level="3.3.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.3.2</b> Box plots (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.3.3" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-dispersion"><i class="fa fa-check"></i><b>3.3.3</b> Scatter plots</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
+<li class="chapter" data-level="4" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>4</b> Analysis of categorical variables</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="estimacion-del-tamano-poblacional.html"><a href="estimacion-del-tamano-poblacional.html"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
-<li class="chapter" data-level="4.2" data-path="estimacion-de-proporciones.html"><a href="estimacion-de-proporciones.html"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
-<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
-<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
-<li class="chapter" data-level="4.5" data-path="la-razon-de-odds.html"><a href="la-razon-de-odds.html"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
-<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi.html"><a href="prueba-de-independencia-chi.html"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
-<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<li class="chapter" data-level="4.1" data-path="estimacion-del-tamano-poblacional.html"><a href="estimacion-del-tamano-poblacional.html"><i class="fa fa-check"></i><b>4.1</b> Estimation of population size</a></li>
+<li class="chapter" data-level="4.2" data-path="estimacion-de-proporciones.html"><a href="estimacion-de-proporciones.html"><i class="fa fa-check"></i><b>4.2</b> Estimation of proportions</a></li>
+<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrasts and differences in proportions</a></li>
+<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Cross-tabulations</a></li>
+<li class="chapter" data-level="4.5" data-path="la-razon-de-odds.html"><a href="la-razon-de-odds.html"><i class="fa fa-check"></i><b>4.5</b> The <em>odds</em> ratio</a></li>
+<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi.html"><a href="prueba-de-independencia-chi.html"><i class="fa fa-check"></i><b>4.6</b> <span class="math inline">\(\chi^{2}\)</span> test of independence</a></li>
+<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualization of categorical variables</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="viz-categoricas.html"><a href="viz-categoricas.html#graficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
-<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+<li class="chapter" data-level="4.7.1" data-path="viz-categoricas.html"><a href="viz-categoricas.html#graficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Bar charts</a></li>
+<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Maps</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="cap5.html"><a href="cap5.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
+<li class="chapter" data-level="5" data-path="cap5.html"><a href="cap5.html"><i class="fa fa-check"></i><b>5</b> Regression models</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="formulacion-del-modelo.html"><a href="formulacion-del-modelo.html"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
-<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
-<li class="chapter" data-level="5.3" data-path="estimacion-de-los-parametros-del-modelo.html"><a href="estimacion-de-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
-<li class="chapter" data-level="5.4" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<li class="chapter" data-level="5.1" data-path="formulacion-del-modelo.html"><a href="formulacion-del-modelo.html"><i class="fa fa-check"></i><b>5.1</b> Model formulation</a></li>
+<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Use of sampling weights</a></li>
+<li class="chapter" data-level="5.3" data-path="estimacion-de-los-parametros-del-modelo.html"><a href="estimacion-de-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.3</b> Estimation of model parameters</a></li>
+<li class="chapter" data-level="5.4" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html"><i class="fa fa-check"></i><b>5.4</b> Model diagnostics</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#coeficiente-de-determinacion"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
-<li class="chapter" data-level="5.4.2" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#residuales"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
-<li class="chapter" data-level="5.4.3" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+<li class="chapter" data-level="5.4.1" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#coeficiente-de-determinacion"><i class="fa fa-check"></i><b>5.4.1</b> Coefficient of determination</a></li>
+<li class="chapter" data-level="5.4.2" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#residuales"><i class="fa fa-check"></i><b>5.4.2</b> Residuals</a></li>
+<li class="chapter" data-level="5.4.3" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Influential observations</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="inferencia-sobre-los-parametros-del-modelo.html"><a href="inferencia-sobre-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
-<li class="chapter" data-level="5.6" data-path="estimacion-y-prediccion.html"><a href="estimacion-y-prediccion.html"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+<li class="chapter" data-level="5.5" data-path="inferencia-sobre-los-parametros-del-modelo.html"><a href="inferencia-sobre-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.5</b> Inference about model parameters</a></li>
+<li class="chapter" data-level="5.6" data-path="estimacion-y-prediccion.html"><a href="estimacion-y-prediccion.html"><i class="fa fa-check"></i><b>5.6</b> Estimation and prediction</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
+<li class="chapter" data-level="6" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>6</b> Generalized linear models</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
-<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
-<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Logistic regression model</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Multinomial regression model</a></li>
+<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Gamma regression model</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="cap7.html"><a href="cap7.html"><i class="fa fa-check"></i><b>7</b> Modelos multinivel</a>
+<li class="chapter" data-level="7" data-path="cap7.html"><a href="cap7.html"><i class="fa fa-check"></i><b>7</b> Multilevel Models</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="sec-motivacionMult.html"><a href="sec-motivacionMult.html"><i class="fa fa-check"></i><b>7.1</b> Motivación</a></li>
-<li class="chapter" data-level="7.2" data-path="pesos-q-weighted.html"><a href="pesos-q-weighted.html"><i class="fa fa-check"></i><b>7.2</b> Pesos <em>q-weighted</em></a></li>
-<li class="chapter" data-level="7.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html"><i class="fa fa-check"></i><b>7.3</b> Modelo lineal multinivel</a>
+<li class="chapter" data-level="7.1" data-path="sec-motivacionMult.html"><a href="sec-motivacionMult.html"><i class="fa fa-check"></i><b>7.1</b> Motivation</a></li>
+<li class="chapter" data-level="7.2" data-path="pesos-q-weighted.html"><a href="pesos-q-weighted.html"><i class="fa fa-check"></i><b>7.2</b> <em>q-weighted</em> Weights</a></li>
+<li class="chapter" data-level="7.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html"><i class="fa fa-check"></i><b>7.3</b> Linear Multilevel Model</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Modelo nulo</a></li>
-<li class="chapter" data-level="7.3.2" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Modelo con intercepto aleatorio</a></li>
-<li class="chapter" data-level="7.3.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Modelo con intercepto y pendiente aleatoria</a></li>
+<li class="chapter" data-level="7.3.1" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Null Model</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Random Intercept Model</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Random Intercept and Slope Model</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html"><i class="fa fa-check"></i><b>7.4</b> Modelo logístico multinivel</a>
+<li class="chapter" data-level="7.4" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html"><i class="fa fa-check"></i><b>7.4</b> Multilevel Logistic Model</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-nulo-logistico"><i class="fa fa-check"></i><b>7.4.1</b> Modelo nulo logístico</a></li>
-<li class="chapter" data-level="7.4.2" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Modelo logístico con intercepto aleatorio</a></li>
-<li class="chapter" data-level="7.4.3" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Modelo logístico con intercepto y pendiente aleatoria</a></li>
-</ul></li>
-</ul></li>
-<li class="appendix"><span><b>Anexos</b></span></li>
-<li class="chapter" data-level="A" data-path="ap1.html"><a href="ap1.html"><i class="fa fa-check"></i><b>A</b> Manejo de bases de datos con <code>R</code></a>
-<ul>
-<li class="chapter" data-level="A.1" data-path="preparacion-del-entorno-de-trabajo.html"><a href="preparacion-del-entorno-de-trabajo.html"><i class="fa fa-check"></i><b>A.1</b> Preparación del entorno de trabajo</a></li>
-<li class="chapter" data-level="A.2" data-path="carga-e-inspeccion-inicial-de-la-base.html"><a href="carga-e-inspeccion-inicial-de-la-base.html"><i class="fa fa-check"></i><b>A.2</b> Carga e inspección inicial de la base</a></li>
-<li class="chapter" data-level="A.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html"><i class="fa fa-check"></i><b>A.3</b> Encadenamiento de operaciones</a>
-<ul>
-<li class="chapter" data-level="A.3.1" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#filter-seleccion-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selección de registros</a></li>
-<li class="chapter" data-level="A.3.2" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: seleccionar variables</a></li>
-<li class="chapter" data-level="A.3.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: ordenamiento de filas</a></li>
-<li class="chapter" data-level="A.3.4" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#mutate-creacion-o-transformacion-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creación o transformación de variables</a></li>
-<li class="chapter" data-level="A.3.5" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#summarise-resumenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: resúmenes descriptivos</a></li>
-<li class="chapter" data-level="A.3.6" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#group-by-agrupacion-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: agrupación de casos</a></li>
+<li class="chapter" data-level="7.4.1" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-nulo-logistico"><i class="fa fa-check"></i><b>7.4.1</b> Logistic Null Model</a></li>
+<li class="chapter" data-level="7.4.2" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Logistic Model with Random Intercept</a></li>
+<li class="chapter" data-level="7.4.3" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Logistic Model with Random Intercept and Slope</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Inferencia en poblaciones finitas</a>
+<li class="appendix"><span><b>Appendices</b></span></li>
+<li class="chapter" data-level="A" data-path="ap1.html"><a href="ap1.html"><i class="fa fa-check"></i><b>A</b> Data Wrangling with <code>R</code></a>
 <ul>
-<li class="chapter" data-level="B.1" data-path="dos-posibles-inferencias.html"><a href="dos-posibles-inferencias.html"><i class="fa fa-check"></i><b>B.1</b> Dos posibles inferencias</a></li>
-<li class="chapter" data-level="B.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html"><i class="fa fa-check"></i><b>B.2</b> La integración de ambas inferencias</a>
+<li class="chapter" data-level="A.1" data-path="preparacion-del-entorno-de-trabajo.html"><a href="preparacion-del-entorno-de-trabajo.html"><i class="fa fa-check"></i><b>A.1</b> Preparing the Working Environment</a></li>
+<li class="chapter" data-level="A.2" data-path="carga-e-inspeccion-inicial-de-la-base.html"><a href="carga-e-inspeccion-inicial-de-la-base.html"><i class="fa fa-check"></i><b>A.2</b> Loading and Initial Inspection of the Database</a></li>
+<li class="chapter" data-level="A.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html"><i class="fa fa-check"></i><b>A.3</b> Chaining Operations</a>
 <ul>
-<li class="chapter" data-level="B.2.1" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mv"><i class="fa fa-check"></i><b>B.2.1</b> Método de la máxima verosimilitud</a></li>
-<li class="chapter" data-level="B.2.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Método de máxima pseudo-verosimilitud</a></li>
+<li class="chapter" data-level="A.3.1" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#filter-seleccion-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selecting records</a></li>
+<li class="chapter" data-level="A.3.2" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: selecting variables</a></li>
+<li class="chapter" data-level="A.3.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: sorting rows</a></li>
+<li class="chapter" data-level="A.3.4" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#mutate-creacion-o-transformacion-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creating or transforming variables</a></li>
+<li class="chapter" data-level="A.3.5" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#summarise-resumenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: descriptive summaries</a></li>
+<li class="chapter" data-level="A.3.6" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#group-by-agrupacion-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: grouping cases</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Finite Population Inference</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="dos-posibles-inferencias.html"><a href="dos-posibles-inferencias.html"><i class="fa fa-check"></i><b>B.1</b> Two Possible Inferences</a></li>
+<li class="chapter" data-level="B.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html"><i class="fa fa-check"></i><b>B.2</b> The Integration of Both Inferences</a>
+<ul>
+<li class="chapter" data-level="B.2.1" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mv"><i class="fa fa-check"></i><b>B.2.1</b> Maximum Likelihood Method</a></li>
+<li class="chapter" data-level="B.2.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Maximum Pseudo-Likelihood Method</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
-<li><a Análisis de encuestas de hogares con R</a></li>
+<li><a href="./">Household Surveys Analysis with R</a></li>
 
 </ul>
 
@@ -295,7 +288,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis de encuestas de hogares con R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Household Surveys Analysis with R</a>
           </h1>
         </div>
 
@@ -304,21 +297,21 @@ div.csl-indent {
 
             <section class="normal" id="section-">
 <div id="diagnostico-del-modelo" class="section level2 hasAnchor" number="5.4">
-<h2><span class="header-section-number">5.4</span> Diagnóstico del modelo<a href="diagnostico-del-modelo.html#diagnostico-del-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>En el análisis de encuestas de hogares, la evaluación de un modelo estadístico constituye un aspecto importante que garantiza la validez de las inferencias. La literatura señala que un modelo adecuadamente especificado no depende únicamente de la selección de las covariables, sino también del cumplimiento de los supuestos que sustentan la consistencia y confiabilidad de los resultados <span class="citation">(<a href="#ref-tellez2015estadistica">Tellez Piñerez &amp; Lemus Polanía, 2015</a>)</span>.</p>
-<p>En el caso de los modelos de regresión lineal aplicados a encuestas complejas, resulta necesario examinar distintos aspectos relacionados con la calidad del ajuste y el comportamiento de los errores. Como se indicó anteriormente, entre ellos se encuentran la capacidad explicativa del modelo, la normalidad y homogeneidad de la varianza de los residuos, la independencia entre errores y la posible presencia de observaciones influyentes o valores atípicos que puedan afectar las estimaciones.</p>
-<p>Estas verificaciones adquieren particular importancia en el contexto de diseños muestrales complejos, donde características como la estratificación, la conglomeración y el uso de factores de expansión pueden intensificar problemas asociados con la heterocedasticidad, la dependencia entre observaciones o la sensibilidad a valores extremos. Por esta razón, el diagnóstico del modelo no debe limitarse a los supuestos clásicos de la regresión, sino incorporar también las particularidades derivadas del diseño de la encuesta. La aplicación sistemática de estos procedimientos permite evaluar la solidez del modelo, fortalecer la confianza en las inferencias y asegurar que los resultados obtenidos sean representativos y útiles tanto para la investigación social aplicada como para el análisis de políticas públicas.</p>
+<h2><span class="header-section-number">5.4</span> Model diagnostics<a href="diagnostico-del-modelo.html#diagnostico-del-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the analysis of household surveys, the evaluation of a statistical model is an important aspect that guarantees the validity of the inferences. The literature notes that an appropriately specified model depends not only on the selection of covariates, but also on the fulfillment of the assumptions that support the consistency and reliability of the results <span class="citation">(<a href="#ref-tellez2015estadistica">Tellez Piñerez &amp; Lemus Polanía, 2015</a>)</span>.</p>
+<p>For linear regression models applied to complex surveys, it is necessary to examine different aspects related to goodness of fit and the behavior of the errors. As indicated above, these include the explanatory capacity of the model, the normality and homogeneity of the residual variance, the independence of errors, and the possible presence of influential observations or outliers that may affect the estimates.</p>
+<p>These checks are particularly important in the context of complex sampling designs, where characteristics such as stratification, clustering, and the use of expansion factors can intensify problems associated with heteroscedasticity, dependence among observations, or sensitivity to extreme values. For this reason, model diagnostics should not be limited to the classical assumptions of regression, but should also incorporate the particularities derived from the survey design. The systematic application of these procedures makes it possible to assess the robustness of the model, strengthen confidence in the inferences, and ensure that the results obtained are representative and useful for both applied social research and public policy analysis.</p>
 <div id="coeficiente-de-determinacion" class="section level3 hasAnchor" number="5.4.1">
-<h3><span class="header-section-number">5.4.1</span> Coeficiente de determinación<a href="diagnostico-del-modelo.html#coeficiente-de-determinacion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Una de las medidas más utilizadas para evaluar el ajuste de un modelo de regresión es el coeficiente de determinación, denotado por <span class="math inline">\(R^{2}\)</span> y conocido también como coeficiente de correlación múltiple. Este indicador cuantifica la proporción de la variabilidad de la variable dependiente que es explicada por el modelo. Sus valores oscilan entre cero y uno: cuanto más cercano se encuentre a la unidad, mayor será la capacidad explicativa del modelo; en contraste, valores próximos a cero indican un bajo nivel de explicación de la variabilidad observada. La magnitud del <span class="math inline">\(R^{2}\)</span> no debe evaluarse en términos absolutos, sino considerando el fenómeno estudiado y el tipo de información disponible.</p>
-<p>El coeficiente se calcula a partir de las sumas de cuadrados totales y de error, como <span class="math inline">\(R^{2} = 1 - \frac{SSE}{SST}\)</span>; en donde <span class="math inline">\(SST\)</span> representa la suma de cuadrados totales y <span class="math inline">\(SSE\)</span> la suma de cuadrados del error. En encuestas con diseños de muestreo complejos, esta medida debe ajustarse para incorporar la estructura del diseño y los pesos muestrales. El estimador ponderado del coeficiente de determinación se define como:</p>
+<h3><span class="header-section-number">5.4.1</span> Coefficient of determination<a href="diagnostico-del-modelo.html#coeficiente-de-determinacion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>One of the most widely used measures for evaluating the fit of a regression model is the coefficient of determination, denoted by <span class="math inline">\(R^{2}\)</span> and also known as the multiple correlation coefficient. This indicator quantifies the proportion of the variability of the dependent variable that is explained by the model. Its values range from zero to one: the closer it is to one, the greater the explanatory capacity of the model; by contrast, values close to zero indicate a low level of explanation of the observed variability. The magnitude of <span class="math inline">\(R^{2}\)</span> should not be evaluated in absolute terms, but rather in light of the phenomenon being studied and the type of information available.</p>
+<p>The coefficient is calculated from the total and error sums of squares, as <span class="math inline">\(R^{2} = 1 - \frac{SSE}{SST}\)</span>, where <span class="math inline">\(SST\)</span> represents the total sum of squares and <span class="math inline">\(SSE\)</span> the sum of squared errors. In surveys with complex sampling designs, this measure must be adjusted to incorporate the design structure and the sampling weights. The weighted estimator of the coefficient of determination is defined as:</p>
 <p><span class="math display">\[
 \hat{R}^2 = 1 - \frac{\widehat{SSE}}{\widehat{SST}}
 \]</span></p>
-<p>donde <span class="math inline">\(\widehat{SSE}\)</span> es la suma ponderada de errores al cuadrado, calculada como <span class="math inline">\(\widehat{SSE} = \sum_{h} \sum_{i} \sum_{k} w_{hik} \,(y_{hik} - x_{hik}\hat{\boldsymbol{\beta}})^2\)</span>; mientras que <span class="math inline">\(\widehat{SST}\)</span> representa la suma total ponderada de cuadrados, definida por <span class="math inline">\(\widehat{SST} = \sum_{h} \sum_{i} \sum_{k} w_{hik}\,(y_{hik} - \hat{\bar{y}})^2\)</span>.</p>
-<p>Dado que <span class="math inline">\(R^{2}\)</span> tiende a incrementarse conforme se incorporan más variables al modelo, se recomienda complementar su interpretación con el coeficiente de determinación ajustado (<span class="math inline">\(R_{adj}^{2}\)</span>), el cual introduce una penalización en función del número de covariables incluidas y del tamaño muestral <span class="citation">(<a href="#ref-pfeffermann2011modelling">Pfeffermann, 2011</a>)</span>. Este coeficiente se define como <span class="math inline">\(\hat{R}^2_{adj} = 1 - \frac{(n-1)}{(n-p)}(1 - \hat{R}^2)\)</span>, donde <span class="math inline">\(n\)</span> corresponde al número de observaciones, <span class="math inline">\(p\)</span> representa el número de parámetros estimados y <span class="math inline">\(\hat{R}^{2}\)</span> denota el coeficiente de determinación ponderado definido previamente.</p>
-<p>De esta manera, el ajuste permite evaluar la capacidad explicativa del modelo controlando el efecto derivado de la incorporación de nuevas variables. Este ajuste facilita una comparación más equitativa entre modelos con distinto número de predictores y resulta particularmente útil en el análisis de encuestas, donde la complejidad del diseño y el uso de ponderaciones pueden influir notablemente en la magnitud del <span class="math inline">\(R^{2}\)</span>.</p>
-<p>En <code>R</code>, el coeficiente de determinación <span class="math inline">\(R^{2}\)</span> puede estimarse a partir de los modelos ajustados previamente. Para ello, se ajusta inicialmente un modelo nulo (incluyendo únicamente el intercepto), el cual permite calcular la suma total ponderada de cuadrados (<span class="math inline">\(\widehat{SST}\)</span>).</p>
+<p>where <span class="math inline">\(\widehat{SSE}\)</span> is the weighted sum of squared errors, calculated as <span class="math inline">\(\widehat{SSE} = \sum_{h} \sum_{i} \sum_{k} w_{hik} \,(y_{hik} - x_{hik}\hat{\boldsymbol{\beta}})^2\)</span>; while <span class="math inline">\(\widehat{SST}\)</span> represents the weighted total sum of squares, defined by <span class="math inline">\(\widehat{SST} = \sum_{h} \sum_{i} \sum_{k} w_{hik}\,(y_{hik} - \hat{\bar{y}})^2\)</span>.</p>
+<p>Since <span class="math inline">\(R^{2}\)</span> tends to increase as more variables are incorporated into the model, it is recommended to complement its interpretation with the adjusted coefficient of determination (<span class="math inline">\(R_{adj}^{2}\)</span>), which introduces a penalty based on the number of covariates included and the sample size <span class="citation">(<a href="#ref-pfeffermann2011modelling">Pfeffermann, 2011</a>)</span>. This coefficient is defined as <span class="math inline">\(\hat{R}^2_{adj} = 1 - \frac{(n-1)}{(n-p)}(1 - \hat{R}^2)\)</span>, where <span class="math inline">\(n\)</span> corresponds to the number of observations, <span class="math inline">\(p\)</span> represents the number of estimated parameters, and <span class="math inline">\(\hat{R}^{2}\)</span> denotes the weighted coefficient of determination defined above.</p>
+<p>In this way, the adjustment makes it possible to evaluate the explanatory capacity of the model while controlling for the effect derived from incorporating new variables. This adjustment facilitates a more equitable comparison between models with different numbers of predictors and is particularly useful in survey analysis, where design complexity and the use of weights can have a notable influence on the magnitude of <span class="math inline">\(R^{2}\)</span>.</p>
+<p>In <code>R</code>, the coefficient of determination <span class="math inline">\(R^{2}\)</span> can be estimated from the previously fitted models. To do this, a null model is first fitted (including only the intercept), which makes it possible to calculate the weighted total sum of squares (<span class="math inline">\(\widehat{SST}\)</span>).</p>
 <div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="diagnostico-del-modelo.html#cb118-1" tabindex="-1"></a>null_model <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(Income <span class="sc">~</span> <span class="dv">1</span>, <span class="at">design =</span> survey_design)</span>
 <span id="cb118-2"><a href="diagnostico-del-modelo.html#cb118-2" tabindex="-1"></a></span>
 <span id="cb118-3"><a href="diagnostico-del-modelo.html#cb118-3" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit_svy)</span>
@@ -326,7 +319,7 @@ div.csl-indent {
 <span id="cb118-5"><a href="diagnostico-del-modelo.html#cb118-5" tabindex="-1"></a></span>
 <span id="cb118-6"><a href="diagnostico-del-modelo.html#cb118-6" tabindex="-1"></a>wsst <span class="ot">&lt;-</span> s0<span class="sc">$</span>dispersion[<span class="dv">1</span>]</span>
 <span id="cb118-7"><a href="diagnostico-del-modelo.html#cb118-7" tabindex="-1"></a>wsse <span class="ot">&lt;-</span> s1<span class="sc">$</span>dispersion[<span class="dv">1</span>]</span></code></pre></div>
-<p>La estimación del coeficiente de determinación y su contraparte ajustada se obtiene a partir del siguiente cálculo:</p>
+<p>The estimate of the coefficient of determination and its adjusted counterpart is obtained from the following calculation:</p>
 <div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="diagnostico-del-modelo.html#cb119-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(survey_design)</span>
 <span id="cb119-2"><a href="diagnostico-del-modelo.html#cb119-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">4</span></span>
 <span id="cb119-3"><a href="diagnostico-del-modelo.html#cb119-3" tabindex="-1"></a>r2 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> wsse <span class="sc">/</span> wsst</span>
@@ -338,21 +331,21 @@ div.csl-indent {
 <pre><code>## [1] 0.5133</code></pre>
 </div>
 <div id="residuales" class="section level3 hasAnchor" number="5.4.2">
-<h3><span class="header-section-number">5.4.2</span> Residuales<a href="diagnostico-del-modelo.html#residuales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>En el diagnóstico de modelos, el análisis de los residuales es una de las herramientas más relevantes. Si el modelo está correctamente especificado, los residuales actúan como una aproximación de los errores no observados y permiten evaluar, de forma indirecta, si los supuestos del modelo se cumplen razonablemente en los datos. Su revisión sistemática permite identificar posibles desviaciones en la especificación, lo que ayuda a determinar si el ajuste es adecuado o si, por el contrario, es necesario reconsiderar la forma funcional del modelo o el método de estimación utilizado.</p>
-<p>En encuestas con diseños de muestreo complejos, los residuales de Pearson constituyen una herramienta habitual para evaluar las discrepancias entre los valores observados y los valores esperados bajo el modelo ajustado. Siguiendo a <span class="citation">Heeringa et al. (<a href="#ref-heeringa2017applied">2017</a>)</span>, estos se definen como:</p>
+<h3><span class="header-section-number">5.4.2</span> Residuals<a href="diagnostico-del-modelo.html#residuales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In model diagnostics, residual analysis is one of the most relevant tools. If the model is correctly specified, the residuals act as an approximation of the unobserved errors and make it possible to assess indirectly whether the model assumptions are reasonably satisfied in the data. Their systematic review makes it possible to identify possible deviations in the specification, helping to determine whether the fit is adequate or whether, on the contrary, it is necessary to reconsider the functional form of the model or the estimation method used.</p>
+<p>In surveys with complex sampling designs, Pearson residuals are a common tool for evaluating discrepancies between observed values and expected values under the fitted model. Following <span class="citation">Heeringa et al. (<a href="#ref-heeringa2017applied">2017</a>)</span>, they are defined as:</p>
 <p><span class="math display">\[
 r_{k} = \frac{y_k - \mu_k}{\sqrt{\widehat{Var}(\mu_k)/w_k}},
 \]</span></p>
-<p>donde <span class="math inline">\(\hat{\mu}_{k} = \mathbf{x}_{k}^{\top}\hat{\boldsymbol{\beta}}\)</span> representa el valor esperado de <span class="math inline">\(y_{k}\)</span> bajo el modelo ajustado, <span class="math inline">\(w_{k}\)</span> corresponde al peso muestral asociado a la unidad <span class="math inline">\(k\)</span>, y <span class="math inline">\(\widehat{Var}(\hat{\mu}_{k})\)</span> denota la varianza estimada bajo la familia del modelo.</p>
-<p>Los residuales de Pearson también se utilizan para evaluar aspectos clave del ajuste del modelo, en particular la normalidad y la homogeneidad de la varianza de los errores. De forma complementaria, el gráfico de residuos frente a valores ajustados constituye una herramienta diagnóstica especialmente informativa, ya que su inspección visual permite detectar posibles patrones sistemáticos que sugieran incumplimientos de los supuestos de independencia o heterocedasticidad.</p>
-<p>El supuesto de normalidad de los errores también debe verificarse de manera explícita. Para ello, una herramienta estándar es el gráfico cuantil-cuantil (QQ-plot), el cual compara los cuantiles de los residuos observados con los cuantiles teóricos de una distribución normal con la misma media y varianza. Una alineación aproximada de los puntos sobre la recta de 45° indica que el supuesto de normalidad resulta razonable dentro del contexto del modelo.</p>
-<p>A continuación, estos diagnósticos se aplican a los modelos previamente ajustados. Para ello, se utiliza el paquete <code>svydiags</code> <span class="citation">(<a href="#ref-Valliant2024">Valliant, 2024</a>)</span>, desarrollado como extensión del paquete <code>survey</code> para el diagnóstico de modelos estimados bajo diseños muestrales complejos. Este paquete permite obtener los residuales estandarizados de manera directa, facilitando la evaluación de los supuestos del modelo en este tipo de contextos:</p>
+<p>where <span class="math inline">\(\hat{\mu}_{k} = \mathbf{x}_{k}^{\top}\hat{\boldsymbol{\beta}}\)</span> represents the expected value of <span class="math inline">\(y_{k}\)</span> under the fitted model, <span class="math inline">\(w_{k}\)</span> corresponds to the sampling weight associated with unit <span class="math inline">\(k\)</span>, and <span class="math inline">\(\widehat{Var}(\hat{\mu}_{k})\)</span> denotes the estimated variance under the model family.</p>
+<p>Pearson residuals are also used to evaluate key aspects of model fit, particularly the normality and homogeneity of the error variance. As a complement, the plot of residuals against fitted values is an especially informative diagnostic tool, since visual inspection makes it possible to detect possible systematic patterns suggesting violations of the assumptions of independence or heteroscedasticity.</p>
+<p>The assumption of normality of the errors should also be checked explicitly. A standard tool for this purpose is the quantile-quantile plot (QQ plot), which compares the quantiles of the observed residuals with the theoretical quantiles of a normal distribution with the same mean and variance. An approximate alignment of the points along the 45° line indicates that the normality assumption is reasonable within the context of the model.</p>
+<p>These diagnostics are applied below to the previously fitted models. For this purpose, the <code>svydiags</code> package <span class="citation">(<a href="#ref-Valliant2024">Valliant, 2024</a>)</span> is used; it was developed as an extension of the <code>survey</code> package for diagnosing models estimated under complex sampling designs. This package makes it possible to obtain standardized residuals directly, facilitating the evaluation of model assumptions in this type of context:</p>
 <div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="diagnostico-del-modelo.html#cb123-1" tabindex="-1"></a><span class="fu">library</span>(svydiags)</span>
 <span id="cb123-2"><a href="diagnostico-del-modelo.html#cb123-2" tabindex="-1"></a>stdresids <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">svystdres</span>(fit_svy)<span class="sc">$</span>stdresids)</span>
 <span id="cb123-3"><a href="diagnostico-del-modelo.html#cb123-3" tabindex="-1"></a>survey_design<span class="sc">$</span>variables <span class="ot">&lt;-</span> survey_design<span class="sc">$</span>variables <span class="sc">%&gt;%</span></span>
 <span id="cb123-4"><a href="diagnostico-del-modelo.html#cb123-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stdresids =</span> stdresids)</span></code></pre></div>
-<p>El análisis de normalidad puede complementarse con el histograma de los residuales estandarizados, presentado en la Figura <a href="diagnostico-del-modelo.html#fig:fig-hist-residuales">5.2</a>. El histograma de los residuos estandarizados revela una falta de ajuste significativa respecto a la curva de distribución normal teórica (en rojo), lo cual corrobora una violación del supuesto de normalidad. La distribución de los residuos (representada en azul) muestra un pico mucho más agudo y estrecho que la curva normal, además de una asimetría positiva marcada con una cola extendida hacia la derecha. Esta discrepancia indica que el modelo no logra capturar la variabilidad real de los datos, lo que sugiere la necesidad de aplicar una transformación de la variable dependiente o emplear un modelo con una familia de distribución más flexible y robusta.</p>
+<p>The normality analysis can be complemented with the histogram of standardized residuals, presented in Figure <a href="diagnostico-del-modelo.html#fig:fig-hist-residuales">5.2</a>. The histogram of standardized residuals reveals a significant lack of fit with respect to the theoretical normal distribution curve (in red), which corroborates a violation of the normality assumption. The distribution of the residuals (shown in blue) has a much sharper and narrower peak than the normal curve, as well as marked positive skewness with an extended right tail. This discrepancy indicates that the model fails to capture the real variability of the data, suggesting the need to apply a transformation of the dependent variable or to use a model with a more flexible and robust distribution family.</p>
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="diagnostico-del-modelo.html#cb124-1" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb124-2"><a href="diagnostico-del-modelo.html#cb124-2" tabindex="-1"></a>  <span class="at">data =</span> survey_design<span class="sc">$</span>variables,</span>
 <span id="cb124-3"><a href="diagnostico-del-modelo.html#cb124-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> stdresids)</span>
@@ -367,13 +360,13 @@ r_{k} = \frac{y_k - \mu_k}{\sqrt{\widehat{Var}(\mu_k)/w_k}},
 <span id="cb124-12"><a href="diagnostico-del-modelo.html#cb124-12" tabindex="-1"></a>  <span class="fu">geom_function</span>(<span class="at">fun =</span> dnorm, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb124-13"><a href="diagnostico-del-modelo.html#cb124-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-hist-residuales"></span>
-<img src="figures/fig-hist-residuales-1.svg" alt="Histograma de residuales estandarizados con curva de densidad estimada y distribución normal teórica" width="65%" />
+<img src="figures/fig-hist-residuales-1.svg" alt="Histogram of standardized residuals with estimated density curve and theoretical normal distribution" width="65%" />
 <p class="caption">
-Figura 5.2: Histograma de residuales estandarizados con curva de densidad estimada y distribución normal teórica
+Figure 5.2: Histogram of standardized residuals with estimated density curve and theoretical normal distribution
 </p>
 </div>
-<p>La homocedasticidad de los errores (varianza constante), constituye uno de los supuestos centrales en los modelos de regresión. Su incumplimiento afecta la eficiencia de los estimadores del modelo. Dado que los residuos representan las discrepancias entre los valores observados y los valores ajustados por el modelo, su análisis en función de los valores predichos o de las covariables constituye una herramienta diagnóstica fundamental. Bajo un modelo adecuadamente especificado, se espera que los residuos se distribuyan de forma aleatoria alrededor de cero, sin patrones estructurados; en cambio, la aparición de formas sistemáticas (como estructuras en embudo o curvaturas) sugiere la presencia de heterocedasticidad (varianza no constante) o posibles relaciones funcionales no captadas por la especificación del modelo.</p>
-<p>Para evaluar este supuesto, se recomienda analizar gráficamente los residuos en función de los valores estimados <span class="math inline">\(\hat{\mu}_{k}\)</span> o de covariables específicas del modelo. La aparición de patrones sistemáticos en estos gráficos constituye evidencia de heterocedasticidad o de posibles problemas de especificación funcional. En particular, para evaluar la homocedasticidad respecto de las covariables incluidas en el modelo, se construyen gráficos de residuos frente a cada una de ellas y se combinan con <code>patchwork</code> <span class="citation">(<a href="#ref-patchwork">Pedersen, 2025</a>)</span>.</p>
+<p>Homoscedasticity of the errors (constant variance) is one of the central assumptions in regression models. Violating this assumption affects the efficiency of the model estimators. Since residuals represent the discrepancies between the observed values and the values fitted by the model, analyzing them as a function of predicted values or covariates is a fundamental diagnostic tool. Under an appropriately specified model, the residuals are expected to be randomly distributed around zero, without structured patterns; by contrast, the appearance of systematic shapes (such as funnel structures or curvatures) suggests the presence of heteroscedasticity (nonconstant variance) or possible functional relationships not captured by the model specification.</p>
+<p>To evaluate this assumption, it is recommended to analyze the residuals graphically as a function of the estimated values <span class="math inline">\(\hat{\mu}_{k}\)</span> or of specific covariates in the model. The appearance of systematic patterns in these plots constitutes evidence of heteroscedasticity or possible functional specification problems. In particular, to evaluate homoscedasticity with respect to the covariates included in the model, plots of residuals against each covariate are constructed and combined with <code>patchwork</code> <span class="citation">(<a href="#ref-patchwork">Pedersen, 2025</a>)</span>.</p>
 <div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="diagnostico-del-modelo.html#cb125-1" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb125-2"><a href="diagnostico-del-modelo.html#cb125-2" tabindex="-1"></a></span>
 <span id="cb125-3"><a href="diagnostico-del-modelo.html#cb125-3" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
@@ -399,48 +392,48 @@ Figura 5.2: Histograma de residuales estandarizados con curva de densidad estima
 <span id="cb125-23"><a href="diagnostico-del-modelo.html#cb125-23" tabindex="-1"></a></span>
 <span id="cb125-24"><a href="diagnostico-del-modelo.html#cb125-24" tabindex="-1"></a>(g1 <span class="sc">|</span> g2 <span class="sc">|</span> g3)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-residuales-covariables"></span>
-<img src="figures/fig-residuales-covariables-1.svg" alt="Gráficos de residuales estandarizados frente a cada covariable del modelo" width="80%" />
+<img src="figures/fig-residuales-covariables-1.svg" alt="Plots of standardized residuals against each model covariate" width="80%" />
 <p class="caption">
-Figura 5.3: Gráficos de residuales estandarizados frente a cada covariable del modelo
+Figure 5.3: Plots of standardized residuals against each model covariate
 </p>
 </div>
-<p>La Figura <a href="diagnostico-del-modelo.html#fig:fig-residuales-covariables">5.3</a> presenta los gráficos de dispersión de los residuos estandarizados frente a las covariables del modelo. En conjunto, estos resultados sugieren posibles limitaciones en la especificación funcional. En particular, para <code>Expenditure</code> se observa una ligera curvatura en la tendencia de los residuos, lo que podría indicar la presencia de una relación no lineal no completamente capturada por el modelo. Por su parte, en los gráficos asociados a <code>Zone</code> y <code>Sex</code> se aprecia una dispersión desigual de los residuos entre categorías, lo que sugiere diferencias en la variabilidad condicional o en el ajuste de la media entre grupos.</p>
+<p>Figure <a href="diagnostico-del-modelo.html#fig:fig-residuales-covariables">5.3</a> presents the scatter plots of standardized residuals against the model covariates. Taken together, these results suggest possible limitations in the functional specification. In particular, for <code>Expenditure</code>, a slight curvature is observed in the trend of the residuals, which could indicate the presence of a nonlinear relationship not fully captured by the model. In turn, the plots associated with <code>Zone</code> and <code>Sex</code> show unequal dispersion of residuals across categories, suggesting differences in conditional variability or in the mean fit between groups.</p>
 </div>
 <div id="observaciones-influyentes" class="section level3 hasAnchor" number="5.4.3">
-<h3><span class="header-section-number">5.4.3</span> Observaciones influyentes<a href="diagnostico-del-modelo.html#observaciones-influyentes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>En el análisis diagnóstico, la identificación de observaciones influyentes es una técnica de especial importancia. Estas son unidades muestrales cuyo impacto sobre el ajuste del modelo resulta desproporcionado respecto al resto de la muestra. Conviene subrayar que una observación influyente no necesariamente corresponde a un valor atípico: mientras un atípico puede estar alejado del patrón general de los datos sin afectar sustancialmente el ajuste, una observación influyente puede alterar de manera significativa las estimaciones de los parámetros, incluso si no luce inusual.</p>
-<p>La distancia de Cook mide el impacto que tendría la eliminación de la observación <span class="math inline">\(k\)</span> sobre el ajuste global del modelo, al combinar simultáneamente la magnitud del residuo, la varianza estimada del modelo y su apalancamiento (<em>leverage</em>). En el contexto de encuestas con diseños muestrales complejos, la distancia de Cook se denota como <span class="math inline">\(c_k\)</span> y su expresión incorpora explícitamente los pesos muestrales <span class="citation">(<a href="#ref-heeringa2017applied">Heeringa et al., 2017, p. 213</a>)</span>. Para evaluar la magnitud de este estadístico, se utiliza una aproximación basada en su comparación con una distribución F, mediante la expresión</p>
+<h3><span class="header-section-number">5.4.3</span> Influential observations<a href="diagnostico-del-modelo.html#observaciones-influyentes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In diagnostic analysis, identifying influential observations is a technique of particular importance. These are sample units whose impact on the model fit is disproportionate relative to the rest of the sample. It is worth emphasizing that an influential observation does not necessarily correspond to an outlier: while an outlier may be far from the general pattern of the data without substantially affecting the fit, an influential observation can significantly alter the parameter estimates, even if it does not appear unusual.</p>
+<p>Cook’s distance measures the impact that removing observation <span class="math inline">\(k\)</span> would have on the overall model fit, by simultaneously combining the magnitude of the residual, the estimated variance of the model, and its leverage. In the context of surveys with complex sampling designs, Cook’s distance is denoted as <span class="math inline">\(c_k\)</span> and its expression explicitly incorporates the sampling weights <span class="citation">(<a href="#ref-heeringa2017applied">Heeringa et al., 2017, p. 213</a>)</span>. To evaluate the magnitude of this statistic, an approximation based on comparison with an F distribution is used, through the expression</p>
 <p><span class="math display">\[
 \frac{(df-p+1)\,c_{k}}{df} \sim F_{(p,\,df-p)},
 \]</span></p>
-<p>donde <span class="math inline">\(p\)</span> denota los parámetros del modelo y <span class="math inline">\(df\)</span> representa los grados de libertad asociados al diseño muestral. En la práctica, se considera que una observación puede ser influyente si su distancia de Cook supera valores de referencia aproximados entre 2 y 3, según lo propuesto en la literatura <span class="citation">(<a href="#ref-heeringa2017applied">Heeringa et al., 2017</a>)</span>.</p>
-<p>En <code>R</code>, se evalúa la presencia de observaciones influyentes mediante la distancia de Cook, estimada con la función <code>svyCooksD</code> del paquete <code>svydiags</code>. Los resultados obtenidos se presentan en la Figura <a href="diagnostico-del-modelo.html#fig:fig-cook">5.4</a>, en donde se observa que ninguna de las distancias de Cook supera el umbral de referencia de 3, por lo que, bajo este criterio, no se identifican observaciones con influencia significativa sobre el ajuste del modelo.</p>
+<p>where <span class="math inline">\(p\)</span> denotes the model parameters and <span class="math inline">\(df\)</span> represents the degrees of freedom associated with the sampling design. In practice, an observation may be considered influential if its Cook’s distance exceeds approximate reference values between 2 and 3, as proposed in the literature <span class="citation">(<a href="#ref-heeringa2017applied">Heeringa et al., 2017</a>)</span>.</p>
+<p>In <code>R</code>, the presence of influential observations is evaluated using Cook’s distance, estimated with the <code>svyCooksD</code> function from the <code>svydiags</code> package. The results obtained are presented in Figure <a href="diagnostico-del-modelo.html#fig:fig-cook">5.4</a>, where it is observed that none of the Cook’s distances exceeds the reference threshold of 3; therefore, under this criterion, no observations with significant influence on the model fit are identified.</p>
 <div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="diagnostico-del-modelo.html#cb126-1" tabindex="-1"></a><span class="fu">svyCooksD</span>(fit_svy, <span class="at">doplot =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb126-2"><a href="diagnostico-del-modelo.html#cb126-2" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-cook"></span>
-<img src="figures/fig-cook-1.svg" alt="Distancia de Cook para cada observación de la muestra" width="65%" />
+<img src="figures/fig-cook-1.svg" alt="Cook's distance for each sample observation" width="65%" />
 <p class="caption">
-Figura 5.4: Distancia de Cook para cada observación de la muestra
+Figure 5.4: Cook’s distance for each sample observation
 </p>
 </div>
 <pre><code>##         1         2         3         4         5         6         7         8 
 ## 0.0008667 0.0013961 0.0013979 0.0010179 0.0016359 0.0016423 0.0018452 0.0013093 
 ##         9        10 
 ## 0.0021197 0.0012425</code></pre>
-<p>Otro estadístico que mide el grado de influencia de una observación es el DFBETA, denotado como <span class="math inline">\(D_f\text{Beta}_{(k)j}\)</span>, que mide el cambio que experimenta el coeficiente de regresión <span class="math inline">\(\hat{\beta}_{j}\)</span> cuando la observación <span class="math inline">\(k\)</span> es eliminada del proceso de estimación. En consecuencia, esta medida evalúa la influencia individual de cada observación sobre los parámetros del modelo, identificando aquellas unidades cuya presencia altera de manera importante las estimaciones obtenidas. Valores elevados de <span class="math inline">\(D_f\text{Beta}_{(k)j}\)</span> indican que la observación ejerce una influencia considerable sobre el coeficiente correspondiente, lo que puede afectar la estabilidad e interpretación del modelo.</p>
-<p>Segun <span class="citation">Li &amp; Valliant (<a href="#ref-Li_Valliant_2015">2015</a>)</span>, como criterio práctico de diagnóstico, una observación suele considerarse influyente sobre el coeficiente <span class="math inline">\(\hat{\beta}_{j}\)</span> cuando</p>
+<p>Another statistic that measures the degree of influence of an observation is DFBETA, denoted as <span class="math inline">\(D_f\text{Beta}_{(k)j}\)</span>, which measures the change in the regression coefficient <span class="math inline">\(\hat{\beta}_{j}\)</span> when observation <span class="math inline">\(k\)</span> is removed from the estimation process. Consequently, this measure evaluates the individual influence of each observation on the model parameters, identifying units whose presence substantially alters the estimates obtained. High values of <span class="math inline">\(D_f\text{Beta}_{(k)j}\)</span> indicate that the observation exerts considerable influence on the corresponding coefficient, which can affect the stability and interpretation of the model.</p>
+<p>According to <span class="citation">Li &amp; Valliant (<a href="#ref-Li_Valliant_2015">2015</a>)</span>, as a practical diagnostic criterion, an observation is usually considered influential for the coefficient <span class="math inline">\(\hat{\beta}_{j}\)</span> when</p>
 <p><span class="math display">\[
 \left|D_f\text{Beta}_{(k)j}\right|
 \geq
 \frac{z}{\sqrt{n_I\times DEFF}},
 \]</span></p>
-<p>donde <span class="math inline">\(z\)</span> toma comúnmente valores de 2 o 3, <span class="math inline">\(n_I\)</span> representa el número de UPMs seleccionadas en la muestra de la primera etapa y <span class="math inline">\(DEFF\)</span> corresponde al efecto de diseño. A continuación, se evalúa la influencia de las observaciones sobre los coeficientes del modelo de ejemplo mediante la función <code>svydfbetas</code>. Los resultados correspondientes a las primeras diez observaciones se presentan en la Tabla <a href="diagnostico-del-modelo.html#tab:tab-dfbetas-primeros">5.1</a>.</p>
+<p>where <span class="math inline">\(z\)</span> commonly takes values of 2 or 3, <span class="math inline">\(n_I\)</span> represents the number of PSUs selected in the first-stage sample, and <span class="math inline">\(DEFF\)</span> corresponds to the design effect. The influence of the observations on the coefficients of the example model is evaluated below using the <code>svydfbetas</code> function. The results corresponding to the first ten observations are presented in Table <a href="diagnostico-del-modelo.html#tab:tab-dfbetas-primeros">5.1</a>.</p>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="diagnostico-del-modelo.html#cb128-1" tabindex="-1"></a>d_dfbetas <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">t</span>(<span class="fu">svydfbetas</span>(fit_svy)<span class="sc">$</span>Dfbetas))</span>
 <span id="cb128-2"><a href="diagnostico-del-modelo.html#cb128-2" tabindex="-1"></a><span class="fu">colnames</span>(d_dfbetas) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;Beta_&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
 <span id="cb128-3"><a href="diagnostico-del-modelo.html#cb128-3" tabindex="-1"></a>d_dfbetas <span class="sc">%&gt;%</span></span>
 <span id="cb128-4"><a href="diagnostico-del-modelo.html#cb128-4" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span><span class="dt">L</span>)</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-dfbetas-primeros">Tabla 5.1: </span>Valores DfBetas para las primeras diez observaciones de la muestra</caption>
+<caption><span id="tab:tab-dfbetas-primeros">Table 5.1: </span>DfBetas values for the first ten sample observations</caption>
 <thead>
 <tr class="header">
 <th align="left">Beta_1</th>
@@ -512,7 +505,7 @@ Figura 5.4: Distancia de Cook para cada observación de la muestra
 </tr>
 </tbody>
 </table>
-<p>Una vez obtenidos los valores de la medida DFBETA para cada observación y coeficiente del modelo, se calcula el correspondiente umbral de influencia a partir de los resultados generados por la función <code>svydfbetas</code>. Con base en este criterio, se construye una variable dicotómica que permite clasificar las observaciones según su nivel de influencia sobre las estimaciones del modelo. Los resultados de esta clasificación se presentan en la Tabla <a href="diagnostico-del-modelo.html#tab:tab-dfbetas-influyentes">5.2</a>.</p>
+<p>Once the values of the DFBETA measure have been obtained for each observation and model coefficient, the corresponding influence threshold is calculated from the results generated by the <code>svydfbetas</code> function. Based on this criterion, a dichotomous variable is constructed to classify observations according to their level of influence on the model estimates. The results of this classification are presented in Table <a href="diagnostico-del-modelo.html#tab:tab-dfbetas-influyentes">5.2</a>.</p>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="diagnostico-del-modelo.html#cb129-1" tabindex="-1"></a>d_dfbetas<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(d_dfbetas)</span>
 <span id="cb129-2"><a href="diagnostico-del-modelo.html#cb129-2" tabindex="-1"></a>d_dfbetas <span class="ot">&lt;-</span> reshape2<span class="sc">::</span><span class="fu">melt</span>(d_dfbetas, <span class="at">id.vars =</span> <span class="st">&quot;id&quot;</span>)</span>
 <span id="cb129-3"><a href="diagnostico-del-modelo.html#cb129-3" tabindex="-1"></a>cutoff <span class="ot">&lt;-</span> <span class="fu">svydfbetas</span>(fit_svy)<span class="sc">$</span>cutoff</span>
@@ -526,7 +519,7 @@ Figura 5.4: Distancia de Cook para cada observación de la muestra
 <span id="cb129-11"><a href="diagnostico-del-modelo.html#cb129-11" tabindex="-1"></a></span>
 <span id="cb129-12"><a href="diagnostico-del-modelo.html#cb129-12" tabindex="-1"></a>label_text</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-dfbetas-influyentes">Tabla 5.2: </span>Las diez observaciones más influyentes según el criterio DfBetas</caption>
+<caption><span id="tab:tab-dfbetas-influyentes">Table 5.2: </span>The ten most influential observations according to the DfBetas criterion</caption>
 <thead>
 <tr class="header">
 <th align="left">id</th>
@@ -598,7 +591,7 @@ Figura 5.4: Distancia de Cook para cada observación de la muestra
 </tr>
 </tbody>
 </table>
-<p>Los resultados muestran que varias observaciones superan el umbral establecido por el criterio <span class="math inline">\(D_f\text{Beta}_{(k)j}\)</span>, lo que indica que dichas unidades ejercen una influencia importante sobre la estimación de algunos coeficientes del modelo, lo que sugiere la presencia de unidades con alto impacto sobre la estabilidad del ajuste. La Figura <a href="diagnostico-del-modelo.html#fig:fig-dfbetas">5.5</a> presenta la representación gráfica de los valores de <span class="math inline">\(D_f\)</span>Beta junto con el umbral de referencia utilizado para identificar observaciones influyentes. En la figura, los puntos resaltados en rojo corresponden a las observaciones que exceden dicho umbral y que, por tanto, requieren una revisión más detallada dentro del proceso de diagnóstico del modelo.</p>
+<p>The results show that several observations exceed the threshold established by the <span class="math inline">\(D_f\text{Beta}_{(k)j}\)</span> criterion, indicating that these units exert substantial influence on the estimation of some model coefficients and suggesting the presence of units with high impact on the stability of the fit. Figure <a href="diagnostico-del-modelo.html#fig:fig-dfbetas">5.5</a> presents the graphical representation of the <span class="math inline">\(D_f\)</span>Beta values together with the reference threshold used to identify influential observations. In the figure, the points highlighted in red correspond to the observations that exceed this threshold and therefore require more detailed review within the model diagnostic process.</p>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="diagnostico-del-modelo.html#cb130-1" tabindex="-1"></a><span class="fu">ggplot</span>(d_dfbetas, <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">abs</span>(value), <span class="at">x =</span> id)) <span class="sc">+</span></span>
 <span id="cb130-2"><a href="diagnostico-del-modelo.html#cb130-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">col =</span> criterion)) <span class="sc">+</span></span>
 <span id="cb130-3"><a href="diagnostico-del-modelo.html#cb130-3" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
@@ -613,17 +606,17 @@ Figura 5.4: Distancia de Cook para cada observación de la muestra
 <span id="cb130-12"><a href="diagnostico-del-modelo.html#cb130-12" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Yes&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;No&quot;</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span>)</span>
 <span id="cb130-13"><a href="diagnostico-del-modelo.html#cb130-13" tabindex="-1"></a>  )</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-dfbetas"></span>
-<img src="figures/fig-dfbetas-1.svg" alt="Valores DfBetas por parámetro: observaciones influyentes señaladas en rojo" width="80%" />
+<img src="figures/fig-dfbetas-1.svg" alt="DfBetas values by parameter: influential observations indicated in red" width="80%" />
 <p class="caption">
-Figura 5.5: Valores DfBetas por parámetro: observaciones influyentes señaladas en rojo
+Figure 5.5: DfBetas values by parameter: influential observations indicated in red
 </p>
 </div>
-<p>Por último, el estadístico DFFITS, denotado por <span class="math inline">\(D_f\text{Fits}_{(k)}\)</span>, mide la influencia que ejerce la observación <span class="math inline">\(k\)</span> sobre los valores ajustados del modelo. En particular, este estadístico evalúa cuánto cambian las predicciones del modelo cuando una observación es eliminada del proceso de estimación. En consecuencia, valores elevados de <span class="math inline">\(D_f\text{Fits}_{(k)}\)</span> indican observaciones con capacidad de alterar de manera importante el ajuste global del modelo y, por tanto, potencialmente influyentes en el proceso de inferencia. Segun <span class="citation">Li &amp; Valliant (<a href="#ref-Li_Valliant_2015">2015</a>)</span>, una observación se considera influyente si:</p>
+<p>Finally, the DFFITS statistic, denoted by <span class="math inline">\(D_f\text{Fits}_{(k)}\)</span>, measures the influence that observation <span class="math inline">\(k\)</span> exerts on the fitted values of the model. In particular, this statistic evaluates how much the model predictions change when an observation is removed from the estimation process. Consequently, high values of <span class="math inline">\(D_f\text{Fits}_{(k)}\)</span> indicate observations capable of substantially altering the overall model fit and, therefore, potentially influential in the inference process. According to <span class="citation">Li &amp; Valliant (<a href="#ref-Li_Valliant_2015">2015</a>)</span>, an observation is considered influential if:</p>
 <p><span class="math display">\[
 |D_f\text{Fits}_{(k)}| \geq z\sqrt{\frac{p}{n\times DEFF}}
 \]</span>
-donde <span class="math inline">\(z\)</span> toma comúnmente valores de 2 o 3, mientras que <span class="math inline">\(n\)</span> representa el tamaño muestral total de elementos incluidos en la encuesta. En el contexto de encuestas complejas, el uso de umbrales ajustados por efecto de diseño resulta especialmente relevante, ya que incorpora la pérdida de precisión derivada de la estratificación, la conglomeración y la utilización de pesos desiguales.</p>
-<p>En <code>R</code>, el cálculo de este estadístico puede realizarse mediante la función <code>svydffits</code> del paquete <code>svydiags</code>, la cual obtiene las medidas de influencia considerando explícitamente la estructura del diseño muestral. Los resultados gráficos correspondientes se presentan en la Figura <a href="diagnostico-del-modelo.html#fig:fig-dffits">5.6</a>, en donde se confirma la existencia de algunas observaciones influyentes (señaladas en rojo).</p>
+where <span class="math inline">\(z\)</span> commonly takes values of 2 or 3, while <span class="math inline">\(n\)</span> represents the total sample size of elements included in the survey. In the context of complex surveys, the use of thresholds adjusted by the design effect is especially relevant, since it incorporates the loss of precision derived from stratification, clustering, and the use of unequal weights.</p>
+<p>In <code>R</code>, this statistic can be calculated using the <code>svydffits</code> function from the <code>svydiags</code> package, which obtains influence measures while explicitly considering the structure of the sampling design. The corresponding graphical results are presented in Figure <a href="diagnostico-del-modelo.html#fig:fig-dffits">5.6</a>, where the existence of some influential observations is confirmed (indicated in red).</p>
 <div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="diagnostico-del-modelo.html#cb131-1" tabindex="-1"></a>d_dffits <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb131-2"><a href="diagnostico-del-modelo.html#cb131-2" tabindex="-1"></a>  <span class="at">dffits =</span> <span class="fu">svydffits</span>(fit_svy)<span class="sc">$</span>Dffits,</span>
 <span id="cb131-3"><a href="diagnostico-del-modelo.html#cb131-3" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">svydffits</span>(fit_svy)<span class="sc">$</span>Dffits)</span>
@@ -639,32 +632,32 @@ donde <span class="math inline">\(z\)</span> toma comúnmente valores de 2 o 3, 
 <span id="cb131-13"><a href="diagnostico-del-modelo.html#cb131-13" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Yes&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;No&quot;</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span>)</span>
 <span id="cb131-14"><a href="diagnostico-del-modelo.html#cb131-14" tabindex="-1"></a>  )</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-dffits"></span>
-<img src="figures/fig-dffits-1.svg" alt="Valores DfFits: observaciones influyentes sobre el ajuste global señaladas en rojo" width="65%" />
+<img src="figures/fig-dffits-1.svg" alt="DfFits values: influential observations on the overall fit indicated in red" width="65%" />
 <p class="caption">
-Figura 5.6: Valores DfFits: observaciones influyentes sobre el ajuste global señaladas en rojo
+Figure 5.6: DfFits values: influential observations on the overall fit indicated in red
 </p>
 </div>
 </div>
 </div>
-<h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3>References<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-heeringa2017applied" class="csl-entry">
 Heeringa, S. G., West, B. T., Heeringa, S. G., &amp; Berglund, P. A. (2017). <em>Applied survey data analysis</em>. chapman; hall/CRC.
 </div>
 <div id="ref-Li_Valliant_2015" class="csl-entry">
-Li, J., &amp; Valliant, R. (2015). Linear Regression Diagnostics in Cluster Samples. <em>Journal of Official Statistics</em>, <em>31</em>(1), 61-75. <a href="https://doi.org/10.1515/jos-2015-0003">https://doi.org/10.1515/jos-2015-0003</a>
+Li, J., &amp; Valliant, R. (2015). Linear regression diagnostics in cluster samples. <em>Journal of Official Statistics</em>, <em>31</em>(1), 61–75. <a href="https://doi.org/10.1515/jos-2015-0003">https://doi.org/10.1515/jos-2015-0003</a>
 </div>
 <div id="ref-patchwork" class="csl-entry">
-Pedersen, T. L. (2025). <em>patchwork: The composer of plots</em>. <a href="https://doi.org/10.32614/CRAN.package.patchwork">https://doi.org/10.32614/CRAN.package.patchwork</a>
+Pedersen, T. L. (2025). <em>Patchwork: The composer of plots</em>. <a href="https://doi.org/10.32614/CRAN.package.patchwork">https://doi.org/10.32614/CRAN.package.patchwork</a>
 </div>
 <div id="ref-pfeffermann2011modelling" class="csl-entry">
-Pfeffermann, D. (2011). Modelling of complex survey data: <span>W</span>hy model? <span>W</span>hy is it a problem? <span>H</span>ow can we approach it? <em>Survey Methodology</em>, <em>37</em>(2), 115-136.
+Pfeffermann, D. (2011). Modelling of complex survey data: <span>W</span>hy model? <span>W</span>hy is it a problem? <span>H</span>ow can we approach it? <em>Survey Methodology</em>, <em>37</em>(2), 115–136.
 </div>
 <div id="ref-tellez2015estadistica" class="csl-entry">
-Tellez Piñerez, C. F., &amp; Lemus Polanía, D. F. (2015). <em>Estadística Descriptiva y Probabilidad con aplicaciones en R</em>. Fundación Universitaria Los Libertadores.
+Tellez Piñerez, C. F., &amp; Lemus Polanía, D. F. (2015). <em>Estadística descriptiva y probabilidad con aplicaciones en r</em>. Fundación Universitaria Los Libertadores.
 </div>
 <div id="ref-Valliant2024" class="csl-entry">
-Valliant, R. (2024). <em>svydiags: Regression Model Diagnostics for Survey Data</em>. <a href="https://doi.org/10.32614/CRAN.package.svydiags">https://doi.org/10.32614/CRAN.package.svydiags</a>
+Valliant, R. (2024). <em>Svydiags: Regression model diagnostics for survey data</em>. <a href="https://doi.org/10.32614/CRAN.package.svydiags">https://doi.org/10.32614/CRAN.package.svydiags</a>
 </div>
 </div>
             </section>
@@ -704,7 +697,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/psirusteam/LibroEncuestasR/05-Regresión.Rmd",
+    "link": "https://github.com/psirusteam/LibroEncuestasR/05-Regression.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -715,7 +708,7 @@ gitbook.start({
     "link": null,
     "text": null
   },
-  "download": ["Libro.pdf", "Libro.epub", "Libro.mobi"],
+  "download": ["Household_Surveys_with_R.pdf", "Household_Surveys_with_R.epub", "Household_Surveys_with_R.mobi"],
   "search": {
     "engine": "fuse",
     "options": null

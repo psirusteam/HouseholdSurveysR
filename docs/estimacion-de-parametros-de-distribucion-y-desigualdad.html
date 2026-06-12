@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="es" xml:lang="es">
+<html lang="en" xml:lang="en">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.2 Estimación de parámetros de distribución y desigualdad | Análisis de encuestas de hogares con R</title>
-  <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <title>3.1 Estimation of distribution and inequality parameters | Household Surveys Analysis with R</title>
+  <meta name="description" content="This is the repository for the book Household Survey Analysis with R." />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.2 Estimación de parámetros de distribución y desigualdad | Análisis de encuestas de hogares con R" />
+  <meta property="og:title" content="3.1 Estimation of distribution and inequality parameters | Household Surveys Analysis with R" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta property="og:description" content="This is the repository for the book Household Survey Analysis with R." />
   <meta name="github-repo" content="psirusteam/LibroEncuestasR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.2 Estimación de parámetros de distribución y desigualdad | Análisis de encuestas de hogares con R" />
+  <meta name="twitter:title" content="3.1 Estimation of distribution and inequality parameters | Household Surveys Analysis with R" />
   
-  <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="twitter:description" content="This is the repository for the book Household Survey Analysis with R." />
   
 
 <meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="estimacion-de-parametros-descriptivos.html"/>
+<link rel="prev" href="cap3.html"/>
 <link rel="next" href="pruebas-de-hipotesis.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -161,130 +161,123 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Análisis de encuestas de hogares con R</a></li>
+<li><a href="./">Household Surveys Analysis with R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
-<li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
-<li class="chapter" data-level="1" data-path="cap1.html"><a href="cap1.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i>Summary</a></li>
+<li class="chapter" data-level="1" data-path="cap1.html"><a href="cap1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="justificacion.html"><a href="justificacion.html"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
-<li class="chapter" data-level="1.2" data-path="uso-del-software-r-para-el-analisis-de-encuestas.html"><a href="uso-del-software-r-para-el-analisis-de-encuestas.html"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
-<li class="chapter" data-level="1.3" data-path="estructura-del-documento.html"><a href="estructura-del-documento.html"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+<li class="chapter" data-level="1.1" data-path="rationale.html"><a href="rationale.html"><i class="fa fa-check"></i><b>1.1</b> Rationale</a></li>
+<li class="chapter" data-level="1.2" data-path="use-of-r-software-for-survey-analysis.html"><a href="use-of-r-software-for-survey-analysis.html"><i class="fa fa-check"></i><b>1.2</b> Use of R Software for Survey Analysis</a></li>
+<li class="chapter" data-level="1.3" data-path="structure-of-the-document.html"><a href="structure-of-the-document.html"><i class="fa fa-check"></i><b>1.3</b> Structure of the Document</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="cap2.html"><a href="cap2.html"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
+<li class="chapter" data-level="2" data-path="cap2.html"><a href="cap2.html"><i class="fa fa-check"></i><b>2</b> Basic concepts in household surveys</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="poblacion-objetivo-y-unidades-de-muestreo.html"><a href="poblacion-objetivo-y-unidades-de-muestreo.html"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
-<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
-<li class="chapter" data-level="2.3" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<li class="chapter" data-level="2.1" data-path="poblacion-objetivo-y-unidades-de-muestreo.html"><a href="poblacion-objetivo-y-unidades-de-muestreo.html"><i class="fa fa-check"></i><b>2.1</b> Target population and sampling units</a></li>
+<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Sampling estimators</a></li>
+<li class="chapter" data-level="2.3" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html"><i class="fa fa-check"></i><b>2.3</b> Theoretical foundations</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
-<li class="chapter" data-level="2.3.2" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+<li class="chapter" data-level="2.3.1" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Point estimation</a></li>
+<li class="chapter" data-level="2.3.2" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Variance estimation</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Confidence intervals</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="cap3.html"><a href="cap3.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
+<li class="chapter" data-level="3" data-path="cap3.html"><a href="cap3.html"><i class="fa fa-check"></i><b>3</b> Analysis of continuous variables</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<li class="chapter" data-level="3.0.1" data-path="cap3.html"><a href="cap3.html#estimacion-de-razones"><i class="fa fa-check"></i><b>3.0.1</b> Ratio estimation</a></li>
+<li class="chapter" data-level="3.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><i class="fa fa-check"></i><b>3.1</b> Estimation of distribution and inequality parameters</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
-<li class="chapter" data-level="3.1.2" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
-<li class="chapter" data-level="3.1.3" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+<li class="chapter" data-level="3.1.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-dispersion"><i class="fa fa-check"></i><b>3.1.1</b> Dispersion estimation</a></li>
+<li class="chapter" data-level="3.1.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-percentiles"><i class="fa fa-check"></i><b>3.1.2</b> Percentile estimation</a></li>
+<li class="chapter" data-level="3.1.3" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.1.3</b> Estimation of the Gini coefficient</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<li class="chapter" data-level="3.2" data-path="pruebas-de-hipotesis.html"><a href="pruebas-de-hipotesis.html"><i class="fa fa-check"></i><b>3.2</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="3.3" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.3</b> Visualization of continuous variables</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-dispersion"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
-<li class="chapter" data-level="3.2.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
-<li class="chapter" data-level="3.2.3" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
-<li class="chapter" data-level="3.2.4" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-correlacion"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="pruebas-de-hipotesis.html"><a href="pruebas-de-hipotesis.html"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
-<li class="chapter" data-level="3.4" data-path="estimacion-de-contrastes.html"><a href="estimacion-de-contrastes.html"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
-<li class="chapter" data-level="3.5" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
-<li class="chapter" data-level="3.5.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
-<li class="chapter" data-level="3.5.3" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-dispersion"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+<li class="chapter" data-level="3.3.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.3.1</b> Histograms</a></li>
+<li class="chapter" data-level="3.3.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.3.2</b> Box plots (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.3.3" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-dispersion"><i class="fa fa-check"></i><b>3.3.3</b> Scatter plots</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
+<li class="chapter" data-level="4" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>4</b> Analysis of categorical variables</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="estimacion-del-tamano-poblacional.html"><a href="estimacion-del-tamano-poblacional.html"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
-<li class="chapter" data-level="4.2" data-path="estimacion-de-proporciones.html"><a href="estimacion-de-proporciones.html"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
-<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
-<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
-<li class="chapter" data-level="4.5" data-path="la-razon-de-odds.html"><a href="la-razon-de-odds.html"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
-<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi.html"><a href="prueba-de-independencia-chi.html"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
-<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<li class="chapter" data-level="4.1" data-path="estimacion-del-tamano-poblacional.html"><a href="estimacion-del-tamano-poblacional.html"><i class="fa fa-check"></i><b>4.1</b> Estimation of population size</a></li>
+<li class="chapter" data-level="4.2" data-path="estimacion-de-proporciones.html"><a href="estimacion-de-proporciones.html"><i class="fa fa-check"></i><b>4.2</b> Estimation of proportions</a></li>
+<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrasts and differences in proportions</a></li>
+<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Cross-tabulations</a></li>
+<li class="chapter" data-level="4.5" data-path="la-razon-de-odds.html"><a href="la-razon-de-odds.html"><i class="fa fa-check"></i><b>4.5</b> The <em>odds</em> ratio</a></li>
+<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi.html"><a href="prueba-de-independencia-chi.html"><i class="fa fa-check"></i><b>4.6</b> <span class="math inline">\(\chi^{2}\)</span> test of independence</a></li>
+<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualization of categorical variables</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="viz-categoricas.html"><a href="viz-categoricas.html#graficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
-<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+<li class="chapter" data-level="4.7.1" data-path="viz-categoricas.html"><a href="viz-categoricas.html#graficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Bar charts</a></li>
+<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Maps</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="cap5.html"><a href="cap5.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
+<li class="chapter" data-level="5" data-path="cap5.html"><a href="cap5.html"><i class="fa fa-check"></i><b>5</b> Regression models</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="formulacion-del-modelo.html"><a href="formulacion-del-modelo.html"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
-<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
-<li class="chapter" data-level="5.3" data-path="estimacion-de-los-parametros-del-modelo.html"><a href="estimacion-de-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
-<li class="chapter" data-level="5.4" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<li class="chapter" data-level="5.1" data-path="formulacion-del-modelo.html"><a href="formulacion-del-modelo.html"><i class="fa fa-check"></i><b>5.1</b> Model formulation</a></li>
+<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Use of sampling weights</a></li>
+<li class="chapter" data-level="5.3" data-path="estimacion-de-los-parametros-del-modelo.html"><a href="estimacion-de-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.3</b> Estimation of model parameters</a></li>
+<li class="chapter" data-level="5.4" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html"><i class="fa fa-check"></i><b>5.4</b> Model diagnostics</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#coeficiente-de-determinacion"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
-<li class="chapter" data-level="5.4.2" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#residuales"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
-<li class="chapter" data-level="5.4.3" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+<li class="chapter" data-level="5.4.1" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#coeficiente-de-determinacion"><i class="fa fa-check"></i><b>5.4.1</b> Coefficient of determination</a></li>
+<li class="chapter" data-level="5.4.2" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#residuales"><i class="fa fa-check"></i><b>5.4.2</b> Residuals</a></li>
+<li class="chapter" data-level="5.4.3" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Influential observations</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="inferencia-sobre-los-parametros-del-modelo.html"><a href="inferencia-sobre-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
-<li class="chapter" data-level="5.6" data-path="estimacion-y-prediccion.html"><a href="estimacion-y-prediccion.html"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+<li class="chapter" data-level="5.5" data-path="inferencia-sobre-los-parametros-del-modelo.html"><a href="inferencia-sobre-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.5</b> Inference about model parameters</a></li>
+<li class="chapter" data-level="5.6" data-path="estimacion-y-prediccion.html"><a href="estimacion-y-prediccion.html"><i class="fa fa-check"></i><b>5.6</b> Estimation and prediction</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
+<li class="chapter" data-level="6" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>6</b> Generalized linear models</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
-<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
-<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Logistic regression model</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Multinomial regression model</a></li>
+<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Gamma regression model</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="cap7.html"><a href="cap7.html"><i class="fa fa-check"></i><b>7</b> Modelos multinivel</a>
+<li class="chapter" data-level="7" data-path="cap7.html"><a href="cap7.html"><i class="fa fa-check"></i><b>7</b> Multilevel Models</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="sec-motivacionMult.html"><a href="sec-motivacionMult.html"><i class="fa fa-check"></i><b>7.1</b> Motivación</a></li>
-<li class="chapter" data-level="7.2" data-path="pesos-q-weighted.html"><a href="pesos-q-weighted.html"><i class="fa fa-check"></i><b>7.2</b> Pesos <em>q-weighted</em></a></li>
-<li class="chapter" data-level="7.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html"><i class="fa fa-check"></i><b>7.3</b> Modelo lineal multinivel</a>
+<li class="chapter" data-level="7.1" data-path="sec-motivacionMult.html"><a href="sec-motivacionMult.html"><i class="fa fa-check"></i><b>7.1</b> Motivation</a></li>
+<li class="chapter" data-level="7.2" data-path="pesos-q-weighted.html"><a href="pesos-q-weighted.html"><i class="fa fa-check"></i><b>7.2</b> <em>q-weighted</em> Weights</a></li>
+<li class="chapter" data-level="7.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html"><i class="fa fa-check"></i><b>7.3</b> Linear Multilevel Model</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Modelo nulo</a></li>
-<li class="chapter" data-level="7.3.2" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Modelo con intercepto aleatorio</a></li>
-<li class="chapter" data-level="7.3.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Modelo con intercepto y pendiente aleatoria</a></li>
+<li class="chapter" data-level="7.3.1" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Null Model</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Random Intercept Model</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Random Intercept and Slope Model</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html"><i class="fa fa-check"></i><b>7.4</b> Modelo logístico multinivel</a>
+<li class="chapter" data-level="7.4" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html"><i class="fa fa-check"></i><b>7.4</b> Multilevel Logistic Model</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-nulo-logistico"><i class="fa fa-check"></i><b>7.4.1</b> Modelo nulo logístico</a></li>
-<li class="chapter" data-level="7.4.2" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Modelo logístico con intercepto aleatorio</a></li>
-<li class="chapter" data-level="7.4.3" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Modelo logístico con intercepto y pendiente aleatoria</a></li>
-</ul></li>
-</ul></li>
-<li class="appendix"><span><b>Anexos</b></span></li>
-<li class="chapter" data-level="A" data-path="ap1.html"><a href="ap1.html"><i class="fa fa-check"></i><b>A</b> Manejo de bases de datos con <code>R</code></a>
-<ul>
-<li class="chapter" data-level="A.1" data-path="preparacion-del-entorno-de-trabajo.html"><a href="preparacion-del-entorno-de-trabajo.html"><i class="fa fa-check"></i><b>A.1</b> Preparación del entorno de trabajo</a></li>
-<li class="chapter" data-level="A.2" data-path="carga-e-inspeccion-inicial-de-la-base.html"><a href="carga-e-inspeccion-inicial-de-la-base.html"><i class="fa fa-check"></i><b>A.2</b> Carga e inspección inicial de la base</a></li>
-<li class="chapter" data-level="A.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html"><i class="fa fa-check"></i><b>A.3</b> Encadenamiento de operaciones</a>
-<ul>
-<li class="chapter" data-level="A.3.1" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#filter-seleccion-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selección de registros</a></li>
-<li class="chapter" data-level="A.3.2" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: seleccionar variables</a></li>
-<li class="chapter" data-level="A.3.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: ordenamiento de filas</a></li>
-<li class="chapter" data-level="A.3.4" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#mutate-creacion-o-transformacion-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creación o transformación de variables</a></li>
-<li class="chapter" data-level="A.3.5" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#summarise-resumenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: resúmenes descriptivos</a></li>
-<li class="chapter" data-level="A.3.6" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#group-by-agrupacion-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: agrupación de casos</a></li>
+<li class="chapter" data-level="7.4.1" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-nulo-logistico"><i class="fa fa-check"></i><b>7.4.1</b> Logistic Null Model</a></li>
+<li class="chapter" data-level="7.4.2" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Logistic Model with Random Intercept</a></li>
+<li class="chapter" data-level="7.4.3" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Logistic Model with Random Intercept and Slope</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Inferencia en poblaciones finitas</a>
+<li class="appendix"><span><b>Appendices</b></span></li>
+<li class="chapter" data-level="A" data-path="ap1.html"><a href="ap1.html"><i class="fa fa-check"></i><b>A</b> Data Wrangling with <code>R</code></a>
 <ul>
-<li class="chapter" data-level="B.1" data-path="dos-posibles-inferencias.html"><a href="dos-posibles-inferencias.html"><i class="fa fa-check"></i><b>B.1</b> Dos posibles inferencias</a></li>
-<li class="chapter" data-level="B.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html"><i class="fa fa-check"></i><b>B.2</b> La integración de ambas inferencias</a>
+<li class="chapter" data-level="A.1" data-path="preparacion-del-entorno-de-trabajo.html"><a href="preparacion-del-entorno-de-trabajo.html"><i class="fa fa-check"></i><b>A.1</b> Preparing the Working Environment</a></li>
+<li class="chapter" data-level="A.2" data-path="carga-e-inspeccion-inicial-de-la-base.html"><a href="carga-e-inspeccion-inicial-de-la-base.html"><i class="fa fa-check"></i><b>A.2</b> Loading and Initial Inspection of the Database</a></li>
+<li class="chapter" data-level="A.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html"><i class="fa fa-check"></i><b>A.3</b> Chaining Operations</a>
 <ul>
-<li class="chapter" data-level="B.2.1" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mv"><i class="fa fa-check"></i><b>B.2.1</b> Método de la máxima verosimilitud</a></li>
-<li class="chapter" data-level="B.2.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Método de máxima pseudo-verosimilitud</a></li>
+<li class="chapter" data-level="A.3.1" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#filter-seleccion-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selecting records</a></li>
+<li class="chapter" data-level="A.3.2" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: selecting variables</a></li>
+<li class="chapter" data-level="A.3.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: sorting rows</a></li>
+<li class="chapter" data-level="A.3.4" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#mutate-creacion-o-transformacion-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creating or transforming variables</a></li>
+<li class="chapter" data-level="A.3.5" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#summarise-resumenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: descriptive summaries</a></li>
+<li class="chapter" data-level="A.3.6" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#group-by-agrupacion-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: grouping cases</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Finite Population Inference</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="dos-posibles-inferencias.html"><a href="dos-posibles-inferencias.html"><i class="fa fa-check"></i><b>B.1</b> Two Possible Inferences</a></li>
+<li class="chapter" data-level="B.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html"><i class="fa fa-check"></i><b>B.2</b> The Integration of Both Inferences</a>
+<ul>
+<li class="chapter" data-level="B.2.1" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mv"><i class="fa fa-check"></i><b>B.2.1</b> Maximum Likelihood Method</a></li>
+<li class="chapter" data-level="B.2.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Maximum Pseudo-Likelihood Method</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
-<li><a Análisis de encuestas de hogares con R</a></li>
+<li><a href="./">Household Surveys Analysis with R</a></li>
 
 </ul>
 
@@ -295,7 +288,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis de encuestas de hogares con R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Household Surveys Analysis with R</a>
           </h1>
         </div>
 
@@ -303,15 +296,15 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="estimacion-de-parametros-de-distribucion-y-desigualdad" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Estimación de parámetros de distribución y desigualdad<a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-parametros-de-distribucion-y-desigualdad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="estimacion-de-la-dispersion" class="section level3 hasAnchor" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> Estimación de la dispersión<a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-dispersion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>En las encuestas de hogares también es fundamental estimar medidas de dispersión de las variables estudiadas, ya que estas permiten evaluar el grado de heterogeneidad existente en la población. Por ejemplo, conocer qué tan dispersos son los ingresos de los hogares resulta clave para analizar desigualdades económicas y orientar el diseño de políticas públicas. Entre las medidas de dispersión más utilizadas se encuentra la desviación estándar, la cual cuantifica qué tan alejados se encuentran los valores observados respecto a su media. A continuación, se presenta el estimador de este parámetro:</p>
-<p><span class="math display">\[
+<div id="estimacion-de-parametros-de-distribucion-y-desigualdad" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Estimation of distribution and inequality parameters<a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-parametros-de-distribucion-y-desigualdad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="estimacion-de-la-dispersion" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Dispersion estimation<a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-dispersion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In household surveys it is also essential to estimate measures of dispersion of the variables studied, since these allow us to evaluate the degree of heterogeneity existing in the population. For example, knowing how dispersed household incomes are is key to analyzing economic inequalities and guiding the design of public policies. Among the most used measures of dispersion is the standard deviation, which quantifies how far the observed values are from their mean. The estimator of this parameter is presented below:
+<span class="math display">\[
 \hat s_y  =  \sqrt{\frac{\sum_{h}\sum_{i}\sum_{k} w_{hik} \ \left(y_{hik}-\hat{\bar{y}}\right)^{2}}{\sum_{h}\sum_{i}\sum_{k} w_{hik}-1}}
 \]</span>
-Para estimar la desviación estándar de variables numéricas en encuestas de hogares utilizando <code>R</code>, puede emplearse la función <code>survey_var</code>. A continuación, se presenta un ejemplo de su uso aplicado a la estimación de la desviación estándar del ingreso, cuyos resultados se muestran en la Tabla <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#tab:tab-sd-ingreso-zona">3.14</a>.</p>
+To estimate the standard deviation of numerical variables in household surveys using <code>R</code>, the function <code>survey_var</code> can be used. Below is an example of its use applied to the estimation of the standard deviation of income, the results of which are shown in Table <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#tab:tab-sd-ingreso-zona">3.14</a>.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb17-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb17-2"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb17-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span></span>
 <span id="cb17-3"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb17-3" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
@@ -328,7 +321,7 @@ Para estimar la desviación estándar de variables numéricas en encuestas de ho
 <span id="cb17-14"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb17-14" tabindex="-1"></a>    <span class="at">Sd_upp =</span> <span class="fu">sqrt</span>(Var_upp)</span>
 <span id="cb17-15"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb17-15" tabindex="-1"></a>  )</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-sd-ingreso-zona">Tabla 3.14: </span>Desviación estándar de los ingresos desagregada por zona</caption>
+<caption><span id="tab:tab-sd-ingreso-zona">Table 3.14: </span>Standard deviation of income disaggregated by area</caption>
 <thead>
 <tr class="header">
 <th align="left">Zone</th>
@@ -364,7 +357,7 @@ Para estimar la desviación estándar de variables numéricas en encuestas de ho
 </tr>
 </tbody>
 </table>
-<p>Como se observó en el ejemplo anterior, se estimó la desviación estándar de los ingresos por zona, reportando además su correspondiente intervalo de confianza al 95%. Los argumentos de la función <code>survey_var()</code> son equivalentes a los utilizados previamente para la estimación de medias y totales. Si el interés es estimar la desviación estándar de los ingresos desagregando simultáneamente por sexo y zona, los códigos computacionales correspondientes se presentan en la Tabla <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#tab:tab-sd-ingreso-zona-sexo">3.15</a>.</p>
+<p>As observed in the previous example, the standard deviation of income by area was estimated, also reporting its corresponding 95% confidence interval. The arguments of the <code>survey_var()</code> function are equivalent to those previously used for the estimation of means and totals. If the interest is to estimate the standard deviation of income simultaneously disaggregating by sex and area, the corresponding computational codes are presented in Table <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#tab:tab-sd-ingreso-zona-sexo">3.15</a>.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb18-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb18-2"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb18-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone, Sex) <span class="sc">%&gt;%</span></span>
 <span id="cb18-3"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb18-3" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
@@ -381,7 +374,7 @@ Para estimar la desviación estándar de variables numéricas en encuestas de ho
 <span id="cb18-14"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb18-14" tabindex="-1"></a>    <span class="at">Sd_upp =</span> <span class="fu">sqrt</span>(Var_upp)</span>
 <span id="cb18-15"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb18-15" tabindex="-1"></a>  )</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-sd-ingreso-zona-sexo">Tabla 3.15: </span>Desviación estándar de los ingresos desagregada por zona y sexo</caption>
+<caption><span id="tab:tab-sd-ingreso-zona-sexo">Table 3.15: </span>Standard deviation of income disaggregated by area and sex</caption>
 <colgroup>
 <col width="8%" />
 <col width="11%" />
@@ -454,20 +447,20 @@ Para estimar la desviación estándar de variables numéricas en encuestas de ho
 </tbody>
 </table>
 </div>
-<div id="estimacion-de-percentiles" class="section level3 hasAnchor" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> Estimación de percentiles<a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-percentiles" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Las medidas de posición no central, como los percentiles y la mediana, permiten identificar puntos específicos de la distribución de una variable de interés distintos de su valor promedio. En las encuestas de hogares, este tipo de medidas resulta especialmente útil para caracterizar la distribución de variables económicas y sociales, como el ingreso, el gasto o las horas trabajadas. La mediana, por ejemplo, corresponde al valor que divide a la población en dos partes iguales: el 50% de las observaciones se encuentra por debajo de dicho valor y el otro 50% por encima. A diferencia de la media, la mediana es poco sensible a valores extremos, razón por la cual suele considerarse una medida robusta de tendencia central.</p>
-<p>De manera similar, los percentiles permiten identificar segmentos específicos de la distribución poblacional. Por ejemplo, los percentiles de ingreso pueden utilizarse para identificar a la población perteneciente al 10% superior de la distribución con fines tributarios, o para focalizar subsidios dirigidos a los hogares ubicados en los percentiles más bajos. Según <span class="citation">Loomis et al. (<a href="#ref-loomis2005">2005</a>)</span>, la estimación de cuantiles en encuestas complejas se basa en el uso de estimadores ponderados y en la estimación de la función de distribución acumulada (FDA) de la población. Para una población finita de tamaño <span class="math inline">\(N\)</span>, un estimador de esta distribución está dado por:</p>
-<p><span class="math display">\[
+<div id="estimacion-de-percentiles" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Percentile estimation<a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-percentiles" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Non-central position measures, such as percentiles and medians, allow us to identify specific points in the distribution of a variable of interest other than its average value. In household surveys, this type of measure is especially useful to characterize the distribution of economic and social variables, such as income, expenditure or hours worked. The median, for example, corresponds to the value that divides the population into two equal parts: 50% of the observations are below said value and the other 50% above it. Unlike the mean, the median is not very sensitive to extreme values, which is why it is usually considered a robust measure of central tendency.</p>
+<p>Similarly, percentiles allow you to identify specific segments of the population distribution. For example, income percentiles can be used to identify the population in the top 10% of the distribution for tax purposes, or to target subsidies to households in the lowest percentiles. According to <span class="citation">Loomis et al. (<a href="#ref-loomis2005">2005</a>)</span>, the estimation of quantiles in complex surveys is based on the use of weighted estimators and the estimation of the cumulative distribution function (CDF) of the population. For a finite population of size <span class="math inline">\(N\)</span>, an estimator of this distribution is given by:
+<span class="math display">\[
 \hat{F}\left(x\right) = \frac{\sum_{h} \sum_{i} \sum_{k} w_{hik} \ I\left(y_{k}\leq x\right)}{\sum_{h}\sum_{i}\sum_{k} w_{hik}}
 \]</span></p>
-<p>en donde la función <span class="math inline">\(I\left(y_{k}\leq x\right)\)</span> es una variable indicadora que toma el valor uno si <span class="math inline">\(y_i \leq x\)</span> y cero en otro caso.</p>
-<p>Una vez estimada la FDA utilizando los pesos del diseño muestral, el cuantil <span class="math inline">\(q\)</span>-ésimo de una variable <span class="math inline">\(y\)</span> se define como el menor valor de <span class="math inline">\(y\)</span> para el cual la FDA es mayor o igual que <span class="math inline">\(q\)</span>. En particular, la mediana corresponde al valor para el cual la FDA alcanza o supera 0.5; por tanto, la mediana estimada es el valor donde la FDA estimada es mayor o igual a 0.5. De esta forma, siguiendo las recomendaciones de <span class="citation">Heeringa et al. (<a href="#ref-heeringa2017applied">2017</a>)</span> para la estimación de cuantiles en encuestas complejas, se ordenan las observaciones en orden ascendente (estadísticas de orden) de forma que <span class="math inline">\(y_{(1)} \geq y_{(2)} \geq  \ldots \geq y_{(n)}\)</span> y se identifica el valor de <span class="math inline">\(j\)</span> <span class="math inline">\((j=1,\ldots,n)\)</span> tal que:</p>
-<p><span class="math display">\[
+<p>where the function <span class="math inline">\(I\left(y_{k}\leq x\right)\)</span> is an indicator variable that takes the value one if <span class="math inline">\(y_i \leq x\)</span> and zero otherwise.</p>
+<p>Once the CDF is estimated using the sample design weights, the <span class="math inline">\(q\)</span>-th quantile of a variable <span class="math inline">\(y\)</span> is defined as the smallest value of <span class="math inline">\(y\)</span> for which the CDF is greater than or equal to <span class="math inline">\(q\)</span>. In particular, the median corresponds to the value for which the CDF reaches or exceeds 0.5; therefore, the estimated median is the value where the estimated CDF is greater than or equal to 0.5. In this way, following the recommendations of <span class="citation">Heeringa et al. (<a href="#ref-heeringa2017applied">2017</a>)</span> for estimating quantiles in complex surveys, the observations are ordered in ascending order (order statistics) so that <span class="math inline">\(y_{(1)} \geq y_{(2)} \geq  \ldots \geq y_{(n)}\)</span> and the value of <span class="math inline">\(j\)</span> <span class="math inline">\((j=1,\ldots,n)\)</span> is identified such that:
+<span class="math display">\[
 \hat{F}\left(y_{(j)}\right)\leq q\leq\hat{F}\left(y_{(j+1)}\right)
 \]</span></p>
-<p>Bajo esta condición, el estimador del cuantil <span class="math inline">\(q\)</span>-ésimo se obtiene mediante interpolación lineal, la cual permite obtener estimaciones más estables y precisas de los cuantiles, especialmente cuando la FDA presenta saltos importantes asociados al uso de pesos muestrales. En cuanto a la estimación de la varianza de percentiles y medianas, así como a la construcción de intervalos de confianza, <span class="citation">Kovar et al. (<a href="#ref-kovar1988">1988</a>)</span> realizaron un estudio de simulación en el contexto de diseños complejos y recomiendan el uso de métodos de replicación debido a su buen desempeño para este tipo de parámetros no lineales.</p>
-<p>Tanto los estimadores de cuantiles como los métodos para estimar sus varianzas se encuentran implementados en <code>R</code>. En particular, la función <code>survey_median()</code> permite obtener la mediana junto con su error estándar e intervalo de confianza. A continuación, se presenta la sintaxis para estimar la mediana del gasto de los hogares utilizando la base de datos de ejemplo, cuyos resultados se muestran en la Tabla <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#tab:tab-mediana-gasto">3.16</a>.</p>
+<p>Under this condition, the estimator of the <span class="math inline">\(q\)</span>-th quantile is obtained through linear interpolation, which allows obtaining more stable and precise estimates of the quantiles, especially when the CDF presents important jumps associated with the use of sampling weights. Regarding the estimation of the variance of percentiles and medians, as well as the construction of confidence intervals, <span class="citation">Kovar et al. (<a href="#ref-kovar1988">1988</a>)</span> carried out a simulation study in the context of complex designs and recommend the use of replication methods due to their good performance for this type of non-linear parameters.</p>
+<p>Both the quantile estimators and the methods to estimate their variances are implemented in <code>R</code>. In particular, the <code>survey_median()</code> function allows us to obtain the median along with its standard error and confidence interval. The syntax for estimating median household expenditure using the example database is presented below, the results of which are shown in Table <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#tab:tab-mediana-gasto">3.16</a>.</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb19-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb19-2"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb19-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">median =</span> <span class="fu">survey_median</span>(Expenditure,</span>
 <span id="cb19-3"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb19-3" tabindex="-1"></a>                                    <span class="at">level =</span> <span class="fl">0.95</span>,</span>
@@ -475,7 +468,7 @@ Para estimar la desviación estándar de variables numéricas en encuestas de ho
 <span id="cb19-5"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb19-5" tabindex="-1"></a>                                    )</span>
 <span id="cb19-6"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb19-6" tabindex="-1"></a>            )</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-mediana-gasto">Tabla 3.16: </span>Estimación de la mediana de los gastos de los hogares</caption>
+<caption><span id="tab:tab-mediana-gasto">Table 3.16: </span>Estimation of median household expenditures</caption>
 <thead>
 <tr class="header">
 <th align="left">median</th>
@@ -493,7 +486,7 @@ Para estimar la desviación estándar de variables numéricas en encuestas de ho
 </tr>
 </tbody>
 </table>
-<p>Como puede observarse, los argumentos de la función <code>survey_median()</code> son equivalentes a los utilizados previamente para estimar totales y medias. Al igual que con otros parámetros poblacionales, la mediana también puede estimarse para distintos dominios de estudio, como zona geográfica, sexo o grupos de edad. La Tabla <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#tab:tab-mediana-gasto-zona">3.17</a> muestra los resultados por zona geográfica.</p>
+<p>As can be seen, the arguments of the <code>survey_median()</code> function are equivalent to those previously used to estimate totals and means. As with other population parameters, the median can also be estimated for different study domains, such as geographic area, sex or age groups. Table <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#tab:tab-mediana-gasto-zona">3.17</a> shows the results by geographic area.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb20-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb20-2"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb20-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span></span>
 <span id="cb20-3"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb20-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">median =</span> <span class="fu">survey_median</span>(Expenditure,</span>
@@ -502,7 +495,7 @@ Para estimar la desviación estándar de variables numéricas en encuestas de ho
 <span id="cb20-6"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb20-6" tabindex="-1"></a>                                    )</span>
 <span id="cb20-7"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb20-7" tabindex="-1"></a>            )</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-mediana-gasto-zona">Tabla 3.17: </span>Estimación de la mediana de los gastos desagregada por zona</caption>
+<caption><span id="tab:tab-mediana-gasto-zona">Table 3.17: </span>Estimation of median expenses disaggregated by area</caption>
 <thead>
 <tr class="header">
 <th align="left">Zone</th>
@@ -529,7 +522,7 @@ Para estimar la desviación estándar de variables numéricas en encuestas de ho
 </tr>
 </tbody>
 </table>
-<p>Si el objetivo es estimar un percentil específico diferente de la mediana, por ejemplo el percentil 25 (primer cuartil), puede utilizarse la función <code>survey_quantile()</code> de la siguiente manera. Los resultados correspondientes se presentan en la Tabla <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#tab:tab-cuantil-gasto">3.18</a>.</p>
+<p>If the goal is to estimate a specific percentile other than the median, for example the 25th percentile (first quartile), the <code>survey_quantile()</code> function can be used as follows. The corresponding results are presented in Table <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#tab:tab-cuantil-gasto">3.18</a>.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb21-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb21-2"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb21-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">quantile =</span> <span class="fu">survey_quantile</span>(Expenditure,</span>
 <span id="cb21-3"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb21-3" tabindex="-1"></a>                                <span class="at">quantiles =</span> <span class="fl">0.25</span>,</span>
@@ -539,7 +532,7 @@ Para estimar la desviación estándar de variables numéricas en encuestas de ho
 <span id="cb21-7"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb21-7" tabindex="-1"></a>                                )</span>
 <span id="cb21-8"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb21-8" tabindex="-1"></a>            )</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-cuantil-gasto">Tabla 3.18: </span>Estimación del primer cuartil de los gastos de los hogares</caption>
+<caption><span id="tab:tab-cuantil-gasto">Table 3.18: </span>Estimation of the first quartile of household expenditures</caption>
 <thead>
 <tr class="header">
 <th align="left">quantile_q25</th>
@@ -557,7 +550,7 @@ Para estimar la desviación estándar de variables numéricas en encuestas de ho
 </tr>
 </tbody>
 </table>
-<p>Observe que se incorporó el argumento <code>interval_type = "score"</code>, el cual indica que los intervalos de confianza se construyen mediante el método <em>score</em> basado en la función de influencia del percentil. Este enfoque es recomendado por <span class="citation">Lumley (<a href="#ref-Lumley2010">2010</a>)</span> para el análisis de datos provenientes de diseños muestrales complejos. De manera análoga, la estimación del percentil 25 puede obtenerse para distintos subgrupos de la población, como sexo o zona geográfica, utilizando <code>group_by()</code>, tal como se muestra en la Tabla <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#tab:tab-cuantil-gasto-zona-sexo">3.19</a>.</p>
+<p>Note that the <code>interval_type = "score"</code> argument was added, which indicates that the confidence intervals are constructed using the <em>score</em> method based on the percentile influence function. This approach is recommended by <span class="citation">Lumley (<a href="#ref-Lumley2010">2010</a>)</span> for the analysis of data from complex sampling designs. Similarly, the estimate of the 25th percentile can be obtained for different subgroups of the population, such as gender or geographic area, using <code>group_by()</code>, as shown in Table <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#tab:tab-cuantil-gasto-zona-sexo">3.19</a>.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb22-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb22-2"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb22-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone, Sex) <span class="sc">%&gt;%</span></span>
 <span id="cb22-3"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb22-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">quantile =</span> <span class="fu">survey_quantile</span>(Expenditure,</span>
@@ -568,7 +561,7 @@ Para estimar la desviación estándar de variables numéricas en encuestas de ho
 <span id="cb22-8"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb22-8" tabindex="-1"></a>                                )</span>
 <span id="cb22-9"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb22-9" tabindex="-1"></a>            )</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-cuantil-gasto-zona-sexo">Tabla 3.19: </span>Primer cuartil de los gastos desagregado por zona y sexo</caption>
+<caption><span id="tab:tab-cuantil-gasto-zona-sexo">Table 3.19: </span>First quartile of expenses disaggregated by area and sex</caption>
 <colgroup>
 <col width="7%" />
 <col width="9%" />
@@ -623,17 +616,17 @@ Para estimar la desviación estándar de variables numéricas en encuestas de ho
 </tbody>
 </table>
 </div>
-<div id="estimacion-del-coeficiente-de-gini" class="section level3 hasAnchor" number="3.2.3">
-<h3><span class="header-section-number">3.2.3</span> Estimación del coeficiente de Gini<a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-del-coeficiente-de-gini" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El tema sobre desigualdad económica trasciende el ámbito estrictamente estadístico y constituye uno de los temas centrales del análisis social contemporáneo. Existe un amplio consenso respecto a la importancia de comprender cómo las desigualdades económicas condicionan las oportunidades, el bienestar y la calidad de vida de las personas. En este sentido, la medición rigurosa de la desigualdad representa un insumo fundamental para el diseño, seguimiento y evaluación de políticas públicas orientadas a la equidad social.</p>
-<p>Entre los indicadores más ampliamente utilizados para cuantificar la desigualdad económica se encuentra el coeficiente de Gini (<span class="math inline">\(G\)</span>), el cual mide el grado de concentración del ingreso comparando la distribución observada con una situación hipotética de igualdad perfecta. Este coeficiente toma valores entre 0 y 1, donde <span class="math inline">\(G = 0\)</span> representa igualdad perfecta y <span class="math inline">\(G = 1\)</span> corresponde al máximo nivel de desigualdad posible. Valores más elevados indican una mayor concentración del ingreso en un grupo reducido de la población.</p>
-<p>En el contexto de las encuestas de hogares, la estimación del coeficiente de Gini debe incorporar adecuadamente las características del diseño muestral, incluyendo los factores de expansión, la estratificación y la conglomeración. En muchos casos, los pesos muestrales son previamente normalizados con el fin de simplificar los procedimientos de estimación y facilitar el procesamiento computacional. De acuerdo con <span class="citation">Binder &amp; Kovacevic (<a href="#ref-binder1995">1995</a>)</span>, el estimador del coeficiente de Gini puede expresarse como:</p>
-<p><span class="math display">\[
+<div id="estimacion-del-coeficiente-de-gini" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Estimation of the Gini coefficient<a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-del-coeficiente-de-gini" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The issue of economic inequality transcends the strictly statistical field and constitutes one of the central themes of contemporary social analysis. There is a broad consensus regarding the importance of understanding how economic inequalities condition people’s opportunities, well-being and quality of life. In this sense, the rigorous measurement of inequality represents a fundamental input for the design, monitoring and evaluation of public policies aimed at social equity.</p>
+<p>Among the most widely used indicators to quantify economic inequality is the Gini coefficient (<span class="math inline">\(G\)</span>), which measures the degree of income concentration by comparing the observed distribution with a hypothetical situation of perfect equality. This coefficient takes values between 0 and 1, where <span class="math inline">\(G = 0\)</span> represents perfect equality and <span class="math inline">\(G = 1\)</span> corresponds to the maximum possible level of inequality. Higher values indicate a greater concentration of income in a small group of the population.</p>
+<p>In the context of household surveys, the estimation of the Gini coefficient must adequately incorporate the characteristics of the sample design, including expansion factors, stratification and conglomeration. In many cases, the sample weights are previously normalized in order to simplify the estimation procedures and facilitate computational processing. According to <span class="citation">Binder &amp; Kovacevic (<a href="#ref-binder1995">1995</a>)</span>, the Gini coefficient estimator can be expressed as:
+<span class="math display">\[
 \hat{G} = \frac{2\sum_{h}\sum_{i}\sum_{k}w_{hik}^{*}
 \ \hat{F}_{hik} \ y_{hik}-1}{\hat{\bar{y}}}
 \]</span></p>
-<p>donde <span class="math inline">\(w_{hik}^{*}=\dfrac{w_{hik}}{\sum_{h}\sum_{i}\sum_{k}w_{hik}}\)</span> corresponde al peso muestral normalizado, <span class="math inline">\(\hat{F}_{hik}\)</span> representa la función de distribución acumulada (FDA) estimada para la observación <span class="math inline">\(k\)</span> dentro del conglomerado <span class="math inline">\(i\)</span> del estrato <span class="math inline">\(h\)</span>, y <span class="math inline">\(\hat{\bar{y}}\)</span> denota la media ponderada de la variable de ingreso en la población.</p>
-<p>Autores como <span class="citation">Osier (<a href="#ref-osier2009variance">2009</a>)</span> y <span class="citation">Langel &amp; Tillé (<a href="#ref-langel2013variance">2013</a>)</span> profundizan en aspectos técnicos adicionales, especialmente en lo relacionado con la estimación de la varianza del coeficiente de Gini bajo diseños complejos. El paquete <code>convey</code> <span class="citation">(<a href="#ref-convey2024">Jacob et al., 2024</a>)</span> implementa los procedimientos recomendados para calcular el coeficiente de Gini y su varianza en encuestas de hogares. Primero, se prepara el diseño muestral mediante <code>convey_prep()</code>. Luego, la función <code>svygini()</code> calcula el índice de Gini utilizando la variable de ingreso y el diseño de encuesta complejo especificado. A continuación se muestra la sintaxis para estimarlo en la base de datos de ejemplo, presentada en la Tabla <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#tab:tab-gini">3.20</a>:</p>
+<p>where <span class="math inline">\(w_{hik}^{*}=\dfrac{w_{hik}}{\sum_{h}\sum_{i}\sum_{k}w_{hik}}\)</span> corresponds to the normalized sample weight, <span class="math inline">\(\hat{F}_{hik}\)</span> represents the estimated cumulative distribution function (CDF) for observation <span class="math inline">\(k\)</span> within the cluster <span class="math inline">\(i\)</span> of the <span class="math inline">\(h\)</span> stratum, and <span class="math inline">\(\hat{\bar{y}}\)</span> denotes the weighted average of the income variable in the population.</p>
+<p>Authors such as <span class="citation">Osier (<a href="#ref-osier2009variance">2009</a>)</span> and <span class="citation">Langel &amp; Tillé (<a href="#ref-langel2013variance">2013</a>)</span> delve into additional technical aspects, especially as related to the estimation of the variance of the Gini coefficient under complex designs. The <code>convey</code> <span class="citation">(<a href="#ref-convey2024">Jacob et al., 2024</a>)</span> package implements the recommended procedures for calculating the Gini coefficient and its variance in household surveys. First, the sample design is prepared using <code>convey_prep()</code>. The <code>svygini()</code> function then calculates the Gini index using the input variable and the specified complex survey design. Below is the syntax to estimate it in the example database, presented in Table <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#tab:tab-gini">3.20</a>:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb23-1" tabindex="-1"></a><span class="fu">library</span>(convey)</span>
 <span id="cb23-2"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb23-2" tabindex="-1"></a>gini_design <span class="ot">&lt;-</span> <span class="fu">convey_prep</span>(survey_design)</span>
 <span id="cb23-3"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb23-3" tabindex="-1"></a>gini <span class="ot">&lt;-</span> <span class="fu">svygini</span>(<span class="sc">~</span>Income, <span class="at">design =</span> gini_design)</span>
@@ -643,7 +636,7 @@ Para estimar la desviación estándar de variables numéricas en encuestas de ho
 <span id="cb23-7"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb23-7" tabindex="-1"></a>           <span class="at">ci_lower =</span> <span class="fu">confint</span>(gini)[<span class="dv">1</span>],</span>
 <span id="cb23-8"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb23-8" tabindex="-1"></a>           <span class="at">ci_upper =</span> <span class="fu">confint</span>(gini)[<span class="dv">2</span>])</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-gini">Tabla 3.20: </span>Estimación del coeficiente de Gini para el ingreso de los hogares</caption>
+<caption><span id="tab:tab-gini">Table 3.20: </span>Estimation of the Gini coefficient for household income</caption>
 <thead>
 <tr class="header">
 <th align="left"></th>
@@ -663,9 +656,9 @@ Para estimar la desviación estándar de variables numéricas en encuestas de ho
 </tr>
 </tbody>
 </table>
-<p>Si el interés se centra en la estimación de la curva de Lorenz, es importante recordar que, de acuerdo con <span class="citation">Kovacevic &amp; Binder (<a href="#ref-kovacevic1997">1997</a>)</span>, esta representa la relación entre el porcentaje acumulado de la población (ordenada desde los hogares con menores ingresos hasta aquellos con mayores ingresos) y la proporción acumulada del ingreso total que concentra dicha población. La línea diagonal de 45 grados corresponde a una situación hipotética de igualdad perfecta, en la cual todos los individuos participan proporcionalmente del ingreso total.</p>
-<p>El área comprendida entre la curva de Lorenz y la diagonal de igualdad se conoce como el área de Lorenz, y el coeficiente de Gini puede interpretarse como el doble de esta área relativa. En consecuencia, cuanto más cercana se encuentre la curva de Lorenz a la diagonal, mayor será el nivel de equidad en la distribución del ingreso; por el contrario, curvas más alejadas reflejan mayores niveles de desigualdad económica.</p>
-<p>Para realizar la curva de Lorenz en <code>R</code> se utiliza la función <code>svylorenz()</code>, presentada en la Figura <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#fig:fig-lorenz">3.1</a>:</p>
+<p>If the interest focuses on the estimation of the Lorenz curve, it is important to remember that, according to <span class="citation">Kovacevic &amp; Binder (<a href="#ref-kovacevic1997">1997</a>)</span>, this represents the relationship between the accumulated percentage of the population (ordered from households with the lowest income to those with the highest income) and the accumulated proportion of the total income concentrated in said population. The 45-degree diagonal line corresponds to a hypothetical situation of perfect equality, in which all individuals share proportionally in the total income.</p>
+<p>The area between the Lorenz curve and the diagonal of equality is known as the Lorenz area, and the Gini coefficient can be interpreted as twice this relative area. Consequently, the closer the Lorenz curve is to the diagonal, the greater the level of equity in the distribution of income; On the contrary, further curves reflect higher levels of economic inequality.</p>
+<p>To create the Lorenz curve in <code>R</code>, the function <code>svylorenz()</code> is used, presented in Figure <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#fig:fig-lorenz">3.1</a>:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb24-1" tabindex="-1"></a>clorenz <span class="ot">&lt;-</span> <span class="fu">svylorenz</span>(</span>
 <span id="cb24-2"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb24-2" tabindex="-1"></a>  <span class="at">formula =</span> <span class="sc">~</span>Income,</span>
 <span id="cb24-3"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb24-3" tabindex="-1"></a>  <span class="at">design =</span> gini_design,</span>
@@ -673,25 +666,23 @@ Para estimar la desviación estándar de variables numéricas en encuestas de ho
 <span id="cb24-5"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb24-5" tabindex="-1"></a>  <span class="at">alpha =</span> .<span class="dv">01</span></span>
 <span id="cb24-6"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb24-6" tabindex="-1"></a>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-lorenz"></span>
-<img src="figures/fig-lorenz-1.svg" alt="Curva de Lorenz estimada para el ingreso de los hogares" width="65%" />
+<img src="figures/fig-lorenz-1.svg" alt="Estimated Lorenz curve for household income" width="65%" />
 <p class="caption">
-Figura 3.1: Curva de Lorenz estimada para el ingreso de los hogares
+Figure 3.1: Estimated Lorenz curve for household income
 </p>
 </div>
-<p>El argumento <code>formula = ~Income</code> especifica la variable de ingreso sobre la cual se calculará la distribución acumulada. El argumento <code>design = gini_design</code> indica el objeto de diseño muestral previamente definido, el cual contiene la información relacionada con pesos, estratos y conglomerados de la encuesta. Por su parte, <code>quantiles = seq(0, 1, .05)</code> define los puntos de la distribución en los cuales se evaluará la curva de Lorenz, generando percentiles desde 0 hasta 1 en incrementos de 0.05. Finalmente, el argumento <code>alpha = .01</code> establece un nivel de significación del 1%, lo que equivale a construir intervalos de confianza del 99% para las estimaciones asociadas a la curva.</p>
-</div>
-<div id="estimacion-de-la-correlacion" class="section level3 hasAnchor" number="3.2.4">
-<h3><span class="header-section-number">3.2.4</span> Estimación de la correlación<a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-correlacion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>En el estudio de encuestas de hogares, además de describir variables de forma individual, resulta fundamental analizar cómo se relacionan entre sí. Una de las herramientas más utilizadas para este propósito es el coeficiente de correlación de Pearson, el cual mide la fuerza y la dirección de la relación lineal entre dos variables numéricas. Este coeficiente toma valores entre –1 y 1. Un valor positivo indica que ambas variables tienden a aumentar simultáneamente, mientras que un valor negativo señala que cuando una variable aumenta, la otra tiende a disminuir. Por su parte, valores cercanos a cero sugieren la ausencia de una relación lineal fuerte entre las variables analizadas.</p>
-<p>Por ejemplo, en una encuesta de hogares puede ser de interés estudiar si existe una asociación entre el ingreso de los hogares y su nivel de gasto, así como evaluar la magnitud de dicha relación. Este tipo de análisis permite comprender mejor los patrones económicos y sociales observados en la población.</p>
-<p>En encuestas complejas, es necesario incorporar los pesos muestrales para que la estimación sea representativa de la población. Este ajuste tiene en cuenta la estratificación, la conglomeración y las probabilidades de selección desiguales. El cálculo ponderado implica evaluar la covarianza entre las dos variables y dividirla entre el producto de sus desviaciones estándar ponderadas, eliminando así la influencia de las unidades de medida. Asumiendo que <span class="math inline">\(\hat{\bar{x}}\)</span> es una estimación de la media poblacional de la variabnel <span class="math inline">\(x\)</span>, entonces el coeficiente de correlación de Pearson ajustado por pesos se expresa como:</p>
-<p><span class="math display">\[
+<p>The <code>formula = ~Income</code> argument specifies the income variable on which the cumulative distribution will be calculated. The argument <code>design = gini_design</code> indicates the previously defined sample design object, which contains the information related to weights, strata and clusters of the survey. For its part, <code>quantiles = seq(0, 1,.05)</code> defines the distribution points at which the Lorenz curve will be evaluated, generating percentiles from 0 to 1 in increments of 0.05. Finally, the <code>alpha =.01</code> argument establishes a significance level of 1%, which is equivalent to constructing 99% confidence intervals for the estimates associated with the curve.
+### Correlation estimation {#estimacion-de-la-correlacion}</p>
+<p>In the study of household surveys, in addition to describing variables individually, it is essential to analyze how they relate to each other. One of the most used tools for this purpose is the Pearson correlation coefficient, which measures the strength and direction of the linear relationship between two numerical variables. This coefficient takes values between -1 and 1. A positive value indicates that both variables tend to increase simultaneously, while a negative value indicates that when one variable increases, the other tends to decrease. For their part, values close to zero suggest the absence of a strong linear relationship between the analyzed variables.</p>
+<p>For example, in a household survey it may be of interest to study whether there is an association between household income and their level of expenditure, as well as evaluate the magnitude of said relationship. This type of analysis allows us to better understand the economic and social patterns observed in the population.</p>
+<p>In complex surveys, it is necessary to incorporate sampling weights so that the estimate is representative of the population. This adjustment takes into account stratification, clustering, and unequal selection probabilities. The weighted calculation involves evaluating the covariance between the two variables and dividing it by the product of their weighted standard deviations, thus eliminating the influence of the measurement units. Assuming that <span class="math inline">\(\hat{\bar{x}}\)</span> is an estimate of the population mean of the <span class="math inline">\(x\)</span> variable, then the weight-adjusted Pearson correlation coefficient is expressed as:
+<span class="math display">\[
 \hat{\rho}_{xy} = \frac{\displaystyle \sum_{h} \sum_{i} \sum_{k} w_{hik} (y_{hik} - \hat{\bar{y}})(x_{hik} - \hat{\bar{x}})} {\sqrt{\displaystyle \sum_{h} \sum_{i} \sum_{k} w_{hik} (y_{hik} - \hat{\bar{y}})^2} \sqrt{\displaystyle \sum_{h} \sum_{i} \sum_{k} w_{hik} (x_{hik} - \hat{\bar{x}})^2}}
 \]</span></p>
-<p>El paquete <code>survey</code> cuenta con la función <code>svyvar()</code> que permite obtener matrices de covarianzas ponderadas, a partir de las cuales se puede calcular la correlación. La Tabla <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#tab:tab-covarianza">3.21</a> presenta un ejemplo de estimación para la matriz de varianzas covarianzas entre el ingreso y el gasto de los hogares.</p>
+<p>The <code>survey</code> package has the <code>svyvar()</code> function that allows obtaining weighted covariance matrices, from which the correlation can be calculated. Table <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#tab:tab-covarianza">3.21</a> presents an example of estimation for the variance covariance matrix between household income and expenditure.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb25-1" tabindex="-1"></a>cov_matrix <span class="ot">&lt;-</span> <span class="fu">svyvar</span>(<span class="sc">~</span>Income <span class="sc">+</span> Expenditure, <span class="at">design =</span> survey_design)</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-covarianza">Tabla 3.21: </span>Matriz de varianzas y covarianzas ponderada entre ingreso y gasto</caption>
+<caption><span id="tab:tab-covarianza">Table 3.21: </span>Weighted variance and covariance matrix between income and expenditure</caption>
 <thead>
 <tr class="header">
 <th align="left"></th>
@@ -715,7 +706,7 @@ Figura 3.1: Curva de Lorenz estimada para el ingreso de los hogares
 </tr>
 </tbody>
 </table>
-<p>La función <code>svyvar</code> estima la matriz de varianzas y covarianzas considerando el diseño muestral. A partir de dicha matriz puede obtenerse la correlación aplicando las siguientes instrucciones:</p>
+<p>The <code>svyvar</code> function estimates the variance and covariance matrix considering the sample design. From this matrix the correlation can be obtained by applying the following instructions:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb26-1" tabindex="-1"></a>cov_xy <span class="ot">&lt;-</span> cov_matrix[<span class="dv">1</span>, <span class="dv">2</span>]</span>
 <span id="cb26-2"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb26-2" tabindex="-1"></a>sd_x <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(cov_matrix[<span class="dv">1</span>, <span class="dv">1</span>])</span>
 <span id="cb26-3"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb26-3" tabindex="-1"></a>sd_y <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(cov_matrix[<span class="dv">2</span>, <span class="dv">2</span>])</span>
@@ -723,7 +714,7 @@ Figura 3.1: Curva de Lorenz estimada para el ingreso de los hogares
 <span id="cb26-5"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb26-5" tabindex="-1"></a>weighted_cor <span class="ot">&lt;-</span> cov_xy <span class="sc">/</span> (sd_x <span class="sc">*</span> sd_y)</span>
 <span id="cb26-6"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb26-6" tabindex="-1"></a>weighted_cor</span></code></pre></div>
 <pre><code>## [1] 0.714</code></pre>
-<p>Si además se desea realizar inferencia estadística sobre la correlación, por ejemplo obtener errores estándar o intervalos de confianza, puede utilizarse métodos de replicación (bootstrap/jackknife) compatibles con el paquete survey. Otra opción es utilizar la función <code>svycor</code> del paquete <code>jtools</code> para estimar directamente la correlación:</p>
+<p>If you also want to perform statistical inference on the correlation, for example obtaining standard errors or confidence intervals, you can use replication methods (bootstrap/jackknife) compatible with the survey package. Another option is to use the <code>svycor</code> function from the <code>jtools</code> package to directly estimate the correlation:</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb28-1" tabindex="-1"></a><span class="fu">library</span>(jtools)</span>
 <span id="cb28-2"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb28-2" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#cb28-3" tabindex="-1"></a><span class="fu">svycor</span>(<span class="sc">~</span>Income <span class="sc">+</span> Expenditure, <span class="at">design =</span> survey_design)</span></code></pre></div>
@@ -732,34 +723,34 @@ Figura 3.1: Curva de Lorenz estimada para el ingreso de los hogares
 ## Expenditure   0.71        1.00</code></pre>
 </div>
 </div>
-<h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3>References<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-binder1995" class="csl-entry">
-Binder, D. A., &amp; Kovacevic, M. S. (1995). Estimating some measures of income inequality from survey data: an application of the estimating equations approach. <em>Survey Methodology</em>, <em>21</em>, 137-146.
+Binder, D. A., &amp; Kovacevic, M. S. (1995). Estimating some measures of income inequality from survey data: An application of the estimating equations approach. <em>Survey Methodology</em>, <em>21</em>, 137–146.
 </div>
 <div id="ref-heeringa2017applied" class="csl-entry">
 Heeringa, S. G., West, B. T., Heeringa, S. G., &amp; Berglund, P. A. (2017). <em>Applied survey data analysis</em>. chapman; hall/CRC.
 </div>
 <div id="ref-convey2024" class="csl-entry">
-Jacob, G., Pessoa, D., &amp; Damico, A. (2024). <em>convey: Income Concentration Analysis with Complex Survey Samples</em>. <a href="https://doi.org/10.32614/CRAN.package.convey">https://doi.org/10.32614/CRAN.package.convey</a>
+Jacob, G., Pessoa, D., &amp; Damico, A. (2024). <em>Convey: Income concentration analysis with complex survey samples</em>. <a href="https://doi.org/10.32614/CRAN.package.convey">https://doi.org/10.32614/CRAN.package.convey</a>
 </div>
 <div id="ref-kovacevic1997" class="csl-entry">
 Kovacevic, M. S., &amp; Binder, D. A. (1997). Variance estimation for measures of income inequality and polarization-the estimating equations approach. <em>Journal of Official Statistics</em>, <em>13</em>(1), 41.
 </div>
 <div id="ref-kovar1988" class="csl-entry">
-Kovar, J., Rao, J., &amp; Wu, C. (1988). Bootstrap and other methods to measure errors in survey estimates. <em>Canadian Journal of Statistics</em>, <em>16</em>(S1), 25-45.
+Kovar, J., Rao, J., &amp; Wu, C. (1988). Bootstrap and other methods to measure errors in survey estimates. <em>Canadian Journal of Statistics</em>, <em>16</em>(S1), 25–45.
 </div>
 <div id="ref-langel2013variance" class="csl-entry">
-Langel, M., &amp; Tillé, Y. (2013). Variance estimation of the Gini index: revisiting a result several times published. <em>Journal of the Royal Statistical Society Series A: Statistics in Society</em>, <em>176</em>(2), 521-540.
+Langel, M., &amp; Tillé, Y. (2013). Variance estimation of the gini index: Revisiting a result several times published. <em>Journal of the Royal Statistical Society Series A: Statistics in Society</em>, <em>176</em>(2), 521–540.
 </div>
 <div id="ref-loomis2005" class="csl-entry">
-Loomis, D., Richardson, D. B., &amp; Elliott, L. (2005). Poisson regression analysis of ungrouped data. <em>Occupational and environmental medicine</em>, <em>62</em>(5), 325-329.
+Loomis, D., Richardson, D. B., &amp; Elliott, L. (2005). Poisson regression analysis of ungrouped data. <em>Occupational and Environmental Medicine</em>, <em>62</em>(5), 325–329.
 </div>
 <div id="ref-Lumley2010" class="csl-entry">
-Lumley, T. (2010). <em>Complex Surveys: A Guide to Analysis Using R: A Guide to Analysis Using R</em>. John Wiley; Sons.
+Lumley, T. (2010). <em>Complex surveys: A guide to analysis using r: A guide to analysis using r</em>. John Wiley; Sons.
 </div>
 <div id="ref-osier2009variance" class="csl-entry">
-Osier, G. (2009). Variance estimation for complex indicators of poverty and inequality using linearization techniques. <em>Survey research methods</em>, <em>3</em>, 167-195.
+Osier, G. (2009). Variance estimation for complex indicators of poverty and inequality using linearization techniques. <em>Survey Research Methods</em>, <em>3</em>, 167–195.
 </div>
 </div>
             </section>
@@ -767,7 +758,7 @@ Osier, G. (2009). Variance estimation for complex indicators of poverty and ineq
           </div>
         </div>
       </div>
-<a href="estimacion-de-parametros-descriptivos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cap3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="pruebas-de-hipotesis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -799,7 +790,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/psirusteam/LibroEncuestasR/03-Continuas.Rmd",
+    "link": "https://github.com/psirusteam/LibroEncuestasR/03-Continuous-Variables.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -810,7 +801,7 @@ gitbook.start({
     "link": null,
     "text": null
   },
-  "download": ["Libro.pdf", "Libro.epub", "Libro.mobi"],
+  "download": ["Household_Surveys_with_R.pdf", "Household_Surveys_with_R.epub", "Household_Surveys_with_R.mobi"],
   "search": {
     "engine": "fuse",
     "options": null

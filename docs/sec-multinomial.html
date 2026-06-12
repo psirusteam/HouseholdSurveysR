@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="es" xml:lang="es">
+<html lang="en" xml:lang="en">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6.2 Modelo de regresión multinomial | Análisis de encuestas de hogares con R</title>
-  <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <title>6.2 Multinomial regression model | Household Surveys Analysis with R</title>
+  <meta name="description" content="This is the repository for the book Household Survey Analysis with R." />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6.2 Modelo de regresión multinomial | Análisis de encuestas de hogares con R" />
+  <meta property="og:title" content="6.2 Multinomial regression model | Household Surveys Analysis with R" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta property="og:description" content="This is the repository for the book Household Survey Analysis with R." />
   <meta name="github-repo" content="psirusteam/LibroEncuestasR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6.2 Modelo de regresión multinomial | Análisis de encuestas de hogares con R" />
+  <meta name="twitter:title" content="6.2 Multinomial regression model | Household Surveys Analysis with R" />
   
-  <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="twitter:description" content="This is the repository for the book Household Survey Analysis with R." />
   
 
 <meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
@@ -161,130 +161,123 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Análisis de encuestas de hogares con R</a></li>
+<li><a href="./">Household Surveys Analysis with R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
-<li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
-<li class="chapter" data-level="1" data-path="cap1.html"><a href="cap1.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i>Summary</a></li>
+<li class="chapter" data-level="1" data-path="cap1.html"><a href="cap1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="justificacion.html"><a href="justificacion.html"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
-<li class="chapter" data-level="1.2" data-path="uso-del-software-r-para-el-analisis-de-encuestas.html"><a href="uso-del-software-r-para-el-analisis-de-encuestas.html"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
-<li class="chapter" data-level="1.3" data-path="estructura-del-documento.html"><a href="estructura-del-documento.html"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+<li class="chapter" data-level="1.1" data-path="rationale.html"><a href="rationale.html"><i class="fa fa-check"></i><b>1.1</b> Rationale</a></li>
+<li class="chapter" data-level="1.2" data-path="use-of-r-software-for-survey-analysis.html"><a href="use-of-r-software-for-survey-analysis.html"><i class="fa fa-check"></i><b>1.2</b> Use of R Software for Survey Analysis</a></li>
+<li class="chapter" data-level="1.3" data-path="structure-of-the-document.html"><a href="structure-of-the-document.html"><i class="fa fa-check"></i><b>1.3</b> Structure of the Document</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="cap2.html"><a href="cap2.html"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
+<li class="chapter" data-level="2" data-path="cap2.html"><a href="cap2.html"><i class="fa fa-check"></i><b>2</b> Basic concepts in household surveys</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="poblacion-objetivo-y-unidades-de-muestreo.html"><a href="poblacion-objetivo-y-unidades-de-muestreo.html"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
-<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
-<li class="chapter" data-level="2.3" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<li class="chapter" data-level="2.1" data-path="poblacion-objetivo-y-unidades-de-muestreo.html"><a href="poblacion-objetivo-y-unidades-de-muestreo.html"><i class="fa fa-check"></i><b>2.1</b> Target population and sampling units</a></li>
+<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Sampling estimators</a></li>
+<li class="chapter" data-level="2.3" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html"><i class="fa fa-check"></i><b>2.3</b> Theoretical foundations</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
-<li class="chapter" data-level="2.3.2" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+<li class="chapter" data-level="2.3.1" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Point estimation</a></li>
+<li class="chapter" data-level="2.3.2" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Variance estimation</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Confidence intervals</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="cap3.html"><a href="cap3.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
+<li class="chapter" data-level="3" data-path="cap3.html"><a href="cap3.html"><i class="fa fa-check"></i><b>3</b> Analysis of continuous variables</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<li class="chapter" data-level="3.0.1" data-path="cap3.html"><a href="cap3.html#estimacion-de-razones"><i class="fa fa-check"></i><b>3.0.1</b> Ratio estimation</a></li>
+<li class="chapter" data-level="3.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><i class="fa fa-check"></i><b>3.1</b> Estimation of distribution and inequality parameters</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
-<li class="chapter" data-level="3.1.2" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
-<li class="chapter" data-level="3.1.3" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+<li class="chapter" data-level="3.1.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-dispersion"><i class="fa fa-check"></i><b>3.1.1</b> Dispersion estimation</a></li>
+<li class="chapter" data-level="3.1.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-percentiles"><i class="fa fa-check"></i><b>3.1.2</b> Percentile estimation</a></li>
+<li class="chapter" data-level="3.1.3" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.1.3</b> Estimation of the Gini coefficient</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<li class="chapter" data-level="3.2" data-path="pruebas-de-hipotesis.html"><a href="pruebas-de-hipotesis.html"><i class="fa fa-check"></i><b>3.2</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="3.3" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.3</b> Visualization of continuous variables</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-dispersion"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
-<li class="chapter" data-level="3.2.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
-<li class="chapter" data-level="3.2.3" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
-<li class="chapter" data-level="3.2.4" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-correlacion"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="pruebas-de-hipotesis.html"><a href="pruebas-de-hipotesis.html"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
-<li class="chapter" data-level="3.4" data-path="estimacion-de-contrastes.html"><a href="estimacion-de-contrastes.html"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
-<li class="chapter" data-level="3.5" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
-<li class="chapter" data-level="3.5.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
-<li class="chapter" data-level="3.5.3" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-dispersion"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+<li class="chapter" data-level="3.3.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.3.1</b> Histograms</a></li>
+<li class="chapter" data-level="3.3.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.3.2</b> Box plots (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.3.3" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-dispersion"><i class="fa fa-check"></i><b>3.3.3</b> Scatter plots</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
+<li class="chapter" data-level="4" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>4</b> Analysis of categorical variables</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="estimacion-del-tamano-poblacional.html"><a href="estimacion-del-tamano-poblacional.html"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
-<li class="chapter" data-level="4.2" data-path="estimacion-de-proporciones.html"><a href="estimacion-de-proporciones.html"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
-<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
-<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
-<li class="chapter" data-level="4.5" data-path="la-razon-de-odds.html"><a href="la-razon-de-odds.html"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
-<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi.html"><a href="prueba-de-independencia-chi.html"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
-<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<li class="chapter" data-level="4.1" data-path="estimacion-del-tamano-poblacional.html"><a href="estimacion-del-tamano-poblacional.html"><i class="fa fa-check"></i><b>4.1</b> Estimation of population size</a></li>
+<li class="chapter" data-level="4.2" data-path="estimacion-de-proporciones.html"><a href="estimacion-de-proporciones.html"><i class="fa fa-check"></i><b>4.2</b> Estimation of proportions</a></li>
+<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrasts and differences in proportions</a></li>
+<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Cross-tabulations</a></li>
+<li class="chapter" data-level="4.5" data-path="la-razon-de-odds.html"><a href="la-razon-de-odds.html"><i class="fa fa-check"></i><b>4.5</b> The <em>odds</em> ratio</a></li>
+<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi.html"><a href="prueba-de-independencia-chi.html"><i class="fa fa-check"></i><b>4.6</b> <span class="math inline">\(\chi^{2}\)</span> test of independence</a></li>
+<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualization of categorical variables</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="viz-categoricas.html"><a href="viz-categoricas.html#graficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
-<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+<li class="chapter" data-level="4.7.1" data-path="viz-categoricas.html"><a href="viz-categoricas.html#graficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Bar charts</a></li>
+<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Maps</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="cap5.html"><a href="cap5.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
+<li class="chapter" data-level="5" data-path="cap5.html"><a href="cap5.html"><i class="fa fa-check"></i><b>5</b> Regression models</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="formulacion-del-modelo.html"><a href="formulacion-del-modelo.html"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
-<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
-<li class="chapter" data-level="5.3" data-path="estimacion-de-los-parametros-del-modelo.html"><a href="estimacion-de-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
-<li class="chapter" data-level="5.4" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<li class="chapter" data-level="5.1" data-path="formulacion-del-modelo.html"><a href="formulacion-del-modelo.html"><i class="fa fa-check"></i><b>5.1</b> Model formulation</a></li>
+<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Use of sampling weights</a></li>
+<li class="chapter" data-level="5.3" data-path="estimacion-de-los-parametros-del-modelo.html"><a href="estimacion-de-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.3</b> Estimation of model parameters</a></li>
+<li class="chapter" data-level="5.4" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html"><i class="fa fa-check"></i><b>5.4</b> Model diagnostics</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#coeficiente-de-determinacion"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
-<li class="chapter" data-level="5.4.2" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#residuales"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
-<li class="chapter" data-level="5.4.3" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+<li class="chapter" data-level="5.4.1" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#coeficiente-de-determinacion"><i class="fa fa-check"></i><b>5.4.1</b> Coefficient of determination</a></li>
+<li class="chapter" data-level="5.4.2" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#residuales"><i class="fa fa-check"></i><b>5.4.2</b> Residuals</a></li>
+<li class="chapter" data-level="5.4.3" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Influential observations</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="inferencia-sobre-los-parametros-del-modelo.html"><a href="inferencia-sobre-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
-<li class="chapter" data-level="5.6" data-path="estimacion-y-prediccion.html"><a href="estimacion-y-prediccion.html"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+<li class="chapter" data-level="5.5" data-path="inferencia-sobre-los-parametros-del-modelo.html"><a href="inferencia-sobre-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.5</b> Inference about model parameters</a></li>
+<li class="chapter" data-level="5.6" data-path="estimacion-y-prediccion.html"><a href="estimacion-y-prediccion.html"><i class="fa fa-check"></i><b>5.6</b> Estimation and prediction</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
+<li class="chapter" data-level="6" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>6</b> Generalized linear models</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
-<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
-<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Logistic regression model</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Multinomial regression model</a></li>
+<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Gamma regression model</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="cap7.html"><a href="cap7.html"><i class="fa fa-check"></i><b>7</b> Modelos multinivel</a>
+<li class="chapter" data-level="7" data-path="cap7.html"><a href="cap7.html"><i class="fa fa-check"></i><b>7</b> Multilevel Models</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="sec-motivacionMult.html"><a href="sec-motivacionMult.html"><i class="fa fa-check"></i><b>7.1</b> Motivación</a></li>
-<li class="chapter" data-level="7.2" data-path="pesos-q-weighted.html"><a href="pesos-q-weighted.html"><i class="fa fa-check"></i><b>7.2</b> Pesos <em>q-weighted</em></a></li>
-<li class="chapter" data-level="7.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html"><i class="fa fa-check"></i><b>7.3</b> Modelo lineal multinivel</a>
+<li class="chapter" data-level="7.1" data-path="sec-motivacionMult.html"><a href="sec-motivacionMult.html"><i class="fa fa-check"></i><b>7.1</b> Motivation</a></li>
+<li class="chapter" data-level="7.2" data-path="pesos-q-weighted.html"><a href="pesos-q-weighted.html"><i class="fa fa-check"></i><b>7.2</b> <em>q-weighted</em> Weights</a></li>
+<li class="chapter" data-level="7.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html"><i class="fa fa-check"></i><b>7.3</b> Linear Multilevel Model</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Modelo nulo</a></li>
-<li class="chapter" data-level="7.3.2" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Modelo con intercepto aleatorio</a></li>
-<li class="chapter" data-level="7.3.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Modelo con intercepto y pendiente aleatoria</a></li>
+<li class="chapter" data-level="7.3.1" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Null Model</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Random Intercept Model</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Random Intercept and Slope Model</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html"><i class="fa fa-check"></i><b>7.4</b> Modelo logístico multinivel</a>
+<li class="chapter" data-level="7.4" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html"><i class="fa fa-check"></i><b>7.4</b> Multilevel Logistic Model</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-nulo-logistico"><i class="fa fa-check"></i><b>7.4.1</b> Modelo nulo logístico</a></li>
-<li class="chapter" data-level="7.4.2" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Modelo logístico con intercepto aleatorio</a></li>
-<li class="chapter" data-level="7.4.3" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Modelo logístico con intercepto y pendiente aleatoria</a></li>
-</ul></li>
-</ul></li>
-<li class="appendix"><span><b>Anexos</b></span></li>
-<li class="chapter" data-level="A" data-path="ap1.html"><a href="ap1.html"><i class="fa fa-check"></i><b>A</b> Manejo de bases de datos con <code>R</code></a>
-<ul>
-<li class="chapter" data-level="A.1" data-path="preparacion-del-entorno-de-trabajo.html"><a href="preparacion-del-entorno-de-trabajo.html"><i class="fa fa-check"></i><b>A.1</b> Preparación del entorno de trabajo</a></li>
-<li class="chapter" data-level="A.2" data-path="carga-e-inspeccion-inicial-de-la-base.html"><a href="carga-e-inspeccion-inicial-de-la-base.html"><i class="fa fa-check"></i><b>A.2</b> Carga e inspección inicial de la base</a></li>
-<li class="chapter" data-level="A.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html"><i class="fa fa-check"></i><b>A.3</b> Encadenamiento de operaciones</a>
-<ul>
-<li class="chapter" data-level="A.3.1" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#filter-seleccion-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selección de registros</a></li>
-<li class="chapter" data-level="A.3.2" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: seleccionar variables</a></li>
-<li class="chapter" data-level="A.3.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: ordenamiento de filas</a></li>
-<li class="chapter" data-level="A.3.4" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#mutate-creacion-o-transformacion-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creación o transformación de variables</a></li>
-<li class="chapter" data-level="A.3.5" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#summarise-resumenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: resúmenes descriptivos</a></li>
-<li class="chapter" data-level="A.3.6" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#group-by-agrupacion-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: agrupación de casos</a></li>
+<li class="chapter" data-level="7.4.1" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-nulo-logistico"><i class="fa fa-check"></i><b>7.4.1</b> Logistic Null Model</a></li>
+<li class="chapter" data-level="7.4.2" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Logistic Model with Random Intercept</a></li>
+<li class="chapter" data-level="7.4.3" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Logistic Model with Random Intercept and Slope</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Inferencia en poblaciones finitas</a>
+<li class="appendix"><span><b>Appendices</b></span></li>
+<li class="chapter" data-level="A" data-path="ap1.html"><a href="ap1.html"><i class="fa fa-check"></i><b>A</b> Data Wrangling with <code>R</code></a>
 <ul>
-<li class="chapter" data-level="B.1" data-path="dos-posibles-inferencias.html"><a href="dos-posibles-inferencias.html"><i class="fa fa-check"></i><b>B.1</b> Dos posibles inferencias</a></li>
-<li class="chapter" data-level="B.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html"><i class="fa fa-check"></i><b>B.2</b> La integración de ambas inferencias</a>
+<li class="chapter" data-level="A.1" data-path="preparacion-del-entorno-de-trabajo.html"><a href="preparacion-del-entorno-de-trabajo.html"><i class="fa fa-check"></i><b>A.1</b> Preparing the Working Environment</a></li>
+<li class="chapter" data-level="A.2" data-path="carga-e-inspeccion-inicial-de-la-base.html"><a href="carga-e-inspeccion-inicial-de-la-base.html"><i class="fa fa-check"></i><b>A.2</b> Loading and Initial Inspection of the Database</a></li>
+<li class="chapter" data-level="A.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html"><i class="fa fa-check"></i><b>A.3</b> Chaining Operations</a>
 <ul>
-<li class="chapter" data-level="B.2.1" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mv"><i class="fa fa-check"></i><b>B.2.1</b> Método de la máxima verosimilitud</a></li>
-<li class="chapter" data-level="B.2.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Método de máxima pseudo-verosimilitud</a></li>
+<li class="chapter" data-level="A.3.1" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#filter-seleccion-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selecting records</a></li>
+<li class="chapter" data-level="A.3.2" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: selecting variables</a></li>
+<li class="chapter" data-level="A.3.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: sorting rows</a></li>
+<li class="chapter" data-level="A.3.4" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#mutate-creacion-o-transformacion-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creating or transforming variables</a></li>
+<li class="chapter" data-level="A.3.5" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#summarise-resumenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: descriptive summaries</a></li>
+<li class="chapter" data-level="A.3.6" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#group-by-agrupacion-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: grouping cases</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Finite Population Inference</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="dos-posibles-inferencias.html"><a href="dos-posibles-inferencias.html"><i class="fa fa-check"></i><b>B.1</b> Two Possible Inferences</a></li>
+<li class="chapter" data-level="B.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html"><i class="fa fa-check"></i><b>B.2</b> The Integration of Both Inferences</a>
+<ul>
+<li class="chapter" data-level="B.2.1" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mv"><i class="fa fa-check"></i><b>B.2.1</b> Maximum Likelihood Method</a></li>
+<li class="chapter" data-level="B.2.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Maximum Pseudo-Likelihood Method</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
-<li><a Análisis de encuestas de hogares con R</a></li>
+<li><a href="./">Household Surveys Analysis with R</a></li>
 
 </ul>
 
@@ -295,7 +288,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis de encuestas de hogares con R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Household Surveys Analysis with R</a>
           </h1>
         </div>
 
@@ -304,10 +297,10 @@ div.csl-indent {
 
             <section class="normal" id="section-">
 <div id="sec-multinomial" class="section level2 hasAnchor" number="6.2">
-<h2><span class="header-section-number">6.2</span> Modelo de regresión multinomial<a href="sec-multinomial.html#sec-multinomial" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>En las encuestas de hogares es frecuente encontrar variables de respuesta con más de dos categorías, como la situación laboral, cuyos posibles estados incluyen empleado, desempleado e inactivo. Cuando estas categorías son mutuamente excluyentes y no poseen un orden natural, una herramienta adecuada para modelar su relación con un conjunto de covariables es la regresión logística multinomial, la cual constituye una extensión del modelo de regresión logística binaria.</p>
-<p>Este modelo permite estimar la probabilidad de pertenecer a cada categoría de la variable respuesta en función de variables explicativas de naturaleza continua o categórica. Su aplicación requiere que las categorías de respuesta sean exhaustivas y mutuamente excluyentes y que no exista multicolinealidad severa entre las covariables. Además, para las covariables continuas, se asume una relación lineal entre estas y el logaritmo de las razones de probabilidades (<em>log-odds</em>) de cada categoría respecto a una categoría de referencia.</p>
-<p>El modelo logístico multinomial especifica la probabilidad <span class="math inline">\(\theta_{k(j)}\)</span> de que la unidad <span class="math inline">\(k\)</span> pertenezca a la categoría <span class="math inline">\(j\)</span>, con <span class="math inline">\(j=1,\ldots,J\)</span>, dado el vector de covariables <span class="math inline">\(\mathbf{x}_k\)</span>, mediante la siguiente expresión:</p>
+<h2><span class="header-section-number">6.2</span> Multinomial regression model<a href="sec-multinomial.html#sec-multinomial" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In household surveys, it is common to find response variables with more than two categories, such as employment status, whose possible states include employed, unemployed, and inactive. When these categories are mutually exclusive and do not have a natural order, an appropriate tool for modeling their relationship with a set of covariates is multinomial logistic regression, which is an extension of the binary logistic regression model.</p>
+<p>This model makes it possible to estimate the probability of belonging to each category of the response variable as a function of continuous or categorical explanatory variables. Its application requires the response categories to be exhaustive and mutually exclusive and requires that there be no severe multicollinearity among the covariates. In addition, for continuous covariates, a linear relationship is assumed between them and the logarithm of the odds ratios (<em>log-odds</em>) of each category relative to a reference category.</p>
+<p>The multinomial logistic model specifies the probability <span class="math inline">\(\theta_{k(j)}\)</span> that unit <span class="math inline">\(k\)</span> belongs to category <span class="math inline">\(j\)</span>, with <span class="math inline">\(j=1,\ldots,J\)</span>, given the covariate vector <span class="math inline">\(\mathbf{x}_k\)</span>, through the following expression:</p>
 <p><span class="math display">\[
 Pr(Y_{k} = j \mid \mathbf{x}_{k})
 =
@@ -316,8 +309,8 @@ Pr(Y_{k} = j \mid \mathbf{x}_{k})
 \frac{\exp(\mathbf{x}_{k}\boldsymbol{\beta}_j)}
      {\sum_{l=1}^{J} \exp(\mathbf{x}_{k}\boldsymbol{\beta}_l)}
 \]</span></p>
-<p>En donde <span class="math inline">\(\boldsymbol{\beta}_j\)</span> es el vector de coeficientes de regresión para la <span class="math inline">\(j\)</span>-ésima categoría. Esta formulación expresa directamente las probabilidades de pertenencia a cada categoría, en la práctica resulta más conveniente reescribir el modelo utilizando una categoría de referencia. Hay parametrizaciones alternativas que facilitan la interpretación de los parámetros, ya que cada conjunto de coeficientes describe el efecto de las covariables sobre el logaritmo de las razones de probabilidades (<em>log-odds</em>) de pertenecer a una determinada categoría en comparación con la categoría de referencia.</p>
-<p>La estimación de los parámetros del modelo se realiza mediante el enfoque de pseudo-máxima verosimilitud. Siguiendo a <span class="citation">Heeringa et al. (<a href="#ref-heeringa2017applied">2017</a>)</span>, la función de pseudo-verosimilitud multinomial se define como</p>
+<p>Where <span class="math inline">\(\boldsymbol{\beta}_j\)</span> is the vector of regression coefficients for the <span class="math inline">\(j\)</span>-th category. This formulation directly expresses the probabilities of belonging to each category; in practice, it is more convenient to rewrite the model using a reference category. Alternative parameterizations facilitate the interpretation of the parameters, since each set of coefficients describes the effect of the covariates on the logarithm of the odds ratios (<em>log-odds</em>) of belonging to a given category compared with the reference category.</p>
+<p>The model parameters are estimated using the pseudo-maximum likelihood approach. Following <span class="citation">Heeringa et al. (<a href="#ref-heeringa2017applied">2017</a>)</span>, the multinomial pseudo-likelihood function is defined as</p>
 <p><span class="math display">\[
 PL(\boldsymbol{\beta} \mid \mathbf{X}) =
 \prod_{k}
@@ -326,7 +319,7 @@ PL(\boldsymbol{\beta} \mid \mathbf{X}) =
 \theta_{k(j)}^{y_{k(j)}}
 \right\}^{w_{k}}
 \]</span></p>
-<p>En donde <span class="math inline">\(k\)</span> representa las unidades de observación pertenecientes a la muestra compleja. Asimismo, <span class="math inline">\(y_{k(j)}\)</span> es una variable indicadora que toma el valor de uno cuando dicha unidad pertenece a la categoría <span class="math inline">\(j\)</span> y cero en caso contrario, y <span class="math inline">\(w_{k}\)</span> corresponde al factor de expansión asociado a la unidad observada. Por conveniencia matemática y computacional, la estimación de los parámetros se realiza a partir de la pseudo-logverosimilitud, cuya maximización conduce a los mismos estimadores que la pseudo-verosimilitud original.</p>
+<p>Where <span class="math inline">\(k\)</span> represents the observation units belonging to the complex sample. Likewise, <span class="math inline">\(y_{k(j)}\)</span> is an indicator variable that takes the value one when that unit belongs to category <span class="math inline">\(j\)</span> and zero otherwise, and <span class="math inline">\(w_{k}\)</span> corresponds to the expansion factor associated with the observed unit. For mathematical and computational convenience, the parameters are estimated from the pseudo-log-likelihood, whose maximization leads to the same estimators as the original pseudo-likelihood.</p>
 <p><span class="math display">\[
 \ell(\boldsymbol{\beta})
 =
@@ -335,14 +328,14 @@ PL(\boldsymbol{\beta} \mid \mathbf{X}) =
 y_{k(j)}
 \log(\theta_{k(j)})
 \]</span></p>
-<p>Como se mencionó anteriormente, los estimadores obtenidos mediante este procedimiento son consistentes y asintóticamente normales bajo condiciones regulares <span class="citation">(<a href="#ref-molina1992pseudo">Molina &amp; Skinner, 1992</a>)</span>. La inferencia estadística para los parámetros de interés se basa en estimaciones de varianza obtenidas mediante técnicas de linealización de Taylor que incorporan explícitamente las características del diseño muestral complejo, permitiendo calcular errores estándar, intervalos de confianza y pruebas de hipótesis apropiados para datos de encuestas <span class="citation">(<a href="#ref-binder1983variances">Binder, 1983</a>)</span>.</p>
-<p>Para el ajuste del modelo usando <code>R</code>, como referencia inicial, se estiman las proporciones de personas por estado de empleo, restringiendo las unidades de interés a mayores de 15 años, como se presenta en la Tabla <a href="sec-multinomial.html#tab:tab-prop-empleo-15">6.3</a>.</p>
+<p>As mentioned above, the estimators obtained through this procedure are consistent and asymptotically normal under regular conditions <span class="citation">(<a href="#ref-molina1992pseudo">Molina &amp; Skinner, 1992</a>)</span>. Statistical inference for the parameters of interest is based on variance estimates obtained through Taylor linearization techniques that explicitly incorporate the characteristics of the complex sample design, making it possible to calculate standard errors, confidence intervals, and hypothesis tests appropriate for survey data <span class="citation">(<a href="#ref-binder1983variances">Binder, 1983</a>)</span>.</p>
+<p>For fitting the model using <code>R</code>, as an initial reference, the proportions of persons by employment status are estimated, restricting the units of interest to those older than 15 years, as presented in Table <a href="sec-multinomial.html#tab:tab-prop-empleo-15">6.3</a>.</p>
 <div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="sec-multinomial.html#cb150-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb150-2"><a href="sec-multinomial.html#cb150-2" tabindex="-1"></a>  <span class="fu">filter</span>(Age <span class="sc">&gt;=</span> <span class="dv">15</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb150-3"><a href="sec-multinomial.html#cb150-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Employment) <span class="sc">%&gt;%</span></span>
 <span id="cb150-4"><a href="sec-multinomial.html#cb150-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">proportion =</span> <span class="fu">survey_mean</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
 <table style="width:100%;">
-<caption><span id="tab:tab-prop-empleo-15">Tabla 6.3: </span>Proporción estimada de personas por estado de empleo (mayores de 15 años)</caption>
+<caption><span id="tab:tab-prop-empleo-15">Table 6.3: </span>Estimated proportion of persons by employment status (older than 15 years)</caption>
 <colgroup>
 <col width="15%" />
 <col width="17%" />
@@ -383,7 +376,7 @@ y_{k(j)}
 </tr>
 </tbody>
 </table>
-<p>Para modelar una variable de respuesta multinomial se emplea la función <code>svy_vglm()</code> del paquete <code>svyVGAM</code> <span class="citation">(<a href="#ref-svyVGAM2026">Lumley, 2026</a>)</span>, que permite ajustar modelos de regresión multinomial incorporando explícitamente las características del diseño complejo de la encuesta. En este ejemplo, se especifica un modelo donde la condición de actividad se explica en función de la edad, el sexo y la zona de residencia. A diferencia de los modelos multinomiales convencionales, <code>svy_vglm()</code> calcula las varianzas de los estimadores considerando la complejidad del diseño muestral, incluyendo la estratificación, la conglomeración y los pesos de expansión. De esta forma, tanto las estimaciones puntuales como sus errores estándar e inferencias asociadas son consistentes con el diseño de la encuesta.</p>
+<p>To model a multinomial response variable, the <code>svy_vglm()</code> function from the <code>svyVGAM</code> package <span class="citation">(<a href="#ref-svyVGAM2026">Lumley, 2026</a>)</span> is used; it allows multinomial regression models to be fitted while explicitly incorporating the characteristics of the complex survey design. In this example, a model is specified in which activity status is explained as a function of age, sex, and area of residence. Unlike conventional multinomial models, <code>svy_vglm()</code> calculates the variances of the estimators while accounting for the complexity of the sample design, including stratification, clustering, and expansion weights. In this way, both the point estimates and their standard errors and associated inferences are consistent with the survey design.</p>
 <div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="sec-multinomial.html#cb151-1" tabindex="-1"></a><span class="fu">library</span>(svyVGAM)</span>
 <span id="cb151-2"><a href="sec-multinomial.html#cb151-2" tabindex="-1"></a>survey_design_15 <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb151-3"><a href="sec-multinomial.html#cb151-3" tabindex="-1"></a>  <span class="fu">filter</span>(Age <span class="sc">&gt;=</span> <span class="dv">15</span>)</span>
@@ -393,8 +386,8 @@ y_{k(j)}
 <span id="cb151-7"><a href="sec-multinomial.html#cb151-7" tabindex="-1"></a>  <span class="at">crit =</span> <span class="st">&quot;coef&quot;</span>,</span>
 <span id="cb151-8"><a href="sec-multinomial.html#cb151-8" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">multinomial</span>(<span class="at">refLevel =</span> <span class="st">&quot;Unemployed&quot;</span>)</span>
 <span id="cb151-9"><a href="sec-multinomial.html#cb151-9" tabindex="-1"></a>)</span></code></pre></div>
-<p>El argumento <code>family = multinomial(refLevel = "Unemployed")</code> define un modelo logístico multinomial tomando la categoría <code>Unemployed</code> como referencia. Bajo esta especificación, se estiman de manera simultánea los logaritmos de las razones de probabilidades (<em>log-odds</em>) entre cada una de las categorías de <code>Employment</code> y la categoría de referencia. Los parámetros se obtienen mediante pseudo-máxima verosimilitud, incorporando los factores de expansión de la encuesta en la función objetivo.</p>
-<p>Dado que <code>broom::tidy()</code> no puede aplicarse directamente a objetos de clase <code>svyVGAM</code>, se define la siguiente función auxiliar para estructurar los resultados del modelo en un formato tabular estandarizado<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>:</p>
+<p>The argument <code>family = multinomial(refLevel = "Unemployed")</code> defines a multinomial logistic model using the <code>Unemployed</code> category as the reference. Under this specification, the logarithms of the odds ratios (<em>log-odds</em>) between each of the <code>Employment</code> categories and the reference category are estimated simultaneously. The parameters are obtained through pseudo-maximum likelihood, incorporating the survey expansion factors into the objective function.</p>
+<p>Because <code>broom::tidy()</code> cannot be applied directly to objects of class <code>svyVGAM</code>, the following helper function is defined to structure the model results in a standardized tabular format<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>:</p>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="sec-multinomial.html#cb152-1" tabindex="-1"></a>tidy.svyVGAM <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">conf.int =</span> <span class="cn">FALSE</span>, <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
 <span id="cb152-2"><a href="sec-multinomial.html#cb152-2" tabindex="-1"></a>                          <span class="at">exponentiate =</span> <span class="cn">FALSE</span>, ...) {</span>
 <span id="cb152-3"><a href="sec-multinomial.html#cb152-3" tabindex="-1"></a>  ret <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">summary</span>(x)<span class="sc">$</span>coeftable, <span class="at">rownames =</span> <span class="st">&quot;term&quot;</span>)</span>
@@ -411,10 +404,10 @@ y_{k(j)}
 <span id="cb152-14"><a href="sec-multinomial.html#cb152-14" tabindex="-1"></a>    <span class="fu">arrange</span>(y.level) <span class="sc">%&gt;%</span></span>
 <span id="cb152-15"><a href="sec-multinomial.html#cb152-15" tabindex="-1"></a>    <span class="fu">relocate</span>(y.level, <span class="at">.before =</span> term)</span>
 <span id="cb152-16"><a href="sec-multinomial.html#cb152-16" tabindex="-1"></a>}</span></code></pre></div>
-<p>La Tabla <a href="sec-multinomial.html#tab:tab-multinomial-coef">6.4</a> presenta los coeficientes estimados del modelo logístico multinomial, tomando la categoría <em>Unemployed</em> como referencia. Los resultados muestran que la edad tiene un efecto positivo y estadísticamente significativo sobre las probabilidades relativas de pertenecer a las categorías 1 y 2 frente al desempleo. Asimismo, la variable <code>SexMale</code> presenta coeficientes negativos y significativos, indicando que los hombres tienen menores probabilidades relativas que las mujeres de ubicarse en dichas categorías. Por el contrario, la variable de zona de residencia no muestra efectos estadísticamente significativos al nivel convencional del 5%.</p>
+<p>Table <a href="sec-multinomial.html#tab:tab-multinomial-coef">6.4</a> presents the estimated coefficients of the multinomial logistic model, using the <em>Unemployed</em> category as the reference. The results show that age has a positive and statistically significant effect on the relative probabilities of belonging to categories 1 and 2 compared with unemployment. Likewise, the variable <code>SexMale</code> has negative and significant coefficients, indicating that men have lower relative probabilities than women of being in those categories. By contrast, the area-of-residence variable does not show statistically significant effects at the conventional 5% level.</p>
 <div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="sec-multinomial.html#cb153-1" tabindex="-1"></a><span class="fu">tidy.svyVGAM</span>(multinomial_model, <span class="at">exponentiate =</span> <span class="cn">FALSE</span>, <span class="at">conf.int =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-multinomial-coef">Tabla 6.4: </span>Coeficientes estimados del modelo de regresión multinomial</caption>
+<caption><span id="tab:tab-multinomial-coef">Table 6.4: </span>Estimated coefficients of the multinomial regression model</caption>
 <thead>
 <tr class="header">
 <th align="left">y.level</th>
@@ -492,7 +485,7 @@ y_{k(j)}
 </tr>
 </tbody>
 </table>
-<p>La Figura <a href="sec-multinomial.html#fig:fig-multinomial-ic">6.3</a> muestra los intervalos de confianza de los coeficientes estimados para cada ecuación del modelo multinomial. La visualización se construye con <code>dotwhisker::dwplot()</code> <span class="citation">(<a href="#ref-dotwhisker2025">Solt &amp; Hu, 2025</a>)</span>, que permite comparar coeficientes e intervalos en una escala común, y se usa <code>gtools::stars.pval()</code> <span class="citation">(<a href="#ref-gtools2025">Warnes et al., 2023</a>)</span> para codificar la significancia estadística. Las covariables cuyos intervalos no incluyen el valor cero presentan evidencia de asociación estadística significativa con la variable respuesta, mientras que aquellos cuyos intervalos contienen el cero no muestran efectos significativos al nivel de confianza considerado.</p>
+<p>Figure <a href="sec-multinomial.html#fig:fig-multinomial-ic">6.3</a> shows the confidence intervals of the estimated coefficients for each equation of the multinomial model. The visualization is built with <code>dotwhisker::dwplot()</code> <span class="citation">(<a href="#ref-dotwhisker2025">Solt &amp; Hu, 2025</a>)</span>, which makes it possible to compare coefficients and intervals on a common scale, and <code>gtools::stars.pval()</code> <span class="citation">(<a href="#ref-gtools2025">Warnes et al., 2023</a>)</span> is used to encode statistical significance. Covariates whose intervals do not include the value zero show evidence of a statistically significant association with the response variable, while those whose intervals contain zero do not show significant effects at the confidence level considered.</p>
 <div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="sec-multinomial.html#cb154-1" tabindex="-1"></a>multinomial_results <span class="sc">%&gt;%</span></span>
 <span id="cb154-2"><a href="sec-multinomial.html#cb154-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb154-3"><a href="sec-multinomial.html#cb154-3" tabindex="-1"></a>    <span class="at">model =</span> <span class="fu">if_else</span>(y.level <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;Inactive&quot;</span>, <span class="st">&quot;Employed&quot;</span>),</span>
@@ -506,37 +499,37 @@ y_{k(j)}
 <span id="cb154-11"><a href="sec-multinomial.html#cb154-11" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb154-12"><a href="sec-multinomial.html#cb154-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-multinomial-ic"></span>
-<img src="figures/fig-multinomial-ic-1.svg" alt="Intervalos de confianza para los coeficientes del modelo multinomial" width="75%" />
+<img src="figures/fig-multinomial-ic-1.svg" alt="Confidence intervals for the coefficients of the multinomial model" width="75%" />
 <p class="caption">
-Figura 6.3: Intervalos de confianza para los coeficientes del modelo multinomial
+Figure 6.3: Confidence intervals for the coefficients of the multinomial model
 </p>
 </div>
 </div>
-<h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3>References<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-binder1983variances" class="csl-entry">
-Binder, D. A. (1983). On the variances of asymptotically normal estimators from complex surveys. <em>International Statistical Review/Revue Internationale de Statistique</em>, 279-292.
+Binder, D. A. (1983). On the variances of asymptotically normal estimators from complex surveys. <em>International Statistical Review/Revue Internationale de Statistique</em>, 279–292.
 </div>
 <div id="ref-heeringa2017applied" class="csl-entry">
 Heeringa, S. G., West, B. T., Heeringa, S. G., &amp; Berglund, P. A. (2017). <em>Applied survey data analysis</em>. chapman; hall/CRC.
 </div>
 <div id="ref-svyVGAM2026" class="csl-entry">
-Lumley, T. (2026). <em>svyVGAM: Design-Based Inference in Vector Generalised Linear Models</em>. <a href="https://doi.org/10.32614/CRAN.package.svyVGAM">https://doi.org/10.32614/CRAN.package.svyVGAM</a>
+Lumley, T. (2026). <em>svyVGAM: Design-based inference in vector generalised linear models</em>. <a href="https://doi.org/10.32614/CRAN.package.svyVGAM">https://doi.org/10.32614/CRAN.package.svyVGAM</a>
 </div>
 <div id="ref-molina1992pseudo" class="csl-entry">
-Molina, E. A., &amp; Skinner, C. J. (1992). Pseudo-likelihood and quasi-likelihood estimation for complex sampling schemes. <em>Computational Statistics &amp; Data Analysis</em>, <em>13</em>, 395-405.
+Molina, E. A., &amp; Skinner, C. J. (1992). Pseudo-likelihood and quasi-likelihood estimation for complex sampling schemes. <em>Computational Statistics &amp; Data Analysis</em>, <em>13</em>, 395–405.
 </div>
 <div id="ref-dotwhisker2025" class="csl-entry">
-Solt, F., &amp; Hu, Y. (2025). <em>dotwhisker: Dot-and-Whisker Plots of Regression Results</em>. <a href="https://doi.org/10.32614/CRAN.package.dotwhisker">https://doi.org/10.32614/CRAN.package.dotwhisker</a>
+Solt, F., &amp; Hu, Y. (2025). <em>Dotwhisker: Dot-and-whisker plots of regression results</em>. <a href="https://doi.org/10.32614/CRAN.package.dotwhisker">https://doi.org/10.32614/CRAN.package.dotwhisker</a>
 </div>
 <div id="ref-gtools2025" class="csl-entry">
-Warnes, G. R., Bolker, B., Lumley, T., Magnusson, A., Venables, B., Ryodan, G., &amp; Moeller, S. (2023). <em>gtools: Various R Programming Tools</em>. <a href="https://doi.org/10.32614/CRAN.package.gtools">https://doi.org/10.32614/CRAN.package.gtools</a>
+Warnes, G. R., Bolker, B., Lumley, T., Magnusson, A., Venables, B., Ryodan, G., &amp; Moeller, S. (2023). <em>Gtools: Various r programming tools</em>. <a href="https://doi.org/10.32614/CRAN.package.gtools">https://doi.org/10.32614/CRAN.package.gtools</a>
 </div>
 </div>
 <div class="footnotes">
 <hr />
 <ol start="5">
-<li id="fn5"><p>Adaptada de <a href="https://tech.popdata.org/pma-data-hub/posts/2021-08-15-covid-analysis/" class="uri">https://tech.popdata.org/pma-data-hub/posts/2021-08-15-covid-analysis/</a><a href="sec-multinomial.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>Adapted from <a href="https://tech.popdata.org/pma-data-hub/posts/2021-08-15-covid-analysis/" class="uri">https://tech.popdata.org/pma-data-hub/posts/2021-08-15-covid-analysis/</a><a href="sec-multinomial.html#fnref5" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -587,7 +580,7 @@ gitbook.start({
     "link": null,
     "text": null
   },
-  "download": ["Libro.pdf", "Libro.epub", "Libro.mobi"],
+  "download": ["Household_Surveys_with_R.pdf", "Household_Surveys_with_R.epub", "Household_Surveys_with_R.mobi"],
   "search": {
     "engine": "fuse",
     "options": null

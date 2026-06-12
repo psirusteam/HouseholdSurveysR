@@ -8,9 +8,9 @@ bookdown::gitbook:
     toc:
       collapse: section
       before: |
-        <li><a href="./">Análisis de encuestas de hogares con R</a></li>
+        <li><a href="./">Household Surveys Analysis with R</a></li>
       after: |
-        <li><a Análisis de encuestas de hogares con R</a></li>
+        <li><a href="./">Household Surveys Analysis with R</a></li>
     download: [pdf, epub, mobi]
     edit: https://github.com/psirusteam/LibroEncuestasR/%s
     sharing:

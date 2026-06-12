@@ -1,0 +1,317 @@
+```{r setup-conceptos, include=FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
+  cache = TRUE,
+  fig.align = "center",
+  fig.width = 6,
+  fig.height = 4,
+  out.width = "70%"
+)
+
+if (knitr::is_latex_output()) {
+  knitr::opts_chunk$set(fig.path = "docs/figures/")
+} else {
+  knitr::opts_knit$set(base.dir = "docs")
+  knitr::opts_chunk$set(fig.path = "figures/")
+}
+
+options(scipen = 999, digits = 3)
+source("_tabla_helper.R")
+```
+
+# Basic concepts in household surveys  {#cap2}
+
+Household surveys are one of the main tools for understanding the social and economic reality of a population. They provide essential information on living conditions, employment, education, health, and other aspects that guide public policy formulation and evidence-based decision-making. Rigorous analysis of these surveys is fundamental for studying the social, economic, and demographic reality of a population. However, the validity of the results depends not only on sample size or the quality of data collection, but also on how the survey was designed and how that design is incorporated into the statistical analysis. Ignoring the sample design and applying traditional analysis methods that assume a simple random sample can lead to biased estimates, inferential errors, and incorrect conclusions. For this reason, the analysis of household surveys cannot be separated from their selection design, since that design is the foundation that supports the validity and representativeness of the information produced.
+
+In practice, household surveys often use complex designs that combine stratification with the selection of informants in several stages. These designs seek to optimize resources and improve the precision of estimates, although they may generate unequal inclusion probabilities. Ignoring these characteristics can lead to biased estimates, incorrect standard errors, and erroneous conclusions. As @sarndal2003model and @Gutierrez2016 point out, every survey starts from three fundamental concepts: the target population, the sampling frame, and the selected sample. These elements form the basis of the survey design and are essential for ensuring the validity of inferences and the representativeness of the results.
+
+In this context, a fundamental aspect is the proper consideration of the sample design. To obtain valid conclusions about the population, it is necessary to adopt a design-based inference approach, which recognizes that the sample does not come from just any random selection, but from a carefully defined probability plan. In this scheme, each unit in the population has a known and nonzero probability of being selected, which is the main guarantee that the results can be generalized to the reference population.
+
+Under this approach, it is possible to show that the estimates are unbiased (or approximately unbiased) with respect to the sampling design, without needing to assume specific distributions for the variable of interest. This feature gives design-based inference a robust and widely accepted character in the analysis of household surveys. A central component of this process is the sampling weights, which indicate how many population units are represented by each selected unit. These weights make it possible to adjust estimates to the particular features of the design, ensuring that the results adequately reflect the structure of the population.
+
+As @korn1995analysis show, weighted and unweighted estimates can differ substantially, which demonstrates the importance of using analysis methods that are consistent with the survey design. Consequently, properly accounting for sampling weights, stratification, and selection units is not a secondary technical issue, but an essential requirement for ensuring the credibility of the results.
+
+@UNhandbook mentions the following example. Suppose a country is made up of two regions: Region A, with 100 inhabitants and an average income of \$10,000, and Region B, with 900 inhabitants and an average income of \$2,000. The true average income of the population is:
+
+$$
+\theta = \frac{(100 \times 10.000) + (900 \times 2.000)}{100 + 900} = 2.800
+$$
+
+If 50 people are selected in each region and the sampling design is ignored, assigning the same weight to all observations, the estimated average would be:
+
+$$
+\hat{\theta} = \frac{(50 \times 10.000) + (50 \times 2.000)}{100} = 6.000
+$$
+
+In this case, the estimate considerably overestimates national income, since Region A, which represents only 10\% of the population, ends up having as much influence as Region B, which contains 90\%. By contrast, when weights proportional to population size are applied (1 for Region A and 9 for Region B), the following estimate is obtained:
+
+$$
+\hat{\theta} = \frac{(1 \times 50 \times 10.000) + (9 \times 50 \times 2.000)}{(1 \times 50) + (9 \times 50)} = 2.800
+$$
+
+This result matches the true population value and shows how the proper use of weights corrects the bias introduced by an analysis that ignores the sample design.
+
+
+## Target population and sampling units {#poblacion-objetivo-y-unidades-de-muestreo}
+
+@gambino2009sampling mentions that, since household surveys became widespread in the 1940s, several trends associated with technological advances have emerged both in statistical agencies and in society in general, and these trends accelerated with the introduction of the computer. In this context, sampling arises as a response to the need to obtain precise statistical information about a target population without conducting a complete census. As @Gutierrez2016 notes, sampling consists of conducting partial investigations of a population in order to infer results for the whole.
+
+In recent decades, this methodology has become consolidated in different fields, especially in the government sector, through the production of official statistics that make it possible to monitor public policies and the Sustainable Development Goals. Likewise, the use of sampling has spread to academia, the private sector, and the media, where it is a fundamental tool for generating and analyzing information.
+
+Every survey is associated with a finite population composed of individuals or elements about which information is desired. The set of units for which estimates and results will be produced is called the target population. Surveys also define units of analysis, which correspond to the different levels of disaggregation for which statistics of interest are presented, such as persons, households, or dwellings.
+
+In household surveys in Latin America, it is common to use multistage sampling designs. To do this, different sampling units are selected that ultimately make it possible to reach the households that will be part of the sample. For example, primary sampling units (UPM) may correspond to census sectors built from the most recent population census, while secondary sampling units (USM) may be the dwellings located within those sectors.
+
+To carry out a systematic household selection process, it is essential to have a sampling frame that serves as a link between the sampling units and the households that make up the target population. This frame is the set in which all the elements that make up the study population are identified and from which the sample is selected. In household surveys with complex sample designs, sampling frames are usually based on geographic areas. That is, they are built from spatial structures that link households or persons to delimited areas of the territory. This type of frame facilitates territorial organization into more manageable units and makes it possible to implement multistage selection processes while maintaining the principles of probability sampling.
+
+Another fundamental characteristic of household surveys is clustering. In practice, many surveys first select primary sampling units, such as census sectors or enumeration areas, and then select households within each of them. This type of design reduces operational costs and facilitates fieldwork; however, it also has important implications for the precision of estimates. When households belonging to the same cluster share similar characteristics, the additional information contributed by each new observation within the cluster decreases.
+
+For example, suppose a survey selects 100 clusters and, within each one, 10 households, resulting in a total sample of 1,000 households. If households in the same cluster display very similar behaviors (for example, if all have access to electricity), the effective variability of the sample is considerably reduced. In practical terms, the precision obtained could be equivalent to that of a simple random sample of only 100 households. Analyzing the 1,000 households as if they were completely independent observations, while ignoring the clustering structure, leads to an underestimation of standard errors and, consequently, to artificially narrow confidence intervals and potentially erroneous conclusions about the statistical significance of the results.
+
+##  Sampling estimators {#estimadores-de-muestreo}
+
+When analyzing survey data, it is also essential to define the parameter of interest: a fixed numerical value that describes a characteristic of the whole population, denoted as $U$. The most common parameters include proportions, sizes, totals, means, and ratios, among others. Since, in practice, it is not possible to observe the entire population, sample surveys make it possible to infer these parameters from a sample, denoted as $s$.
+
+In probability sampling, each unit in the population has a known inclusion probability greater than zero of being selected in the sample. These probabilities are the basis for calculating the basic sampling weights, which are then used to estimate population parameters through weighted sums of the data collected in the survey. When the design and selection are implemented correctly, the resulting estimates are unbiased, meaning that on average they coincide with the true population value if the sampling process were repeated under the same conditions.
+
+Nevertheless, basic sampling weights often require additional adjustments in order to improve the precision and robustness of the estimates. One of the most common adjustments is the treatment of nonresponse, through which the weights of the units that did respond are increased so that they also represent selected units that did not participate in the survey, thereby helping to reduce possible biases. Another widely used adjustment is calibration, which consists of modifying the weights to ensure that the weighted sums of certain auxiliary variables, such as age or sex, match known population totals from censuses or demographic projections. In addition to improving the consistency of estimates, calibration is a useful tool for detecting coverage problems or nonresponse patterns.
+
+Weight adjustments, and calibration in particular, play a fundamental role in the analysis of surveys with complex designs. These procedures not only correct imperfections arising from nonresponse or incomplete coverage, but also strengthen the coherence between the sample and the target population, ensuring that inferences are statistically valid and comparable with other official sources [@kalton2003weighting].
+
+Calibration is especially relevant because it makes it possible to compare the survey's initial estimates with external reference values, usually obtained from censuses, administrative records, or demographic projections. This comparison is a powerful tool for detecting inconsistencies in the composition of the sample, identifying potential biases associated with nonresponse, and assessing the quality of fieldwork.
+
+In addition, calibrated weights tend to reduce the variance of estimates, improving their precision without altering known population totals [@sarndal2005nonresponse]. Consequently, calibration not only corrects but also optimizes the use of available information, making it possible to obtain more precise results.
+
+The estimation of totals in surveys is a central step in statistical analysis applied to finite populations. Many indicators of interest for public policy formulation (such as, for example, the number of people living in poverty, the total number of employed persons, or aggregate household expenditure) are derived from a population total. For this reason, understanding how totals are defined and estimated is fundamental for ensuring the quality and relevance of the information produced.
+
+In formal terms, if $y_k$ denotes the value of a variable of interest for unit $k \in U$, the population total is defined as
+
+$$
+t_y = \sum_{U} y_k,
+$$
+
+Letting $N$ be the size of the population, the population mean is defined as $\bar{y} = \frac{t_y}{N}$. Since in practice only a sample $s \subset U$ is observed, it is necessary to use estimators that incorporate the sampling design. For example, the Horvitz-Thompson (HT) estimator is expressed as
+
+$$
+\hat{t}_{y} = \sum_{s} d_k y_k
+$$
+
+where $d_k = 1/\pi_k$ are the basic weights from the sampling design and $\pi_k = \Pr(k \in s)$ are the first-order inclusion probabilities.
+
+In practice, design weights are often modified to reflect additional processes such as nonresponse adjustment or calibration to known population totals, thus obtaining new adjusted weights, denoted as $w_k$ for all $k \in s$. Replacing $d_k$ with $w_k$ makes it possible to improve precision and reduce bias in the estimates, especially when reliable auxiliary information sources are available.
+
+Nevertheless, any estimate from a sample involves uncertainty. Even when the estimator is unbiased, results vary from one sample to another because of the randomness property of the design. This variability is quantified through the variance of the estimator, from which the standard error ($se$) or the coefficient of variation ($cv$) can be calculated. These indicators are indispensable tools for assessing the precision of estimated totals and, therefore, for interpreting statistical information properly. Under the design-based approach, the unbiased variance of the Horvitz-Thompson estimator can be expressed as:
+
+$$
+\widehat{Var}_p(\hat{t}_{y}) = \sum_{k \in s} \sum_{l \in s} \bigl( d_k d_l - d_{kl} \bigr) y_k y_l,
+$$
+
+where $d_{kl} = 1/\pi_{kl}$ and $\pi_{kl} = \Pr(k,l \in s)$ represent the joint inclusion probabilities. This expression requires the sampling design to satisfy $\pi_{kl} > 0$ for every pair of units $k,l \in U$.
+
+To understand more concretely the relevance of considering the sample design when estimating totals and their variances, let us analyze an example from @UNhandbook that shows how the estimation method adjusts to the selection scheme adopted. Suppose there is a finite population of size $N=6$, from which a simple random sample (MAS) without replacement of size $n=3$ is selected. In that sample, the values $(y_1=10, y_2=14, y_3=18)$ are observed. Under this design, the Horvitz-Thompson estimator of the population total is defined as the sum of the observed values divided by their inclusion probabilities, and its estimated variance is obtained from the covariances induced by the selection process. Thus, the estimated variance of the Horvitz-Thompson estimator is calculated as:
+
+$$
+\widehat{Var}_{MAS}(\hat{t}_{y}) = \frac{N^2}{n}\left(1-\frac{n}{N}\right)S_{y_s}^2
+$$
+
+where $S_{y_s}^2$ corresponds to the sample variance of the observed values. Substituting into the expression gives
+
+$$
+\widehat{Var}_p(\hat{t}_{y}) = \frac{36}{3}\left(1-\frac{3}{6}\right)16 = 96
+$$
+
+By contrast, if the sampling design is ignored, an inexperienced analyst might incorrectly calculate the variance using the simplified formula:
+
+$$
+\frac{N^2}{n}S_{y_s}^2 = 192,
+$$
+
+which would lead to an overestimation of the variance because the characteristics of the sample design are not considered. Likewise, the estimate of the population total is $\hat{t}_{y}=84$. The standard error calculated according to the sampling design is
+
+$$
+\sqrt{\widehat{Var}_p(\hat{t}_{y})} = \sqrt{96} \approx 9.80.
+$$
+
+By contrast, if the variance is estimated using a naive method that ignores the sampling design, the confidence interval would be wider and clearly biased, which could lead to erroneous inferences.
+
+Finally, according to @kish1965survey [p. 258], the design effect (DEFF) is defined as the ratio between the variance of an estimator obtained under a complex sampling design and the variance of the same estimator under simple random sampling (MAS) with the same sample size. Its estimate is expressed as:
+
+$$
+\widehat{{DEFF}} = \frac{\widehat{Var}_{p}(\hat{\theta})}{\widehat{Var}_{MAS}(\hat{\theta})}
+$$
+
+Here, $\widehat{Var}_{p}(\hat{\theta})$ corresponds to the estimated variance of $\hat{\theta}$ under the complex design $p(\cdot)$, while $\widehat{Var}_{MAS}(\hat{\theta})$
+represents the estimated variance of the same estimator under a MAS design with the same sample size.
+
+This indicator makes it possible to quantify how much the variance increases due to clustering and other characteristics of complex designs compared with simple sampling. According to @ONUDeff [p. 40], the DEFF can be understood in three ways: as the variance inflation factor relative to MAS, as a measure of the relative loss of precision, or as an indication of the increase in sample size that would be necessary in a complex design to achieve the same variance level as in a MAS. According to @Park2003Design, the design effect of a survey may be due to the following three factors:
+
+* Unequal weighting: the presence of nonuniform sample weights usually increases the variance slightly; therefore, the use of uniform weights is advantageous and explains why self-weighting designs are preferred in household surveys.
+* Stratification: when applied correctly, it can reduce the variance, although in practice its variance-reducing effect is usually moderate.
+* Multistage sampling: this generally increases the variance, since units within the same cluster tend to be more homogeneous among themselves than compared with units in other clusters.
+
+In survey analysis, the design effect (DEFF) is an essential indicator for assessing the precision and efficiency of estimates, as well as for guiding the planning of future studies. A high value shows that the complex design introduces an increase in variance, reducing the precision of the results. By contrast, a value close to one indicates that the design has a minimal effect on the variance. This information allows researchers to identify whether it is necessary to adjust weighting, optimize stratification, or modify the subsampling size to increase efficiency in future survey operations.
+
+The interpretation of a high DEFF should be done with caution, since it does not always imply that the sample design is inadequate. It is essential to consider the survey context: a value greater than three might seem alarming, but it is often due to practical limitations such as budget constraints, logistical difficulties, or the need to guarantee respondent participation. In certain household surveys, it may be essential to select only a fraction of eligible individuals in each household. In addition, coverage problems or nonresponse rates can increase the variability of sampling weights and, consequently, raise DEFF values. @GutierrezBabativa2023 provide a detailed analysis of design effects in household surveys in Latin America using BADEHOG data.
+
+## Theoretical foundations {#fundamentos-teoricos}
+
+As @heeringa2017applied emphasize, the calculation of population totals and means, together with their variances, has been essential for the development of probability sampling theory and the proper interpretation of household survey results. Determining population totals is one of the fundamental pillars of survey analysis. Means, proportions, and ratios are all derived from these totals. A total is defined as the sum of a specific variable (for example, income or expenditure) across the entire population.
+
+With household surveys, the analysis of numerical data frequently involves calculating descriptive statistics such as means, totals, and ratios, since these summarize the main characteristics of the population and serve as a basis for decision-making. These estimates can be calculated for the population as a whole or for specific subgroups, depending on the objectives of the research.
+
+### Point estimation {#estimacion-puntual}
+
+Once the objective of the sample design has been defined, the process of estimating the parameters of interest is carried out. For the purposes of this document, we begin with the estimation of total household income. For the estimation of totals in complex sample designs, strata will be denoted by the letter $h$; primary sampling units, which are contained within strata, by the letter $i$; while observed units (households or persons) will be denoted by the letter $k$. Thus, the estimator of the total can be expressed as:
+
+$$
+\hat{t}_y = \sum_{h} \sum_{i} \sum_{k} w_{hik} \, y_{hik}
+$$
+
+Here, $w_{hik}$ corresponds to the expansion factor of unit $k$, while $y_{hik}$ corresponds to the observation of the variable of interest for that same unit. Calculating the estimate of the total and its associated variance can be complex, so it is necessary to consider different methodological approaches.
+
+In terms of notation, and in order to simplify the writing throughout this document, unless otherwise indicated, $\sum_{h}$ will denote the sum over all strata in the population; $\sum_{i}$ will represent the sum over all primary sampling units selected in the sample within stratum $h$; and $\sum_{k}$ will correspond to the sum over all elements observed in the sample of UPM $i$, belonging to stratum $h$ of the population of interest.
+
+### Variance estimation {#estimacion-de-la-varianza}
+
+When working with household surveys, it is essential not only to obtain point estimates but also to quantify the uncertainty associated with those estimates. Understanding and estimating this uncertainty is an essential part of the analysis of household survey data. By applying appropriate methods, users can assess the precision of their estimates. There are several methods for estimating this precision and, with the support of modern software, these approaches can be implemented efficiently to support rigorous and reliable analyses. The main methods include:
+
+* Estimating equations: provide a flexible framework for estimating totals, means, ratios, and other parameters, as well as their corresponding variances, integrating a unified view of sampling theory [@binder1983variances].
+
+* Taylor linearization: consists of approximating complex nonlinear statistics through linear expressions and then estimating the variance of that approximation.
+
+* Ultimate cluster method: frequently used in surveys based on stratified multistage sampling. It is based on calculating variance from the differences between estimates obtained at the level of the primary sampling units (UPM). This method is often combined with Taylor linearization to estimate the variance of nonlinear statistics, such as means or ratios.
+
+* Bootstrap and other replication methods: are based on repeatedly taking subsamples from the observed data set, calculating estimates for each replicate, and then using the variability among these replicated estimates to infer the variance of the main estimator.
+
+In the context of household surveys, many complex parameters can be formulated as linear combinations of other parameters $f(\theta_1,\ldots,\theta_J)$. Specifically, let:
+
+$$
+f=f(\theta_1,\ldots,\theta_J) = \sum_{j=1}^J a_j \theta_j,
+$$
+
+where the coefficients $a_j$ are known constants and $\theta_j$ represent population parameters. If $\hat\theta_j$ is an estimator of $\theta_j$, then a sample estimator of $f$ is defined as:
+
+$$
+\hat{f} = \sum_{j=1}^J a_j \hat{\theta}_j,
+$$
+
+Thus, its variance can be expressed as:
+
+$$
+Var(\hat{f}) = \sum_{j=1}^J a_j^2 Var(\hat{\theta}_j)
+\;+\;
+2\sum_{j=1}^{J-1}\sum_{k>j}^J
+a_j a_k \, Cov(\hat{\theta}_j,\hat{\theta}_k).
+$$
+
+This result is particularly important because it includes numerous cases of practical interest that will be developed throughout this document.
+
+#### Estimating equations {#ecuaciones-de-estimacion}
+
+Many population parameters can be expressed as solutions to estimating equations involving population totals. Although the technical details can be complex, the fundamental idea is that the same principles used to estimate totals can also be applied to variance estimation. This general framework makes the method simple and flexible, facilitating its implementation in specialized statistical software. A generic population estimating equation can be expressed as follows:
+
+$$
+\sum_{k\in U} z_k(\theta)=0,
+$$
+
+where $z_k(\cdot)$ is an estimating function evaluated for unit $k$ and $\theta$ represents the population parameter of interest. These equations provide a general framework for defining and calculating various population parameters, such as totals, means, and ratios. For example, for the population total, $z_k(\theta)=y_k-\theta/N$ is defined, so that the estimating equation is $\sum_{k\in U}(y_k-\theta/N)=0$. The solution to this equation leads to $\theta=\sum_{k\in U} y_k = Y$, that is, to the population total.
+
+Similarly, for the population mean, $z_k(\theta)=y_k-\theta$ is used, and the equation $\sum_{k\in U}(y_k-\theta)=0$ has as its solution $\theta=\left(\sum_{k\in U} y_k\right)/N = \overline{Y}$, corresponding to the population mean. Likewise, in the case of ratios of totals, $z_k(\theta)=y_k-\theta x_k$ is defined. Thus, the equation $\sum_{k\in U}(y_k-\theta x_k)=0$ leads to the solution $\theta=\dfrac{\sum_{k\in U} y_k}{\sum_{k\in U} x_k} = R$, which corresponds to the population ratio between the totals of variables $y$ and $x$. These formulations show how different parameters of interest can be expressed through estimating equations that share a common structure.
+
+The idea of defining population parameters as solutions to estimating equations at the population level naturally leads to a general method for obtaining sample estimators. In this case, equations of the following form are used:
+
+$$
+\sum_{k\in s} w_k\, z_k(\theta)=0,
+$$
+
+where $w_k$ are the expansion factors and $z_k(\theta)$ is the estimating function evaluated for each unit in the sample. Under probability sampling and assuming complete response, the sample sum $\sum_{k\in s} d_k\, z_k(\theta)$ is unbiased with respect to its population analogue, which ensures that the solutions to these equations are consistent estimators of the population parameters.
+
+#### Taylor linearization {#linealizacion-de-taylor}
+
+This technique makes it possible to approximate the variance of nonlinear estimators. The procedure consists of applying a first-order Taylor expansion around the estimated parameter in order to replace the nonlinear estimator with a linear expression. This facilitates the calculation of variances in situations where exact formulas do not exist or their derivation is too complex. A consistent estimator of the variance, derived through Taylor linearization for solutions to sample estimating equations, can be expressed as:
+
+$$
+\widehat{Var}(\hat{\theta}) \approx [\hat{J}(\hat{\theta})]^{-1} \, \widehat{Var}_p \Bigg[\sum_{k\in s} w_k\, z_k(\hat{\theta})\Bigg] \, [\hat{J}(\hat{\theta})]^{-1}
+$$
+
+where $\hat{J}(\hat{\theta}) = \sum_{k\in s} w_k \left[ \frac{\partial z_k(\theta)}{\partial \theta} \right]_{\theta=\hat{\theta}}$. This result shows how Taylor linearization converts variance estimation for complex parameters into a problem of total estimation, which explains its widespread adoption in specialized software for survey analysis.
+
+
+#### Ultimate cluster {#ultimo-conglomerado}
+
+The ultimate cluster method is a direct and robust approach for estimating the variance of totals in surveys that use stratified multistage cluster sampling designs. Proposed by @hansen1953sample, this method simplifies the complexity of multilevel designs by focusing only on the variation among primary sampling units (UPM). It is assumed that, within each sampling stratum, the UPM were selected independently with replacement (possibly with unequal probabilities), although in practice selection is usually carried out without replacement.
+
+The method is based on the variation among statistics calculated at the UPM level. When applied correctly, it implicitly reflects any subsampling carried out within the UPM, allowing simpler but reliable variance estimates. It is especially useful in complex designs that include stratification and unequal selection probabilities for both UPM and lower-level units (households and individuals). The requirements for applying this method include the availability of unbiased estimates of totals for the variables of interest in each selected UPM. In addition, if the sample is stratified at the first stage, at least two UPM must be available per stratum, since this makes it possible to estimate adequately the variability among clusters within each stratum.
+
+Thus, consider a multistage sampling design where $n_h$ UPM are selected in stratum $h$, ($h=1,\dots,H$). An estimate of the total of the variable of interest in UPM $i$ of stratum $h$ is:
+
+$$
+\hat{t}_{y_i} = \sum_{k\in s_{hi}} w_{hik} \ y_{hik}
+$$
+
+Here, $s_{hi}$ corresponds to the sample of units in UPM $i$ of stratum $h$; therefore, an unbiased estimator of the population total would be expressed as
+
+$$
+\hat{t}_{y}  = \sum_{h}\sum_{i} \hat{t}_{y_i}
+$$
+
+According to the ultimate cluster method, assuming that $\hat{\bar t}_{y_h}=(1/{n_h}) \sum_{i} \hat{t}_{y_i}$ is the sample mean of the estimated UPM totals in stratum $h$, an approximate estimator of the variance of $\hat t_y$ is obtained through the following expression:
+
+$$
+\widehat{Var}(\hat{t}_y) = \sum_{h} \frac{n_h}{n_h-1} \sum_{i} (\hat{t}_{y_i} - \hat{\bar t}_{y_h})^2
+$$
+
+For more details, see Hansen, @hansen1953sample[p. 258] or @wolter2007. Although this method was originally proposed for calculating variances of total estimators, it can be combined with Taylor linearization or estimating equations to derive variances of other population parameters that can be formulated as solutions to estimating equations. This flexibility makes the method applicable to various contexts of household survey analysis.
+
+A fundamental assumption of this technique is that, within each stratum, the UPM are selected independently and with replacement. In practice, most surveys select UPM without replacement, generating more efficient designs. Consequently, the variances calculated under the independence assumption are approximations of the true sampling variances. When the sampling fraction is small (for example, less than $5\%$), these approximations are usually sufficiently precise for use by national statistical offices or other analysts.
+
+This method stands out for its simplicity and robustness, making it very attractive in practice. Although more sophisticated methods that consider all stages of the design may offer slightly more precise variance estimates, their application requires more detailed information and greater computational complexity. By contrast, the ultimate cluster method provides a reliable and efficient approximation, especially useful when estimating totals or means in household surveys. For a detailed analysis of the precision of this approximation and possible alternatives, see @sarndal2003model.
+
+#### Bootstrap {#bootstrap}
+
+In many cases, public survey microdata omit essential design information, such as identifiers for strata or primary sampling units (UPM), to protect respondent confidentiality. This omission limits users' ability to calculate valid variances. In such situations, it is recommended that national statistical offices provide replication weights, which allow analysts to estimate standard errors correctly. Without these data, secondary users cannot reproduce the published standard errors or adequately account for the complex survey design.
+
+Replication methods estimate variance by generating subsets of the original sample, calculating estimates for each one, and using the observed variability among these estimates to approximate the variance of the main estimator. They are particularly useful when information on strata or UPM is not available, a situation in which the ultimate cluster method cannot be applied.
+
+For example, Bootstrap is a robust and versatile replication tool. Originally introduced by @efron1979bootstrap for data that did not come from surveys, its most widely used adaptation for household surveys is the Rao-Wu-Yue Rescaling Bootstrap [@rao1992resampling]. This method fits optimally with stratified and multistage sampling designs and is widely used for variance estimation in complex surveys.
+
+The procedure consists of generating many replicates of the original sample, simulating repeated draws from the population. Each replicate is constructed by creating additional columns of replication weights in the database, following this process:
+
+* For each stratum, UPM are randomly selected with replacement; some may be repeated and others may not appear. Each selected UPM is included with all its observations. If the first-stage sample size in stratum $h$ is greater than two ($n_h > 2$), the number of UPM selected per replicate is $n_h - 1$.
+* This process is repeated many times, usually hundreds, generating a large number of replicates. The number of times that a UPM $i$ from stratum $h$ appears in replicate $r$ is denoted $n_{hi}^{(r)}$, varying between 0 and $n_h - 1$.
+* From each replicate, new bootstrap weights are calculated for all units, reflecting how many times their UPM was selected. The weight of unit $k$ in replicate $r$ is calculated as:
+
+$$
+w_{hik}^{(r)} = w_{hik} \times \frac{n_h}{n_h - 1} \times n_{hi}^{(r)}
+$$
+
+If the original weights include nonresponse or calibration adjustments, these must also be applied to each set of bootstrap weights.
+
+When only Bootstrap replication weights are provided, analysts can estimate standard errors correctly, even without strata or UPM identifiers. For each replicate $r$, the parameter of interest $\hat{\theta}^{(r)}$ is calculated using the bootstrap weights $w_{hik}^{(r)}$. The variance of the original estimator is approximated through the variability among all replicates:
+
+$$
+\widehat{Var}_B(\hat{\theta}) = \frac{1}{R} \sum_{r=1}^{R} \left(\hat{\theta}^{(r)} - \tilde{\theta}\right)^2, \quad
+\tilde{\theta} = \frac{1}{R} \sum_{r=1}^{R} \hat{\theta}^{(r)}
+$$
+
+This approach ensures that the dispersion among replicates faithfully captures the uncertainty of the parameter. Bootstrap offers multiple advantages. Although it requires greater computational processing, it is effective for complex survey designs and makes it possible to estimate parameters that are difficult to calculate with traditional methods, such as medians or other nonlinear statistics. It is especially useful for analysts working with databases that lack strata and UPM identifiers but include replication weights.
+
+The simplicity of the method facilitates its application even without specialized statistical software. However, most modern statistical packages already include procedures for applying Bootstrap and calculating variances, expanding its availability and robustness. Nevertheless, its use is not recommended in repeated surveys with overlapping samples or in situations with large sampling fractions and small sample sizes [@bruch2011variance].
+
+## Confidence intervals {#intervalos-de-confianza}
+
+In addition to producing point estimates, one of the fundamental objectives of a survey is to quantify the uncertainty associated with those estimates. In this context, confidence intervals make it possible to construct a range of plausible values for the population parameter of interest, explicitly incorporating the variability introduced by the sample design. The $(1-\alpha)100\%$ confidence interval for the population total $Y$ is calculated as:
+
+$$
+\hat{\theta} \pm t_{1-\alpha/2, df} \times \sqrt{\widehat{Var}(\hat{\theta})}
+$$
+
+where $\hat{\theta}$ corresponds to the sampling estimator of the population parameter $\theta$; $\widehat{Var}(\hat{\theta})$ represents the variance estimator under the complex survey design; and $t_{1-\alpha/2, df}$ is the quantile of Student's $t$ distribution with $df$ degrees of freedom. In complex surveys, the degrees of freedom are usually related to the number of primary sampling units (UPM) and the strata considered in the design. A common approximation is to calculate them as:
+
+$$
+df = m - H
+$$
+
+where $m$ represents the total number of UPM observed in the sample and $H$ the number of strata. This approximation reflects the effective amount of independent information available to estimate sampling variability. As the degrees of freedom increase, Student's $t$ distribution converges to the standard normal distribution. This property explains why normal approximations are often used to report confidence intervals, especially in large-scale household surveys. However, when the number of clusters is small or there are strata with few UPM, the normal approximation may underestimate uncertainty and produce excessively narrow intervals.
+

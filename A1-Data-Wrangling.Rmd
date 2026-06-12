@@ -1,0 +1,411 @@
+```{r setup-tidyverse, include = FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
+  cache = TRUE,
+  fig.align = "center",
+  fig.width = 6,
+  fig.height = 4,
+  out.width = "70%"
+)
+
+if (knitr::is_latex_output()) {
+  knitr::opts_chunk$set(fig.path = "docs/figures/")
+} else {
+  knitr::opts_knit$set(base.dir = "docs")
+  knitr::opts_chunk$set(fig.path = "figures/")
+}
+
+options(scipen = 999, digits = 3)
+source("_tabla_helper.R")
+```
+
+# (APPENDIX) Appendices {#anexos .unnumbered}
+
+# Data Wrangling with `R`  {#ap1}
+
+`R` is statistical software widely used for data analysis and graph generation, and it provides an integrated environment for statistical analysis, particularly for databases. This means that analysis, programming, visualization, and data management processes can be carried out within the same environment. This appendix uses the `tidyverse` approach, and in particular the `dplyr` package, to organize a logical workflow for working with databases: loading the data, inspecting it, selecting variables, filtering records, sorting rows, creating variables, and producing summaries.
+
+## Preparing the Working Environment {#preparacion-del-entorno-de-trabajo}
+
+`R` is a collaborative programming language, which allows its community of users and developers to contribute continuously by creating specialized functions, packages, and libraries. Thanks to this open ecosystem, it is possible to expand its capabilities for different types of statistical analysis and data processing. The following are among the libraries most commonly used for database analysis:
+
+* The `tidyverse` library [@tidyverse2026] is a set of `R` packages designed to support different stages of data work, from import and transformation to exploration, analysis, and visualization. Its use has become widespread in data science because it offers a consistent and orderly way of working.
+
+* The `dplyr` package [@dplyr2026] provides tools for organizing and transforming rectangular databases. Its usefulness lies in bringing together, in a simple and consistent syntax, the most frequent operations in analytical work with data: selecting variables, filtering records, creating new columns, sorting observations, and summarizing information.
+
+* The `TeachingSampling` package [@GutierrezT2020] provides functions for selecting probability samples and carrying out inference on finite populations under various sampling designs.
+
+Before using the different functions provided by each library, they must first be downloaded from the web. The `install.packages` command performs this task. Note that some libraries may depend on others, so additional dependencies must also be installed in order to use them.
+
+```{r instalar-paquetes-tidyverse, eval = FALSE}
+install.packages("dplyr")
+install.packages("tidyverse")
+install.packages("TeachingSampling")
+```
+
+Once the packages have been installed, they are loaded with `library()`. The first command clears the existing objects in the working session, which helps ensure that the chapter results depend only on the code executed here. Keep in mind that a package can only be loaded if it has previously been installed on the system.
+
+```{r cargar-paquetes-tidyverse, warning = FALSE, echo = TRUE, message = FALSE}
+rm(list = ls())
+
+library(tidyverse)
+library(dplyr)
+library(TeachingSampling)
+```
+
+After the libraries or packages are downloaded and installed in `R`, the recommended next step is to carry out all processing through the creation of projects. An `R` project is defined as a file that contains the source files and content associated with the work being done. In addition, it contains information that allows each `R` file to be compiled, maintains information for integration with source code control systems, and helps organize processing into logical components.
+
+## Loading and Initial Inspection of the Database {#carga-e-inspeccion-inicial-de-la-base}
+
+When working on projects in `R`, it is very common to import databases containing information relevant to a particular study. `R` can import databases in several formats, including `xlsx`, `csv`, `txt`, `STATA`, and others. Once the database has been read in the relevant format, it is advisable to transform it into the native `R` format, that is, `.RDS`. This is a more efficient format specific to `R`.
+
+Once the database has been loaded, `R` functions are used to obtain results from aggregate processing and graphs of interest. To illustrate the use of functions that produce aggregate results, we will use the `BigCity` database from the `TeachingSampling` package. This database contains a set of socioeconomic variables for 150266 people in a particular year.
+
+```{r cargar-bigcity, warning = FALSE, echo = TRUE, message = FALSE, eval = TRUE}
+data(BigCity)
+bigcity_data <- BigCity
+```
+
+The `bigcity_data` object contains a copy of `BigCity`. The `head()` function makes it possible to view the first rows and obtain a quick impression of the database structure.
+
+```{r vista-head-bigcity}
+head(bigcity_data)
+```
+
+Once the database has been loaded into `R`, processing can begin according to the needs of each researcher. In this sense, one of the first checks performed when loading a database is to verify its dimensions; that is, to identify the number of rows and columns it contains. This can be done with the `nrow` function, which identifies the number of records in the database, and with the `ncol` function, which shows the number of variables. The computational code is as follows:
+
+```{r contar-filas-bigcity}
+nrow(bigcity_data)
+```
+
+```{r contar-columnas-bigcity}
+ncol(bigcity_data)
+```
+
+A summarized way to check the number of rows and columns in a database is through the `dim` function, which returns a vector whose first component corresponds to the number of rows and whose second component indicates the number of columns.
+
+```{r dimension-bigcity}
+dim(bigcity_data)
+```
+
+In some cases, databases may be large, either because they contain a considerable number of observed variables or because the number of records is large. For this reason, to view them properly, it may be convenient to open them in a separate window and explore their content in tabular form. This is done using the `View` function, as shown below.
+
+```{r abrir-bigcity, eval = FALSE}
+View(bigcity_data)
+```
+
+Another important check when loading a database into `R` is to identify the variables it contains. For this purpose, the `names` function can be used; it shows the names of the variables included in the database.
+
+```{r nombres-bigcity}
+names(bigcity_data)
+```
+
+The previous output shows the names of the variables contained in the database. In this case, the database has 12 variables. The first variables correspond to identifiers and sampling design elements, such as `HHID`, `PersonID`, `Stratum`, `PSU`, and `Zone`. Then come sociodemographic variables, such as `Sex`, `Age`, and `MaritalST`. Finally, economic variables and variables related to labor or social status are included, such as `Income`, `Expenditure`, `Employment`, and `Poverty`.
+
+To examine in greater detail the type of information stored by each variable, the `str` function can be used. This function compactly displays the structure of an object and its components. For our database, this function would be used as follows:
+
+```{r estructura-bigcity, eval = TRUE}
+str(bigcity_data)
+```
+
+As seen in the previous output, the `str` function makes it possible to identify the class of each variable included in the database. For example, the variable `HHID` is of character type, as is the variable `Sex`, whereas the variables `Income` and `Expenditure` are numeric. The other attributes associated with the variables can also be reviewed directly in the code output. This function is especially useful for obtaining an overview of the content and structure of a database.
+
+## Chaining Operations {#encadenamiento-de-operaciones}
+
+One of the most useful contributions of `R` is the incorporation of pipes (*pipelines*), which make it possible to build queries, transformations, and new objects from a database in a more intuitive, orderly, and easy-to-interpret way. The chaining operator `%>%`, from the `magrittr` package [@pipe] and loaded automatically when using the `tidyverse` library, links several successive operations so that the result obtained in one step becomes the input for the next step. Below is a simple example of its use with the `BigCity` database, in which the total number of elements contained in the database is calculated using the `count` function.
+
+```{r contar-bigcity, eval = TRUE}
+bigcity_data %>%
+  count()
+```
+
+The previous line of code can be interpreted simply: the database is taken as the starting point, and a count of its records is performed on it. In addition to the `count` function, there is a wide variety of functions that can be combined with the `%>%` operator to perform queries, transformations, and summaries on the data. The `dplyr` package takes advantage of this operator, making it possible to organize the most common operations on a rectangular database. The following subsections present some of these operations, following a typical work sequence: reducing observations, keeping variables, sorting the information, creating new columns, and producing aggregate results.
+
+### `filter`: selecting records {#filter-seleccion-de-registros}
+
+`filter()` keeps the rows that meet one or more conditions. In the following example, two subsets of `bigcity_data` are created: one with men and another with women. The result is two new objects. `male_data` contains only records with `Sex == "Male"`, while `female_data` contains records with `Sex == "Female"`.
+
+```{r filtrar-sexo}
+male_data <- bigcity_data %>%
+  filter(Sex == "Male")
+female_data <- bigcity_data %>%
+  filter(Sex == "Female")
+```
+
+It is also possible to filter by poverty status. In this case, only people classified as not poor are kept. The `nonpoor_data` object contains the subset of records whose `Poverty` variable takes the value `"NotPoor"`.
+
+```{r filtrar-no-pobres, eval = TRUE}
+nonpoor_data <- bigcity_data %>%
+  filter(Poverty == "NotPoor")
+```
+
+The `filter()` function also makes it possible to keep records whose values belong to a specific set. In the following examples, records are filtered by particular income values. Note that `%in%` evaluates whether `Income` belongs to the indicated set. Thus, `working_data` keeps incomes equal to 265 or 600, and `income_filter_data` keeps incomes equal to 1000 or 2000.
+
+```{r filtrar-ingresos, eval = TRUE}
+working_data <- bigcity_data %>%
+  filter(Income %in% c(265, 600))
+
+income_filter_data <- bigcity_data %>%
+  filter(Income %in% c(1000, 2000))
+```
+
+
+### `select`: selecting variables {#select-seleccionar-variables}
+
+The `select()` function keeps specific columns. To continue with the examples, variables identifying the person and household are selected, along with others such as zone, sex, age, and income. The result is a database with fewer columns. `Age` is kept because it will later be used to sort records by age.
+
+
+```{r seleccionar-variables}
+working_data <- bigcity_data %>%
+  select(PersonID, HHID, PSU, Zone, Sex, Age, Income)
+```
+
+
+In addition, `select()` also makes it possible to exclude variables. To remove columns, a minus sign (`-`) is placed before the name of each variable. The `compact_data` object keeps the variables from `working_data`, except for `HHID` and `PersonID`. This operation is useful when working with a more compact database.
+
+```{r excluir-identificadores, eval = TRUE}
+compact_data <- working_data %>%
+  select(-HHID, -PersonID)
+```
+
+
+### `arrange`: sorting rows {#arrange-ordenamiento-de-filas}
+
+The `arrange()` function sorts the rows of a database according to one or more variables. In the first example, `working_data` is sorted from lowest to highest income, while `sorted_data` contains the same columns as `working_data`, but its rows are sorted by `Income`. The `head()` function shows the first records after sorting.
+
+
+```{r ordenar-ingreso}
+sorted_data <- working_data %>%
+  arrange(Income)
+
+sorted_data %>%
+  head()
+```
+
+
+Sorting can also be performed by considering more than one variable. In this example, the database is first organized according to the variable `Sex` and then, within each group, according to the variable `Age`. The following output makes it possible to review the first records after applying this sorting criterion.
+
+```{r ordenar-sexo-edad, eval = TRUE}
+working_data %>%
+  arrange(Sex, Age) %>%
+  head()
+```
+
+
+To sort records from highest to lowest, the `desc()` option is used within the `arrange()` function. In the following example, the database is organized so that the oldest people appear in the first records. This type of sorting makes it possible to quickly identify the highest values of a variable within the reduced database.
+
+
+```{r ordenar-edad-desc}
+working_data %>%
+  arrange(desc(Age)) %>%
+  head()
+```
+
+
+### `mutate`: creating or transforming variables {#mutate-creacion-o-transformacion-de-variables}
+
+The `mutate()` function creates new variables or modifies existing variables. Because `BigCity` does not include an explicit geographic region variable, `Region` is constructed from `Stratum`. First, the numeric part of the stratum is extracted with `gsub("\\D", "", Stratum)`, then it is converted to a number with `as.numeric()`, and finally it is divided into five intervals with `cut()`. The result is a new `Region` column in `bigcity_data`, whose categories make it possible to produce regional summaries in the following steps.
+
+```{r crear-region}
+bigcity_data <- bigcity_data %>%
+  mutate(
+    Region = cut(
+      as.numeric(gsub("\\D", "", Stratum)),
+      breaks = 5,
+      labels = c("North", "South", "Center", "West", "East")
+    )
+  )
+```
+
+
+In database analysis, it is also common to recode categorical variables. The following code creates `region_id`, a coded version of `Region` that preserves the order of the regions and assigns two-digit codes. This form of recoding facilitates presentation or linkage with other sources of information.
+
+
+```{r crear-region-id}
+bigcity_data <- bigcity_data %>%
+  mutate(
+    region_id = factor(
+      Region,
+      levels = c("North", "South", "Center", "West", "East"),
+      labels = c("01", "02", "03", "04", "05")
+    )
+  )
+```
+
+
+The following example creates `log_income`, which corresponds to the natural logarithm of income (a transformation of the income scale). This operation is frequently used when a monetary variable has high dispersion. The first rows of the relevant variables are then shown.
+
+```{r crear-log-ingreso, eval = TRUE}
+log_income_data <- working_data %>%
+  mutate(log_income = log(Income))
+
+log_income_data %>%
+  select(PersonID, Income, log_income) %>%
+  head()
+```
+
+
+Note that `mutate()` can create more than one variable in the same step. In addition, variables created at the beginning of `mutate()` can be used in later calculations within the same call. For example, `income_2` doubles the original income and `income_4` doubles `income_2`. The following output shows that `income_4` is equal to four times the initial income.
+
+```{r transformar-ingreso, eval = TRUE}
+income_transform_data <- log_income_data %>%
+  mutate(
+    income_2 = 2 * Income,
+    income_4 = 2 * income_2
+  )
+
+income_transform_data %>%
+  select(PersonID, income_2, income_4) %>%
+  head()
+```
+
+
+A categorical variable can also be created using conditions. In this example, the `case_when()` function classifies age into ranges and then converts the result into an ordered factor. The result is `age_group`, an ordered age-group variable. This transformation facilitates the production of tables by age range.
+
+
+```{r crear-grupos-edad}
+bigcity_data <- bigcity_data %>%
+  mutate(
+    age_group = case_when(
+      Age <= 5 ~ "0-5",
+      Age <= 15 ~ "6-15",
+      Age <= 30 ~ "16-30",
+      Age <= 45 ~ "31-45",
+      Age <= 60 ~ "46-60",
+      TRUE ~ "Over 60"
+    ),
+    age_group = factor(
+      age_group,
+      levels = c(
+        "0-5", "6-15", "16-30",
+        "31-45", "46-60", "Over 60"
+      ),
+      ordered = TRUE
+    )
+  )
+```
+
+
+### `summarise`: descriptive summaries {#summarise-resumenes-descriptivos}
+
+The `summarise()` function makes it possible to build a summary table from one or more variables in the database. In the following example, two descriptive statistics are calculated for the variable `Income`: the total and the mean. As a result, a table with a single row is obtained, containing the sum of observed incomes and the average income of the records included in the database.
+
+```{r resumir-ingreso}
+bigcity_data %>%
+  summarise(
+    total_income = sum(Income),
+    mean_income = mean(Income)
+  )
+```
+
+
+Location measures can also be calculated to describe the position of values within the distribution. In this case, the median, the first decile, the ninth decile, and the difference between the latter two are obtained. The result summarizes different points in the income distribution, while the decile range shows the distance between the bottom 10% and the top 10% of observed incomes.
+
+```{r resumir-percentiles}
+bigcity_data %>%
+  summarise(
+    median_income = median(Income),
+    decile_1 = quantile(Income, 0.1),
+    decile_9 = quantile(Income, 0.9),
+    decile_range = decile_9 - decile_1
+  )
+```
+
+
+With `summarise()`, it is also possible to calculate dispersion measures, such as the variance, standard deviation, minimum value, maximum value, range, and interquartile range. These statistics make it possible to describe the degree of variability in the incomes observed in the sample. In particular, the range is obtained as the difference between the maximum value and the minimum value, while the interquartile range summarizes the dispersion of the central 50% of the distribution.
+
+
+```{r resumir-dispersion}
+bigcity_data %>%
+  summarise(
+    variance_income = var(Income),
+    sd_income = sd(Income),
+    min_income = min(Income),
+    max_income = max(Income),
+    range_income = max_income - min_income,
+    iqr_income = IQR(Income)
+  )
+```
+
+
+### `group_by`: grouping cases {#group-by-agrupacion-de-casos}
+
+The `group_by()` function makes it possible to group the database according to one or more variables. When combined with `summarise()`, statistics are calculated independently within each defined group. In the following example, the number of records by region is counted and the result is then sorted from highest to lowest. The following output makes it possible to identify how many records are associated with each region in the database.
+
+
+```{r contar-region, eval = TRUE}
+bigcity_data %>%
+  group_by(Region) %>%
+  summarise(n = n()) %>%
+  arrange(desc(n))
+```
+
+For simple counts, `count()` provides a shorthand way to write the combination of `group_by()` and `summarise(n = n())`. In practice, both alternatives produce the same result, since they group the database according to a categorical variable and calculate how many records belong to each group. For example, the following code reproduces the same results as the previous code.
+
+
+```{r contar-region-count}
+bigcity_data %>%
+  count(Region) %>%
+  arrange(desc(n))
+```
+
+To obtain the number of completed surveys by sex, the same grouping and counting logic is applied. In this case, the database is grouped according to the variable `Sex`, and then the number of records associated with each of its categories is calculated. The result makes it possible to identify how many observations correspond to each sex within the database.
+
+
+```{r contar-sexo}
+bigcity_data %>%
+  count(Sex) %>%
+  arrange(desc(n))
+```
+
+
+The count can also be performed by geographic zone. In this case, the database is grouped by the variable `Zone`, and the number of records corresponding to each of its categories is calculated. The following output shows how the observations are distributed across the different zones in the database.
+
+
+```{r contar-zona}
+bigcity_data %>%
+  count(Zone) %>%
+  arrange(desc(n))
+```
+
+
+In addition to counts, it is also possible to calculate summary measures by group, such as the mean. In this case, to obtain average income by region together with the total number of records, the database is grouped according to the variable `Region` and then `summarise()` is applied. The result is a regional table that presents, for each region, the total number of observations and the corresponding mean income.
+
+
+```{r promedio-region}
+bigcity_data %>%
+  group_by(Region) %>%
+  summarise(
+    n = n(),
+    mean_income = mean(Income)
+  )
+```
+
+The same procedure can be applied to calculate mean income by sex. In this case, the database is grouped according to the variable `Sex`, and then the average of `Income` is obtained for each category. The resulting table makes it possible to compare the observed mean income across the different groups defined by sex.
+
+
+```{r promedio-sexo}
+bigcity_data %>%
+  group_by(Sex) %>%
+  summarise(
+    n = n(),
+    mean_income = mean(Income)
+  )
+```
+
+
+Finally, the mean, standard deviation, and interquartile range of income are calculated according to employment status. To do this, the database is grouped by the variable `Employment`, and then the descriptive statistics for `Income` are obtained within each group. The following output presents a summary of income behavior for each employment category.
+
+
+```{r resumen-ingreso-empleo}
+bigcity_data %>%
+  group_by(Employment) %>%
+  summarise(
+    n = n(),
+    mean_income = mean(Income),
+    sd_income = sd(Income),
+    iqr_income = IQR(Income)
+  )
+```
+

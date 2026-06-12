@@ -1,40 +1,40 @@
-book_filename: "Libro"
+book_filename: "Household_Surveys_with_R"
 delete_merged_file: true
 output_dir: "docs"
 new_session: yes
 
 rmd_files: [
   "index.Rmd",
-  "01-Introduccion.Rmd",
-  "02-Conceptos.Rmd",
-  "03-Continuas.Rmd",
-  "04-Categoricas.Rmd",
-  "05-Regresión.Rmd",
+  "01-Introduction.Rmd",
+  "02-Survey-Concepts.Rmd",
+  "03-Continuous-Variables.Rmd",
+  "04-Categorical-Variables.Rmd",
+  "05-Regression.Rmd",
   "06-GLM.Rmd",
-  "07-Multinivel.Rmd",
-  "A1-TidyVerse.Rmd",
-  "A2-MPVbinder.Rmd"
+  "07-Multilevel.Rmd",
+  "A1-Data-Wrangling.Rmd",
+  "A2-Finite-Population-Inference.Rmd"
   ]
 
 language:
   label:
-    fig: 'Figura '
-    tab: 'Tabla '
-    eq: 'Ecuación '
-    thm: 'Teorema '
-    lem: 'Lema '
-    cor: 'Corolario '
-    prp: 'Resultado '
-    cnj: 'Conjectura '
-    def: 'Definición '
-    exm: 'Ejemplo '
-    exr: 'Ejercicio '
-    hyp: 'Hipótesis '
-    proof: 'Prueba. '
-    remark: 'Comentario. '
-    solution: 'Solución. '
+    fig: 'Figure '
+    tab: 'Table '
+    eq: 'Equation '
+    thm: 'Theorem '
+    lem: 'Lemma '
+    cor: 'Corollary '
+    prp: 'Result '
+    cnj: 'Conjecture '
+    def: 'Definition '
+    exm: 'Example '
+    exr: 'Exercise '
+    hyp: 'Hypothesis '
+    proof: 'Proof. '
+    remark: 'Remark. '
+    solution: 'Solution. '
   ui:
     edit: Edit
-    chapter_name: 'Capítulo '
-    appendix_name: 'Apéndice '
-    refs_names: 'Referencias '
+    chapter_name: 'Chapter '
+    appendix_name: 'Appendix '
+    refs_names: 'References '

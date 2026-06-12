@@ -1,13 +1,13 @@
 ---
-title: "Análisis de encuestas de hogares con R"
-author: "Andrés Gutiérrez^[Asesor Regional en Estadísticas Sociales - Comisión Económica para América Latina y el Caribe (CEPAL) - andres.gutierrez@cepal.org], Stalyn Guerrero^[Consultor - Comisión Económica para América Latina y el Caribe (CEPAL), guerrerostalyn@gmail.com], Giovany Babativa-Márquez^[Profesor asociado - Departamento de Estadística, Facultad de Ciencias, Universidad Nacional de Colombia, Sede Bogotá - jgbabativam@unal.edu.co], Cristian Téllez^[Consultor - Comisión Económica para América Latina y el Caribe (CEPAL), cftellezp@unal.edu.co]"
+title: "Household Surveys Analysis with R"
+author: "Andrés Gutiérrez^[Regional Adviser on Social Statistics - Economic Commission for Latin America and the Caribbean (ECLAC) - andres.gutierrez@cepal.org], Stalyn Guerrero^[Consultant - Economic Commission for Latin America and the Caribbean (ECLAC), guerrerostalyn@gmail.com], Giovany Babativa-Márquez^[Associate Professor - Department of Statistics, Faculty of Sciences, National University of Colombia, Bogotá Campus - jgbabativam@unal.edu.co], Cristian Téllez^[Consultant - Economic Commission for Latin America and the Caribbean (ECLAC), cftellezp@unal.edu.co]"
 date: "`r Sys.Date()`"
-lang: es
+lang: en
 documentclass: book
 bibliography: book.bib
 csl: apa.csl
 link-citations: yes
-toc-title: Tabla de Contenido
+toc-title: Table of Contents
 colorlinks: yes
 lot: yes
 lof: yes
@@ -18,7 +18,7 @@ header-includes:
   - \usepackage[ruled,vlined,linesnumbered]{algorithm2e}
   - \usepackage{hyperref}
 github-repo: psirusteam/LibroEncuestasR
-description: "Este es el repositorio del libro *Análisis de encuestas de hogares con R*."
+description: "This is the repository for the book *Household Survey Analysis with R*."
 knit: "bookdown::render_book"
 linkcolor: blue
 output:
@@ -30,7 +30,7 @@ output:
   gitbook:
     df_print: kable
     css: "style.css"
-# Compilar así:
+# Compile as follows:
 # bookdown::render_book("index.Rmd", "bookdown::gitbook")
 # bookdown::render_book("index.Rmd", "bookdown::pdf_book")
 # bookdown::render_book("index.Rmd", "bookdown::epub_book")
@@ -38,19 +38,19 @@ output:
 # bookdown::preview_chapter("01.Rmd", "bookdown::word_document2")
 ---
 
-# Prefacio {#prefacio .unnumbered}
+# Preface {#preface .unnumbered}
 
 
-```{r results = 'asis', out.width="100px", fig.cap="Licencia de Creative Commons", echo=FALSE}
+```{r results = 'asis', out.width="100px", fig.cap="Creative Commons license", echo=FALSE}
 # download.file(url = "https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png",
 #           destfile = "Pics/CClicence.png",
 #           mode = 'wb')
 # knitr::include_graphics(path = "Pics/CClicence.png")
 ```
 
-La versión online de este libro está licenciada bajo una [Licencia Internacional de Creative Commons para compartir con atribución no comercial 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+The online version of this book is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
 
-También puede descargar la versión en PDF aquí:
-<a href="Libro.pdf" download><i class="fa fa-file-pdf-o" aria-hidden="true"></i> <i class="fa fa-download" aria-hidden="true"></i> Descargar libro en PDF</a>.
+You can also download the PDF version here:
+<a href="Household_Surveys_with_R.pdf" download><i class="fa fa-file-pdf-o" aria-hidden="true"></i> <i class="fa fa-download" aria-hidden="true"></i> Download the book as PDF</a>.
 
-Este libro es el resultado de un compendio de las experiencias internacionales prácticas adquiridas por los autores en su asesoría a los países de América Latina y el Caribe desde la División de Estadísticas de la CEPAL.
+This book brings together practical international experience acquired by the authors while advising Latin American and Caribbean countries through the Statistics Division of ECLAC.

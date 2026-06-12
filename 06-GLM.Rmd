@@ -20,13 +20,13 @@ options(scipen = 999, digits = 3)
 source("_tabla_helper.R")
 ```
 
-# Modelos lineales generalizados  {#cap6}
+# Generalized linear models  {#cap6}
 
-Cuando la variable de interés no es continua o los supuestos del modelo lineal clásico no se satisfacen, los modelos lineales generalizados constituyen una alternativa adecuada para modelar las relaciones de interés. Este enfoque fue introducido por @nelder1972generalized, quienes demostraron que diversos métodos estadísticos ampliamente utilizados, como la regresión logística, los modelos log-lineales para datos de conteo y ciertos modelos avanzados de regresión para variables continuas, podían integrarse dentro de un mismo marco teórico unificado. Esta formulación permitió extender las herramientas de regresión más allá de los escenarios en los que la variable respuesta sigue una distribución normal.
+When the variable of interest is not continuous or the assumptions of the classical linear model are not satisfied, generalized linear models provide an appropriate alternative for modeling the relationships of interest. This approach was introduced by @nelder1972generalized, who showed that several widely used statistical methods, such as logistic regression, log-linear models for count data, and certain advanced regression models for continuous variables, could be integrated within a single unified theoretical framework. This formulation made it possible to extend regression tools beyond the settings in which the response variable follows a normal distribution.
 
-La necesidad de esta generalización surge porque los modelos lineales clásicos asumen, entre otras cosas, normalidad y homogeneidad de varianza en la variable respuesta, condiciones que rara vez se cumplen cuando se analizan variables categóricas, proporciones o conteos. En este tipo de situaciones, los modelos lineales generalizados ofrecen un marco flexible para modelar adecuadamente la relación entre las variables mediante la selección de una distribución de probabilidad apropiada para la respuesta y una función de enlace que conecte la media de dicha distribución con el predictor lineal.
+The need for this generalization arises because classical linear models assume, among other things, normality and homogeneity of variance in the response variable, conditions that are rarely met when categorical variables, proportions, or counts are analyzed. In these situations, generalized linear models offer a flexible framework for appropriately modeling the relationship between variables by selecting a probability distribution suitable for the response and a link function that connects the mean of that distribution with the linear predictor.
 
-Para ilustrar los modelos presentados en este capítulo se utilizan la base de datos `survey_data` y la población `BigCity`, siguiendo la misma estructura utilizada en capítulos anteriores. Después de cargar `tidyverse` [@tidyverse2026], `survey` [@Lumley2024], `srvyr` [@Freedman2024], `broom` [@broom2026] y `jtools` [@jtools2026], el siguiente bloque de código crea dos nuevas variables categóricas (`poverty` y `unemployment`) a partir de las variables originales `Poverty` y `Employment`, respectivamente.
+To illustrate the models presented in this chapter, the `survey_data` database and the `BigCity` population are used, following the same structure used in previous chapters. After loading `tidyverse` [@tidyverse2026], `survey` [@Lumley2024], `srvyr` [@Freedman2024], `broom` [@broom2026], and `jtools` [@jtools2026], the following code block creates two new categorical variables (`poverty` and `unemployment`) from the original variables `Poverty` and `Employment`, respectively.
 
 ```{r preparar-diseno-glm, echo = TRUE, eval = TRUE}
 options(digits = 4)
@@ -64,11 +64,11 @@ survey_design <- survey_design %>%
 
 
 
-## Modelo de regresión logística {#sec-logistica}
+## Logistic regression model {#sec-logistica}
 
-Cuando la variable de interés es dicotómica, tomando valores de cero o uno, el modelo lineal clásico no resulta adecuado debido a que puede generar predicciones fuera del intervalo $(0,1)$ y porque la varianza de la respuesta depende de su media. Para abordar estas limitaciones, se emplea el modelo de regresión logística, uno de los modelos lineales generalizados más utilizados para analizar variables binarias. En el contexto de encuestas de hogares, la regresión logística puede emplearse para analizar la asociación entre una condición de interés, como la pobreza, y características sociodemográficas de los individuos o los hogares.
+When the variable of interest is dichotomous, taking values of zero or one, the classical linear model is not appropriate because it can generate predictions outside the interval $(0,1)$ and because the variance of the response depends on its mean. To address these limitations, the logistic regression model is used; it is one of the most widely used generalized linear models for analyzing binary variables. In the context of household surveys, logistic regression can be used to analyze the association between a condition of interest, such as poverty, and sociodemographic characteristics of individuals or households.
 
-Considere una variable dicotómica $Y_k \in \{0,1\}$, cuya esperanza es $\theta_k=Pr(Y_k=1)$. El modelo de regresión logística relaciona dicha probabilidad con un conjunto de variables explicativas mediante la función de enlace logit, definida como
+Consider a dichotomous variable $Y_k \in \{0,1\}$, whose expectation is $\theta_k=Pr(Y_k=1)$. The logistic regression model relates this probability to a set of explanatory variables through the logit link function, defined as
 
 $$
 \log\left(\frac{\theta_k}{1-\theta_k}\right)
@@ -77,7 +77,7 @@ $$
 =\mathbf{x}_{k}\boldsymbol{\beta}
 $$
 
-En donde $\boldsymbol{\beta}$ es el vector de coeficientes de regresión asociado a las covariables. Esta transformación logit convierte el intervalo restringido de probabilidades $(0,1)$ en toda la recta real, permitiendo modelar la relación entre la respuesta y las variables auxiliares mediante un predictor lineal. De manera equivalente, la probabilidad de éxito puede expresarse mediante la siguiente relación:
+Where $\boldsymbol{\beta}$ is the vector of regression coefficients associated with the covariates. This logit transformation maps the restricted probability interval $(0,1)$ onto the entire real line, allowing the relationship between the response and the auxiliary variables to be modeled through a linear predictor. Equivalently, the probability of success can be expressed by the following relationship:
 
 $$
 \theta_k
@@ -88,8 +88,8 @@ Pr(Y_k = 1 \mid \mathbf{x}_k)
      {1+\exp(\mathbf{x}_k\boldsymbol{\beta})}
 $$
 
-De manera equivalente, la probabilidad de que la unidad no presente la característica de interés es $Pr(Y_k = 0 \mid \mathbf{x}_k) = 1-\theta_k$. Bajo esta parametrización, cada coeficiente de $\boldsymbol{\beta}$ representa el efecto de una covariable sobre el logaritmo de la razón de probabilidades de que ocurra el evento de interés, manteniendo constantes las demás variables del modelo.
-La estimación de los parámetros puede realizarse mediante el enfoque de pseudo-máxima verosimilitud. Este método incorpora los factores de expansión en la función de verosimilitud convencional con el fin de obtener estimadores consistentes respecto de la población objetivo. Siguiendo a @heeringa2017applied, la función de pseudo-verosimilitud para el modelo logístico se define como
+Equivalently, the probability that the unit does not have the characteristic of interest is $Pr(Y_k = 0 \mid \mathbf{x}_k) = 1-\theta_k$. Under this parameterization, each coefficient in $\boldsymbol{\beta}$ represents the effect of a covariate on the logarithm of the odds that the event of interest occurs, holding the other variables in the model constant.
+The parameters can be estimated using the pseudo-maximum likelihood approach. This method incorporates the expansion factors into the conventional likelihood function in order to obtain estimators that are consistent with respect to the target population. Following @heeringa2017applied, the pseudo-likelihood function for the logistic model is defined as
 
 $$
 PL(\boldsymbol{\beta})
@@ -103,9 +103,9 @@ PL(\boldsymbol{\beta})
 \right]^{w_{k}}
 $$
 
-En donde el subíndice $k$ representa una unidad observada de la muestra. Asimismo, $\theta_{k}$ denota la probabilidad de que la unidad $k$ de la UPM $i$ en el estrato $h$ presente la característica de interés, $y_{k}$ corresponde al valor observado de la variable dicotómica para dicha unidad y $w_{k}$ representa el factor de expansión asociado a la observación.
+Where the subscript $k$ represents an observed unit in the sample. Likewise, $\theta_{k}$ denotes the probability that unit $k$ in PSU $i$ in stratum $h$ has the characteristic of interest, $y_{k}$ corresponds to the observed value of the dichotomous variable for that unit, and $w_{k}$ represents the expansion factor associated with the observation.
 
-La contribución de cada observación al proceso de estimación está determinada por su respectivo factor de expansión, permitiendo que la función refleje adecuadamente las características del diseño complejo de la encuesta. Dado que la maximización de la pseudo-verosimilitud resulta equivalente a maximizar su logaritmo, entonces el problema se reduce a optimizar la siguiente función:
+The contribution of each observation to the estimation process is determined by its respective expansion factor, allowing the function to appropriately reflect the characteristics of the complex survey design. Because maximizing the pseudo-likelihood is equivalent to maximizing its logarithm, the problem is therefore reduced to optimizing the following function:
 
 $$
 \ell(\boldsymbol{\beta})
@@ -120,17 +120,17 @@ y_{k}\log(\theta_{k})
 \right]
 $$
 
-Esta expresión constituye la función objetivo utilizada por los algoritmos de optimización numérica para obtener el estimador de los parámetros del modelo. Es importante señalar que la función anterior no corresponde a una verosimilitud en sentido estricto bajo el diseño complejo de la encuesta. Por esta razón, se utiliza el término *pseudo-verosimilitud* y los estimadores obtenidos mediante su maximización son conocidos como estimadores de pseudo-máxima verosimilitud (*Pseudo Maximum Likelihood Estimators*, PMLE).
+This expression is the objective function used by numerical optimization algorithms to obtain the estimator of the model parameters. It is important to note that the preceding function is not a likelihood in the strict sense under the complex survey design. For this reason, the term *pseudo-likelihood* is used, and the estimators obtained by maximizing it are known as pseudo-maximum likelihood estimators (*Pseudo Maximum Likelihood Estimators*, PMLE).
 
-Según @molina1992pseudo, bajo condiciones de regularidad, estos estimadores son consistentes y asintóticamente normales, constituyendo la base de los procedimientos de inferencia implementados en la mayoría de los paquetes estadísticos para el análisis de datos de encuestas complejas.
+According to @molina1992pseudo, under regularity conditions, these estimators are consistent and asymptotically normal, forming the basis of the inference procedures implemented in most statistical packages for the analysis of complex survey data.
 
-Una vez obtenidos los estimadores de pseudo-máxima verosimilitud, sus varianzas se estiman mediante técnicas de linealización de Taylor [@binder1983variances], las cuales incorporan explícitamente las características del diseño complejo de muestreo. La matriz de varianzas y covarianzas de los parámetros estimados, denotada por $\text{Var}(\hat{\boldsymbol{\beta}})=\boldsymbol{\Sigma}$, se obtiene a partir de una aproximación lineal de las ecuaciones de estimación alrededor del verdadero valor de los parámetros.
+Once the pseudo-maximum likelihood estimators have been obtained, their variances are estimated using Taylor linearization techniques [@binder1983variances], which explicitly incorporate the characteristics of the complex sampling design. The variance-covariance matrix of the estimated parameters, denoted by $\text{Var}(\hat{\boldsymbol{\beta}})=\boldsymbol{\Sigma}$, is obtained from a linear approximation of the estimating equations around the true value of the parameters.
 
-Esta matriz describe la precisión de los estimadores, ya que sus elementos diagonales corresponden a las varianzas de cada coeficiente, mientras que los elementos fuera de la diagonal representan las covarianzas entre pares de coeficientes. Su estimación constituye la base para el cálculo de errores estándar, la construcción de intervalos de confianza y la realización de pruebas de hipótesis sobre los parámetros del modelo.
+This matrix describes the precision of the estimators, since its diagonal elements correspond to the variances of each coefficient, while the off-diagonal elements represent the covariances between pairs of coefficients. Its estimation is the basis for calculating standard errors, constructing confidence intervals, and carrying out hypothesis tests on the model parameters.
 
-Como los datos provienen de un diseño muestral complejo, es necesario incorporar adecuadamente las ponderaciones, la estratificación y la conglomeración para obtener estimadores consistentes de los parámetros y de sus errores estándar. En R, esta tarea puede realizarse mediante la función `svyglm()` del paquete `survey`, la cual extiende los modelos lineales generalizados al contexto de encuestas complejas.
+Because the data come from a complex sample design, it is necessary to appropriately incorporate the weights, stratification, and clustering in order to obtain consistent estimators of the parameters and their standard errors. In R, this task can be carried out using the `svyglm()` function from the `survey` package, which extends generalized linear models to the context of complex surveys.
 
-Siguiendo con la encuesta de ejemplo, y con el fin de analizar los factores asociados a la condición de pobreza, se ajusta un modelo de regresión logística utilizando como variables explicativas el gasto, la situación en el empleo y el sexo. Dado que los datos provienen de una encuesta con diseño muestral complejo, la estimación se realiza mediante la función `svyglm()` del paquete `survey`, especificando `family = binomial` para indicar que la variable respuesta es dicotómica y que se utilizará la función de enlace logit. Los resultados del ajuste se presentan en la Tabla \@ref(tab:tab-ic-logistica).
+Continuing with the example survey, and in order to analyze the factors associated with poverty status, a logistic regression model is fitted using expenditure, employment status, and sex as explanatory variables. Because the data come from a survey with a complex sample design, estimation is carried out using the `svyglm()` function from the `survey` package, specifying `family = binomial` to indicate that the response variable is dichotomous and that the logit link function will be used. The results of the fit are presented in Table \@ref(tab:tab-ic-logistica).
 
 ```{r mod-logistico-base, echo = TRUE, eval = TRUE}
 logit_model <- svyglm(
@@ -140,9 +140,9 @@ logit_model <- svyglm(
 )
 ```
 
-En la especificación del modelo, el argumento `formula = poverty ~ Expenditure + Employment + Sex` define la relación entre la variable respuesta `poverty` y las covariables incluidas en el predictor lineal. Para las variables categóricas, la función genera automáticamente las variables indicadoras correspondientes y estima sus efectos con respecto a una categoría de referencia. Por su parte, el argumento `design = survey_design` incorpora la información del diseño muestral. El objeto resultante, `logit_model`, contiene los parámetros estimados, sus medidas de precisión y las estadísticas necesarias para realizar inferencia sobre la relación entre la condición de pobreza y las variables explicativas consideradas en el modelo.
+In the model specification, the argument `formula = poverty ~ Expenditure + Employment + Sex` defines the relationship between the response variable `poverty` and the covariates included in the linear predictor. For categorical variables, the function automatically generates the corresponding indicator variables and estimates their effects relative to a reference category. The argument `design = survey_design`, in turn, incorporates the sample design information. The resulting object, `logit_model`, contains the estimated parameters, their precision measures, and the statistics needed to make inferences about the relationship between poverty status and the explanatory variables considered in the model.
 
-Los resultados de la Tabla \@ref(tab:tab-ic-logistica) muestran las sestimaciones de los coeficientes de regresión, junto con su error estándar, los intervalos de confirza y el valor-p. Del modelo se deduce que un mayor nivel de gasto se asocia con una menor probabilidad de encontrarse en condición de pobreza. Asimismo, en comparación con la categoría de referencia (desocupados), tanto las personas inactivas como las ocupadas presentan una menor propensión a ser pobres, siendo este efecto más marcado entre estas últimas. En contraste, el sexo tiene una influencia muy reducida sobre la probabilidad de pobreza una vez controlado el efecto de las demás covariables incluidas en el modelo.
+The results in Table \@ref(tab:tab-ic-logistica) show the estimates of the regression coefficients, together with their standard errors, confidence intervals, and p-values. The model indicates that a higher level of expenditure is associated with a lower probability of being in poverty. Likewise, compared with the reference category (unemployed), both inactive and employed persons have a lower propensity to be poor, with this effect being more pronounced among the latter. In contrast, sex has a very small influence on the probability of poverty once the effect of the other covariates included in the model is controlled for.
 
 ```{r cod-resultados-logistica, echo = FALSE}
 logit_results <- tidy(logit_model)
@@ -150,18 +150,18 @@ confint(logit_model, level = 0.95)
 ```
 
 
-```{r tab-ic-logistica, tab.cap="Intervalos de confianza al 95% para los parámetros del modelo logístico", echo = FALSE}
+```{r tab-ic-logistica, tab.cap="95% confidence intervals for the parameters of the logistic model", echo = FALSE}
 logit_results %>%
   as.data.frame() %>%
   tibble::rownames_to_column("Parameter") %>%
   tabla_fmt()
 ```
 
-La Figura \@ref(fig:fig-logistica-base) presenta la distribución de los estimadores de los coeficientes de regresión. Se observa que, para todas las covariables excepto el sexo, los intervalos de confianza no incluyen el valor cero, lo que proporciona evidencia de una asociación estadísticamente significativa. En contraste, el intervalo de confianza asociado a la variable sexo contiene el valor cero, por lo que no se encuentra evidencia suficiente para concluir que esta variable tenga un efecto significativo una vez controladas las demás covariables incluidas en el modelo.
+Figure \@ref(fig:fig-logistica-base) presents the distribution of the estimators of the regression coefficients. It can be seen that, for all covariates except sex, the confidence intervals do not include the value zero, providing evidence of a statistically significant association. In contrast, the confidence interval associated with the sex variable contains the value zero, so there is not enough evidence to conclude that this variable has a significant effect once the other covariates included in the model are controlled for.
 
-Para visualizar la distribución de los coeficientes se emplea `plot_summs()` del paquete `jtools`, junto con `ggstance` [@ggstance2024] para la geometría horizontal de los intervalos.
+To visualize the distribution of the coefficients, `plot_summs()` from the `jtools` package is used, together with `ggstance` [@ggstance2024] for the horizontal geometry of the intervals.
 
-```{r fig-logistica-base, fig.cap="Distribución de los parámetros del modelo logístico base", out.width="80%"}
+```{r fig-logistica-base, fig.cap="Distribution of the parameters of the baseline logistic model", out.width="80%"}
 library(ggstance)
 plot_summs(logit_model,
   scale = TRUE,
@@ -170,7 +170,7 @@ plot_summs(logit_model,
 ```
 
 
-El modelo puede ampliarse incorporando términos de interacción para evaluar si el efecto de una variable explicativa depende de los valores que toma otra. En este caso, se incluye una interacción entre el sexo y la situación laboral mediante el término `Sex:Employment`, con el objetivo de analizar si la relación entre el estado ocupacional y la probabilidad de pobreza es la misma para hombres y mujeres. Sin este término, el modelo asume que el efecto de la situación laboral sobre la pobreza es idéntico para ambos sexos. En cambio, al incorporar la interacción, se permite que dicho efecto varíe entre hombres y mujeres, capturando posibles diferencias en la forma en que la condición laboral se asocia con la pobreza en cada grupo. Los resultados del modelo ajustado se presentan en la Tabla \@ref(tab:tab-logistica-interaccion).
+The model can be extended by incorporating interaction terms to assess whether the effect of one explanatory variable depends on the values taken by another. In this case, an interaction between sex and employment status is included through the term `Sex:Employment`, with the aim of analyzing whether the relationship between employment status and the probability of poverty is the same for men and women. Without this term, the model assumes that the effect of employment status on poverty is identical for both sexes. By incorporating the interaction, however, this effect is allowed to vary between men and women, capturing possible differences in the way labor-market status is associated with poverty in each group. The results of the fitted model are presented in Table \@ref(tab:tab-logistica-interaccion).
 
 ```{r mod-logistico-interaccion, echo = TRUE, eval = TRUE}
 interaction_logit_model <- svyglm(
@@ -184,30 +184,30 @@ interaction_logit_model <- svyglm(
 interaction_logit_results <- tidy(interaction_logit_model)
 ```
 
-```{r tab-logistica-interaccion, tab.cap="Coeficientes del modelo logístico con interacciones", echo = FALSE}
+```{r tab-logistica-interaccion, tab.cap="Coefficients of the logistic model with interactions", echo = FALSE}
 interaction_logit_results %>%
   tabla_fmt()
 ```
 
-Al incorporar la interacción entre sexo y situación laboral, el gasto continúa mostrando una asociación negativa y estadísticamente significativa con la probabilidad de pobreza, manteniéndose como la covariable con mayor evidencia explicativa dentro del modelo. En contraste, los efectos principales de la situación laboral pierden importancia estadística una vez que se incluyen los términos de interacción, lo que sugiere una mayor incertidumbre en la estimación de sus efectos. Por su parte, ni el efecto principal del sexo ni los coeficientes asociados a las interacciones entre sexo y situación laboral resultan estadísticamente significativos al nivel del 5%. En consecuencia, la inclusión de los términos de interacción no parece aportar información adicional relevante respecto al modelo sin interacción.
+When the interaction between sex and employment status is incorporated, expenditure continues to show a negative and statistically significant association with the probability of poverty, remaining the covariate with the strongest explanatory evidence in the model. In contrast, the main effects of employment status lose statistical importance once the interaction terms are included, suggesting greater uncertainty in the estimation of their effects. Neither the main effect of sex nor the coefficients associated with the interactions between sex and employment status are statistically significant at the 5% level. Consequently, the inclusion of the interaction terms does not appear to provide additional relevant information compared with the model without interaction.
 
-La Figura \@ref(fig:fig-comparacion-logistica) presenta una comparación de las estimaciones de los coeficientes y sus respectivos intervalos de confianza para los modelos con y sin interacción. Se observa que la incorporación de los términos de interacción incrementa la incertidumbre asociada a varios de los parámetros, lo que se refleja en intervalos de confianza más amplios. Asimismo, los coeficientes de interacción presentan estimaciones cercanas a cero y amplios intervalos de confianza que incluyen dicho valor, lo que coincide con la falta de evidencia estadística para concluir que el efecto de la situación laboral sobre la probabilidad de pobreza difiere entre hombres y mujeres.
+Figure \@ref(fig:fig-comparacion-logistica) presents a comparison of the coefficient estimates and their corresponding confidence intervals for the models with and without interaction. It can be seen that incorporating the interaction terms increases the uncertainty associated with several of the parameters, as reflected in wider confidence intervals. Likewise, the interaction coefficients have estimates close to zero and wide confidence intervals that include that value, which is consistent with the lack of statistical evidence for concluding that the effect of employment status on the probability of poverty differs between men and women.
 
 
-```{r fig-comparacion-logistica, fig.cap="Comparación de los parámetros del modelo logístico con y sin interacciones", out.width="70%"}
+```{r fig-comparacion-logistica, fig.cap="Comparison of the parameters of the logistic model with and without interactions", out.width="70%"}
 plot_summs(interaction_logit_model, logit_model,
   scale = TRUE,
   plot.distributions = TRUE
 )
 ```
 
-## Modelo de regresión multinomial {#sec-multinomial}
+## Multinomial regression model {#sec-multinomial}
 
-En las encuestas de hogares es frecuente encontrar variables de respuesta con más de dos categorías, como la situación laboral, cuyos posibles estados incluyen empleado, desempleado e inactivo. Cuando estas categorías son mutuamente excluyentes y no poseen un orden natural, una herramienta adecuada para modelar su relación con un conjunto de covariables es la regresión logística multinomial, la cual constituye una extensión del modelo de regresión logística binaria.
+In household surveys, it is common to find response variables with more than two categories, such as employment status, whose possible states include employed, unemployed, and inactive. When these categories are mutually exclusive and do not have a natural order, an appropriate tool for modeling their relationship with a set of covariates is multinomial logistic regression, which is an extension of the binary logistic regression model.
 
-Este modelo permite estimar la probabilidad de pertenecer a cada categoría de la variable respuesta en función de variables explicativas de naturaleza continua o categórica. Su aplicación requiere que las categorías de respuesta sean exhaustivas y mutuamente excluyentes y que no exista multicolinealidad severa entre las covariables. Además, para las covariables continuas, se asume una relación lineal entre estas y el logaritmo de las razones de probabilidades (*log-odds*) de cada categoría respecto a una categoría de referencia.
+This model makes it possible to estimate the probability of belonging to each category of the response variable as a function of continuous or categorical explanatory variables. Its application requires the response categories to be exhaustive and mutually exclusive and requires that there be no severe multicollinearity among the covariates. In addition, for continuous covariates, a linear relationship is assumed between them and the logarithm of the odds ratios (*log-odds*) of each category relative to a reference category.
 
-El modelo logístico multinomial especifica la probabilidad $\theta_{k(j)}$ de que la unidad $k$ pertenezca a la categoría $j$, con $j=1,\ldots,J$, dado el vector de covariables $\mathbf{x}_k$, mediante la siguiente expresión:
+The multinomial logistic model specifies the probability $\theta_{k(j)}$ that unit $k$ belongs to category $j$, with $j=1,\ldots,J$, given the covariate vector $\mathbf{x}_k$, through the following expression:
 
 $$
 Pr(Y_{k} = j \mid \mathbf{x}_{k})
@@ -218,9 +218,9 @@ Pr(Y_{k} = j \mid \mathbf{x}_{k})
      {\sum_{l=1}^{J} \exp(\mathbf{x}_{k}\boldsymbol{\beta}_l)}
 $$
 
-En donde $\boldsymbol{\beta}_j$ es el vector de coeficientes de regresión para la $j$-ésima categoría. Esta formulación expresa directamente las probabilidades de pertenencia a cada categoría, en la práctica resulta más conveniente reescribir el modelo utilizando una categoría de referencia. Hay parametrizaciones alternativas que facilitan la interpretación de los parámetros, ya que cada conjunto de coeficientes describe el efecto de las covariables sobre el logaritmo de las razones de probabilidades (*log-odds*) de pertenecer a una determinada categoría en comparación con la categoría de referencia.
+Where $\boldsymbol{\beta}_j$ is the vector of regression coefficients for the $j$-th category. This formulation directly expresses the probabilities of belonging to each category; in practice, it is more convenient to rewrite the model using a reference category. Alternative parameterizations facilitate the interpretation of the parameters, since each set of coefficients describes the effect of the covariates on the logarithm of the odds ratios (*log-odds*) of belonging to a given category compared with the reference category.
 
-La estimación de los parámetros del modelo se realiza mediante el enfoque de pseudo-máxima verosimilitud. Siguiendo a @heeringa2017applied, la función de pseudo-verosimilitud multinomial se define como
+The model parameters are estimated using the pseudo-maximum likelihood approach. Following @heeringa2017applied, the multinomial pseudo-likelihood function is defined as
 
 
 $$
@@ -232,7 +232,7 @@ PL(\boldsymbol{\beta} \mid \mathbf{X}) =
 \right\}^{w_{k}}
 $$
 
-En donde $k$ representa las unidades de observación pertenecientes a la muestra compleja. Asimismo, $y_{k(j)}$ es una variable indicadora que toma el valor de uno cuando dicha unidad pertenece a la categoría $j$ y cero en caso contrario, y $w_{k}$ corresponde al factor de expansión asociado a la unidad observada. Por conveniencia matemática y computacional, la estimación de los parámetros se realiza a partir de la pseudo-logverosimilitud, cuya maximización conduce a los mismos estimadores que la pseudo-verosimilitud original.
+Where $k$ represents the observation units belonging to the complex sample. Likewise, $y_{k(j)}$ is an indicator variable that takes the value one when that unit belongs to category $j$ and zero otherwise, and $w_{k}$ corresponds to the expansion factor associated with the observed unit. For mathematical and computational convenience, the parameters are estimated from the pseudo-log-likelihood, whose maximization leads to the same estimators as the original pseudo-likelihood.
 
 $$
 \ell(\boldsymbol{\beta})
@@ -243,9 +243,9 @@ y_{k(j)}
 \log(\theta_{k(j)})
 $$
 
-Como se mencionó anteriormente, los estimadores obtenidos mediante este procedimiento son consistentes y asintóticamente normales bajo condiciones regulares [@molina1992pseudo]. La inferencia estadística para los parámetros de interés se basa en estimaciones de varianza obtenidas mediante técnicas de linealización de Taylor que incorporan explícitamente las características del diseño muestral complejo, permitiendo calcular errores estándar, intervalos de confianza y pruebas de hipótesis apropiados para datos de encuestas [@binder1983variances].
+As mentioned above, the estimators obtained through this procedure are consistent and asymptotically normal under regular conditions [@molina1992pseudo]. Statistical inference for the parameters of interest is based on variance estimates obtained through Taylor linearization techniques that explicitly incorporate the characteristics of the complex sample design, making it possible to calculate standard errors, confidence intervals, and hypothesis tests appropriate for survey data [@binder1983variances].
 
-Para el ajuste del modelo usando `R`, como referencia inicial, se estiman las proporciones de personas por estado de empleo, restringiendo las unidades de interés a mayores de 15 años, como se presenta en la Tabla \@ref(tab:tab-prop-empleo-15).
+For fitting the model using `R`, as an initial reference, the proportions of persons by employment status are estimated, restricting the units of interest to those older than 15 years, as presented in Table \@ref(tab:tab-prop-empleo-15).
 
 ```{r cod-prop-empleo-15, eval = FALSE}
 survey_design %>%
@@ -261,12 +261,12 @@ employment_proportion <- survey_design %>%
   summarise(proportion = survey_mean(vartype = c("se", "ci")))
 ```
 
-```{r tab-prop-empleo-15, tab.cap="Proporción estimada de personas por estado de empleo (mayores de 15 años)", echo = FALSE}
+```{r tab-prop-empleo-15, tab.cap="Estimated proportion of persons by employment status (older than 15 years)", echo = FALSE}
 employment_proportion %>%
   tabla_fmt()
 ```
 
-Para modelar una variable de respuesta multinomial se emplea la función `svy_vglm()` del paquete `svyVGAM` [@svyVGAM2026], que permite ajustar modelos de regresión multinomial incorporando explícitamente las características del diseño complejo de la encuesta. En este ejemplo, se especifica un modelo donde la condición de actividad se explica en función de la edad, el sexo y la zona de residencia. A diferencia de los modelos multinomiales convencionales, `svy_vglm()` calcula las varianzas de los estimadores considerando la complejidad del diseño muestral, incluyendo la estratificación, la conglomeración y los pesos de expansión. De esta forma, tanto las estimaciones puntuales como sus errores estándar e inferencias asociadas son consistentes con el diseño de la encuesta.
+To model a multinomial response variable, the `svy_vglm()` function from the `svyVGAM` package [@svyVGAM2026] is used; it allows multinomial regression models to be fitted while explicitly incorporating the characteristics of the complex survey design. In this example, a model is specified in which activity status is explained as a function of age, sex, and area of residence. Unlike conventional multinomial models, `svy_vglm()` calculates the variances of the estimators while accounting for the complexity of the sample design, including stratification, clustering, and expansion weights. In this way, both the point estimates and their standard errors and associated inferences are consistent with the survey design.
 
 ```{r mod-multinomial, echo = TRUE, eval = TRUE}
 library(svyVGAM)
@@ -280,11 +280,11 @@ multinomial_model <- svy_vglm(
 )
 ```
 
-El argumento `family = multinomial(refLevel = "Unemployed")` define un modelo logístico multinomial tomando la categoría `Unemployed` como referencia. Bajo esta especificación, se estiman de manera simultánea los logaritmos de las razones de probabilidades (*log-odds*) entre cada una de las categorías de `Employment` y la categoría de referencia. Los parámetros se obtienen mediante pseudo-máxima verosimilitud, incorporando los factores de expansión de la encuesta en la función objetivo.
+The argument `family = multinomial(refLevel = "Unemployed")` defines a multinomial logistic model using the `Unemployed` category as the reference. Under this specification, the logarithms of the odds ratios (*log-odds*) between each of the `Employment` categories and the reference category are estimated simultaneously. The parameters are obtained through pseudo-maximum likelihood, incorporating the survey expansion factors into the objective function.
 
-Dado que `broom::tidy()` no puede aplicarse directamente a objetos de clase `svyVGAM`, se define la siguiente función auxiliar para estructurar los resultados del modelo en un formato tabular estandarizado[^fn-tidyvglm]:
+Because `broom::tidy()` cannot be applied directly to objects of class `svyVGAM`, the following helper function is defined to structure the model results in a standardized tabular format[^fn-tidyvglm]:
 
-[^fn-tidyvglm]: Adaptada de https://tech.popdata.org/pma-data-hub/posts/2021-08-15-covid-analysis/
+[^fn-tidyvglm]: Adapted from https://tech.popdata.org/pma-data-hub/posts/2021-08-15-covid-analysis/
 
 ```{r definir-tidy-svyvglm, echo = TRUE, eval = TRUE}
 tidy.svyVGAM <- function(x, conf.int = FALSE, conf.level = 0.95,
@@ -305,7 +305,7 @@ tidy.svyVGAM <- function(x, conf.int = FALSE, conf.level = 0.95,
 }
 ```
 
-La Tabla \@ref(tab:tab-multinomial-coef) presenta los coeficientes estimados del modelo logístico multinomial, tomando la categoría *Unemployed* como referencia. Los resultados muestran que la edad tiene un efecto positivo y estadísticamente significativo sobre las probabilidades relativas de pertenecer a las categorías 1 y 2 frente al desempleo. Asimismo, la variable `SexMale` presenta coeficientes negativos y significativos, indicando que los hombres tienen menores probabilidades relativas que las mujeres de ubicarse en dichas categorías. Por el contrario, la variable de zona de residencia no muestra efectos estadísticamente significativos al nivel convencional del 5%.
+Table \@ref(tab:tab-multinomial-coef) presents the estimated coefficients of the multinomial logistic model, using the *Unemployed* category as the reference. The results show that age has a positive and statistically significant effect on the relative probabilities of belonging to categories 1 and 2 compared with unemployment. Likewise, the variable `SexMale` has negative and significant coefficients, indicating that men have lower relative probabilities than women of being in those categories. By contrast, the area-of-residence variable does not show statistically significant effects at the conventional 5% level.
 
 ```{r cod-multinomial-coef, eval = FALSE}
 tidy.svyVGAM(multinomial_model, exponentiate = FALSE, conf.int = FALSE)
@@ -320,14 +320,14 @@ multinomial_results <- tidy.svyVGAM(
 ```
 
 
-```{r tab-multinomial-coef, tab.cap="Coeficientes estimados del modelo de regresión multinomial", echo = FALSE}
+```{r tab-multinomial-coef, tab.cap="Estimated coefficients of the multinomial regression model", echo = FALSE}
 multinomial_results %>%
   tabla_fmt()
 ```
 
-La Figura \@ref(fig:fig-multinomial-ic) muestra los intervalos de confianza de los coeficientes estimados para cada ecuación del modelo multinomial. La visualización se construye con `dotwhisker::dwplot()` [@dotwhisker2025], que permite comparar coeficientes e intervalos en una escala común, y se usa `gtools::stars.pval()` [@gtools2025] para codificar la significancia estadística. Las covariables cuyos intervalos no incluyen el valor cero presentan evidencia de asociación estadística significativa con la variable respuesta, mientras que aquellos cuyos intervalos contienen el cero no muestran efectos significativos al nivel de confianza considerado.
+Figure \@ref(fig:fig-multinomial-ic) shows the confidence intervals of the estimated coefficients for each equation of the multinomial model. The visualization is built with `dotwhisker::dwplot()` [@dotwhisker2025], which makes it possible to compare coefficients and intervals on a common scale, and `gtools::stars.pval()` [@gtools2025] is used to encode statistical significance. Covariates whose intervals do not include the value zero show evidence of a statistically significant association with the response variable, while those whose intervals contain zero do not show significant effects at the confidence level considered.
 
-```{r fig-multinomial-ic, fig.cap="Intervalos de confianza para los coeficientes del modelo multinomial", eval = TRUE, echo = TRUE, out.width="75%"}
+```{r fig-multinomial-ic, fig.cap="Confidence intervals for the coefficients of the multinomial model", eval = TRUE, echo = TRUE, out.width="75%"}
 multinomial_results %>%
   mutate(
     model = if_else(y.level == 1, "Inactive", "Employed"),
@@ -342,11 +342,11 @@ multinomial_results %>%
   theme(legend.position = "top")
 ```
 
-## Modelo de regresión Gamma {#sec-gamma}
+## Gamma regression model {#sec-gamma}
 
-La regresión Gamma constituye una extensión de los modelos lineales generalizados adecuada para variables respuesta continuas, estrictamente positivas y cuya variabilidad aumenta con la media. El modelo Gamma constituye una alternativa adecuada para analizar variables continuas estrictamente positivas cuya variabilidad aumenta a medida que crece su valor esperado. Este comportamiento es frecuente en variables económicas y sociales, como los ingresos de los hogares o los gastos en consumo.
+Gamma regression is an extension of generalized linear models suitable for continuous, strictly positive response variables whose variability increases with the mean. The Gamma model is an appropriate alternative for analyzing strictly positive continuous variables whose variability increases as their expected value grows. This behavior is common in economic and social variables, such as household income or consumption expenditure.
 
-Si $Y_{k}$, la variable de interés observada para la unidad $k$, sigue una distribución Gamma con media $\mu_{k}$ y parámetro de dispersión $\phi$, el modelo relaciona el valor esperado de la variable respuesta con un conjunto de covariables mediante una función de enlace. La función de enlace más utilizada es el enlace logarítmico, el cual garantiza que las predicciones sean siempre positivas. En este caso, el modelo se expresa como
+If $Y_{k}$, the variable of interest observed for unit $k$, follows a Gamma distribution with mean $\mu_{k}$ and dispersion parameter $\phi$, the model relates the expected value of the response variable to a set of covariates through a link function. The most commonly used link function is the logarithmic link, which ensures that predictions are always positive. In this case, the model is expressed as
 
 $$
 \log(\mu_{k})
@@ -354,7 +354,7 @@ $$
 \mathbf{x}_{k}\boldsymbol{\beta}
 $$
 
-En donde $\mathbf{x}_{k}$ corresponde al vector de variables explicativas asociado a la unidad observada y $\boldsymbol{\beta}$ es el vector de parámetros desconocidos del modelo. De forma equivalente, se tiene que:
+Where $\mathbf{x}_{k}$ corresponds to the vector of explanatory variables associated with the observed unit and $\boldsymbol{\beta}$ is the vector of unknown model parameters. Equivalently, we have:
 
 $$
 \mu_{k}
@@ -363,7 +363,7 @@ $$
 \exp(\mathbf{x}_{k}\boldsymbol{\beta}),
 $$
 
-Con el enlace logarítmico, cada parámetro puede interpretarse como el efecto de una covariable sobre el logaritmo de la media esperada, de manera que $\exp(\beta_j)$ representa el cambio multiplicativo asociado a un incremento unitario en la covariable correspondiente, manteniendo constantes las demás variables del modelo. Bajo la distribución Gamma, la función de densidad condicional de $Y_{k}$ puede escribirse como
+With the logarithmic link, each parameter can be interpreted as the effect of a covariate on the logarithm of the expected mean, so that $\exp(\beta_j)$ represents the multiplicative change associated with a one-unit increase in the corresponding covariate, holding the other variables in the model constant. Under the Gamma distribution, the conditional density function of $Y_{k}$ can be written as
 
 $$
 f(y_{k}\mid \mu_{k},\phi)
@@ -379,7 +379,7 @@ y_{k}^{\frac{1}{\phi}-1}
 \qquad y_{k}>0,
 $$
 
-donde $\Gamma(\cdot)$ denota la función Gamma y $\phi$ representa el parámetro de dispersión. Bajo el enfoque de inferencia basado en pseudo-máxima verosimilitud, la función objetivo que se optimiza para obtener los estimadores de los parámetros del modelo está dada por
+where $\Gamma(\cdot)$ denotes the Gamma function and $\phi$ represents the dispersion parameter. Under the inference approach based on pseudo-maximum likelihood, the objective function optimized to obtain the estimators of the model parameters is given by
 
 $$
 \ell(\boldsymbol{\beta},\phi)
@@ -392,7 +392,7 @@ f(y_{hik}\mid\mu_{k},\phi)
 \right]
 $$
 
-En donde $k$ representa las unidades de observación de la muestra y $w_k$ corresponde al factor de expansión asociado a cada una de ellas. Esta función define el criterio de optimización utilizado para estimar los parámetros del modelo bajo el enfoque de pseudo-máxima verosimilitud. En `R`, se hace necesario primero definir el diseño de muestreo.
+Where $k$ represents the observation units in the sample and $w_k$ corresponds to the expansion factor associated with each of them. This function defines the optimization criterion used to estimate the model parameters under the pseudo-maximum likelihood approach. In `R`, it is first necessary to define the sampling design.
 
 ```{r preparar-diseno-gamma, echo = TRUE, eval = TRUE}
 gamma_design <- survey_data %>%
@@ -404,7 +404,7 @@ gamma_design <- survey_data %>%
   )
 ```
 
-El siguiente código ajusta un modelo de regresión Gamma para la variable de ingresos del hogar (`Income`), incorporando el diseño complejo de la encuesta definido en el objeto `gamma_design`. El modelo utiliza como variables explicativas el gasto del hogar (`Expenditure`), la edad (`Age`), el sexo (`Sex`) y la zona de residencia (`Zone`). Asimismo, se especifica una función de enlace logarítmica, garantizando predicciones positivas y permitiendo interpretar los efectos de las variables explicativas en términos multiplicativos sobre el ingreso esperado. Los coeficientes estimados se presentan en la Tabla \@ref(tab:tab-gamma-coeficientes):
+The following code fits a Gamma regression model for the household income variable (`Income`), incorporating the complex survey design defined in the `gamma_design` object. The model uses household expenditure (`Expenditure`), age (`Age`), sex (`Sex`), and area of residence (`Zone`) as explanatory variables. A logarithmic link function is also specified, ensuring positive predictions and allowing the effects of the explanatory variables to be interpreted in multiplicative terms on expected income. The estimated coefficients are presented in Table \@ref(tab:tab-gamma-coeficientes):
 
 ```{r ajustar-modelo-gamma, echo = TRUE, eval = TRUE}
 gamma_model <- svyglm(
@@ -418,9 +418,9 @@ gamma_model <- svyglm(
 gamma_results <- broom::tidy(gamma_model)
 ```
 
-```{r tab-gamma-coeficientes, tab.cap="Coeficientes del modelo Gamma para el ingreso de los hogares", echo = FALSE}
+```{r tab-gamma-coeficientes, tab.cap="Coefficients of the Gamma model for household income", echo = FALSE}
 gamma_results %>%
   tabla_fmt()
 ```
 
-Dado que el modelo utiliza un enlace logarítmico, los coeficientes pueden interpretarse como efectos multiplicativos sobre el ingreso esperado. El coeficiente asociado al gasto del hogar es positivo y estadísticamente significativo ($p<0.001$), indicando que, manteniendo constantes las demás variables del modelo, un incremento de una unidad en el gasto se asocia con un aumento aproximado del $0.2\%$ en el ingreso esperado, ya que $\exp(0.002)\approx 1.002$. La edad también presenta un efecto positivo y significativo ($p=0.017$). En promedio, cada año adicional de edad se asocia con un incremento cercano al $0.2\%$ en el ingreso esperado, manteniendo constantes las demás covariables. Por el contrario, las variables de sexo y zona de residencia no muestran evidencia estadística suficiente para concluir que influyen sobre el ingreso.
+Because the model uses a logarithmic link, the coefficients can be interpreted as multiplicative effects on expected income. The coefficient associated with household expenditure is positive and statistically significant ($p<0.001$), indicating that, holding the other variables in the model constant, a one-unit increase in expenditure is associated with an approximate $0.2\%$ increase in expected income, since $\exp(0.002)\approx 1.002$. Age also has a positive and significant effect ($p=0.017$). On average, each additional year of age is associated with an increase of around $0.2\%$ in expected income, holding the other covariates constant. By contrast, the sex and area-of-residence variables do not show sufficient statistical evidence to conclude that they influence income.

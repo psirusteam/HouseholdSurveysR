@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="es" xml:lang="es">
+<html lang="en" xml:lang="en">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 3 Análisis de las variables continuas | Análisis de encuestas de hogares con R</title>
-  <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <title>Chapter 3 Analysis of continuous variables | Household Surveys Analysis with R</title>
+  <meta name="description" content="This is the repository for the book Household Survey Analysis with R." />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 3 Análisis de las variables continuas | Análisis de encuestas de hogares con R" />
+  <meta property="og:title" content="Chapter 3 Analysis of continuous variables | Household Surveys Analysis with R" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta property="og:description" content="This is the repository for the book Household Survey Analysis with R." />
   <meta name="github-repo" content="psirusteam/LibroEncuestasR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 3 Análisis de las variables continuas | Análisis de encuestas de hogares con R" />
+  <meta name="twitter:title" content="Chapter 3 Analysis of continuous variables | Household Surveys Analysis with R" />
   
-  <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="twitter:description" content="This is the repository for the book Household Survey Analysis with R." />
   
 
 <meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="intervalos-de-confianza.html"/>
-<link rel="next" href="estimacion-de-parametros-descriptivos.html"/>
+<link rel="next" href="estimacion-de-parametros-de-distribucion-y-desigualdad.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -161,130 +161,123 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Análisis de encuestas de hogares con R</a></li>
+<li><a href="./">Household Surveys Analysis with R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
-<li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
-<li class="chapter" data-level="1" data-path="cap1.html"><a href="cap1.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i>Summary</a></li>
+<li class="chapter" data-level="1" data-path="cap1.html"><a href="cap1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="justificacion.html"><a href="justificacion.html"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
-<li class="chapter" data-level="1.2" data-path="uso-del-software-r-para-el-analisis-de-encuestas.html"><a href="uso-del-software-r-para-el-analisis-de-encuestas.html"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
-<li class="chapter" data-level="1.3" data-path="estructura-del-documento.html"><a href="estructura-del-documento.html"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+<li class="chapter" data-level="1.1" data-path="rationale.html"><a href="rationale.html"><i class="fa fa-check"></i><b>1.1</b> Rationale</a></li>
+<li class="chapter" data-level="1.2" data-path="use-of-r-software-for-survey-analysis.html"><a href="use-of-r-software-for-survey-analysis.html"><i class="fa fa-check"></i><b>1.2</b> Use of R Software for Survey Analysis</a></li>
+<li class="chapter" data-level="1.3" data-path="structure-of-the-document.html"><a href="structure-of-the-document.html"><i class="fa fa-check"></i><b>1.3</b> Structure of the Document</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="cap2.html"><a href="cap2.html"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
+<li class="chapter" data-level="2" data-path="cap2.html"><a href="cap2.html"><i class="fa fa-check"></i><b>2</b> Basic concepts in household surveys</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="poblacion-objetivo-y-unidades-de-muestreo.html"><a href="poblacion-objetivo-y-unidades-de-muestreo.html"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
-<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
-<li class="chapter" data-level="2.3" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<li class="chapter" data-level="2.1" data-path="poblacion-objetivo-y-unidades-de-muestreo.html"><a href="poblacion-objetivo-y-unidades-de-muestreo.html"><i class="fa fa-check"></i><b>2.1</b> Target population and sampling units</a></li>
+<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Sampling estimators</a></li>
+<li class="chapter" data-level="2.3" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html"><i class="fa fa-check"></i><b>2.3</b> Theoretical foundations</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
-<li class="chapter" data-level="2.3.2" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+<li class="chapter" data-level="2.3.1" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Point estimation</a></li>
+<li class="chapter" data-level="2.3.2" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Variance estimation</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Confidence intervals</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="cap3.html"><a href="cap3.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
+<li class="chapter" data-level="3" data-path="cap3.html"><a href="cap3.html"><i class="fa fa-check"></i><b>3</b> Analysis of continuous variables</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<li class="chapter" data-level="3.0.1" data-path="cap3.html"><a href="cap3.html#estimacion-de-razones"><i class="fa fa-check"></i><b>3.0.1</b> Ratio estimation</a></li>
+<li class="chapter" data-level="3.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><i class="fa fa-check"></i><b>3.1</b> Estimation of distribution and inequality parameters</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
-<li class="chapter" data-level="3.1.2" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
-<li class="chapter" data-level="3.1.3" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+<li class="chapter" data-level="3.1.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-dispersion"><i class="fa fa-check"></i><b>3.1.1</b> Dispersion estimation</a></li>
+<li class="chapter" data-level="3.1.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-percentiles"><i class="fa fa-check"></i><b>3.1.2</b> Percentile estimation</a></li>
+<li class="chapter" data-level="3.1.3" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.1.3</b> Estimation of the Gini coefficient</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<li class="chapter" data-level="3.2" data-path="pruebas-de-hipotesis.html"><a href="pruebas-de-hipotesis.html"><i class="fa fa-check"></i><b>3.2</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="3.3" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.3</b> Visualization of continuous variables</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-dispersion"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
-<li class="chapter" data-level="3.2.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
-<li class="chapter" data-level="3.2.3" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
-<li class="chapter" data-level="3.2.4" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-correlacion"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="pruebas-de-hipotesis.html"><a href="pruebas-de-hipotesis.html"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
-<li class="chapter" data-level="3.4" data-path="estimacion-de-contrastes.html"><a href="estimacion-de-contrastes.html"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
-<li class="chapter" data-level="3.5" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
-<li class="chapter" data-level="3.5.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
-<li class="chapter" data-level="3.5.3" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-dispersion"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+<li class="chapter" data-level="3.3.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.3.1</b> Histograms</a></li>
+<li class="chapter" data-level="3.3.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.3.2</b> Box plots (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.3.3" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-dispersion"><i class="fa fa-check"></i><b>3.3.3</b> Scatter plots</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
+<li class="chapter" data-level="4" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>4</b> Analysis of categorical variables</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="estimacion-del-tamano-poblacional.html"><a href="estimacion-del-tamano-poblacional.html"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
-<li class="chapter" data-level="4.2" data-path="estimacion-de-proporciones.html"><a href="estimacion-de-proporciones.html"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
-<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
-<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
-<li class="chapter" data-level="4.5" data-path="la-razon-de-odds.html"><a href="la-razon-de-odds.html"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
-<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi.html"><a href="prueba-de-independencia-chi.html"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
-<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<li class="chapter" data-level="4.1" data-path="estimacion-del-tamano-poblacional.html"><a href="estimacion-del-tamano-poblacional.html"><i class="fa fa-check"></i><b>4.1</b> Estimation of population size</a></li>
+<li class="chapter" data-level="4.2" data-path="estimacion-de-proporciones.html"><a href="estimacion-de-proporciones.html"><i class="fa fa-check"></i><b>4.2</b> Estimation of proportions</a></li>
+<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrasts and differences in proportions</a></li>
+<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Cross-tabulations</a></li>
+<li class="chapter" data-level="4.5" data-path="la-razon-de-odds.html"><a href="la-razon-de-odds.html"><i class="fa fa-check"></i><b>4.5</b> The <em>odds</em> ratio</a></li>
+<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi.html"><a href="prueba-de-independencia-chi.html"><i class="fa fa-check"></i><b>4.6</b> <span class="math inline">\(\chi^{2}\)</span> test of independence</a></li>
+<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualization of categorical variables</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="viz-categoricas.html"><a href="viz-categoricas.html#graficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
-<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+<li class="chapter" data-level="4.7.1" data-path="viz-categoricas.html"><a href="viz-categoricas.html#graficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Bar charts</a></li>
+<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Maps</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="cap5.html"><a href="cap5.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
+<li class="chapter" data-level="5" data-path="cap5.html"><a href="cap5.html"><i class="fa fa-check"></i><b>5</b> Regression models</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="formulacion-del-modelo.html"><a href="formulacion-del-modelo.html"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
-<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
-<li class="chapter" data-level="5.3" data-path="estimacion-de-los-parametros-del-modelo.html"><a href="estimacion-de-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
-<li class="chapter" data-level="5.4" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<li class="chapter" data-level="5.1" data-path="formulacion-del-modelo.html"><a href="formulacion-del-modelo.html"><i class="fa fa-check"></i><b>5.1</b> Model formulation</a></li>
+<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Use of sampling weights</a></li>
+<li class="chapter" data-level="5.3" data-path="estimacion-de-los-parametros-del-modelo.html"><a href="estimacion-de-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.3</b> Estimation of model parameters</a></li>
+<li class="chapter" data-level="5.4" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html"><i class="fa fa-check"></i><b>5.4</b> Model diagnostics</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#coeficiente-de-determinacion"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
-<li class="chapter" data-level="5.4.2" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#residuales"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
-<li class="chapter" data-level="5.4.3" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+<li class="chapter" data-level="5.4.1" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#coeficiente-de-determinacion"><i class="fa fa-check"></i><b>5.4.1</b> Coefficient of determination</a></li>
+<li class="chapter" data-level="5.4.2" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#residuales"><i class="fa fa-check"></i><b>5.4.2</b> Residuals</a></li>
+<li class="chapter" data-level="5.4.3" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Influential observations</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="inferencia-sobre-los-parametros-del-modelo.html"><a href="inferencia-sobre-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
-<li class="chapter" data-level="5.6" data-path="estimacion-y-prediccion.html"><a href="estimacion-y-prediccion.html"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+<li class="chapter" data-level="5.5" data-path="inferencia-sobre-los-parametros-del-modelo.html"><a href="inferencia-sobre-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.5</b> Inference about model parameters</a></li>
+<li class="chapter" data-level="5.6" data-path="estimacion-y-prediccion.html"><a href="estimacion-y-prediccion.html"><i class="fa fa-check"></i><b>5.6</b> Estimation and prediction</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
+<li class="chapter" data-level="6" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>6</b> Generalized linear models</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
-<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
-<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Logistic regression model</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Multinomial regression model</a></li>
+<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Gamma regression model</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="cap7.html"><a href="cap7.html"><i class="fa fa-check"></i><b>7</b> Modelos multinivel</a>
+<li class="chapter" data-level="7" data-path="cap7.html"><a href="cap7.html"><i class="fa fa-check"></i><b>7</b> Multilevel Models</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="sec-motivacionMult.html"><a href="sec-motivacionMult.html"><i class="fa fa-check"></i><b>7.1</b> Motivación</a></li>
-<li class="chapter" data-level="7.2" data-path="pesos-q-weighted.html"><a href="pesos-q-weighted.html"><i class="fa fa-check"></i><b>7.2</b> Pesos <em>q-weighted</em></a></li>
-<li class="chapter" data-level="7.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html"><i class="fa fa-check"></i><b>7.3</b> Modelo lineal multinivel</a>
+<li class="chapter" data-level="7.1" data-path="sec-motivacionMult.html"><a href="sec-motivacionMult.html"><i class="fa fa-check"></i><b>7.1</b> Motivation</a></li>
+<li class="chapter" data-level="7.2" data-path="pesos-q-weighted.html"><a href="pesos-q-weighted.html"><i class="fa fa-check"></i><b>7.2</b> <em>q-weighted</em> Weights</a></li>
+<li class="chapter" data-level="7.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html"><i class="fa fa-check"></i><b>7.3</b> Linear Multilevel Model</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Modelo nulo</a></li>
-<li class="chapter" data-level="7.3.2" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Modelo con intercepto aleatorio</a></li>
-<li class="chapter" data-level="7.3.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Modelo con intercepto y pendiente aleatoria</a></li>
+<li class="chapter" data-level="7.3.1" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Null Model</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Random Intercept Model</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Random Intercept and Slope Model</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html"><i class="fa fa-check"></i><b>7.4</b> Modelo logístico multinivel</a>
+<li class="chapter" data-level="7.4" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html"><i class="fa fa-check"></i><b>7.4</b> Multilevel Logistic Model</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-nulo-logistico"><i class="fa fa-check"></i><b>7.4.1</b> Modelo nulo logístico</a></li>
-<li class="chapter" data-level="7.4.2" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Modelo logístico con intercepto aleatorio</a></li>
-<li class="chapter" data-level="7.4.3" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Modelo logístico con intercepto y pendiente aleatoria</a></li>
-</ul></li>
-</ul></li>
-<li class="appendix"><span><b>Anexos</b></span></li>
-<li class="chapter" data-level="A" data-path="ap1.html"><a href="ap1.html"><i class="fa fa-check"></i><b>A</b> Manejo de bases de datos con <code>R</code></a>
-<ul>
-<li class="chapter" data-level="A.1" data-path="preparacion-del-entorno-de-trabajo.html"><a href="preparacion-del-entorno-de-trabajo.html"><i class="fa fa-check"></i><b>A.1</b> Preparación del entorno de trabajo</a></li>
-<li class="chapter" data-level="A.2" data-path="carga-e-inspeccion-inicial-de-la-base.html"><a href="carga-e-inspeccion-inicial-de-la-base.html"><i class="fa fa-check"></i><b>A.2</b> Carga e inspección inicial de la base</a></li>
-<li class="chapter" data-level="A.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html"><i class="fa fa-check"></i><b>A.3</b> Encadenamiento de operaciones</a>
-<ul>
-<li class="chapter" data-level="A.3.1" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#filter-seleccion-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selección de registros</a></li>
-<li class="chapter" data-level="A.3.2" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: seleccionar variables</a></li>
-<li class="chapter" data-level="A.3.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: ordenamiento de filas</a></li>
-<li class="chapter" data-level="A.3.4" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#mutate-creacion-o-transformacion-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creación o transformación de variables</a></li>
-<li class="chapter" data-level="A.3.5" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#summarise-resumenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: resúmenes descriptivos</a></li>
-<li class="chapter" data-level="A.3.6" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#group-by-agrupacion-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: agrupación de casos</a></li>
+<li class="chapter" data-level="7.4.1" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-nulo-logistico"><i class="fa fa-check"></i><b>7.4.1</b> Logistic Null Model</a></li>
+<li class="chapter" data-level="7.4.2" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Logistic Model with Random Intercept</a></li>
+<li class="chapter" data-level="7.4.3" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Logistic Model with Random Intercept and Slope</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Inferencia en poblaciones finitas</a>
+<li class="appendix"><span><b>Appendices</b></span></li>
+<li class="chapter" data-level="A" data-path="ap1.html"><a href="ap1.html"><i class="fa fa-check"></i><b>A</b> Data Wrangling with <code>R</code></a>
 <ul>
-<li class="chapter" data-level="B.1" data-path="dos-posibles-inferencias.html"><a href="dos-posibles-inferencias.html"><i class="fa fa-check"></i><b>B.1</b> Dos posibles inferencias</a></li>
-<li class="chapter" data-level="B.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html"><i class="fa fa-check"></i><b>B.2</b> La integración de ambas inferencias</a>
+<li class="chapter" data-level="A.1" data-path="preparacion-del-entorno-de-trabajo.html"><a href="preparacion-del-entorno-de-trabajo.html"><i class="fa fa-check"></i><b>A.1</b> Preparing the Working Environment</a></li>
+<li class="chapter" data-level="A.2" data-path="carga-e-inspeccion-inicial-de-la-base.html"><a href="carga-e-inspeccion-inicial-de-la-base.html"><i class="fa fa-check"></i><b>A.2</b> Loading and Initial Inspection of the Database</a></li>
+<li class="chapter" data-level="A.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html"><i class="fa fa-check"></i><b>A.3</b> Chaining Operations</a>
 <ul>
-<li class="chapter" data-level="B.2.1" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mv"><i class="fa fa-check"></i><b>B.2.1</b> Método de la máxima verosimilitud</a></li>
-<li class="chapter" data-level="B.2.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Método de máxima pseudo-verosimilitud</a></li>
+<li class="chapter" data-level="A.3.1" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#filter-seleccion-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selecting records</a></li>
+<li class="chapter" data-level="A.3.2" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: selecting variables</a></li>
+<li class="chapter" data-level="A.3.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: sorting rows</a></li>
+<li class="chapter" data-level="A.3.4" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#mutate-creacion-o-transformacion-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creating or transforming variables</a></li>
+<li class="chapter" data-level="A.3.5" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#summarise-resumenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: descriptive summaries</a></li>
+<li class="chapter" data-level="A.3.6" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#group-by-agrupacion-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: grouping cases</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Finite Population Inference</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="dos-posibles-inferencias.html"><a href="dos-posibles-inferencias.html"><i class="fa fa-check"></i><b>B.1</b> Two Possible Inferences</a></li>
+<li class="chapter" data-level="B.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html"><i class="fa fa-check"></i><b>B.2</b> The Integration of Both Inferences</a>
+<ul>
+<li class="chapter" data-level="B.2.1" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mv"><i class="fa fa-check"></i><b>B.2.1</b> Maximum Likelihood Method</a></li>
+<li class="chapter" data-level="B.2.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Maximum Pseudo-Likelihood Method</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
-<li><a Análisis de encuestas de hogares con R</a></li>
+<li><a href="./">Household Surveys Analysis with R</a></li>
 
 </ul>
 
@@ -295,7 +288,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis de encuestas de hogares con R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Household Surveys Analysis with R</a>
           </h1>
         </div>
 
@@ -304,17 +297,17 @@ div.csl-indent {
 
             <section class="normal" id="section-">
 <div id="cap3" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Capítulo 3</span> Análisis de las variables continuas<a href="cap3.html#cap3" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>El análisis estadístico de encuestas ha evolucionado de manera constante, impulsado por el desarrollo de nuevas metodologías y enfoques que buscan mejorar la precisión y la representatividad de los resultados. En general, estos avances surgen en el ámbito académico y, con el tiempo, son adoptados por instituciones públicas, empresas privadas y organismos estadísticos, que demandan su incorporación en los principales programas de análisis de datos.</p>
-<p>Este capítulo presenta los principales procedimientos para el análisis estadístico de variables continuas utilizando <code>R</code>, incorporando adecuadamente las características del diseño muestral, tales como los pesos de expansión, la estratificación y la conglomeración. A lo largo del capítulo se ilustran métodos para estimar parámetros poblacionales, medir su precisión y realizar inferencias válidas a partir de datos provenientes de encuestas complejas. Asimismo, se introducen funciones y herramientas del paquete <code>survey</code> <span class="citation">(<a href="#ref-Lumley2024">Lumley, 2024</a>)</span>, uno de los recursos más utilizados en <code>R</code> para el análisis de encuestas.</p>
-<p>Las bases de datos utilizadas en el análisis de encuestas pueden encontrarse en una amplia variedad de formatos (.xlsx, .dat, .csv, .parquet, .sas7bdat, .sav, .txt, entre otros). Sin embargo, una buena práctica consiste en importar la información desde cualquiera de estos formatos y guardarla inmediatamente en un archivo con extensión <code>.rds</code>, que es el formato nativo de <code>R</code>.</p>
-<p>Los archivos <code>.rds</code> permiten almacenar cualquier objeto o información en <code>R</code>, como marcos de datos, vectores, matrices o listas, y se caracterizan por su compatibilidad completa con el entorno de trabajo R. Además, facilitan la lectura y escritura eficiente de los datos, reduciendo los tiempos de carga y evitando problemas de compatibilidad entre sesiones. Otro formato propio de <code>R</code> es <code>.Rdata</code>, el cual permite guardar múltiples objetos en un solo archivo. En contraste, los archivos <code>.rds</code> almacenan únicamente un objeto, lo que hace su uso más controlado y reproducible. Por esta razón, se recomienda trabajar preferentemente con el formato <code>.rds</code> al documentar proyectos o reproducir análisis.</p>
-<p>Para ilustrar la sintaxis computacional que se utilizará a lo largo del capítulo, se empleará la misma base del capítulo anterior, que contiene una muestra de 2.605 registros que proviene de un muestreo complejo. A continuación, se muestra cómo cargar un archivo con extensión <code>.rds</code>:</p>
+<h1><span class="header-section-number">Chapter 3</span> Analysis of continuous variables<a href="cap3.html#cap3" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The statistical analysis of surveys has constantly evolved, driven by the development of new methodologies and approaches that seek to improve the precision and representativeness of the results. In general, these advances emerge in the academic field and, over time, are adopted by public institutions, private companies and statistical organizations, which demand their incorporation into the main data analysis programs.</p>
+<p>This chapter presents the main procedures for the statistical analysis of continuous variables using <code>R</code>, appropriately incorporating the characteristics of the sampling design, such as expansion weights, stratification and conglomeration. Throughout the chapter, methods are illustrated to estimate population parameters, measure their precision, and make valid inferences from data from complex surveys. Likewise, functions and tools of the <code>survey</code> <span class="citation">(<a href="#ref-Lumley2024">Lumley, 2024</a>)</span> package are introduced, one of the most used resources in <code>R</code> for survey analysis.</p>
+<p>Databases used in survey analysis can be found in a wide variety of formats (.xlsx, .dat, .csv, .parquet, .sas7bdat, .sav, .txt, among others). However, a good practice is to import the information from any of these formats and immediately save it in a file with the extension <code>.rds</code>, which is the native format of <code>R</code>.</p>
+<p><code>.rds</code> files allow you to store any object or information in <code>R</code>, such as data frames, vectors, matrices or lists, and are characterized by their complete compatibility with the R work environment. In addition, they facilitate efficient reading and writing of data, reducing loading times and avoiding compatibility problems between sessions. Another <code>R</code> format is <code>.Rdata</code>, which allows multiple objects to be saved in a single file. In contrast, <code>.rds</code> files store only one object, making their use more controlled and reproducible. For this reason, it is recommended to preferably work with the <code>.rds</code> format when documenting projects or reproducing analyses.</p>
+<p>To illustrate the computational syntax that will be used throughout the chapter, we use the same database as in the previous chapter, which contains a sample of 2,605 records from a complex sample design. The following shows how to load a file with the <code>.rds</code> extension:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="cap3.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="cap3.html#cb1-2" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="cap3.html#cb1-3" tabindex="-1"></a>survey_data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;Data/encuesta.rds&quot;</span>)</span></code></pre></div>
-<p>De acuerdo con <span class="citation">Naciones Unidas (<a href="#ref-ONUDeff">2009, Sección 7.8</a>)</span>, es fundamental que la estructura del diseño muestral sea tenida en cuenta en el proceso de inferencia al estimar estadísticas oficiales basadas en encuestas de hogares. Como se ha insistido en este docuemnto, ignorar este aspecto puede generar estimaciones sesgadas y errores de muestreo subestimados. En este sentido, los programas estadísticos incorporan funcionalidades específicas para manejar datos provenientes de encuestas con diseños complejos <span class="citation">(<a href="#ref-heeringa2017applied">Heeringa et al., 2017</a>, apéndice A)</span>.</p>
-<p>Una vez cargada la muestra de hogares en <code>R</code>, el siguiente paso es definir el diseño muestral del cual proviene dicha muestra. Para ello se utilizará el paquete <code>srvyr</code> <span class="citation">(<a href="#ref-Freedman2024">Freedman Ellis &amp; Schneider, 2024</a>)</span>, que surge como un complemento del paquete <code>survey</code> <span class="citation">(<a href="#ref-Lumley2024">Lumley, 2024</a>)</span>. Estas librerías permiten definir objetos tipo <code>survey.design</code>, a los que se aplican las funciones de estimación y análisis de encuestas, y que pueden ser combinadas con la programación del paquete <code>tidyverse</code> <span class="citation">(<a href="#ref-tidyverse2026">Wickham, Averick, et al., 2026</a>)</span>. A continuación, se muestra un ejemplo en el que se define un objeto de tipo <code>survey_design</code> para la encuesta:</p>
+<p>According to <span class="citation">Naciones Unidas (<a href="#ref-ONUDeff">2009, Section 7.8</a>)</span>, it is essential that the structure of the sampling design be taken into account in the inference process when estimating official statistics based on household surveys. As emphasized in this document, ignoring this aspect can generate biased estimates and underestimated sampling errors. In this sense, statistical programs incorporate specific functionalities to handle data from surveys with complex designs <span class="citation">(<a href="#ref-heeringa2017applied">Heeringa et al., 2017</a>, appendix A)</span>.</p>
+<p>Once the sample of households has been loaded into <code>R</code>, the next step is to define the sample design from which said sample comes. For this, the <code>srvyr</code> <span class="citation">(<a href="#ref-Freedman2024">Freedman Ellis &amp; Schneider, 2024</a>)</span> package will be used, which appears as a complement to the <code>survey</code> <span class="citation">(<a href="#ref-Lumley2024">Lumley, 2024</a>)</span> package. These libraries allow defining <code>survey.design</code> type objects, to which the estimation and survey analysis functions are applied, and which can be combined with the programming of the <code>tidyverse</code> <span class="citation">(<a href="#ref-tidyverse2026">Wickham, Averick, et al., 2026</a>)</span> package. Here is an example of defining an object of type <code>survey_design</code> for the survey:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="cap3.html#cb2-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">survey.lonely.UPM =</span> <span class="st">&quot;adjust&quot;</span>)</span>
 <span id="cb2-2"><a href="cap3.html#cb2-2" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="cap3.html#cb2-3" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
@@ -327,24 +320,522 @@ div.csl-indent {
 <span id="cb2-10"><a href="cap3.html#cb2-10" tabindex="-1"></a>    <span class="at">weights =</span> wk,</span>
 <span id="cb2-11"><a href="cap3.html#cb2-11" tabindex="-1"></a>    <span class="at">nest =</span> <span class="cn">TRUE</span></span>
 <span id="cb2-12"><a href="cap3.html#cb2-12" tabindex="-1"></a>  )</span></code></pre></div>
-<p>En este código, <code>survey_data</code> corresponde a la base de datos que contiene la muestra seleccionada. A partir de estos datos, la función <code>as_survey_design()</code> convierte la información en un objeto de clase <code>survey_design</code>, el cual almacena todos los elementos necesarios para describir el diseño muestral de la encuesta. Entre ellos se incluyen la variable de estratificación (<code>strata</code>), que identifica los estratos definidos en el diseño, y la variable especificada en <code>ids</code>, que representa las unidades primarias de muestreo (UPM) o conglomerados seleccionados en la primera etapa del muestreo. Asimismo, el argumento <code>weights</code> define la variable que contiene los factores de expansión asociados a cada observación. Finalmente, la opción <code>nest = TRUE</code> indica que las UPM están anidadas dentro de los estratos, una característica necesaria para representar correctamente la estructura jerárquica del diseño de muestreo.</p>
+<p>In this code, <code>survey_data</code> corresponds to the database that contains the selected sample. From this data, the function <code>as_survey_design()</code> converts the information into an object of class <code>survey_design</code>, which stores all the elements necessary to describe the sample design of the survey. These include the stratification variable (<code>strata</code>), which identifies the strata defined in the design, and the variable specified in <code>ids</code>, which represents the primary sampling units (PSUs) or clusters selected in the first stage of sampling. Likewise, the <code>weights</code> argument defines the variable that contains the expansion factors associated with each observation. Finally, the <code>nest = TRUE</code> option indicates that PSUs are nested within strata, a necessary characteristic to correctly represent the hierarchical structure of the sampling design.
+## Estimation of descriptive parameters {#estimacion-de-parametros-descriptivos}</p>
+<p>In household surveys it is common to estimate descriptive parameters associated with numerical variables, such as totals, means, ratios and standard deviations. These measures allow us to characterize different social and economic phenomena of the population, for example income, expenditure, hours worked or household size. This section presents the logic behind the syntax used for this type of estimation, along with its corresponding precision measures.
+### Total estimate {#estimacion-del-total}</p>
+<p>In <code>R</code>, the <code>survey_total()</code> function is used to estimate totals from the design object. This feature automatically incorporates expansion factors and design structure, ensuring that estimates correctly reflect the inference model.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="cap3.html#cb3-1" tabindex="-1"></a><span class="fu">survey_total</span>(</span>
+<span id="cb3-2"><a href="cap3.html#cb3-2" tabindex="-1"></a>  x,</span>
+<span id="cb3-3"><a href="cap3.html#cb3-3" tabindex="-1"></a>  <span class="at">na.rm =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb3-4"><a href="cap3.html#cb3-4" tabindex="-1"></a>  <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>, <span class="st">&quot;var&quot;</span>, <span class="st">&quot;cv&quot;</span>),</span>
+<span id="cb3-5"><a href="cap3.html#cb3-5" tabindex="-1"></a>  <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb3-6"><a href="cap3.html#cb3-6" tabindex="-1"></a>  <span class="at">deff =</span> <span class="cn">FALSE</span></span>
+<span id="cb3-7"><a href="cap3.html#cb3-7" tabindex="-1"></a>)</span></code></pre></div>
+<p>The main arguments of the <code>survey_total()</code> function are <code>x</code>, <code>na.rm</code>, <code>vartype</code>, <code>level</code>, and <code>deff</code>. The <code>x</code> argument corresponds to the variable on which you want to calculate the total; It can also be left empty when seeking to obtain only the weighted total of cases in the sample. Meanwhile, <code>na.rm</code> indicates whether missing values (<code>NA</code>) should be removed before performing the calculation, with <code>FALSE</code> being the default value.</p>
+<p>The <code>vartype</code> argument allows you to specify the type of uncertainty measure that you want to estimate, and one or more results can be requested simultaneously, such as the standard error (<code>"se"</code>), the confidence interval (<code>"ci"</code>), the variance (<code>"var"</code>) or the coefficient of variation (<code>"cv"</code>). Likewise, <code>level</code> defines the confidence level used to calculate the confidence intervals, whose default value is 0.95. On the other hand, the confidence interval can be obtained directly by including the argument <code>vartype = "ci"</code> within <code>survey_total()</code>, or by using the function <code>confint()</code> on the resulting object, specifying the required confidence level. Finally, <code>deff</code> is a logical value that indicates whether to return the design effect (DEFF).</p>
+<p>The following example presents how to estimate totals and their confidence intervals for different variables of interest in <code>R</code>, using the function <code>survey_total()</code>, and presented in Table <a href="cap3.html#tab:tab-total-ingreso">3.1</a>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="cap3.html#cb4-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="cap3.html#cb4-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">survey_total</span>(Income, <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>), <span class="at">deff =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-total-ingreso">Table 3.1: </span>Estimation of total household income with 95% confidence interval</caption>
+<thead>
+<tr class="header">
+<th align="left">total</th>
+<th align="center">total_se</th>
+<th align="center">total_low</th>
+<th align="center">total_upp</th>
+<th align="center">total_deff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">85793667</td>
+<td align="center">4778674</td>
+<td align="center">76331414</td>
+<td align="center">95255920</td>
+<td align="center">11</td>
+</tr>
+</tbody>
+</table>
+<p>From the table, it is obtained that the estimate of the total population for the total income is 85,793,667. This value corresponds to the point estimator obtained from the survey, incorporating the expansion factors and the characteristics of the sample design. The standard error associated with this estimate is 4,778,674, which reflects the sample variability of the estimator. From this value, a 95% confidence interval is constructed, whose lower and upper limits are 76,331,414 and 95,255,920, respectively. The design effect (<code>deff</code>) is equal to 11, suggesting a significant loss of accuracy mainly associated with complex design characteristics. Consequently, although the nominal sample size may be large, the effective sample size would be considerably smaller due to the correlation between observations within the clusters.</p>
+<p>To continue illustrating the use of the <code>survey_total()</code> function within the <code>srvyr</code> approach, let us estimate total household expenditures, but now calculating the 90% confidence interval. The following code performs this estimation, presented in Table <a href="cap3.html#tab:tab-total-gasto">3.2</a>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="cap3.html#cb5-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="cap3.html#cb5-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">survey_total</span>(Expenditure,</span>
+<span id="cb5-3"><a href="cap3.html#cb5-3" tabindex="-1"></a>                              <span class="at">vartype =</span> <span class="st">&quot;ci&quot;</span>, <span class="at">level =</span> <span class="fl">0.9</span>,</span>
+<span id="cb5-4"><a href="cap3.html#cb5-4" tabindex="-1"></a>                              <span class="at">deff =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-total-gasto">Table 3.2: </span>Estimation of total household expenses with 90% confidence interval</caption>
+<thead>
+<tr class="header">
+<th align="left">total</th>
+<th align="center">total_low</th>
+<th align="center">total_upp</th>
+<th align="center">total_deff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">55677504</td>
+<td align="center">51360469</td>
+<td align="center">59994539</td>
+<td align="center">10.2</td>
+</tr>
+</tbody>
+</table>
+<p>If the objective is to estimate total household income, but disaggregated by sex, the function <code>group_by()</code> can be used to group by the variable of interest, together with <code>cascade()</code> from the <code>srvyr</code> library, which allows adding a row with the general total at the end of the table. In this way, category totals and the overall total can be easily obtained within the same summary framework, as shown in Table <a href="cap3.html#tab:tab-total-ingreso-sexo">3.3</a>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="cap3.html#cb6-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="cap3.html#cb6-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="cap3.html#cb6-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">total =</span> <span class="fu">survey_total</span>(Income,</span>
+<span id="cb6-4"><a href="cap3.html#cb6-4" tabindex="-1"></a>                               <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>),</span>
+<span id="cb6-5"><a href="cap3.html#cb6-5" tabindex="-1"></a>                               <span class="at">level =</span> <span class="fl">0.95</span>),</span>
+<span id="cb6-6"><a href="cap3.html#cb6-6" tabindex="-1"></a>          <span class="at">.fill =</span> <span class="st">&quot;Total income&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-total-ingreso-sexo">Table 3.3: </span>Total household income disaggregated by sex</caption>
+<thead>
+<tr class="header">
+<th align="left">Sex</th>
+<th align="center">total</th>
+<th align="center">total_se</th>
+<th align="center">total_low</th>
+<th align="center">total_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Female</td>
+<td align="center">44153820</td>
+<td align="center">2324452</td>
+<td align="center">39551172</td>
+<td align="center">48756467</td>
+</tr>
+<tr class="even">
+<td align="left">Male</td>
+<td align="center">41639847</td>
+<td align="center">2870194</td>
+<td align="center">35956576</td>
+<td align="center">47323118</td>
+</tr>
+<tr class="odd">
+<td align="left">Total income</td>
+<td align="center">85793667</td>
+<td align="center">4778674</td>
+<td align="center">76331414</td>
+<td align="center">95255920</td>
+</tr>
+</tbody>
+</table>
+<p>As seen in the previous codes, a practical way to obtain the estimates of the total, its standard error and its confidence interval is through the argument <code>vartype</code>, specifying the options <code>"se"</code> and <code>"ci"</code> respectively.
+### Estimation of the mean {#estimacion-de-la-media}</p>
+<p>The estimation of the population average occupies a central place in household surveys, since many of the indicators used for socioeconomic analysis correspond to average values, such as average household income, per capita spending or average hours worked. This type of parameters allows us to summarize the general behavior of the variables of interest and describe the central tendencies of the target population. According to <span class="citation">Gutiérrez (<a href="#ref-Gutierrez2016">2016</a>)</span>, the population mean estimator can be expressed as a non-linear ratio between two population totals, which are estimated as follows:
+<span class="math display">\[
+\hat{\bar{y}}=  \frac{\hat{t}_y}{\hat{N}}  =  \frac{\sum_{h}\sum_{i}\sum_{k} w_{h i k} \ y_{hik}}{\sum_{h}\sum_{i}\sum_{k} w_{h i k}}
+\]</span></p>
+<p>Since <span class="math inline">\(\hat{\bar{y}}\)</span> is not a linear statistic, there is no closed formula for the variance of this estimator. For this reason, it is necessary to resort to resampling methods or Taylor linearization to approximate its variance. In this particular case, using Taylor series, the variance is defined as:
+<span class="math display">\[
+\widehat{Var}\left(\hat{\bar{y}}\right)  \approx  \frac{\widehat{Var}\left(\hat{t}_y\right)+\hat{\bar{y}}^{2}\ \widehat{Var}\left(\hat{N}\right)-2\ \hat{\bar{y}} \  \widehat{Cov}\left(\hat{t}_y,\hat{N}\right)}{\hat{N}^{2}}
+\]</span></p>
+<p>As can be seen, the calculation of the variance of the population mean involves complex analytical components, such as the covariance between the estimated total and the estimated population size. However, the <code>srvyr</code> package in <code>R</code> facilitates these calculations by incorporating functions that directly estimate the mean, its standard error, the confidence interval, and the design effect. Below is the syntax to estimate the average household income, along with its 95% confidence interval, presented in Table <a href="cap3.html#tab:tab-media-ingreso">3.4</a>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="cap3.html#cb7-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="cap3.html#cb7-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">survey_mean</span>(Income,</span>
+<span id="cb7-3"><a href="cap3.html#cb7-3" tabindex="-1"></a>                                <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>),</span>
+<span id="cb7-4"><a href="cap3.html#cb7-4" tabindex="-1"></a>                                <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb7-5"><a href="cap3.html#cb7-5" tabindex="-1"></a>                                <span class="at">deff =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-media-ingreso">Table 3.4: </span>Estimation of average household income</caption>
+<thead>
+<tr class="header">
+<th align="left">mean</th>
+<th align="center">mean_se</th>
+<th align="center">mean_low</th>
+<th align="center">mean_upp</th>
+<th align="center">mean_deff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">571</td>
+<td align="center">28.5</td>
+<td align="center">515</td>
+<td align="center">627</td>
+<td align="center">8.82</td>
+</tr>
+</tbody>
+</table>
+<p>As can be seen, the arguments used in the <code>survey_mean()</code> function are similar to those of <code>survey_total()</code>. In this case, <code>vartype</code> allows you to obtain the standard error (<code>"se"</code>) and the confidence interval (<code>"ci"</code>), while the argument <code>deff = TRUE</code> requests the calculation of the design effect. Similarly, it is possible to estimate the average household expenses, using the same code structure, presented in Table <a href="cap3.html#tab:tab-media-gasto">3.5</a>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="cap3.html#cb8-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="cap3.html#cb8-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">survey_mean</span>(Expenditure,</span>
+<span id="cb8-3"><a href="cap3.html#cb8-3" tabindex="-1"></a>                                    <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>),</span>
+<span id="cb8-4"><a href="cap3.html#cb8-4" tabindex="-1"></a>                                    <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb8-5"><a href="cap3.html#cb8-5" tabindex="-1"></a>                                    <span class="at">deff =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-media-gasto">Table 3.5: </span>Estimation of average household expenses</caption>
+<thead>
+<tr class="header">
+<th align="left">mean</th>
+<th align="center">mean_se</th>
+<th align="center">mean_low</th>
+<th align="center">mean_upp</th>
+<th align="center">mean_deff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">371</td>
+<td align="center">13.3</td>
+<td align="center">344</td>
+<td align="center">397</td>
+<td align="center">6.02</td>
+</tr>
+</tbody>
+</table>
+<p>Estimates of the mean by subgroups can also be made following the same scheme shown previously. Particularly, household expenses discriminated by sex are presented in Table <a href="cap3.html#tab:tab-media-gasto-sexo">3.6</a>:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="cap3.html#cb9-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="cap3.html#cb9-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="cap3.html#cb9-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">mean =</span> <span class="fu">survey_mean</span>(Expenditure,</span>
+<span id="cb9-4"><a href="cap3.html#cb9-4" tabindex="-1"></a>                              <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb9-5"><a href="cap3.html#cb9-5" tabindex="-1"></a>                              <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
+<span id="cb9-6"><a href="cap3.html#cb9-6" tabindex="-1"></a>        <span class="at">.fill =</span> <span class="st">&quot;Mean expenditure&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-7"><a href="cap3.html#cb9-7" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Sex))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-media-gasto-sexo">Table 3.6: </span>Average household expenses disaggregated by sex</caption>
+<thead>
+<tr class="header">
+<th align="left">Sex</th>
+<th align="center">mean</th>
+<th align="center">mean_se</th>
+<th align="center">mean_low</th>
+<th align="center">mean_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Mean expenditure</td>
+<td align="center">371</td>
+<td align="center">13.3</td>
+<td align="center">344</td>
+<td align="center">397</td>
+</tr>
+<tr class="even">
+<td align="left">Male</td>
+<td align="center">374</td>
+<td align="center">16.1</td>
+<td align="center">343</td>
+<td align="center">406</td>
+</tr>
+<tr class="odd">
+<td align="left">Female</td>
+<td align="center">367</td>
+<td align="center">12.3</td>
+<td align="center">343</td>
+<td align="center">391</td>
+</tr>
+</tbody>
+</table>
+<p>In an analogous manner, the average expenditure by area can be calculated, which is presented in Table <a href="cap3.html#tab:tab-media-gasto-zona">3.7</a>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="cap3.html#cb10-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="cap3.html#cb10-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="cap3.html#cb10-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">mean =</span> <span class="fu">survey_mean</span>(Expenditure,</span>
+<span id="cb10-4"><a href="cap3.html#cb10-4" tabindex="-1"></a>                              <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb10-5"><a href="cap3.html#cb10-5" tabindex="-1"></a>                              <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
+<span id="cb10-6"><a href="cap3.html#cb10-6" tabindex="-1"></a>        <span class="at">.fill =</span> <span class="st">&quot;Mean expenditure&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-7"><a href="cap3.html#cb10-7" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Zone))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-media-gasto-zona">Table 3.7: </span>Average household expenditure disaggregated by area</caption>
+<thead>
+<tr class="header">
+<th align="left">Zone</th>
+<th align="center">mean</th>
+<th align="center">mean_se</th>
+<th align="center">mean_low</th>
+<th align="center">mean_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Urban</td>
+<td align="center">460</td>
+<td align="center">22.2</td>
+<td align="center">416</td>
+<td align="center">504</td>
+</tr>
+<tr class="even">
+<td align="left">Rural</td>
+<td align="center">274</td>
+<td align="center">10.3</td>
+<td align="center">254</td>
+<td align="center">294</td>
+</tr>
+<tr class="odd">
+<td align="left">Mean expenditure</td>
+<td align="center">371</td>
+<td align="center">13.3</td>
+<td align="center">344</td>
+<td align="center">397</td>
+</tr>
+</tbody>
+</table>
+<p>Likewise, it is possible to make a combined estimate by sex and area, presented in Table <a href="cap3.html#tab:tab-media-gasto-zona-sexo">3.8</a>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="cap3.html#cb11-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="cap3.html#cb11-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone, Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="cap3.html#cb11-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">mean =</span> <span class="fu">survey_mean</span>(Expenditure,</span>
+<span id="cb11-4"><a href="cap3.html#cb11-4" tabindex="-1"></a>                              <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb11-5"><a href="cap3.html#cb11-5" tabindex="-1"></a>                              <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
+<span id="cb11-6"><a href="cap3.html#cb11-6" tabindex="-1"></a>        <span class="at">.fill =</span> <span class="st">&quot;Mean expenditure&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-7"><a href="cap3.html#cb11-7" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Zone), <span class="fu">desc</span>(Sex))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-media-gasto-zona-sexo">Table 3.8: </span>Average household expenses disaggregated by area and sex</caption>
+<colgroup>
+<col width="24%" />
+<col width="25%" />
+<col width="8%" />
+<col width="12%" />
+<col width="14%" />
+<col width="14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Zone</th>
+<th align="center">Sex</th>
+<th align="center">mean</th>
+<th align="center">mean_se</th>
+<th align="center">mean_low</th>
+<th align="center">mean_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Urban</td>
+<td align="center">Mean expenditure</td>
+<td align="center">460</td>
+<td align="center">22.2</td>
+<td align="center">416</td>
+<td align="center">504</td>
+</tr>
+<tr class="even">
+<td align="left">Urban</td>
+<td align="center">Male</td>
+<td align="center">470</td>
+<td align="center">27.0</td>
+<td align="center">416</td>
+<td align="center">523</td>
+</tr>
+<tr class="odd">
+<td align="left">Urban</td>
+<td align="center">Female</td>
+<td align="center">451</td>
+<td align="center">20.1</td>
+<td align="center">411</td>
+<td align="center">491</td>
+</tr>
+<tr class="even">
+<td align="left">Rural</td>
+<td align="center">Mean expenditure</td>
+<td align="center">274</td>
+<td align="center">10.3</td>
+<td align="center">254</td>
+<td align="center">294</td>
+</tr>
+<tr class="odd">
+<td align="left">Rural</td>
+<td align="center">Male</td>
+<td align="center">275</td>
+<td align="center">10.2</td>
+<td align="center">255</td>
+<td align="center">296</td>
+</tr>
+<tr class="even">
+<td align="left">Rural</td>
+<td align="center">Female</td>
+<td align="center">273</td>
+<td align="center">11.6</td>
+<td align="center">250</td>
+<td align="center">296</td>
+</tr>
+<tr class="odd">
+<td align="left">Mean expenditure</td>
+<td align="center">Mean expenditure</td>
+<td align="center">371</td>
+<td align="center">13.3</td>
+<td align="center">344</td>
+<td align="center">397</td>
+</tr>
+</tbody>
+</table>
+<div id="estimacion-de-razones" class="section level3 hasAnchor" number="3.0.1">
+<h3><span class="header-section-number">3.0.1</span> Ratio estimation<a href="cap3.html#estimacion-de-razones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A particular case of nonlinear functions of totals is the population ratio, defined as the quotient between two population totals associated with characteristics of interest. Ratios allow the relationship between two variables to be expressed, which is especially useful for building comparative and monitoring indicators.</p>
+<p>This type of parameter is widely used in household surveys to construct relative indicators, for example, the number of men for each woman, the proportion of employed people compared to the working-age population or the average number of pets per household. Ratios are also used in international frameworks. For example, Indicator 2.1.1 of the Sustainable Development Goals (SDGs) (prevalence of undernourishment) is calculated from the ratio between food consumption, measured in calories ingested, and the minimum energy requirements of the diet, determined according to age, sex and level of physical activity.</p>
+<p>Since the ratio corresponds to the quotient between two unknown population parameters, both the numerator and the denominator must be estimated from the sample <span class="citation">(<a href="#ref-bautista1998">Bautista, 1998</a>)</span>. Being <span class="math inline">\(Y\)</span> the total of the variable <span class="math inline">\(y\)</span> and <span class="math inline">\(X\)</span> the total of the variable <span class="math inline">\(x\)</span>, the population ratio is defined as <span class="math inline">\(R = \frac{t_y}{t_x}\)</span> and its point estimator in the framework of complex sampling is expressed as:
+<span class="math display">\[
+\hat{R} = \frac{\hat{t}_y}{\hat{t}_x}
+= \frac{\sum_{h}\sum_{i}\sum_{k} w_{hik} \ y_{hik}}
+       {\sum_{h}\sum_{i}\sum_{k} w_{hik} \ x_{hik}}
+\]</span></p>
+<p>However, since <span class="math inline">\(\hat{R}\)</span> is a quotient between two estimators, that is, two random variables, the calculation of its variance is not trivial. For this, Taylor linearization is used, as shown by <span class="citation">Gutiérrez (<a href="#ref-Gutierrez2016">2016</a>)</span>, or resampling methods. In particular, the <code>survey_ratio</code> function implements the estimation of ratios and their variances in the framework of complex surveys.</p>
+<p>A direct example in household surveys is the <strong>expenditure/income</strong> ratio, which helps identify consumption patterns and levels of economic sustainability of households. The following illustrates how to estimate the ratio between household expenditure and household income, presented in Table <a href="cap3.html#tab:tab-razon-gasto-ingreso">3.9</a>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="cap3.html#cb12-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="cap3.html#cb12-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ratio =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> Expenditure,</span>
+<span id="cb12-3"><a href="cap3.html#cb12-3" tabindex="-1"></a>                                 <span class="at">denominator =</span> Income,</span>
+<span id="cb12-4"><a href="cap3.html#cb12-4" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb12-5"><a href="cap3.html#cb12-5" tabindex="-1"></a>                                 <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb12-6"><a href="cap3.html#cb12-6" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-razon-gasto-ingreso">Table 3.9: </span>Household expenditure/income ratio</caption>
+<thead>
+<tr class="header">
+<th align="left">ratio</th>
+<th align="center">ratio_se</th>
+<th align="center">ratio_low</th>
+<th align="center">ratio_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0.649</td>
+<td align="center">0.023</td>
+<td align="center">0.603</td>
+<td align="center">0.695</td>
+</tr>
+</tbody>
+</table>
+<p>In this case, the expenditure variable was specified as the numerator (<code>numerator</code>), the income variable as the denominator (<code>denominator</code>), the confidence level (<code>level</code>) used to construct the confidence intervals, and the precision measures required by the argument (<code>vartype</code>). As can be seen, the ratio between expenditure and income is, approximately, 0.65. Which implies that for every 100 monetary units that enter the home, 65 units are spent, achieving a 95% confidence interval of 0.60 and 0.69.</p>
+<p>If now the objective is to estimate the ratio between women and men in the example base, it is done as follows, presented in Table <a href="cap3.html#tab:tab-razon-sexo">3.10</a>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="cap3.html#cb13-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="cap3.html#cb13-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ratio =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>),</span>
+<span id="cb13-3"><a href="cap3.html#cb13-3" tabindex="-1"></a>                                 <span class="at">denominator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>),</span>
+<span id="cb13-4"><a href="cap3.html#cb13-4" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb13-5"><a href="cap3.html#cb13-5" tabindex="-1"></a>                                 <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb13-6"><a href="cap3.html#cb13-6" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-razon-sexo">Table 3.10: </span>Ratio of women to men in the population</caption>
+<thead>
+<tr class="header">
+<th align="left">ratio</th>
+<th align="center">ratio_se</th>
+<th align="center">ratio_low</th>
+<th align="center">ratio_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1.11</td>
+<td align="center">0.035</td>
+<td align="center">1.04</td>
+<td align="center">1.18</td>
+</tr>
+</tbody>
+</table>
+<p>Given that the sex variable in the database is categorical, it was necessary to use indicator variables to calculate the ratio, using <code>Sex == "Female"</code> to identify women and <code>Sex == "Male"</code> for men. The results show that in the analyzed population there are a greater number of women than men, obtaining an estimated ratio of 1.11. This indicates that, for every 100 men, there are approximately 111 women. Furthermore, the 95% confidence interval suggests that this ratio could vary between 1.05 and 1.18. If you want to make the ratio of women and men but in rural areas, it would be done as follows, presented in Table <a href="cap3.html#tab:tab-razon-sexo-rural">3.11</a>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="cap3.html#cb14-1" tabindex="-1"></a>rural_subset <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="cap3.html#cb14-2" tabindex="-1"></a>  <span class="fu">filter</span>(Zone <span class="sc">==</span> <span class="st">&quot;Rural&quot;</span>)</span>
+<span id="cb14-3"><a href="cap3.html#cb14-3" tabindex="-1"></a>rural_subset <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="cap3.html#cb14-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ratio =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>),</span>
+<span id="cb14-5"><a href="cap3.html#cb14-5" tabindex="-1"></a>                                  <span class="at">denominator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>),</span>
+<span id="cb14-6"><a href="cap3.html#cb14-6" tabindex="-1"></a>                                  <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb14-7"><a href="cap3.html#cb14-7" tabindex="-1"></a>                                  <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb14-8"><a href="cap3.html#cb14-8" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-razon-sexo-rural">Table 3.11: </span>Ratio of women to men in rural areas</caption>
+<thead>
+<tr class="header">
+<th align="left">ratio</th>
+<th align="center">ratio_se</th>
+<th align="center">ratio_low</th>
+<th align="center">ratio_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1.07</td>
+<td align="center">0.035</td>
+<td align="center">0.997</td>
+<td align="center">1.14</td>
+</tr>
+</tbody>
+</table>
+<p>Now, another analysis of interest is to estimate the expense ratio but only in the female population. The computational codes are presented below, as shown in Table <a href="cap3.html#tab:tab-razon-gasto-ingreso-mujer">3.12</a>.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="cap3.html#cb15-1" tabindex="-1"></a>female_subset <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="cap3.html#cb15-2" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>)</span>
+<span id="cb15-3"><a href="cap3.html#cb15-3" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="cap3.html#cb15-4" tabindex="-1"></a>female_subset <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="cap3.html#cb15-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ratio =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> Expenditure,</span>
+<span id="cb15-6"><a href="cap3.html#cb15-6" tabindex="-1"></a>                                 <span class="at">denominator =</span> Income,</span>
+<span id="cb15-7"><a href="cap3.html#cb15-7" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb15-8"><a href="cap3.html#cb15-8" tabindex="-1"></a>                                 <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb15-9"><a href="cap3.html#cb15-9" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-razon-gasto-ingreso-mujer">Table 3.12: </span>Expenditure/income ratio in households headed by women</caption>
+<thead>
+<tr class="header">
+<th align="left">ratio</th>
+<th align="center">ratio_se</th>
+<th align="center">ratio_low</th>
+<th align="center">ratio_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0.658</td>
+<td align="center">0.02</td>
+<td align="center">0.619</td>
+<td align="center">0.698</td>
+</tr>
+</tbody>
+</table>
+<p>The result is that for every 100 monetary units that women receive, 66 are spent with a confidence interval between 0.62 and 0.69. Finally, similarly for men, the expense ratio is very similar to that for women, as shown in Table <a href="cap3.html#tab:tab-razon-gasto-ingreso-hombre">3.13</a>.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="cap3.html#cb16-1" tabindex="-1"></a>male_subset <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="cap3.html#cb16-2" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>)</span>
+<span id="cb16-3"><a href="cap3.html#cb16-3" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="cap3.html#cb16-4" tabindex="-1"></a>male_subset <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a href="cap3.html#cb16-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ratio =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> Expenditure,</span>
+<span id="cb16-6"><a href="cap3.html#cb16-6" tabindex="-1"></a>                                 <span class="at">denominator =</span> Income,</span>
+<span id="cb16-7"><a href="cap3.html#cb16-7" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb16-8"><a href="cap3.html#cb16-8" tabindex="-1"></a>                                 <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb16-9"><a href="cap3.html#cb16-9" tabindex="-1"></a>            )</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-razon-gasto-ingreso-hombre">Table 3.13: </span>Expenditure/income ratio in households headed by men</caption>
+<thead>
+<tr class="header">
+<th align="left">ratio</th>
+<th align="center">ratio_se</th>
+<th align="center">ratio_low</th>
+<th align="center">ratio_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0.639</td>
+<td align="center">0.029</td>
+<td align="center">0.582</td>
+<td align="center">0.696</td>
+</tr>
+</tbody>
+</table>
 </div>
-<h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<h3>References<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-bautista1998" class="csl-entry">
+Bautista, L. (1998). Diseños de muestreo estadístico. <em>Universidad Nacional de Colombia</em>.
+</div>
 <div id="ref-Freedman2024" class="csl-entry">
-Freedman Ellis, G., &amp; Schneider, B. (2024). <em>srvyr: ’dplyr’-Like Syntax for Summary Statistics of Survey Data</em>. <a href="https://doi.org/10.32614/CRAN.package.srvyr">https://doi.org/10.32614/CRAN.package.srvyr</a>
+Freedman Ellis, G., &amp; Schneider, B. (2024). <em>Srvyr: ’Dplyr’-like syntax for summary statistics of survey data</em>. <a href="https://doi.org/10.32614/CRAN.package.srvyr">https://doi.org/10.32614/CRAN.package.srvyr</a>
+</div>
+<div id="ref-Gutierrez2016" class="csl-entry">
+Gutiérrez, H. A. (2016). <em>Estrategias de muestreo: Diseño de encuestas y estimación de parámetros</em> (Segunda edición). Ediciones de la U.
 </div>
 <div id="ref-heeringa2017applied" class="csl-entry">
 Heeringa, S. G., West, B. T., Heeringa, S. G., &amp; Berglund, P. A. (2017). <em>Applied survey data analysis</em>. chapman; hall/CRC.
 </div>
 <div id="ref-Lumley2024" class="csl-entry">
-Lumley, T. (2024). <em>survey: analysis of complex survey samples</em>.
+Lumley, T. (2024). <em>Survey: Analysis of complex survey samples</em>.
 </div>
 <div id="ref-ONUDeff" class="csl-entry">
-Naciones Unidas. (2009). <em>Diseño de Muestras para Encuestas de Hogares: Directrices Prácticas.</em> Naciones Unidas. <a href="https://unstats.un.org/unsd/publication/seriesf/seriesf_98s.pdf">https://unstats.un.org/unsd/publication/seriesf/seriesf_98s.pdf</a>
+Naciones Unidas. (2009). <em>Diseño de muestras para encuestas de hogares: Directrices prácticas.</em> Naciones Unidas. <a href="https://unstats.un.org/unsd/publication/seriesf/seriesf_98s.pdf">https://unstats.un.org/unsd/publication/seriesf/seriesf_98s.pdf</a>
 </div>
 <div id="ref-tidyverse2026" class="csl-entry">
-Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., Grolemund, G., Hayes, A., Henry, L., Hester, J., Kuhn, M., Pedersen, T. L., Miller, E., Bache, S. M., Müller, K., Ooms, J., Robinson, D., Seidel, D. P., Spinu, V., … Yutani, H. (2026). <em>tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://doi.org/10.32614/CRAN.package.tidyverse">https://doi.org/10.32614/CRAN.package.tidyverse</a>
+Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., Grolemund, G., Hayes, A., Henry, L., Hester, J., Kuhn, M., Pedersen, T. L., Miller, E., Bache, S. M., Müller, K., Ooms, J., Robinson, D., Seidel, D. P., Spinu, V., … Yutani, H. (2026). <em>Tidyverse: Easily install and load the tidyverse</em>. <a href="https://doi.org/10.32614/CRAN.package.tidyverse">https://doi.org/10.32614/CRAN.package.tidyverse</a>
 </div>
 </div>
             </section>
@@ -353,7 +844,7 @@ Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., G
         </div>
       </div>
 <a href="intervalos-de-confianza.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="estimacion-de-parametros-descriptivos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -384,7 +875,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/psirusteam/LibroEncuestasR/03-Continuas.Rmd",
+    "link": "https://github.com/psirusteam/LibroEncuestasR/03-Continuous-Variables.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -395,7 +886,7 @@ gitbook.start({
     "link": null,
     "text": null
   },
-  "download": ["Libro.pdf", "Libro.epub", "Libro.mobi"],
+  "download": ["Household_Surveys_with_R.pdf", "Household_Surveys_with_R.epub", "Household_Surveys_with_R.mobi"],
   "search": {
     "engine": "fuse",
     "options": null

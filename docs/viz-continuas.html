@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="es" xml:lang="es">
+<html lang="en" xml:lang="en">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.5 Visualización de variables continuas | Análisis de encuestas de hogares con R</title>
-  <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <title>3.3 Visualization of continuous variables | Household Surveys Analysis with R</title>
+  <meta name="description" content="This is the repository for the book Household Survey Analysis with R." />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.5 Visualización de variables continuas | Análisis de encuestas de hogares con R" />
+  <meta property="og:title" content="3.3 Visualization of continuous variables | Household Surveys Analysis with R" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta property="og:description" content="This is the repository for the book Household Survey Analysis with R." />
   <meta name="github-repo" content="psirusteam/LibroEncuestasR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.5 Visualización de variables continuas | Análisis de encuestas de hogares con R" />
+  <meta name="twitter:title" content="3.3 Visualization of continuous variables | Household Surveys Analysis with R" />
   
-  <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="twitter:description" content="This is the repository for the book Household Survey Analysis with R." />
   
 
 <meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="estimacion-de-contrastes.html"/>
+<link rel="prev" href="pruebas-de-hipotesis.html"/>
 <link rel="next" href="cap4.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -161,130 +161,123 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Análisis de encuestas de hogares con R</a></li>
+<li><a href="./">Household Surveys Analysis with R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
-<li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
-<li class="chapter" data-level="1" data-path="cap1.html"><a href="cap1.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i>Summary</a></li>
+<li class="chapter" data-level="1" data-path="cap1.html"><a href="cap1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="justificacion.html"><a href="justificacion.html"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
-<li class="chapter" data-level="1.2" data-path="uso-del-software-r-para-el-analisis-de-encuestas.html"><a href="uso-del-software-r-para-el-analisis-de-encuestas.html"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
-<li class="chapter" data-level="1.3" data-path="estructura-del-documento.html"><a href="estructura-del-documento.html"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+<li class="chapter" data-level="1.1" data-path="rationale.html"><a href="rationale.html"><i class="fa fa-check"></i><b>1.1</b> Rationale</a></li>
+<li class="chapter" data-level="1.2" data-path="use-of-r-software-for-survey-analysis.html"><a href="use-of-r-software-for-survey-analysis.html"><i class="fa fa-check"></i><b>1.2</b> Use of R Software for Survey Analysis</a></li>
+<li class="chapter" data-level="1.3" data-path="structure-of-the-document.html"><a href="structure-of-the-document.html"><i class="fa fa-check"></i><b>1.3</b> Structure of the Document</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="cap2.html"><a href="cap2.html"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
+<li class="chapter" data-level="2" data-path="cap2.html"><a href="cap2.html"><i class="fa fa-check"></i><b>2</b> Basic concepts in household surveys</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="poblacion-objetivo-y-unidades-de-muestreo.html"><a href="poblacion-objetivo-y-unidades-de-muestreo.html"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
-<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
-<li class="chapter" data-level="2.3" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<li class="chapter" data-level="2.1" data-path="poblacion-objetivo-y-unidades-de-muestreo.html"><a href="poblacion-objetivo-y-unidades-de-muestreo.html"><i class="fa fa-check"></i><b>2.1</b> Target population and sampling units</a></li>
+<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Sampling estimators</a></li>
+<li class="chapter" data-level="2.3" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html"><i class="fa fa-check"></i><b>2.3</b> Theoretical foundations</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
-<li class="chapter" data-level="2.3.2" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+<li class="chapter" data-level="2.3.1" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Point estimation</a></li>
+<li class="chapter" data-level="2.3.2" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Variance estimation</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Confidence intervals</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="cap3.html"><a href="cap3.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
+<li class="chapter" data-level="3" data-path="cap3.html"><a href="cap3.html"><i class="fa fa-check"></i><b>3</b> Analysis of continuous variables</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<li class="chapter" data-level="3.0.1" data-path="cap3.html"><a href="cap3.html#estimacion-de-razones"><i class="fa fa-check"></i><b>3.0.1</b> Ratio estimation</a></li>
+<li class="chapter" data-level="3.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><i class="fa fa-check"></i><b>3.1</b> Estimation of distribution and inequality parameters</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
-<li class="chapter" data-level="3.1.2" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
-<li class="chapter" data-level="3.1.3" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+<li class="chapter" data-level="3.1.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-dispersion"><i class="fa fa-check"></i><b>3.1.1</b> Dispersion estimation</a></li>
+<li class="chapter" data-level="3.1.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-percentiles"><i class="fa fa-check"></i><b>3.1.2</b> Percentile estimation</a></li>
+<li class="chapter" data-level="3.1.3" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.1.3</b> Estimation of the Gini coefficient</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<li class="chapter" data-level="3.2" data-path="pruebas-de-hipotesis.html"><a href="pruebas-de-hipotesis.html"><i class="fa fa-check"></i><b>3.2</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="3.3" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.3</b> Visualization of continuous variables</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-dispersion"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
-<li class="chapter" data-level="3.2.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
-<li class="chapter" data-level="3.2.3" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
-<li class="chapter" data-level="3.2.4" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-correlacion"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="pruebas-de-hipotesis.html"><a href="pruebas-de-hipotesis.html"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
-<li class="chapter" data-level="3.4" data-path="estimacion-de-contrastes.html"><a href="estimacion-de-contrastes.html"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
-<li class="chapter" data-level="3.5" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
-<li class="chapter" data-level="3.5.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
-<li class="chapter" data-level="3.5.3" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-dispersion"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+<li class="chapter" data-level="3.3.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.3.1</b> Histograms</a></li>
+<li class="chapter" data-level="3.3.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.3.2</b> Box plots (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.3.3" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-dispersion"><i class="fa fa-check"></i><b>3.3.3</b> Scatter plots</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
+<li class="chapter" data-level="4" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>4</b> Analysis of categorical variables</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="estimacion-del-tamano-poblacional.html"><a href="estimacion-del-tamano-poblacional.html"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
-<li class="chapter" data-level="4.2" data-path="estimacion-de-proporciones.html"><a href="estimacion-de-proporciones.html"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
-<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
-<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
-<li class="chapter" data-level="4.5" data-path="la-razon-de-odds.html"><a href="la-razon-de-odds.html"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
-<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi.html"><a href="prueba-de-independencia-chi.html"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
-<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<li class="chapter" data-level="4.1" data-path="estimacion-del-tamano-poblacional.html"><a href="estimacion-del-tamano-poblacional.html"><i class="fa fa-check"></i><b>4.1</b> Estimation of population size</a></li>
+<li class="chapter" data-level="4.2" data-path="estimacion-de-proporciones.html"><a href="estimacion-de-proporciones.html"><i class="fa fa-check"></i><b>4.2</b> Estimation of proportions</a></li>
+<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrasts and differences in proportions</a></li>
+<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Cross-tabulations</a></li>
+<li class="chapter" data-level="4.5" data-path="la-razon-de-odds.html"><a href="la-razon-de-odds.html"><i class="fa fa-check"></i><b>4.5</b> The <em>odds</em> ratio</a></li>
+<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi.html"><a href="prueba-de-independencia-chi.html"><i class="fa fa-check"></i><b>4.6</b> <span class="math inline">\(\chi^{2}\)</span> test of independence</a></li>
+<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualization of categorical variables</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="viz-categoricas.html"><a href="viz-categoricas.html#graficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
-<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+<li class="chapter" data-level="4.7.1" data-path="viz-categoricas.html"><a href="viz-categoricas.html#graficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Bar charts</a></li>
+<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Maps</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="cap5.html"><a href="cap5.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
+<li class="chapter" data-level="5" data-path="cap5.html"><a href="cap5.html"><i class="fa fa-check"></i><b>5</b> Regression models</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="formulacion-del-modelo.html"><a href="formulacion-del-modelo.html"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
-<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
-<li class="chapter" data-level="5.3" data-path="estimacion-de-los-parametros-del-modelo.html"><a href="estimacion-de-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
-<li class="chapter" data-level="5.4" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<li class="chapter" data-level="5.1" data-path="formulacion-del-modelo.html"><a href="formulacion-del-modelo.html"><i class="fa fa-check"></i><b>5.1</b> Model formulation</a></li>
+<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Use of sampling weights</a></li>
+<li class="chapter" data-level="5.3" data-path="estimacion-de-los-parametros-del-modelo.html"><a href="estimacion-de-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.3</b> Estimation of model parameters</a></li>
+<li class="chapter" data-level="5.4" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html"><i class="fa fa-check"></i><b>5.4</b> Model diagnostics</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#coeficiente-de-determinacion"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
-<li class="chapter" data-level="5.4.2" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#residuales"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
-<li class="chapter" data-level="5.4.3" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+<li class="chapter" data-level="5.4.1" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#coeficiente-de-determinacion"><i class="fa fa-check"></i><b>5.4.1</b> Coefficient of determination</a></li>
+<li class="chapter" data-level="5.4.2" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#residuales"><i class="fa fa-check"></i><b>5.4.2</b> Residuals</a></li>
+<li class="chapter" data-level="5.4.3" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Influential observations</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="inferencia-sobre-los-parametros-del-modelo.html"><a href="inferencia-sobre-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
-<li class="chapter" data-level="5.6" data-path="estimacion-y-prediccion.html"><a href="estimacion-y-prediccion.html"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+<li class="chapter" data-level="5.5" data-path="inferencia-sobre-los-parametros-del-modelo.html"><a href="inferencia-sobre-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.5</b> Inference about model parameters</a></li>
+<li class="chapter" data-level="5.6" data-path="estimacion-y-prediccion.html"><a href="estimacion-y-prediccion.html"><i class="fa fa-check"></i><b>5.6</b> Estimation and prediction</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
+<li class="chapter" data-level="6" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>6</b> Generalized linear models</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
-<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
-<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Logistic regression model</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Multinomial regression model</a></li>
+<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Gamma regression model</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="cap7.html"><a href="cap7.html"><i class="fa fa-check"></i><b>7</b> Modelos multinivel</a>
+<li class="chapter" data-level="7" data-path="cap7.html"><a href="cap7.html"><i class="fa fa-check"></i><b>7</b> Multilevel Models</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="sec-motivacionMult.html"><a href="sec-motivacionMult.html"><i class="fa fa-check"></i><b>7.1</b> Motivación</a></li>
-<li class="chapter" data-level="7.2" data-path="pesos-q-weighted.html"><a href="pesos-q-weighted.html"><i class="fa fa-check"></i><b>7.2</b> Pesos <em>q-weighted</em></a></li>
-<li class="chapter" data-level="7.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html"><i class="fa fa-check"></i><b>7.3</b> Modelo lineal multinivel</a>
+<li class="chapter" data-level="7.1" data-path="sec-motivacionMult.html"><a href="sec-motivacionMult.html"><i class="fa fa-check"></i><b>7.1</b> Motivation</a></li>
+<li class="chapter" data-level="7.2" data-path="pesos-q-weighted.html"><a href="pesos-q-weighted.html"><i class="fa fa-check"></i><b>7.2</b> <em>q-weighted</em> Weights</a></li>
+<li class="chapter" data-level="7.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html"><i class="fa fa-check"></i><b>7.3</b> Linear Multilevel Model</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Modelo nulo</a></li>
-<li class="chapter" data-level="7.3.2" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Modelo con intercepto aleatorio</a></li>
-<li class="chapter" data-level="7.3.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Modelo con intercepto y pendiente aleatoria</a></li>
+<li class="chapter" data-level="7.3.1" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Null Model</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Random Intercept Model</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Random Intercept and Slope Model</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html"><i class="fa fa-check"></i><b>7.4</b> Modelo logístico multinivel</a>
+<li class="chapter" data-level="7.4" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html"><i class="fa fa-check"></i><b>7.4</b> Multilevel Logistic Model</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-nulo-logistico"><i class="fa fa-check"></i><b>7.4.1</b> Modelo nulo logístico</a></li>
-<li class="chapter" data-level="7.4.2" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Modelo logístico con intercepto aleatorio</a></li>
-<li class="chapter" data-level="7.4.3" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Modelo logístico con intercepto y pendiente aleatoria</a></li>
-</ul></li>
-</ul></li>
-<li class="appendix"><span><b>Anexos</b></span></li>
-<li class="chapter" data-level="A" data-path="ap1.html"><a href="ap1.html"><i class="fa fa-check"></i><b>A</b> Manejo de bases de datos con <code>R</code></a>
-<ul>
-<li class="chapter" data-level="A.1" data-path="preparacion-del-entorno-de-trabajo.html"><a href="preparacion-del-entorno-de-trabajo.html"><i class="fa fa-check"></i><b>A.1</b> Preparación del entorno de trabajo</a></li>
-<li class="chapter" data-level="A.2" data-path="carga-e-inspeccion-inicial-de-la-base.html"><a href="carga-e-inspeccion-inicial-de-la-base.html"><i class="fa fa-check"></i><b>A.2</b> Carga e inspección inicial de la base</a></li>
-<li class="chapter" data-level="A.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html"><i class="fa fa-check"></i><b>A.3</b> Encadenamiento de operaciones</a>
-<ul>
-<li class="chapter" data-level="A.3.1" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#filter-seleccion-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selección de registros</a></li>
-<li class="chapter" data-level="A.3.2" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: seleccionar variables</a></li>
-<li class="chapter" data-level="A.3.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: ordenamiento de filas</a></li>
-<li class="chapter" data-level="A.3.4" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#mutate-creacion-o-transformacion-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creación o transformación de variables</a></li>
-<li class="chapter" data-level="A.3.5" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#summarise-resumenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: resúmenes descriptivos</a></li>
-<li class="chapter" data-level="A.3.6" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#group-by-agrupacion-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: agrupación de casos</a></li>
+<li class="chapter" data-level="7.4.1" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-nulo-logistico"><i class="fa fa-check"></i><b>7.4.1</b> Logistic Null Model</a></li>
+<li class="chapter" data-level="7.4.2" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Logistic Model with Random Intercept</a></li>
+<li class="chapter" data-level="7.4.3" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Logistic Model with Random Intercept and Slope</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Inferencia en poblaciones finitas</a>
+<li class="appendix"><span><b>Appendices</b></span></li>
+<li class="chapter" data-level="A" data-path="ap1.html"><a href="ap1.html"><i class="fa fa-check"></i><b>A</b> Data Wrangling with <code>R</code></a>
 <ul>
-<li class="chapter" data-level="B.1" data-path="dos-posibles-inferencias.html"><a href="dos-posibles-inferencias.html"><i class="fa fa-check"></i><b>B.1</b> Dos posibles inferencias</a></li>
-<li class="chapter" data-level="B.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html"><i class="fa fa-check"></i><b>B.2</b> La integración de ambas inferencias</a>
+<li class="chapter" data-level="A.1" data-path="preparacion-del-entorno-de-trabajo.html"><a href="preparacion-del-entorno-de-trabajo.html"><i class="fa fa-check"></i><b>A.1</b> Preparing the Working Environment</a></li>
+<li class="chapter" data-level="A.2" data-path="carga-e-inspeccion-inicial-de-la-base.html"><a href="carga-e-inspeccion-inicial-de-la-base.html"><i class="fa fa-check"></i><b>A.2</b> Loading and Initial Inspection of the Database</a></li>
+<li class="chapter" data-level="A.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html"><i class="fa fa-check"></i><b>A.3</b> Chaining Operations</a>
 <ul>
-<li class="chapter" data-level="B.2.1" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mv"><i class="fa fa-check"></i><b>B.2.1</b> Método de la máxima verosimilitud</a></li>
-<li class="chapter" data-level="B.2.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Método de máxima pseudo-verosimilitud</a></li>
+<li class="chapter" data-level="A.3.1" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#filter-seleccion-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selecting records</a></li>
+<li class="chapter" data-level="A.3.2" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: selecting variables</a></li>
+<li class="chapter" data-level="A.3.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: sorting rows</a></li>
+<li class="chapter" data-level="A.3.4" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#mutate-creacion-o-transformacion-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creating or transforming variables</a></li>
+<li class="chapter" data-level="A.3.5" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#summarise-resumenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: descriptive summaries</a></li>
+<li class="chapter" data-level="A.3.6" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#group-by-agrupacion-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: grouping cases</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Finite Population Inference</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="dos-posibles-inferencias.html"><a href="dos-posibles-inferencias.html"><i class="fa fa-check"></i><b>B.1</b> Two Possible Inferences</a></li>
+<li class="chapter" data-level="B.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html"><i class="fa fa-check"></i><b>B.2</b> The Integration of Both Inferences</a>
+<ul>
+<li class="chapter" data-level="B.2.1" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mv"><i class="fa fa-check"></i><b>B.2.1</b> Maximum Likelihood Method</a></li>
+<li class="chapter" data-level="B.2.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Maximum Pseudo-Likelihood Method</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
-<li><a Análisis de encuestas de hogares con R</a></li>
+<li><a href="./">Household Surveys Analysis with R</a></li>
 
 </ul>
 
@@ -295,7 +288,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis de encuestas de hogares con R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Household Surveys Analysis with R</a>
           </h1>
         </div>
 
@@ -303,32 +296,32 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="viz-continuas" class="section level2 hasAnchor" number="3.5">
-<h2><span class="header-section-number">3.5</span> Visualización de variables continuas<a href="viz-continuas.html#viz-continuas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>La representación gráfica de variables continuas es un componente esencial en el análisis de encuestas de hogares. Los gráficos bien diseñados permiten identificar distribuciones, tendencias y relaciones entre variables, facilitando la interpretación de los hallazgos y su comunicación a distintos públicos <span class="citation">(<a href="#ref-wilkinson2005grammar">Wilkinson, 2005</a>)</span>. Un aspecto fundamental en este contexto es que los gráficos deben incorporar los pesos muestrales para reflejar la distribución de la población de interés.</p>
-<p>En esta sección se utilizan los paquetes <code>ggplot2</code> <span class="citation">(<a href="#ref-ggplot22026">Wickham, Chang, et al., 2026</a>)</span> y <code>patchwork</code> <span class="citation">(<a href="#ref-patchwork">Pedersen, 2025</a>)</span> para la construcción y composición de gráficos, combinados con <code>survey</code> <span class="citation">(<a href="#ref-Lumley2024">Lumley, 2024</a>)</span> y <code>srvyr</code> <span class="citation">(<a href="#ref-Freedman2024">Freedman Ellis &amp; Schneider, 2024</a>)</span>.</p>
+<div id="viz-continuas" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Visualization of continuous variables<a href="viz-continuas.html#viz-continuas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The graphical representation of continuous variables is an essential component in the analysis of household surveys. Well-designed graphs allow you to identify distributions, trends and relationships between variables, facilitating the interpretation of the findings and their communication to different audiences <span class="citation">(<a href="#ref-wilkinson2005grammar">Wilkinson, 2005</a>)</span>. A fundamental aspect in this context is that the graphs must incorporate the sampling weights to reflect the distribution of the population of interest.</p>
+<p>This section uses the <code>ggplot2</code> <span class="citation">(<a href="#ref-ggplot22026">Wickham, Chang, et al., 2026</a>)</span> and <code>patchwork</code> <span class="citation">(<a href="#ref-patchwork">Pedersen, 2025</a>)</span> packages for graph construction and composition, combined with <code>survey</code> <span class="citation">(<a href="#ref-Lumley2024">Lumley, 2024</a>)</span> and <code>srvyr</code> <span class="citation">(<a href="#ref-Freedman2024">Freedman Ellis &amp; Schneider, 2024</a>)</span>.</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="viz-continuas.html#cb44-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb44-2"><a href="viz-continuas.html#cb44-2" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb44-3"><a href="viz-continuas.html#cb44-3" tabindex="-1"></a><span class="fu">data</span>(BigCity, <span class="at">package =</span> <span class="st">&quot;TeachingSampling&quot;</span>)</span></code></pre></div>
-<div id="histogramas" class="section level3 hasAnchor" number="3.5.1">
-<h3><span class="header-section-number">3.5.1</span> Histogramas<a href="viz-continuas.html#histogramas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Un histograma es una representación gráfica de la distribución de una variable numérica continua, construida a partir de rectángulos cuya altura es proporcional a la frecuencia de observaciones dentro de determinados intervalos de clase. En el contexto de encuestas de hogares, los histogramas ponderados permiten aproximar la distribución de la variable en la población, incorporando los factores de expansión asociados al diseño muestral.</p>
-<p>A continuación, se presenta el histograma ponderado de la variable <code>Income</code>, construido incorporando los pesos muestrales (<code>wk</code>) con el fin de representar la distribución estimada del ingreso en la población. Los resultados obtenidos se muestran en la Figura <a href="viz-continuas.html#fig:fig-hist-ingreso-ponde">3.2</a>:</p>
+<div id="histogramas" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Histograms<a href="viz-continuas.html#histogramas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A histogram is a graphical representation of the distribution of a continuous numerical variable, constructed from rectangles whose height is proportional to the frequency of observations within certain class intervals. In the context of household surveys, weighted histograms allow us to approximate the distribution of the variable in the population, incorporating the expansion factors associated with the sampling design.</p>
+<p>Below is the weighted histogram of the variable <code>Income</code>, constructed incorporating the sampling weights (<code>wk</code>) in order to represent the estimated distribution of income in the population. The results obtained are shown in Figure <a href="viz-continuas.html#fig:fig-hist-ingreso-ponde">3.2</a>:</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="viz-continuas.html#cb45-1" tabindex="-1"></a>weighted_income_hist <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
 <span id="cb45-2"><a href="viz-continuas.html#cb45-2" tabindex="-1"></a>  <span class="at">data =</span> survey_data,</span>
 <span id="cb45-3"><a href="viz-continuas.html#cb45-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Income, <span class="at">weight =</span> wk)) <span class="sc">+</span></span>
 <span id="cb45-4"><a href="viz-continuas.html#cb45-4" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..)) <span class="sc">+</span></span>
 <span id="cb45-5"><a href="viz-continuas.html#cb45-5" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
-<span id="cb45-6"><a href="viz-continuas.html#cb45-6" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Histograma ponderado&quot;</span>)</span>
+<span id="cb45-6"><a href="viz-continuas.html#cb45-6" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Weighted histogram&quot;</span>)</span>
 <span id="cb45-7"><a href="viz-continuas.html#cb45-7" tabindex="-1"></a>weighted_income_hist</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-hist-ingreso-ponde"></span>
-<img src="figures/fig-hist-ingreso-ponde-1.svg" alt="Histograma ponderado del ingreso de los hogares" width="65%" />
+<img src="figures/fig-hist-ingreso-ponde-1.svg" alt="Weighted histogram of household income" width="65%" />
 <p class="caption">
-Figura 3.2: Histograma ponderado del ingreso de los hogares
+Figure 3.2: Weighted histogram of household income
 </p>
 </div>
-<p>En este código, se inicia la construcción del gráfico utilizando la base de datos <code>survey_data</code>. Dentro de <code>aes()</code>, el argumento <code>x = Income</code> indica que la variable representada en el eje horizontal corresponde al ingreso, mientras que <code>weight = wk</code> incorpora los pesos muestrales para construir un histograma ponderado que refleje la distribución estimada en la población. La función <code>geom_histogram()</code> genera el histograma y, mediante <code>aes(y = ..density..)</code>, la altura de las barras se expresa en términos de densidad en lugar de frecuencias absolutas. Posteriormente, <code>ylab("")</code> elimina la etiqueta del eje vertical, y <code>ggtitle("Histograma ponderado")</code> agrega un título descriptivo al gráfico.</p>
-<p>Los histogramas también permiten comparar visualmente la distribución de una variable entre distintos subgrupos de la población mediante el argumento <code>fill</code>, el cual asigna un color diferente a cada categoría. Por ejemplo, es posible comparar la distribución del ingreso entre zonas urbanas y rurales, como se muestra en la Figura <a href="viz-continuas.html#fig:fig-hist-zona">3.3</a>:</p>
+<p>In this code, the graph construction starts with the <code>survey_data</code> database. Within <code>aes()</code>, the argument <code>x = Income</code> indicates that the variable represented on the horizontal axis corresponds to income, while <code>weight = wk</code> incorporates the sampling weights to construct a weighted histogram that reflects the estimated distribution in the population. The function <code>geom_histogram()</code> generates the histogram, and using <code>aes(y = ..density..)</code>, the height of the bars is expressed in terms of density rather than absolute frequencies. <code>ylab("")</code> then removes the vertical axis label, and <code>ggtitle("Weighted histogram")</code> adds a descriptive title to the chart.</p>
+<p>Histograms also allow you to visually compare the distribution of a variable between different subgroups of the population using the argument <code>fill</code>, which assigns a different color to each category. For example, it is possible to compare the income distribution between urban and rural areas, as shown in Figure <a href="viz-continuas.html#fig:fig-hist-zona">3.3</a>:</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="viz-continuas.html#cb46-1" tabindex="-1"></a>zone_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">Urban =</span> <span class="st">&quot;#48C9B0&quot;</span>, <span class="at">Rural =</span> <span class="st">&quot;#117864&quot;</span>)</span>
 <span id="cb46-2"><a href="viz-continuas.html#cb46-2" tabindex="-1"></a></span>
 <span id="cb46-3"><a href="viz-continuas.html#cb46-3" tabindex="-1"></a>weighted_zone_hist <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(survey_data, <span class="fu">aes</span>(<span class="at">x =</span> Income, <span class="at">weight =</span> wk)) <span class="sc">+</span></span>
@@ -341,27 +334,27 @@ Figura 3.2: Histograma ponderado del ingreso de los hogares
 <span id="cb46-10"><a href="viz-continuas.html#cb46-10" tabindex="-1"></a></span>
 <span id="cb46-11"><a href="viz-continuas.html#cb46-11" tabindex="-1"></a>weighted_zone_hist</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-hist-zona"></span>
-<img src="figures/fig-hist-zona-1.svg" alt="Histograma ponderado del ingreso por zona geográfica" width="65%" />
+<img src="figures/fig-hist-zona-1.svg" alt="Weighted histogram of income by geographical area" width="65%" />
 <p class="caption">
-Figura 3.3: Histograma ponderado del ingreso por zona geográfica
+Figure 3.3: Weighted histogram of income by geographical area
 </p>
 </div>
-<p>En este código, se construye un histograma ponderado utilizando la base de datos <code>survey_data</code>, donde <code>x = Income</code> define la variable representada en el eje horizontal y <code>weight = wk</code> incorpora los pesos muestrales para reflejar la distribución poblacional del ingreso. La función <code>geom_histogram()</code> genera el histograma y, mediante <code>aes(y = ..density.., fill = Zone)</code>, representa las barras en términos de densidad y asigna colores diferentes según la variable <code>Zone</code>, permitiendo comparar visualmente la distribución del ingreso entre zonas. El argumento <code>alpha = 0.5</code> agrega transparencia a las barras para facilitar la superposición de los histogramas, mientras que <code>position = "identity"</code> permite que las distribuciones se dibujen una encima de otra en lugar de apilarse. Posteriormente, <code>scale_fill_manual(values = zone_colors)</code> define manualmente los colores asociados a cada zona. Finalmente, <code>ylab("")</code> elimina la etiqueta del eje vertical, <code>ggtitle("Weighted")</code> agrega un título al gráfico.</p>
-<p>Adicionalmente, es posible superponer curvas de densidad suavizadas mediante la función <code>geom_density()</code>, lo que permite visualizar de manera continua la forma de la distribución de la variable analizada. Este tipo de representación facilita la identificación de patrones como asimetrías, concentración de observaciones o la presencia de múltiples modas. Un ejemplo de este tipo de gráfico se presenta en la Figura <a href="viz-continuas.html#fig:fig-densidades">3.4</a>:</p>
+<p>In this code, a weighted histogram is constructed using the <code>survey_data</code> database, where <code>x = Income</code> defines the variable represented on the horizontal axis and <code>weight = wk</code> incorporates the sample weights to reflect the population distribution of income. The <code>geom_histogram()</code> function generates the histogram and, through <code>aes(y =..density.., fill = Zone)</code>, represents the bars in terms of density and assigns different colors according to the <code>Zone</code> variable, allowing the income distribution to be visually compared between zones. The <code>alpha = 0.5</code> argument adds transparency to the bars to make it easier to overlay histograms, while <code>position = "identity"</code> allows the distributions to be drawn on top of each other rather than stacked. Subsequently, <code>scale_fill_manual(values = zone_colors)</code> manually defines the colors associated with each zone. Finally, <code>ylab("")</code> removes the vertical axis label, <code>ggtitle("Weighted")</code> adds a title to the chart.</p>
+<p>Additionally, it is possible to superimpose smoothed density curves using the <code>geom_density()</code> function, which allows the shape of the distribution of the analyzed variable to be continuously displayed. This type of representation facilitates the identification of patterns such as asymmetries, concentration of observations or the presence of multiple modes. An example of this type of graph is presented in Figure <a href="viz-continuas.html#fig:fig-densidades">3.4</a>:</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="viz-continuas.html#cb47-1" tabindex="-1"></a>weighted_income_hist <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">|</span></span>
 <span id="cb47-2"><a href="viz-continuas.html#cb47-2" tabindex="-1"></a>  weighted_zone_hist <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Zone), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
 <span id="cb47-3"><a href="viz-continuas.html#cb47-3" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-densidades"></span>
-<img src="figures/fig-densidades-1.svg" alt="Histogramas con curvas de densidad superpuestas para ingreso y gasto" width="90%" />
+<img src="figures/fig-densidades-1.svg" alt="Histograms with superimposed density curves for income and expenditure" width="90%" />
 <p class="caption">
-Figura 3.4: Histogramas con curvas de densidad superpuestas para ingreso y gasto
+Figure 3.4: Histograms with superimposed density curves for income and expenditure
 </p>
 </div>
 </div>
-<div id="diagramas-de-caja-boxplots" class="section level3 hasAnchor" number="3.5.2">
-<h3><span class="header-section-number">3.5.2</span> Diagramas de caja (<em>boxplots</em>)<a href="viz-continuas.html#diagramas-de-caja-boxplots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Los diagramas de caja (<em>boxplots</em>) permiten identificar valores atípicos y evaluar la dispersión de la distribución. Introducido por John Tukey en 1977 son una representación gráfica que resume la distribución de una variable mediante estadísticas basadas en cuartiles, permitiendo identificar la mediana, la dispersión de los datos y la presencia de valores atípicos. En el contexto de encuestas de hogares, este tipo de gráfico resulta útil para comparar distribuciones entre distintos grupos poblacionales de manera compacta y visualmente intuitiva.</p>
-<p>Para construir <em>boxplots</em> ponderados en <code>ggplot2</code> se utiliza la función <code>geom_boxplot()</code>, como se muestra en la Figura <a href="viz-continuas.html#fig:fig-boxplot-zona-sexo">3.5</a>. En este caso, la función <code>ggplot()</code> inicia la construcción del gráfico utilizando la base de datos <code>survey_data</code>, donde <code>x = Income</code> define la variable numérica analizada y <code>weight = wk</code> incorpora los pesos muestrales para representar la distribución estimada en la población. Posteriormente, <code>geom_boxplot()</code> genera los diagramas de caja y, mediante <code>aes(fill = Zone)</code> o <code>aes(fill = Sex)</code>, asigna colores diferentes a cada categoría de las variables <code>Zone</code> y <code>Sex</code>, respectivamente, facilitando la comparación visual entre grupos. La función <code>coord_flip()</code> invierte los ejes para presentar los <em>boxplots</em> de forma horizontal, mejorando así su legibilidad. Por su parte, <code>scale_fill_manual()</code> permite definir manualmente los colores asociados a cada categoría mediante los vectores <code>zone_colors</code> y <code>sex_colors</code>.</p>
+<div id="diagramas-de-caja-boxplots" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Box plots (<em>boxplots</em>)<a href="viz-continuas.html#diagramas-de-caja-boxplots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Boxplots allow you to identify outliers and evaluate the dispersion of the distribution. Introduced by John Tukey in 1977, they are a graphic representation that summarizes the distribution of a variable using statistics based on quartiles, allowing the median, dispersion of the data and the presence of outliers to be identified. In the context of household surveys, this type of graph is useful for comparing distributions between different population groups in a compact and visually intuitive way.</p>
+<p>To construct <em>boxplots</em> weighted in <code>ggplot2</code> the function <code>geom_boxplot()</code> is used, as shown in Figure <a href="viz-continuas.html#fig:fig-boxplot-zona-sexo">3.5</a>. In this case, the function <code>ggplot()</code> starts the construction of the graph using the <code>survey_data</code> database, where <code>x = Income</code> defines the numerical variable analyzed and <code>weight = wk</code> incorporates the sampling weights to represent the estimated distribution in the population. Subsequently, <code>geom_boxplot()</code> generates the box plots and, using <code>aes(fill = Zone)</code> or <code>aes(fill = Sex)</code>, assigns different colors to each category of the variables <code>Zone</code> and <code>Sex</code>, respectively, facilitating visual comparison between groups. The <code>coord_flip()</code> function inverts the axes to present the <em>boxplots</em> horizontally, thus improving their readability. For its part, <code>scale_fill_manual()</code> allows you to manually define the colors associated with each category using the <code>zone_colors</code> and <code>sex_colors</code> vectors.</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="viz-continuas.html#cb48-1" tabindex="-1"></a>weighted_zone_boxplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(survey_data, <span class="fu">aes</span>(<span class="at">x =</span> Income, <span class="at">weight =</span> wk)) <span class="sc">+</span></span>
 <span id="cb48-2"><a href="viz-continuas.html#cb48-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Zone)) <span class="sc">+</span></span>
 <span id="cb48-3"><a href="viz-continuas.html#cb48-3" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Weighted&quot;</span>) <span class="sc">+</span></span>
@@ -378,12 +371,12 @@ Figura 3.4: Histogramas con curvas de densidad superpuestas para ingreso y gasto
 <span id="cb48-14"><a href="viz-continuas.html#cb48-14" tabindex="-1"></a></span>
 <span id="cb48-15"><a href="viz-continuas.html#cb48-15" tabindex="-1"></a>weighted_zone_boxplot <span class="sc">|</span> weighted_sex_boxplot</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-boxplot-zona-sexo"></span>
-<img src="figures/fig-boxplot-zona-sexo-1.svg" alt="Boxplots ponderados del ingreso por zona y sexo" width="90%" />
+<img src="figures/fig-boxplot-zona-sexo-1.svg" alt="Weighted boxplots of income by area and sex" width="90%" />
 <p class="caption">
-Figura 3.5: Boxplots ponderados del ingreso por zona y sexo
+Figure 3.5: Weighted boxplots of income by area and sex
 </p>
 </div>
-<p>Además de las herramientas disponibles en <code>ggplot2</code>, el paquete <code>survey</code> ofrece funciones especializadas como <code>svyhist()</code> y <code>svyboxplot()</code>, las cuales incorporan directamente las características del diseño muestral complejo en la construcción de los gráficos. Estas funciones permiten obtener representaciones gráficas coherentes con el diseño de la encuesta, facilitando el análisis exploratorio de las variables numéricas. Un ejemplo de su aplicación se presenta en la Figura <a href="viz-continuas.html#fig:fig-svyhist-svybox">3.6</a>.</p>
+<p>In addition to the tools available in <code>ggplot2</code>, the <code>survey</code> package offers specialized functions such as <code>svyhist()</code> and <code>svyboxplot()</code>, which directly incorporate the features of complex sample design into the construction of the graphs. These functions allow us to obtain graphical representations consistent with the survey design, facilitating the exploratory analysis of the numerical variables. An example of its application is presented in Figure <a href="viz-continuas.html#fig:fig-svyhist-svybox">3.6</a>.</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="viz-continuas.html#cb49-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
 <span id="cb49-2"><a href="viz-continuas.html#cb49-2" tabindex="-1"></a><span class="fu">svyhist</span>(<span class="sc">~</span>Income, survey_design,</span>
 <span id="cb49-3"><a href="viz-continuas.html#cb49-3" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">&quot;Household income&quot;</span>,</span>
@@ -394,16 +387,16 @@ Figura 3.5: Boxplots ponderados del ingreso por zona y sexo
 <span id="cb49-8"><a href="viz-continuas.html#cb49-8" tabindex="-1"></a>  <span class="at">col  =</span> <span class="st">&quot;grey80&quot;</span>,</span>
 <span id="cb49-9"><a href="viz-continuas.html#cb49-9" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Income&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Zone&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-svyhist-svybox"></span>
-<img src="figures/fig-svyhist-svybox-1.svg" alt="Histograma y boxplot del ingreso ajustados al diseño muestral complejo" width="80%" />
+<img src="figures/fig-svyhist-svybox-1.svg" alt="Histogram and boxplot of income adjusted to the complex sample design" width="80%" />
 <p class="caption">
-Figura 3.6: Histograma y boxplot del ingreso ajustados al diseño muestral complejo
+Figure 3.6: Histogram and boxplot of income adjusted to the complex sample design
 </p>
 </div>
 </div>
-<div id="diagramas-de-dispersion" class="section level3 hasAnchor" number="3.5.3">
-<h3><span class="header-section-number">3.5.3</span> Diagramas de dispersión<a href="viz-continuas.html#diagramas-de-dispersion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Los diagramas de dispersión permiten explorar visualmente la relación entre dos variables continuas, facilitando la identificación de patrones de asociación, tendencias y posibles valores atípicos. En el contexto de encuestas con diseños muestrales complejos, resulta importante incorporar la información de los pesos de muestreo para que la representación gráfica refleje adecuadamente la contribución relativa de cada observación en la población.</p>
-<p>Según <span class="citation">Lumley (<a href="#ref-Lumley2010">2010</a>)</span>, cuando se trabaja con conjuntos de datos de gran tamaño, representar todos los puntos simultáneamente puede generar gráficos difíciles de interpretar debido a la sobreposición de observaciones. Sin embargo, en muestras de tamaño moderado, una estrategia sencilla y efectiva consiste en representar los pesos mediante el tamaño de los símbolos en el gráfico de dispersión. De esta manera, las observaciones con mayor peso poblacional aparecen resaltadas visualmente. Un ejemplo de este tipo de representación se presenta en la Figura <a href="viz-continuas.html#fig:fig-scatter-basico">3.7</a>:</p>
+<div id="diagramas-de-dispersion" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Scatter plots<a href="viz-continuas.html#diagramas-de-dispersion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Scatter plots allow you to visually explore the relationship between two continuous variables, facilitating the identification of patterns of association, trends, and possible outliers. In the context of surveys with complex sample designs, it is important to incorporate information on sampling weights so that the graphical representation adequately reflects the relative contribution of each observation in the population.</p>
+<p>According to <span class="citation">Lumley (<a href="#ref-Lumley2010">2010</a>)</span>, when working with large data sets, plotting all points simultaneously can result in graphs that are difficult to interpret due to overlapping observations. However, in moderately sized samples, a simple and effective strategy is to represent the weights by the size of the symbols in the scatterplot. In this way, the observations with the greatest population weight appear visually highlighted. An example of this type of representation is presented in Figure <a href="viz-continuas.html#fig:fig-scatter-basico">3.7</a>:</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="viz-continuas.html#cb50-1" tabindex="-1"></a>weighted_basic_scatter <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
 <span id="cb50-2"><a href="viz-continuas.html#cb50-2" tabindex="-1"></a>  <span class="at">data =</span> survey_data,</span>
 <span id="cb50-3"><a href="viz-continuas.html#cb50-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> Income, <span class="at">x =</span> Expenditure)) <span class="sc">+</span></span>
@@ -411,50 +404,50 @@ Figura 3.6: Histograma y boxplot del ingreso ajustados al diseño muestral compl
 <span id="cb50-5"><a href="viz-continuas.html#cb50-5" tabindex="-1"></a></span>
 <span id="cb50-6"><a href="viz-continuas.html#cb50-6" tabindex="-1"></a>weighted_basic_scatter</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-scatter-basico"></span>
-<img src="figures/fig-scatter-basico-1.svg" alt="Diagrama de dispersión entre ingreso y gasto de los hogares" width="65%" />
+<img src="figures/fig-scatter-basico-1.svg" alt="Scatter diagram between household income and expenditure" width="65%" />
 <p class="caption">
-Figura 3.7: Diagrama de dispersión entre ingreso y gasto de los hogares
+Figure 3.7: Scatter diagram between household income and expenditure
 </p>
 </div>
-<p>En este código, se construye un diagrama de dispersión entre las variables <code>x = Expenditure</code> y <code>y = Income</code>. La función <code>geom_point()</code> agrega los puntos del gráfico y, mediante <code>aes(size = wk)</code>, utiliza los pesos muestrales (<code>wk</code>) para controlar el tamaño de cada punto, de modo que las observaciones con mayor representación poblacional aparezcan visualmente más destacadas. El argumento <code>alpha = 0.3</code> incorpora transparencia a los puntos, reduciendo el problema de sobreposición y facilitando la visualización de áreas con alta concentración de observaciones.</p>
-<p>Adicionalmente, es posible incorporar variables de agrupamiento en los diagramas de dispersión mediante los argumentos <code>shape</code> y <code>color</code>, los cuales permiten diferenciar visualmente las observaciones según categorías específicas de la población. Esto facilita la identificación de patrones diferenciados entre grupos y mejora la interpretación de la relación entre las variables analizadas. Un ejemplo de este tipo de representación se presenta en la Figura <a href="viz-continuas.html#fig:fig-scatter-zona">3.8</a>.</p>
+<p>In this code, a scatterplot is constructed between the variables <code>x = Expenditure</code> and <code>y = Income</code>. The <code>geom_point()</code> function adds the points on the graph and, using <code>aes(size = wk)</code>, uses the sampling weights (<code>wk</code>) to control the size of each point, so that observations with greater population representation appear visually more prominent. The <code>alpha = 0.3</code> argument incorporates transparency to the points, reducing the overlapping problem and facilitating the visualization of areas with a high concentration of observations.</p>
+<p>Additionally, it is possible to incorporate grouping variables in the scatter diagrams using the arguments <code>shape</code> and <code>color</code>, which allow observations to be visually differentiated according to specific categories of the population. This facilitates the identification of differentiated patterns between groups and improves the interpretation of the relationship between the analyzed variables. An example of this type of representation is presented in Figure <a href="viz-continuas.html#fig:fig-scatter-zona">3.8</a>.</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="viz-continuas.html#cb51-1" tabindex="-1"></a>weighted_zone_scatter <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
 <span id="cb51-2"><a href="viz-continuas.html#cb51-2" tabindex="-1"></a>  <span class="at">data =</span> survey_data,</span>
 <span id="cb51-3"><a href="viz-continuas.html#cb51-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> Income, <span class="at">x =</span> Expenditure, <span class="at">shape =</span> Zone)) <span class="sc">+</span></span>
 <span id="cb51-4"><a href="viz-continuas.html#cb51-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> wk, <span class="at">color =</span> Zone), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb51-5"><a href="viz-continuas.html#cb51-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">size =</span> <span class="st">&quot;Peso&quot;</span>) <span class="sc">+</span></span>
+<span id="cb51-5"><a href="viz-continuas.html#cb51-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">size =</span> <span class="st">&quot;Weight&quot;</span>) <span class="sc">+</span></span>
 <span id="cb51-6"><a href="viz-continuas.html#cb51-6" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> zone_colors)</span>
 <span id="cb51-7"><a href="viz-continuas.html#cb51-7" tabindex="-1"></a></span>
 <span id="cb51-8"><a href="viz-continuas.html#cb51-8" tabindex="-1"></a>weighted_zone_scatter</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-scatter-zona"></span>
-<img src="figures/fig-scatter-zona-1.svg" alt="Diagrama de dispersión entre ingreso y gasto por zona geográfica" width="65%" />
+<img src="figures/fig-scatter-zona-1.svg" alt="Scatter diagram between income and expenditure by geographic area" width="65%" />
 <p class="caption">
-Figura 3.8: Diagrama de dispersión entre ingreso y gasto por zona geográfica
+Figure 3.8: Scatter diagram between income and expenditure by geographic area
 </p>
 </div>
 
 </div>
 </div>
 <!-- </div> -->
-<h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3>References<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-Freedman2024" class="csl-entry">
-Freedman Ellis, G., &amp; Schneider, B. (2024). <em>srvyr: ’dplyr’-Like Syntax for Summary Statistics of Survey Data</em>. <a href="https://doi.org/10.32614/CRAN.package.srvyr">https://doi.org/10.32614/CRAN.package.srvyr</a>
+Freedman Ellis, G., &amp; Schneider, B. (2024). <em>Srvyr: ’Dplyr’-like syntax for summary statistics of survey data</em>. <a href="https://doi.org/10.32614/CRAN.package.srvyr">https://doi.org/10.32614/CRAN.package.srvyr</a>
 </div>
 <div id="ref-Lumley2010" class="csl-entry">
-Lumley, T. (2010). <em>Complex Surveys: A Guide to Analysis Using R: A Guide to Analysis Using R</em>. John Wiley; Sons.
+Lumley, T. (2010). <em>Complex surveys: A guide to analysis using r: A guide to analysis using r</em>. John Wiley; Sons.
 </div>
 <div id="ref-Lumley2024" class="csl-entry">
-Lumley, T. (2024). <em>survey: analysis of complex survey samples</em>.
+Lumley, T. (2024). <em>Survey: Analysis of complex survey samples</em>.
 </div>
 <div id="ref-patchwork" class="csl-entry">
-Pedersen, T. L. (2025). <em>patchwork: The composer of plots</em>. <a href="https://doi.org/10.32614/CRAN.package.patchwork">https://doi.org/10.32614/CRAN.package.patchwork</a>
+Pedersen, T. L. (2025). <em>Patchwork: The composer of plots</em>. <a href="https://doi.org/10.32614/CRAN.package.patchwork">https://doi.org/10.32614/CRAN.package.patchwork</a>
 </div>
 <div id="ref-ggplot22026" class="csl-entry">
-Wickham, H., Chang, W., Henry, L., Pedersen, T. L., Takahashi, K., Wilke, C., Woo, K., Yutani, H., Dunnington, D., &amp; Brand, T. van den. (2026). <em>ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics</em>. <a href="https://doi.org/10.32614/CRAN.package.ggplot2">https://doi.org/10.32614/CRAN.package.ggplot2</a>
+Wickham, H., Chang, W., Henry, L., Pedersen, T. L., Takahashi, K., Wilke, C., Woo, K., Yutani, H., Dunnington, D., &amp; Brand, T. van den. (2026). <em>ggplot2: Create elegant data visualisations using the grammar of graphics</em>. <a href="https://doi.org/10.32614/CRAN.package.ggplot2">https://doi.org/10.32614/CRAN.package.ggplot2</a>
 </div>
 <div id="ref-wilkinson2005grammar" class="csl-entry">
-Wilkinson, L. (2005). <em>The grammar of graphics</em> (2.ª ed.). Springer.
+Wilkinson, L. (2005). <em>The grammar of graphics</em> (2nd ed.). Springer.
 </div>
 </div>
             </section>
@@ -462,7 +455,7 @@ Wilkinson, L. (2005). <em>The grammar of graphics</em> (2.ª ed.). Springer.
           </div>
         </div>
       </div>
-<a href="estimacion-de-contrastes.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pruebas-de-hipotesis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="cap4.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -494,7 +487,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/psirusteam/LibroEncuestasR/03-Continuas.Rmd",
+    "link": "https://github.com/psirusteam/LibroEncuestasR/03-Continuous-Variables.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -505,7 +498,7 @@ gitbook.start({
     "link": null,
     "text": null
   },
-  "download": ["Libro.pdf", "Libro.epub", "Libro.mobi"],
+  "download": ["Household_Surveys_with_R.pdf", "Household_Surveys_with_R.epub", "Household_Surveys_with_R.mobi"],
   "search": {
     "engine": "fuse",
     "options": null

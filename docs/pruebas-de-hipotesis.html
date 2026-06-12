@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="es" xml:lang="es">
+<html lang="en" xml:lang="en">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.3 Pruebas de hipótesis | Análisis de encuestas de hogares con R</title>
-  <meta name="description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <title>3.2 Hypothesis testing | Household Surveys Analysis with R</title>
+  <meta name="description" content="This is the repository for the book Household Survey Analysis with R." />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.3 Pruebas de hipótesis | Análisis de encuestas de hogares con R" />
+  <meta property="og:title" content="3.2 Hypothesis testing | Household Surveys Analysis with R" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta property="og:description" content="This is the repository for the book Household Survey Analysis with R." />
   <meta name="github-repo" content="psirusteam/LibroEncuestasR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.3 Pruebas de hipótesis | Análisis de encuestas de hogares con R" />
+  <meta name="twitter:title" content="3.2 Hypothesis testing | Household Surveys Analysis with R" />
   
-  <meta name="twitter:description" content="Este es el repositorio del libro Análisis de encuestas de hogares con R." />
+  <meta name="twitter:description" content="This is the repository for the book Household Survey Analysis with R." />
   
 
 <meta name="author" content="Andrés Gutiérrez, Stalyn Guerrero, Giovany Babativa-Márquez, Cristian Téllez" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="estimacion-de-parametros-de-distribucion-y-desigualdad.html"/>
-<link rel="next" href="estimacion-de-contrastes.html"/>
+<link rel="next" href="viz-continuas.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -161,130 +161,123 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Análisis de encuestas de hogares con R</a></li>
+<li><a href="./">Household Surveys Analysis with R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
-<li class="chapter" data-level="" data-path="resumen.html"><a href="resumen.html"><i class="fa fa-check"></i>Resumen</a></li>
-<li class="chapter" data-level="1" data-path="cap1.html"><a href="cap1.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i>Summary</a></li>
+<li class="chapter" data-level="1" data-path="cap1.html"><a href="cap1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="justificacion.html"><a href="justificacion.html"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
-<li class="chapter" data-level="1.2" data-path="uso-del-software-r-para-el-analisis-de-encuestas.html"><a href="uso-del-software-r-para-el-analisis-de-encuestas.html"><i class="fa fa-check"></i><b>1.2</b> Uso del software R para el análisis de encuestas</a></li>
-<li class="chapter" data-level="1.3" data-path="estructura-del-documento.html"><a href="estructura-del-documento.html"><i class="fa fa-check"></i><b>1.3</b> Estructura del documento</a></li>
+<li class="chapter" data-level="1.1" data-path="rationale.html"><a href="rationale.html"><i class="fa fa-check"></i><b>1.1</b> Rationale</a></li>
+<li class="chapter" data-level="1.2" data-path="use-of-r-software-for-survey-analysis.html"><a href="use-of-r-software-for-survey-analysis.html"><i class="fa fa-check"></i><b>1.2</b> Use of R Software for Survey Analysis</a></li>
+<li class="chapter" data-level="1.3" data-path="structure-of-the-document.html"><a href="structure-of-the-document.html"><i class="fa fa-check"></i><b>1.3</b> Structure of the Document</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="cap2.html"><a href="cap2.html"><i class="fa fa-check"></i><b>2</b> Conceptos básicos en encuestas de hogares</a>
+<li class="chapter" data-level="2" data-path="cap2.html"><a href="cap2.html"><i class="fa fa-check"></i><b>2</b> Basic concepts in household surveys</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="poblacion-objetivo-y-unidades-de-muestreo.html"><a href="poblacion-objetivo-y-unidades-de-muestreo.html"><i class="fa fa-check"></i><b>2.1</b> Población objetivo y unidades de muestreo</a></li>
-<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Estimadores de muestreo</a></li>
-<li class="chapter" data-level="2.3" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html"><i class="fa fa-check"></i><b>2.3</b> Fundamentos teóricos</a>
+<li class="chapter" data-level="2.1" data-path="poblacion-objetivo-y-unidades-de-muestreo.html"><a href="poblacion-objetivo-y-unidades-de-muestreo.html"><i class="fa fa-check"></i><b>2.1</b> Target population and sampling units</a></li>
+<li class="chapter" data-level="2.2" data-path="estimadores-de-muestreo.html"><a href="estimadores-de-muestreo.html"><i class="fa fa-check"></i><b>2.2</b> Sampling estimators</a></li>
+<li class="chapter" data-level="2.3" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html"><i class="fa fa-check"></i><b>2.3</b> Theoretical foundations</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Estimación puntual</a></li>
-<li class="chapter" data-level="2.3.2" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Estimación de la varianza</a></li>
+<li class="chapter" data-level="2.3.1" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-puntual"><i class="fa fa-check"></i><b>2.3.1</b> Point estimation</a></li>
+<li class="chapter" data-level="2.3.2" data-path="fundamentos-teoricos.html"><a href="fundamentos-teoricos.html#estimacion-de-la-varianza"><i class="fa fa-check"></i><b>2.3.2</b> Variance estimation</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Intervalos de confianza</a></li>
+<li class="chapter" data-level="2.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>2.4</b> Confidence intervals</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="cap3.html"><a href="cap3.html"><i class="fa fa-check"></i><b>3</b> Análisis de las variables continuas</a>
+<li class="chapter" data-level="3" data-path="cap3.html"><a href="cap3.html"><i class="fa fa-check"></i><b>3</b> Analysis of continuous variables</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html"><i class="fa fa-check"></i><b>3.1</b> Estimación de parámetros descriptivos</a>
+<li class="chapter" data-level="3.0.1" data-path="cap3.html"><a href="cap3.html#estimacion-de-razones"><i class="fa fa-check"></i><b>3.0.1</b> Ratio estimation</a></li>
+<li class="chapter" data-level="3.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><i class="fa fa-check"></i><b>3.1</b> Estimation of distribution and inequality parameters</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-del-total"><i class="fa fa-check"></i><b>3.1.1</b> Estimación del total</a></li>
-<li class="chapter" data-level="3.1.2" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-de-la-media"><i class="fa fa-check"></i><b>3.1.2</b> Estimación de la media</a></li>
-<li class="chapter" data-level="3.1.3" data-path="estimacion-de-parametros-descriptivos.html"><a href="estimacion-de-parametros-descriptivos.html#estimacion-de-razones"><i class="fa fa-check"></i><b>3.1.3</b> Estimación de razones</a></li>
+<li class="chapter" data-level="3.1.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-dispersion"><i class="fa fa-check"></i><b>3.1.1</b> Dispersion estimation</a></li>
+<li class="chapter" data-level="3.1.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-percentiles"><i class="fa fa-check"></i><b>3.1.2</b> Percentile estimation</a></li>
+<li class="chapter" data-level="3.1.3" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.1.3</b> Estimation of the Gini coefficient</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><i class="fa fa-check"></i><b>3.2</b> Estimación de parámetros de distribución y desigualdad</a>
+<li class="chapter" data-level="3.2" data-path="pruebas-de-hipotesis.html"><a href="pruebas-de-hipotesis.html"><i class="fa fa-check"></i><b>3.2</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="3.3" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.3</b> Visualization of continuous variables</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-dispersion"><i class="fa fa-check"></i><b>3.2.1</b> Estimación de la dispersión</a></li>
-<li class="chapter" data-level="3.2.2" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-percentiles"><i class="fa fa-check"></i><b>3.2.2</b> Estimación de percentiles</a></li>
-<li class="chapter" data-level="3.2.3" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-del-coeficiente-de-gini"><i class="fa fa-check"></i><b>3.2.3</b> Estimación del coeficiente de Gini</a></li>
-<li class="chapter" data-level="3.2.4" data-path="estimacion-de-parametros-de-distribucion-y-desigualdad.html"><a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html#estimacion-de-la-correlacion"><i class="fa fa-check"></i><b>3.2.4</b> Estimación de la correlación</a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="pruebas-de-hipotesis.html"><a href="pruebas-de-hipotesis.html"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis</a></li>
-<li class="chapter" data-level="3.4" data-path="estimacion-de-contrastes.html"><a href="estimacion-de-contrastes.html"><i class="fa fa-check"></i><b>3.4</b> Estimación de contrastes</a></li>
-<li class="chapter" data-level="3.5" data-path="viz-continuas.html"><a href="viz-continuas.html"><i class="fa fa-check"></i><b>3.5</b> Visualización de variables continuas</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.5.1</b> Histogramas</a></li>
-<li class="chapter" data-level="3.5.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.5.2</b> Diagramas de caja (<em>boxplots</em>)</a></li>
-<li class="chapter" data-level="3.5.3" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-dispersion"><i class="fa fa-check"></i><b>3.5.3</b> Diagramas de dispersión</a></li>
+<li class="chapter" data-level="3.3.1" data-path="viz-continuas.html"><a href="viz-continuas.html#histogramas"><i class="fa fa-check"></i><b>3.3.1</b> Histograms</a></li>
+<li class="chapter" data-level="3.3.2" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-caja-boxplots"><i class="fa fa-check"></i><b>3.3.2</b> Box plots (<em>boxplots</em>)</a></li>
+<li class="chapter" data-level="3.3.3" data-path="viz-continuas.html"><a href="viz-continuas.html#diagramas-de-dispersion"><i class="fa fa-check"></i><b>3.3.3</b> Scatter plots</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>4</b> Análisis de variables categóricas</a>
+<li class="chapter" data-level="4" data-path="cap4.html"><a href="cap4.html"><i class="fa fa-check"></i><b>4</b> Analysis of categorical variables</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="estimacion-del-tamano-poblacional.html"><a href="estimacion-del-tamano-poblacional.html"><i class="fa fa-check"></i><b>4.1</b> Estimación del tamaño poblacional</a></li>
-<li class="chapter" data-level="4.2" data-path="estimacion-de-proporciones.html"><a href="estimacion-de-proporciones.html"><i class="fa fa-check"></i><b>4.2</b> Estimación de proporciones</a></li>
-<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrastes y diferencias de proporciones</a></li>
-<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Tablas cruzadas</a></li>
-<li class="chapter" data-level="4.5" data-path="la-razon-de-odds.html"><a href="la-razon-de-odds.html"><i class="fa fa-check"></i><b>4.5</b> La razón de <em>odds</em></a></li>
-<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi.html"><a href="prueba-de-independencia-chi.html"><i class="fa fa-check"></i><b>4.6</b> Prueba de independencia <span class="math inline">\(\chi^{2}\)</span></a></li>
-<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualización de variables categóricas</a>
+<li class="chapter" data-level="4.1" data-path="estimacion-del-tamano-poblacional.html"><a href="estimacion-del-tamano-poblacional.html"><i class="fa fa-check"></i><b>4.1</b> Estimation of population size</a></li>
+<li class="chapter" data-level="4.2" data-path="estimacion-de-proporciones.html"><a href="estimacion-de-proporciones.html"><i class="fa fa-check"></i><b>4.2</b> Estimation of proportions</a></li>
+<li class="chapter" data-level="4.3" data-path="contrastes-y-diferencias-de-proporciones.html"><a href="contrastes-y-diferencias-de-proporciones.html"><i class="fa fa-check"></i><b>4.3</b> Contrasts and differences in proportions</a></li>
+<li class="chapter" data-level="4.4" data-path="tablas-cruzadas.html"><a href="tablas-cruzadas.html"><i class="fa fa-check"></i><b>4.4</b> Cross-tabulations</a></li>
+<li class="chapter" data-level="4.5" data-path="la-razon-de-odds.html"><a href="la-razon-de-odds.html"><i class="fa fa-check"></i><b>4.5</b> The <em>odds</em> ratio</a></li>
+<li class="chapter" data-level="4.6" data-path="prueba-de-independencia-chi.html"><a href="prueba-de-independencia-chi.html"><i class="fa fa-check"></i><b>4.6</b> <span class="math inline">\(\chi^{2}\)</span> test of independence</a></li>
+<li class="chapter" data-level="4.7" data-path="viz-categoricas.html"><a href="viz-categoricas.html"><i class="fa fa-check"></i><b>4.7</b> Visualization of categorical variables</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="viz-categoricas.html"><a href="viz-categoricas.html#graficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Gráficos de barras</a></li>
-<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Mapas</a></li>
+<li class="chapter" data-level="4.7.1" data-path="viz-categoricas.html"><a href="viz-categoricas.html#graficos-de-barras"><i class="fa fa-check"></i><b>4.7.1</b> Bar charts</a></li>
+<li class="chapter" data-level="4.7.2" data-path="viz-categoricas.html"><a href="viz-categoricas.html#viz-mapas"><i class="fa fa-check"></i><b>4.7.2</b> Maps</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="cap5.html"><a href="cap5.html"><i class="fa fa-check"></i><b>5</b> Modelos de regresión</a>
+<li class="chapter" data-level="5" data-path="cap5.html"><a href="cap5.html"><i class="fa fa-check"></i><b>5</b> Regression models</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="formulacion-del-modelo.html"><a href="formulacion-del-modelo.html"><i class="fa fa-check"></i><b>5.1</b> Formulación del modelo</a></li>
-<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Uso de los pesos de muestreo</a></li>
-<li class="chapter" data-level="5.3" data-path="estimacion-de-los-parametros-del-modelo.html"><a href="estimacion-de-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.3</b> Estimación de los parámetros del modelo</a></li>
-<li class="chapter" data-level="5.4" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html"><i class="fa fa-check"></i><b>5.4</b> Diagnóstico del modelo</a>
+<li class="chapter" data-level="5.1" data-path="formulacion-del-modelo.html"><a href="formulacion-del-modelo.html"><i class="fa fa-check"></i><b>5.1</b> Model formulation</a></li>
+<li class="chapter" data-level="5.2" data-path="uso-de-los-pesos-de-muestreo.html"><a href="uso-de-los-pesos-de-muestreo.html"><i class="fa fa-check"></i><b>5.2</b> Use of sampling weights</a></li>
+<li class="chapter" data-level="5.3" data-path="estimacion-de-los-parametros-del-modelo.html"><a href="estimacion-de-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.3</b> Estimation of model parameters</a></li>
+<li class="chapter" data-level="5.4" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html"><i class="fa fa-check"></i><b>5.4</b> Model diagnostics</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#coeficiente-de-determinacion"><i class="fa fa-check"></i><b>5.4.1</b> Coeficiente de determinación</a></li>
-<li class="chapter" data-level="5.4.2" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#residuales"><i class="fa fa-check"></i><b>5.4.2</b> Residuales</a></li>
-<li class="chapter" data-level="5.4.3" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Observaciones influyentes</a></li>
+<li class="chapter" data-level="5.4.1" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#coeficiente-de-determinacion"><i class="fa fa-check"></i><b>5.4.1</b> Coefficient of determination</a></li>
+<li class="chapter" data-level="5.4.2" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#residuales"><i class="fa fa-check"></i><b>5.4.2</b> Residuals</a></li>
+<li class="chapter" data-level="5.4.3" data-path="diagnostico-del-modelo.html"><a href="diagnostico-del-modelo.html#observaciones-influyentes"><i class="fa fa-check"></i><b>5.4.3</b> Influential observations</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="inferencia-sobre-los-parametros-del-modelo.html"><a href="inferencia-sobre-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.5</b> Inferencia sobre los parámetros del modelo</a></li>
-<li class="chapter" data-level="5.6" data-path="estimacion-y-prediccion.html"><a href="estimacion-y-prediccion.html"><i class="fa fa-check"></i><b>5.6</b> Estimación y predicción</a></li>
+<li class="chapter" data-level="5.5" data-path="inferencia-sobre-los-parametros-del-modelo.html"><a href="inferencia-sobre-los-parametros-del-modelo.html"><i class="fa fa-check"></i><b>5.5</b> Inference about model parameters</a></li>
+<li class="chapter" data-level="5.6" data-path="estimacion-y-prediccion.html"><a href="estimacion-y-prediccion.html"><i class="fa fa-check"></i><b>5.6</b> Estimation and prediction</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>6</b> Modelos lineales generalizados</a>
+<li class="chapter" data-level="6" data-path="cap6.html"><a href="cap6.html"><i class="fa fa-check"></i><b>6</b> Generalized linear models</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Modelo de regresión logística</a></li>
-<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Modelo de regresión multinomial</a></li>
-<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Modelo de regresión Gamma</a></li>
+<li class="chapter" data-level="6.1" data-path="sec-logistica.html"><a href="sec-logistica.html"><i class="fa fa-check"></i><b>6.1</b> Logistic regression model</a></li>
+<li class="chapter" data-level="6.2" data-path="sec-multinomial.html"><a href="sec-multinomial.html"><i class="fa fa-check"></i><b>6.2</b> Multinomial regression model</a></li>
+<li class="chapter" data-level="6.3" data-path="sec-gamma.html"><a href="sec-gamma.html"><i class="fa fa-check"></i><b>6.3</b> Gamma regression model</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="cap7.html"><a href="cap7.html"><i class="fa fa-check"></i><b>7</b> Modelos multinivel</a>
+<li class="chapter" data-level="7" data-path="cap7.html"><a href="cap7.html"><i class="fa fa-check"></i><b>7</b> Multilevel Models</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="sec-motivacionMult.html"><a href="sec-motivacionMult.html"><i class="fa fa-check"></i><b>7.1</b> Motivación</a></li>
-<li class="chapter" data-level="7.2" data-path="pesos-q-weighted.html"><a href="pesos-q-weighted.html"><i class="fa fa-check"></i><b>7.2</b> Pesos <em>q-weighted</em></a></li>
-<li class="chapter" data-level="7.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html"><i class="fa fa-check"></i><b>7.3</b> Modelo lineal multinivel</a>
+<li class="chapter" data-level="7.1" data-path="sec-motivacionMult.html"><a href="sec-motivacionMult.html"><i class="fa fa-check"></i><b>7.1</b> Motivation</a></li>
+<li class="chapter" data-level="7.2" data-path="pesos-q-weighted.html"><a href="pesos-q-weighted.html"><i class="fa fa-check"></i><b>7.2</b> <em>q-weighted</em> Weights</a></li>
+<li class="chapter" data-level="7.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html"><i class="fa fa-check"></i><b>7.3</b> Linear Multilevel Model</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Modelo nulo</a></li>
-<li class="chapter" data-level="7.3.2" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Modelo con intercepto aleatorio</a></li>
-<li class="chapter" data-level="7.3.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Modelo con intercepto y pendiente aleatoria</a></li>
+<li class="chapter" data-level="7.3.1" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-multinivel-muestras-complejas"><i class="fa fa-check"></i><b>7.3.1</b> Null Model</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.3.2</b> Random Intercept Model</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modelo-lineal-multinivel.html"><a href="modelo-lineal-multinivel.html#sec-intercepto-pendiente-aleatorios"><i class="fa fa-check"></i><b>7.3.3</b> Random Intercept and Slope Model</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html"><i class="fa fa-check"></i><b>7.4</b> Modelo logístico multinivel</a>
+<li class="chapter" data-level="7.4" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html"><i class="fa fa-check"></i><b>7.4</b> Multilevel Logistic Model</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-nulo-logistico"><i class="fa fa-check"></i><b>7.4.1</b> Modelo nulo logístico</a></li>
-<li class="chapter" data-level="7.4.2" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Modelo logístico con intercepto aleatorio</a></li>
-<li class="chapter" data-level="7.4.3" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Modelo logístico con intercepto y pendiente aleatoria</a></li>
-</ul></li>
-</ul></li>
-<li class="appendix"><span><b>Anexos</b></span></li>
-<li class="chapter" data-level="A" data-path="ap1.html"><a href="ap1.html"><i class="fa fa-check"></i><b>A</b> Manejo de bases de datos con <code>R</code></a>
-<ul>
-<li class="chapter" data-level="A.1" data-path="preparacion-del-entorno-de-trabajo.html"><a href="preparacion-del-entorno-de-trabajo.html"><i class="fa fa-check"></i><b>A.1</b> Preparación del entorno de trabajo</a></li>
-<li class="chapter" data-level="A.2" data-path="carga-e-inspeccion-inicial-de-la-base.html"><a href="carga-e-inspeccion-inicial-de-la-base.html"><i class="fa fa-check"></i><b>A.2</b> Carga e inspección inicial de la base</a></li>
-<li class="chapter" data-level="A.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html"><i class="fa fa-check"></i><b>A.3</b> Encadenamiento de operaciones</a>
-<ul>
-<li class="chapter" data-level="A.3.1" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#filter-seleccion-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selección de registros</a></li>
-<li class="chapter" data-level="A.3.2" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: seleccionar variables</a></li>
-<li class="chapter" data-level="A.3.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: ordenamiento de filas</a></li>
-<li class="chapter" data-level="A.3.4" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#mutate-creacion-o-transformacion-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creación o transformación de variables</a></li>
-<li class="chapter" data-level="A.3.5" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#summarise-resumenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: resúmenes descriptivos</a></li>
-<li class="chapter" data-level="A.3.6" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#group-by-agrupacion-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: agrupación de casos</a></li>
+<li class="chapter" data-level="7.4.1" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-nulo-logistico"><i class="fa fa-check"></i><b>7.4.1</b> Logistic Null Model</a></li>
+<li class="chapter" data-level="7.4.2" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-aleatorio"><i class="fa fa-check"></i><b>7.4.2</b> Logistic Model with Random Intercept</a></li>
+<li class="chapter" data-level="7.4.3" data-path="sec-logistica-multinivel.html"><a href="sec-logistica-multinivel.html#modelo-logistico-con-intercepto-y-pendiente-aleatoria"><i class="fa fa-check"></i><b>7.4.3</b> Logistic Model with Random Intercept and Slope</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Inferencia en poblaciones finitas</a>
+<li class="appendix"><span><b>Appendices</b></span></li>
+<li class="chapter" data-level="A" data-path="ap1.html"><a href="ap1.html"><i class="fa fa-check"></i><b>A</b> Data Wrangling with <code>R</code></a>
 <ul>
-<li class="chapter" data-level="B.1" data-path="dos-posibles-inferencias.html"><a href="dos-posibles-inferencias.html"><i class="fa fa-check"></i><b>B.1</b> Dos posibles inferencias</a></li>
-<li class="chapter" data-level="B.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html"><i class="fa fa-check"></i><b>B.2</b> La integración de ambas inferencias</a>
+<li class="chapter" data-level="A.1" data-path="preparacion-del-entorno-de-trabajo.html"><a href="preparacion-del-entorno-de-trabajo.html"><i class="fa fa-check"></i><b>A.1</b> Preparing the Working Environment</a></li>
+<li class="chapter" data-level="A.2" data-path="carga-e-inspeccion-inicial-de-la-base.html"><a href="carga-e-inspeccion-inicial-de-la-base.html"><i class="fa fa-check"></i><b>A.2</b> Loading and Initial Inspection of the Database</a></li>
+<li class="chapter" data-level="A.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html"><i class="fa fa-check"></i><b>A.3</b> Chaining Operations</a>
 <ul>
-<li class="chapter" data-level="B.2.1" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mv"><i class="fa fa-check"></i><b>B.2.1</b> Método de la máxima verosimilitud</a></li>
-<li class="chapter" data-level="B.2.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Método de máxima pseudo-verosimilitud</a></li>
+<li class="chapter" data-level="A.3.1" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#filter-seleccion-de-registros"><i class="fa fa-check"></i><b>A.3.1</b> <code>filter</code>: selecting records</a></li>
+<li class="chapter" data-level="A.3.2" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#select-seleccionar-variables"><i class="fa fa-check"></i><b>A.3.2</b> <code>select</code>: selecting variables</a></li>
+<li class="chapter" data-level="A.3.3" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#arrange-ordenamiento-de-filas"><i class="fa fa-check"></i><b>A.3.3</b> <code>arrange</code>: sorting rows</a></li>
+<li class="chapter" data-level="A.3.4" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#mutate-creacion-o-transformacion-de-variables"><i class="fa fa-check"></i><b>A.3.4</b> <code>mutate</code>: creating or transforming variables</a></li>
+<li class="chapter" data-level="A.3.5" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#summarise-resumenes-descriptivos"><i class="fa fa-check"></i><b>A.3.5</b> <code>summarise</code>: descriptive summaries</a></li>
+<li class="chapter" data-level="A.3.6" data-path="encadenamiento-de-operaciones.html"><a href="encadenamiento-de-operaciones.html#group-by-agrupacion-de-casos"><i class="fa fa-check"></i><b>A.3.6</b> <code>group_by</code>: grouping cases</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="chapter" data-level="B" data-path="ap2.html"><a href="ap2.html"><i class="fa fa-check"></i><b>B</b> Finite Population Inference</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="dos-posibles-inferencias.html"><a href="dos-posibles-inferencias.html"><i class="fa fa-check"></i><b>B.1</b> Two Possible Inferences</a></li>
+<li class="chapter" data-level="B.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html"><i class="fa fa-check"></i><b>B.2</b> The Integration of Both Inferences</a>
+<ul>
+<li class="chapter" data-level="B.2.1" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mv"><i class="fa fa-check"></i><b>B.2.1</b> Maximum Likelihood Method</a></li>
+<li class="chapter" data-level="B.2.2" data-path="la-integracion-de-ambas-inferencias.html"><a href="la-integracion-de-ambas-inferencias.html#sec-mpv-formal"><i class="fa fa-check"></i><b>B.2.2</b> Maximum Pseudo-Likelihood Method</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
-<li><a Análisis de encuestas de hogares con R</a></li>
+<li><a href="./">Household Surveys Analysis with R</a></li>
 
 </ul>
 
@@ -295,7 +288,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis de encuestas de hogares con R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Household Surveys Analysis with R</a>
           </h1>
         </div>
 
@@ -303,28 +296,28 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="pruebas-de-hipotesis" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> Pruebas de hipótesis<a href="pruebas-de-hipotesis.html#pruebas-de-hipotesis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>En el análisis de datos provenientes de encuestas de hogares no basta con estudiar cada variable de manera aislada, como estimar el ingreso medio de hombres y mujeres en un país. También es fundamental comparar grupos y evaluar si las diferencias observadas entre ellos reflejan desigualdades reales en la población o si podrían explicarse simplemente por el error de muestreo. Por ejemplo, una pregunta frecuente consiste en determinar si existen diferencias estadísticamente significativas en el ingreso medio entre hogares dirigidos por hombres y hogares dirigidos por mujeres. Este tipo de análisis permite identificar brechas sociales y económicas, además de generar evidencia útil para el diseño y evaluación de políticas públicas.</p>
-<p>Para responder este tipo de interrogantes se utilizan pruebas de hipótesis, es decir, procedimientos estadísticos que permiten contrastar afirmaciones sobre parámetros poblacionales utilizando la información observada en la muestra. En el contexto de encuestas de hogares, estas pruebas deben incorporar adecuadamente las características del diseño muestral con el fin de garantizar inferencias válidas y resultados confiables.</p>
-<p>Las pruebas de hipótesis constituyen una herramienta fundamental para evaluar afirmaciones sobre parámetros poblacionales a partir de la información observada en una muestra. En términos generales, toda prueba de hipótesis se basa en el contraste entre dos proposiciones opuestas: la hipótesis nula, denotada por <span class="math inline">\(H_0\)</span>, y la hipótesis alternativa, denotada por <span class="math inline">\(H_1\)</span>. En el caso más común de una prueba bilateral, estas hipótesis se expresan como:</p>
-<p><span class="math display">\[
+<div id="pruebas-de-hipotesis" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Hypothesis testing<a href="pruebas-de-hipotesis.html#pruebas-de-hipotesis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the analysis of data from household surveys, it is not enough to study each variable in isolation, such as estimating the average income of men and women in a country. It is also essential to compare groups and evaluate whether the differences observed between them reflect real inequalities in the population or if they could be explained simply by sampling error. For example, a frequently asked question is whether there are statistically significant differences in median income between male-headed households and female-headed households. This type of analysis makes it possible to identify social and economic gaps, in addition to generating useful evidence for the design and evaluation of public policies.</p>
+<p>To answer these types of questions, hypothesis tests are used, that is, statistical procedures that allow statements about population parameters to be contrasted using the information observed in the sample. In the context of household surveys, these tests must adequately incorporate the characteristics of the sampling design in order to guarantee valid inferences and reliable results.</p>
+<p>Hypothesis testing is a fundamental tool for evaluating statements about population parameters based on the information observed in a sample. Generally speaking, any hypothesis test is based on the contrast between two opposing propositions: the null hypothesis, denoted by <span class="math inline">\(H_0\)</span>, and the alternative hypothesis, denoted by <span class="math inline">\(H_1\)</span>. In the most common case of a two-sided test, these hypotheses are expressed as:
+<span class="math display">\[
 \begin{cases}
 H_{0}: &amp; \theta = \theta_0 \\
 H_{1}: &amp; \theta \neq \theta_0
 \end{cases}
 \]</span></p>
-<p>donde <span class="math inline">\(\theta\)</span> representa el parámetro poblacional de interés y <span class="math inline">\(\theta_0\)</span> un valor de referencia especificado bajo la hipótesis nula. Dependiendo del objetivo del análisis, la hipótesis alternativa también puede formularse de manera unilateral, por ejemplo, cuando se desea evaluar si <span class="math inline">\(\theta &gt; \theta_0\)</span> o si <span class="math inline">\(\theta &lt; \theta_0\)</span>. El propósito de la prueba es determinar si la evidencia contenida en la muestra resulta suficientemente fuerte para rechazar la hipótesis nula en favor de la hipótesis alternativa.</p>
-<p>Supóngase que <span class="math inline">\(\bar{y}_1\)</span> y <span class="math inline">\(\bar{y}_2\)</span> representan las medias poblacionales de una variable <span class="math inline">\(y\)</span> en dos dominios distintos, por ejemplo, el ingreso medio de hogares con jefatura masculina y el ingreso medio de hogares con jefatura femenina. Entonces, el parámetro de interés corresponde entonces a la diferencia:</p>
-<p><span class="math display">\[
+<p>where <span class="math inline">\(\theta\)</span> represents the population parameter of interest and <span class="math inline">\(\theta_0\)</span> a reference value specified under the null hypothesis. Depending on the objective of the analysis, the alternative hypothesis can also be formulated unilaterally, for example, when you want to evaluate whether <span class="math inline">\(\theta &gt; \theta_0\)</span> or whether <span class="math inline">\(\theta &lt; \theta_0\)</span>. The purpose of the test is to determine whether the evidence contained in the sample is strong enough to reject the null hypothesis in favor of the alternative hypothesis.</p>
+<p>Suppose <span class="math inline">\(\bar{y}_1\)</span> and <span class="math inline">\(\bar{y}_2\)</span> represent the population means of a variable <span class="math inline">\(y\)</span> in two different domains, for example, the mean income of male-headed households and the mean income of female-headed households. So, the parameter of interest then corresponds to the difference:
+<span class="math display">\[
 \Delta = \bar{y}_1 - \bar{y}_2
 \]</span></p>
-<p>Su estimador muestral se define como:</p>
-<p><span class="math display">\[
+<p>Its sample estimator is defined as:
+<span class="math display">\[
 \hat{\Delta} = \hat{\bar{y}}_1 - \hat{\bar{y}}_2
 \]</span></p>
-<p>Para el cual, su error estándar se estima mediante la siguiente expresión:</p>
-<p><span class="math display">\[
+<p>For which, its standard error is estimated by the following expression:
+<span class="math display">\[
 \widehat{se}(\hat{\Delta}) =
 \sqrt{
 \widehat{Var}(\hat{\bar{y}}_1)
@@ -334,25 +327,25 @@ H_{1}: &amp; \theta \neq \theta_0
 2\widehat{Cov}(\hat{\bar{y}}_1, \hat{\bar{y}}_2)
 }
 \]</span></p>
-<p>La presencia del término de covarianza es importante porque las estimaciones de ambos dominios suelen provenir de la misma muestra y, por tanto, no necesariamente son independientes. Una vez calculado el estimador y su error estándar, el contraste de hipótesis se realiza utilizando el siguiente estadístico de prueba:</p>
-<p><span class="math display">\[
+<p>The presence of the covariance term is important because the estimates of both domains usually come from the same sample and, therefore, are not necessarily independent. Once the estimator and its standard error have been calculated, the hypothesis contrast is carried out using the following test statistic:
+<span class="math display">\[
 t =
 \frac{\hat{\Delta}}
 {\widehat{se}(\hat{\Delta})} \sim t_{df}
 \]</span></p>
-<p>el cual sigue aproximadamente una distribución <span class="math inline">\(t\)</span> de Student con <span class="math inline">\((df)\)</span> grados de libertad. En la práctica, estos grados de libertad suelen aproximarse mediante <span class="math inline">\(df = n_I - H\)</span>, donde <span class="math inline">\(n_I\)</span> representa el número de unidades primarias de muestreo y <span class="math inline">\(H\)</span> el número de estratos. Bajo la hipótesis nula, valores absolutos elevados del estadístico <span class="math inline">\(t\)</span> constituyen evidencia en contra de <span class="math inline">\(H_0\)</span>. De manera complementaria, también puede construirse un intervalo de confianza para el parámetro <span class="math inline">\(\Delta\)</span>. Para un nivel de confianza de <span class="math inline">\((1-\alpha)100\%\)</span>, dicho intervalo está dado por:</p>
-<p><span class="math display">\[
+<p>which approximately follows a Student <span class="math inline">\(t\)</span> distribution with <span class="math inline">\((df)\)</span> degrees of freedom. In practice, these degrees of freedom are usually approximated by <span class="math inline">\(df = n_I - H\)</span>, where <span class="math inline">\(n_I\)</span> represents the number of primary sampling units and <span class="math inline">\(H\)</span> the number of strata. Under the null hypothesis, high absolute values of the <span class="math inline">\(t\)</span> statistic constitute evidence against <span class="math inline">\(H_0\)</span>. In a complementary manner, a confidence interval can also be constructed for the parameter <span class="math inline">\(\Delta\)</span>. For a confidence level of <span class="math inline">\((1-\alpha)100\%\)</span>, said interval is given by:
+<span class="math display">\[
 \hat{\Delta}
 \;\pm\;
 t_{(1-\alpha/2,df)}
 \,
 \hat{se}(\hat{\Delta}).
 \]</span></p>
-<p>Este intervalo proporciona un rango de valores plausibles para la diferencia poblacional y constituye una herramienta útil para evaluar tanto la magnitud como la significación estadística de las diferencias observadas entre grupos.</p>
-<p>En <code>R</code>, estas pruebas pueden implementarse mediante la función <code>svyttest()</code> del paquete <code>survey</code>, la cual incorpora automáticamente los ajustes asociados al diseño muestral. A partir de los resultados presentados en la Tabla <a href="pruebas-de-hipotesis.html#tab:tab-ttest-sexo">3.22</a> puede concluirse que, con un nivel de confianza del 95%, no existe evidencia estadística suficiente para afirmar que los ingresos medios difieren según el sexo.</p>
+<p>This interval provides a range of plausible values for the population difference and is a useful tool for evaluating both the magnitude and statistical significance of the observed differences between groups.</p>
+<p>In <code>R</code>, these tests can be implemented using the <code>svyttest()</code> function of the <code>survey</code> package, which automatically incorporates the adjustments associated with the sample design. From the results presented in Table <a href="pruebas-de-hipotesis.html#tab:tab-ttest-sexo">3.22</a> it can be concluded that, with a confidence level of 95%, there is not sufficient statistical evidence to affirm that average incomes differ by sex.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="pruebas-de-hipotesis.html#cb30-1" tabindex="-1"></a>ttest_sex <span class="ot">&lt;-</span> <span class="fu">svyttest</span>(Income <span class="sc">~</span> Sex, <span class="at">design =</span> survey_design, <span class="at">level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-ttest-sexo">Tabla 3.22: </span>Prueba de diferencia de ingresos medios por sexo (población total)</caption>
+<caption><span id="tab:tab-ttest-sexo">Table 3.22: </span>Test of difference in average income by sex (total population)</caption>
 <colgroup>
 <col width="15%" />
 <col width="13%" />
@@ -382,13 +375,13 @@ t_{(1-\alpha/2,df)}
 </tr>
 </tbody>
 </table>
-<p>Otra hipótesis de interés consiste en evaluar si los ingresos medios de los hogares difieren según el sexo de la jefatura dentro del área urbana, como se presenta en la Tabla <a href="pruebas-de-hipotesis.html#tab:tab-ttest-sexo-urbano">3.23</a>. Los resultados indican que no se rechaza la hipótesis nula <span class="math inline">\(H_0\)</span>, por lo que no existe evidencia estadística suficiente para afirmar que los ingresos medios difieren por sexo en la zona urbana.</p>
+<p>Another hypothesis of interest consists of evaluating whether the average household income differs depending on the sex of the head within the urban area, as presented in Table <a href="pruebas-de-hipotesis.html#tab:tab-ttest-sexo-urbano">3.23</a>. The results indicate that the null hypothesis <span class="math inline">\(H_0\)</span> is not rejected, so there is not enough statistical evidence to affirm that average income differs by sex in the urban area.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="pruebas-de-hipotesis.html#cb31-1" tabindex="-1"></a>urban_subset <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb31-2"><a href="pruebas-de-hipotesis.html#cb31-2" tabindex="-1"></a>  <span class="fu">filter</span>(Zone <span class="sc">==</span> <span class="st">&quot;Urban&quot;</span>)</span>
 <span id="cb31-3"><a href="pruebas-de-hipotesis.html#cb31-3" tabindex="-1"></a></span>
 <span id="cb31-4"><a href="pruebas-de-hipotesis.html#cb31-4" tabindex="-1"></a>ttest_urban <span class="ot">&lt;-</span> <span class="fu">svyttest</span>(Income <span class="sc">~</span> Sex, <span class="at">design =</span> urban_subset, <span class="at">level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-ttest-sexo-urbano">Tabla 3.23: </span>Prueba de diferencia de ingresos medios por sexo en zona urbana</caption>
+<caption><span id="tab:tab-ttest-sexo-urbano">Table 3.23: </span>Test of difference in average income by sex in urban areas</caption>
 <thead>
 <tr class="header">
 <th align="left">statistic</th>
@@ -410,7 +403,373 @@ t_{(1-\alpha/2,df)}
 </tr>
 </tbody>
 </table>
-<p>El procedimiento descrito no se limita a las medias, sino que también puede aplicarse a proporciones, totales, razones o cualquier función diferenciable de totales. En todos los casos, el contraste se fundamenta en la estimación puntual, su varianza (incluyendo covarianzas cuando corresponde) y la comparación con la distribución <span class="math inline">\(t\)</span> ajustada al diseño muestral.</p>
+<p>The procedure described is not limited to means, but can also be applied to proportions, totals, ratios or any function differentiable from totals. In all cases, the contrast is based on the point estimate, its variance (including covariances when applicable) and the comparison with the <span class="math inline">\(t\)</span> distribution adjusted to the sample design.
+## Contrast estimation {#estimacion-de-contrastes}</p>
+<p>In the analysis of household surveys it is common that the interest is not limited to comparing only two populations, but several simultaneously. For example, it may be necessary to compare the average household income between different regions, geographic areas or population groups, in order to identify differences and establish patterns of inequality between them. In these types of situations, the mean difference tests presented above are limited, since they are designed to only compare pairs of populations.</p>
+<p>To address more general comparisons, contrasts are used, which constitute a flexible tool to evaluate linear combinations of population parameters. In general terms, a contrast is defined as:
+<span class="math display">\[
+f\left(\theta_1,\theta_2,\ldots,\theta_J\right)
+=
+\sum_{j=1}^{J} a_j \theta_j,
+\]</span></p>
+<p>where the coefficients <span class="math inline">\(a_j\)</span> are known constants and <span class="math inline">\(\theta_j\)</span> represent the parameters of interest. This approach allows a wide variety of comparisons between groups to be formulated and evaluated, including differences between means, multiple comparisons, and more complex combinations of parameters.</p>
+<p>In <code>R</code>, methodological procedures for implementing contrasts in complex sampling designs are available through the <code>svycontrast()</code> function of the <code>survey</code> package. For example, if you want to compare the average income of two particular subpopulations (the Northern and Southern regions) you can use the contrast <span class="math inline">\(\bar{y}_{Norte} - \bar{y}_{Sur}\)</span>. Since the sample covers five regions in total, the contrast must be constructed by assigning coefficients only to the regions involved in the comparison and leaving coefficients equal to zero for the other regions. In this way, the contrast is defined as:
+<span class="math display">\[
+1\times\hat{\bar{y}}_{Norte}+\left(-1\right)\times\hat{\bar{y}}_{Sur}+0\times\hat{\bar{y}}_{Centro}+0\times\hat{\bar{y}}_{Occidente}+0\times\hat{\bar{y}}_{Oriente}.
+\]</span></p>
+<p>This expression indicates that the contrast corresponds to the difference between the estimated means of the North and South regions, while the other regions do not participate in the comparison. In matrix form, the contrast can be written as:
+<span class="math display">\[
+\left[1,\,-1,\,0,\,0,\,0\right]
+\times
+\left[\begin{array}{c}
+\hat{\bar{y}}_{Norte}\\
+\hat{\bar{y}}_{Sur}\\
+\hat{\bar{y}}_{Centro}\\
+\hat{\bar{y}}_{Occidente}\\
+\hat{\bar{y}}_{Oriente}
+\end{array}\right].
+\]</span></p>
+<p>Consequently, the contrast vector associated with this comparison is <span class="math inline">\(\left[1,\,-1,\,0,\,0,\,0\right]\)</span>, where the positive and negative coefficients indicate the populations to be compared and the zeros represent the populations excluded from the contrast. The first step is to calculate the estimated means for each region using <code>group_by()</code> and <code>survey_mean()</code>, as presented in Table <a href="pruebas-de-hipotesis.html#tab:tab-prom-region">3.24</a>. The visible results object is constructed with <code>srvyr</code>; Additionally, an auxiliary object with a covariance matrix is created for subsequent contrasts. As a result, the estimated averages of income by region are obtained.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="pruebas-de-hipotesis.html#cb32-1" tabindex="-1"></a>region_mean <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="pruebas-de-hipotesis.html#cb32-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Region) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="pruebas-de-hipotesis.html#cb32-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">survey_mean</span>(Income,</span>
+<span id="cb32-4"><a href="pruebas-de-hipotesis.html#cb32-4" tabindex="-1"></a>                               <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb32-5"><a href="pruebas-de-hipotesis.html#cb32-5" tabindex="-1"></a>                               <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span>
+<span id="cb32-6"><a href="pruebas-de-hipotesis.html#cb32-6" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="pruebas-de-hipotesis.html#cb32-7" tabindex="-1"></a>region_mean_contrast <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>Income,</span>
+<span id="cb32-8"><a href="pruebas-de-hipotesis.html#cb32-8" tabindex="-1"></a>                              <span class="at">by =</span> <span class="sc">~</span>Region,</span>
+<span id="cb32-9"><a href="pruebas-de-hipotesis.html#cb32-9" tabindex="-1"></a>                              <span class="at">design =</span> survey_design,</span>
+<span id="cb32-10"><a href="pruebas-de-hipotesis.html#cb32-10" tabindex="-1"></a>                              <span class="at">FUN =</span> svymean,</span>
+<span id="cb32-11"><a href="pruebas-de-hipotesis.html#cb32-11" tabindex="-1"></a>                              <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb32-12"><a href="pruebas-de-hipotesis.html#cb32-12" tabindex="-1"></a>                              <span class="at">covmat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb32-13"><a href="pruebas-de-hipotesis.html#cb32-13" tabindex="-1"></a>                              <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-prom-region">Table 3.24: </span>Estimated average income by region</caption>
+<thead>
+<tr class="header">
+<th align="left">Region</th>
+<th align="center">mean</th>
+<th align="center">mean_se</th>
+<th align="center">mean_low</th>
+<th align="center">mean_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Norte</td>
+<td align="center">552</td>
+<td align="center">55.4</td>
+<td align="center">443</td>
+<td align="center">662</td>
+</tr>
+<tr class="even">
+<td align="left">Sur</td>
+<td align="center">626</td>
+<td align="center">62.4</td>
+<td align="center">502</td>
+<td align="center">749</td>
+</tr>
+<tr class="odd">
+<td align="left">Centro</td>
+<td align="center">651</td>
+<td align="center">61.5</td>
+<td align="center">529</td>
+<td align="center">772</td>
+</tr>
+<tr class="even">
+<td align="left">Occidente</td>
+<td align="center">517</td>
+<td align="center">46.2</td>
+<td align="center">425</td>
+<td align="center">609</td>
+</tr>
+<tr class="odd">
+<td align="left">Oriente</td>
+<td align="center">542</td>
+<td align="center">71.7</td>
+<td align="center">400</td>
+<td align="center">684</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>svycontrast()</code> function returns the estimated contrast and its standard error. The arguments of this function are the averages of the estimated revenues (<code>stat</code>) and the contrast constants (<code>contrasts</code>), as shown in Table <a href="pruebas-de-hipotesis.html#tab:tab-contraste-ns">3.25</a>.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="pruebas-de-hipotesis.html#cb33-1" tabindex="-1"></a>contrast_region_ns <span class="ot">&lt;-</span> <span class="fu">svycontrast</span>(</span>
+<span id="cb33-2"><a href="pruebas-de-hipotesis.html#cb33-2" tabindex="-1"></a>  <span class="at">stat =</span> region_mean_contrast,</span>
+<span id="cb33-3"><a href="pruebas-de-hipotesis.html#cb33-3" tabindex="-1"></a>  <span class="at">contrasts =</span> <span class="fu">list</span>(<span class="at">north_south_difference =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb33-4"><a href="pruebas-de-hipotesis.html#cb33-4" tabindex="-1"></a>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-contraste-ns">Table 3.25: </span>Contrast of average income: Northern region minus Southern region</caption>
+<thead>
+<tr class="header">
+<th align="left">contrast</th>
+<th align="center">estimate</th>
+<th align="center">variance</th>
+<th align="center">standard_error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">north_south_difference</td>
+<td align="center">-73.4</td>
+<td align="center">6959</td>
+<td align="center">83.4</td>
+</tr>
+</tbody>
+</table>
+<p>Note that these same results could be obtained by explicitly carrying out the process of constructing the contrast estimator and its estimated variance. If only the estimated average incomes of the North and South regions are considered, their difference is:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="pruebas-de-hipotesis.html#cb34-1" tabindex="-1"></a><span class="co"># Step 1: difference in estimates (North - South)</span></span>
+<span id="cb34-2"><a href="pruebas-de-hipotesis.html#cb34-2" tabindex="-1"></a><span class="fl">552.4</span> <span class="sc">-</span> <span class="fl">625.8</span></span></code></pre></div>
+<pre><code>## [1] -73.4</code></pre>
+<p>The next step is to calculate the variance and covariance matrix and from there extract the variances and covariances of the North and South regions, presented in Table <a href="pruebas-de-hipotesis.html#tab:tab-vcov-region">3.26</a>:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="pruebas-de-hipotesis.html#cb36-1" tabindex="-1"></a><span class="co"># Step 2: variance and covariance matrix</span></span>
+<span id="cb36-2"><a href="pruebas-de-hipotesis.html#cb36-2" tabindex="-1"></a>region_vcov <span class="ot">&lt;-</span> <span class="fu">vcov</span>(region_mean_contrast)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-vcov-region">Table 3.26: </span>Variance and covariance matrix of average income by region</caption>
+<thead>
+<tr class="header">
+<th align="left">Region</th>
+<th align="center">Norte</th>
+<th align="center">Sur</th>
+<th align="center">Centro</th>
+<th align="center">Occidente</th>
+<th align="center">Oriente</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Norte</td>
+<td align="center">3065</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="left">Sur</td>
+<td align="center">0</td>
+<td align="center">3894</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Centro</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">3778</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="left">Occidente</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">2136</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Oriente</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">5136</td>
+</tr>
+</tbody>
+</table>
+<p>To calculate the standard error of the difference (contrast), the properties of the variance will be used, as follows:
+<span class="math display">\[
+\widehat{se}\left(\hat{\bar{y}}_{Norte}-\hat{\bar{y}}_{Sur}\right)=\sqrt{\widehat {Var}\left(\hat{\bar{y}}_{Norte}\right)+
+\widehat{Var}\left(\hat{\bar{y}}_{Sur}\right)-
+2\, \widehat{Cov}\left(\hat{\bar{y}}_{Norte},\hat{\bar{y}}_{Sur}\right)}
+\]</span></p>
+<p>Therefore:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="pruebas-de-hipotesis.html#cb37-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">2650</span> <span class="sc">+</span> <span class="dv">3460</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="dv">0</span>)</span></code></pre></div>
+<pre><code>## [1] 78.2</code></pre>
+<p>Which corresponds to the same result obtained previously with the <code>svycontrast()</code> function. In addition to comparing only two populations, contrasts allow several comparisons of interest to be evaluated simultaneously between different groups.</p>
+<p>On the other hand, suppose you want to compare average incomes between different geographic regions. In particular, contrasts such as <span class="math inline">\(\bar{y}_{Norte} - \bar{y}_{Centro}\)</span>, <span class="math inline">\(\bar{y}_{Sur} - \bar{y}_{Centro}\)</span> and <span class="math inline">\(\bar{y}_{Occidente} - \bar{y}_{Oriente}\)</span> could be considered. Each of these expressions represents a specific linear contrast between regional means. Jointly, these contrasts can be organized using the following contrast matrix:
+<span class="math display">\[
+\left[\begin{array}{ccccc}
+1 &amp; 0 &amp; -1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; -1 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; -1
+\end{array}\right]
+\]</span></p>
+<p>In this matrix, each row defines a different contrast and each column corresponds to one of the regions considered in the analysis. The positive and negative coefficients indicate the means that participate in each comparison, while the zeros represent the regions that do not participate in the corresponding contrast. Below is the implementation of the contrasts in <code>R</code>, the results of which are presented in Table <a href="pruebas-de-hipotesis.html#tab:tab-contraste-regiones">3.27</a>. From these results, it can be concluded that the Southern and Central regions have the most similar average household incomes, given that the estimated difference between both regions is the smallest among the contrasts evaluated.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="pruebas-de-hipotesis.html#cb39-1" tabindex="-1"></a>contrast_regions <span class="ot">&lt;-</span> <span class="fu">svycontrast</span>(</span>
+<span id="cb39-2"><a href="pruebas-de-hipotesis.html#cb39-2" tabindex="-1"></a>  <span class="at">stat =</span> region_mean_contrast,</span>
+<span id="cb39-3"><a href="pruebas-de-hipotesis.html#cb39-3" tabindex="-1"></a>  <span class="at">contrasts =</span> <span class="fu">list</span>(</span>
+<span id="cb39-4"><a href="pruebas-de-hipotesis.html#cb39-4" tabindex="-1"></a>    <span class="at">north_south =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb39-5"><a href="pruebas-de-hipotesis.html#cb39-5" tabindex="-1"></a>    <span class="at">south_center =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb39-6"><a href="pruebas-de-hipotesis.html#cb39-6" tabindex="-1"></a>    <span class="at">west_east =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb39-7"><a href="pruebas-de-hipotesis.html#cb39-7" tabindex="-1"></a>  )</span>
+<span id="cb39-8"><a href="pruebas-de-hipotesis.html#cb39-8" tabindex="-1"></a>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-contraste-regiones">Table 3.27: </span>Contrasts in average income between regions</caption>
+<thead>
+<tr class="header">
+<th align="left">contrast</th>
+<th align="center">estimate</th>
+<th align="center">variance</th>
+<th align="center">standard_error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">north_south</td>
+<td align="center">-98.4</td>
+<td align="center">6843</td>
+<td align="center">82.7</td>
+</tr>
+<tr class="even">
+<td align="left">south_center</td>
+<td align="center">-25.0</td>
+<td align="center">7673</td>
+<td align="center">87.6</td>
+</tr>
+<tr class="odd">
+<td align="left">west_east</td>
+<td align="center">-24.7</td>
+<td align="center">7272</td>
+<td align="center">85.3</td>
+</tr>
+</tbody>
+</table>
+<p>It is also possible to build contrasts between variables associated with different population groups, as occurs when comparing average income according to sex. Following the same procedure as the previous example, the first step is to estimate the average income for each group, in this case men and women, as presented in Table <a href="pruebas-de-hipotesis.html#tab:tab-prom-sexo">3.28</a>.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="pruebas-de-hipotesis.html#cb40-1" tabindex="-1"></a>sex_mean <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="pruebas-de-hipotesis.html#cb40-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb40-3"><a href="pruebas-de-hipotesis.html#cb40-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">survey_mean</span>(Income,</span>
+<span id="cb40-4"><a href="pruebas-de-hipotesis.html#cb40-4" tabindex="-1"></a>                               <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb40-5"><a href="pruebas-de-hipotesis.html#cb40-5" tabindex="-1"></a>                               <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span>
+<span id="cb40-6"><a href="pruebas-de-hipotesis.html#cb40-6" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="pruebas-de-hipotesis.html#cb40-7" tabindex="-1"></a>sex_mean_contrast <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>Income,</span>
+<span id="cb40-8"><a href="pruebas-de-hipotesis.html#cb40-8" tabindex="-1"></a>                           <span class="at">by =</span> <span class="sc">~</span>Sex,</span>
+<span id="cb40-9"><a href="pruebas-de-hipotesis.html#cb40-9" tabindex="-1"></a>                           <span class="at">design =</span> survey_design,</span>
+<span id="cb40-10"><a href="pruebas-de-hipotesis.html#cb40-10" tabindex="-1"></a>                           <span class="at">FUN =</span> svymean,</span>
+<span id="cb40-11"><a href="pruebas-de-hipotesis.html#cb40-11" tabindex="-1"></a>                           <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb40-12"><a href="pruebas-de-hipotesis.html#cb40-12" tabindex="-1"></a>                           <span class="at">covmat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb40-13"><a href="pruebas-de-hipotesis.html#cb40-13" tabindex="-1"></a>                           <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-prom-sexo">Table 3.28: </span>Estimated average income by sex</caption>
+<thead>
+<tr class="header">
+<th align="left">Sex</th>
+<th align="center">mean</th>
+<th align="center">mean_se</th>
+<th align="center">mean_low</th>
+<th align="center">mean_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Female</td>
+<td align="center">558</td>
+<td align="center">25.8</td>
+<td align="center">506</td>
+<td align="center">609</td>
+</tr>
+<tr class="even">
+<td align="left">Male</td>
+<td align="center">586</td>
+<td align="center">34.6</td>
+<td align="center">517</td>
+<td align="center">654</td>
+</tr>
+</tbody>
+</table>
+<p>In this case, the contrast of interest is given by <span class="math inline">\(\bar{y}_{F} - \bar{y}_{M}\)</span>, which allows quantifying the difference between the average income of women and that of men. Next, using the function <code>svycontrast()</code> of the <code>survey</code> package, the contrast estimation is obtained, the results of which are presented in Table <a href="pruebas-de-hipotesis.html#tab:tab-contraste-sexo">3.29</a>. From these results, it is concluded that, on average, men receive 28.3 monetary units more than women, with an estimated standard error of 19.8 monetary units.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="pruebas-de-hipotesis.html#cb41-1" tabindex="-1"></a>contrast_sex <span class="ot">&lt;-</span> <span class="fu">svycontrast</span>(</span>
+<span id="cb41-2"><a href="pruebas-de-hipotesis.html#cb41-2" tabindex="-1"></a>  <span class="at">stat =</span> sex_mean_contrast,</span>
+<span id="cb41-3"><a href="pruebas-de-hipotesis.html#cb41-3" tabindex="-1"></a>  <span class="at">contrasts =</span> <span class="fu">list</span>(<span class="at">sex_difference =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb41-4"><a href="pruebas-de-hipotesis.html#cb41-4" tabindex="-1"></a>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-contraste-sexo">Table 3.29: </span>Contrast of average income between women and men</caption>
+<thead>
+<tr class="header">
+<th align="left">contrast</th>
+<th align="center">estimate</th>
+<th align="center">variance</th>
+<th align="center">standard_error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">sex_difference</td>
+<td align="center">-28.3</td>
+<td align="center">431</td>
+<td align="center">20.8</td>
+</tr>
+</tbody>
+</table>
+<p>Since the contrasts correspond to linear functions of parameters, it is also possible to apply them to ratio estimators. An example of this is to compare the relationship between expenses and income according to sex. In this case, first the expense-income ratio is estimated for each group and subsequently the contrast between these ratios is constructed. Below are the computational codes used to perform this analysis, the results of which are shown in Table <a href="pruebas-de-hipotesis.html#tab:tab-razon-ingreso-gasto-sexo">3.30</a>:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="pruebas-de-hipotesis.html#cb42-1" tabindex="-1"></a>sex_ratio <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="pruebas-de-hipotesis.html#cb42-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="pruebas-de-hipotesis.html#cb42-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ratio =</span> <span class="fu">survey_ratio</span>(Income,</span>
+<span id="cb42-4"><a href="pruebas-de-hipotesis.html#cb42-4" tabindex="-1"></a>                                 Expenditure,</span>
+<span id="cb42-5"><a href="pruebas-de-hipotesis.html#cb42-5" tabindex="-1"></a>                                 <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb42-6"><a href="pruebas-de-hipotesis.html#cb42-6" tabindex="-1"></a>                                 <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span>
+<span id="cb42-7"><a href="pruebas-de-hipotesis.html#cb42-7" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="pruebas-de-hipotesis.html#cb42-8" tabindex="-1"></a>sex_ratio_contrast <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>Income,</span>
+<span id="cb42-9"><a href="pruebas-de-hipotesis.html#cb42-9" tabindex="-1"></a>                            <span class="at">by =</span> <span class="sc">~</span>Sex,</span>
+<span id="cb42-10"><a href="pruebas-de-hipotesis.html#cb42-10" tabindex="-1"></a>                            <span class="at">denominator =</span> <span class="sc">~</span>Expenditure,</span>
+<span id="cb42-11"><a href="pruebas-de-hipotesis.html#cb42-11" tabindex="-1"></a>                            <span class="at">design =</span> survey_design,</span>
+<span id="cb42-12"><a href="pruebas-de-hipotesis.html#cb42-12" tabindex="-1"></a>                            <span class="at">FUN =</span> svyratio,</span>
+<span id="cb42-13"><a href="pruebas-de-hipotesis.html#cb42-13" tabindex="-1"></a>                            <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb42-14"><a href="pruebas-de-hipotesis.html#cb42-14" tabindex="-1"></a>                            <span class="at">covmat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb42-15"><a href="pruebas-de-hipotesis.html#cb42-15" tabindex="-1"></a>                            <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-razon-ingreso-gasto-sexo">Table 3.30: </span>Income/expenditure ratio disaggregated by sex</caption>
+<thead>
+<tr class="header">
+<th align="left">Sex</th>
+<th align="center">ratio</th>
+<th align="center">ratio_se</th>
+<th align="center">ratio_low</th>
+<th align="center">ratio_upp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Female</td>
+<td align="center">1.52</td>
+<td align="center">0.046</td>
+<td align="center">1.43</td>
+<td align="center">1.61</td>
+</tr>
+<tr class="even">
+<td align="left">Male</td>
+<td align="center">1.56</td>
+<td align="center">0.070</td>
+<td align="center">1.43</td>
+<td align="center">1.70</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>svycontrast()</code> function is not limited only to the comparison of means or totals, but also allows the construction of contrasts between other parameters of interest, such as ratios and proportions estimated from complex sampling designs. The computational codes used to perform this analysis are presented below, the results of which are shown in Table <a href="pruebas-de-hipotesis.html#tab:tab-contraste-razon-sexo">3.31</a>. From these results, it can be concluded that the difference between the estimated ratios is 0.045 in favor of men.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="pruebas-de-hipotesis.html#cb43-1" tabindex="-1"></a>contrast_sex_ratio <span class="ot">&lt;-</span> <span class="fu">svycontrast</span>(</span>
+<span id="cb43-2"><a href="pruebas-de-hipotesis.html#cb43-2" tabindex="-1"></a>  <span class="at">stat =</span> sex_ratio_contrast,</span>
+<span id="cb43-3"><a href="pruebas-de-hipotesis.html#cb43-3" tabindex="-1"></a>  <span class="at">contrasts =</span> <span class="fu">list</span>(<span class="at">sex_difference =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb43-4"><a href="pruebas-de-hipotesis.html#cb43-4" tabindex="-1"></a>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tab-contraste-razon-sexo">Table 3.31: </span>Contrast of the income/expenditure ratio between sexes</caption>
+<thead>
+<tr class="header">
+<th align="left">contrast</th>
+<th align="center">estimate</th>
+<th align="center">standard_error</th>
+<th align="center">variance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">sex_difference</td>
+<td align="center">-0.046</td>
+<td align="center">0.042</td>
+<td align="center">0.002</td>
+</tr>
+</tbody>
+</table>
 </div>
             </section>
 
@@ -418,7 +777,7 @@ t_{(1-\alpha/2,df)}
         </div>
       </div>
 <a href="estimacion-de-parametros-de-distribucion-y-desigualdad.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="estimacion-de-contrastes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="viz-continuas.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -449,7 +808,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/psirusteam/LibroEncuestasR/03-Continuas.Rmd",
+    "link": "https://github.com/psirusteam/LibroEncuestasR/03-Continuous-Variables.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -460,7 +819,7 @@ gitbook.start({
     "link": null,
     "text": null
   },
-  "download": ["Libro.pdf", "Libro.epub", "Libro.mobi"],
+  "download": ["Household_Surveys_with_R.pdf", "Household_Surveys_with_R.epub", "Household_Surveys_with_R.mobi"],
   "search": {
     "engine": "fuse",
     "options": null
