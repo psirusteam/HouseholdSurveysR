@@ -1,4 +1,4 @@
-```{r setup, include=FALSE}
+```{r setup-glm, include=FALSE}
 knitr::opts_chunk$set(
   warning = FALSE,
   message = FALSE,
@@ -28,7 +28,7 @@ La necesidad de esta generalización surge porque los modelos lineales clásicos
 
 Para ilustrar los modelos presentados en este capítulo se utilizan la base de datos `survey_data` y la población `BigCity`, siguiendo la misma estructura utilizada en capítulos anteriores. Después de cargar `tidyverse` [@tidyverse2026], `survey` [@Lumley2024], `srvyr` [@Freedman2024], `broom` [@broom2026] y `jtools` [@jtools2026], el siguiente bloque de código crea dos nuevas variables categóricas (`poverty` y `unemployment`) a partir de las variables originales `Poverty` y `Employment`, respectivamente.
 
-```{r glm-setup, echo=TRUE, eval=TRUE}
+```{r preparar-diseno-glm, echo = TRUE, eval = TRUE}
 options(digits = 4)
 library(tidyverse)
 library(survey)
@@ -41,20 +41,23 @@ data("BigCity", package = "TeachingSampling")
 
 survey_design <- survey_data %>%
   as_survey_design(
-    strata  = Stratum,
-    ids     = PSU,
+    strata = Stratum,
+    ids = PSU,
     weights = wk,
-    nest    = TRUE
+    nest = TRUE
   )
 
 survey_design <- survey_design %>%
   mutate(
-    poverty   = factor(ifelse(Poverty != "NotPoor", 1, 0),
-                       levels = c(0, 1),
-                       labels = c("=Poor", "=Not poor")),
+    poverty = factor(
+      ifelse(Poverty != "NotPoor", 1, 0),
+      levels = c(0, 1),
+      labels = c("=Poor", "=Not poor")
+    ),
     unemployment = factor(ifelse(Employment == "Unemployed", 1, 0),
-                       levels = c(0, 1),
-                       labels = c("=Unemployed", "=Not unemployed"))
+      levels = c(0, 1),
+      labels = c("=Unemployed", "=Not unemployed")
+    )
   )
 ```
 
@@ -129,11 +132,11 @@ Como los datos provienen de un diseño muestral complejo, es necesario incorpora
 
 Siguiendo con la encuesta de ejemplo, y con el fin de analizar los factores asociados a la condición de pobreza, se ajusta un modelo de regresión logística utilizando como variables explicativas el gasto, la situación en el empleo y el sexo. Dado que los datos provienen de una encuesta con diseño muestral complejo, la estimación se realiza mediante la función `svyglm()` del paquete `survey`, especificando `family = binomial` para indicar que la variable respuesta es dicotómica y que se utilizará la función de enlace logit. Los resultados del ajuste se presentan en la Tabla \@ref(tab:tab-ic-logistica).
 
-```{r mod-logistico-base, echo=TRUE, eval=TRUE}
+```{r mod-logistico-base, echo = TRUE, eval = TRUE}
 logit_model <- svyglm(
   formula = poverty ~ Expenditure + Employment + Sex,
-  family  = binomial,
-  design  = survey_design
+  family = binomial,
+  design = survey_design
 )
 ```
 
@@ -141,14 +144,14 @@ En la especificación del modelo, el argumento `formula = poverty ~ Expenditure 
 
 Los resultados de la Tabla \@ref(tab:tab-ic-logistica) muestran las sestimaciones de los coeficientes de regresión, junto con su error estándar, los intervalos de confirza y el valor-p. Del modelo se deduce que un mayor nivel de gasto se asocia con una menor probabilidad de encontrarse en condición de pobreza. Asimismo, en comparación con la categoría de referencia (desocupados), tanto las personas inactivas como las ocupadas presentan una menor propensión a ser pobres, siendo este efecto más marcado entre estas últimas. En contraste, el sexo tiene una influencia muy reducida sobre la probabilidad de pobreza una vez controlado el efecto de las demás covariables incluidas en el modelo.
 
-```{r, echo=FALSE}
-res <- tidy(logit_model)
+```{r cod-resultados-logistica, echo = FALSE}
+logit_results <- tidy(logit_model)
 confint(logit_model, level = 0.95)
 ```
 
 
-```{r tab-ic-logistica, tab.cap="Intervalos de confianza al 95% para los parámetros del modelo logístico", echo=FALSE}
-res %>%
+```{r tab-ic-logistica, tab.cap="Intervalos de confianza al 95% para los parámetros del modelo logístico", echo = FALSE}
+logit_results %>%
   as.data.frame() %>%
   tibble::rownames_to_column("Parameter") %>%
   tabla_fmt()
@@ -161,27 +164,28 @@ Para visualizar la distribución de los coeficientes se emplea `plot_summs()` de
 ```{r fig-logistica-base, fig.cap="Distribución de los parámetros del modelo logístico base", out.width="80%"}
 library(ggstance)
 plot_summs(logit_model,
-           scale = TRUE,
-           plot.distributions = TRUE)
+  scale = TRUE,
+  plot.distributions = TRUE
+)
 ```
 
 
 El modelo puede ampliarse incorporando términos de interacción para evaluar si el efecto de una variable explicativa depende de los valores que toma otra. En este caso, se incluye una interacción entre el sexo y la situación laboral mediante el término `Sex:Employment`, con el objetivo de analizar si la relación entre el estado ocupacional y la probabilidad de pobreza es la misma para hombres y mujeres. Sin este término, el modelo asume que el efecto de la situación laboral sobre la pobreza es idéntico para ambos sexos. En cambio, al incorporar la interacción, se permite que dicho efecto varíe entre hombres y mujeres, capturando posibles diferencias en la forma en que la condición laboral se asocia con la pobreza en cada grupo. Los resultados del modelo ajustado se presentan en la Tabla \@ref(tab:tab-logistica-interaccion).
 
-```{r mod-logistico-interaccion, echo=TRUE, eval=TRUE}
+```{r mod-logistico-interaccion, echo = TRUE, eval = TRUE}
 interaction_logit_model <- svyglm(
   formula = poverty ~ Expenditure + Employment + Sex + Sex:Employment,
-  family  = binomial,
-  design  = survey_design
+  family = binomial,
+  design = survey_design
 )
 ```
 
-```{r, echo=FALSE}
-res <- tidy(interaction_logit_model)
+```{r cod-resultados-logistica-interaccion, echo = FALSE}
+interaction_logit_results <- tidy(interaction_logit_model)
 ```
 
-```{r tab-logistica-interaccion, tab.cap="Coeficientes del modelo logístico con interacciones", echo=FALSE}
- res %>%
+```{r tab-logistica-interaccion, tab.cap="Coeficientes del modelo logístico con interacciones", echo = FALSE}
+interaction_logit_results %>%
   tabla_fmt()
 ```
 
@@ -192,8 +196,9 @@ La Figura \@ref(fig:fig-comparacion-logistica) presenta una comparación de las 
 
 ```{r fig-comparacion-logistica, fig.cap="Comparación de los parámetros del modelo logístico con y sin interacciones", out.width="70%"}
 plot_summs(interaction_logit_model, logit_model,
-           scale = TRUE,
-           plot.distributions = TRUE)
+  scale = TRUE,
+  plot.distributions = TRUE
+)
 ```
 
 ## Modelo de regresión multinomial {#sec-multinomial}
@@ -242,36 +247,36 @@ Como se mencionó anteriormente, los estimadores obtenidos mediante este procedi
 
 Para el ajuste del modelo usando `R`, como referencia inicial, se estiman las proporciones de personas por estado de empleo, restringiendo las unidades de interés a mayores de 15 años, como se presenta en la Tabla \@ref(tab:tab-prop-empleo-15).
 
-```{r, eval=FALSE}
+```{r cod-prop-empleo-15, eval = FALSE}
 survey_design %>%
   filter(Age >= 15) %>%
   group_by(Employment) %>%
   summarise(proportion = survey_mean(vartype = c("se", "ci")))
 ```
 
-```{r, echo=FALSE}
+```{r calcular-prop-empleo-15, echo = FALSE}
 employment_proportion <- survey_design %>%
   filter(Age >= 15) %>%
   group_by(Employment) %>%
   summarise(proportion = survey_mean(vartype = c("se", "ci")))
 ```
 
-```{r tab-prop-empleo-15, tab.cap="Proporción estimada de personas por estado de empleo (mayores de 15 años)", echo=FALSE}
- employment_proportion %>%
+```{r tab-prop-empleo-15, tab.cap="Proporción estimada de personas por estado de empleo (mayores de 15 años)", echo = FALSE}
+employment_proportion %>%
   tabla_fmt()
 ```
 
 Para modelar una variable de respuesta multinomial se emplea la función `svy_vglm()` del paquete `svyVGAM` [@svyVGAM2026], que permite ajustar modelos de regresión multinomial incorporando explícitamente las características del diseño complejo de la encuesta. En este ejemplo, se especifica un modelo donde la condición de actividad se explica en función de la edad, el sexo y la zona de residencia. A diferencia de los modelos multinomiales convencionales, `svy_vglm()` calcula las varianzas de los estimadores considerando la complejidad del diseño muestral, incluyendo la estratificación, la conglomeración y los pesos de expansión. De esta forma, tanto las estimaciones puntuales como sus errores estándar e inferencias asociadas son consistentes con el diseño de la encuesta.
 
-```{r mod-multinomial, echo=TRUE, eval=TRUE}
+```{r mod-multinomial, echo = TRUE, eval = TRUE}
 library(svyVGAM)
-survey_design_15  <- survey_design %>%
+survey_design_15 <- survey_design %>%
   filter(Age >= 15)
-multinomial_model  <- svy_vglm(
-  formula  = Employment ~ Age + Sex + Zone,
-  design   = survey_design_15,
-  crit     = "coef",
-  family   = multinomial(refLevel = "Unemployed")
+multinomial_model <- svy_vglm(
+  formula = Employment ~ Age + Sex + Zone,
+  design = survey_design_15,
+  crit = "coef",
+  family = multinomial(refLevel = "Unemployed")
 )
 ```
 
@@ -281,15 +286,15 @@ Dado que `broom::tidy()` no puede aplicarse directamente a objetos de clase `svy
 
 [^fn-tidyvglm]: Adaptada de https://tech.popdata.org/pma-data-hub/posts/2021-08-15-covid-analysis/
 
-```{r tidy-vglam, echo=TRUE, eval=TRUE}
+```{r definir-tidy-svyvglm, echo = TRUE, eval = TRUE}
 tidy.svyVGAM <- function(x, conf.int = FALSE, conf.level = 0.95,
                           exponentiate = FALSE, ...) {
-  ret  <- as_tibble(summary(x)$coeftable, rownames = "term")
+  ret <- as_tibble(summary(x)$coeftable, rownames = "term")
   colnames(ret) <- c("term", "estimate", "std.error", "statistic", "p.value")
   coefs <- tibble::enframe(stats::coef(x), name = "term", value = "estimate")
-  ret   <- left_join(coefs, ret, by = c("term", "estimate"))
+  ret <- left_join(coefs, ret, by = c("term", "estimate"))
   if (conf.int) {
-    ci  <- broom:::broom_confint_terms(x, level = conf.level, ...)
+    ci <- broom:::broom_confint_terms(x, level = conf.level, ...)
     ret <- dplyr::left_join(ret, ci, by = "term")
   }
   if (exponentiate) ret <- broom:::exponentiate(ret)
@@ -302,27 +307,31 @@ tidy.svyVGAM <- function(x, conf.int = FALSE, conf.level = 0.95,
 
 La Tabla \@ref(tab:tab-multinomial-coef) presenta los coeficientes estimados del modelo logístico multinomial, tomando la categoría *Unemployed* como referencia. Los resultados muestran que la edad tiene un efecto positivo y estadísticamente significativo sobre las probabilidades relativas de pertenecer a las categorías 1 y 2 frente al desempleo. Asimismo, la variable `SexMale` presenta coeficientes negativos y significativos, indicando que los hombres tienen menores probabilidades relativas que las mujeres de ubicarse en dichas categorías. Por el contrario, la variable de zona de residencia no muestra efectos estadísticamente significativos al nivel convencional del 5%.
 
-```{r, eval=FALSE}
+```{r cod-multinomial-coef, eval = FALSE}
 tidy.svyVGAM(multinomial_model, exponentiate = FALSE, conf.int = FALSE)
 ```
 
-```{r, echo=FALSE}
-res <- tidy.svyVGAM(multinomial_model, exponentiate = FALSE, conf.int = FALSE)
+```{r calcular-multinomial-coef, echo = FALSE}
+multinomial_results <- tidy.svyVGAM(
+  multinomial_model,
+  exponentiate = FALSE,
+  conf.int = FALSE
+)
 ```
 
 
-```{r tab-multinomial-coef, tab.cap="Coeficientes estimados del modelo de regresión multinomial", echo=FALSE}
- employment_proportion %>%
+```{r tab-multinomial-coef, tab.cap="Coeficientes estimados del modelo de regresión multinomial", echo = FALSE}
+multinomial_results %>%
   tabla_fmt()
 ```
 
 La Figura \@ref(fig:fig-multinomial-ic) muestra los intervalos de confianza de los coeficientes estimados para cada ecuación del modelo multinomial. La visualización se construye con `dotwhisker::dwplot()` [@dotwhisker2025], que permite comparar coeficientes e intervalos en una escala común, y se usa `gtools::stars.pval()` [@gtools2025] para codificar la significancia estadística. Las covariables cuyos intervalos no incluyen el valor cero presentan evidencia de asociación estadística significativa con la variable respuesta, mientras que aquellos cuyos intervalos contienen el cero no muestran efectos significativos al nivel de confianza considerado.
 
-```{r fig-multinomial-ic, fig.cap="Intervalos de confianza para los coeficientes del modelo multinomial", eval=TRUE, echo=TRUE, out.width="75%"}
-tidy.svyVGAM(multinomial_model, exponentiate = FALSE, conf.int = FALSE) %>%
+```{r fig-multinomial-ic, fig.cap="Intervalos de confianza para los coeficientes del modelo multinomial", eval = TRUE, echo = TRUE, out.width="75%"}
+multinomial_results %>%
   mutate(
     model = if_else(y.level == 1, "Inactive", "Employed"),
-    sig   = gtools::stars.pval(p.value)
+    sig = gtools::stars.pval(p.value)
   ) %>%
   dotwhisker::dwplot(
     dodge_size = 0.3,
@@ -385,32 +394,32 @@ $$
 
 En donde $k$ representa las unidades de observación de la muestra y $w_k$ corresponde al factor de expansión asociado a cada una de ellas. Esta función define el criterio de optimización utilizado para estimar los parámetros del modelo bajo el enfoque de pseudo-máxima verosimilitud. En `R`, se hace necesario primero definir el diseño de muestreo.
 
-```{r qwgt-gamma, echo=TRUE, eval=TRUE}
+```{r preparar-diseno-gamma, echo = TRUE, eval = TRUE}
 gamma_design <- survey_data %>%
   as_survey_design(
-    strata  = Stratum,
-    ids     = PSU,
+    strata = Stratum,
+    ids = PSU,
     weights = wk,
-    nest    = TRUE
+    nest = TRUE
   )
 ```
 
 El siguiente código ajusta un modelo de regresión Gamma para la variable de ingresos del hogar (`Income`), incorporando el diseño complejo de la encuesta definido en el objeto `gamma_design`. El modelo utiliza como variables explicativas el gasto del hogar (`Expenditure`), la edad (`Age`), el sexo (`Sex`) y la zona de residencia (`Zone`). Asimismo, se especifica una función de enlace logarítmica, garantizando predicciones positivas y permitiendo interpretar los efectos de las variables explicativas en términos multiplicativos sobre el ingreso esperado. Los coeficientes estimados se presentan en la Tabla \@ref(tab:tab-gamma-coeficientes):
 
-```{r mod-gamma, echo=TRUE, eval=TRUE}
+```{r ajustar-modelo-gamma, echo = TRUE, eval = TRUE}
 gamma_model <- svyglm(
   formula = Income ~ Expenditure + Age + Sex + Zone,
-  design  = gamma_design,
-  family  = Gamma(link = "log")
+  design = gamma_design,
+  family = Gamma(link = "log")
 )
 ```
 
-```{r, echo=FALSE}
-res <- broom::tidy(gamma_model)
+```{r calcular-gamma-coeficientes, echo = FALSE}
+gamma_results <- broom::tidy(gamma_model)
 ```
 
-```{r tab-gamma-coeficientes, tab.cap="Coeficientes del modelo Gamma para el ingreso de los hogares", echo=FALSE}
-res %>%
+```{r tab-gamma-coeficientes, tab.cap="Coeficientes del modelo Gamma para el ingreso de los hogares", echo = FALSE}
+gamma_results %>%
   tabla_fmt()
 ```
 

@@ -385,24 +385,24 @@ y_{k(j)}
 </table>
 <p>Para modelar una variable de respuesta multinomial se emplea la función <code>svy_vglm()</code> del paquete <code>svyVGAM</code> <span class="citation">(<a href="#ref-svyVGAM2026">Lumley, 2026</a>)</span>, que permite ajustar modelos de regresión multinomial incorporando explícitamente las características del diseño complejo de la encuesta. En este ejemplo, se especifica un modelo donde la condición de actividad se explica en función de la edad, el sexo y la zona de residencia. A diferencia de los modelos multinomiales convencionales, <code>svy_vglm()</code> calcula las varianzas de los estimadores considerando la complejidad del diseño muestral, incluyendo la estratificación, la conglomeración y los pesos de expansión. De esta forma, tanto las estimaciones puntuales como sus errores estándar e inferencias asociadas son consistentes con el diseño de la encuesta.</p>
 <div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="sec-multinomial.html#cb151-1" tabindex="-1"></a><span class="fu">library</span>(svyVGAM)</span>
-<span id="cb151-2"><a href="sec-multinomial.html#cb151-2" tabindex="-1"></a>survey_design_15  <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb151-2"><a href="sec-multinomial.html#cb151-2" tabindex="-1"></a>survey_design_15 <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb151-3"><a href="sec-multinomial.html#cb151-3" tabindex="-1"></a>  <span class="fu">filter</span>(Age <span class="sc">&gt;=</span> <span class="dv">15</span>)</span>
-<span id="cb151-4"><a href="sec-multinomial.html#cb151-4" tabindex="-1"></a>multinomial_model  <span class="ot">&lt;-</span> <span class="fu">svy_vglm</span>(</span>
-<span id="cb151-5"><a href="sec-multinomial.html#cb151-5" tabindex="-1"></a>  <span class="at">formula  =</span> Employment <span class="sc">~</span> Age <span class="sc">+</span> Sex <span class="sc">+</span> Zone,</span>
-<span id="cb151-6"><a href="sec-multinomial.html#cb151-6" tabindex="-1"></a>  <span class="at">design   =</span> survey_design_15,</span>
-<span id="cb151-7"><a href="sec-multinomial.html#cb151-7" tabindex="-1"></a>  <span class="at">crit     =</span> <span class="st">&quot;coef&quot;</span>,</span>
-<span id="cb151-8"><a href="sec-multinomial.html#cb151-8" tabindex="-1"></a>  <span class="at">family   =</span> <span class="fu">multinomial</span>(<span class="at">refLevel =</span> <span class="st">&quot;Unemployed&quot;</span>)</span>
+<span id="cb151-4"><a href="sec-multinomial.html#cb151-4" tabindex="-1"></a>multinomial_model <span class="ot">&lt;-</span> <span class="fu">svy_vglm</span>(</span>
+<span id="cb151-5"><a href="sec-multinomial.html#cb151-5" tabindex="-1"></a>  <span class="at">formula =</span> Employment <span class="sc">~</span> Age <span class="sc">+</span> Sex <span class="sc">+</span> Zone,</span>
+<span id="cb151-6"><a href="sec-multinomial.html#cb151-6" tabindex="-1"></a>  <span class="at">design =</span> survey_design_15,</span>
+<span id="cb151-7"><a href="sec-multinomial.html#cb151-7" tabindex="-1"></a>  <span class="at">crit =</span> <span class="st">&quot;coef&quot;</span>,</span>
+<span id="cb151-8"><a href="sec-multinomial.html#cb151-8" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">multinomial</span>(<span class="at">refLevel =</span> <span class="st">&quot;Unemployed&quot;</span>)</span>
 <span id="cb151-9"><a href="sec-multinomial.html#cb151-9" tabindex="-1"></a>)</span></code></pre></div>
 <p>El argumento <code>family = multinomial(refLevel = "Unemployed")</code> define un modelo logístico multinomial tomando la categoría <code>Unemployed</code> como referencia. Bajo esta especificación, se estiman de manera simultánea los logaritmos de las razones de probabilidades (<em>log-odds</em>) entre cada una de las categorías de <code>Employment</code> y la categoría de referencia. Los parámetros se obtienen mediante pseudo-máxima verosimilitud, incorporando los factores de expansión de la encuesta en la función objetivo.</p>
 <p>Dado que <code>broom::tidy()</code> no puede aplicarse directamente a objetos de clase <code>svyVGAM</code>, se define la siguiente función auxiliar para estructurar los resultados del modelo en un formato tabular estandarizado<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>:</p>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="sec-multinomial.html#cb152-1" tabindex="-1"></a>tidy.svyVGAM <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">conf.int =</span> <span class="cn">FALSE</span>, <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
 <span id="cb152-2"><a href="sec-multinomial.html#cb152-2" tabindex="-1"></a>                          <span class="at">exponentiate =</span> <span class="cn">FALSE</span>, ...) {</span>
-<span id="cb152-3"><a href="sec-multinomial.html#cb152-3" tabindex="-1"></a>  ret  <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">summary</span>(x)<span class="sc">$</span>coeftable, <span class="at">rownames =</span> <span class="st">&quot;term&quot;</span>)</span>
+<span id="cb152-3"><a href="sec-multinomial.html#cb152-3" tabindex="-1"></a>  ret <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">summary</span>(x)<span class="sc">$</span>coeftable, <span class="at">rownames =</span> <span class="st">&quot;term&quot;</span>)</span>
 <span id="cb152-4"><a href="sec-multinomial.html#cb152-4" tabindex="-1"></a>  <span class="fu">colnames</span>(ret) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;term&quot;</span>, <span class="st">&quot;estimate&quot;</span>, <span class="st">&quot;std.error&quot;</span>, <span class="st">&quot;statistic&quot;</span>, <span class="st">&quot;p.value&quot;</span>)</span>
 <span id="cb152-5"><a href="sec-multinomial.html#cb152-5" tabindex="-1"></a>  coefs <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">enframe</span>(stats<span class="sc">::</span><span class="fu">coef</span>(x), <span class="at">name =</span> <span class="st">&quot;term&quot;</span>, <span class="at">value =</span> <span class="st">&quot;estimate&quot;</span>)</span>
-<span id="cb152-6"><a href="sec-multinomial.html#cb152-6" tabindex="-1"></a>  ret   <span class="ot">&lt;-</span> <span class="fu">left_join</span>(coefs, ret, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;term&quot;</span>, <span class="st">&quot;estimate&quot;</span>))</span>
+<span id="cb152-6"><a href="sec-multinomial.html#cb152-6" tabindex="-1"></a>  ret <span class="ot">&lt;-</span> <span class="fu">left_join</span>(coefs, ret, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;term&quot;</span>, <span class="st">&quot;estimate&quot;</span>))</span>
 <span id="cb152-7"><a href="sec-multinomial.html#cb152-7" tabindex="-1"></a>  <span class="cf">if</span> (conf.int) {</span>
-<span id="cb152-8"><a href="sec-multinomial.html#cb152-8" tabindex="-1"></a>    ci  <span class="ot">&lt;-</span> broom<span class="sc">:::</span><span class="fu">broom_confint_terms</span>(x, <span class="at">level =</span> conf.level, ...)</span>
+<span id="cb152-8"><a href="sec-multinomial.html#cb152-8" tabindex="-1"></a>    ci <span class="ot">&lt;-</span> broom<span class="sc">:::</span><span class="fu">broom_confint_terms</span>(x, <span class="at">level =</span> conf.level, ...)</span>
 <span id="cb152-9"><a href="sec-multinomial.html#cb152-9" tabindex="-1"></a>    ret <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">left_join</span>(ret, ci, <span class="at">by =</span> <span class="st">&quot;term&quot;</span>)</span>
 <span id="cb152-10"><a href="sec-multinomial.html#cb152-10" tabindex="-1"></a>  }</span>
 <span id="cb152-11"><a href="sec-multinomial.html#cb152-11" tabindex="-1"></a>  <span class="cf">if</span> (exponentiate) ret <span class="ot">&lt;-</span> broom<span class="sc">:::</span><span class="fu">exponentiate</span>(ret)</span>
@@ -413,53 +413,90 @@ y_{k(j)}
 <span id="cb152-16"><a href="sec-multinomial.html#cb152-16" tabindex="-1"></a>}</span></code></pre></div>
 <p>La Tabla <a href="sec-multinomial.html#tab:tab-multinomial-coef">6.4</a> presenta los coeficientes estimados del modelo logístico multinomial, tomando la categoría <em>Unemployed</em> como referencia. Los resultados muestran que la edad tiene un efecto positivo y estadísticamente significativo sobre las probabilidades relativas de pertenecer a las categorías 1 y 2 frente al desempleo. Asimismo, la variable <code>SexMale</code> presenta coeficientes negativos y significativos, indicando que los hombres tienen menores probabilidades relativas que las mujeres de ubicarse en dichas categorías. Por el contrario, la variable de zona de residencia no muestra efectos estadísticamente significativos al nivel convencional del 5%.</p>
 <div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="sec-multinomial.html#cb153-1" tabindex="-1"></a><span class="fu">tidy.svyVGAM</span>(multinomial_model, <span class="at">exponentiate =</span> <span class="cn">FALSE</span>, <span class="at">conf.int =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<table style="width:100%;">
+<table>
 <caption><span id="tab:tab-multinomial-coef">Tabla 6.4: </span>Coeficientes estimados del modelo de regresión multinomial</caption>
-<colgroup>
-<col width="15%" />
-<col width="17%" />
-<col width="21%" />
-<col width="22%" />
-<col width="22%" />
-</colgroup>
 <thead>
 <tr class="header">
-<th align="left">Employment</th>
-<th align="center">proportion</th>
-<th align="center">proportion_se</th>
-<th align="center">proportion_low</th>
-<th align="center">proportion_upp</th>
+<th align="left">y.level</th>
+<th align="center">term</th>
+<th align="center">estimate</th>
+<th align="center">std.error</th>
+<th align="center">statistic</th>
+<th align="center">p.value</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Unemployed</td>
-<td align="center">0.043</td>
-<td align="center">0.007</td>
-<td align="center">0.029</td>
-<td align="center">0.057</td>
+<td align="left">1</td>
+<td align="center">(Intercept)</td>
+<td align="center">2.556</td>
+<td align="center">0.550</td>
+<td align="center">4.648</td>
+<td align="center">0.000</td>
 </tr>
 <tr class="even">
-<td align="left">Inactive</td>
-<td align="center">0.384</td>
-<td align="center">0.015</td>
-<td align="center">0.354</td>
-<td align="center">0.414</td>
+<td align="left">1</td>
+<td align="center">Age</td>
+<td align="center">0.022</td>
+<td align="center">0.010</td>
+<td align="center">2.117</td>
+<td align="center">0.034</td>
 </tr>
 <tr class="odd">
-<td align="left">Employed</td>
-<td align="center">0.573</td>
-<td align="center">0.014</td>
-<td align="center">0.545</td>
-<td align="center">0.601</td>
+<td align="left">1</td>
+<td align="center">SexMale</td>
+<td align="center">-2.185</td>
+<td align="center">0.317</td>
+<td align="center">-6.901</td>
+<td align="center">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="center">ZoneUrban</td>
+<td align="center">-0.254</td>
+<td align="center">0.404</td>
+<td align="center">-0.627</td>
+<td align="center">0.531</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="center">(Intercept)</td>
+<td align="center">2.306</td>
+<td align="center">0.461</td>
+<td align="center">4.998</td>
+<td align="center">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="center">Age</td>
+<td align="center">0.018</td>
+<td align="center">0.009</td>
+<td align="center">2.056</td>
+<td align="center">0.040</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="center">SexMale</td>
+<td align="center">-0.578</td>
+<td align="center">0.277</td>
+<td align="center">-2.091</td>
+<td align="center">0.037</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="center">ZoneUrban</td>
+<td align="center">0.039</td>
+<td align="center">0.361</td>
+<td align="center">0.109</td>
+<td align="center">0.913</td>
 </tr>
 </tbody>
 </table>
 <p>La Figura <a href="sec-multinomial.html#fig:fig-multinomial-ic">6.3</a> muestra los intervalos de confianza de los coeficientes estimados para cada ecuación del modelo multinomial. La visualización se construye con <code>dotwhisker::dwplot()</code> <span class="citation">(<a href="#ref-dotwhisker2025">Solt &amp; Hu, 2025</a>)</span>, que permite comparar coeficientes e intervalos en una escala común, y se usa <code>gtools::stars.pval()</code> <span class="citation">(<a href="#ref-gtools2025">Warnes et al., 2023</a>)</span> para codificar la significancia estadística. Las covariables cuyos intervalos no incluyen el valor cero presentan evidencia de asociación estadística significativa con la variable respuesta, mientras que aquellos cuyos intervalos contienen el cero no muestran efectos significativos al nivel de confianza considerado.</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="sec-multinomial.html#cb154-1" tabindex="-1"></a><span class="fu">tidy.svyVGAM</span>(multinomial_model, <span class="at">exponentiate =</span> <span class="cn">FALSE</span>, <span class="at">conf.int =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="sec-multinomial.html#cb154-1" tabindex="-1"></a>multinomial_results <span class="sc">%&gt;%</span></span>
 <span id="cb154-2"><a href="sec-multinomial.html#cb154-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb154-3"><a href="sec-multinomial.html#cb154-3" tabindex="-1"></a>    <span class="at">model =</span> <span class="fu">if_else</span>(y.level <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;Inactive&quot;</span>, <span class="st">&quot;Employed&quot;</span>),</span>
-<span id="cb154-4"><a href="sec-multinomial.html#cb154-4" tabindex="-1"></a>    <span class="at">sig   =</span> gtools<span class="sc">::</span><span class="fu">stars.pval</span>(p.value)</span>
+<span id="cb154-4"><a href="sec-multinomial.html#cb154-4" tabindex="-1"></a>    <span class="at">sig =</span> gtools<span class="sc">::</span><span class="fu">stars.pval</span>(p.value)</span>
 <span id="cb154-5"><a href="sec-multinomial.html#cb154-5" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
 <span id="cb154-6"><a href="sec-multinomial.html#cb154-6" tabindex="-1"></a>  dotwhisker<span class="sc">::</span><span class="fu">dwplot</span>(</span>
 <span id="cb154-7"><a href="sec-multinomial.html#cb154-7" tabindex="-1"></a>    <span class="at">dodge_size =</span> <span class="fl">0.3</span>,</span>

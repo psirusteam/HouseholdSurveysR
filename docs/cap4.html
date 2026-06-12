@@ -317,28 +317,35 @@ div.csl-indent {
 <span id="cb52-6"><a href="cap4.html#cb52-6" tabindex="-1"></a><span class="fu">options</span>(<span class="at">survey.lonely.psu =</span> <span class="st">&quot;adjust&quot;</span>)</span>
 <span id="cb52-7"><a href="cap4.html#cb52-7" tabindex="-1"></a></span>
 <span id="cb52-8"><a href="cap4.html#cb52-8" tabindex="-1"></a>survey_design <span class="ot">&lt;-</span> survey_data <span class="sc">%&gt;%</span></span>
-<span id="cb52-9"><a href="cap4.html#cb52-9" tabindex="-1"></a>          <span class="fu">as_survey_design</span>(<span class="at">strata =</span> Stratum,</span>
-<span id="cb52-10"><a href="cap4.html#cb52-10" tabindex="-1"></a>                           <span class="at">ids =</span> PSU,</span>
-<span id="cb52-11"><a href="cap4.html#cb52-11" tabindex="-1"></a>                           <span class="at">weights =</span> wk,</span>
-<span id="cb52-12"><a href="cap4.html#cb52-12" tabindex="-1"></a>                           <span class="at">nest =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<span id="cb52-9"><a href="cap4.html#cb52-9" tabindex="-1"></a>  <span class="fu">as_survey_design</span>(</span>
+<span id="cb52-10"><a href="cap4.html#cb52-10" tabindex="-1"></a>    <span class="at">strata =</span> Stratum,</span>
+<span id="cb52-11"><a href="cap4.html#cb52-11" tabindex="-1"></a>    <span class="at">ids =</span> PSU,</span>
+<span id="cb52-12"><a href="cap4.html#cb52-12" tabindex="-1"></a>    <span class="at">weights =</span> wk,</span>
+<span id="cb52-13"><a href="cap4.html#cb52-13" tabindex="-1"></a>    <span class="at">nest =</span> <span class="cn">TRUE</span></span>
+<span id="cb52-14"><a href="cap4.html#cb52-14" tabindex="-1"></a>  )</span></code></pre></div>
 <p>Luego, se generan algunas variables categóricas derivadas de la información original de la encuesta, las cuales serán utilizadas en los ejercicios desarrollados a lo largo de este capítulo. Entre ellas, se construye una variable que identifica si la persona se encuentra o no en condición de pobreza. De manera complementaria, también se crean otras variables categóricas de interés analítico que permitirán realizar desagregaciones y comparaciones entre distintos grupos de la población:</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="cap4.html#cb53-1" tabindex="-1"></a>survey_design <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb53-2"><a href="cap4.html#cb53-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb53-3"><a href="cap4.html#cb53-3" tabindex="-1"></a>    <span class="at">poor   =</span> <span class="fu">ifelse</span>(Poverty <span class="sc">!=</span> <span class="st">&quot;NotPoor&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb53-3"><a href="cap4.html#cb53-3" tabindex="-1"></a>    <span class="at">poor =</span> <span class="fu">ifelse</span>(Poverty <span class="sc">!=</span> <span class="st">&quot;NotPoor&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
 <span id="cb53-4"><a href="cap4.html#cb53-4" tabindex="-1"></a>    <span class="at">unemployed =</span> <span class="fu">ifelse</span>(Employment <span class="sc">==</span> <span class="st">&quot;Unemployed&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
-<span id="cb53-5"><a href="cap4.html#cb53-5" tabindex="-1"></a>    <span class="at">age_18 =</span> <span class="fu">case_when</span>(Age <span class="sc">&lt;</span> <span class="dv">18</span> <span class="sc">~</span> <span class="st">&quot;&lt; 18 years&quot;</span>, </span>
-<span id="cb53-6"><a href="cap4.html#cb53-6" tabindex="-1"></a>                       <span class="cn">TRUE</span>     <span class="sc">~</span> <span class="st">&quot;&gt;= 18 years&quot;</span>)</span>
-<span id="cb53-7"><a href="cap4.html#cb53-7" tabindex="-1"></a>  )</span></code></pre></div>
+<span id="cb53-5"><a href="cap4.html#cb53-5" tabindex="-1"></a>    <span class="at">age_18 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb53-6"><a href="cap4.html#cb53-6" tabindex="-1"></a>      Age <span class="sc">&lt;</span> <span class="dv">18</span> <span class="sc">~</span> <span class="st">&quot;&lt; 18 years&quot;</span>,</span>
+<span id="cb53-7"><a href="cap4.html#cb53-7" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;&gt;= 18 years&quot;</span></span>
+<span id="cb53-8"><a href="cap4.html#cb53-8" tabindex="-1"></a>    )</span>
+<span id="cb53-9"><a href="cap4.html#cb53-9" tabindex="-1"></a>  )</span></code></pre></div>
 <p>En el código anterior se crean nuevas variables derivadas utilizando la función <code>mutate()</code> del paquete <code>dplyr</code> <span class="citation">(<a href="#ref-dplyr2026">Wickham, François, et al., 2026</a>)</span>. Las variables <code>poor</code> y <code>unemployed</code> se construyen mediante la función <code>ifelse()</code>, que evalúa una condición lógica y asigna un valor dependiendo de si esta se cumple o no. En este caso, las variables toman el valor <code>1</code> cuando la persona se encuentra en condición de pobreza o desempleo, respectivamente, y <code>0</code> en caso contrario. Por su parte, la variable <code>age_18</code> se genera mediante la función <code>case_when()</code>, la cual permite definir categorías a partir de una o varias condiciones de forma más clara y flexible que <code>ifelse()</code>. Esta función resulta especialmente útil cuando se requiere construir variables categóricas con múltiples niveles. En el ejemplo, las personas menores de 18 años se clasifican en la categoría <code>"&lt; 18 years"</code>, mientras que el resto se agrupa en la categoría <code>"&gt;= 18 years"</code>.</p>
 <p>Además de lo anterior, se hace necesario generar subgrupos de la población para realizar estimaciones desagregadas. En este capítulo se emplean cuatro subpoblaciones de ejemplo:</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="cap4.html#cb54-1" tabindex="-1"></a>urban_subset <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb54-2"><a href="cap4.html#cb54-2" tabindex="-1"></a>  <span class="fu">filter</span>(Zone <span class="sc">==</span> <span class="st">&quot;Urban&quot;</span>)</span>
-<span id="cb54-3"><a href="cap4.html#cb54-3" tabindex="-1"></a>rural_subset  <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
-<span id="cb54-4"><a href="cap4.html#cb54-4" tabindex="-1"></a>  <span class="fu">filter</span>(Zone <span class="sc">==</span> <span class="st">&quot;Rural&quot;</span>)</span>
-<span id="cb54-5"><a href="cap4.html#cb54-5" tabindex="-1"></a>female_subset  <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
-<span id="cb54-6"><a href="cap4.html#cb54-6" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>)</span>
-<span id="cb54-7"><a href="cap4.html#cb54-7" tabindex="-1"></a>male_subset <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
-<span id="cb54-8"><a href="cap4.html#cb54-8" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>)</span></code></pre></div>
+<span id="cb54-3"><a href="cap4.html#cb54-3" tabindex="-1"></a></span>
+<span id="cb54-4"><a href="cap4.html#cb54-4" tabindex="-1"></a>rural_subset <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb54-5"><a href="cap4.html#cb54-5" tabindex="-1"></a>  <span class="fu">filter</span>(Zone <span class="sc">==</span> <span class="st">&quot;Rural&quot;</span>)</span>
+<span id="cb54-6"><a href="cap4.html#cb54-6" tabindex="-1"></a></span>
+<span id="cb54-7"><a href="cap4.html#cb54-7" tabindex="-1"></a>female_subset <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb54-8"><a href="cap4.html#cb54-8" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>)</span>
+<span id="cb54-9"><a href="cap4.html#cb54-9" tabindex="-1"></a></span>
+<span id="cb54-10"><a href="cap4.html#cb54-10" tabindex="-1"></a>male_subset <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb54-11"><a href="cap4.html#cb54-11" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>)</span></code></pre></div>
 </div>
 <h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">

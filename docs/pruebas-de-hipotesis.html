@@ -350,7 +350,7 @@ t_{(1-\alpha/2,df)}
 \]</span></p>
 <p>Este intervalo proporciona un rango de valores plausibles para la diferencia poblacional y constituye una herramienta útil para evaluar tanto la magnitud como la significación estadística de las diferencias observadas entre grupos.</p>
 <p>En <code>R</code>, estas pruebas pueden implementarse mediante la función <code>svyttest()</code> del paquete <code>survey</code>, la cual incorpora automáticamente los ajustes asociados al diseño muestral. A partir de los resultados presentados en la Tabla <a href="pruebas-de-hipotesis.html#tab:tab-ttest-sexo">3.22</a> puede concluirse que, con un nivel de confianza del 95%, no existe evidencia estadística suficiente para afirmar que los ingresos medios difieren según el sexo.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="pruebas-de-hipotesis.html#cb30-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">svyttest</span>(Income <span class="sc">~</span> Sex, <span class="at">design =</span> survey_design, <span class="at">level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="pruebas-de-hipotesis.html#cb30-1" tabindex="-1"></a>ttest_sex <span class="ot">&lt;-</span> <span class="fu">svyttest</span>(Income <span class="sc">~</span> Sex, <span class="at">design =</span> survey_design, <span class="at">level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-ttest-sexo">Tabla 3.22: </span>Prueba de diferencia de ingresos medios por sexo (población total)</caption>
 <colgroup>
@@ -385,7 +385,8 @@ t_{(1-\alpha/2,df)}
 <p>Otra hipótesis de interés consiste en evaluar si los ingresos medios de los hogares difieren según el sexo de la jefatura dentro del área urbana, como se presenta en la Tabla <a href="pruebas-de-hipotesis.html#tab:tab-ttest-sexo-urbano">3.23</a>. Los resultados indican que no se rechaza la hipótesis nula <span class="math inline">\(H_0\)</span>, por lo que no existe evidencia estadística suficiente para afirmar que los ingresos medios difieren por sexo en la zona urbana.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="pruebas-de-hipotesis.html#cb31-1" tabindex="-1"></a>urban_subset <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb31-2"><a href="pruebas-de-hipotesis.html#cb31-2" tabindex="-1"></a>  <span class="fu">filter</span>(Zone <span class="sc">==</span> <span class="st">&quot;Urban&quot;</span>)</span>
-<span id="cb31-3"><a href="pruebas-de-hipotesis.html#cb31-3" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">svyttest</span>(Income <span class="sc">~</span> Sex, <span class="at">design =</span> urban_subset, <span class="at">level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<span id="cb31-3"><a href="pruebas-de-hipotesis.html#cb31-3" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="pruebas-de-hipotesis.html#cb31-4" tabindex="-1"></a>ttest_urban <span class="ot">&lt;-</span> <span class="fu">svyttest</span>(Income <span class="sc">~</span> Sex, <span class="at">design =</span> urban_subset, <span class="at">level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-ttest-sexo-urbano">Tabla 3.23: </span>Prueba de diferencia de ingresos medios por sexo en zona urbana</caption>
 <thead>

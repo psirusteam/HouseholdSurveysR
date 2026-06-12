@@ -592,11 +592,12 @@ Una vez cargada la muestra de hogares en \texttt{R}, el siguiente paso es defini
 \FunctionTok{library}\NormalTok{(srvyr)}
 
 \NormalTok{survey\_design }\OtherTok{\textless{}{-}}\NormalTok{ survey\_data }\SpecialCharTok{\%\textgreater{}\%}
-          \FunctionTok{as\_survey\_design}\NormalTok{(}
-            \AttributeTok{strata =}\NormalTok{ Stratum,}
-            \AttributeTok{ids =}\NormalTok{ PSU,}
-            \AttributeTok{weights =}\NormalTok{ wk,}
-            \AttributeTok{nest =} \ConstantTok{TRUE}\NormalTok{)}
+  \FunctionTok{as\_survey\_design}\NormalTok{(}
+    \AttributeTok{strata =}\NormalTok{ Stratum,}
+    \AttributeTok{ids =}\NormalTok{ PSU,}
+    \AttributeTok{weights =}\NormalTok{ wk,}
+    \AttributeTok{nest =} \ConstantTok{TRUE}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -685,7 +686,7 @@ Si el objetivo es estimar el total de ingresos de los hogares, pero desagregado 
 \NormalTok{survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Sex) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{cascade}\NormalTok{(}\AttributeTok{total =} \FunctionTok{survey\_total}\NormalTok{(Income,}
-                               \AttributeTok{vartype =}  \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{),}
+                               \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{),}
                                \AttributeTok{level =} \FloatTok{0.95}\NormalTok{),}
           \AttributeTok{.fill =} \StringTok{"Total income"}\NormalTok{)}
 \end{Highlighting}
@@ -786,7 +787,7 @@ También se pueden realizar estimaciones de la media por subgrupos siguiendo el 
   \FunctionTok{group\_by}\NormalTok{(Sex) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{cascade}\NormalTok{(}\AttributeTok{mean =} \FunctionTok{survey\_mean}\NormalTok{(Expenditure,}
                               \AttributeTok{level =} \FloatTok{0.95}\NormalTok{,}
-                              \AttributeTok{vartype =}  \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)),}
+                              \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)),}
         \AttributeTok{.fill =} \StringTok{"Mean expenditure"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(Sex))}
 \end{Highlighting}
@@ -817,7 +818,7 @@ De manera análoga, se pueden calcular las medias del gasto por zona, las cuales
   \FunctionTok{group\_by}\NormalTok{(Zone) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{cascade}\NormalTok{(}\AttributeTok{mean =} \FunctionTok{survey\_mean}\NormalTok{(Expenditure,}
                               \AttributeTok{level =} \FloatTok{0.95}\NormalTok{,}
-                              \AttributeTok{vartype =}  \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)),}
+                              \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)),}
         \AttributeTok{.fill =} \StringTok{"Mean expenditure"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(Zone))}
 \end{Highlighting}
@@ -848,7 +849,7 @@ Asimismo, es posible realizar una estimación combinada por sexo y zona, present
   \FunctionTok{group\_by}\NormalTok{(Zone, Sex) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{cascade}\NormalTok{(}\AttributeTok{mean =} \FunctionTok{survey\_mean}\NormalTok{(Expenditure,}
                               \AttributeTok{level =} \FloatTok{0.95}\NormalTok{,}
-                              \AttributeTok{vartype =}  \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)),}
+                              \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)),}
         \AttributeTok{.fill =} \StringTok{"Mean expenditure"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(Zone), }\FunctionTok{desc}\NormalTok{(Sex))}
 \end{Highlighting}
@@ -929,7 +930,7 @@ Un ejemplo directo en encuestas de hogares es la razón \textbf{gasto/ingreso}, 
   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{ratio =} \FunctionTok{survey\_ratio}\NormalTok{(}\AttributeTok{numerator =}\NormalTok{ Expenditure,}
                                  \AttributeTok{denominator =}\NormalTok{ Income,}
                                  \AttributeTok{level =} \FloatTok{0.95}\NormalTok{,}
-                                 \AttributeTok{vartype =}  \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{))}
+                                 \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{))}
 \NormalTok{            )}
 \end{Highlighting}
 \end{Shaded}
@@ -959,7 +960,7 @@ Si ahora el objetivo es estimar la razón entre mujeres y hombres en la base de 
   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{ratio =} \FunctionTok{survey\_ratio}\NormalTok{(}\AttributeTok{numerator =}\NormalTok{ (Sex }\SpecialCharTok{==} \StringTok{"Female"}\NormalTok{),}
                                  \AttributeTok{denominator =}\NormalTok{ (Sex }\SpecialCharTok{==} \StringTok{"Male"}\NormalTok{),}
                                  \AttributeTok{level =} \FloatTok{0.95}\NormalTok{,}
-                                 \AttributeTok{vartype =}  \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{))}
+                                 \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{))}
 \NormalTok{            )}
 \end{Highlighting}
 \end{Shaded}
@@ -983,13 +984,13 @@ Dado que la variable sexo en la base de datos es categórica, fue necesario acud
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{rural\_subset  }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{rural\_subset }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{filter}\NormalTok{(Zone }\SpecialCharTok{==} \StringTok{"Rural"}\NormalTok{)}
 \NormalTok{rural\_subset }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{ratio =}  \FunctionTok{survey\_ratio}\NormalTok{(}\AttributeTok{numerator =}\NormalTok{ (Sex }\SpecialCharTok{==} \StringTok{"Female"}\NormalTok{),}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{ratio =} \FunctionTok{survey\_ratio}\NormalTok{(}\AttributeTok{numerator =}\NormalTok{ (Sex }\SpecialCharTok{==} \StringTok{"Female"}\NormalTok{),}
                                   \AttributeTok{denominator =}\NormalTok{ (Sex }\SpecialCharTok{==} \StringTok{"Male"}\NormalTok{),}
                                   \AttributeTok{level =} \FloatTok{0.95}\NormalTok{,}
-                                  \AttributeTok{vartype =}  \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{))}
+                                  \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{))}
 \NormalTok{            )}
 \end{Highlighting}
 \end{Shaded}
@@ -1020,7 +1021,7 @@ Ahora bien, otro análisis de interés es estimar la razón de gastos pero solo 
   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{ratio =} \FunctionTok{survey\_ratio}\NormalTok{(}\AttributeTok{numerator =}\NormalTok{ Expenditure,}
                                  \AttributeTok{denominator =}\NormalTok{ Income,}
                                  \AttributeTok{level =} \FloatTok{0.95}\NormalTok{,}
-                                 \AttributeTok{vartype =}  \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{))}
+                                 \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{))}
 \NormalTok{            )}
 \end{Highlighting}
 \end{Shaded}
@@ -1051,7 +1052,7 @@ Dando como resultado que por cada 100 unidades monetarias que le ingresan a las 
   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{ratio =} \FunctionTok{survey\_ratio}\NormalTok{(}\AttributeTok{numerator =}\NormalTok{ Expenditure,}
                                  \AttributeTok{denominator =}\NormalTok{ Income,}
                                  \AttributeTok{level =} \FloatTok{0.95}\NormalTok{,}
-                                 \AttributeTok{vartype =}  \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{))}
+                                 \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{))}
 \NormalTok{            )}
 \end{Highlighting}
 \end{Shaded}
@@ -1230,7 +1231,7 @@ Tanto los estimadores de cuantiles como los métodos para estimar sus varianzas 
 \NormalTok{survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{median =} \FunctionTok{survey\_median}\NormalTok{(Expenditure,}
                                     \AttributeTok{level =} \FloatTok{0.95}\NormalTok{,}
-                                    \AttributeTok{vartype =}  \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)}
+                                    \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)}
 \NormalTok{                                    )}
 \NormalTok{            )}
 \end{Highlighting}
@@ -1259,7 +1260,7 @@ Como puede observarse, los argumentos de la función \texttt{survey\_median()} s
   \FunctionTok{group\_by}\NormalTok{(Zone) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{median =} \FunctionTok{survey\_median}\NormalTok{(Expenditure,}
                                     \AttributeTok{level =} \FloatTok{0.95}\NormalTok{,}
-                                    \AttributeTok{vartype =}  \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)}
+                                    \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)}
 \NormalTok{                                    )}
 \NormalTok{            )}
 \end{Highlighting}
@@ -1289,7 +1290,7 @@ Si el objetivo es estimar un percentil específico diferente de la mediana, por 
   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{quantile =} \FunctionTok{survey\_quantile}\NormalTok{(Expenditure,}
                                 \AttributeTok{quantiles =} \FloatTok{0.25}\NormalTok{,}
                                 \AttributeTok{level =} \FloatTok{0.95}\NormalTok{,}
-                                \AttributeTok{vartype =}  \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{),}
+                                \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{),}
                                 \AttributeTok{interval\_type =} \StringTok{"score"}
 \NormalTok{                                )}
 \NormalTok{            )}
@@ -1320,7 +1321,7 @@ Observe que se incorporó el argumento \texttt{interval\_type\ =\ "score"}, el c
   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{quantile =} \FunctionTok{survey\_quantile}\NormalTok{(Expenditure,}
                                 \AttributeTok{quantiles =} \FloatTok{0.25}\NormalTok{,}
                                 \AttributeTok{level =} \FloatTok{0.95}\NormalTok{,}
-                                \AttributeTok{vartype =}  \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{),}
+                                \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{),}
                                 \AttributeTok{interval\_type =} \StringTok{"score"}
 \NormalTok{                                )}
 \NormalTok{            )}
@@ -1428,10 +1429,12 @@ Para realizar la curva de Lorenz en \texttt{R} se utiliza la función \texttt{sv
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{clorenz }\OtherTok{\textless{}{-}} \FunctionTok{svylorenz}\NormalTok{(}\AttributeTok{formula =} \SpecialCharTok{\textasciitilde{}}\NormalTok{Income,}
-                     \AttributeTok{design =}\NormalTok{ gini\_design,}
-                     \AttributeTok{quantiles =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,.}\DecValTok{05}\NormalTok{),}
-                     \AttributeTok{alpha =}\NormalTok{ .}\DecValTok{01}\NormalTok{)}
+\NormalTok{clorenz }\OtherTok{\textless{}{-}} \FunctionTok{svylorenz}\NormalTok{(}
+  \AttributeTok{formula =} \SpecialCharTok{\textasciitilde{}}\NormalTok{Income,}
+  \AttributeTok{design =}\NormalTok{ gini\_design,}
+  \AttributeTok{quantiles =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, .}\DecValTok{05}\NormalTok{),}
+  \AttributeTok{alpha =}\NormalTok{ .}\DecValTok{01}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1444,7 +1447,7 @@ Para realizar la curva de Lorenz en \texttt{R} se utiliza la función \texttt{sv
 \caption{Curva de Lorenz estimada para el ingreso de los hogares}\label{fig:fig-lorenz}
 \end{figure}
 
-El argumento \texttt{formula\ =\ \textasciitilde{}Income} especifica la variable de ingreso sobre la cual se calculará la distribución acumulada. El argumento \texttt{design\ =\ gini\_design} indica el objeto de diseño muestral previamente definido, el cual contiene la información relacionada con pesos, estratos y conglomerados de la encuesta. Por su parte, \texttt{quantiles\ =\ seq(0,1,.05)} define los puntos de la distribución en los cuales se evaluará la curva de Lorenz, generando percentiles desde 0 hasta 1 en incrementos de 0.05. Finalmente, el argumento \texttt{alpha\ =\ .01} establece un nivel de significación del 1\%, lo que equivale a construir intervalos de confianza del 99\% para las estimaciones asociadas a la curva.
+El argumento \texttt{formula\ =\ \textasciitilde{}Income} especifica la variable de ingreso sobre la cual se calculará la distribución acumulada. El argumento \texttt{design\ =\ gini\_design} indica el objeto de diseño muestral previamente definido, el cual contiene la información relacionada con pesos, estratos y conglomerados de la encuesta. Por su parte, \texttt{quantiles\ =\ seq(0,\ 1,\ .05)} define los puntos de la distribución en los cuales se evaluará la curva de Lorenz, generando percentiles desde 0 hasta 1 en incrementos de 0.05. Finalmente, el argumento \texttt{alpha\ =\ .01} establece un nivel de significación del 1\%, lo que equivale a construir intervalos de confianza del 99\% para las estimaciones asociadas a la curva.
 
 \subsection{Estimación de la correlación}\label{estimacion-de-la-correlacion}
 
@@ -1462,7 +1465,7 @@ El paquete \texttt{survey} cuenta con la función \texttt{svyvar()} que permite 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{cov }\OtherTok{\textless{}{-}} \FunctionTok{svyvar}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Income }\SpecialCharTok{+}\NormalTok{ Expenditure, }\AttributeTok{design =}\NormalTok{ survey\_design)}
+\NormalTok{cov\_matrix }\OtherTok{\textless{}{-}} \FunctionTok{svyvar}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Income }\SpecialCharTok{+}\NormalTok{ Expenditure, }\AttributeTok{design =}\NormalTok{ survey\_design)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1486,12 +1489,12 @@ La función \texttt{svyvar} estima la matriz de varianzas y covarianzas consider
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{cov\_xy }\OtherTok{\textless{}{-}}\NormalTok{ cov[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{]}
-\NormalTok{sd\_x }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(cov[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{])}
-\NormalTok{sd\_y }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(cov[}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{])}
+\NormalTok{cov\_xy }\OtherTok{\textless{}{-}}\NormalTok{ cov\_matrix[}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{]}
+\NormalTok{sd\_x }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(cov\_matrix[}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{])}
+\NormalTok{sd\_y }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(cov\_matrix[}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{])}
 
-\NormalTok{cor }\OtherTok{\textless{}{-}}\NormalTok{ cov\_xy }\SpecialCharTok{/}\NormalTok{ (sd\_x }\SpecialCharTok{*}\NormalTok{ sd\_y)}
-\NormalTok{cor}
+\NormalTok{weighted\_cor }\OtherTok{\textless{}{-}}\NormalTok{ cov\_xy }\SpecialCharTok{/}\NormalTok{ (sd\_x }\SpecialCharTok{*}\NormalTok{ sd\_y)}
+\NormalTok{weighted\_cor}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1581,7 +1584,7 @@ En \texttt{R}, estas pruebas pueden implementarse mediante la función \texttt{s
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{svyttest}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Sex, }\AttributeTok{design =}\NormalTok{ survey\_design, }\AttributeTok{level =} \FloatTok{0.95}\NormalTok{)}
+\NormalTok{ttest\_sex }\OtherTok{\textless{}{-}} \FunctionTok{svyttest}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Sex, }\AttributeTok{design =}\NormalTok{ survey\_design, }\AttributeTok{level =} \FloatTok{0.95}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1636,7 +1639,8 @@ Otra hipótesis de interés consiste en evaluar si los ingresos medios de los ho
 \begin{Highlighting}[]
 \NormalTok{urban\_subset }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{filter}\NormalTok{(Zone }\SpecialCharTok{==} \StringTok{"Urban"}\NormalTok{)}
-\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{svyttest}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Sex, }\AttributeTok{design =}\NormalTok{ urban\_subset, }\AttributeTok{level =} \FloatTok{0.95}\NormalTok{)}
+
+\NormalTok{ttest\_urban }\OtherTok{\textless{}{-}} \FunctionTok{svyttest}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Sex, }\AttributeTok{design =}\NormalTok{ urban\_subset, }\AttributeTok{level =} \FloatTok{0.95}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1734,8 +1738,10 @@ La función \texttt{svycontrast()} devuelve el contraste estimado y su error est
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{svycontrast}\NormalTok{(}\AttributeTok{stat =}\NormalTok{ region\_mean\_contrast,}
-                   \AttributeTok{contrasts =} \FunctionTok{list}\NormalTok{(}\AttributeTok{north\_south\_difference =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)))}
+\NormalTok{contrast\_region\_ns }\OtherTok{\textless{}{-}} \FunctionTok{svycontrast}\NormalTok{(}
+  \AttributeTok{stat =}\NormalTok{ region\_mean\_contrast,}
+  \AttributeTok{contrasts =} \FunctionTok{list}\NormalTok{(}\AttributeTok{north\_south\_difference =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{))}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1758,7 +1764,7 @@ Nótese que estos mismos resultados podrían obtenerse realizando explícitament
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Step 1: difference in estimates (North {-} South)}
+\CommentTok{\# Paso 1: diferencia de las estimaciones (Norte {-} Sur)}
 \FloatTok{552.4} \SpecialCharTok{{-}} \FloatTok{625.8}
 \end{Highlighting}
 \end{Shaded}
@@ -1771,8 +1777,8 @@ El paso siguiente es calcular la matriz de varianzas y covarianzas y de allí ex
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Step 2: variance{-}covariance matrix}
-\NormalTok{mat }\OtherTok{\textless{}{-}} \FunctionTok{vcov}\NormalTok{(region\_mean\_contrast)}
+\CommentTok{\# Paso 2: matriz de varianzas y covarianzas}
+\NormalTok{region\_vcov }\OtherTok{\textless{}{-}} \FunctionTok{vcov}\NormalTok{(region\_mean\_contrast)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1807,7 +1813,7 @@ Por tanto:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{sqrt}\NormalTok{(}\DecValTok{2650} \SpecialCharTok{+} \DecValTok{3460} \SpecialCharTok{{-}} \DecValTok{2}\SpecialCharTok{*}\DecValTok{0}\NormalTok{)}
+\FunctionTok{sqrt}\NormalTok{(}\DecValTok{2650} \SpecialCharTok{+} \DecValTok{3460} \SpecialCharTok{{-}} \DecValTok{2} \SpecialCharTok{*} \DecValTok{0}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1831,12 +1837,12 @@ En esta matriz, cada fila define un contraste distinto y cada columna correspond
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{svycontrast}\NormalTok{(}
+\NormalTok{contrast\_regions }\OtherTok{\textless{}{-}} \FunctionTok{svycontrast}\NormalTok{(}
   \AttributeTok{stat =}\NormalTok{ region\_mean\_contrast,}
   \AttributeTok{contrasts =} \FunctionTok{list}\NormalTok{(}
-    \AttributeTok{north\_south         =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{),}
-    \AttributeTok{south\_center        =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{),}
-    \AttributeTok{west\_east           =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{)}
+    \AttributeTok{north\_south =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{),}
+    \AttributeTok{south\_center =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{),}
+    \AttributeTok{west\_east =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{)}
 \NormalTok{  )}
 \NormalTok{)}
 \end{Highlighting}
@@ -1899,8 +1905,10 @@ En este caso, el contraste de interés está dado por \(\bar{y}_{F} - \bar{y}_{M
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{svycontrast}\NormalTok{(}\AttributeTok{stat =}\NormalTok{ sex\_mean\_contrast,}
-                   \AttributeTok{contrasts =} \FunctionTok{list}\NormalTok{(}\AttributeTok{sex\_difference =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{)))}
+\NormalTok{contrast\_sex }\OtherTok{\textless{}{-}} \FunctionTok{svycontrast}\NormalTok{(}
+  \AttributeTok{stat =}\NormalTok{ sex\_mean\_contrast,}
+  \AttributeTok{contrasts =} \FunctionTok{list}\NormalTok{(}\AttributeTok{sex\_difference =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{))}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1957,14 +1965,14 @@ Female & 1.52 & 0.046 & 1.43 & 1.61 \\
 Male & 1.56 & 0.070 & 1.43 & 1.70 \\
 \end{longtable}
 
-La función \texttt{svycontrast()} no se limita únicamente a la comparación de medias o totales, sino que también permite construir contrastes entre otros parámetros de interés, como razones y proporciones estimadas a partir de diseños de muestreo complejos. A continuación, se presentan los códigos computacionales utilizados para realizar este análisis, cuyos resultados se muestran en la Tabla \ref{tab:tab-razon-ingreso-gasto-sexo}. A partir de dichos resultados, puede concluirse que la diferencia entre las proporciones estimadas es de 0.045 a favor de los hombres.
+La función \texttt{svycontrast()} no se limita únicamente a la comparación de medias o totales, sino que también permite construir contrastes entre otros parámetros de interés, como razones y proporciones estimadas a partir de diseños de muestreo complejos. A continuación, se presentan los códigos computacionales utilizados para realizar este análisis, cuyos resultados se muestran en la Tabla \ref{tab:tab-contraste-razon-sexo}. A partir de dichos resultados, puede concluirse que la diferencia entre las razones estimadas es de 0.045 a favor de los hombres.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{svycontrast}\NormalTok{(}\AttributeTok{stat =}\NormalTok{ sex\_ratio\_contrast,}
-                   \AttributeTok{contrasts =} \FunctionTok{list}\NormalTok{(}
-                          \AttributeTok{sex\_difference =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{))}
-\NormalTok{                   )}
+\NormalTok{contrast\_sex\_ratio }\OtherTok{\textless{}{-}} \FunctionTok{svycontrast}\NormalTok{(}
+  \AttributeTok{stat =}\NormalTok{ sex\_ratio\_contrast,}
+  \AttributeTok{contrasts =} \FunctionTok{list}\NormalTok{(}\AttributeTok{sex\_difference =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{))}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2206,10 +2214,12 @@ El análisis comienza con la definición del diseño de muestreo, siguiendo los 
 \FunctionTok{options}\NormalTok{(}\AttributeTok{survey.lonely.psu =} \StringTok{"adjust"}\NormalTok{)}
 
 \NormalTok{survey\_design }\OtherTok{\textless{}{-}}\NormalTok{ survey\_data }\SpecialCharTok{\%\textgreater{}\%}
-          \FunctionTok{as\_survey\_design}\NormalTok{(}\AttributeTok{strata =}\NormalTok{ Stratum,}
-                           \AttributeTok{ids =}\NormalTok{ PSU,}
-                           \AttributeTok{weights =}\NormalTok{ wk,}
-                           \AttributeTok{nest =} \ConstantTok{TRUE}\NormalTok{)}
+  \FunctionTok{as\_survey\_design}\NormalTok{(}
+    \AttributeTok{strata =}\NormalTok{ Stratum,}
+    \AttributeTok{ids =}\NormalTok{ PSU,}
+    \AttributeTok{weights =}\NormalTok{ wk,}
+    \AttributeTok{nest =} \ConstantTok{TRUE}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2219,10 +2229,12 @@ Luego, se generan algunas variables categóricas derivadas de la información or
 \begin{Highlighting}[]
 \NormalTok{survey\_design }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{mutate}\NormalTok{(}
-    \AttributeTok{poor   =} \FunctionTok{ifelse}\NormalTok{(Poverty }\SpecialCharTok{!=} \StringTok{"NotPoor"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{),}
+    \AttributeTok{poor =} \FunctionTok{ifelse}\NormalTok{(Poverty }\SpecialCharTok{!=} \StringTok{"NotPoor"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{),}
     \AttributeTok{unemployed =} \FunctionTok{ifelse}\NormalTok{(Employment }\SpecialCharTok{==} \StringTok{"Unemployed"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{),}
-    \AttributeTok{age\_18 =} \FunctionTok{case\_when}\NormalTok{(Age }\SpecialCharTok{\textless{}} \DecValTok{18} \SpecialCharTok{\textasciitilde{}} \StringTok{"\textless{} 18 years"}\NormalTok{, }
-                       \ConstantTok{TRUE}     \SpecialCharTok{\textasciitilde{}} \StringTok{"\textgreater{}= 18 years"}\NormalTok{)}
+    \AttributeTok{age\_18 =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      Age }\SpecialCharTok{\textless{}} \DecValTok{18} \SpecialCharTok{\textasciitilde{}} \StringTok{"\textless{} 18 years"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \StringTok{"\textgreater{}= 18 years"}
+\NormalTok{    )}
 \NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
@@ -2235,10 +2247,13 @@ Además de lo anterior, se hace necesario generar subgrupos de la población par
 \begin{Highlighting}[]
 \NormalTok{urban\_subset }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{filter}\NormalTok{(Zone }\SpecialCharTok{==} \StringTok{"Urban"}\NormalTok{)}
-\NormalTok{rural\_subset  }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
+
+\NormalTok{rural\_subset }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{filter}\NormalTok{(Zone }\SpecialCharTok{==} \StringTok{"Rural"}\NormalTok{)}
-\NormalTok{female\_subset  }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
+
+\NormalTok{female\_subset }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{filter}\NormalTok{(Sex }\SpecialCharTok{==} \StringTok{"Female"}\NormalTok{)}
+
 \NormalTok{male\_subset }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{filter}\NormalTok{(Sex }\SpecialCharTok{==} \StringTok{"Male"}\NormalTok{)}
 \end{Highlighting}
@@ -2271,9 +2286,11 @@ Junto con las estimaciones poblacionales también se obtienen medidas de precisi
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{survey\_design }\SpecialCharTok{\%\textgreater{}\%}
-     \FunctionTok{group\_by}\NormalTok{(Zone) }\SpecialCharTok{\%\textgreater{}\%}
-     \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{unweighted}\NormalTok{(}\FunctionTok{n}\NormalTok{()),}
-               \AttributeTok{size =} \FunctionTok{survey\_total}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{,}\StringTok{"ci"}\NormalTok{)))}
+  \FunctionTok{group\_by}\NormalTok{(Zone) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{n =} \FunctionTok{unweighted}\NormalTok{(}\FunctionTok{n}\NormalTok{()),}
+    \AttributeTok{size =} \FunctionTok{survey\_total}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{))}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2301,7 +2318,7 @@ Considerando un nivel de confianza del 95\%, los intervalos de confianza para la
 \begin{Highlighting}[]
 \NormalTok{survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Poverty) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{size =} \FunctionTok{survey\_total}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{,}\StringTok{"ci"}\NormalTok{)))}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{size =} \FunctionTok{survey\_total}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2331,7 +2348,7 @@ Antes de realizar las estimaciones, se excluyen los registros con valores faltan
 \NormalTok{survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(Employment)) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Employment) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{( }\AttributeTok{size =} \FunctionTok{survey\_total}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{,}\StringTok{"ci"}\NormalTok{)))}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{size =} \FunctionTok{survey\_total}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2361,8 +2378,10 @@ Finalmente, las estimaciones también pueden desagregarse simultáneamente por m
 \NormalTok{survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(Employment)) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Employment, Poverty) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{cascade}\NormalTok{( }\AttributeTok{size =} \FunctionTok{survey\_total}\NormalTok{(}\AttributeTok{vartype =}\FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{,}\StringTok{"ci"}\NormalTok{)),}
-           \AttributeTok{.fill =} \StringTok{"Total"}\NormalTok{)}
+  \FunctionTok{cascade}\NormalTok{(}
+    \AttributeTok{size =} \FunctionTok{survey\_total}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)),}
+    \AttributeTok{.fill =} \StringTok{"Total"}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2419,8 +2438,10 @@ A diferencia de otros programas estadísticos que presentan los resultados en po
 \begin{Highlighting}[]
 \NormalTok{survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Zone) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{proportion =} \FunctionTok{survey\_mean}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{,}\StringTok{"ci"}\NormalTok{),}
-                               \AttributeTok{proportion =} \ConstantTok{TRUE}\NormalTok{))}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{proportion =} \FunctionTok{survey\_mean}\NormalTok{(}
+    \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{),}
+    \AttributeTok{proportion =} \ConstantTok{TRUE}
+\NormalTok{  ))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2450,7 +2471,7 @@ A partir de estas estimaciones se observa que, en la zona urbana, el 53.6\% de l
 \begin{Highlighting}[]
 \NormalTok{survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Zone) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{proportion =} \FunctionTok{survey\_prop}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{,}\StringTok{"ci"}\NormalTok{)))}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{proportion =} \FunctionTok{survey\_prop}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2476,7 +2497,7 @@ Si el interés se centra ahora en estimar proporciones para subpoblaciones espec
 \begin{Highlighting}[]
 \NormalTok{urban\_subset }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Sex) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{proportion =} \FunctionTok{survey\_prop}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{,}\StringTok{"ci"}\NormalTok{)))}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{proportion =} \FunctionTok{survey\_prop}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2502,8 +2523,10 @@ De manera análoga, es posible realizar el mismo ejercicio para la población re
 \begin{Highlighting}[]
 \NormalTok{rural\_subset }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Sex) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n    =} \FunctionTok{unweighted}\NormalTok{(}\FunctionTok{n}\NormalTok{()),}
-            \AttributeTok{proportion =} \FunctionTok{survey\_prop}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{,}\StringTok{"ci"}\NormalTok{)))}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{n =} \FunctionTok{unweighted}\NormalTok{(}\FunctionTok{n}\NormalTok{()),}
+    \AttributeTok{proportion =} \FunctionTok{survey\_prop}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{))}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2559,7 +2582,7 @@ Ahora bien, si el análisis se restringe únicamente a la población masculina i
 \begin{Highlighting}[]
 \NormalTok{male\_subset }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Zone) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{proportion =} \FunctionTok{survey\_prop}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{,}\StringTok{"ci"}\NormalTok{)))}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{proportion =} \FunctionTok{survey\_prop}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2585,7 +2608,7 @@ Si se desea estimar resultados con varios niveles de desagregación, al igual qu
 \begin{Highlighting}[]
 \NormalTok{male\_subset }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Zone, Poverty) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{proportion =} \FunctionTok{survey\_prop}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{,}\StringTok{"ci"}\NormalTok{)))}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{proportion =} \FunctionTok{survey\_prop}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2650,10 +2673,11 @@ A continuación, la variable edad se clasifica en dos categorías para la poblac
 \NormalTok{female\_subset }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(Employment)) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{age\_range =} \FunctionTok{case\_when}\NormalTok{(}
-\NormalTok{                      Age}\SpecialCharTok{\textgreater{}=} \DecValTok{18} \SpecialCharTok{\&}\NormalTok{ Age }\SpecialCharTok{\textless{}=}\DecValTok{35}  \SpecialCharTok{\textasciitilde{}} \StringTok{"18 {-} 35"}\NormalTok{,}
-                      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \StringTok{"Other"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{    Age }\SpecialCharTok{\textgreater{}=} \DecValTok{18} \SpecialCharTok{\&}\NormalTok{ Age }\SpecialCharTok{\textless{}=} \DecValTok{35} \SpecialCharTok{\textasciitilde{}} \StringTok{"18 {-} 35"}\NormalTok{,}
+    \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \StringTok{"Other"}
+\NormalTok{  )) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(age\_range, Employment) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{proportion =} \FunctionTok{survey\_prop}\NormalTok{(}\AttributeTok{vartype =}  \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)))}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{proportion =} \FunctionTok{survey\_prop}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2721,9 +2745,15 @@ Por ejemplo, suponga que el interés está en comparar la proporción de mujeres
                                      \AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{,}
                                      \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)))}
 
-\NormalTok{sex\_poverty\_contrast }\OtherTok{\textless{}{-}} \FunctionTok{svyby}\NormalTok{(}\AttributeTok{formula =} \SpecialCharTok{\textasciitilde{}}\NormalTok{poor, }\AttributeTok{by =} \SpecialCharTok{\textasciitilde{}}\NormalTok{Sex,}
-                              \AttributeTok{design =}\NormalTok{ survey\_design, svymean, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{,}
-                              \AttributeTok{covmat =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{))}
+\NormalTok{sex\_poverty\_contrast }\OtherTok{\textless{}{-}} \FunctionTok{svyby}\NormalTok{(}
+  \AttributeTok{formula =} \SpecialCharTok{\textasciitilde{}}\NormalTok{poor,}
+  \AttributeTok{by =} \SpecialCharTok{\textasciitilde{}}\NormalTok{Sex,}
+  \AttributeTok{design =}\NormalTok{ survey\_design,}
+  \AttributeTok{FUN =}\NormalTok{ svymean,}
+  \AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{covmat =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2784,7 +2814,7 @@ A partir de esta matriz, el error estándar de la diferencia de proporciones se 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{sqrt}\NormalTok{(}\FloatTok{0.0009983} \SpecialCharTok{+} \FloatTok{0.0013416} \SpecialCharTok{{-}} \DecValTok{2}\SpecialCharTok{*}\FloatTok{0.0009183}\NormalTok{)}
+\FunctionTok{sqrt}\NormalTok{(}\FloatTok{0.0009983} \SpecialCharTok{+} \FloatTok{0.0013416} \SpecialCharTok{{-}} \DecValTok{2} \SpecialCharTok{*} \FloatTok{0.0009183}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2796,15 +2826,17 @@ No obstante, el paquete \texttt{survey} permite realizar este procedimiento de f
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{svycontrast}\NormalTok{(sex\_poverty\_contrast,}
-            \FunctionTok{list}\NormalTok{(}\AttributeTok{sex\_differenceerence =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{))) }\SpecialCharTok{\%\textgreater{}\%}
+\FunctionTok{svycontrast}\NormalTok{(}
+  \AttributeTok{stat =}\NormalTok{ sex\_poverty\_contrast,}
+  \AttributeTok{contrasts =} \FunctionTok{list}\NormalTok{(}\AttributeTok{sex\_difference =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{))}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{data.frame}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##                      contrast sex_differenceerence
-## sex_differenceerence -0.00532               0.0224
+##                contrast sex_difference
+## sex_difference -0.00532         0.0224
 \end{verbatim}
 
 De lo que se concluye que, la diferencia entre las proporciones de mujeres y hombres en estado de pobreza es -0.005 (-0.5\%) con una error estándar de 0.022, indicando que la proporción estimada de mujeres en condición de pobreza es ligeramente menor que la observada en los hombres.
@@ -2820,11 +2852,16 @@ Otro ejercicio que puede desarrollarse a partir de una encuesta de hogares consi
                                      \AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{,}
                                      \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)))}
 
-\NormalTok{region\_unemployment\_contrast }\OtherTok{\textless{}{-}} \FunctionTok{svyby}\NormalTok{(}\AttributeTok{formula =} \SpecialCharTok{\textasciitilde{}}\NormalTok{unemployed, }\AttributeTok{by =} \SpecialCharTok{\textasciitilde{}}\NormalTok{Region,}
-                                      \AttributeTok{design =}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
-                                        \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(unemployed)),}
-                                      \AttributeTok{FUN =}\NormalTok{ svymean, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{covmat =} \ConstantTok{TRUE}\NormalTok{,}
-                                      \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{))}
+\NormalTok{region\_unemployment\_contrast }\OtherTok{\textless{}{-}} \FunctionTok{svyby}\NormalTok{(}
+  \AttributeTok{formula =} \SpecialCharTok{\textasciitilde{}}\NormalTok{unemployed,}
+  \AttributeTok{by =} \SpecialCharTok{\textasciitilde{}}\NormalTok{Region,}
+  \AttributeTok{design =}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(unemployed)),}
+  \AttributeTok{FUN =}\NormalTok{ svymean,}
+  \AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{covmat =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2892,6 +2929,11 @@ Para calcular los errores estándar asociados a cada uno de los contrastes anter
 \end{Shaded}
 
 \begin{longtable}[]{@{}llcccc@{}}
+\caption{\label{tab:tab-vcov-desempleo-region}Matriz de varianzas y covarianzas de la proporción de desempleo por región}\tabularnewline
+\toprule\noalign{}
+& Norte & Sur & Centro & Occidente & Oriente \\
+\midrule\noalign{}
+\endfirsthead
 \toprule\noalign{}
 & Norte & Sur & Centro & Occidente & Oriente \\
 \midrule\noalign{}
@@ -2909,7 +2951,7 @@ Nótese que las covarianzas entre las estimaciones regionales son iguales a cero
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{sqrt}\NormalTok{(}\FloatTok{0.0002981} \SpecialCharTok{+} \FloatTok{0.0002884} \SpecialCharTok{{-}} \DecValTok{2}\SpecialCharTok{*}\DecValTok{0}\NormalTok{)}
+\FunctionTok{sqrt}\NormalTok{(}\FloatTok{0.0002981} \SpecialCharTok{+} \FloatTok{0.0002884} \SpecialCharTok{{-}} \DecValTok{2} \SpecialCharTok{*} \DecValTok{0}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2919,7 +2961,7 @@ Nótese que las covarianzas entre las estimaciones regionales son iguales a cero
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{sqrt}\NormalTok{(}\FloatTok{0.0001968} \SpecialCharTok{+} \FloatTok{0.0002884} \SpecialCharTok{{-}} \DecValTok{2}\SpecialCharTok{*}\DecValTok{0}\NormalTok{)}
+\FunctionTok{sqrt}\NormalTok{(}\FloatTok{0.0001968} \SpecialCharTok{+} \FloatTok{0.0002884} \SpecialCharTok{{-}} \DecValTok{2} \SpecialCharTok{*} \DecValTok{0}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2929,7 +2971,7 @@ Nótese que las covarianzas entre las estimaciones regionales son iguales a cero
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{sqrt}\NormalTok{(}\FloatTok{0.0001267} \SpecialCharTok{+} \FloatTok{0.0004093} \SpecialCharTok{{-}} \DecValTok{2}\SpecialCharTok{*}\DecValTok{0}\NormalTok{)}
+\FunctionTok{sqrt}\NormalTok{(}\FloatTok{0.0001267} \SpecialCharTok{+} \FloatTok{0.0004093} \SpecialCharTok{{-}} \DecValTok{2} \SpecialCharTok{*} \DecValTok{0}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2941,10 +2983,14 @@ Alternativamente, el paquete \texttt{survey} permite calcular estos contrastes d
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{svycontrast}\NormalTok{(region\_unemployment\_contrast, }\FunctionTok{list}\NormalTok{(}
-                             \AttributeTok{north\_south =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{),}
-                             \AttributeTok{south\_center =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{),}
-                             \AttributeTok{west\_east =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{))) }\SpecialCharTok{\%\textgreater{}\%}
+\FunctionTok{svycontrast}\NormalTok{(}
+  \AttributeTok{stat =}\NormalTok{ region\_unemployment\_contrast,}
+  \AttributeTok{contrasts =} \FunctionTok{list}\NormalTok{(}
+    \AttributeTok{north\_south =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{),}
+    \AttributeTok{south\_center =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{),}
+    \AttributeTok{west\_east =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{)}
+\NormalTok{  )}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{data.frame}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -3012,15 +3058,18 @@ A continuación, y siguiendo con la base de datos de ejemplo, se estima la distr
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{poverty\_design }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
-       \FunctionTok{mutate}\NormalTok{(}\AttributeTok{poor =} \FunctionTok{factor}\NormalTok{(poor, }\AttributeTok{levels =} \DecValTok{0}\SpecialCharTok{:}\DecValTok{1}\NormalTok{,}
-                          \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Not poor"}\NormalTok{, }\StringTok{"Poor"}\NormalTok{)))}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{poor =} \FunctionTok{factor}\NormalTok{(}
+\NormalTok{    poor,}
+    \AttributeTok{levels =} \DecValTok{0}\SpecialCharTok{:}\DecValTok{1}\NormalTok{,}
+    \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Not poor"}\NormalTok{, }\StringTok{"Poor"}\NormalTok{)}
+\NormalTok{  ))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{poverty\_design }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(poor,Sex) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(poor, Sex) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{proportion =} \FunctionTok{survey\_prop}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)))}
 \end{Highlighting}
 \end{Shaded}
@@ -3414,8 +3463,10 @@ Luego, se realiza el contraste dividiendo cada uno de los elementos de la expres
   \StringTok{\textasciigrave{}}\AttributeTok{interaction(Sex, poor)Male.1}\StringTok{\textasciigrave{}}\NormalTok{)}
 \NormalTok{)}
 
-\FunctionTok{svycontrast}\NormalTok{(}\AttributeTok{stat =}\NormalTok{ sex\_poverty\_odds\_contrast,}
-            \AttributeTok{contrasts =}\NormalTok{ odds\_ratio)}
+\FunctionTok{svycontrast}\NormalTok{(}
+  \AttributeTok{stat =}\NormalTok{ sex\_poverty\_odds\_contrast,}
+  \AttributeTok{contrasts =}\NormalTok{ odds\_ratio}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3460,7 +3511,7 @@ El paquete \texttt{survey} en \texttt{R} implementa este tipo de pruebas mediant
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{svychisq}\NormalTok{(}\AttributeTok{formula =} \SpecialCharTok{\textasciitilde{}}\NormalTok{Sex }\SpecialCharTok{+}\NormalTok{ poor, }\AttributeTok{design =}\NormalTok{ survey\_design, }\AttributeTok{statistic=}\StringTok{"F"}\NormalTok{)}
+\FunctionTok{svychisq}\NormalTok{(}\AttributeTok{formula =} \SpecialCharTok{\textasciitilde{}}\NormalTok{Sex }\SpecialCharTok{+}\NormalTok{ poor, }\AttributeTok{design =}\NormalTok{ survey\_design, }\AttributeTok{statistic =} \StringTok{"F"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3532,10 +3583,14 @@ A continuación, se ilustra este procedimiento utilizando el tamaño poblacional
 
 \NormalTok{zone\_colors }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{Urban =} \StringTok{"\#48C9B0"}\NormalTok{, }\AttributeTok{Rural =} \StringTok{"\#117864"}\NormalTok{)}
 
-\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ zone\_size,}
-  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Zone, }\AttributeTok{y =}\NormalTok{ size,}
-      \AttributeTok{ymax =}\NormalTok{ size\_upp, }\AttributeTok{ymin =}\NormalTok{ size\_low,}
-      \AttributeTok{fill =}\NormalTok{ Zone)) }\SpecialCharTok{+}
+\FunctionTok{ggplot}\NormalTok{(}
+  \AttributeTok{data =}\NormalTok{ zone\_size,}
+  \FunctionTok{aes}\NormalTok{(}
+    \AttributeTok{x =}\NormalTok{ Zone, }\AttributeTok{y =}\NormalTok{ size,}
+    \AttributeTok{ymax =}\NormalTok{ size\_upp, }\AttributeTok{ymin =}\NormalTok{ size\_low,}
+    \AttributeTok{fill =}\NormalTok{ Zone}
+\NormalTok{  )}
+\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_errorbar}\NormalTok{(}\AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.9}\NormalTok{), }\AttributeTok{width =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ zone\_colors) }\SpecialCharTok{+}
@@ -3561,10 +3616,14 @@ El procedimiento anterior también puede aplicarse a variables con más de dos c
   \FunctionTok{group\_by}\NormalTok{(Poverty) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{size =} \FunctionTok{survey\_total}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)))}
 
-\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ poverty\_size,}
-  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Poverty, }\AttributeTok{y =}\NormalTok{ size,}
-      \AttributeTok{ymax =}\NormalTok{ size\_upp, }\AttributeTok{ymin =}\NormalTok{ size\_low,}
-      \AttributeTok{fill =}\NormalTok{ Poverty)) }\SpecialCharTok{+}
+\FunctionTok{ggplot}\NormalTok{(}
+  \AttributeTok{data =}\NormalTok{ poverty\_size,}
+  \FunctionTok{aes}\NormalTok{(}
+    \AttributeTok{x =}\NormalTok{ Poverty, }\AttributeTok{y =}\NormalTok{ size,}
+    \AttributeTok{ymax =}\NormalTok{ size\_upp, }\AttributeTok{ymin =}\NormalTok{ size\_low,}
+    \AttributeTok{fill =}\NormalTok{ Poverty}
+\NormalTok{  )}
+\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_errorbar}\NormalTok{(}\AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.9}\NormalTok{), }\AttributeTok{width =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
@@ -3597,10 +3656,14 @@ Una de las ventajas de los gráficos de barras es que pueden extenderse fácilme
 \NormalTok{    )}
 \NormalTok{  )}
 
-\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ employment\_poverty\_size,}
-  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Poverty, }\AttributeTok{y =}\NormalTok{ size,}
-      \AttributeTok{ymax =}\NormalTok{ size\_upp, }\AttributeTok{ymin =}\NormalTok{ size\_low,}
-      \AttributeTok{fill =} \FunctionTok{as.factor}\NormalTok{(unemployed))) }\SpecialCharTok{+}
+\FunctionTok{ggplot}\NormalTok{(}
+  \AttributeTok{data =}\NormalTok{ employment\_poverty\_size,}
+  \FunctionTok{aes}\NormalTok{(}
+    \AttributeTok{x =}\NormalTok{ Poverty, }\AttributeTok{y =}\NormalTok{ size,}
+    \AttributeTok{ymax =}\NormalTok{ size\_upp, }\AttributeTok{ymin =}\NormalTok{ size\_low,}
+    \AttributeTok{fill =} \FunctionTok{as.factor}\NormalTok{(unemployed)}
+\NormalTok{  )}
+\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_errorbar}\NormalTok{(}\AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.9}\NormalTok{), }\AttributeTok{width =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
@@ -3625,10 +3688,14 @@ Este tipo de análisis gráfico resulta especialmente útil para identificar int
   \FunctionTok{group\_by}\NormalTok{(Zone, Poverty) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{proportion =} \FunctionTok{survey\_prop}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{)))}
 
-\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ male\_zone\_poverty\_proportion,}
-  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Poverty, }\AttributeTok{y =}\NormalTok{ proportion,}
-      \AttributeTok{ymax =}\NormalTok{ proportion\_upp, }\AttributeTok{ymin =}\NormalTok{ proportion\_low,}
-      \AttributeTok{fill =}\NormalTok{ Zone)) }\SpecialCharTok{+}
+\FunctionTok{ggplot}\NormalTok{(}
+  \AttributeTok{data =}\NormalTok{ male\_zone\_poverty\_proportion,}
+  \FunctionTok{aes}\NormalTok{(}
+    \AttributeTok{x =}\NormalTok{ Poverty, }\AttributeTok{y =}\NormalTok{ proportion,}
+    \AttributeTok{ymax =}\NormalTok{ proportion\_upp, }\AttributeTok{ymin =}\NormalTok{ proportion\_low,}
+    \AttributeTok{fill =}\NormalTok{ Zone}
+\NormalTok{  )}
+\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_errorbar}\NormalTok{(}\AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.9}\NormalTok{), }\AttributeTok{width =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ zone\_colors) }\SpecialCharTok{+}
@@ -3655,10 +3722,14 @@ De forma análoga, se puede graficar la proporción de hombres en condición de 
   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{proportion =} \FunctionTok{survey\_prop}\NormalTok{(}\AttributeTok{vartype =} \FunctionTok{c}\NormalTok{(}\StringTok{"se"}\NormalTok{, }\StringTok{"ci"}\NormalTok{))) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{data.frame}\NormalTok{()}
 
-\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ male\_region\_poverty\_proportion,}
-  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Region, }\AttributeTok{y =}\NormalTok{ proportion,}
-      \AttributeTok{ymax =}\NormalTok{ proportion\_upp, }\AttributeTok{ymin =}\NormalTok{ proportion\_low,}
-      \AttributeTok{fill =} \FunctionTok{as.factor}\NormalTok{(poor))) }\SpecialCharTok{+}
+\FunctionTok{ggplot}\NormalTok{(}
+  \AttributeTok{data =}\NormalTok{ male\_region\_poverty\_proportion,}
+  \FunctionTok{aes}\NormalTok{(}
+    \AttributeTok{x =}\NormalTok{ Region, }\AttributeTok{y =}\NormalTok{ proportion,}
+    \AttributeTok{ymax =}\NormalTok{ proportion\_upp, }\AttributeTok{ymin =}\NormalTok{ proportion\_low,}
+    \AttributeTok{fill =} \FunctionTok{as.factor}\NormalTok{(poor)}
+\NormalTok{  )}
+\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_errorbar}\NormalTok{(}\AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.9}\NormalTok{), }\AttributeTok{width =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
@@ -3721,7 +3792,9 @@ Por ejemplo, si se desea representar geográficamente la proporción de hombres 
     \FunctionTok{left\_join}\NormalTok{(}
 \NormalTok{      male\_region\_poverty\_proportion }\SpecialCharTok{\%\textgreater{}\%}
         \FunctionTok{filter}\NormalTok{(poor }\SpecialCharTok{==} \DecValTok{1}\NormalTok{),}
-      \AttributeTok{by =} \StringTok{"Region"}\NormalTok{))}
+      \AttributeTok{by =} \StringTok{"Region"}
+\NormalTok{    )}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3732,10 +3805,11 @@ Una vez construido el objeto espacial con las estimaciones de interés, el argum
 \NormalTok{poverty\_breaks }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.2}\NormalTok{, }\FloatTok{0.4}\NormalTok{, }\FloatTok{0.6}\NormalTok{, }\FloatTok{0.8}\NormalTok{, }\DecValTok{1}\NormalTok{)}
 \NormalTok{shape\_region\_map }\SpecialCharTok{+}
   \FunctionTok{tm\_polygons}\NormalTok{(}
-    \AttributeTok{col    =} \StringTok{"proportion"}\NormalTok{,}
+    \AttributeTok{col =} \StringTok{"proportion"}\NormalTok{,}
     \AttributeTok{breaks =}\NormalTok{ poverty\_breaks,}
-    \AttributeTok{title  =} \StringTok{"Poverty proportion"}\NormalTok{,}
-    \AttributeTok{palette =} \StringTok{"YlOrRd"}\NormalTok{)}
+    \AttributeTok{title =} \StringTok{"Poverty proportion"}\NormalTok{,}
+    \AttributeTok{palette =} \StringTok{"YlOrRd"}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3763,14 +3837,16 @@ El siguiente código calcula y representa geográficamente el coeficiente de var
 \NormalTok{cv\_breaks }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.1}\NormalTok{, }\FloatTok{0.2}\NormalTok{, }\DecValTok{1}\NormalTok{)}
 \NormalTok{shape\_cv\_map }\OtherTok{\textless{}{-}} \FunctionTok{tm\_shape}\NormalTok{(}
 \NormalTok{  bigcity\_shape }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{left\_join}\NormalTok{(region\_mean, }\AttributeTok{by =} \StringTok{"Region"}\NormalTok{))}
+    \FunctionTok{left\_join}\NormalTok{(region\_mean, }\AttributeTok{by =} \StringTok{"Region"}\NormalTok{)}
+\NormalTok{)}
 
 \NormalTok{shape\_cv\_map }\SpecialCharTok{+}
   \FunctionTok{tm\_polygons}\NormalTok{(}
     \StringTok{"mean\_cv"}\NormalTok{,}
     \AttributeTok{breaks =}\NormalTok{ cv\_breaks,}
-    \AttributeTok{title  =} \StringTok{"Mean income CV"}\NormalTok{,}
-    \AttributeTok{palette =} \FunctionTok{c}\NormalTok{(}\StringTok{"\#FFFFFF"}\NormalTok{, }\StringTok{"\#000000"}\NormalTok{)) }\SpecialCharTok{+}
+    \AttributeTok{title =} \StringTok{"Mean income CV"}\NormalTok{,}
+    \AttributeTok{palette =} \FunctionTok{c}\NormalTok{(}\StringTok{"\#FFFFFF"}\NormalTok{, }\StringTok{"\#000000"}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{tm\_layout}\NormalTok{(}\AttributeTok{asp =} \DecValTok{0}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -3810,28 +3886,36 @@ A continuación, la función \texttt{bi\_legend()} crea una leyenda especializad
   \FunctionTok{left\_join}\NormalTok{(region\_sex\_poverty\_proportion, }\AttributeTok{by =} \StringTok{"Region"}\NormalTok{)}
 
 \NormalTok{k }\OtherTok{\textless{}{-}} \DecValTok{3}
-\NormalTok{bivariate\_data }\OtherTok{\textless{}{-}} \FunctionTok{bi\_class}\NormalTok{(bivariate\_shape,}
-  \AttributeTok{y =}\NormalTok{ proportion, }\AttributeTok{x =}\NormalTok{ proportion\_cv, }\AttributeTok{dim =}\NormalTok{ k,}
-  \AttributeTok{style =} \StringTok{"fisher"}\NormalTok{)}
+\NormalTok{bivariate\_data }\OtherTok{\textless{}{-}} \FunctionTok{bi\_class}\NormalTok{(}
+\NormalTok{  bivariate\_shape,}
+  \AttributeTok{y =}\NormalTok{ proportion,}
+  \AttributeTok{x =}\NormalTok{ proportion\_cv,}
+  \AttributeTok{dim =}\NormalTok{ k,}
+  \AttributeTok{style =} \StringTok{"fisher"}
+\NormalTok{)}
 
 \NormalTok{bivariate\_map }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_sf}\NormalTok{(}
     \AttributeTok{data =}\NormalTok{ bivariate\_data,}
     \FunctionTok{aes}\NormalTok{(}\AttributeTok{fill =}\NormalTok{ bi\_class, }\AttributeTok{geometry =}\NormalTok{ geometry),}
-    \AttributeTok{colour =} \StringTok{"white"}\NormalTok{, }\AttributeTok{size =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+    \AttributeTok{colour =} \StringTok{"white"}\NormalTok{,}
+    \AttributeTok{size =} \FloatTok{0.1}
+\NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{bi\_scale\_fill}\NormalTok{(}\AttributeTok{pal =} \StringTok{"GrPink"}\NormalTok{, }\AttributeTok{dim =}\NormalTok{ k) }\SpecialCharTok{+}
   \FunctionTok{bi\_theme}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
 
 \NormalTok{bivariate\_legend }\OtherTok{\textless{}{-}} \FunctionTok{bi\_legend}\NormalTok{(}
-  \AttributeTok{pal  =} \StringTok{"GrPink"}\NormalTok{, }\AttributeTok{dim =}\NormalTok{ k,}
+  \AttributeTok{pal =} \StringTok{"GrPink"}\NormalTok{,}
+  \AttributeTok{dim =}\NormalTok{ k,}
   \AttributeTok{xlab =} \StringTok{"Coefficient of variation"}\NormalTok{,}
   \AttributeTok{ylab =} \StringTok{"Rural female poverty"}\NormalTok{,}
-  \AttributeTok{size =} \DecValTok{8}\NormalTok{)}
+  \AttributeTok{size =} \DecValTok{8}
+\NormalTok{)}
 
 \FunctionTok{ggdraw}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{draw\_plot}\NormalTok{(bivariate\_map,     }\DecValTok{0}\NormalTok{,    }\DecValTok{0}\NormalTok{,    }\DecValTok{1}\NormalTok{, }\AttributeTok{scale =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{draw\_plot}\NormalTok{(bivariate\_legend,  }\FloatTok{0.75}\NormalTok{, }\FloatTok{0.4}\NormalTok{,  }\FloatTok{0.2}\NormalTok{, }\FloatTok{0.2}\NormalTok{)}
+  \FunctionTok{draw\_plot}\NormalTok{(bivariate\_map, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\AttributeTok{scale =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{draw\_plot}\NormalTok{(bivariate\_legend, }\FloatTok{0.75}\NormalTok{, }\FloatTok{0.4}\NormalTok{, }\FloatTok{0.2}\NormalTok{, }\FloatTok{0.2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4000,10 +4084,13 @@ En los ejemplos desarrollados a lo largo de este capítulo se emplerán los mism
 \begin{Highlighting}[]
 \NormalTok{urban\_subset }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{filter}\NormalTok{(Zone }\SpecialCharTok{==} \StringTok{"Urban"}\NormalTok{)}
-\NormalTok{rural\_subset  }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
+
+\NormalTok{rural\_subset }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{filter}\NormalTok{(Zone }\SpecialCharTok{==} \StringTok{"Rural"}\NormalTok{)}
-\NormalTok{female\_subset  }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
+
+\NormalTok{female\_subset }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{filter}\NormalTok{(Sex }\SpecialCharTok{==} \StringTok{"Female"}\NormalTok{)}
+
 \NormalTok{male\_subset }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{filter}\NormalTok{(Sex }\SpecialCharTok{==} \StringTok{"Male"}\NormalTok{)}
 \end{Highlighting}
@@ -4013,11 +4100,12 @@ Con el objetivo de ajustar un modelo de regresión entre las variables ingreso y
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{unweighted\_plot }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ survey\_data,}
-            \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Expenditure, }\AttributeTok{y =}\NormalTok{ Income)) }\SpecialCharTok{+}
-            \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
-            \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{,}
-            \AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{unweighted\_plot }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}
+  \AttributeTok{data =}\NormalTok{ survey\_data,}
+  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Expenditure, }\AttributeTok{y =}\NormalTok{ Income)}
+\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{)}
 
 \NormalTok{unweighted\_plot}
 \end{Highlighting}
@@ -4038,9 +4126,11 @@ Para ajustar modelos incorporando los factores de expansión se usa la función 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{fit\_svy }\OtherTok{\textless{}{-}} \FunctionTok{svyglm}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure }\SpecialCharTok{+}\NormalTok{ Zone }\SpecialCharTok{+}\NormalTok{ Sex,}
-                  \AttributeTok{design =}\NormalTok{ survey\_design,}
-                  \AttributeTok{family=}\NormalTok{stats}\SpecialCharTok{::}\FunctionTok{gaussian}\NormalTok{())}
+\NormalTok{fit\_svy }\OtherTok{\textless{}{-}} \FunctionTok{svyglm}\NormalTok{(}
+\NormalTok{  Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure }\SpecialCharTok{+}\NormalTok{ Zone }\SpecialCharTok{+}\NormalTok{ Sex,}
+  \AttributeTok{design =}\NormalTok{ survey\_design,}
+  \AttributeTok{family =}\NormalTok{ stats}\SpecialCharTok{::}\FunctionTok{gaussian}\NormalTok{()}
+\NormalTok{)}
 
 \NormalTok{fit\_svy}
 \end{Highlighting}
@@ -4104,8 +4194,8 @@ En \texttt{R}, el coeficiente de determinación \(R^{2}\) puede estimarse a part
 \NormalTok{s1 }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(fit\_svy)}
 \NormalTok{s0 }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(null\_model)}
 
-\NormalTok{WSST }\OtherTok{\textless{}{-}}\NormalTok{ s0}\SpecialCharTok{$}\NormalTok{dispersion[}\DecValTok{1}\NormalTok{]}
-\NormalTok{WSSE }\OtherTok{\textless{}{-}}\NormalTok{ s1}\SpecialCharTok{$}\NormalTok{dispersion[}\DecValTok{1}\NormalTok{]}
+\NormalTok{wsst }\OtherTok{\textless{}{-}}\NormalTok{ s0}\SpecialCharTok{$}\NormalTok{dispersion[}\DecValTok{1}\NormalTok{]}
+\NormalTok{wsse }\OtherTok{\textless{}{-}}\NormalTok{ s1}\SpecialCharTok{$}\NormalTok{dispersion[}\DecValTok{1}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4115,10 +4205,10 @@ La estimación del coeficiente de determinación y su contraparte ajustada se ob
 \begin{Highlighting}[]
 \NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(survey\_design)}
 \NormalTok{p }\OtherTok{\textless{}{-}} \DecValTok{4}
-\NormalTok{R2 }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ WSSE }\SpecialCharTok{/}\NormalTok{ WSST}
-\NormalTok{R2Adj }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ ((n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{) }\SpecialCharTok{/}\NormalTok{ (n }\SpecialCharTok{{-}}\NormalTok{ p)) }\SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ R2)}
+\NormalTok{r2 }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ wsse }\SpecialCharTok{/}\NormalTok{ wsst}
+\NormalTok{r2\_adj }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ ((n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{) }\SpecialCharTok{/}\NormalTok{ (n }\SpecialCharTok{{-}}\NormalTok{ p)) }\SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ r2)}
 
-\NormalTok{R2}
+\NormalTok{r2}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4128,7 +4218,7 @@ La estimación del coeficiente de determinación y su contraparte ajustada se ob
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{R2Adj}
+\NormalTok{r2\_adj}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4157,7 +4247,7 @@ A continuación, estos diagnósticos se aplican a los modelos previamente ajusta
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(svydiags)}
-\NormalTok{stdresids }\OtherTok{=} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{svystdres}\NormalTok{(fit\_svy)}\SpecialCharTok{$}\NormalTok{stdresids)}
+\NormalTok{stdresids }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{svystdres}\NormalTok{(fit\_svy)}\SpecialCharTok{$}\NormalTok{stdresids)}
 \NormalTok{survey\_design}\SpecialCharTok{$}\NormalTok{variables }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design}\SpecialCharTok{$}\NormalTok{variables }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{stdresids =}\NormalTok{ stdresids)}
 \end{Highlighting}
@@ -4167,14 +4257,18 @@ El análisis de normalidad puede complementarse con el histograma de los residua
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ survey\_design}\SpecialCharTok{$}\NormalTok{variables,}
-       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ stdresids)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ ..density..),}
-                 \AttributeTok{colour =} \StringTok{"black"}\NormalTok{,}
-                 \AttributeTok{fill =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}
+\FunctionTok{ggplot}\NormalTok{(}
+  \AttributeTok{data =}\NormalTok{ survey\_design}\SpecialCharTok{$}\NormalTok{variables,}
+  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ stdresids)}
+\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ ..density..),}
+    \AttributeTok{colour =} \StringTok{"black"}\NormalTok{,}
+    \AttributeTok{fill =} \StringTok{"blue"}\NormalTok{,}
+    \AttributeTok{alpha =} \FloatTok{0.3}
+\NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{, }\AttributeTok{colour =} \StringTok{"blue"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_function}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ dnorm, }\AttributeTok{colour =} \StringTok{"red"}\NormalTok{,}
-                \AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_function}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ dnorm, }\AttributeTok{colour =} \StringTok{"red"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{""}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -4196,22 +4290,28 @@ Para evaluar este supuesto, se recomienda analizar gráficamente los residuos en
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(patchwork)}
 
-\NormalTok{g1 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ survey\_design}\SpecialCharTok{$}\NormalTok{variables,}
-       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Expenditure, }\AttributeTok{y =}\NormalTok{ stdresids)) }\SpecialCharTok{+}
+\NormalTok{g1 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}
+  \AttributeTok{data =}\NormalTok{ survey\_design}\SpecialCharTok{$}\NormalTok{variables,}
+  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Expenditure, }\AttributeTok{y =}\NormalTok{ stdresids)}
+\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{)}
 
-\NormalTok{g2 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ survey\_design}\SpecialCharTok{$}\NormalTok{variables,}
-       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Zone, }\AttributeTok{y =}\NormalTok{ stdresids)) }\SpecialCharTok{+}
+\NormalTok{g2 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}
+  \AttributeTok{data =}\NormalTok{ survey\_design}\SpecialCharTok{$}\NormalTok{variables,}
+  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Zone, }\AttributeTok{y =}\NormalTok{ stdresids)}
+\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{)}
 
-\NormalTok{g3 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ survey\_design}\SpecialCharTok{$}\NormalTok{variables,}
-       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Sex, }\AttributeTok{y =}\NormalTok{ stdresids)) }\SpecialCharTok{+}
+\NormalTok{g3 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}
+  \AttributeTok{data =}\NormalTok{ survey\_design}\SpecialCharTok{$}\NormalTok{variables,}
+  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Sex, }\AttributeTok{y =}\NormalTok{ stdresids)}
+\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{)}
 
-\NormalTok{(g1}\SpecialCharTok{|}\NormalTok{g2}\SpecialCharTok{|}\NormalTok{g3)}
+\NormalTok{(g1 }\SpecialCharTok{|}\NormalTok{ g2 }\SpecialCharTok{|}\NormalTok{ g3)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4242,7 +4342,7 @@ En \texttt{R}, se evalúa la presencia de observaciones influyentes mediante la 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{svyCooksD}\NormalTok{(fit\_svy, }\AttributeTok{doplot=}\ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\FunctionTok{svyCooksD}\NormalTok{(fit\_svy, }\AttributeTok{doplot =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{head}\NormalTok{(}\DecValTok{10}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -4277,7 +4377,7 @@ donde \(z\) toma comúnmente valores de 2 o 3, \(n_I\) representa el número de 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{d\_dfbetas }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{t}\NormalTok{(}\FunctionTok{svydfbetas}\NormalTok{(fit\_svy)}\SpecialCharTok{$}\NormalTok{Dfbetas))}
+\NormalTok{d\_dfbetas }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{t}\NormalTok{(}\FunctionTok{svydfbetas}\NormalTok{(fit\_svy)}\SpecialCharTok{$}\NormalTok{Dfbetas))}
 \FunctionTok{colnames}\NormalTok{(d\_dfbetas) }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\StringTok{"Beta\_"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{)}
 \NormalTok{d\_dfbetas }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\DataTypeTok{L}\NormalTok{)}
@@ -4357,14 +4457,17 @@ Los resultados muestran que varias observaciones superan el umbral establecido p
 \begin{Highlighting}[]
 \FunctionTok{ggplot}\NormalTok{(d\_dfbetas, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =} \FunctionTok{abs}\NormalTok{(value), }\AttributeTok{x =}\NormalTok{ id)) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{col =}\NormalTok{ criterion)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ label\_text,}
-            \AttributeTok{angle =} \DecValTok{45}\NormalTok{,}
-            \AttributeTok{vjust =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,}
-            \FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ id)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}
+    \AttributeTok{data =}\NormalTok{ label\_text,}
+    \AttributeTok{angle =} \DecValTok{45}\NormalTok{,}
+    \AttributeTok{vjust =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,}
+    \FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ id)}
+\NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{geom\_hline}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{yintercept =}\NormalTok{ cutoff)) }\SpecialCharTok{+}
   \FunctionTok{facet\_wrap}\NormalTok{(. }\SpecialCharTok{\textasciitilde{}}\NormalTok{ variable, }\AttributeTok{nrow =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{scale\_color\_manual}\NormalTok{(}
-    \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"Yes"} \OtherTok{=} \StringTok{"red"}\NormalTok{, }\StringTok{"No"} \OtherTok{=} \StringTok{"black"}\NormalTok{))}
+    \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"Yes"} \OtherTok{=} \StringTok{"red"}\NormalTok{, }\StringTok{"No"} \OtherTok{=} \StringTok{"black"}\NormalTok{)}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4388,8 +4491,10 @@ En \texttt{R}, el cálculo de este estadístico puede realizarse mediante la fun
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{d\_dffits }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{dffits =} \FunctionTok{svydffits}\NormalTok{(fit\_svy)}\SpecialCharTok{$}\NormalTok{Dffits,}
-                      \AttributeTok{id =} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(}\FunctionTok{svydffits}\NormalTok{(fit\_svy)}\SpecialCharTok{$}\NormalTok{Dffits))}
+\NormalTok{d\_dffits }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{dffits =} \FunctionTok{svydffits}\NormalTok{(fit\_svy)}\SpecialCharTok{$}\NormalTok{Dffits,}
+  \AttributeTok{id =} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(}\FunctionTok{svydffits}\NormalTok{(fit\_svy)}\SpecialCharTok{$}\NormalTok{Dffits)}
+\NormalTok{)}
 \NormalTok{cutoff }\OtherTok{\textless{}{-}} \FunctionTok{svydffits}\NormalTok{(fit\_svy)}\SpecialCharTok{$}\NormalTok{cutoff}
 \NormalTok{d\_dffits }\OtherTok{\textless{}{-}}\NormalTok{ d\_dffits }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{cutoff\_criterion =} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{abs}\NormalTok{(dffits) }\SpecialCharTok{\textgreater{}}\NormalTok{ cutoff, }\StringTok{"Yes"}\NormalTok{, }\StringTok{"No"}\NormalTok{))}
@@ -4398,7 +4503,8 @@ En \texttt{R}, el cálculo de este estadístico puede realizarse mediante la fun
   \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{col =}\NormalTok{ cutoff\_criterion)) }\SpecialCharTok{+}
   \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =}\NormalTok{ cutoff) }\SpecialCharTok{+}
   \FunctionTok{scale\_color\_manual}\NormalTok{(}
-    \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"Yes"} \OtherTok{=} \StringTok{"red"}\NormalTok{, }\StringTok{"No"} \OtherTok{=} \StringTok{"black"}\NormalTok{))}
+    \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"Yes"} \OtherTok{=} \StringTok{"red"}\NormalTok{, }\StringTok{"No"} \OtherTok{=} \StringTok{"black"}\NormalTok{)}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4521,12 +4627,12 @@ El siguiente código calcula las predicciones del modelo de regresión para las 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{xobs }\OtherTok{\textless{}{-}} \FunctionTok{model.matrix}\NormalTok{(fit\_svy) }\SpecialCharTok{\%\textgreater{}\%}
-        \FunctionTok{data.frame}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-          \FunctionTok{as.matrix}\NormalTok{()}
-\NormalTok{hatbeta }\OtherTok{\textless{}{-}}\NormalTok{ fit\_svy}\SpecialCharTok{$}\NormalTok{coe}
-\NormalTok{hatmu }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(xobs }\SpecialCharTok{\%*\%}\NormalTok{ hatbeta)}
-\NormalTok{hatmu }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{x\_obs }\OtherTok{\textless{}{-}} \FunctionTok{model.matrix}\NormalTok{(fit\_svy) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{data.frame}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{as.matrix}\NormalTok{()}
+\NormalTok{hat\_beta }\OtherTok{\textless{}{-}}\NormalTok{ fit\_svy}\SpecialCharTok{$}\NormalTok{coe}
+\NormalTok{hat\_mu }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(x\_obs }\SpecialCharTok{\%*\%}\NormalTok{ hat\_beta)}
+\NormalTok{hat\_mu }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{head}\NormalTok{(}\DecValTok{10}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -4535,7 +4641,7 @@ El siguiente código calcula las predicciones del modelo de regresión para las 
 ##  [1] 517.6 496.9 496.9 517.6 496.9 553.1 553.1 573.7 553.1 184.8
 \end{verbatim}
 
-En primer lugar, la instrucción \texttt{model.matrix(fit\_svy)} construye la matriz de diseño asociada al modelo ajustado, incorporando automáticamente las variables explicativas. A continuación, el objeto \texttt{hatbeta} almacena el vector de coeficientes estimados del modelo de regresión. Posteriormente, se obtienen las estimaciones mediante el producto matricial \texttt{xobs\ \%*\%\ hatbeta}. Finalmente, la función \texttt{head(10)} permite visualizar las primeras diez estimaciones obtenidas.
+En primer lugar, la instrucción \texttt{model.matrix(fit\_svy)} construye la matriz de diseño asociada al modelo ajustado, incorporando automáticamente las variables explicativas. A continuación, el objeto \texttt{hat\_beta} almacena el vector de coeficientes estimados del modelo de regresión. Posteriormente, se obtienen las estimaciones mediante el producto matricial \texttt{x\_obs\ \%*\%\ hat\_beta}. Finalmente, la función \texttt{head(10)} permite visualizar las primeras diez estimaciones obtenidas.
 
 Para calcular la varianza de las estimaciones se requiere la matriz de varianzas y covarianzas de los parámetros del modelo. Los elementos de la diagonal principal corresponden a las varianzas de los parámetros estimados, mientras que los elementos fuera de la diagonal representan las covarianzas entre pares de coeficientes. La matriz estimada de varianzas y covarianzas se presenta en la Tabla \ref{tab:tab-vcov-modelo}:
 
@@ -4571,7 +4677,7 @@ En términos computacionales, esto implica combinar el vector de covariables de 
 \begin{Highlighting}[]
 \NormalTok{cov\_beta }\OtherTok{\textless{}{-}} \FunctionTok{vcov}\NormalTok{(fit\_svy) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{as.matrix}\NormalTok{()}
-\NormalTok{mu\_variance }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(xobs }\SpecialCharTok{\%*\%}\NormalTok{ cov\_beta }\SpecialCharTok{\%*\%} \FunctionTok{t}\NormalTok{(xobs))}
+\NormalTok{mu\_variance }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(x\_obs }\SpecialCharTok{\%*\%}\NormalTok{ cov\_beta }\SpecialCharTok{\%*\%} \FunctionTok{t}\NormalTok{(x\_obs))}
 \NormalTok{mu\_variance }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{head}\NormalTok{(}\DecValTok{10}\NormalTok{)}
 \end{Highlighting}
@@ -4593,7 +4699,7 @@ En R, la función \texttt{predict(fit\_svy,\ type\ =\ "link")} genera las predic
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{hatmu }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{predict}\NormalTok{(fit\_svy, }\AttributeTok{type =} \StringTok{"link"}\NormalTok{))}
+\NormalTok{hat\_mu }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{predict}\NormalTok{(fit\_svy, }\AttributeTok{type =} \StringTok{"link"}\NormalTok{))}
 \NormalTok{mu\_ci }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{confint}\NormalTok{(}\FunctionTok{predict}\NormalTok{(fit\_svy, }\AttributeTok{type =} \StringTok{"link"}\NormalTok{)))}
 \FunctionTok{colnames}\NormalTok{(mu\_ci) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"lower\_limit"}\NormalTok{, }\StringTok{"upper\_limit"}\NormalTok{)}
 \end{Highlighting}
@@ -4603,16 +4709,19 @@ Las estimaciones obtenidas a partir del modelo, junto con sus respectivos interv
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{pred }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(hatmu, mu\_ci)}
+\NormalTok{pred }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(hat\_mu, mu\_ci)}
 \NormalTok{pred}\SpecialCharTok{$}\NormalTok{Expenditure }\OtherTok{\textless{}{-}}\NormalTok{ survey\_data}\SpecialCharTok{$}\NormalTok{Expenditure}
 \NormalTok{pd }\OtherTok{\textless{}{-}} \FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.2}\NormalTok{)}
-\FunctionTok{ggplot}\NormalTok{(pred }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\DataTypeTok{L}\NormalTok{),}
-       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Expenditure, }\AttributeTok{y =}\NormalTok{ link)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_errorbar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ lower\_limit,}
-                    \AttributeTok{ymax =}\NormalTok{ upper\_limit),}
-                \AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{,}
-                \AttributeTok{linetype =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+\FunctionTok{ggplot}\NormalTok{(}
+\NormalTok{  pred }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\DataTypeTok{L}\NormalTok{),}
+  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Expenditure, }\AttributeTok{y =}\NormalTok{ link)}
+\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbar}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ lower\_limit, }\AttributeTok{ymax =}\NormalTok{ upper\_limit),}
+    \AttributeTok{width =}\NormalTok{ .}\DecValTok{1}\NormalTok{,}
+    \AttributeTok{linetype =} \DecValTok{1}
+\NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{2}\NormalTok{, }\AttributeTok{position =}\NormalTok{ pd) }\SpecialCharTok{+}
   \FunctionTok{theme\_bw}\NormalTok{()}
 \end{Highlighting}
@@ -4660,11 +4769,13 @@ Supóngase, por ejemplo, que se desea obtener la predicción del modelo para una
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{new\_data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Expenditure =} \DecValTok{1600}\NormalTok{,}
-                           \AttributeTok{Sex =} \StringTok{"Male"}\NormalTok{,}
-                           \AttributeTok{Zone =} \StringTok{"Urban"}\NormalTok{)}
+\NormalTok{new\_data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Expenditure =} \DecValTok{1600}\NormalTok{,}
+  \AttributeTok{Sex =} \StringTok{"Male"}\NormalTok{,}
+  \AttributeTok{Zone =} \StringTok{"Urban"}
+\NormalTok{)}
 
-\FunctionTok{predict}\NormalTok{(fit\_svy, }\AttributeTok{newdata =}\NormalTok{ new\_data, }\AttributeTok{type =}  \StringTok{"link"}\NormalTok{)}
+\FunctionTok{predict}\NormalTok{(fit\_svy, }\AttributeTok{newdata =}\NormalTok{ new\_data, }\AttributeTok{type =} \StringTok{"link"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4675,7 +4786,7 @@ Supóngase, por ejemplo, que se desea obtener la predicción del modelo para una
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{confint}\NormalTok{(}\FunctionTok{predict}\NormalTok{(fit\_svy,}\AttributeTok{newdata =}\NormalTok{ new\_data))}
+\FunctionTok{confint}\NormalTok{(}\FunctionTok{predict}\NormalTok{(fit\_svy, }\AttributeTok{newdata =}\NormalTok{ new\_data))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4708,20 +4819,23 @@ Para ilustrar los modelos presentados en este capítulo se utilizan la base de d
 
 \NormalTok{survey\_design }\OtherTok{\textless{}{-}}\NormalTok{ survey\_data }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{as\_survey\_design}\NormalTok{(}
-    \AttributeTok{strata  =}\NormalTok{ Stratum,}
-    \AttributeTok{ids     =}\NormalTok{ PSU,}
+    \AttributeTok{strata =}\NormalTok{ Stratum,}
+    \AttributeTok{ids =}\NormalTok{ PSU,}
     \AttributeTok{weights =}\NormalTok{ wk,}
-    \AttributeTok{nest    =} \ConstantTok{TRUE}
+    \AttributeTok{nest =} \ConstantTok{TRUE}
 \NormalTok{  )}
 
 \NormalTok{survey\_design }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{mutate}\NormalTok{(}
-    \AttributeTok{poverty   =} \FunctionTok{factor}\NormalTok{(}\FunctionTok{ifelse}\NormalTok{(Poverty }\SpecialCharTok{!=} \StringTok{"NotPoor"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{),}
-                       \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{),}
-                       \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"=Poor"}\NormalTok{, }\StringTok{"=Not poor"}\NormalTok{)),}
+    \AttributeTok{poverty =} \FunctionTok{factor}\NormalTok{(}
+      \FunctionTok{ifelse}\NormalTok{(Poverty }\SpecialCharTok{!=} \StringTok{"NotPoor"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{),}
+      \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{),}
+      \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"=Poor"}\NormalTok{, }\StringTok{"=Not poor"}\NormalTok{)}
+\NormalTok{    ),}
     \AttributeTok{unemployment =} \FunctionTok{factor}\NormalTok{(}\FunctionTok{ifelse}\NormalTok{(Employment }\SpecialCharTok{==} \StringTok{"Unemployed"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{),}
-                       \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{),}
-                       \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"=Unemployed"}\NormalTok{, }\StringTok{"=Not unemployed"}\NormalTok{))}
+      \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{),}
+      \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"=Unemployed"}\NormalTok{, }\StringTok{"=Not unemployed"}\NormalTok{)}
+\NormalTok{    )}
 \NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
@@ -4798,8 +4912,8 @@ Siguiendo con la encuesta de ejemplo, y con el fin de analizar los factores asoc
 \begin{Highlighting}[]
 \NormalTok{logit\_model }\OtherTok{\textless{}{-}} \FunctionTok{svyglm}\NormalTok{(}
   \AttributeTok{formula =}\NormalTok{ poverty }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure }\SpecialCharTok{+}\NormalTok{ Employment }\SpecialCharTok{+}\NormalTok{ Sex,}
-  \AttributeTok{family  =}\NormalTok{ binomial,}
-  \AttributeTok{design  =}\NormalTok{ survey\_design}
+  \AttributeTok{family =}\NormalTok{ binomial,}
+  \AttributeTok{design =}\NormalTok{ survey\_design}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -4874,8 +4988,9 @@ Para visualizar la distribución de los coeficientes se emplea \texttt{plot\_sum
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(ggstance)}
 \FunctionTok{plot\_summs}\NormalTok{(logit\_model,}
-           \AttributeTok{scale =} \ConstantTok{TRUE}\NormalTok{,}
-           \AttributeTok{plot.distributions =} \ConstantTok{TRUE}\NormalTok{)}
+  \AttributeTok{scale =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{plot.distributions =} \ConstantTok{TRUE}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4894,8 +5009,8 @@ El modelo puede ampliarse incorporando términos de interacción para evaluar si
 \begin{Highlighting}[]
 \NormalTok{interaction\_logit\_model }\OtherTok{\textless{}{-}} \FunctionTok{svyglm}\NormalTok{(}
   \AttributeTok{formula =}\NormalTok{ poverty }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure }\SpecialCharTok{+}\NormalTok{ Employment }\SpecialCharTok{+}\NormalTok{ Sex }\SpecialCharTok{+}\NormalTok{ Sex}\SpecialCharTok{:}\NormalTok{Employment,}
-  \AttributeTok{family  =}\NormalTok{ binomial,}
-  \AttributeTok{design  =}\NormalTok{ survey\_design}
+  \AttributeTok{family =}\NormalTok{ binomial,}
+  \AttributeTok{design =}\NormalTok{ survey\_design}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -4953,8 +5068,9 @@ La Figura \ref{fig:fig-comparacion-logistica} presenta una comparación de las e
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{plot\_summs}\NormalTok{(interaction\_logit\_model, logit\_model,}
-           \AttributeTok{scale =} \ConstantTok{TRUE}\NormalTok{,}
-           \AttributeTok{plot.distributions =} \ConstantTok{TRUE}\NormalTok{)}
+  \AttributeTok{scale =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{plot.distributions =} \ConstantTok{TRUE}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5068,13 +5184,13 @@ Para modelar una variable de respuesta multinomial se emplea la función \texttt
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(svyVGAM)}
-\NormalTok{survey\_design\_15  }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{survey\_design\_15 }\OtherTok{\textless{}{-}}\NormalTok{ survey\_design }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{filter}\NormalTok{(Age }\SpecialCharTok{\textgreater{}=} \DecValTok{15}\NormalTok{)}
-\NormalTok{multinomial\_model  }\OtherTok{\textless{}{-}} \FunctionTok{svy\_vglm}\NormalTok{(}
-  \AttributeTok{formula  =}\NormalTok{ Employment }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Age }\SpecialCharTok{+}\NormalTok{ Sex }\SpecialCharTok{+}\NormalTok{ Zone,}
-  \AttributeTok{design   =}\NormalTok{ survey\_design\_15,}
-  \AttributeTok{crit     =} \StringTok{"coef"}\NormalTok{,}
-  \AttributeTok{family   =} \FunctionTok{multinomial}\NormalTok{(}\AttributeTok{refLevel =} \StringTok{"Unemployed"}\NormalTok{)}
+\NormalTok{multinomial\_model }\OtherTok{\textless{}{-}} \FunctionTok{svy\_vglm}\NormalTok{(}
+  \AttributeTok{formula =}\NormalTok{ Employment }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Age }\SpecialCharTok{+}\NormalTok{ Sex }\SpecialCharTok{+}\NormalTok{ Zone,}
+  \AttributeTok{design =}\NormalTok{ survey\_design\_15,}
+  \AttributeTok{crit =} \StringTok{"coef"}\NormalTok{,}
+  \AttributeTok{family =} \FunctionTok{multinomial}\NormalTok{(}\AttributeTok{refLevel =} \StringTok{"Unemployed"}\NormalTok{)}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -5087,12 +5203,12 @@ Dado que \texttt{broom::tidy()} no puede aplicarse directamente a objetos de cla
 \begin{Highlighting}[]
 \NormalTok{tidy.svyVGAM }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x, }\AttributeTok{conf.int =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{conf.level =} \FloatTok{0.95}\NormalTok{,}
                           \AttributeTok{exponentiate =} \ConstantTok{FALSE}\NormalTok{, ...) \{}
-\NormalTok{  ret  }\OtherTok{\textless{}{-}} \FunctionTok{as\_tibble}\NormalTok{(}\FunctionTok{summary}\NormalTok{(x)}\SpecialCharTok{$}\NormalTok{coeftable, }\AttributeTok{rownames =} \StringTok{"term"}\NormalTok{)}
+\NormalTok{  ret }\OtherTok{\textless{}{-}} \FunctionTok{as\_tibble}\NormalTok{(}\FunctionTok{summary}\NormalTok{(x)}\SpecialCharTok{$}\NormalTok{coeftable, }\AttributeTok{rownames =} \StringTok{"term"}\NormalTok{)}
   \FunctionTok{colnames}\NormalTok{(ret) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"term"}\NormalTok{, }\StringTok{"estimate"}\NormalTok{, }\StringTok{"std.error"}\NormalTok{, }\StringTok{"statistic"}\NormalTok{, }\StringTok{"p.value"}\NormalTok{)}
 \NormalTok{  coefs }\OtherTok{\textless{}{-}}\NormalTok{ tibble}\SpecialCharTok{::}\FunctionTok{enframe}\NormalTok{(stats}\SpecialCharTok{::}\FunctionTok{coef}\NormalTok{(x), }\AttributeTok{name =} \StringTok{"term"}\NormalTok{, }\AttributeTok{value =} \StringTok{"estimate"}\NormalTok{)}
-\NormalTok{  ret   }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(coefs, ret, }\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"term"}\NormalTok{, }\StringTok{"estimate"}\NormalTok{))}
+\NormalTok{  ret }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(coefs, ret, }\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"term"}\NormalTok{, }\StringTok{"estimate"}\NormalTok{))}
   \ControlFlowTok{if}\NormalTok{ (conf.int) \{}
-\NormalTok{    ci  }\OtherTok{\textless{}{-}}\NormalTok{ broom}\SpecialCharTok{:::}\FunctionTok{broom\_confint\_terms}\NormalTok{(x, }\AttributeTok{level =}\NormalTok{ conf.level, ...)}
+\NormalTok{    ci }\OtherTok{\textless{}{-}}\NormalTok{ broom}\SpecialCharTok{:::}\FunctionTok{broom\_confint\_terms}\NormalTok{(x, }\AttributeTok{level =}\NormalTok{ conf.level, ...)}
 \NormalTok{    ret }\OtherTok{\textless{}{-}}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{left\_join}\NormalTok{(ret, ci, }\AttributeTok{by =} \StringTok{"term"}\NormalTok{)}
 \NormalTok{  \}}
   \ControlFlowTok{if}\NormalTok{ (exponentiate) ret }\OtherTok{\textless{}{-}}\NormalTok{ broom}\SpecialCharTok{:::}\FunctionTok{exponentiate}\NormalTok{(ret)}
@@ -5112,56 +5228,36 @@ La Tabla \ref{tab:tab-multinomial-coef} presenta los coeficientes estimados del 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1571}}
-  >{\centering\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1714}}
-  >{\centering\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2143}}
-  >{\centering\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2286}}
-  >{\centering\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2286}}@{}}
+\begin{longtable}[]{@{}lccccc@{}}
 \caption{\label{tab:tab-multinomial-coef}Coeficientes estimados del modelo de regresión multinomial}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Employment
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-proportion
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-proportion\_se
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-proportion\_low
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-proportion\_upp
-\end{minipage} \\
+y.level & term & estimate & std.error & statistic & p.value \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Employment
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-proportion
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-proportion\_se
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-proportion\_low
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-proportion\_upp
-\end{minipage} \\
+y.level & term & estimate & std.error & statistic & p.value \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Unemployed & 0.043 & 0.007 & 0.029 & 0.057 \\
-Inactive & 0.384 & 0.015 & 0.354 & 0.414 \\
-Employed & 0.573 & 0.014 & 0.545 & 0.601 \\
+1 & (Intercept) & 2.556 & 0.550 & 4.648 & 0.000 \\
+1 & Age & 0.022 & 0.010 & 2.117 & 0.034 \\
+1 & SexMale & -2.185 & 0.317 & -6.901 & 0.000 \\
+1 & ZoneUrban & -0.254 & 0.404 & -0.627 & 0.531 \\
+2 & (Intercept) & 2.306 & 0.461 & 4.998 & 0.000 \\
+2 & Age & 0.018 & 0.009 & 2.056 & 0.040 \\
+2 & SexMale & -0.578 & 0.277 & -2.091 & 0.037 \\
+2 & ZoneUrban & 0.039 & 0.361 & 0.109 & 0.913 \\
 \end{longtable}
 
 La Figura \ref{fig:fig-multinomial-ic} muestra los intervalos de confianza de los coeficientes estimados para cada ecuación del modelo multinomial. La visualización se construye con \texttt{dotwhisker::dwplot()} \citep{dotwhisker2025}, que permite comparar coeficientes e intervalos en una escala común, y se usa \texttt{gtools::stars.pval()} \citep{gtools2025} para codificar la significancia estadística. Las covariables cuyos intervalos no incluyen el valor cero presentan evidencia de asociación estadística significativa con la variable respuesta, mientras que aquellos cuyos intervalos contienen el cero no muestran efectos significativos al nivel de confianza considerado.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{tidy.svyVGAM}\NormalTok{(multinomial\_model, }\AttributeTok{exponentiate =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{conf.int =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{multinomial\_results }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{mutate}\NormalTok{(}
     \AttributeTok{model =} \FunctionTok{if\_else}\NormalTok{(y.level }\SpecialCharTok{==} \DecValTok{1}\NormalTok{, }\StringTok{"Inactive"}\NormalTok{, }\StringTok{"Employed"}\NormalTok{),}
-    \AttributeTok{sig   =}\NormalTok{ gtools}\SpecialCharTok{::}\FunctionTok{stars.pval}\NormalTok{(p.value)}
+    \AttributeTok{sig =}\NormalTok{ gtools}\SpecialCharTok{::}\FunctionTok{stars.pval}\NormalTok{(p.value)}
 \NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
 \NormalTok{  dotwhisker}\SpecialCharTok{::}\FunctionTok{dwplot}\NormalTok{(}
     \AttributeTok{dodge\_size =} \FloatTok{0.3}\NormalTok{,}
@@ -5238,10 +5334,10 @@ En donde \(k\) representa las unidades de observación de la muestra y \(w_k\) c
 \begin{Highlighting}[]
 \NormalTok{gamma\_design }\OtherTok{\textless{}{-}}\NormalTok{ survey\_data }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{as\_survey\_design}\NormalTok{(}
-    \AttributeTok{strata  =}\NormalTok{ Stratum,}
-    \AttributeTok{ids     =}\NormalTok{ PSU,}
+    \AttributeTok{strata =}\NormalTok{ Stratum,}
+    \AttributeTok{ids =}\NormalTok{ PSU,}
     \AttributeTok{weights =}\NormalTok{ wk,}
-    \AttributeTok{nest    =} \ConstantTok{TRUE}
+    \AttributeTok{nest =} \ConstantTok{TRUE}
 \NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
@@ -5252,8 +5348,8 @@ El siguiente código ajusta un modelo de regresión Gamma para la variable de in
 \begin{Highlighting}[]
 \NormalTok{gamma\_model }\OtherTok{\textless{}{-}} \FunctionTok{svyglm}\NormalTok{(}
   \AttributeTok{formula =}\NormalTok{ Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure }\SpecialCharTok{+}\NormalTok{ Age }\SpecialCharTok{+}\NormalTok{ Sex }\SpecialCharTok{+}\NormalTok{ Zone,}
-  \AttributeTok{design  =}\NormalTok{ gamma\_design,}
-  \AttributeTok{family  =} \FunctionTok{Gamma}\NormalTok{(}\AttributeTok{link =} \StringTok{"log"}\NormalTok{)}
+  \AttributeTok{design =}\NormalTok{ gamma\_design,}
+  \AttributeTok{family =} \FunctionTok{Gamma}\NormalTok{(}\AttributeTok{link =} \StringTok{"log"}\NormalTok{)}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -5303,11 +5399,11 @@ Para iniciar este capítulo, se cargan \texttt{tidyverse} \citep{tidyverse2026} 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{survey\_data }\OtherTok{\textless{}{-}} \FunctionTok{readRDS}\NormalTok{(}\StringTok{"Data/encuesta.rds"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-          \FunctionTok{mutate}\NormalTok{(}\AttributeTok{poverty =} \FunctionTok{ifelse}\NormalTok{(Poverty }\SpecialCharTok{!=} \StringTok{"NotPoor"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{poverty =} \FunctionTok{ifelse}\NormalTok{(Poverty }\SpecialCharTok{!=} \StringTok{"NotPoor"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
-Con fines ilustrativos, los ejemplos de esta sección se desarrollan a partir de una submuestra de la encuesta. El siguiente bloque de código construye la base de datos utilizada en los ejemplos del capítulo. Para ello, identifica los tres estratos con menor número de hogares y conserva únicamente las variables requeridas para el análisis: ingreso, gasto, estrato, sexo, región y zona de residencia.
+Con fines ilustrativos, los ejemplos de esta sección se desarrollan a partir de una submuestra de la encuesta. El siguiente bloque de código construye la base de datos utilizada en los ejemplos del capítulo. Para ello, identifica los tres estratos con menor número de hogares y conserva únicamente las variables requeridas para el análisis: ingreso, gasto, estrato, sexo, región, zona de residencia y condición de pobreza.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5319,7 +5415,7 @@ Con fines ilustrativos, los ejemplos de esta sección se desarrollan a partir de
   \FunctionTok{arrange}\NormalTok{(n) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{n) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\DataTypeTok{L}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{inner\_join}\NormalTok{(survey\_data) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{inner\_join}\NormalTok{(survey\_data, }\AttributeTok{by =} \StringTok{"Stratum"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{select}\NormalTok{(Income, Expenditure, Stratum, Sex, Region, Zone, poverty)}
 \end{Highlighting}
 \end{Shaded}
@@ -5333,9 +5429,12 @@ Como punto de partida, se ajusta un modelo de regresión lineal convencional que
   \FunctionTok{geom\_jitter}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{ggtitle}\NormalTok{(latex2exp}\SpecialCharTok{::}\FunctionTok{TeX}\NormalTok{(}
-    \StringTok{"$Income\_\{i\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{sim }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{hat\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{beta\}\_\{0\} + }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{hat\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{beta\}\_\{1\}Expenditure\_\{i\} + }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{epsilon\_\{i\}$"}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
-        \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{))}
+    \StringTok{"$Income\_\{i\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{sim }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{hat\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{beta\}\_\{0\} + }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{hat\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{beta\}\_\{1\}Expenditure\_\{i\} + }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{epsilon\_\{i\}$"}
+\NormalTok{  )) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{)}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5354,11 +5453,11 @@ Con fines exclusivamente ilustrativos, se incorpora gradualmente la estructura j
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{B1 }\OtherTok{\textless{}{-}} \FunctionTok{coef}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure, }\AttributeTok{data =}\NormalTok{ plot\_data))[}\DecValTok{2}\NormalTok{]}
+\NormalTok{beta\_1 }\OtherTok{\textless{}{-}} \FunctionTok{coef}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure, }\AttributeTok{data =}\NormalTok{ plot\_data))[}\DecValTok{2}\NormalTok{]}
 \NormalTok{model\_coef }\OtherTok{\textless{}{-}}\NormalTok{ plot\_data }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Stratum) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{B0 =} \FunctionTok{coef}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure))[}\DecValTok{1}\NormalTok{]) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{B1 =}\NormalTok{ B1)}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{beta\_0 =} \FunctionTok{coef}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure))[}\DecValTok{1}\NormalTok{]) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{beta\_1 =}\NormalTok{ beta\_1)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5370,11 +5469,14 @@ De esta manera, el modelo introduce una primera fuente de heterogeneidad entre g
        \FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ Income, }\AttributeTok{x =}\NormalTok{ Expenditure, }\AttributeTok{colour =}\NormalTok{ Stratum)) }\SpecialCharTok{+}
   \FunctionTok{geom\_jitter}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{data =}\NormalTok{ model\_coef,}
-              \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{slope =}\NormalTok{ B1, }\AttributeTok{intercept =}\NormalTok{ B0, }\AttributeTok{colour =}\NormalTok{ Stratum)) }\SpecialCharTok{+}
+              \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{slope =}\NormalTok{ beta\_1, }\AttributeTok{intercept =}\NormalTok{ beta\_0, }\AttributeTok{colour =}\NormalTok{ Stratum)) }\SpecialCharTok{+}
   \FunctionTok{ggtitle}\NormalTok{(latex2exp}\SpecialCharTok{::}\FunctionTok{TeX}\NormalTok{(}
-    \StringTok{"$Income\_\{kj\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{sim }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{hat\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{beta\}\_\{0j\} + }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{hat\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{beta\}\_\{1\}Expenditure\_\{kj\} + }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{epsilon\_\{kj\}$"}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
-        \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{))}
+    \StringTok{"$Income\_\{kj\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{sim }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{hat\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{beta\}\_\{0j\} + }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{hat\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{beta\}\_\{1\}Expenditure\_\{kj\} + }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{epsilon\_\{kj\}$"}
+\NormalTok{  )) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{)}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5391,11 +5493,11 @@ Como siguiente paso, se considera una especificación alternativa en la que todo
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{B0 }\OtherTok{\textless{}{-}} \FunctionTok{coef}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure, }\AttributeTok{data =}\NormalTok{ plot\_data))[}\DecValTok{1}\NormalTok{]}
+\NormalTok{beta\_0 }\OtherTok{\textless{}{-}} \FunctionTok{coef}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure, }\AttributeTok{data =}\NormalTok{ plot\_data))[}\DecValTok{1}\NormalTok{]}
 \NormalTok{model\_coef }\OtherTok{\textless{}{-}}\NormalTok{ plot\_data }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Stratum) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{B1 =} \FunctionTok{coef}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure))[}\DecValTok{2}\NormalTok{]) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{B0 =}\NormalTok{ B0)}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{beta\_1 =} \FunctionTok{coef}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure))[}\DecValTok{2}\NormalTok{]) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{beta\_0 =}\NormalTok{ beta\_0)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5407,11 +5509,14 @@ Bajo esta especificación, las diferencias entre estratos se manifiestan en la i
        \FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ Income, }\AttributeTok{x =}\NormalTok{ Expenditure, }\AttributeTok{colour =}\NormalTok{ Stratum)) }\SpecialCharTok{+}
   \FunctionTok{geom\_jitter}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{data =}\NormalTok{ model\_coef,}
-              \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{slope =}\NormalTok{ B1, }\AttributeTok{intercept =}\NormalTok{ B0, }\AttributeTok{colour =}\NormalTok{ Stratum)) }\SpecialCharTok{+}
+              \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{slope =}\NormalTok{ beta\_1, }\AttributeTok{intercept =}\NormalTok{ beta\_0, }\AttributeTok{colour =}\NormalTok{ Stratum)) }\SpecialCharTok{+}
   \FunctionTok{ggtitle}\NormalTok{(latex2exp}\SpecialCharTok{::}\FunctionTok{TeX}\NormalTok{(}
-    \StringTok{"$Income\_\{kj\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{sim }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{hat\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{beta\}\_\{0\} + }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{hat\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{beta\}\_\{1j\}Expenditure\_\{kj\} + }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{epsilon\_\{kj\}$"}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
-        \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{))}
+    \StringTok{"$Income\_\{kj\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{sim }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{hat\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{beta\}\_\{0\} + }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{hat\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{beta\}\_\{1j\}Expenditure\_\{kj\} + }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{epsilon\_\{kj\}$"}
+\NormalTok{  )) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{)}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5430,8 +5535,10 @@ Finalmente, se considera la especificación más flexible de las presentadas has
 \begin{Highlighting}[]
 \NormalTok{model\_coef }\OtherTok{\textless{}{-}}\NormalTok{ plot\_data }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Stratum) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{B0 =} \FunctionTok{coef}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure))[}\DecValTok{1}\NormalTok{],}
-    \AttributeTok{B1 =} \FunctionTok{coef}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure))[}\DecValTok{2}\NormalTok{])}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{beta\_0 =} \FunctionTok{coef}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure))[}\DecValTok{1}\NormalTok{],}
+    \AttributeTok{beta\_1 =} \FunctionTok{coef}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure))[}\DecValTok{2}\NormalTok{]}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5443,11 +5550,14 @@ Esta formulación permite capturar simultáneamente diferencias en los niveles d
        \FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ Income, }\AttributeTok{x =}\NormalTok{ Expenditure, }\AttributeTok{colour =}\NormalTok{ Stratum)) }\SpecialCharTok{+}
   \FunctionTok{geom\_jitter}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{data =}\NormalTok{ model\_coef,}
-              \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{slope =}\NormalTok{ B1, }\AttributeTok{intercept =}\NormalTok{ B0, }\AttributeTok{colour =}\NormalTok{ Stratum)) }\SpecialCharTok{+}
+              \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{slope =}\NormalTok{ beta\_1, }\AttributeTok{intercept =}\NormalTok{ beta\_0, }\AttributeTok{colour =}\NormalTok{ Stratum)) }\SpecialCharTok{+}
   \FunctionTok{ggtitle}\NormalTok{(latex2exp}\SpecialCharTok{::}\FunctionTok{TeX}\NormalTok{(}
-    \StringTok{"$Income\_\{kj\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{sim }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{hat\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{beta\}\_\{0j\} + }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{hat\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{beta\}\_\{1\}Expenditure\_\{kj\} + }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{epsilon\_\{kj\}$"}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
-        \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{))}
+    \StringTok{"$Income\_\{kj\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{sim }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{hat\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{beta\}\_\{0j\} + }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{hat\{}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{beta\}\_\{1j\}Expenditure\_\{kj\} + }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{epsilon\_\{kj\}$"}
+\NormalTok{  )) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{)}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5508,7 +5618,7 @@ El siguiente código implementa el procedimiento de construcción de pesos \emph
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mod\_qw  }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(wk }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure, }\AttributeTok{data =}\NormalTok{ survey\_data)}
+\NormalTok{mod\_qw }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(wk }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure, }\AttributeTok{data =}\NormalTok{ survey\_data)}
 \NormalTok{survey\_data}\SpecialCharTok{$}\NormalTok{qk }\OtherTok{\textless{}{-}}\NormalTok{ survey\_data}\SpecialCharTok{$}\NormalTok{wk }\SpecialCharTok{/} \FunctionTok{predict}\NormalTok{(mod\_qw)}
 \end{Highlighting}
 \end{Shaded}
@@ -5557,12 +5667,15 @@ Un valor elevado del ICC indica que una proporción importante de la variabilida
 
 Siguiendo con el análisis de la encuesta de ejemplo, cuando la variable de interés es el ingreso, el modelo nulo constituye el punto de partida para cuantificar qué proporción de la variabilidad total se debe a diferencias entre estratos y qué proporción corresponde a diferencias entre hogares dentro de un mismo estrato.
 
-La estimación de modelos multinivel en \texttt{R}se realiza mediante el paquete \texttt{lme4} \citep{lme42026}. En particular, la función \texttt{lmer()} permite especificar los efectos aleatorios mediante expresiones de la forma \texttt{(efecto\ \textbar{}\ grupo)}. En este contexto, la expresión \texttt{(1\ \textbar{}\ Stratum)} indica que el modelo incluye un intercepto aleatorio para cada estrato. El valor \texttt{1} representa el intercepto del modelo, mientras que \texttt{Stratum} identifica la variable de agrupación.
+La estimación de modelos multinivel en \texttt{R} se realiza mediante el paquete \texttt{lme4} \citep{lme42026}. En particular, la función \texttt{lmer()} permite especificar los efectos aleatorios mediante expresiones de la forma \texttt{(efecto\ \textbar{}\ grupo)}. En este contexto, la expresión \texttt{(1\ \textbar{}\ Stratum)} indica que el modelo incluye un intercepto aleatorio para cada estrato. El valor \texttt{1} representa el intercepto del modelo, mientras que \texttt{Stratum} identifica la variable de agrupación.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mod\_null  }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stratum),}
-                  \AttributeTok{data =}\NormalTok{ survey\_data, }\AttributeTok{weights =}\NormalTok{ qk)}
+\NormalTok{mod\_null }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(}
+\NormalTok{  Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stratum),}
+  \AttributeTok{data =}\NormalTok{ survey\_data,}
+  \AttributeTok{weights =}\NormalTok{ qk}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5646,8 +5759,11 @@ El siguiente código ajusta un modelo multinivel de intercepto aleatorio, en don
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{random\_intercept\_model }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stratum),}
-                          \AttributeTok{data =}\NormalTok{ survey\_data, }\AttributeTok{weights =}\NormalTok{ qk)}
+\NormalTok{random\_intercept\_model }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(}
+\NormalTok{  Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stratum),}
+  \AttributeTok{data =}\NormalTok{ survey\_data,}
+  \AttributeTok{weights =}\NormalTok{ qk}
+\NormalTok{)}
 \NormalTok{performance}\SpecialCharTok{::}\FunctionTok{icc}\NormalTok{(random\_intercept\_model)}
 \end{Highlighting}
 \end{Shaded}
@@ -5699,7 +5815,7 @@ Con el fin de facilitar la visualización de los resultados del modelo, se utili
 \NormalTok{    tibble}\SpecialCharTok{::}\FunctionTok{rownames\_to\_column}\NormalTok{(}\AttributeTok{var =} \StringTok{"Stratum"}\NormalTok{),}
 \NormalTok{  plot\_data }\SpecialCharTok{\%\textgreater{}\%}
     \FunctionTok{select}\NormalTok{(Stratum) }\SpecialCharTok{\%\textgreater{}\%}
-      \FunctionTok{distinct}\NormalTok{()}
+    \FunctionTok{distinct}\NormalTok{()}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -5715,8 +5831,10 @@ La Figura \ref{fig:fig-intercepto-aleatorio} muestra las rectas de regresión es
               \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{slope =}\NormalTok{ Expenditure,}
                             \AttributeTok{intercept =} \StringTok{\textasciigrave{}}\AttributeTok{(Intercept)}\StringTok{\textasciigrave{}}\NormalTok{,}
                             \AttributeTok{colour =}\NormalTok{ Stratum)) }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
-        \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{))}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{)}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5820,7 +5938,7 @@ idStrt009 & 16.6 & 0.838 \\
 idStrt010 & 89.9 & 1.830 \\
 \end{longtable}
 
-Una vez más, Con el propósito de facilitar la visualización de los resultados, se utiliza la submuestra reducida definida previamente, la cual considera únicamente tres estratos seleccionados.
+Una vez más, con el propósito de facilitar la visualización de los resultados, se utiliza la submuestra reducida definida previamente, la cual considera únicamente tres estratos seleccionados.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5829,7 +5947,7 @@ Una vez más, Con el propósito de facilitar la visualización de los resultados
 \NormalTok{    tibble}\SpecialCharTok{::}\FunctionTok{rownames\_to\_column}\NormalTok{(}\AttributeTok{var =} \StringTok{"Stratum"}\NormalTok{),}
 \NormalTok{  plot\_data }\SpecialCharTok{\%\textgreater{}\%}
     \FunctionTok{select}\NormalTok{(Stratum) }\SpecialCharTok{\%\textgreater{}\%}
-      \FunctionTok{distinct}\NormalTok{()}
+    \FunctionTok{distinct}\NormalTok{()}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -5845,8 +5963,10 @@ La Figura \ref{fig:fig-pendiente-aleatoria} presenta las rectas de regresión es
               \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{slope =}\NormalTok{ Expenditure,}
                             \AttributeTok{intercept =} \StringTok{\textasciigrave{}}\AttributeTok{(Intercept)}\StringTok{\textasciigrave{}}\NormalTok{,}
                             \AttributeTok{colour =}\NormalTok{ Stratum)) }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
-        \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{))}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{)}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5881,10 +6001,15 @@ En esta formulación, \(\eta_{kj}\) cumple un papel análogo al valor esperado l
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ survey\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ poverty, }\AttributeTok{x =}\NormalTok{ Expenditure)) }\SpecialCharTok{+}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ survey\_data,}
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ poverty, }\AttributeTok{x =}\NormalTok{ Expenditure)) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{method =} \StringTok{"glm"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{,}
-              \AttributeTok{method.args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{family =} \FunctionTok{binomial}\NormalTok{(}\AttributeTok{link =} \StringTok{"logit"}\NormalTok{))) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}
+    \AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x,}
+    \AttributeTok{method =} \StringTok{"glm"}\NormalTok{,}
+    \AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{,}
+    \AttributeTok{method.args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{family =} \FunctionTok{binomial}\NormalTok{(}\AttributeTok{link =} \StringTok{"logit"}\NormalTok{))}
+\NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Poverty (1 = poor)"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Expenditure"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -5940,10 +6065,12 @@ Un valor elevado de \(\rho\) indica que la probabilidad del evento presenta una 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{logistic\_null\_model }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(poverty }\SpecialCharTok{\textasciitilde{}}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stratum),}
-                         \AttributeTok{data    =}\NormalTok{ survey\_data,}
-                         \AttributeTok{weights =}\NormalTok{ qk,}
-                         \AttributeTok{family  =} \FunctionTok{binomial}\NormalTok{(}\AttributeTok{link =} \StringTok{"logit"}\NormalTok{))}
+\NormalTok{logistic\_null\_model }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(}
+\NormalTok{  poverty }\SpecialCharTok{\textasciitilde{}}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stratum),}
+  \AttributeTok{data =}\NormalTok{ survey\_data,}
+  \AttributeTok{weights =}\NormalTok{ qk,}
+  \AttributeTok{family =} \FunctionTok{binomial}\NormalTok{(}\AttributeTok{link =} \StringTok{"logit"}\NormalTok{)}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6009,8 +6136,8 @@ Bajo esta especificación, dos estratos con los mismos valores de las covariable
 \begin{Highlighting}[]
 \NormalTok{random\_intercept\_logit\_model }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(}
 \NormalTok{  poverty }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Expenditure }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stratum),}
-  \AttributeTok{data    =}\NormalTok{ survey\_data,}
-  \AttributeTok{family  =} \FunctionTok{binomial}\NormalTok{(}\AttributeTok{link =} \StringTok{"logit"}\NormalTok{),}
+  \AttributeTok{data =}\NormalTok{ survey\_data,}
+  \AttributeTok{family =} \FunctionTok{binomial}\NormalTok{(}\AttributeTok{link =} \StringTok{"logit"}\NormalTok{),}
   \AttributeTok{weights =}\NormalTok{ qk}
 \NormalTok{)}
 \NormalTok{performance}\SpecialCharTok{::}\FunctionTok{icc}\NormalTok{(random\_intercept\_logit\_model)}
@@ -6065,13 +6192,19 @@ La Figura \ref{fig:fig-logit-int-aleatorio} presenta las curvas de probabilidad 
 \begin{Highlighting}[]
 \NormalTok{prediction\_data }\OtherTok{\textless{}{-}}\NormalTok{ plot\_data }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Stratum) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{Expenditure =} \FunctionTok{list}\NormalTok{(}\FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(Expenditure), }\FunctionTok{max}\NormalTok{(Expenditure), }\AttributeTok{len =} \DecValTok{100}\NormalTok{))) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{Expenditure =} \FunctionTok{list}\NormalTok{(}\FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(Expenditure), }\FunctionTok{max}\NormalTok{(Expenditure), }\AttributeTok{len =} \DecValTok{100}\NormalTok{))}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
 \NormalTok{  tidyr}\SpecialCharTok{::}\FunctionTok{unnest\_legacy}\NormalTok{()}
 
-\NormalTok{prediction\_data }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(prediction\_data,}
-                   \AttributeTok{probability =} \FunctionTok{predict}\NormalTok{(random\_intercept\_logit\_model,}
-                                   \AttributeTok{newdata =}\NormalTok{ prediction\_data,}
-                                   \AttributeTok{type =} \StringTok{"response"}\NormalTok{))}
+\NormalTok{prediction\_data }\OtherTok{\textless{}{-}}\NormalTok{ prediction\_data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{probability =} \FunctionTok{predict}\NormalTok{(}
+\NormalTok{      random\_intercept\_logit\_model,}
+      \AttributeTok{newdata =}\NormalTok{ prediction\_data,}
+      \AttributeTok{type =} \StringTok{"response"}
+\NormalTok{    )}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6080,7 +6213,8 @@ La Figura \ref{fig:fig-logit-int-aleatorio} presenta las curvas de probabilidad 
 \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ prediction\_data,}
        \FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ probability, }\AttributeTok{x =}\NormalTok{ Expenditure, }\AttributeTok{colour =}\NormalTok{ Stratum)) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ plot\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ poverty, }\AttributeTok{x =}\NormalTok{ Expenditure)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ plot\_data,}
+             \FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ poverty, }\AttributeTok{x =}\NormalTok{ Expenditure)) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Poverty probability"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Expenditure"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
 \end{Highlighting}
@@ -6099,7 +6233,7 @@ La Figura \ref{fig:fig-logit-int-aleatorio} presenta las curvas de probabilidad 
 
 El modelo logístico con intercepto y pendiente aleatoria extiende la especificación anterior permitiendo que no sólo varíe el nivel base del evento entre estratos, sino también el efecto de una covariable específica. Esta formulación es análoga al modelo de intercepto y pendiente aleatorios para variables continuas, con la salvedad de que las diferencias entre estratos se expresan en la escala logit y se traducen en curvas de probabilidad no lineales.
 
-Sea \(x_{kj}\) la covariable cuyo efecto se permite variar entre estratos, y sea \(\mathbf{z}_{kj}\) el conjunto de covariables con efectos fijos comunes. En este modelo, al probabilidad de éxito se asume de tal forma que \(\text{logit}(\pi_{kj}) = \beta_{0j} + x_{kj}\beta_{1j} + \mathbf{z}_{kj}\boldsymbol{\beta}\). En donde, \(\beta_{0j}\) es el intercepto específico del estrato \(j\) y \(\beta_{1j}\) es la pendiente específica asociada a la covariable \(x_{kj}\).
+Sea \(x_{kj}\) la covariable cuyo efecto se permite variar entre estratos, y sea \(\mathbf{z}_{kj}\) el conjunto de covariables con efectos fijos comunes. En este modelo, la probabilidad de éxito se asume de tal forma que \(\text{logit}(\pi_{kj}) = \beta_{0j} + x_{kj}\beta_{1j} + \mathbf{z}_{kj}\boldsymbol{\beta}\). En donde, \(\beta_{0j}\) es el intercepto específico del estrato \(j\) y \(\beta_{1j}\) es la pendiente específica asociada a la covariable \(x_{kj}\).
 
 Ambos parámetros se descomponen en una parte promedio poblacional y una desviación específica del estrato, de tal manera que \(\beta_{0j} = \gamma_{00} + \tau_{0j}\) y \(\beta_{1j} = \gamma_{10} + \tau_{1j}\). En donde los términos \(\gamma_{00}\) y \(\gamma_{10}\) representan, respectivamente, el intercepto promedio global y la pendiente promedio global en escala logit. Por su parte, \(\tau_{0j}\) y \(\tau_{1j}\) capturan cuánto se aparta el estrato \(j\) de esos promedios. La implementación en R es la siguiente:
 
@@ -6107,9 +6241,9 @@ Ambos parámetros se descomponen en una parte promedio poblacional y una desviac
 \begin{Highlighting}[]
 \NormalTok{random\_slope\_logit\_model }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(}
 \NormalTok{  poverty }\SpecialCharTok{\textasciitilde{}} \DecValTok{1} \SpecialCharTok{+}\NormalTok{ Expenditure }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Expenditure }\SpecialCharTok{|}\NormalTok{ Stratum),}
-  \AttributeTok{data    =}\NormalTok{ survey\_data,}
+  \AttributeTok{data =}\NormalTok{ survey\_data,}
   \AttributeTok{weights =}\NormalTok{ qk,}
-  \AttributeTok{family  =} \FunctionTok{binomial}\NormalTok{(}\AttributeTok{link =} \StringTok{"logit"}\NormalTok{)}
+  \AttributeTok{family =} \FunctionTok{binomial}\NormalTok{(}\AttributeTok{link =} \StringTok{"logit"}\NormalTok{)}
 \NormalTok{)}
 \NormalTok{performance}\SpecialCharTok{::}\FunctionTok{icc}\NormalTok{(random\_slope\_logit\_model)}
 \end{Highlighting}
@@ -6161,13 +6295,19 @@ Los coeficientes por estrato evidencian que la relación entre gasto y pobreza n
 \begin{Highlighting}[]
 \NormalTok{prediction\_data }\OtherTok{\textless{}{-}}\NormalTok{ plot\_data }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Stratum) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{Expenditure =} \FunctionTok{list}\NormalTok{(}\FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(Expenditure), }\FunctionTok{max}\NormalTok{(Expenditure), }\AttributeTok{len =} \DecValTok{100}\NormalTok{))) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{Expenditure =} \FunctionTok{list}\NormalTok{(}\FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(Expenditure), }\FunctionTok{max}\NormalTok{(Expenditure), }\AttributeTok{len =} \DecValTok{100}\NormalTok{))}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
 \NormalTok{  tidyr}\SpecialCharTok{::}\FunctionTok{unnest\_legacy}\NormalTok{()}
 
-\NormalTok{prediction\_data }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(prediction\_data,}
-                   \AttributeTok{probability =} \FunctionTok{predict}\NormalTok{(random\_slope\_logit\_model,}
-                                   \AttributeTok{newdata =}\NormalTok{ prediction\_data,}
-                                   \AttributeTok{type =} \StringTok{"response"}\NormalTok{))}
+\NormalTok{prediction\_data }\OtherTok{\textless{}{-}}\NormalTok{ prediction\_data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{probability =} \FunctionTok{predict}\NormalTok{(}
+\NormalTok{      random\_slope\_logit\_model,}
+      \AttributeTok{newdata =}\NormalTok{ prediction\_data,}
+      \AttributeTok{type =} \StringTok{"response"}
+\NormalTok{    )}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6176,7 +6316,8 @@ Los coeficientes por estrato evidencian que la relación entre gasto y pobreza n
 \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ prediction\_data,}
        \FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ probability, }\AttributeTok{x =}\NormalTok{ Expenditure, }\AttributeTok{colour =}\NormalTok{ Stratum)) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ plot\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ poverty, }\AttributeTok{x =}\NormalTok{ Expenditure)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ plot\_data,}
+             \FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ poverty, }\AttributeTok{x =}\NormalTok{ Expenditure)) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Poverty probability"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Expenditure"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
 \end{Highlighting}
@@ -6227,13 +6368,13 @@ Una vez instalados los paquetes, se cargan con \texttt{library()}. El primer com
 \begin{Highlighting}[]
 \FunctionTok{rm}\NormalTok{(}\AttributeTok{list =} \FunctionTok{ls}\NormalTok{())}
 
-\FunctionTok{library}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
-\FunctionTok{library}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{)}
-\FunctionTok{library}\NormalTok{(}\StringTok{"TeachingSampling"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(TeachingSampling)}
 \end{Highlighting}
 \end{Shaded}
 
-Una vez se descargan e instalan las librerías o paquetes en \texttt{R}, el paso recomendado es que todos los procesamientos que se realicen se hagan a través de un la creación de proyectos. Un proyecto de \texttt{R} se define como un archivo que contiene los archivos de origen y contenido asociados con el trabajo que se está realizando. Adicionalmente, contiene información que permite la compilación de cada archivo de \texttt{R} que se va a utilizar, mantiene la información para integrarse con sistemas de control de código fuente y ayuda a organizar la aplicación de los procesamientos en componentes lógicos.
+Una vez se descargan e instalan las librerías o paquetes en \texttt{R}, el paso recomendado es que todos los procesamientos se realicen mediante la creación de proyectos. Un proyecto de \texttt{R} se define como un archivo que contiene los archivos de origen y contenido asociados con el trabajo que se está realizando. Adicionalmente, contiene información que permite la compilación de cada archivo de \texttt{R} que se va a utilizar, mantiene la información para integrarse con sistemas de control de código fuente y ayuda a organizar la aplicación de los procesamientos en componentes lógicos.
 
 \section{Carga e inspección inicial de la base}\label{carga-e-inspeccion-inicial-de-la-base}
 
@@ -6359,7 +6500,7 @@ Como se observa en la salida anterior, la función \texttt{str} permite identifi
 
 \section{Encadenamiento de operaciones}\label{encadenamiento-de-operaciones}
 
-Una de las contribuciones más útiles de \texttt{R} es la incorporación de las tuberías (\emph{pipelines}), las cuales permiten construir consultas, transformaciones y nuevos objetos a partir de una base de datos de manera más intuitiva, ordenada y fácil de interpretar. El operador de encadenamiento \texttt{\%\textgreater{}\%}, proveniente del paquete \texttt{magrittr} \citep{pipe} y cargado automáticamente al utilizar la librería \texttt{tidyverse}, permite enlazar varias operaciones sucesivas, de modo que el resultado obtenido en un paso se convierte en el insumo del paso siguiente. A continuación, se presenta un ejemplo sencillo de su uso con la base de datos \texttt{BigLucy}, en el cual se calcula el número total de elementos que contiene la base mediante la función \texttt{count}.
+Una de las contribuciones más útiles de \texttt{R} es la incorporación de las tuberías (\emph{pipelines}), las cuales permiten construir consultas, transformaciones y nuevos objetos a partir de una base de datos de manera más intuitiva, ordenada y fácil de interpretar. El operador de encadenamiento \texttt{\%\textgreater{}\%}, proveniente del paquete \texttt{magrittr} \citep{pipe} y cargado automáticamente al utilizar la librería \texttt{tidyverse}, permite enlazar varias operaciones sucesivas, de modo que el resultado obtenido en un paso se convierte en el insumo del paso siguiente. A continuación, se presenta un ejemplo sencillo de su uso con la base de datos \texttt{BigCity}, en el cual se calcula el número total de elementos que contiene la base mediante la función \texttt{count}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6388,7 +6529,7 @@ La línea de código anterior puede interpretarse de forma sencilla: se toma la 
 \end{Highlighting}
 \end{Shaded}
 
-También puede filtrarse por condición de pobreza. En este caso se conservan solo las personas clasificadas como no pobres. Em este caso, el objeto \texttt{nonpoor\_data} contiene el subconjunto de registros cuya variable \texttt{Poverty} toma el valor \texttt{"NotPoor"}.
+También puede filtrarse por condición de pobreza. En este caso se conservan solo las personas clasificadas como no pobres. El objeto \texttt{nonpoor\_data} contiene el subconjunto de registros cuya variable \texttt{Poverty} toma el valor \texttt{"NotPoor"}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6548,28 +6689,30 @@ El siguiente ejemplo crea \texttt{log\_income}, que corresponde al logaritmo nat
 ## 6  idPer01    298       5.70
 \end{verbatim}
 
-Note que \texttt{mutate()} puede crear más de una variable en el mismo paso. Además, las variables creadas al inicio de \texttt{mutate()} pueden ser utilizadas en cálculos posteriores dentro del mismo llamado. Por ejemplo, \texttt{Income2} duplica el ingreso original e \texttt{Income4} duplica \texttt{Income2}. La siguiente salida muestra que \texttt{Income4} equivale a cuatro veces el ingreso inicial.
+Note que \texttt{mutate()} puede crear más de una variable en el mismo paso. Además, las variables creadas al inicio de \texttt{mutate()} pueden ser utilizadas en cálculos posteriores dentro del mismo llamado. Por ejemplo, \texttt{income\_2} duplica el ingreso original e \texttt{income\_4} duplica \texttt{income\_2}. La siguiente salida muestra que \texttt{income\_4} equivale a cuatro veces el ingreso inicial.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{income\_transform\_data }\OtherTok{\textless{}{-}}\NormalTok{ log\_income\_data }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Income2 =} \DecValTok{2} \SpecialCharTok{*}\NormalTok{ Income,}
-         \AttributeTok{Income4 =} \DecValTok{2} \SpecialCharTok{*}\NormalTok{ Income2)}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{income\_2 =} \DecValTok{2} \SpecialCharTok{*}\NormalTok{ Income,}
+    \AttributeTok{income\_4 =} \DecValTok{2} \SpecialCharTok{*}\NormalTok{ income\_2}
+\NormalTok{  )}
 
 \NormalTok{income\_transform\_data }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{select}\NormalTok{(PersonID, Income2, Income4) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(PersonID, income\_2, income\_4) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{head}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##   PersonID Income2 Income4
-## 1  idPer01    1110    2220
-## 2  idPer02    1110    2220
-## 3  idPer03    1110    2220
-## 4  idPer04    1110    2220
-## 5  idPer05    1110    2220
-## 6  idPer01     597    1193
+##   PersonID income_2 income_4
+## 1  idPer01     1110     2220
+## 2  idPer02     1110     2220
+## 3  idPer03     1110     2220
+## 4  idPer04     1110     2220
+## 5  idPer05     1110     2220
+## 6  idPer01      597     1193
 \end{verbatim}
 
 También se puede crear una variable categórica mediante condiciones. En este ejemplo, la función \texttt{case\_when()} clasifica la edad en rangos y luego convierte el resultado en un factor ordenado. El resultado es \texttt{age\_group}, una variable de grupos etarios ordenados. Esta transformación facilita la producción de tablas por tramos de edad.
@@ -6588,8 +6731,10 @@ También se puede crear una variable categórica mediante condiciones. En este e
 \NormalTok{    ),}
     \AttributeTok{age\_group =} \FunctionTok{factor}\NormalTok{(}
 \NormalTok{      age\_group,}
-      \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"0{-}5"}\NormalTok{, }\StringTok{"6{-}15"}\NormalTok{, }\StringTok{"16{-}30"}\NormalTok{,}
-                 \StringTok{"31{-}45"}\NormalTok{, }\StringTok{"46{-}60"}\NormalTok{, }\StringTok{"Over 60"}\NormalTok{),}
+      \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}
+        \StringTok{"0{-}5"}\NormalTok{, }\StringTok{"6{-}15"}\NormalTok{, }\StringTok{"16{-}30"}\NormalTok{,}
+        \StringTok{"31{-}45"}\NormalTok{, }\StringTok{"46{-}60"}\NormalTok{, }\StringTok{"Over 60"}
+\NormalTok{      ),}
       \AttributeTok{ordered =} \ConstantTok{TRUE}
 \NormalTok{    )}
 \NormalTok{  )}
@@ -6603,8 +6748,10 @@ La función \texttt{summarise()} permite construir una tabla resumen a partir de
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{bigcity\_data }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{total\_income =} \FunctionTok{sum}\NormalTok{(Income),}
-            \AttributeTok{mean\_income =} \FunctionTok{mean}\NormalTok{(Income))}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{total\_income =} \FunctionTok{sum}\NormalTok{(Income),}
+    \AttributeTok{mean\_income =} \FunctionTok{mean}\NormalTok{(Income)}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6619,11 +6766,11 @@ También pueden calcularse medidas de localización para describir la posición 
 \begin{Highlighting}[]
 \NormalTok{bigcity\_data }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{summarise}\NormalTok{(}
-  \AttributeTok{median\_income =} \FunctionTok{median}\NormalTok{(Income),}
-  \AttributeTok{decile\_1 =} \FunctionTok{quantile}\NormalTok{(Income, }\FloatTok{0.1}\NormalTok{),}
-  \AttributeTok{decile\_9 =} \FunctionTok{quantile}\NormalTok{(Income, }\FloatTok{0.9}\NormalTok{),}
-  \AttributeTok{decile\_range =}\NormalTok{ decile\_9 }\SpecialCharTok{{-}}\NormalTok{ decile\_1}
-\NormalTok{)}
+    \AttributeTok{median\_income =} \FunctionTok{median}\NormalTok{(Income),}
+    \AttributeTok{decile\_1 =} \FunctionTok{quantile}\NormalTok{(Income, }\FloatTok{0.1}\NormalTok{),}
+    \AttributeTok{decile\_9 =} \FunctionTok{quantile}\NormalTok{(Income, }\FloatTok{0.9}\NormalTok{),}
+    \AttributeTok{decile\_range =}\NormalTok{ decile\_9 }\SpecialCharTok{{-}}\NormalTok{ decile\_1}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6638,13 +6785,13 @@ Con \texttt{summarise()} también es posible calcular medidas de dispersión, ta
 \begin{Highlighting}[]
 \NormalTok{bigcity\_data }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{summarise}\NormalTok{(}
-  \AttributeTok{variance\_income =} \FunctionTok{var}\NormalTok{(Income),}
-  \AttributeTok{sd\_income =} \FunctionTok{sd}\NormalTok{(Income),}
-  \AttributeTok{min\_income =} \FunctionTok{min}\NormalTok{(Income),}
-  \AttributeTok{max\_income =} \FunctionTok{max}\NormalTok{(Income),}
-  \AttributeTok{range\_income =}\NormalTok{ max\_income }\SpecialCharTok{{-}}\NormalTok{ min\_income,}
-  \AttributeTok{iqr\_income =} \FunctionTok{IQR}\NormalTok{(Income)}
-\NormalTok{)}
+    \AttributeTok{variance\_income =} \FunctionTok{var}\NormalTok{(Income),}
+    \AttributeTok{sd\_income =} \FunctionTok{sd}\NormalTok{(Income),}
+    \AttributeTok{min\_income =} \FunctionTok{min}\NormalTok{(Income),}
+    \AttributeTok{max\_income =} \FunctionTok{max}\NormalTok{(Income),}
+    \AttributeTok{range\_income =}\NormalTok{ max\_income }\SpecialCharTok{{-}}\NormalTok{ min\_income,}
+    \AttributeTok{iqr\_income =} \FunctionTok{IQR}\NormalTok{(Income)}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6734,8 +6881,10 @@ Además de los conteos, también es posible calcular medidas resumen por grupo, 
 \begin{Highlighting}[]
 \NormalTok{bigcity\_data }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Region) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{(),}
-            \AttributeTok{mean\_income =} \FunctionTok{mean}\NormalTok{(Income))}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{n =} \FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{mean\_income =} \FunctionTok{mean}\NormalTok{(Income)}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6756,8 +6905,10 @@ El mismo procedimiento puede aplicarse para calcular el ingreso medio por sexo. 
 \begin{Highlighting}[]
 \NormalTok{bigcity\_data }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(Sex) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{(),}
-            \AttributeTok{mean\_income =} \FunctionTok{mean}\NormalTok{(Income))}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{n =} \FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{mean\_income =} \FunctionTok{mean}\NormalTok{(Income)}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6838,17 +6989,21 @@ La siguiente simulación de Monte Carlo reproduce este proceso. En cada repetici
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{set.seed}\NormalTok{(}\DecValTok{2026}\NormalTok{)}
-\NormalTok{N     }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{population\_size }\OtherTok{\textless{}{-}} \DecValTok{100}
 \NormalTok{theta }\OtherTok{\textless{}{-}} \FloatTok{0.3}
-\NormalTok{nsim1 }\OtherTok{\textless{}{-}} \DecValTok{1000}
-\NormalTok{model\_estimates  }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, nsim1)}
+\NormalTok{n\_sim\_model }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{model\_estimates }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, n\_sim\_model)}
 
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{nsim1) \{}
-\NormalTok{  y       }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(N, }\DecValTok{1}\NormalTok{, theta)}
-\NormalTok{  model\_estimates[i] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(y)}
+\ControlFlowTok{for}\NormalTok{ (sim }\ControlFlowTok{in} \FunctionTok{seq\_len}\NormalTok{(n\_sim\_model)) \{}
+\NormalTok{  outcome }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(population\_size, }\DecValTok{1}\NormalTok{, theta)}
+\NormalTok{  model\_estimates[sim] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(outcome)}
 \NormalTok{\}}
 
-\FunctionTok{cbind}\NormalTok{(theta, }\AttributeTok{expected\_model\_mean =} \FunctionTok{mean}\NormalTok{(model\_estimates), }\AttributeTok{bias =} \FunctionTok{mean}\NormalTok{(model\_estimates) }\SpecialCharTok{{-}}\NormalTok{ theta)}
+\FunctionTok{cbind}\NormalTok{(}
+\NormalTok{  theta,}
+  \AttributeTok{expected\_model\_mean =} \FunctionTok{mean}\NormalTok{(model\_estimates),}
+  \AttributeTok{bias =} \FunctionTok{mean}\NormalTok{(model\_estimates) }\SpecialCharTok{{-}}\NormalTok{ theta}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6857,7 +7012,7 @@ La siguiente simulación de Monte Carlo reproduce este proceso. En cada repetici
 ## [1,]   0.3               0.302 0.00225
 \end{verbatim}
 
-El código fija una semilla para que el ejercicio sea reproducible. Luego genera \texttt{nsim1} poblaciones independientes mediante \texttt{rbinom()}. La salida reporta el parámetro verdadero \texttt{theta}, el promedio de las medias simuladas \texttt{expected\_model\_mean} y el sesgo Monte Carlo. Como se espera bajo el modelo Bernoulli IID, \texttt{expected\_model\_mean} queda muy cerca de 0.3 y el sesgo es cercano a cero. Las pequeñas diferencias se deben a que se usan 1000 simulaciones, no un número infinito de repeticiones.
+El código fija una semilla para que el ejercicio sea reproducible. Luego genera \texttt{n\_sim\_model} poblaciones independientes mediante \texttt{rbinom()}. La salida reporta el parámetro verdadero \texttt{theta}, el promedio de las medias simuladas \texttt{expected\_model\_mean} y el sesgo Monte Carlo. Como se espera bajo el modelo Bernoulli IID, \texttt{expected\_model\_mean} queda muy cerca de 0.3 y el sesgo es cercano a cero. Las pequeñas diferencias se deben a que se usan 1000 simulaciones, no un número infinito de repeticiones.
 
 En la teoría de muestreo, en cambio, las características de interés son parámetros fijos de la población. Si una persona está desempleada, su estado se considera un valor fijo de la población finita. Lo aleatorio es el mecanismo mediante el cual se selecciona la muestra. El total poblacional se define como \(t_y = \sum_{k \in U} y_k\), mientras que la media poblacional es \(\bar{y}_U = \frac{t_y}{N}\). Si se observa una muestra \(s\), el estimador de Horvitz-Thompson del total es
 
@@ -6889,7 +7044,7 @@ Cuando todos los miembros de las UPMs seleccionadas son observados, el estimador
 = \frac{1}{n_I}\sum_{i \in S_I}\bar{y}_i.
 \]
 
-Esta expresión ejemplifica por qué, cuándo el diseno de muestreo es complejo (en este caso selección proporcional al tamaño), el promedio de las medias de los conglomerados brinda insesgamiento. En contraste, el promedio simple de las personas observadas en las UPMs seleccionadas, sería:
+Esta expresión ejemplifica por qué, cuando el diseño de muestreo es complejo (en este caso selección proporcional al tamaño), el promedio de las medias de los conglomerados brinda insesgamiento. En contraste, el promedio simple de las personas observadas en las UPMs seleccionadas, sería:
 
 \[
 \bar{y}_s =
@@ -6904,37 +7059,40 @@ el cual trata la muestra como si fuera autoponderada. Este estimador no es inses
 \FunctionTok{library}\NormalTok{(TeachingSampling)}
 
 \FunctionTok{set.seed}\NormalTok{(}\DecValTok{2026}\NormalTok{)}
-\NormalTok{N      }\OtherTok{\textless{}{-}} \DecValTok{100}
-\NormalTok{theta  }\OtherTok{\textless{}{-}} \FloatTok{0.3}
-\NormalTok{nsim2  }\OtherTok{\textless{}{-}} \DecValTok{1000}
-\NormalTok{design\_estimates }\OtherTok{\textless{}{-}}\NormalTok{ simple\_estimates }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, nsim2)}
+\NormalTok{population\_size }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{theta }\OtherTok{\textless{}{-}} \FloatTok{0.3}
+\NormalTok{n\_sim\_sampling }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{design\_estimates }\OtherTok{\textless{}{-}}\NormalTok{ simple\_estimates }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, n\_sim\_sampling)}
 
 \NormalTok{cluster\_size }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, }\AttributeTok{each =} \DecValTok{5}\NormalTok{)}
-\NormalTok{NI           }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(cluster\_size)}
-\NormalTok{cluster\_id   }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\FunctionTok{seq\_len}\NormalTok{(NI), cluster\_size)}
-\NormalTok{size\_center  }\OtherTok{\textless{}{-}} \FunctionTok{weighted.mean}\NormalTok{(cluster\_size, cluster\_size)}
-\NormalTok{prob\_person  }\OtherTok{\textless{}{-}}\NormalTok{ theta }\SpecialCharTok{+} \FunctionTok{rep}\NormalTok{((cluster\_size }\SpecialCharTok{{-}}\NormalTok{ size\_center) }\SpecialCharTok{/} \DecValTok{12}\NormalTok{, cluster\_size)}
-\NormalTok{y            }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(N, }\DecValTok{1}\NormalTok{, prob\_person)}
-\NormalTok{theta\_population      }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(y)}
-\NormalTok{cluster\_totals         }\OtherTok{\textless{}{-}} \FunctionTok{tapply}\NormalTok{(y, cluster\_id, sum)}
-\NormalTok{cluster\_means       }\OtherTok{\textless{}{-}} \FunctionTok{tapply}\NormalTok{(y, cluster\_id, mean)}
+\NormalTok{n\_clusters }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(cluster\_size)}
+\NormalTok{cluster\_id }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\FunctionTok{seq\_len}\NormalTok{(n\_clusters), cluster\_size)}
+\NormalTok{size\_center }\OtherTok{\textless{}{-}} \FunctionTok{weighted.mean}\NormalTok{(cluster\_size, cluster\_size)}
+\NormalTok{prob\_person }\OtherTok{\textless{}{-}}\NormalTok{ theta }\SpecialCharTok{+} \FunctionTok{rep}\NormalTok{((cluster\_size }\SpecialCharTok{{-}}\NormalTok{ size\_center) }\SpecialCharTok{/} \DecValTok{12}\NormalTok{, cluster\_size)}
+\NormalTok{outcome }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(population\_size, }\DecValTok{1}\NormalTok{, prob\_person)}
+\NormalTok{theta\_population }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(outcome)}
+\NormalTok{cluster\_totals }\OtherTok{\textless{}{-}} \FunctionTok{tapply}\NormalTok{(outcome, cluster\_id, sum)}
+\NormalTok{cluster\_means }\OtherTok{\textless{}{-}} \FunctionTok{tapply}\NormalTok{(outcome, cluster\_id, mean)}
 
-\NormalTok{sampled\_cluster\_count }\OtherTok{\textless{}{-}} \FunctionTok{floor}\NormalTok{(NI }\SpecialCharTok{*} \FloatTok{0.3}\NormalTok{)}
-\ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{nsim2) \{}
-\NormalTok{  res         }\OtherTok{\textless{}{-}} \FunctionTok{S.piPS}\NormalTok{(sampled\_cluster\_count, cluster\_size)}
-\NormalTok{  sampled\_clusters         }\OtherTok{\textless{}{-}}\NormalTok{ res[, }\DecValTok{1}\NormalTok{]}
-\NormalTok{  sampled\_cluster\_size    }\OtherTok{\textless{}{-}}\NormalTok{ cluster\_size[sampled\_clusters]}
-\NormalTok{  sampled\_cluster\_total   }\OtherTok{\textless{}{-}}\NormalTok{ cluster\_totals[sampled\_clusters]}
-\NormalTok{  sampled\_cluster\_mean    }\OtherTok{\textless{}{-}}\NormalTok{ cluster\_means[sampled\_clusters]}
-\NormalTok{  design\_estimates[j] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(sampled\_cluster\_mean)}
-\NormalTok{  simple\_estimates[j] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(sampled\_cluster\_total) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(sampled\_cluster\_size)}
+\NormalTok{sampled\_cluster\_count }\OtherTok{\textless{}{-}} \FunctionTok{floor}\NormalTok{(n\_clusters }\SpecialCharTok{*} \FloatTok{0.3}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (sim }\ControlFlowTok{in} \FunctionTok{seq\_len}\NormalTok{(n\_sim\_sampling)) \{}
+\NormalTok{  pps\_sample }\OtherTok{\textless{}{-}} \FunctionTok{S.piPS}\NormalTok{(sampled\_cluster\_count, cluster\_size)}
+\NormalTok{  sampled\_clusters }\OtherTok{\textless{}{-}}\NormalTok{ pps\_sample[, }\DecValTok{1}\NormalTok{]}
+\NormalTok{  sampled\_cluster\_size }\OtherTok{\textless{}{-}}\NormalTok{ cluster\_size[sampled\_clusters]}
+\NormalTok{  sampled\_cluster\_total }\OtherTok{\textless{}{-}}\NormalTok{ cluster\_totals[sampled\_clusters]}
+\NormalTok{  sampled\_cluster\_mean }\OtherTok{\textless{}{-}}\NormalTok{ cluster\_means[sampled\_clusters]}
+\NormalTok{  design\_estimates[sim] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(sampled\_cluster\_mean)}
+\NormalTok{  simple\_estimates[sim] }\OtherTok{\textless{}{-}}
+    \FunctionTok{sum}\NormalTok{(sampled\_cluster\_total) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(sampled\_cluster\_size)}
 \NormalTok{\}}
 
-\FunctionTok{cbind}\NormalTok{(theta\_population,}
-      \AttributeTok{expected\_pps =} \FunctionTok{mean}\NormalTok{(design\_estimates),}
-      \AttributeTok{bias\_pps =} \FunctionTok{mean}\NormalTok{(design\_estimates) }\SpecialCharTok{{-}}\NormalTok{ theta\_population,}
-      \AttributeTok{expected\_simple =} \FunctionTok{mean}\NormalTok{(simple\_estimates),}
-      \AttributeTok{bias\_simple =} \FunctionTok{mean}\NormalTok{(simple\_estimates) }\SpecialCharTok{{-}}\NormalTok{ theta\_population)}
+\FunctionTok{cbind}\NormalTok{(}
+\NormalTok{  theta\_population,}
+  \AttributeTok{expected\_pps =} \FunctionTok{mean}\NormalTok{(design\_estimates),}
+  \AttributeTok{bias\_pps =} \FunctionTok{mean}\NormalTok{(design\_estimates) }\SpecialCharTok{{-}}\NormalTok{ theta\_population,}
+  \AttributeTok{expected\_simple =} \FunctionTok{mean}\NormalTok{(simple\_estimates),}
+  \AttributeTok{bias\_simple =} \FunctionTok{mean}\NormalTok{(simple\_estimates) }\SpecialCharTok{{-}}\NormalTok{ theta\_population}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6964,14 +7122,14 @@ El método de máxima verosimilitud parte de una muestra aleatoria \(y_1,\ldots,
 
 \[
 L(\theta)
-= \prod_{k=1}^{N} f(y_i;\theta).
+= \prod_{k=1}^{N} f(y_k;\theta).
 \]
 
 Como los productos pueden ser difíciles de manipular, se utiliza la log-verosimilitud:
 
 \[
 \ell(\theta)
-= \sum_{k=1}^{N}\log f(y_i;\theta)
+= \sum_{k=1}^{N}\log f(y_k;\theta)
 \]
 
 El estimador de máxima verosimilitud \(\hat{\theta}\) es el valor de \(\theta\) que maximiza \(\ell(\theta)\). Si la función es diferenciable, este valor satisface las ecuaciones de score:
@@ -7013,7 +7171,7 @@ Maximizar esta expresión respecto de \(\beta\) equivale a minimizar la suma de 
 
 \subsection{Método de máxima pseudo-verosimilitud}\label{sec-mpv-formal}
 
-Cuando el diseño muestral es complejo, los datos observados no satisfacen necesariamente los supuestos de independencia e indénticva disetribución. Algunas unidades pueden representan a muchas personas de la población y otras a pocas. Además, dos unidades seleccionadas dentro del mismo conglomerado pueden estar correlacionadas. En este contexto, usar directamente la log-verosimilitud ordinaria puede producir estimaciones que describen la muestra, pero no la población objetivo.
+Cuando el diseño muestral es complejo, los datos observados no satisfacen necesariamente los supuestos de independencia e idéntica distribución. Algunas unidades pueden representar a muchas personas de la población y otras a pocas. Además, dos unidades seleccionadas dentro del mismo conglomerado pueden estar correlacionadas. En este contexto, usar directamente la log-verosimilitud ordinaria puede producir estimaciones que describen la muestra, pero no la población objetivo.
 
 La máxima pseudo-verosimilitud, desarrollada a partir de los resultados de \citet{binder1983variances}, incorpora los pesos de muestreo en la log-verosimilitud. Para unidades observadas \(k \in s\), se define
 
@@ -7041,7 +7199,7 @@ y_k\log(\theta)
 \right].
 \]
 
-Al derivar e igualar a cero, se obtienen que:
+Al derivar e igualar a cero, se obtiene que:
 
 \[
 \frac{\partial l_p(\theta)}{\partial \theta}
@@ -7098,44 +7256,48 @@ La siguiente simulación de Monte Carlo anidada ilustra la inferencia doble. En 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{set.seed}\NormalTok{(}\DecValTok{2026}\NormalTok{)}
-\NormalTok{N     }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{population\_size }\OtherTok{\textless{}{-}} \DecValTok{100}
 \NormalTok{theta }\OtherTok{\textless{}{-}} \FloatTok{0.3}
-\NormalTok{nsim1 }\OtherTok{\textless{}{-}} \DecValTok{100}
-\NormalTok{expected\_design\_estimates }\OtherTok{\textless{}{-}}\NormalTok{ expected\_simple\_estimates }\OtherTok{\textless{}{-}}\NormalTok{ population\_means }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, nsim1)}
+\NormalTok{n\_sim\_population }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{expected\_design\_estimates }\OtherTok{\textless{}{-}}\NormalTok{ expected\_simple\_estimates }\OtherTok{\textless{}{-}}\NormalTok{ population\_means }\OtherTok{\textless{}{-}}
+  \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, n\_sim\_population)}
 
 \NormalTok{cluster\_size }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, }\AttributeTok{each =} \DecValTok{5}\NormalTok{)}
-\NormalTok{NI           }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(cluster\_size)}
-\NormalTok{cluster\_id   }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\FunctionTok{seq\_len}\NormalTok{(NI), cluster\_size)}
-\NormalTok{size\_center  }\OtherTok{\textless{}{-}} \FunctionTok{weighted.mean}\NormalTok{(cluster\_size, cluster\_size)}
-\NormalTok{prob\_person  }\OtherTok{\textless{}{-}}\NormalTok{ theta }\SpecialCharTok{+} \FunctionTok{rep}\NormalTok{((cluster\_size }\SpecialCharTok{{-}}\NormalTok{ size\_center) }\SpecialCharTok{/} \DecValTok{12}\NormalTok{, cluster\_size)}
-\NormalTok{sampled\_cluster\_count           }\OtherTok{\textless{}{-}} \FunctionTok{floor}\NormalTok{(NI }\SpecialCharTok{*} \FloatTok{0.3}\NormalTok{)}
+\NormalTok{n\_clusters }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(cluster\_size)}
+\NormalTok{cluster\_id }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\FunctionTok{seq\_len}\NormalTok{(n\_clusters), cluster\_size)}
+\NormalTok{size\_center }\OtherTok{\textless{}{-}} \FunctionTok{weighted.mean}\NormalTok{(cluster\_size, cluster\_size)}
+\NormalTok{prob\_person }\OtherTok{\textless{}{-}}\NormalTok{ theta }\SpecialCharTok{+} \FunctionTok{rep}\NormalTok{((cluster\_size }\SpecialCharTok{{-}}\NormalTok{ size\_center) }\SpecialCharTok{/} \DecValTok{12}\NormalTok{, cluster\_size)}
+\NormalTok{sampled\_cluster\_count }\OtherTok{\textless{}{-}} \FunctionTok{floor}\NormalTok{(n\_clusters }\SpecialCharTok{*} \FloatTok{0.3}\NormalTok{)}
 
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{nsim1) \{}
-\NormalTok{  y        }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(N, }\DecValTok{1}\NormalTok{, prob\_person)}
-\NormalTok{  population\_means[i] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(y)}
-\NormalTok{  cluster\_totals     }\OtherTok{\textless{}{-}} \FunctionTok{tapply}\NormalTok{(y, cluster\_id, sum)}
-\NormalTok{  cluster\_means   }\OtherTok{\textless{}{-}} \FunctionTok{tapply}\NormalTok{(y, cluster\_id, mean)}
+\ControlFlowTok{for}\NormalTok{ (population\_sim }\ControlFlowTok{in} \FunctionTok{seq\_len}\NormalTok{(n\_sim\_population)) \{}
+\NormalTok{  outcome }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(population\_size, }\DecValTok{1}\NormalTok{, prob\_person)}
+\NormalTok{  population\_means[population\_sim] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(outcome)}
+\NormalTok{  cluster\_totals }\OtherTok{\textless{}{-}} \FunctionTok{tapply}\NormalTok{(outcome, cluster\_id, sum)}
+\NormalTok{  cluster\_means }\OtherTok{\textless{}{-}} \FunctionTok{tapply}\NormalTok{(outcome, cluster\_id, mean)}
 
 \NormalTok{  design\_estimates }\OtherTok{\textless{}{-}}\NormalTok{ simple\_estimates }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\DecValTok{100}\NormalTok{)}
-  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{) \{}
-\NormalTok{    res       }\OtherTok{\textless{}{-}} \FunctionTok{S.piPS}\NormalTok{(sampled\_cluster\_count, cluster\_size)}
-\NormalTok{    sampled\_clusters       }\OtherTok{\textless{}{-}}\NormalTok{ res[, }\DecValTok{1}\NormalTok{]}
-\NormalTok{    sampled\_cluster\_size  }\OtherTok{\textless{}{-}}\NormalTok{ cluster\_size[sampled\_clusters]}
+  \ControlFlowTok{for}\NormalTok{ (sample\_sim }\ControlFlowTok{in} \FunctionTok{seq\_len}\NormalTok{(}\DecValTok{100}\NormalTok{)) \{}
+\NormalTok{    pps\_sample }\OtherTok{\textless{}{-}} \FunctionTok{S.piPS}\NormalTok{(sampled\_cluster\_count, cluster\_size)}
+\NormalTok{    sampled\_clusters }\OtherTok{\textless{}{-}}\NormalTok{ pps\_sample[, }\DecValTok{1}\NormalTok{]}
+\NormalTok{    sampled\_cluster\_size }\OtherTok{\textless{}{-}}\NormalTok{ cluster\_size[sampled\_clusters]}
 \NormalTok{    sampled\_cluster\_total }\OtherTok{\textless{}{-}}\NormalTok{ cluster\_totals[sampled\_clusters]}
-\NormalTok{    sampled\_cluster\_mean  }\OtherTok{\textless{}{-}}\NormalTok{ cluster\_means[sampled\_clusters]}
-\NormalTok{    design\_estimates[j] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(sampled\_cluster\_mean)}
-\NormalTok{    simple\_estimates[j] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(sampled\_cluster\_total) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(sampled\_cluster\_size)}
+\NormalTok{    sampled\_cluster\_mean }\OtherTok{\textless{}{-}}\NormalTok{ cluster\_means[sampled\_clusters]}
+\NormalTok{    design\_estimates[sample\_sim] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(sampled\_cluster\_mean)}
+\NormalTok{    simple\_estimates[sample\_sim] }\OtherTok{\textless{}{-}}
+      \FunctionTok{sum}\NormalTok{(sampled\_cluster\_total) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(sampled\_cluster\_size)}
 \NormalTok{  \}}
-\NormalTok{  expected\_design\_estimates[i] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(design\_estimates)}
-\NormalTok{  expected\_simple\_estimates[i] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(simple\_estimates)}
+\NormalTok{  expected\_design\_estimates[population\_sim] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(design\_estimates)}
+\NormalTok{  expected\_simple\_estimates[population\_sim] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(simple\_estimates)}
 \NormalTok{\}}
 
-\FunctionTok{cbind}\NormalTok{(theta,}
-      \AttributeTok{mean\_population =} \FunctionTok{mean}\NormalTok{(population\_means),}
-      \AttributeTok{expected\_pps =} \FunctionTok{mean}\NormalTok{(expected\_design\_estimates),}
-      \AttributeTok{bias\_pps =} \FunctionTok{mean}\NormalTok{(expected\_design\_estimates) }\SpecialCharTok{{-}}\NormalTok{ theta,}
-      \AttributeTok{expected\_simple =} \FunctionTok{mean}\NormalTok{(expected\_simple\_estimates),}
-      \AttributeTok{bias\_simple =} \FunctionTok{mean}\NormalTok{(expected\_simple\_estimates) }\SpecialCharTok{{-}}\NormalTok{ theta)}
+\FunctionTok{cbind}\NormalTok{(}
+\NormalTok{  theta,}
+  \AttributeTok{mean\_population =} \FunctionTok{mean}\NormalTok{(population\_means),}
+  \AttributeTok{expected\_pps =} \FunctionTok{mean}\NormalTok{(expected\_design\_estimates),}
+  \AttributeTok{bias\_pps =} \FunctionTok{mean}\NormalTok{(expected\_design\_estimates) }\SpecialCharTok{{-}}\NormalTok{ theta,}
+  \AttributeTok{expected\_simple =} \FunctionTok{mean}\NormalTok{(expected\_simple\_estimates),}
+  \AttributeTok{bias\_simple =} \FunctionTok{mean}\NormalTok{(expected\_simple\_estimates) }\SpecialCharTok{{-}}\NormalTok{ theta}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 

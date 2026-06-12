@@ -393,8 +393,10 @@ f\left(\theta_1,\theta_2,\ldots,\theta_J\right)
 </tbody>
 </table>
 <p>La función <code>svycontrast()</code> devuelve el contraste estimado y su error estándar. Los argumentos de esta función son los promedios de los ingresos estimados (<code>stat</code>) y las constantes de contraste (<code>contrasts</code>), como se muestra en la Tabla <a href="estimacion-de-contrastes.html#tab:tab-contraste-ns">3.25</a>.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="estimacion-de-contrastes.html#cb33-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">svycontrast</span>(<span class="at">stat =</span> region_mean_contrast,</span>
-<span id="cb33-2"><a href="estimacion-de-contrastes.html#cb33-2" tabindex="-1"></a>                   <span class="at">contrasts =</span> <span class="fu">list</span>(<span class="at">north_south_difference =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="estimacion-de-contrastes.html#cb33-1" tabindex="-1"></a>contrast_region_ns <span class="ot">&lt;-</span> <span class="fu">svycontrast</span>(</span>
+<span id="cb33-2"><a href="estimacion-de-contrastes.html#cb33-2" tabindex="-1"></a>  <span class="at">stat =</span> region_mean_contrast,</span>
+<span id="cb33-3"><a href="estimacion-de-contrastes.html#cb33-3" tabindex="-1"></a>  <span class="at">contrasts =</span> <span class="fu">list</span>(<span class="at">north_south_difference =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb33-4"><a href="estimacion-de-contrastes.html#cb33-4" tabindex="-1"></a>)</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-contraste-ns">Tabla 3.25: </span>Contraste de ingresos medios: región Norte menos región Sur</caption>
 <thead>
@@ -415,12 +417,12 @@ f\left(\theta_1,\theta_2,\ldots,\theta_J\right)
 </tbody>
 </table>
 <p>Nótese que estos mismos resultados podrían obtenerse realizando explícitamente el proceso de construcción del estimador del contraste y de su varianza estimada. Si se consideran únicamente los ingresos medios estimados de las regiones Norte y Sur, su diferencia es:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="estimacion-de-contrastes.html#cb34-1" tabindex="-1"></a><span class="co"># Step 1: difference in estimates (North - South)</span></span>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="estimacion-de-contrastes.html#cb34-1" tabindex="-1"></a><span class="co"># Paso 1: diferencia de las estimaciones (Norte - Sur)</span></span>
 <span id="cb34-2"><a href="estimacion-de-contrastes.html#cb34-2" tabindex="-1"></a><span class="fl">552.4</span> <span class="sc">-</span> <span class="fl">625.8</span></span></code></pre></div>
 <pre><code>## [1] -73.4</code></pre>
 <p>El paso siguiente es calcular la matriz de varianzas y covarianzas y de allí extraer las varianzas y covarianzas de las regiones Norte y Sur, presentada en la Tabla <a href="estimacion-de-contrastes.html#tab:tab-vcov-region">3.26</a>:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="estimacion-de-contrastes.html#cb36-1" tabindex="-1"></a><span class="co"># Step 2: variance-covariance matrix</span></span>
-<span id="cb36-2"><a href="estimacion-de-contrastes.html#cb36-2" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">vcov</span>(region_mean_contrast)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="estimacion-de-contrastes.html#cb36-1" tabindex="-1"></a><span class="co"># Paso 2: matriz de varianzas y covarianzas</span></span>
+<span id="cb36-2"><a href="estimacion-de-contrastes.html#cb36-2" tabindex="-1"></a>region_vcov <span class="ot">&lt;-</span> <span class="fu">vcov</span>(region_mean_contrast)</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-vcov-region">Tabla 3.26: </span>Matriz de varianzas y covarianzas de los ingresos medios por región</caption>
 <thead>
@@ -483,7 +485,7 @@ f\left(\theta_1,\theta_2,\ldots,\theta_J\right)
 2\, \widehat{Cov}\left(\hat{\bar{y}}_{Norte},\hat{\bar{y}}_{Sur}\right)}
 \]</span></p>
 <p>Por tanto:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="estimacion-de-contrastes.html#cb37-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">2650</span> <span class="sc">+</span> <span class="dv">3460</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="estimacion-de-contrastes.html#cb37-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">2650</span> <span class="sc">+</span> <span class="dv">3460</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="dv">0</span>)</span></code></pre></div>
 <pre><code>## [1] 78.2</code></pre>
 <p>El cual corresponde al mismo resultado obtenido anteriormente con la función <code>svycontrast()</code>. Además de comparar únicamente dos poblaciones, los contrastes permiten evaluar simultáneamente varias comparaciones de interés entre diferentes grupos.</p>
 <p>Por otro lado, supóngase que se desea comparar los ingresos medios entre distintas regiones geográficas. En particular, podrían considerarse contrastes como <span class="math inline">\(\bar{y}_{Norte} - \bar{y}_{Centro}\)</span>, <span class="math inline">\(\bar{y}_{Sur} - \bar{y}_{Centro}\)</span> y <span class="math inline">\(\bar{y}_{Occidente} - \bar{y}_{Oriente}\)</span>. Cada una de estas expresiones representa un contraste lineal específico entre medias regionales. De manera conjunta, dichos contrastes pueden organizarse mediante la siguiente matriz de contrastes:</p>
@@ -495,12 +497,12 @@ f\left(\theta_1,\theta_2,\ldots,\theta_J\right)
 \end{array}\right]
 \]</span></p>
 <p>En esta matriz, cada fila define un contraste distinto y cada columna corresponde a una de las regiones consideradas en el análisis. Los coeficientes positivos y negativos indican las medias que participan en cada comparación, mientras que los ceros representan las regiones que no intervienen en el contraste correspondiente. A continuación, se muestra la implementación de los contrastes en <code>R</code>, cuyos resultados se presentan en la Tabla <a href="estimacion-de-contrastes.html#tab:tab-contraste-regiones">3.27</a>. A partir de estos resultados, puede concluirse que las regiones Sur y Centro presentan los ingresos medios de los hogares más similares, dado que la diferencia estimada entre ambas regiones es la menor entre los contrastes evaluados.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="estimacion-de-contrastes.html#cb39-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">svycontrast</span>(</span>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="estimacion-de-contrastes.html#cb39-1" tabindex="-1"></a>contrast_regions <span class="ot">&lt;-</span> <span class="fu">svycontrast</span>(</span>
 <span id="cb39-2"><a href="estimacion-de-contrastes.html#cb39-2" tabindex="-1"></a>  <span class="at">stat =</span> region_mean_contrast,</span>
 <span id="cb39-3"><a href="estimacion-de-contrastes.html#cb39-3" tabindex="-1"></a>  <span class="at">contrasts =</span> <span class="fu">list</span>(</span>
-<span id="cb39-4"><a href="estimacion-de-contrastes.html#cb39-4" tabindex="-1"></a>    <span class="at">north_south         =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
-<span id="cb39-5"><a href="estimacion-de-contrastes.html#cb39-5" tabindex="-1"></a>    <span class="at">south_center        =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
-<span id="cb39-6"><a href="estimacion-de-contrastes.html#cb39-6" tabindex="-1"></a>    <span class="at">west_east           =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb39-4"><a href="estimacion-de-contrastes.html#cb39-4" tabindex="-1"></a>    <span class="at">north_south =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb39-5"><a href="estimacion-de-contrastes.html#cb39-5" tabindex="-1"></a>    <span class="at">south_center =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb39-6"><a href="estimacion-de-contrastes.html#cb39-6" tabindex="-1"></a>    <span class="at">west_east =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
 <span id="cb39-7"><a href="estimacion-de-contrastes.html#cb39-7" tabindex="-1"></a>  )</span>
 <span id="cb39-8"><a href="estimacion-de-contrastes.html#cb39-8" tabindex="-1"></a>)</span></code></pre></div>
 <table>
@@ -577,8 +579,10 @@ f\left(\theta_1,\theta_2,\ldots,\theta_J\right)
 </tbody>
 </table>
 <p>En este caso, el contraste de interés está dado por <span class="math inline">\(\bar{y}_{F} - \bar{y}_{M}\)</span>, el cual permite cuantificar la diferencia entre el ingreso medio de las mujeres y el correspondiente a los hombres. A continuación, utilizando la función <code>svycontrast()</code> del paquete <code>survey</code>, se obtiene la estimación del contraste, cuyos resultados se presentan en la Tabla <a href="estimacion-de-contrastes.html#tab:tab-contraste-sexo">3.29</a>. A partir de estos resultados, se concluye que, en promedio, los hombres perciben 28.3 unidades monetarias más que las mujeres, con un error estándar estimado de 19.8 unidades monetarias.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="estimacion-de-contrastes.html#cb41-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">svycontrast</span>(<span class="at">stat =</span> sex_mean_contrast,</span>
-<span id="cb41-2"><a href="estimacion-de-contrastes.html#cb41-2" tabindex="-1"></a>                   <span class="at">contrasts =</span> <span class="fu">list</span>(<span class="at">sex_difference =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="estimacion-de-contrastes.html#cb41-1" tabindex="-1"></a>contrast_sex <span class="ot">&lt;-</span> <span class="fu">svycontrast</span>(</span>
+<span id="cb41-2"><a href="estimacion-de-contrastes.html#cb41-2" tabindex="-1"></a>  <span class="at">stat =</span> sex_mean_contrast,</span>
+<span id="cb41-3"><a href="estimacion-de-contrastes.html#cb41-3" tabindex="-1"></a>  <span class="at">contrasts =</span> <span class="fu">list</span>(<span class="at">sex_difference =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb41-4"><a href="estimacion-de-contrastes.html#cb41-4" tabindex="-1"></a>)</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-contraste-sexo">Tabla 3.29: </span>Contraste de ingresos medios entre mujeres y hombres</caption>
 <thead>
@@ -642,11 +646,11 @@ f\left(\theta_1,\theta_2,\ldots,\theta_J\right)
 </tr>
 </tbody>
 </table>
-<p>La función <code>svycontrast()</code> no se limita únicamente a la comparación de medias o totales, sino que también permite construir contrastes entre otros parámetros de interés, como razones y proporciones estimadas a partir de diseños de muestreo complejos. A continuación, se presentan los códigos computacionales utilizados para realizar este análisis, cuyos resultados se muestran en la Tabla <a href="estimacion-de-contrastes.html#tab:tab-razon-ingreso-gasto-sexo">3.30</a>. A partir de dichos resultados, puede concluirse que la diferencia entre las proporciones estimadas es de 0.045 a favor de los hombres.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="estimacion-de-contrastes.html#cb43-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">svycontrast</span>(<span class="at">stat =</span> sex_ratio_contrast,</span>
-<span id="cb43-2"><a href="estimacion-de-contrastes.html#cb43-2" tabindex="-1"></a>                   <span class="at">contrasts =</span> <span class="fu">list</span>(</span>
-<span id="cb43-3"><a href="estimacion-de-contrastes.html#cb43-3" tabindex="-1"></a>                          <span class="at">sex_difference =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))</span>
-<span id="cb43-4"><a href="estimacion-de-contrastes.html#cb43-4" tabindex="-1"></a>                   )</span></code></pre></div>
+<p>La función <code>svycontrast()</code> no se limita únicamente a la comparación de medias o totales, sino que también permite construir contrastes entre otros parámetros de interés, como razones y proporciones estimadas a partir de diseños de muestreo complejos. A continuación, se presentan los códigos computacionales utilizados para realizar este análisis, cuyos resultados se muestran en la Tabla <a href="estimacion-de-contrastes.html#tab:tab-contraste-razon-sexo">3.31</a>. A partir de dichos resultados, puede concluirse que la diferencia entre las razones estimadas es de 0.045 a favor de los hombres.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="estimacion-de-contrastes.html#cb43-1" tabindex="-1"></a>contrast_sex_ratio <span class="ot">&lt;-</span> <span class="fu">svycontrast</span>(</span>
+<span id="cb43-2"><a href="estimacion-de-contrastes.html#cb43-2" tabindex="-1"></a>  <span class="at">stat =</span> sex_ratio_contrast,</span>
+<span id="cb43-3"><a href="estimacion-de-contrastes.html#cb43-3" tabindex="-1"></a>  <span class="at">contrasts =</span> <span class="fu">list</span>(<span class="at">sex_difference =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb43-4"><a href="estimacion-de-contrastes.html#cb43-4" tabindex="-1"></a>)</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-contraste-razon-sexo">Tabla 3.31: </span>Contraste de la razón ingreso/gasto entre sexos</caption>
 <thead>

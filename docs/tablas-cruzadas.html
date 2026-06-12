@@ -386,15 +386,18 @@ div.csl-indent {
 <p><span class="math display">\[
 \hat{p}_{rc}=\frac{\hat{N}_{rc}}{\hat{N}_{++}}
 \]</span></p>
-<p>A continuación, y siguiendo con la base de datos de ejemplo, se estima la distribución porcentual de hombres y mujeres según su condición de pobreza, incorporando además sus respectivos errores estándar e intervalos de confianza. Los resultados se presentan en la Tabla <a href="tablas-cruzadas.html#tab:tab-contingencia-pobreza-sexo">4.15</a>. Este tipo de análisis permite describir la composición de la población pobre según sexo y evaluar la precisión de las estimaciones obtenidas a partir del diseño muestral.</p>
+<p>A continuación, y siguiendo con la base de datos de ejemplo, se estima la distribución porcentual de hombres y mujeres según su condición de pobreza, incorporando además sus respectivos errores estándar e intervalos de confianza. Los resultados se presentan en la Tabla <a href="tablas-cruzadas.html#tab:tab-contingencia-pobreza-sexo">4.16</a>. Este tipo de análisis permite describir la composición de la población pobre según sexo y evaluar la precisión de las estimaciones obtenidas a partir del diseño muestral.</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="tablas-cruzadas.html#cb84-1" tabindex="-1"></a>poverty_design <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
-<span id="cb84-2"><a href="tablas-cruzadas.html#cb84-2" tabindex="-1"></a>       <span class="fu">mutate</span>(<span class="at">poor =</span> <span class="fu">factor</span>(poor, <span class="at">levels =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>,</span>
-<span id="cb84-3"><a href="tablas-cruzadas.html#cb84-3" tabindex="-1"></a>                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Not poor&quot;</span>, <span class="st">&quot;Poor&quot;</span>)))</span></code></pre></div>
+<span id="cb84-2"><a href="tablas-cruzadas.html#cb84-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">poor =</span> <span class="fu">factor</span>(</span>
+<span id="cb84-3"><a href="tablas-cruzadas.html#cb84-3" tabindex="-1"></a>    poor,</span>
+<span id="cb84-4"><a href="tablas-cruzadas.html#cb84-4" tabindex="-1"></a>    <span class="at">levels =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>,</span>
+<span id="cb84-5"><a href="tablas-cruzadas.html#cb84-5" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Not poor&quot;</span>, <span class="st">&quot;Poor&quot;</span>)</span>
+<span id="cb84-6"><a href="tablas-cruzadas.html#cb84-6" tabindex="-1"></a>  ))</span></code></pre></div>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="tablas-cruzadas.html#cb85-1" tabindex="-1"></a>poverty_design <span class="sc">%&gt;%</span></span>
-<span id="cb85-2"><a href="tablas-cruzadas.html#cb85-2" tabindex="-1"></a>  <span class="fu">group_by</span>(poor,Sex) <span class="sc">%&gt;%</span></span>
+<span id="cb85-2"><a href="tablas-cruzadas.html#cb85-2" tabindex="-1"></a>  <span class="fu">group_by</span>(poor, Sex) <span class="sc">%&gt;%</span></span>
 <span id="cb85-3"><a href="tablas-cruzadas.html#cb85-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">proportion =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-contingencia-pobreza-sexo">Tabla 4.15: </span>Proporción de hombres y mujeres en condición de pobreza y no pobreza</caption>
+<caption><span id="tab:tab-contingencia-pobreza-sexo">Tabla 4.16: </span>Proporción de hombres y mujeres en condición de pobreza y no pobreza</caption>
 <colgroup>
 <col width="11%" />
 <col width="10%" />
@@ -449,12 +452,12 @@ div.csl-indent {
 </tbody>
 </table>
 <p>Los resultados indican que el 52.3% de la población en condición de pobreza corresponde a mujeres, mientras que el 47.6% corresponde a hombres. Para las mujeres, el intervalo de confianza al 95% se encuentra entre 49.2% y 55.5%, mientras que para los hombres el intervalo correspondiente se ubica entre 44.5% y 50.7%. Estas estimaciones permiten observar la distribución relativa de la pobreza según sexo, considerando además la incertidumbre inherente al proceso de muestreo.</p>
-<p>Con el mismo enfoque de <code>srvyr</code>, tambien puede estimarse la tabla de contingencia mediante <code>group_by()</code> y <code>summarise()</code>. En el siguiente ejemplo se estima la distribucion de la condicion de pobreza segun sexo, obteniendo ademas medidas de precision como errores estandar e intervalos de confianza. El codigo correspondiente y sus resultados se presentan en la Tabla <a href="tablas-cruzadas.html#tab:tab-svyby-pobreza-sexo">4.16</a>.</p>
+<p>Con el mismo enfoque de <code>srvyr</code>, tambien puede estimarse la tabla de contingencia mediante <code>group_by()</code> y <code>summarise()</code>. En el siguiente ejemplo se estima la distribucion de la condicion de pobreza segun sexo, obteniendo ademas medidas de precision como errores estandar e intervalos de confianza. El codigo correspondiente y sus resultados se presentan en la Tabla <a href="tablas-cruzadas.html#tab:tab-svyby-pobreza-sexo">4.17</a>.</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="tablas-cruzadas.html#cb86-1" tabindex="-1"></a>sex_by_poverty_proportion <span class="ot">&lt;-</span> poverty_design <span class="sc">%&gt;%</span></span>
 <span id="cb86-2"><a href="tablas-cruzadas.html#cb86-2" tabindex="-1"></a>  <span class="fu">group_by</span>(poor, Sex) <span class="sc">%&gt;%</span></span>
 <span id="cb86-3"><a href="tablas-cruzadas.html#cb86-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">proportion =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-svyby-pobreza-sexo">Tabla 4.16: </span>Proporción de hombres y mujeres por condición de pobreza</caption>
+<caption><span id="tab:tab-svyby-pobreza-sexo">Tabla 4.17: </span>Proporción de hombres y mujeres por condición de pobreza</caption>
 <colgroup>
 <col width="11%" />
 <col width="10%" />
@@ -508,11 +511,11 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-<p>Adicionalmente, los intervalos de confianza pueden obtenerse mediante la función <code>confint()</code>, la cual permite calcular automáticamente los límites inferior y superior asociados a las estimaciones realizadas. El procedimiento para la estimación de los intervalos de confianza se presenta en la Tabla <a href="tablas-cruzadas.html#tab:tab-confint-sexo-pobreza">4.17</a>. Nótese que lso intervalos coinciden con los generados anteriormente usando la función <code>group_by</code>.</p>
+<p>Adicionalmente, los intervalos de confianza pueden obtenerse mediante la función <code>confint()</code>, la cual permite calcular automáticamente los límites inferior y superior asociados a las estimaciones realizadas. El procedimiento para la estimación de los intervalos de confianza se presenta en la Tabla <a href="tablas-cruzadas.html#tab:tab-confint-sexo-pobreza">4.18</a>. Nótese que lso intervalos coinciden con los generados anteriormente usando la función <code>group_by</code>.</p>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="tablas-cruzadas.html#cb87-1" tabindex="-1"></a>sex_by_poverty_proportion <span class="sc">%&gt;%</span></span>
 <span id="cb87-2"><a href="tablas-cruzadas.html#cb87-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(poor, Sex, proportion_low, proportion_upp)</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-confint-sexo-pobreza">Tabla 4.17: </span>Intervalos de confianza para la proporción por sexo y pobreza</caption>
+<caption><span id="tab:tab-confint-sexo-pobreza">Tabla 4.18: </span>Intervalos de confianza para la proporción por sexo y pobreza</caption>
 <thead>
 <tr class="header">
 <th align="left">poor</th>
@@ -548,13 +551,13 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-<p>Otro análisis de interés relacionado con tablas de doble entrada en encuestas de hogares consiste en estimar el porcentaje de personas desempleadas según sexo. El procedimiento correspondiente y sus resultados se presentan en la Tabla <a href="tablas-cruzadas.html#tab:tab-svyby-empleo-sexo">4.18</a>.</p>
+<p>Otro análisis de interés relacionado con tablas de doble entrada en encuestas de hogares consiste en estimar el porcentaje de personas desempleadas según sexo. El procedimiento correspondiente y sus resultados se presentan en la Tabla <a href="tablas-cruzadas.html#tab:tab-svyby-empleo-sexo">4.19</a>.</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="tablas-cruzadas.html#cb88-1" tabindex="-1"></a>sex_by_employment_proportion <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb88-2"><a href="tablas-cruzadas.html#cb88-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Employment)) <span class="sc">%&gt;%</span></span>
 <span id="cb88-3"><a href="tablas-cruzadas.html#cb88-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Employment, Sex) <span class="sc">%&gt;%</span></span>
 <span id="cb88-4"><a href="tablas-cruzadas.html#cb88-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">proportion =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-svyby-empleo-sexo">Tabla 4.18: </span>Proporción de hombres y mujeres por estado de ocupación</caption>
+<caption><span id="tab:tab-svyby-empleo-sexo">Tabla 4.19: </span>Proporción de hombres y mujeres por estado de ocupación</caption>
 <colgroup>
 <col width="14%" />
 <col width="10%" />
@@ -624,11 +627,11 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-<p>De la anterior salida se puede observar que, el 27.2% de las mujeres y el 72.7% de los hombres están desempleados con errores estándares para estas estimaciones de 5.3% para mujeres y hombres. cuyos intervalos de confianza se calculan a continuación, presentada en la Tabla <a href="tablas-cruzadas.html#tab:tab-confint-empleo-sexo">4.19</a>:</p>
+<p>De la anterior salida se puede observar que, el 27.2% de las mujeres y el 72.7% de los hombres están desempleados con errores estándares para estas estimaciones de 5.3% para mujeres y hombres. cuyos intervalos de confianza se calculan a continuación, presentada en la Tabla <a href="tablas-cruzadas.html#tab:tab-confint-empleo-sexo">4.20</a>:</p>
 <div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="tablas-cruzadas.html#cb89-1" tabindex="-1"></a>sex_by_employment_proportion <span class="sc">%&gt;%</span></span>
 <span id="cb89-2"><a href="tablas-cruzadas.html#cb89-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Employment, Sex, proportion_low, proportion_upp)</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-confint-empleo-sexo">Tabla 4.19: </span>Intervalos de confianza para la proporción por sexo y ocupación</caption>
+<caption><span id="tab:tab-confint-empleo-sexo">Tabla 4.20: </span>Intervalos de confianza para la proporción por sexo y ocupación</caption>
 <thead>
 <tr class="header">
 <th align="left">Employment</th>
@@ -676,12 +679,12 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-<p>Si ahora el objetivo es estimar la pobreza por region, se utiliza la variable numerica <code>poor</code> dentro de un flujo <code>srvyr</code>, como se muestra en la Tabla <a href="tablas-cruzadas.html#tab:tab-svyby-region-pobreza">4.20</a>.</p>
+<p>Si ahora el objetivo es estimar la pobreza por region, se utiliza la variable numerica <code>poor</code> dentro de un flujo <code>srvyr</code>, como se muestra en la Tabla <a href="tablas-cruzadas.html#tab:tab-svyby-region-pobreza">4.21</a>.</p>
 <div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="tablas-cruzadas.html#cb90-1" tabindex="-1"></a>region_poverty_proportion <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb90-2"><a href="tablas-cruzadas.html#cb90-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Region, poor) <span class="sc">%&gt;%</span></span>
 <span id="cb90-3"><a href="tablas-cruzadas.html#cb90-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">proportion =</span> <span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
 <table>
-<caption><span id="tab:tab-svyby-region-pobreza">Tabla 4.20: </span>Proporción en condición de pobreza por región</caption>
+<caption><span id="tab:tab-svyby-region-pobreza">Tabla 4.21: </span>Proporción en condición de pobreza por región</caption>
 <colgroup>
 <col width="13%" />
 <col width="8%" />

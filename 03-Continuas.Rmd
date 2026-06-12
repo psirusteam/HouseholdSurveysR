@@ -1,4 +1,4 @@
-```{r setup, include=FALSE}
+```{r setup-continuas, include=FALSE}
 knitr::opts_chunk$set(
   warning = FALSE,
   message = FALSE,
@@ -32,7 +32,7 @@ Los archivos `.rds` permiten almacenar cualquier objeto o información en `R`, c
 
 Para ilustrar la sintaxis computacional que se utilizará a lo largo del capítulo, se empleará la misma base del capítulo anterior, que contiene una muestra de 2.605 registros que proviene de un muestreo complejo. A continuación, se muestra cómo cargar un archivo con extensión `.rds`:
 
-```{r, eval=TRUE}
+```{r cargar-datos-continuas, eval=TRUE}
 library(tidyverse)
 
 survey_data <- readRDS("Data/encuesta.rds")
@@ -42,18 +42,19 @@ De acuerdo con @ONUDeff[sección 7.8], es fundamental que la estructura del dise
 
 Una vez cargada la muestra de hogares en `R`, el siguiente paso es definir el diseño muestral del cual proviene dicha muestra. Para ello se utilizará el paquete `srvyr` [@Freedman2024], que surge como un complemento del paquete `survey` [@Lumley2024]. Estas librerías permiten definir objetos tipo `survey.design`, a los que se aplican las funciones de estimación y análisis de encuestas, y que pueden ser combinadas con la programación del paquete `tidyverse` [@tidyverse2026]. A continuación, se muestra un ejemplo en el que se define un objeto de tipo `survey_design` para la encuesta:
 
-```{r, message=FALSE, warning=FALSE}
+```{r definir-diseno-continuas, message=FALSE, warning=FALSE}
 options(survey.lonely.UPM = "adjust")
 
 library(survey)
 library(srvyr)
 
 survey_design <- survey_data %>%
-          as_survey_design(
-            strata = Stratum,
-            ids = PSU,
-            weights = wk,
-            nest = TRUE)
+  as_survey_design(
+    strata = Stratum,
+    ids = PSU,
+    weights = wk,
+    nest = TRUE
+  )
 ```
 
 En este código, `survey_data` corresponde a la base de datos que contiene la muestra seleccionada. A partir de estos datos, la función `as_survey_design()` convierte la información en un objeto de clase `survey_design`, el cual almacena todos los elementos necesarios para describir el diseño muestral de la encuesta. Entre ellos se incluyen la variable de estratificación (`strata`), que identifica los estratos definidos en el diseño, y la variable especificada en `ids`, que representa las unidades primarias de muestreo (UPM) o conglomerados seleccionados en la primera etapa del muestreo. Asimismo, el argumento `weights` define la variable que contiene los factores de expansión asociados a cada observación. Finalmente, la opción `nest = TRUE` indica que las UPM están anidadas dentro de los estratos, una característica necesaria para representar correctamente la estructura jerárquica del diseño de muestreo.
@@ -66,7 +67,7 @@ En las encuestas de hogares es común estimar parámetros descriptivos asociados
 
 En `R`, la función `survey_total()` se utiliza para estimar totales a partir del objeto de diseño. Esta función incorpora automáticamente los factores de expansión y la estructura del diseño, garantizando que las estimaciones reflejen correctamente el modelo de inferencia.
 
-```{r, eval=FALSE}
+```{r sintaxis-survey-total, eval=FALSE}
 survey_total(
   x,
   na.rm = FALSE,
@@ -83,7 +84,7 @@ El argumento `vartype` permite especificar el tipo de medida de incertidumbre qu
 El siguiente ejemplo presenta cómo estimar totales y sus intervalos de confianza para diferentes variables de interés en `R`, utilizando la función `survey_total()`, y presentada en la Tabla \@ref(tab:tab-total-ingreso):
 
 
-```{r eval=FALSE}
+```{r cod-total-ingreso, eval=FALSE}
 survey_design %>%
   summarise(total = survey_total(Income, vartype = c("se", "ci"), deff = TRUE))
 ```
@@ -97,7 +98,7 @@ De la tabla, se obtiene que la estimación del total poblacional para el ingreso
 
 Para continuar ilustrando el uso de la función `survey_total()` dentro del enfoque de `srvyr`, estimemos el total de gastos de los hogares, pero ahora calculando el intervalo de confianza al 90%. El siguiente código realiza esta estimación, presentada en la Tabla \@ref(tab:tab-total-gasto):
 
-```{r eval=FALSE}
+```{r cod-total-gasto, eval=FALSE}
 survey_design %>%
   summarise(total = survey_total(Expenditure,
                               vartype = "ci", level = 0.9,
@@ -114,11 +115,11 @@ survey_design %>%
 
 Si el objetivo es estimar el total de ingresos de los hogares, pero desagregado por sexo, se puede utilizar la función `group_by()` para agrupar por la variable de interés, junto con `cascade()` de la librería `srvyr`, que permite agregar una fila con el total general al final de la tabla. De esta manera, se pueden obtener fácilmente los totales por categoría y el total global dentro del mismo marco de resumen, como se muestra en la Tabla \@ref(tab:tab-total-ingreso-sexo).
 
-```{r eval=FALSE}
+```{r cod-total-ingreso-sexo, eval=FALSE}
 survey_design %>%
   group_by(Sex) %>%
   cascade(total = survey_total(Income,
-                               vartype =  c("se", "ci"),
+                               vartype = c("se", "ci"),
                                level = 0.95),
           .fill = "Total income")
 ```
@@ -126,7 +127,7 @@ survey_design %>%
 survey_design %>%
   group_by(Sex) %>%
   cascade(total = survey_total(Income,
-                               vartype =  c("se", "ci"),
+                               vartype = c("se", "ci"),
                                level = 0.95),
           .fill = "Total income") %>%
   tabla_fmt()
@@ -151,7 +152,7 @@ $$
 Como se puede observar, el cálculo de la varianza de la media poblacional implica componentes analíticos complejos, como la covarianza entre el total estimado y el tamaño poblacional estimado. Sin embargo, el paquete `srvyr` en `R` facilita estos cálculos al incorporar funciones que estiman directamente la media, su error estándar, el intervalo de confianza y el efecto del diseño. A continuación, se presenta la sintaxis para estimar la media de los ingresos de los hogares, junto con su intervalo de confianza al 95%, presentada en la Tabla \@ref(tab:tab-media-ingreso):
 
 
-```{r eval=FALSE}
+```{r cod-media-ingreso, eval=FALSE}
 survey_design %>%
   summarise(mean = survey_mean(Income,
                                 vartype = c("se", "ci"),
@@ -169,7 +170,7 @@ survey_design %>%
 
 Como se aprecia, los argumentos utilizados en la función `survey_mean()` son similares a los de `survey_total()`. En este caso, `vartype` permite obtener el error estándar (`"se"`) y el intervalo de confianza (`"ci"`), mientras que el argumento `deff = TRUE` solicita el cálculo del efecto del diseño. De forma análoga, es posible estimar la media de los gastos de los hogares, empleando la misma estructura de código, presentada en la Tabla \@ref(tab:tab-media-gasto):
 
-```{r eval=FALSE}
+```{r cod-media-gasto, eval=FALSE}
 survey_design %>%
   summarise(mean = survey_mean(Expenditure,
                                     vartype = c("se", "ci"),
@@ -188,12 +189,12 @@ survey_design %>%
 También se pueden realizar estimaciones de la media por subgrupos siguiendo el mismo esquema mostrado previamente. Particularmente, los gastos de los hogares discriminados por sexo se presentan en la Tabla \@ref(tab:tab-media-gasto-sexo):
 
 
-```{r eval=FALSE}
+```{r cod-media-gasto-sexo, eval=FALSE}
 survey_design %>%
   group_by(Sex) %>%
   cascade(mean = survey_mean(Expenditure,
                               level = 0.95,
-                              vartype =  c("se", "ci")),
+                              vartype = c("se", "ci")),
         .fill = "Mean expenditure") %>%
   arrange(desc(Sex))
 ```
@@ -202,7 +203,7 @@ survey_design %>%
   group_by(Sex) %>%
   cascade(mean = survey_mean(Expenditure,
                               level = 0.95,
-                              vartype =  c("se", "ci")),
+                              vartype = c("se", "ci")),
         .fill = "Mean expenditure") %>%
   arrange(desc(Sex)) %>%
   tabla_fmt()
@@ -210,12 +211,12 @@ survey_design %>%
 
 De manera análoga, se pueden calcular las medias del gasto por zona, las cuales son presentadas en la Tabla \@ref(tab:tab-media-gasto-zona):
 
-```{r eval=FALSE}
+```{r cod-media-gasto-zona, eval=FALSE}
 survey_design %>%
   group_by(Zone) %>%
   cascade(mean = survey_mean(Expenditure,
                               level = 0.95,
-                              vartype =  c("se", "ci")),
+                              vartype = c("se", "ci")),
         .fill = "Mean expenditure") %>%
   arrange(desc(Zone))
 ```
@@ -224,7 +225,7 @@ survey_design %>%
   group_by(Zone) %>%
   cascade(mean = survey_mean(Expenditure,
                               level = 0.95,
-                              vartype =  c("se", "ci")),
+                              vartype = c("se", "ci")),
         .fill = "Mean expenditure") %>%
   arrange(desc(Zone)) %>%
   tabla_fmt()
@@ -233,12 +234,12 @@ survey_design %>%
 Asimismo, es posible realizar una estimación combinada por sexo y zona, presentada en la Tabla \@ref(tab:tab-media-gasto-zona-sexo):
 
 
-```{r eval=FALSE}
+```{r cod-media-gasto-zona-sexo, eval=FALSE}
 survey_design %>%
   group_by(Zone, Sex) %>%
   cascade(mean = survey_mean(Expenditure,
                               level = 0.95,
-                              vartype =  c("se", "ci")),
+                              vartype = c("se", "ci")),
         .fill = "Mean expenditure") %>%
   arrange(desc(Zone), desc(Sex))
 ```
@@ -247,7 +248,7 @@ survey_design %>%
   group_by(Zone, Sex) %>%
   cascade(mean = survey_mean(Expenditure,
                               level = 0.95,
-                              vartype =  c("se", "ci")),
+                              vartype = c("se", "ci")),
         .fill = "Mean expenditure") %>%
   arrange(desc(Zone), desc(Sex)) %>%
   tabla_fmt()
@@ -274,12 +275,12 @@ Sin embargo, dado que $\hat{R}$ es un cociente entre dos estimadores, es decir, 
 Un ejemplo directo en encuestas de hogares es la razón **gasto/ingreso**, que ayuda a identificar patrones de consumo y niveles de sostenibilidad económica de los hogares. A continuación, se ilustra cómo estimar la razón entre el gasto y el ingreso de los hogares, presentada en la Tabla \@ref(tab:tab-razon-gasto-ingreso):
 
 
-```{r eval=FALSE}
+```{r cod-razon-gasto-ingreso, eval=FALSE}
 survey_design %>%
   summarise(ratio = survey_ratio(numerator = Expenditure,
                                  denominator = Income,
                                  level = 0.95,
-                                 vartype =  c("se", "ci"))
+                                 vartype = c("se", "ci"))
             )
 ```
 ```{r tab-razon-gasto-ingreso, tab.cap="Razón gasto/ingreso de los hogares", echo=FALSE}
@@ -287,7 +288,7 @@ survey_design %>%
   summarise(ratio = survey_ratio(numerator = Expenditure,
                                  denominator = Income,
                                  level = 0.95,
-                                 vartype =  c("se", "ci"))
+                                 vartype = c("se", "ci"))
             ) %>%
   tabla_fmt()
 ```
@@ -297,12 +298,12 @@ En este caso, se especificaron la variable de gasto como numerador (`numerator`)
 Si ahora el objetivo es estimar la razón entre mujeres y hombres en la base de ejemplo, se realiza de la siguiente manera, presentada en la Tabla \@ref(tab:tab-razon-sexo):
 
 
-```{r eval=FALSE}
+```{r cod-razon-sexo, eval=FALSE}
 survey_design %>%
   summarise(ratio = survey_ratio(numerator = (Sex == "Female"),
                                  denominator = (Sex == "Male"),
                                  level = 0.95,
-                                 vartype =  c("se", "ci"))
+                                 vartype = c("se", "ci"))
             )
 ```
 ```{r tab-razon-sexo, tab.cap="Razón de mujeres por hombre en la población", echo=FALSE}
@@ -310,38 +311,38 @@ survey_design %>%
   summarise(ratio = survey_ratio(numerator = (Sex == "Female"),
                                  denominator = (Sex == "Male"),
                                  level = 0.95,
-                                 vartype =  c("se", "ci"))
+                                 vartype = c("se", "ci"))
             ) %>%
   tabla_fmt()
 ```
 
 Dado que la variable sexo en la base de datos es categórica, fue necesario acudir a variables indicadoras para realizar el cálculo de la razón, utilizando `Sex == "Female"` para identificar a las mujeres y `Sex == "Male"` para los hombres. Los resultados muestran que en la población analizada hay una mayor cantidad de mujeres que de hombres, obteniéndose una razón estimada de 1.11. Esto indica que, por cada 100 hombres, existen aproximadamente 111 mujeres. Además, el intervalo de confianza al 95% sugiere que esta razón podría variar entre 1.05 y 1.18. Si se desea hacer la razón de mujeres y hombres pero en la zona rural, se haría de la siguiente manera, presentada en la Tabla \@ref(tab:tab-razon-sexo-rural):
 
-```{r eval=FALSE}
-rural_subset  <- survey_design %>%
+```{r cod-razon-sexo-rural, eval=FALSE}
+rural_subset <- survey_design %>%
   filter(Zone == "Rural")
 rural_subset %>%
-  summarise(ratio =  survey_ratio(numerator = (Sex == "Female"),
+  summarise(ratio = survey_ratio(numerator = (Sex == "Female"),
                                   denominator = (Sex == "Male"),
                                   level = 0.95,
-                                  vartype =  c("se", "ci"))
+                                  vartype = c("se", "ci"))
             )
 ```
 ```{r tab-razon-sexo-rural, tab.cap="Razón de mujeres por hombre en zona rural", echo=FALSE}
-rural_subset  <- survey_design %>%
+rural_subset <- survey_design %>%
   filter(Zone == "Rural")
 rural_subset %>%
-  summarise(ratio =  survey_ratio(numerator = (Sex == "Female"),
+  summarise(ratio = survey_ratio(numerator = (Sex == "Female"),
                                   denominator = (Sex == "Male"),
                                   level = 0.95,
-                                  vartype =  c("se", "ci"))
+                                  vartype = c("se", "ci"))
             ) %>%
   tabla_fmt()
 ```
 
 Ahora bien, otro análisis de interés es estimar la razón de gastos pero solo en la población femenina. A continuación, se presentan los códigos computacionales, como se muestra en la Tabla \@ref(tab:tab-razon-gasto-ingreso-mujer).
 
-```{r eval=FALSE}
+```{r cod-razon-gasto-ingreso-mujer, eval=FALSE}
 female_subset <- survey_design %>%
   filter(Sex == "Female")
 
@@ -349,7 +350,7 @@ female_subset %>%
   summarise(ratio = survey_ratio(numerator = Expenditure,
                                  denominator = Income,
                                  level = 0.95,
-                                 vartype =  c("se", "ci"))
+                                 vartype = c("se", "ci"))
             )
 ```
 
@@ -361,14 +362,14 @@ female_subset %>%
   summarise(ratio = survey_ratio(numerator = Expenditure,
                                  denominator = Income,
                                  level = 0.95,
-                                 vartype =  c("se", "ci"))
+                                 vartype = c("se", "ci"))
             ) %>%
   tabla_fmt()
 ```
 
 Dando como resultado que por cada 100 unidades monetarias que le ingresan a las mujeres se gastan 66 con un intervalo de confianza entre 0.62 y 0.69. Por último, análogamente para los hombres, la razón de gastos resulta muy similar que para las mujeres, como se muestra en la Tabla \@ref(tab:tab-razon-gasto-ingreso-hombre).
 
-```{r eval=FALSE}
+```{r cod-razon-gasto-ingreso-hombre, eval=FALSE}
 male_subset <- survey_design %>%
   filter(Sex == "Male")
 
@@ -376,7 +377,7 @@ male_subset %>%
   summarise(ratio = survey_ratio(numerator = Expenditure,
                                  denominator = Income,
                                  level = 0.95,
-                                 vartype =  c("se", "ci"))
+                                 vartype = c("se", "ci"))
             )
 ```
 
@@ -388,7 +389,7 @@ male_subset %>%
   summarise(ratio = survey_ratio(numerator = Expenditure,
                                  denominator = Income,
                                  level = 0.95,
-                                 vartype =  c("se", "ci"))
+                                 vartype = c("se", "ci"))
             ) %>%
   tabla_fmt()
 ```
@@ -407,7 +408,7 @@ $$
 Para estimar la desviación estándar de variables numéricas en encuestas de hogares utilizando `R`, puede emplearse la función `survey_var`. A continuación, se presenta un ejemplo de su uso aplicado a la estimación de la desviación estándar del ingreso, cuyos resultados se muestran en la Tabla \@ref(tab:tab-sd-ingreso-zona).
 
 
-```{r eval=FALSE}
+```{r cod-sd-ingreso-zona, eval=FALSE}
 survey_design %>%
   group_by(Zone) %>%
   summarise(
@@ -446,7 +447,7 @@ survey_design %>%
 Como se observó en el ejemplo anterior, se estimó la desviación estándar de los ingresos por zona, reportando además su correspondiente intervalo de confianza al 95%. Los argumentos de la función `survey_var()` son equivalentes a los utilizados previamente para la estimación de medias y totales. Si el interés es estimar la desviación estándar de los ingresos desagregando simultáneamente por sexo y zona, los códigos computacionales correspondientes se presentan en la Tabla \@ref(tab:tab-sd-ingreso-zona-sexo).
 
 
-```{r eval=FALSE}
+```{r cod-sd-ingreso-zona-sexo, eval=FALSE}
 survey_design %>%
   group_by(Zone, Sex) %>%
   summarise(
@@ -504,11 +505,11 @@ Bajo esta condición, el estimador del cuantil $q$-ésimo se obtiene mediante in
 
 Tanto los estimadores de cuantiles como los métodos para estimar sus varianzas se encuentran implementados en `R`. En particular, la función `survey_median()` permite obtener la mediana junto con su error estándar e intervalo de confianza. A continuación, se presenta la sintaxis para estimar la mediana del gasto de los hogares utilizando la base de datos de ejemplo, cuyos resultados se muestran en la Tabla \@ref(tab:tab-mediana-gasto).
 
-```{r eval=FALSE}
+```{r cod-mediana-gasto, eval=FALSE}
 survey_design %>%
   summarise(median = survey_median(Expenditure,
                                     level = 0.95,
-                                    vartype =  c("se", "ci")
+                                    vartype = c("se", "ci")
                                     )
             )
 ```
@@ -516,7 +517,7 @@ survey_design %>%
 survey_design %>%
   summarise(median = survey_median(Expenditure,
                                     level = 0.95,
-                                    vartype =  c("se", "ci")
+                                    vartype = c("se", "ci")
                                     )
             ) %>%
   tabla_fmt()
@@ -524,12 +525,12 @@ survey_design %>%
 
 Como puede observarse, los argumentos de la función `survey_median()` son equivalentes a los utilizados previamente para estimar totales y medias. Al igual que con otros parámetros poblacionales, la mediana también puede estimarse para distintos dominios de estudio, como zona geográfica, sexo o grupos de edad. La Tabla \@ref(tab:tab-mediana-gasto-zona) muestra los resultados por zona geográfica.
 
-```{r eval=FALSE}
+```{r cod-mediana-gasto-zona, eval=FALSE}
 survey_design %>%
   group_by(Zone) %>%
   summarise(median = survey_median(Expenditure,
                                     level = 0.95,
-                                    vartype =  c("se", "ci")
+                                    vartype = c("se", "ci")
                                     )
             )
 ```
@@ -539,7 +540,7 @@ survey_design %>%
   group_by(Zone) %>%
   summarise(median = survey_median(Expenditure,
                                     level = 0.95,
-                                    vartype =  c("se", "ci")
+                                    vartype = c("se", "ci")
                                     )
             ) %>%
   tabla_fmt()
@@ -548,12 +549,12 @@ survey_design %>%
 Si el objetivo es estimar un percentil específico diferente de la mediana, por ejemplo el percentil 25 (primer cuartil), puede utilizarse la función `survey_quantile()` de la siguiente manera. Los resultados correspondientes se presentan en la Tabla \@ref(tab:tab-cuantil-gasto).
 
 
-```{r eval=FALSE}
+```{r cod-cuantil-gasto, eval=FALSE}
 survey_design %>%
   summarise(quantile = survey_quantile(Expenditure,
                                 quantiles = 0.25,
                                 level = 0.95,
-                                vartype =  c("se", "ci"),
+                                vartype = c("se", "ci"),
                                 interval_type = "score"
                                 )
             )
@@ -563,7 +564,7 @@ survey_design %>%
   summarise(quantile = survey_quantile(Expenditure,
                                 quantiles = 0.25,
                                 level = 0.95,
-                                vartype =  c("se", "ci"),
+                                vartype = c("se", "ci"),
                                 interval_type = "score"
                                 )
             ) %>%
@@ -573,13 +574,13 @@ survey_design %>%
 Observe que se incorporó el argumento `interval_type = "score"`, el cual indica que los intervalos de confianza se construyen mediante el método *score* basado en la función de influencia del percentil. Este enfoque es recomendado por @Lumley2010 para el análisis de datos provenientes de diseños muestrales complejos. De manera análoga, la estimación del percentil 25 puede obtenerse para distintos subgrupos de la población, como sexo o zona geográfica, utilizando `group_by()`, tal como se muestra en la Tabla \@ref(tab:tab-cuantil-gasto-zona-sexo).
 
 
-```{r eval=FALSE}
+```{r cod-cuantil-gasto-zona-sexo, eval=FALSE}
 survey_design %>%
   group_by(Zone, Sex) %>%
   summarise(quantile = survey_quantile(Expenditure,
                                 quantiles = 0.25,
                                 level = 0.95,
-                                vartype =  c("se", "ci"),
+                                vartype = c("se", "ci"),
                                 interval_type = "score"
                                 )
             )
@@ -590,7 +591,7 @@ survey_design %>%
   summarise(quantile = survey_quantile(Expenditure,
                                 quantiles = 0.25,
                                 level = 0.95,
-                                vartype =  c("se", "ci"),
+                                vartype = c("se", "ci"),
                                 interval_type = "score"
                                 )
             ) %>%
@@ -614,7 +615,7 @@ donde $w_{hik}^{*}=\dfrac{w_{hik}}{\sum_{h}\sum_{i}\sum_{k}w_{hik}}$ corresponde
 
 Autores como @osier2009variance y @langel2013variance profundizan en aspectos técnicos adicionales, especialmente en lo relacionado con la estimación de la varianza del coeficiente de Gini bajo diseños complejos. El paquete `convey` [@convey2024] implementa los procedimientos recomendados para calcular el coeficiente de Gini y su varianza en encuestas de hogares. Primero, se prepara el diseño muestral mediante `convey_prep()`. Luego, la función `svygini()` calcula el índice de Gini utilizando la variable de ingreso y el diseño de encuesta complejo especificado. A continuación se muestra la sintaxis para estimarlo en la base de datos de ejemplo, presentada en la Tabla \@ref(tab:tab-gini):
 
-```{r eval=FALSE}
+```{r cod-gini, eval=FALSE}
 library(convey)
 gini_design <- convey_prep(survey_design)
 gini <- svygini(~Income, design = gini_design)
@@ -645,14 +646,15 @@ El área comprendida entre la curva de Lorenz y la diagonal de igualdad se conoc
 Para realizar la curva de Lorenz en `R` se utiliza la función `svylorenz()`, presentada en la Figura \@ref(fig:fig-lorenz):
 
 ```{r fig-lorenz, fig.cap="Curva de Lorenz estimada para el ingreso de los hogares", fig.align="center", out.width="65%"}
-clorenz <- svylorenz(formula = ~Income,
-                     design = gini_design,
-                     quantiles = seq(0,1,.05),
-                     alpha = .01)
-
+clorenz <- svylorenz(
+  formula = ~Income,
+  design = gini_design,
+  quantiles = seq(0, 1, .05),
+  alpha = .01
+)
 ```
 
-El argumento `formula = ~Income` especifica la variable de ingreso sobre la cual se calculará la distribución acumulada. El argumento `design = gini_design` indica el objeto de diseño muestral previamente definido, el cual contiene la información relacionada con pesos, estratos y conglomerados de la encuesta. Por su parte, `quantiles = seq(0,1,.05)` define los puntos de la distribución en los cuales se evaluará la curva de Lorenz, generando percentiles desde 0 hasta 1 en incrementos de 0.05. Finalmente, el argumento `alpha = .01` establece un nivel de significación del 1%, lo que equivale a construir intervalos de confianza del 99% para las estimaciones asociadas a la curva.
+El argumento `formula = ~Income` especifica la variable de ingreso sobre la cual se calculará la distribución acumulada. El argumento `design = gini_design` indica el objeto de diseño muestral previamente definido, el cual contiene la información relacionada con pesos, estratos y conglomerados de la encuesta. Por su parte, `quantiles = seq(0, 1, .05)` define los puntos de la distribución en los cuales se evaluará la curva de Lorenz, generando percentiles desde 0 hasta 1 en incrementos de 0.05. Finalmente, el argumento `alpha = .01` establece un nivel de significación del 1%, lo que equivale a construir intervalos de confianza del 99% para las estimaciones asociadas a la curva.
 
 ### Estimación de la correlación {#estimacion-de-la-correlacion}
 
@@ -669,32 +671,34 @@ $$
 
 El paquete `survey` cuenta con la función `svyvar()` que permite obtener matrices de covarianzas ponderadas, a partir de las cuales se puede calcular la correlación. La Tabla \@ref(tab:tab-covarianza) presenta un ejemplo de estimación para la matriz de varianzas covarianzas entre el ingreso y el gasto de los hogares.
 
-```{r}
-cov <- svyvar(~Income + Expenditure, design = survey_design)
+```{r cod-covarianza}
+cov_matrix <- svyvar(~Income + Expenditure, design = survey_design)
 ```
 
 
 ```{r tab-covarianza, echo=FALSE, tab.cap="Matriz de varianzas y covarianzas ponderada entre ingreso y gasto"}
-data.frame(Variable = rownames(cov),
-           as.matrix(cov)) %>%
-             slice(1:2) %>%
+data.frame(
+  Variable = rownames(cov_matrix),
+  as.matrix(cov_matrix)
+) %>%
+  slice(1:2) %>%
   tabla_fmt()
 ```
 
 
 La función `svyvar` estima la matriz de varianzas y covarianzas considerando el diseño muestral. A partir de dicha matriz puede obtenerse la correlación aplicando las siguientes instrucciones:
 
-```{r}
-cov_xy <- cov[1,2]
-sd_x <- sqrt(cov[1,1])
-sd_y <- sqrt(cov[2,2])
+```{r cod-correlacion-manual}
+cov_xy <- cov_matrix[1, 2]
+sd_x <- sqrt(cov_matrix[1, 1])
+sd_y <- sqrt(cov_matrix[2, 2])
 
-cor <- cov_xy / (sd_x * sd_y)
-cor
+weighted_cor <- cov_xy / (sd_x * sd_y)
+weighted_cor
 ```
 Si además se desea realizar inferencia estadística sobre la correlación, por ejemplo obtener errores estándar o intervalos de confianza, puede utilizarse métodos de replicación (bootstrap/jackknife) compatibles con el paquete survey. Otra opción es utilizar la función `svycor` del paquete `jtools` para estimar directamente la correlación:
 
-```{r}
+```{r cod-correlacion-jtools}
 library(jtools)
 
 svycor(~Income + Expenditure, design = survey_design)
@@ -764,18 +768,18 @@ Este intervalo proporciona un rango de valores plausibles para la diferencia pob
 
 En `R`, estas pruebas pueden implementarse mediante la función `svyttest()` del paquete `survey`, la cual incorpora automáticamente los ajustes asociados al diseño muestral. A partir de los resultados presentados en la Tabla \@ref(tab:tab-ttest-sexo) puede concluirse que, con un nivel de confianza del 95%, no existe evidencia estadística suficiente para afirmar que los ingresos medios difieren según el sexo.
 
-```{r, eval=TRUE}
-res <- svyttest(Income ~ Sex, design = survey_design, level = 0.95)
+```{r cod-ttest-sexo, eval=TRUE}
+ttest_sex <- svyttest(Income ~ Sex, design = survey_design, level = 0.95)
 ```
 
 ```{r tab-ttest-sexo, echo=FALSE, tab.cap="Prueba de diferencia de ingresos medios por sexo (población total)"}
 df_res <- tibble(
-  statistic = res$statistic,
-  p_value = res$p.value,
-  gl = res$parameter,
-  ci_lower = res$conf.int[1],
-  ci_upper = res$conf.int[2],
-  estimated_difference = res$estimate
+  statistic = ttest_sex$statistic,
+  p_value = ttest_sex$p.value,
+  gl = ttest_sex$parameter,
+  ci_lower = ttest_sex$conf.int[1],
+  ci_upper = ttest_sex$conf.int[2],
+  estimated_difference = ttest_sex$estimate
 )
 
 df_res %>%
@@ -784,22 +788,23 @@ df_res %>%
 
 Otra hipótesis de interés consiste en evaluar si los ingresos medios de los hogares difieren según el sexo de la jefatura dentro del área urbana, como se presenta en la Tabla \@ref(tab:tab-ttest-sexo-urbano). Los resultados indican que no se rechaza la hipótesis nula $H_0$, por lo que no existe evidencia estadística suficiente para afirmar que los ingresos medios difieren por sexo en la zona urbana.
 
-```{r, eval=TRUE}
+```{r cod-ttest-sexo-urbano, eval=TRUE}
 urban_subset <- survey_design %>%
   filter(Zone == "Urban")
-res <- svyttest(Income ~ Sex, design = urban_subset, level = 0.95)
+
+ttest_urban <- svyttest(Income ~ Sex, design = urban_subset, level = 0.95)
 ```
 
 
 
 ```{r tab-ttest-sexo-urbano, echo=FALSE, tab.cap="Prueba de diferencia de ingresos medios por sexo en zona urbana"}
 df_res <- tibble(
-  statistic = res$statistic,
-  p_value = res$p.value,
-  gl = res$parameter,
-  ci_lower = res$conf.int[1],
-  ci_upper = res$conf.int[2],
-  estimated_difference = res$estimate
+  statistic = ttest_urban$statistic,
+  p_value = ttest_urban$p.value,
+  gl = ttest_urban$parameter,
+  ci_lower = ttest_urban$conf.int[1],
+  ci_upper = ttest_urban$conf.int[2],
+  estimated_difference = ttest_urban$estimate
 )
 
 df_res %>%
@@ -846,7 +851,7 @@ $$
 En consecuencia, el vector de contraste asociado a esta comparacion es $\left[1,\,-1,\,0,\,0,\,0\right]$, donde los coeficientes positivos y negativos indican las poblaciones que se desean comparar y los ceros representan las poblaciones excluidas del contraste. El primer paso consiste en calcular las medias estimadas para cada region mediante `group_by()` y `survey_mean()`, como se presenta en la Tabla \@ref(tab:tab-prom-region). El objeto visible de resultados se construye con `srvyr`; adicionalmente se crea un objeto auxiliar con matriz de covarianzas para los contrastes posteriores. Como resultado se obtienen las medias estimadas de los ingresos por region.
 
 
-```{r, eval=TRUE}
+```{r cod-prom-region, eval=TRUE}
 region_mean <- survey_design %>%
   group_by(Region) %>%
   summarise(mean = survey_mean(Income,
@@ -870,17 +875,20 @@ region_mean %>%
 La función `svycontrast()` devuelve el contraste estimado y su error estándar. Los argumentos de esta función son los promedios de los ingresos estimados (`stat`) y las constantes de contraste (`contrasts`), como se muestra en la Tabla \@ref(tab:tab-contraste-ns).
 
 
-```{r}
-res <- svycontrast(stat = region_mean_contrast,
-                   contrasts = list(north_south_difference = c(1, -1, 0, 0, 0)))
+```{r cod-contraste-ns}
+contrast_region_ns <- svycontrast(
+  stat = region_mean_contrast,
+  contrasts = list(north_south_difference = c(1, -1, 0, 0, 0))
+)
 ```
 
 ```{r tab-contraste-ns, echo=FALSE, tab.cap="Contraste de ingresos medios: región Norte menos región Sur"}
 df_con <- tibble::tibble(
-  contrast = names(res),
-  estimate = as.numeric(res),
-  variance = attr(res, "var"),
-  standard_error = sqrt(attr(res, "var")))
+  contrast = names(contrast_region_ns),
+  estimate = as.numeric(contrast_region_ns),
+  variance = attr(contrast_region_ns, "var"),
+  standard_error = sqrt(attr(contrast_region_ns, "var"))
+)
 
 
 df_con %>%
@@ -891,23 +899,23 @@ df_con %>%
 Nótese que estos mismos resultados podrían obtenerse realizando explícitamente el proceso de construcción del estimador del contraste y de su varianza estimada. Si se consideran únicamente los ingresos medios estimados de las regiones Norte y Sur, su diferencia es:
 
 
-```{r, eval=TRUE}
-# Step 1: difference in estimates (North - South)
+```{r cod-diferencia-norte-sur, eval=TRUE}
+# Paso 1: diferencia de las estimaciones (Norte - Sur)
 552.4 - 625.8
 ```
 
 El paso siguiente es calcular la matriz de varianzas y covarianzas y de allí extraer las varianzas y covarianzas de las regiones Norte y Sur, presentada en la Tabla \@ref(tab:tab-vcov-region):
 
 
-```{r,contr1_var,eval=TRUE}
-# Step 2: variance-covariance matrix
-mat <- vcov(region_mean_contrast)
+```{r cod-vcov-region, eval=TRUE}
+# Paso 2: matriz de varianzas y covarianzas
+region_vcov <- vcov(region_mean_contrast)
 ```
 
 
 ```{r tab-vcov-region, echo=FALSE, tab.cap="Matriz de varianzas y covarianzas de los ingresos medios por región"}
 
-df_vcov <- mat %>%
+df_vcov <- region_vcov %>%
   as.data.frame() %>%
   tibble::rownames_to_column("Region")
 
@@ -925,8 +933,8 @@ $$
 
 Por tanto:
 
-```{r}
-sqrt(2650 + 3460 - 2*0)
+```{r cod-se-contraste-ns}
+sqrt(2650 + 3460 - 2 * 0)
 ```
 
 El cual corresponde al mismo resultado obtenido anteriormente con la función `svycontrast()`. Además de comparar únicamente dos poblaciones, los contrastes permiten evaluar simultáneamente varias comparaciones de interés entre diferentes grupos.
@@ -943,23 +951,23 @@ $$
 
 En esta matriz, cada fila define un contraste distinto y cada columna corresponde a una de las regiones consideradas en el análisis. Los coeficientes positivos y negativos indican las medias que participan en cada comparación, mientras que los ceros representan las regiones que no intervienen en el contraste correspondiente. A continuación, se muestra la implementación de los contrastes en `R`, cuyos resultados se presentan en la Tabla \@ref(tab:tab-contraste-regiones). A partir de estos resultados, puede concluirse que las regiones Sur y Centro presentan los ingresos medios de los hogares más similares, dado que la diferencia estimada entre ambas regiones es la menor entre los contrastes evaluados.
 
-```{r, eval=TRUE}
-res <- svycontrast(
+```{r cod-contrastes-regiones, eval=TRUE}
+contrast_regions <- svycontrast(
   stat = region_mean_contrast,
   contrasts = list(
-    north_south         = c(1, 0, -1, 0, 0),
-    south_center        = c(0, 1, -1, 0, 0),
-    west_east           = c(0, 0, 0, 1, -1)
+    north_south = c(1, 0, -1, 0, 0),
+    south_center = c(0, 1, -1, 0, 0),
+    west_east = c(0, 0, 0, 1, -1)
   )
 )
 ```
 
 ```{r tab-contraste-regiones, echo=FALSE, tab.cap="Contrastes de ingresos medios entre regiones"}
 df_con <- tibble(
-  contrast = names(res),
-  estimate = as.numeric(res),
-  variance = diag(attr(res, "var")),
-  standard_error = sqrt(diag(attr(res, "var")))
+  contrast = names(contrast_regions),
+  estimate = as.numeric(contrast_regions),
+  variance = diag(attr(contrast_regions, "var")),
+  standard_error = sqrt(diag(attr(contrast_regions, "var")))
 )
 
 df_con %>%
@@ -969,7 +977,7 @@ df_con %>%
 
 También es posible construir contrastes entre variables asociadas a diferentes grupos poblacionales, como ocurre al comparar el ingreso medio según el sexo. Siguiendo el mismo procedimiento del ejemplo anterior, el primer paso consiste en estimar el ingreso medio para cada grupo, en este caso hombres y mujeres, como se presenta en la Tabla \@ref(tab:tab-prom-sexo).
 
-```{r, eval=TRUE}
+```{r cod-prom-sexo, eval=TRUE}
 sex_mean <- survey_design %>%
   group_by(Sex) %>%
   summarise(mean = survey_mean(Income,
@@ -995,18 +1003,20 @@ sex_mean %>%
 
 En este caso, el contraste de interés está dado por $\bar{y}_{F} - \bar{y}_{M}$, el cual permite cuantificar la diferencia entre el ingreso medio de las mujeres y el correspondiente a los hombres. A continuación, utilizando la función `svycontrast()` del paquete `survey`, se obtiene la estimación del contraste, cuyos resultados se presentan en la Tabla \@ref(tab:tab-contraste-sexo). A partir de estos resultados, se concluye que, en promedio, los hombres perciben 28.3 unidades monetarias más que las mujeres, con un error estándar estimado de 19.8 unidades monetarias.
 
-```{r}
-res <- svycontrast(stat = sex_mean_contrast,
-                   contrasts = list(sex_difference = c(1, -1)))
+```{r cod-contraste-sexo}
+contrast_sex <- svycontrast(
+  stat = sex_mean_contrast,
+  contrasts = list(sex_difference = c(1, -1))
+)
 ```
 
 
 ```{r tab-contraste-sexo, echo=FALSE, tab.cap="Contraste de ingresos medios entre mujeres y hombres"}
 df_con <- tibble(
-  contrast = names(res),
-  estimate = as.numeric(res),
-  variance = diag(attr(res, "var")),
-  standard_error = sqrt(diag(attr(res, "var")))
+  contrast = names(contrast_sex),
+  estimate = as.numeric(contrast_sex),
+  variance = diag(attr(contrast_sex, "var")),
+  standard_error = sqrt(diag(attr(contrast_sex, "var")))
 )
 
 df_con %>%
@@ -1016,7 +1026,7 @@ df_con %>%
 
 Dado que los contrastes corresponden a funciones lineales de parámetros, también es posible aplicarlos a estimadores de razón. Un ejemplo de ello consiste en comparar la relación entre gastos e ingresos según el sexo. En este caso, primero se estima la razón gasto-ingreso para cada grupo y posteriormente se construye el contraste entre dichas razones. A continuación, se presentan los códigos computacionales utilizados para realizar este análisis, cuyos resultados se muestran en la Tabla \@ref(tab:tab-razon-ingreso-gasto-sexo):
 
-```{r,c2, echo=TRUE, eval=TRUE}
+```{r cod-razon-ingreso-gasto-sexo, echo=TRUE, eval=TRUE}
 sex_ratio <- survey_design %>%
   group_by(Sex) %>%
   summarise(ratio = survey_ratio(Income,
@@ -1040,23 +1050,22 @@ sex_ratio %>%
   tabla_fmt()
 ```
 
-La función `svycontrast()` no se limita únicamente a la comparación de medias o totales, sino que también permite construir contrastes entre otros parámetros de interés, como razones y proporciones estimadas a partir de diseños de muestreo complejos. A continuación, se presentan los códigos computacionales utilizados para realizar este análisis, cuyos resultados se muestran en la Tabla \@ref(tab:tab-razon-ingreso-gasto-sexo). A partir de dichos resultados, puede concluirse que la diferencia entre las proporciones estimadas es de 0.045 a favor de los hombres.
+La función `svycontrast()` no se limita únicamente a la comparación de medias o totales, sino que también permite construir contrastes entre otros parámetros de interés, como razones y proporciones estimadas a partir de diseños de muestreo complejos. A continuación, se presentan los códigos computacionales utilizados para realizar este análisis, cuyos resultados se muestran en la Tabla \@ref(tab:tab-contraste-razon-sexo). A partir de dichos resultados, puede concluirse que la diferencia entre las razones estimadas es de 0.045 a favor de los hombres.
 
-```{r}
-res <- svycontrast(stat = sex_ratio_contrast,
-                   contrasts = list(
-                          sex_difference = c(1, -1))
-                   )
-
+```{r cod-contraste-razon-sexo}
+contrast_sex_ratio <- svycontrast(
+  stat = sex_ratio_contrast,
+  contrasts = list(sex_difference = c(1, -1))
+)
 ```
 
 
 ```{r tab-contraste-razon-sexo, echo=FALSE, tab.cap="Contraste de la razón ingreso/gasto entre sexos"}
 df_res <- tibble(
-  contrast = names(res),
-  estimate = as.numeric(res),
-  standard_error = sqrt(attr(res, "var")),
-  variance = attr(res, "var")
+  contrast = names(contrast_sex_ratio),
+  estimate = as.numeric(contrast_sex_ratio),
+  standard_error = sqrt(attr(contrast_sex_ratio, "var")),
+  variance = attr(contrast_sex_ratio, "var")
 )
 
 df_res %>%
@@ -1070,7 +1079,7 @@ La representación gráfica de variables continuas es un componente esencial en 
 
 En esta sección se utilizan los paquetes `ggplot2` [@ggplot22026] y `patchwork` [@patchwork] para la construcción y composición de gráficos, combinados con `survey` [@Lumley2024] y `srvyr` [@Freedman2024].
 
-```{r, message=FALSE, warning=FALSE}
+```{r setup-graficos-continuas, message=FALSE, warning=FALSE}
 library(ggplot2)
 library(patchwork)
 data(BigCity, package = "TeachingSampling")

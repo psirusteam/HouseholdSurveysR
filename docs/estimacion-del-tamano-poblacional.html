@@ -319,9 +319,11 @@ div.csl-indent {
 <p>En <code>R</code>, y utilizando el diseño muestral definido previamente, es posible generar resúmenes de la información de la encuesta para cada categoría de la variable <code>Zone</code>. Para ello, los datos se agrupan según la zona geográfica, lo que permite obtener resultados independientes para cada uno de estos dominios de estudio. A partir de este procedimiento se producen dos tipos principales de resultados. En primer lugar, se calcula el número de observaciones efectivamente recolectadas en la muestra, sin considerar los factores de expansión, lo que corresponde al tamaño muestral disponible en cada zona. En segundo lugar, se estima el tamaño poblacional asociado a cada dominio incorporando la información del diseño de muestreo.</p>
 <p>Junto con las estimaciones poblacionales también se obtienen medidas de precisión, como el error estándar y el intervalo de confianza, las cuales permiten evaluar el nivel de incertidumbre asociado a los resultados producidos a partir de la muestra. Los resultados se presentan en la Tabla <a href="estimacion-del-tamano-poblacional.html#tab:tab-tamano-zona">4.1</a>. En dicha tabla, <code>n</code> representa el número de observaciones de la muestra en cada zona, mientras que <code>size</code> corresponde a la estimación del total poblacional de la subpoblación. Por su parte, la función <code>unweighted()</code> se utiliza para calcular resúmenes no ponderados directamente a partir de los datos observados en la muestra.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="estimacion-del-tamano-poblacional.html#cb55-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
-<span id="cb55-2"><a href="estimacion-del-tamano-poblacional.html#cb55-2" tabindex="-1"></a>     <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span></span>
-<span id="cb55-3"><a href="estimacion-del-tamano-poblacional.html#cb55-3" tabindex="-1"></a>     <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">unweighted</span>(<span class="fu">n</span>()),</span>
-<span id="cb55-4"><a href="estimacion-del-tamano-poblacional.html#cb55-4" tabindex="-1"></a>               <span class="at">size =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
+<span id="cb55-2"><a href="estimacion-del-tamano-poblacional.html#cb55-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span></span>
+<span id="cb55-3"><a href="estimacion-del-tamano-poblacional.html#cb55-3" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb55-4"><a href="estimacion-del-tamano-poblacional.html#cb55-4" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">unweighted</span>(<span class="fu">n</span>()),</span>
+<span id="cb55-5"><a href="estimacion-del-tamano-poblacional.html#cb55-5" tabindex="-1"></a>    <span class="at">size =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb55-6"><a href="estimacion-del-tamano-poblacional.html#cb55-6" tabindex="-1"></a>  )</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-tamano-zona">Tabla 4.1: </span>Tamaño poblacional estimado por zona geográfica</caption>
 <thead>
@@ -357,7 +359,7 @@ div.csl-indent {
 <p>Considerando un nivel de confianza del 95%, los intervalos de confianza para las estimaciones poblacionales fueron de 66,038.5 a 78,165.4 personas en la zona rural y de 72,526.2 a 83,801.7 personas en la zona urbana. De manera análoga, también es posible estimar el número de personas según los distintos niveles de pobreza, cuyos resultados se presentan en la Tabla <a href="estimacion-del-tamano-poblacional.html#tab:tab-tamano-pobreza">4.2</a>.</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="estimacion-del-tamano-poblacional.html#cb56-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb56-2"><a href="estimacion-del-tamano-poblacional.html#cb56-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Poverty) <span class="sc">%&gt;%</span></span>
-<span id="cb56-3"><a href="estimacion-del-tamano-poblacional.html#cb56-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">size =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
+<span id="cb56-3"><a href="estimacion-del-tamano-poblacional.html#cb56-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">size =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-tamano-pobreza">Tabla 4.2: </span>Tamaño poblacional estimado por condición de pobreza</caption>
 <thead>
@@ -398,7 +400,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="estimacion-del-tamano-poblacional.html#cb57-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb57-2"><a href="estimacion-del-tamano-poblacional.html#cb57-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Employment)) <span class="sc">%&gt;%</span></span>
 <span id="cb57-3"><a href="estimacion-del-tamano-poblacional.html#cb57-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Employment) <span class="sc">%&gt;%</span></span>
-<span id="cb57-4"><a href="estimacion-del-tamano-poblacional.html#cb57-4" tabindex="-1"></a>  <span class="fu">summarise</span>( <span class="at">size =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
+<span id="cb57-4"><a href="estimacion-del-tamano-poblacional.html#cb57-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">size =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)))</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-tamano-empleo">Tabla 4.3: </span>Tamaño poblacional estimado por estado de ocupación</caption>
 <thead>
@@ -439,8 +441,10 @@ div.csl-indent {
 <div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="estimacion-del-tamano-poblacional.html#cb58-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb58-2"><a href="estimacion-del-tamano-poblacional.html#cb58-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Employment)) <span class="sc">%&gt;%</span></span>
 <span id="cb58-3"><a href="estimacion-del-tamano-poblacional.html#cb58-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Employment, Poverty) <span class="sc">%&gt;%</span></span>
-<span id="cb58-4"><a href="estimacion-del-tamano-poblacional.html#cb58-4" tabindex="-1"></a>  <span class="fu">cascade</span>( <span class="at">size =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span><span class="fu">c</span>(<span class="st">&quot;se&quot;</span>,<span class="st">&quot;ci&quot;</span>)),</span>
-<span id="cb58-5"><a href="estimacion-del-tamano-poblacional.html#cb58-5" tabindex="-1"></a>           <span class="at">.fill =</span> <span class="st">&quot;Total&quot;</span>)</span></code></pre></div>
+<span id="cb58-4"><a href="estimacion-del-tamano-poblacional.html#cb58-4" tabindex="-1"></a>  <span class="fu">cascade</span>(</span>
+<span id="cb58-5"><a href="estimacion-del-tamano-poblacional.html#cb58-5" tabindex="-1"></a>    <span class="at">size =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
+<span id="cb58-6"><a href="estimacion-del-tamano-poblacional.html#cb58-6" tabindex="-1"></a>    <span class="at">.fill =</span> <span class="st">&quot;Total&quot;</span></span>
+<span id="cb58-7"><a href="estimacion-del-tamano-poblacional.html#cb58-7" tabindex="-1"></a>  )</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-tamano-empleo-pobreza">Tabla 4.4: </span>Tamaño poblacional estimado por estado de ocupación y condición de pobreza</caption>
 <thead>

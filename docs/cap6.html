@@ -320,21 +320,24 @@ div.csl-indent {
 <span id="cb144-10"><a href="cap6.html#cb144-10" tabindex="-1"></a></span>
 <span id="cb144-11"><a href="cap6.html#cb144-11" tabindex="-1"></a>survey_design <span class="ot">&lt;-</span> survey_data <span class="sc">%&gt;%</span></span>
 <span id="cb144-12"><a href="cap6.html#cb144-12" tabindex="-1"></a>  <span class="fu">as_survey_design</span>(</span>
-<span id="cb144-13"><a href="cap6.html#cb144-13" tabindex="-1"></a>    <span class="at">strata  =</span> Stratum,</span>
-<span id="cb144-14"><a href="cap6.html#cb144-14" tabindex="-1"></a>    <span class="at">ids     =</span> PSU,</span>
+<span id="cb144-13"><a href="cap6.html#cb144-13" tabindex="-1"></a>    <span class="at">strata =</span> Stratum,</span>
+<span id="cb144-14"><a href="cap6.html#cb144-14" tabindex="-1"></a>    <span class="at">ids =</span> PSU,</span>
 <span id="cb144-15"><a href="cap6.html#cb144-15" tabindex="-1"></a>    <span class="at">weights =</span> wk,</span>
-<span id="cb144-16"><a href="cap6.html#cb144-16" tabindex="-1"></a>    <span class="at">nest    =</span> <span class="cn">TRUE</span></span>
+<span id="cb144-16"><a href="cap6.html#cb144-16" tabindex="-1"></a>    <span class="at">nest =</span> <span class="cn">TRUE</span></span>
 <span id="cb144-17"><a href="cap6.html#cb144-17" tabindex="-1"></a>  )</span>
 <span id="cb144-18"><a href="cap6.html#cb144-18" tabindex="-1"></a></span>
 <span id="cb144-19"><a href="cap6.html#cb144-19" tabindex="-1"></a>survey_design <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb144-20"><a href="cap6.html#cb144-20" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb144-21"><a href="cap6.html#cb144-21" tabindex="-1"></a>    <span class="at">poverty   =</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(Poverty <span class="sc">!=</span> <span class="st">&quot;NotPoor&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
-<span id="cb144-22"><a href="cap6.html#cb144-22" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb144-23"><a href="cap6.html#cb144-23" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;=Poor&quot;</span>, <span class="st">&quot;=Not poor&quot;</span>)),</span>
-<span id="cb144-24"><a href="cap6.html#cb144-24" tabindex="-1"></a>    <span class="at">unemployment =</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(Employment <span class="sc">==</span> <span class="st">&quot;Unemployed&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
-<span id="cb144-25"><a href="cap6.html#cb144-25" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb144-26"><a href="cap6.html#cb144-26" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;=Unemployed&quot;</span>, <span class="st">&quot;=Not unemployed&quot;</span>))</span>
-<span id="cb144-27"><a href="cap6.html#cb144-27" tabindex="-1"></a>  )</span></code></pre></div>
+<span id="cb144-21"><a href="cap6.html#cb144-21" tabindex="-1"></a>    <span class="at">poverty =</span> <span class="fu">factor</span>(</span>
+<span id="cb144-22"><a href="cap6.html#cb144-22" tabindex="-1"></a>      <span class="fu">ifelse</span>(Poverty <span class="sc">!=</span> <span class="st">&quot;NotPoor&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb144-23"><a href="cap6.html#cb144-23" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb144-24"><a href="cap6.html#cb144-24" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;=Poor&quot;</span>, <span class="st">&quot;=Not poor&quot;</span>)</span>
+<span id="cb144-25"><a href="cap6.html#cb144-25" tabindex="-1"></a>    ),</span>
+<span id="cb144-26"><a href="cap6.html#cb144-26" tabindex="-1"></a>    <span class="at">unemployment =</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(Employment <span class="sc">==</span> <span class="st">&quot;Unemployed&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb144-27"><a href="cap6.html#cb144-27" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb144-28"><a href="cap6.html#cb144-28" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;=Unemployed&quot;</span>, <span class="st">&quot;=Not unemployed&quot;</span>)</span>
+<span id="cb144-29"><a href="cap6.html#cb144-29" tabindex="-1"></a>    )</span>
+<span id="cb144-30"><a href="cap6.html#cb144-30" tabindex="-1"></a>  )</span></code></pre></div>
 </div>
 <h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">

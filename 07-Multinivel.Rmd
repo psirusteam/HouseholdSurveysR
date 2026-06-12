@@ -1,4 +1,4 @@
-```{r setup, include=FALSE}
+```{r setup-multinivel, include=FALSE}
 knitr::opts_chunk$set(
   warning = FALSE,
   message = FALSE,
@@ -39,15 +39,15 @@ library(tidyverse)
 library(lme4)
 ```
 
-```{r multinivel-datos, echo=TRUE, eval=TRUE}
+```{r multinivel-datos, echo = TRUE, eval = TRUE}
 survey_data <- readRDS("Data/encuesta.rds") %>%
-          mutate(poverty = ifelse(Poverty != "NotPoor", 1, 0))
+  mutate(poverty = ifelse(Poverty != "NotPoor", 1, 0))
 ```
 
 
-Con fines ilustrativos, los ejemplos de esta sección se desarrollan a partir de una submuestra de la encuesta. El siguiente bloque de código construye la base de datos utilizada en los ejemplos del capítulo. Para ello, identifica los tres estratos con menor número de hogares y conserva únicamente las variables requeridas para el análisis: ingreso, gasto, estrato, sexo, región y zona de residencia.
+Con fines ilustrativos, los ejemplos de esta sección se desarrollan a partir de una submuestra de la encuesta. El siguiente bloque de código construye la base de datos utilizada en los ejemplos del capítulo. Para ello, identifica los tres estratos con menor número de hogares y conserva únicamente las variables requeridas para el análisis: ingreso, gasto, estrato, sexo, región, zona de residencia y condición de pobreza.
 
-```{r encuesta-plot-setup, echo=TRUE, eval=TRUE}
+```{r encuesta-plot-setup, echo = TRUE, eval = TRUE}
 plot_data <- survey_data %>%
   select(HHID, Stratum) %>%
   distinct() %>%
@@ -56,97 +56,111 @@ plot_data <- survey_data %>%
   arrange(n) %>%
   select(-n) %>%
   slice(1:3L) %>%
-  inner_join(survey_data) %>%
+  inner_join(survey_data, by = "Stratum") %>%
   select(Income, Expenditure, Stratum, Sex, Region, Zone, poverty)
 ```
 
 
 Como punto de partida, se ajusta un modelo de regresión lineal convencional que relaciona el ingreso de los hogares con su nivel de gasto, ignorando temporalmente la estructura jerárquica de los datos. Bajo esta especificación, se asume que todas las observaciones son independientes y que la relación entre ingreso y gasto es homogénea para todos los hogares, independientemente del estrato al que pertenezcan. La Figura \@ref(fig:fig-regresion-simple) presenta la recta de regresión estimada junto con los datos observados.
 
-```{r fig-regresion-simple, fig.cap="Modelo de regresión lineal simple para el ingreso en función del gasto (sin considerar estratos)", echo=TRUE, eval=TRUE}
+```{r fig-regresion-simple, fig.cap="Modelo de regresión lineal simple para el ingreso en función del gasto (sin considerar estratos)", echo = TRUE, eval = TRUE}
 ggplot(data = plot_data,
        aes(y = Income, x = Expenditure)) +
   geom_jitter() +
   geom_smooth(formula = y ~ x, method = "lm", se = FALSE) +
   ggtitle(latex2exp::TeX(
-    "$Income_{i} \\sim \\hat{\\beta}_{0} + \\hat{\\beta}_{1}Expenditure_{i} + \\epsilon_{i}$")) +
-  theme(legend.position = "none",
-        plot.title = element_text(hjust = 0.5))
+    "$Income_{i} \\sim \\hat{\\beta}_{0} + \\hat{\\beta}_{1}Expenditure_{i} + \\epsilon_{i}$"
+  )) +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5)
+  )
 ```
 
 Si bien este modelo resulta útil como referencia inicial, sus supuestos suelen ser poco realistas en el contexto de encuestas de hogares. En particular, la independencia entre observaciones puede verse comprometida cuando los hogares pertenecen a estratos que comparten características socioeconómicas, demográficas o geográficas similares. Asimismo, es posible que los niveles promedio de ingreso difieran sistemáticamente entre estratos, aun cuando la relación entre ingreso y gasto sea semejante. Como señalan @finch2019multilevel, ignorar esta estructura jerárquica puede conducir a estimaciones incorrectas de los errores estándar y, en consecuencia, a inferencias estadísticas poco confiables.
 
 Con fines exclusivamente ilustrativos, se incorpora gradualmente la estructura jerárquica de los datos al proceso de modelación. Para ello, se ajusta inicialmente un modelo que permite que cada estrato tenga su propio intercepto, mientras mantiene una pendiente común para todas las observaciones. Esta especificación resulta útil para visualizar cómo los niveles promedio de ingreso pueden diferir entre estratos, aun cuando la relación entre ingreso y gasto se considere constante.
 
-```{r coef-intercepto-setup, echo=TRUE, eval=TRUE}
-B1 <- coef(lm(Income ~ Expenditure, data = plot_data))[2]
+```{r coef-intercepto-setup, echo = TRUE, eval = TRUE}
+beta_1 <- coef(lm(Income ~ Expenditure, data = plot_data))[2]
 model_coef <- plot_data %>%
   group_by(Stratum) %>%
-  summarise(B0 = coef(lm(Income ~ Expenditure))[1]) %>%
-  mutate(B1 = B1)
+  summarise(beta_0 = coef(lm(Income ~ Expenditure))[1]) %>%
+  mutate(beta_1 = beta_1)
 ```
 
 De esta manera, el modelo introduce una primera fuente de heterogeneidad entre grupos y permite apreciar las limitaciones del modelo de regresión simple presentado anteriormente, el cual asumía una única recta de regresión para toda la población. La Figura \@ref(fig:fig-intercepto-por-estrato) presenta las rectas de regresión con interceptos diferenciados por estrato:
 
-```{r fig-intercepto-por-estrato, fig.cap="Modelo con intercepto específico por estrato y pendiente común", echo=TRUE, eval=TRUE}
+```{r fig-intercepto-por-estrato, fig.cap="Modelo con intercepto específico por estrato y pendiente común", echo = TRUE, eval = TRUE}
 ggplot(data = plot_data,
        aes(y = Income, x = Expenditure, colour = Stratum)) +
   geom_jitter() +
   geom_abline(data = model_coef,
-              mapping = aes(slope = B1, intercept = B0, colour = Stratum)) +
+              mapping = aes(slope = beta_1, intercept = beta_0, colour = Stratum)) +
   ggtitle(latex2exp::TeX(
-    "$Income_{kj} \\sim \\hat{\\beta}_{0j} + \\hat{\\beta}_{1}Expenditure_{kj} + \\epsilon_{kj}$")) +
-  theme(legend.position = "none",
-        plot.title = element_text(hjust = 0.5))
+    "$Income_{kj} \\sim \\hat{\\beta}_{0j} + \\hat{\\beta}_{1}Expenditure_{kj} + \\epsilon_{kj}$"
+  )) +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5)
+  )
 ```
 
 Como siguiente paso, se considera una especificación alternativa en la que todos los estratos comparten un mismo nivel promedio de ingreso, representado por un intercepto común, pero se permite que la relación entre ingreso y gasto varíe entre estratos mediante pendientes específicas para cada uno de ellos.
 
 
-```{r coef-pendiente-setup, echo=TRUE, eval=TRUE}
-B0 <- coef(lm(Income ~ Expenditure, data = plot_data))[1]
+```{r coef-pendiente-setup, echo = TRUE, eval = TRUE}
+beta_0 <- coef(lm(Income ~ Expenditure, data = plot_data))[1]
 model_coef <- plot_data %>%
   group_by(Stratum) %>%
-  summarise(B1 = coef(lm(Income ~ Expenditure))[2]) %>%
-  mutate(B0 = B0)
+  summarise(beta_1 = coef(lm(Income ~ Expenditure))[2]) %>%
+  mutate(beta_0 = beta_0)
 ```
 
 
 Bajo esta especificación, las diferencias entre estratos se manifiestan en la intensidad de la asociación entre ingreso y gasto, más que en sus niveles promedio. La Figura \@ref(fig:fig-pendiente-por-estrato) permite visualizar estas diferencias en las trayectorias de regresión estimadas para cada estrato.
 
-```{r fig-pendiente-por-estrato, fig.cap="Modelo con pendiente específica por estrato e intercepto común", echo=TRUE, eval=TRUE}
+```{r fig-pendiente-por-estrato, fig.cap="Modelo con pendiente específica por estrato e intercepto común", echo = TRUE, eval = TRUE}
 ggplot(data = plot_data,
        aes(y = Income, x = Expenditure, colour = Stratum)) +
   geom_jitter() +
   geom_abline(data = model_coef,
-              mapping = aes(slope = B1, intercept = B0, colour = Stratum)) +
+              mapping = aes(slope = beta_1, intercept = beta_0, colour = Stratum)) +
   ggtitle(latex2exp::TeX(
-    "$Income_{kj} \\sim \\hat{\\beta}_{0} + \\hat{\\beta}_{1j}Expenditure_{kj} + \\epsilon_{kj}$")) +
-  theme(legend.position = "none",
-        plot.title = element_text(hjust = 0.5))
+    "$Income_{kj} \\sim \\hat{\\beta}_{0} + \\hat{\\beta}_{1j}Expenditure_{kj} + \\epsilon_{kj}$"
+  )) +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5)
+  )
 ```
 
 Finalmente, se considera la especificación más flexible de las presentadas hasta el momento, permitiendo que tanto el nivel promedio de ingreso como la relación entre ingreso y gasto varíen entre estratos. Bajo este enfoque, cada estrato posee su propia recta de regresión, con interceptos y pendientes estimados de manera independiente.
 
-```{r coef-pendiente-2, echo=TRUE, eval=TRUE}
+```{r coef-pendiente-2, echo = TRUE, eval = TRUE}
 model_coef <- plot_data %>%
   group_by(Stratum) %>%
-  summarise(B0 = coef(lm(Income ~ Expenditure))[1],
-    B1 = coef(lm(Income ~ Expenditure))[2])
+  summarise(
+    beta_0 = coef(lm(Income ~ Expenditure))[1],
+    beta_1 = coef(lm(Income ~ Expenditure))[2]
+  )
 ```
 
 Esta formulación permite capturar simultáneamente diferencias en los niveles de ingreso y en la intensidad de su asociación con el gasto. La Figura \@ref(fig:fig-intercepto-pendiente-libres) muestra las rectas ajustadas para cada estrato bajo esta especificación.
 
-```{r fig-intercepto-pendiente-libres, fig.cap="Modelo con intercepto y pendiente específicos por estrato (ajuste independiente)", echo=TRUE, eval=TRUE}
+```{r fig-intercepto-pendiente-libres, fig.cap="Modelo con intercepto y pendiente específicos por estrato (ajuste independiente)", echo = TRUE, eval = TRUE}
 ggplot(data = plot_data,
        aes(y = Income, x = Expenditure, colour = Stratum)) +
   geom_jitter() +
   geom_abline(data = model_coef,
-              mapping = aes(slope = B1, intercept = B0, colour = Stratum)) +
+              mapping = aes(slope = beta_1, intercept = beta_0, colour = Stratum)) +
   ggtitle(latex2exp::TeX(
-    "$Income_{kj} \\sim \\hat{\\beta}_{0j} + \\hat{\\beta}_{1}Expenditure_{kj} + \\epsilon_{kj}$")) +
-  theme(legend.position = "none",
-        plot.title = element_text(hjust = 0.5))
+    "$Income_{kj} \\sim \\hat{\\beta}_{0j} + \\hat{\\beta}_{1j}Expenditure_{kj} + \\epsilon_{kj}$"
+  )) +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5)
+  )
 ```
 
 Aunque esta última especificación ofrece una representación más flexible de los datos y permite capturar las particularidades de cada estrato, presenta una limitación importante: los parámetros se estiman de manera completamente independiente para cada grupo. Como consecuencia, no se aprovecha la información compartida entre estratos que podrían presentar patrones similares, lo que puede generar estimaciones inestables, especialmente en aquellos grupos con un número reducido de observaciones.
@@ -191,8 +205,8 @@ Para ajustar un modelo multinivel con datos provenientes de encuestas complejas,
 
 El siguiente código implementa el procedimiento de construcción de pesos *q-weighted*. En primer lugar, ajusta un modelo de regresión lineal que explica los factores de expansión originales a partir de la variable explicativa gasto. De esta forma, los pesos resultantes conservan únicamente la componente de variación no explicada por las covariables incluidas en el modelo multinivel.
 
-```{r pesos-multinivel-setup, echo=TRUE, eval=TRUE}
-mod_qw  <- lm(wk ~ Expenditure, data = survey_data)
+```{r pesos-multinivel-setup, echo = TRUE, eval = TRUE}
+mod_qw <- lm(wk ~ Expenditure, data = survey_data)
 survey_data$qk <- survey_data$wk / predict(mod_qw)
 ```
 
@@ -243,22 +257,25 @@ Un valor elevado del ICC indica que una proporción importante de la variabilida
 
 Siguiendo con el análisis de la encuesta de ejemplo, cuando la variable de interés es el ingreso, el modelo nulo constituye el punto de partida para cuantificar qué proporción de la variabilidad total se debe a diferencias entre estratos y qué proporción corresponde a diferencias entre hogares dentro de un mismo estrato.
 
-La estimación de modelos multinivel en `R`se realiza mediante el paquete `lme4` [@lme42026]. En particular, la función `lmer()` permite especificar los efectos aleatorios mediante expresiones de la forma `(efecto | grupo)`. En este contexto, la expresión `(1 | Stratum)` indica que el modelo incluye un intercepto aleatorio para cada estrato. El valor `1` representa el intercepto del modelo, mientras que `Stratum` identifica la variable de agrupación.
+La estimación de modelos multinivel en `R` se realiza mediante el paquete `lme4` [@lme42026]. En particular, la función `lmer()` permite especificar los efectos aleatorios mediante expresiones de la forma `(efecto | grupo)`. En este contexto, la expresión `(1 | Stratum)` indica que el modelo incluye un intercepto aleatorio para cada estrato. El valor `1` representa el intercepto del modelo, mientras que `Stratum` identifica la variable de agrupación.
 
-```{r modelos-nulos-setup, echo=TRUE, eval=TRUE}
-mod_null  <- lmer(Income ~ (1 | Stratum),
-                  data = survey_data, weights = qk)
+```{r modelos-nulos-setup, echo = TRUE, eval = TRUE}
+mod_null <- lmer(
+  Income ~ (1 | Stratum),
+  data = survey_data,
+  weights = qk
+)
 ```
 
 La Tabla \@ref(tab:tab-interceptos-nulos) presenta los interceptos estimados para cada estrato a partir del modelo nulo. Dado que este modelo no incorpora variables explicativas, cada intercepto puede interpretarse como el ingreso promedio esperado en el correspondiente estrato. Los resultados evidencian diferencias importantes entre grupos: mientras que el estrato `idStrt004` presenta el mayor ingreso promedio estimado (959.6), el estrato `idStrt009` registra el menor valor (207.6). Estas diferencias sugieren la existencia de una variabilidad sustancial entre estratos, justificando la incorporación de efectos aleatorios para modelar explícitamente la estructura jerárquica de los datos.
 
-```{r eval=FALSE}
+```{r cod-interceptos-nulos, eval = FALSE}
 coef_mod_null <- coef(mod_null)$Stratum
 coef_mod_null %>%
   slice(1:12L)
 ```
 
-```{r tab-interceptos-nulos, tab.cap="Interceptos estimados por estrato bajo pesos q-weighted y senate-weighted (modelo nulo, primeros 12 estratos)", echo=FALSE}
+```{r tab-interceptos-nulos, tab.cap="Interceptos estimados por estrato bajo pesos q-weighted y senate-weighted (modelo nulo, primeros 12 estratos)", echo = FALSE}
 coef_mod_null <- coef(mod_null)$Stratum
 coef_mod_null %>%
   slice(1:12L) %>%
@@ -267,12 +284,12 @@ coef_mod_null %>%
 
 A partir de los componentes de varianza estimados en el modelo nulo, la correlación intraclase se calcula mediante la función `icc()` del paquete `performance` [@performance2026]. Este indicador cuantifica la proporción de la variabilidad total del ingreso que puede atribuirse a diferencias entre estratos, constituyendo una medida de la dependencia existente entre observaciones pertenecientes a un mismo grupo. Los resultados obtenidos se presentan en la Tabla \@ref(tab:tab-icc-nulo).
 
-```{r eval=FALSE}
+```{r cod-icc-nulo, eval = FALSE}
 performance::icc(mod_null) %>%
   as.data.frame()
 ```
 
-```{r tab-icc-nulo, tab.cap="Correlación intraclase del modelo nulo (ingreso por estrato)", echo=FALSE}
+```{r tab-icc-nulo, tab.cap="Correlación intraclase del modelo nulo (ingreso por estrato)", echo = FALSE}
 performance::icc(mod_null) %>%
   as.data.frame() %>%
   tabla_fmt()
@@ -296,20 +313,23 @@ Los componentes aleatorios del modelo se asumen independientes y normalmente dis
 
 El siguiente código ajusta un modelo multinivel de intercepto aleatorio, en donde el ingreso (`Income`) se explica a partir del gasto del hogar (`Expenditure`), incorporando además un efecto aleatorio asociado al estrato (`Stratum`) y utilizando los pesos *q-weighted* almacenados en la variable `qk`. Una vez ajustado el modelo, se estima la correlación intraclase (ICC) a partir de los componentes de varianza estimados.
 
-```{r mod-intercepto-aleatorio-setup, echo=TRUE, eval=TRUE}
-random_intercept_model <- lmer(Income ~ Expenditure + (1 | Stratum),
-                          data = survey_data, weights = qk)
+```{r mod-intercepto-aleatorio-setup, echo = TRUE, eval = TRUE}
+random_intercept_model <- lmer(
+  Income ~ Expenditure + (1 | Stratum),
+  data = survey_data,
+  weights = qk
+)
 performance::icc(random_intercept_model)
 ```
 
 La correlación intraclase ajustada de 0.196 indica que, después de controlar por el gasto del hogar (`Expenditure`), aproximadamente el 20% de la variabilidad residual del ingreso sigue siendo atribuible a diferencias entre estratos. Aunque este valor es inferior al obtenido con el modelo nulo, la magnitud del ICC continúa justificando el uso de un modelo multinivel para representar adecuadamente la estructura jerárquica de los datos. Los coeficientes estimados por estrato se presentan en la Tabla \@ref(tab:tab-coef-intercepto-aleatorio):
 
-```{r eval=FALSE}
+```{r cod-coef-intercepto-aleatorio, eval = FALSE}
 coef(random_intercept_model)$Stratum %>%
   slice(1:8L)
 ```
 
-```{r tab-coef-intercepto-aleatorio, tab.cap="Coeficientes del modelo con intercepto aleatorio por estrato (primeros 8 estratos)", echo=FALSE}
+```{r tab-coef-intercepto-aleatorio, tab.cap="Coeficientes del modelo con intercepto aleatorio por estrato (primeros 8 estratos)", echo = FALSE}
 coef(random_intercept_model)$Stratum %>%
   slice(1:8L) %>%
   tabla_fmt()
@@ -317,19 +337,19 @@ coef(random_intercept_model)$Stratum %>%
 
 Con el fin de facilitar la visualización de los resultados del modelo, se utiliza la submuestra reducida presentada anteriormente, la cual contiene únicamente tres estratos seleccionados.
 
-```{r}
+```{r preparar-coef-intercepto-aleatorio}
 estimated_coef <- inner_join(
   coef(random_intercept_model)$Stratum %>%
     tibble::rownames_to_column(var = "Stratum"),
   plot_data %>%
     select(Stratum) %>%
-      distinct()
+    distinct()
 )
 ```
 
 La Figura \@ref(fig:fig-intercepto-aleatorio) muestra las rectas de regresión estimadas para cada estrato bajo el modelo de intercepto aleatorio. Se observa que las rectas comparten una misma pendiente, reflejando el efecto común del gasto sobre el ingreso, pero difieren en su posición vertical debido a los interceptos específicos estimados para cada estrato.
 
-```{r fig-intercepto-aleatorio, fig.cap="Rectas de regresión estimadas por estrato: modelo con intercepto aleatorio", echo=TRUE, eval=TRUE}
+```{r fig-intercepto-aleatorio, fig.cap="Rectas de regresión estimadas por estrato: modelo con intercepto aleatorio", echo = TRUE, eval = TRUE}
 ggplot(data = plot_data,
        aes(y = Income, x = Expenditure, colour = Stratum)) +
   geom_jitter() +
@@ -337,8 +357,10 @@ ggplot(data = plot_data,
               mapping = aes(slope = Expenditure,
                             intercept = `(Intercept)`,
                             colour = Stratum)) +
-  theme(legend.position = "none",
-        plot.title = element_text(hjust = 0.5))
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5)
+  )
 ```
 
 
@@ -381,7 +403,7 @@ mientras que el error a nivel de unidad satisface $\epsilon_{kj} \sim N(0,\sigma
 
 El siguiente código ajusta un modelo multinivel con intercepto y pendiente aleatorios, en el que el ingreso (`Income`) se explica a partir del gasto del hogar (`Expenditure`) y de la zona de residencia (`Zone`). En este caso, tanto el intercepto como el efecto del gasto pueden variar entre estratos mediante efectos aleatorios asociados a `Stratum`, empleando además los pesos *q-weighted* almacenados en la variable `qk`.
 
-```{r mod-pendiente-aleatoria-setup, echo=TRUE, eval=TRUE}
+```{r mod-pendiente-aleatoria-setup, echo = TRUE, eval = TRUE}
 random_slope_model <- lmer(
   Income ~ 1 + Expenditure + (1 + Expenditure | Stratum),
   data = survey_data,
@@ -393,33 +415,33 @@ performance::icc(random_slope_model)
 
 Nótese que en la especificación del código se incluye simultáneamente efectos fijos y efectos aleatorios para el intercepto y la variable `Expenditure`. Los términos ubicados fuera del paréntesis, `1 + Expenditure`, corresponden a los efectos fijos del modelo y permiten estimar el intercepto promedio global y la pendiente promedio global asociada al gasto. Por su parte, la expresión `(1 + Expenditure | Stratum)` incorpora las desviaciones específicas de cada estrato respecto a dichos promedios. La inclusión explícita de los efectos fijos es fundamental, ya que los efectos aleatorios se interpretan como desviaciones alrededor de una media poblacional. Los coeficientes del modelo por estrato se presentan en la Tabla \@ref(tab:tab-coef-pendiente-aleatoria):
 
-```{r eval=FALSE}
+```{r cod-coef-pendiente-aleatoria, eval = FALSE}
 coef(random_slope_model)$Stratum %>%
   slice(1:10L)
 ```
 
-```{r tab-coef-pendiente-aleatoria, tab.cap="Coeficientes del modelo con intercepto y pendiente aleatoria por estrato (primeros 10 estratos)", echo=FALSE}
+```{r tab-coef-pendiente-aleatoria, tab.cap="Coeficientes del modelo con intercepto y pendiente aleatoria por estrato (primeros 10 estratos)", echo = FALSE}
 coef(random_slope_model)$Stratum %>%
   slice(1:10L) %>%
   tabla_fmt()
 ```
 
-Una vez más, Con el propósito de facilitar la visualización de los resultados, se utiliza la submuestra reducida definida previamente, la cual considera únicamente tres estratos seleccionados.
+Una vez más, con el propósito de facilitar la visualización de los resultados, se utiliza la submuestra reducida definida previamente, la cual considera únicamente tres estratos seleccionados.
 
-```{r}
+```{r preparar-coef-pendiente-aleatoria}
 estimated_coef <- inner_join(
   coef(random_slope_model)$Stratum %>%
     tibble::rownames_to_column(var = "Stratum"),
   plot_data %>%
     select(Stratum) %>%
-      distinct()
+    distinct()
 )
 ```
 
 
 La Figura \@ref(fig:fig-pendiente-aleatoria) presenta las rectas de regresión estimadas para cada estrato bajo el modelo de intercepto y pendiente aleatorios. A diferencia del modelo de intercepto aleatorio, en este caso las rectas difieren tanto en su posición vertical como en su inclinación, reflejando que los estratos no sólo presentan niveles promedio de ingreso distintos, sino también diferentes intensidades en la relación entre ingreso y gasto.
 
-```{r fig-pendiente-aleatoria, fig.cap="Rectas de regresión estimadas por estrato: modelo con intercepto y pendiente aleatoria", echo=TRUE, eval=TRUE}
+```{r fig-pendiente-aleatoria, fig.cap="Rectas de regresión estimadas por estrato: modelo con intercepto y pendiente aleatoria", echo = TRUE, eval = TRUE}
 ggplot(data = plot_data,
        aes(y = Income, x = Expenditure, colour = Stratum)) +
   geom_jitter() +
@@ -427,8 +449,10 @@ ggplot(data = plot_data,
               mapping = aes(slope = Expenditure,
                             intercept = `(Intercept)`,
                             colour = Stratum)) +
-  theme(legend.position = "none",
-        plot.title = element_text(hjust = 0.5))
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5)
+  )
 ```
 
 
@@ -452,11 +476,16 @@ $$
 
 En esta formulación, $\eta_{kj}$ cumple un papel análogo al valor esperado lineal de los modelos para variables continuas. La diferencia central es que los efectos fijos y aleatorios actúan sobre la escala logit y no directamente sobre la probabilidad. Por tanto, las diferencias entre estratos se interpretan como desplazamientos en los *log-odds* del evento, los cuales luego se transforman a probabilidades mediante la función logística. La Figura \@ref(fig:fig-logit-pobreza-gasto) presenta la relación entre gasto y probabilidad de pobreza, con una curva logística ajustada.
 
-```{r fig-logit-pobreza-gasto, fig.cap="Relación entre gasto y condición de pobreza con curva logística ajustada", echo=TRUE, eval=TRUE}
-ggplot(data = survey_data, aes(y = poverty, x = Expenditure)) +
+```{r fig-logit-pobreza-gasto, fig.cap="Relación entre gasto y condición de pobreza con curva logística ajustada", echo = TRUE, eval = TRUE}
+ggplot(data = survey_data,
+       aes(y = poverty, x = Expenditure)) +
   geom_point(alpha = 0.5) +
-  geom_smooth(formula = y ~ x, method = "glm", se = FALSE,
-              method.args = list(family = binomial(link = "logit"))) +
+  geom_smooth(
+    formula = y ~ x,
+    method = "glm",
+    se = FALSE,
+    method.args = list(family = binomial(link = "logit"))
+  ) +
   labs(y = "Poverty (1 = poor)", x = "Expenditure")
 ```
 
@@ -500,21 +529,23 @@ $$
 
 Un valor elevado de $\rho$ indica que la probabilidad del evento presenta una estructura de agrupamiento importante, es decir, que dos unidades pertenecientes al mismo estrato tienden a parecerse más entre sí que dos unidades tomadas de estratos distintos. En contraste, un valor bajo sugiere que la mayor parte de la variación se concentra a nivel individual. El ajuste en `R` se realiza de la siguiente manera:
 
-```{r mod-logit-nulo-setup, mod_null2, echo=TRUE, eval=TRUE}
-logistic_null_model <- glmer(poverty ~ (1 | Stratum),
-                         data    = survey_data,
-                         weights = qk,
-                         family  = binomial(link = "logit"))
+```{r mod-logit-nulo-setup, echo = TRUE, eval = TRUE}
+logistic_null_model <- glmer(
+  poverty ~ (1 | Stratum),
+  data = survey_data,
+  weights = qk,
+  family = binomial(link = "logit")
+)
 ```
 
 Los coeficientes del modelo nulo logístico por estrato se presentan en la Tabla \@ref(tab:tab-coef-logit-nulo). Los interceptos estimados en el modelo nulo muestran una heterogeneidad considerable entre estratos. En los primeros estratos reportados, algunos interceptos son fuertemente negativos, como `idStrt004` e `idStrt003`, lo que corresponde a probabilidades base muy bajas de pobreza. En contraste, estratos como `idStrt009` e `idStrt006` presentan interceptos positivos y elevados, asociados con probabilidades base mucho mayores.
 
 
-```{r eval=FALSE}
+```{r cod-coef-logit-nulo, eval = FALSE}
 coef(logistic_null_model)$Stratum %>%
   slice(1:12L)
 ```
-```{r tab-coef-logit-nulo, tab.cap="Interceptos estimados por estrato en el modelo logístico nulo (primeros 12 estratos)", echo=FALSE}
+```{r tab-coef-logit-nulo, tab.cap="Interceptos estimados por estrato en el modelo logístico nulo (primeros 12 estratos)", echo = FALSE}
 coef(logistic_null_model)$Stratum %>%
   slice(1:12L) %>%
   tabla_fmt()
@@ -523,7 +554,7 @@ coef(logistic_null_model)$Stratum %>%
 La correlación intraclase asciende a 0.315. Dado que el modelo no incluye covariables, estas diferencias reflejan exclusivamente la variación entre estratos en la prevalencia del evento.
 
 
-```{r}
+```{r cod-icc-logit-nulo}
 performance::icc(logistic_null_model)
 ```
 
@@ -535,11 +566,11 @@ El modelo se expresa como $y_{kj} \mid \pi_{kj} \sim \text{Bernoulli}(\pi_{kj})$
 
 Bajo esta especificación, dos estratos con los mismos valores de las covariables pueden presentar probabilidades base distintas del evento debido a sus interceptos aleatorios. Sin embargo, el efecto de cada covariable sobre la escala logit se mantiene constante entre estratos. En el ejemplo, esto equivale a permitir que la probabilidad base de pobreza cambie entre estratos, mientras que la asociación entre gasto y pobreza se resume mediante una pendiente común.
 
-```{r mod-logit-int-aleatorio-setup, mod_Int_Aleatorio02, echo=TRUE, eval=TRUE}
+```{r mod-logit-int-aleatorio-setup, echo = TRUE, eval = TRUE}
 random_intercept_logit_model <- glmer(
   poverty ~ Expenditure + (1 | Stratum),
-  data    = survey_data,
-  family  = binomial(link = "logit"),
+  data = survey_data,
+  family = binomial(link = "logit"),
   weights = qk
 )
 performance::icc(random_intercept_logit_model)
@@ -550,11 +581,11 @@ Los coeficientes estimados por estrato se recogen en la Tabla \@ref(tab:tab-coef
 Aun después de controlar por el gasto, la correlación intraclase ajustada permanece alta, alrededor de 0.298, lo que muestra que las diferencias entre estratos continúan siendo relevantes.
 
 
-```{r eval=FALSE}
+```{r cod-coef-logit-int-aleatorio, eval = FALSE}
 coef(random_intercept_logit_model)$Stratum %>%
   slice(1:10L)
 ```
-```{r tab-coef-logit-int-aleatorio, tab.cap="Coeficientes del modelo logístico con intercepto aleatorio por estrato (primeros 10 estratos)", echo=FALSE}
+```{r tab-coef-logit-int-aleatorio, tab.cap="Coeficientes del modelo logístico con intercepto aleatorio por estrato (primeros 10 estratos)", echo = FALSE}
 coef(random_intercept_logit_model)$Stratum %>%
   slice(1:10L) %>%
   tabla_fmt()
@@ -563,23 +594,30 @@ coef(random_intercept_logit_model)$Stratum %>%
 
 La Figura \@ref(fig:fig-logit-int-aleatorio) presenta las curvas de probabilidad predichas mediante un modelo logístico con intercepto aleatorio por estrato. Se observa una relación inversa entre el gasto y la probabilidad de pobreza, de modo que hogares con mayores niveles de gasto presentan una menor probabilidad de ser clasificados como pobres. Asimismo, las diferencias entre las curvas reflejan la heterogeneidad existente entre estratos, capturada mediante los interceptos aleatorios del modelo.
 
-```{r}
+```{r preparar-pred-logit-int-aleatorio}
 prediction_data <- plot_data %>%
   group_by(Stratum) %>%
-  summarise(Expenditure = list(seq(min(Expenditure), max(Expenditure), len = 100))) %>%
+  summarise(
+    Expenditure = list(seq(min(Expenditure), max(Expenditure), len = 100))
+  ) %>%
   tidyr::unnest_legacy()
 
-prediction_data <- mutate(prediction_data,
-                   probability = predict(random_intercept_logit_model,
-                                   newdata = prediction_data,
-                                   type = "response"))
+prediction_data <- prediction_data %>%
+  mutate(
+    probability = predict(
+      random_intercept_logit_model,
+      newdata = prediction_data,
+      type = "response"
+    )
+  )
 ```
 
-```{r fig-logit-int-aleatorio, fig.cap="Curvas de probabilidad predichas por estrato: modelo logístico con intercepto aleatorio", echo=TRUE, eval=TRUE}
+```{r fig-logit-int-aleatorio, fig.cap="Curvas de probabilidad predichas por estrato: modelo logístico con intercepto aleatorio", echo = TRUE, eval = TRUE}
 ggplot(data = prediction_data,
        aes(y = probability, x = Expenditure, colour = Stratum)) +
   geom_line() +
-  geom_point(data = plot_data, aes(y = poverty, x = Expenditure)) +
+  geom_point(data = plot_data,
+             aes(y = poverty, x = Expenditure)) +
   labs(y = "Poverty probability", x = "Expenditure") +
   theme(legend.position = "none")
 ```
@@ -589,27 +627,27 @@ ggplot(data = prediction_data,
 
 El modelo logístico con intercepto y pendiente aleatoria extiende la especificación anterior permitiendo que no sólo varíe el nivel base del evento entre estratos, sino también el efecto de una covariable específica. Esta formulación es análoga al modelo de intercepto y pendiente aleatorios para variables continuas, con la salvedad de que las diferencias entre estratos se expresan en la escala logit y se traducen en curvas de probabilidad no lineales.
 
-Sea $x_{kj}$ la covariable cuyo efecto se permite variar entre estratos, y sea $\mathbf{z}_{kj}$ el conjunto de covariables con efectos fijos comunes. En este modelo, al probabilidad de éxito se asume de tal forma que $\text{logit}(\pi_{kj}) = \beta_{0j} + x_{kj}\beta_{1j} + \mathbf{z}_{kj}\boldsymbol{\beta}$. En donde, $\beta_{0j}$ es el intercepto específico del estrato $j$ y $\beta_{1j}$ es la pendiente específica asociada a la covariable $x_{kj}$.
+Sea $x_{kj}$ la covariable cuyo efecto se permite variar entre estratos, y sea $\mathbf{z}_{kj}$ el conjunto de covariables con efectos fijos comunes. En este modelo, la probabilidad de éxito se asume de tal forma que $\text{logit}(\pi_{kj}) = \beta_{0j} + x_{kj}\beta_{1j} + \mathbf{z}_{kj}\boldsymbol{\beta}$. En donde, $\beta_{0j}$ es el intercepto específico del estrato $j$ y $\beta_{1j}$ es la pendiente específica asociada a la covariable $x_{kj}$.
 
 Ambos parámetros se descomponen en una parte promedio poblacional y una desviación específica del estrato, de tal manera que $\beta_{0j} = \gamma_{00} + \tau_{0j}$ y $\beta_{1j} = \gamma_{10} + \tau_{1j}$. En donde los términos $\gamma_{00}$ y $\gamma_{10}$ representan, respectivamente, el intercepto promedio global y la pendiente promedio global en escala logit. Por su parte, $\tau_{0j}$ y $\tau_{1j}$ capturan cuánto se aparta el estrato $j$ de esos promedios. La implementación en R es la siguiente:
 
-```{r mod-logit-pendiente-aleatoria-setup, mod_Int_y_pen_Aleatorio02, echo=TRUE, eval=TRUE}
+```{r mod-logit-pendiente-aleatoria-setup, echo = TRUE, eval = TRUE}
 random_slope_logit_model <- glmer(
   poverty ~ 1 + Expenditure + (1 + Expenditure | Stratum),
-  data    = survey_data,
+  data = survey_data,
   weights = qk,
-  family  = binomial(link = "logit")
+  family = binomial(link = "logit")
 )
 performance::icc(random_slope_logit_model)
 ```
 
 La estimación del modelo con intercepto y pendiente aleatoria indica una heterogeneidad mucho más marcada entre estratos. En este caso, tanto los interceptos como las pendientes asociadas al gasto pueden cambiar entre grupos. La correlación intraclase ajustada es muy alta, lo que sugiere que el componente entre estratos domina la variación latente del modelo. Los coeficientes del modelo por estrato se muestran en la Tabla \@ref(tab:tab-coef-logit-pendiente).
 
-```{r eval=FALSE}
+```{r cod-coef-logit-pendiente, eval = FALSE}
 coef(random_slope_logit_model)$Stratum %>%
   slice(1:10L)
 ```
-```{r tab-coef-logit-pendiente, tab.cap="Coeficientes del modelo logístico con intercepto y pendiente aleatoria por estrato (primeros 10 estratos)", echo=FALSE}
+```{r tab-coef-logit-pendiente, tab.cap="Coeficientes del modelo logístico con intercepto y pendiente aleatoria por estrato (primeros 10 estratos)", echo = FALSE}
 coef(random_slope_logit_model)$Stratum %>%
   slice(1:10L) %>%
   tabla_fmt()
@@ -617,23 +655,30 @@ coef(random_slope_logit_model)$Stratum %>%
 
 Los coeficientes por estrato evidencian que la relación entre gasto y pobreza no sólo cambia en el nivel base, sino también en la intensidad y dirección de la pendiente. En varios estratos la pendiente del gasto es negativa, lo que mantiene la interpretación esperada de que mayores niveles de gasto reducen la probabilidad de pobreza. Sin embargo, también aparecen pendientes cercanas a cero e incluso positivas en algunos estratos, lo que sugiere patrones locales distintos. Esta variabilidad es precisamente la que el modelo busca capturar mediante el efecto aleatorio de la pendiente. La Figura \@ref(fig:fig-logit-pendiente-aleatoria) muestra que las curvas predichas son más heterogéneas entre estratos que en el modelo anterior:
 
-```{r}
+```{r preparar-pred-logit-pendiente}
 prediction_data <- plot_data %>%
   group_by(Stratum) %>%
-  summarise(Expenditure = list(seq(min(Expenditure), max(Expenditure), len = 100))) %>%
+  summarise(
+    Expenditure = list(seq(min(Expenditure), max(Expenditure), len = 100))
+  ) %>%
   tidyr::unnest_legacy()
 
-prediction_data <- mutate(prediction_data,
-                   probability = predict(random_slope_logit_model,
-                                   newdata = prediction_data,
-                                   type = "response"))
+prediction_data <- prediction_data %>%
+  mutate(
+    probability = predict(
+      random_slope_logit_model,
+      newdata = prediction_data,
+      type = "response"
+    )
+  )
 ```
 
-```{r fig-logit-pendiente-aleatoria, fig.cap="Curvas de probabilidad predichas por estrato: modelo logístico con intercepto y pendiente aleatoria", echo=TRUE, eval=TRUE}
+```{r fig-logit-pendiente-aleatoria, fig.cap="Curvas de probabilidad predichas por estrato: modelo logístico con intercepto y pendiente aleatoria", echo = TRUE, eval = TRUE}
 ggplot(data = prediction_data,
        aes(y = probability, x = Expenditure, colour = Stratum)) +
   geom_line() +
-  geom_point(data = plot_data, aes(y = poverty, x = Expenditure)) +
+  geom_point(data = plot_data,
+             aes(y = poverty, x = Expenditure)) +
   labs(y = "Poverty probability", x = "Expenditure") +
   theme(legend.position = "none")
 ```

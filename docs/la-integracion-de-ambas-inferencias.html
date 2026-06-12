@@ -317,12 +317,12 @@ E_{\xi p}(\hat{\theta})
 <p>El método de máxima verosimilitud parte de una muestra aleatoria <span class="math inline">\(y_1,\ldots,y_n\)</span> generada por una distribución con densidad o función de probabilidad <span class="math inline">\(f(y;\theta)\)</span>. Si las observaciones son independientes e idénticamente distribuidas (IID), la función de verosimilitud se define como</p>
 <p><span class="math display">\[
 L(\theta)
-= \prod_{k=1}^{N} f(y_i;\theta).
+= \prod_{k=1}^{N} f(y_k;\theta).
 \]</span></p>
 <p>Como los productos pueden ser difíciles de manipular, se utiliza la log-verosimilitud:</p>
 <p><span class="math display">\[
 \ell(\theta)
-= \sum_{k=1}^{N}\log f(y_i;\theta)
+= \sum_{k=1}^{N}\log f(y_k;\theta)
 \]</span></p>
 <p>El estimador de máxima verosimilitud <span class="math inline">\(\hat{\theta}\)</span> es el valor de <span class="math inline">\(\theta\)</span> que maximiza <span class="math inline">\(\ell(\theta)\)</span>. Si la función es diferenciable, este valor satisface las ecuaciones de score:</p>
 <p><span class="math display">\[
@@ -354,7 +354,7 @@ y_k\log(\theta)
 </div>
 <div id="sec-mpv-formal" class="section level3 hasAnchor" number="9.2.2">
 <h3><span class="header-section-number">B.2.2</span> Método de máxima pseudo-verosimilitud<a href="la-integracion-de-ambas-inferencias.html#sec-mpv-formal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Cuando el diseño muestral es complejo, los datos observados no satisfacen necesariamente los supuestos de independencia e indénticva disetribución. Algunas unidades pueden representan a muchas personas de la población y otras a pocas. Además, dos unidades seleccionadas dentro del mismo conglomerado pueden estar correlacionadas. En este contexto, usar directamente la log-verosimilitud ordinaria puede producir estimaciones que describen la muestra, pero no la población objetivo.</p>
+<p>Cuando el diseño muestral es complejo, los datos observados no satisfacen necesariamente los supuestos de independencia e idéntica distribución. Algunas unidades pueden representar a muchas personas de la población y otras a pocas. Además, dos unidades seleccionadas dentro del mismo conglomerado pueden estar correlacionadas. En este contexto, usar directamente la log-verosimilitud ordinaria puede producir estimaciones que describen la muestra, pero no la población objetivo.</p>
 <p>La máxima pseudo-verosimilitud, desarrollada a partir de los resultados de <span class="citation">Binder (<a href="#ref-binder1983variances">1983</a>)</span>, incorpora los pesos de muestreo en la log-verosimilitud. Para unidades observadas <span class="math inline">\(k \in s\)</span>, se define</p>
 <p><span class="math display">\[
 \ell_p(\theta)
@@ -375,7 +375,7 @@ y_k\log(\theta)
 +(1-y_k)\log(1-\theta)
 \right].
 \]</span></p>
-<p>Al derivar e igualar a cero, se obtienen que:</p>
+<p>Al derivar e igualar a cero, se obtiene que:</p>
 <p><span class="math display">\[
 \frac{\partial l_p(\theta)}{\partial \theta}
 =
@@ -417,44 +417,48 @@ w_1 &amp; 0 &amp; \cdots &amp; 0\\
 <p>Este resultado extiende de manera natural el estimador ordinario al contexto de encuestas complejas: cada observación contribuye al ajuste del modelo en proporción a su peso muestral. No obstante, para la inferencia no basta con ponderar la estimación puntual; también se requiere estimar correctamente la varianza considerando estratos, conglomerados y pesos.</p>
 <p>La siguiente simulación de Monte Carlo anidada ilustra la inferencia doble. En el ciclo externo se genera una nueva población bajo el modelo Bernoulli. En el ciclo interno se seleccionan muchas muestras por diseño y se comparan el estimador que incorpora el diseño y el promedio simple de la muestra.</p>
 <div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="la-integracion-de-ambas-inferencias.html#cb256-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
-<span id="cb256-2"><a href="la-integracion-de-ambas-inferencias.html#cb256-2" tabindex="-1"></a>N     <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb256-2"><a href="la-integracion-de-ambas-inferencias.html#cb256-2" tabindex="-1"></a>population_size <span class="ot">&lt;-</span> <span class="dv">100</span></span>
 <span id="cb256-3"><a href="la-integracion-de-ambas-inferencias.html#cb256-3" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
-<span id="cb256-4"><a href="la-integracion-de-ambas-inferencias.html#cb256-4" tabindex="-1"></a>nsim1 <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb256-5"><a href="la-integracion-de-ambas-inferencias.html#cb256-5" tabindex="-1"></a>expected_design_estimates <span class="ot">&lt;-</span> expected_simple_estimates <span class="ot">&lt;-</span> population_means <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, nsim1)</span>
-<span id="cb256-6"><a href="la-integracion-de-ambas-inferencias.html#cb256-6" tabindex="-1"></a></span>
-<span id="cb256-7"><a href="la-integracion-de-ambas-inferencias.html#cb256-7" tabindex="-1"></a>cluster_size <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">each =</span> <span class="dv">5</span>)</span>
-<span id="cb256-8"><a href="la-integracion-de-ambas-inferencias.html#cb256-8" tabindex="-1"></a>NI           <span class="ot">&lt;-</span> <span class="fu">length</span>(cluster_size)</span>
-<span id="cb256-9"><a href="la-integracion-de-ambas-inferencias.html#cb256-9" tabindex="-1"></a>cluster_id   <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">seq_len</span>(NI), cluster_size)</span>
-<span id="cb256-10"><a href="la-integracion-de-ambas-inferencias.html#cb256-10" tabindex="-1"></a>size_center  <span class="ot">&lt;-</span> <span class="fu">weighted.mean</span>(cluster_size, cluster_size)</span>
-<span id="cb256-11"><a href="la-integracion-de-ambas-inferencias.html#cb256-11" tabindex="-1"></a>prob_person  <span class="ot">&lt;-</span> theta <span class="sc">+</span> <span class="fu">rep</span>((cluster_size <span class="sc">-</span> size_center) <span class="sc">/</span> <span class="dv">12</span>, cluster_size)</span>
-<span id="cb256-12"><a href="la-integracion-de-ambas-inferencias.html#cb256-12" tabindex="-1"></a>sampled_cluster_count           <span class="ot">&lt;-</span> <span class="fu">floor</span>(NI <span class="sc">*</span> <span class="fl">0.3</span>)</span>
-<span id="cb256-13"><a href="la-integracion-de-ambas-inferencias.html#cb256-13" tabindex="-1"></a></span>
-<span id="cb256-14"><a href="la-integracion-de-ambas-inferencias.html#cb256-14" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nsim1) {</span>
-<span id="cb256-15"><a href="la-integracion-de-ambas-inferencias.html#cb256-15" tabindex="-1"></a>  y        <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(N, <span class="dv">1</span>, prob_person)</span>
-<span id="cb256-16"><a href="la-integracion-de-ambas-inferencias.html#cb256-16" tabindex="-1"></a>  population_means[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
-<span id="cb256-17"><a href="la-integracion-de-ambas-inferencias.html#cb256-17" tabindex="-1"></a>  cluster_totals     <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, cluster_id, sum)</span>
-<span id="cb256-18"><a href="la-integracion-de-ambas-inferencias.html#cb256-18" tabindex="-1"></a>  cluster_means   <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, cluster_id, mean)</span>
-<span id="cb256-19"><a href="la-integracion-de-ambas-inferencias.html#cb256-19" tabindex="-1"></a></span>
-<span id="cb256-20"><a href="la-integracion-de-ambas-inferencias.html#cb256-20" tabindex="-1"></a>  design_estimates <span class="ot">&lt;-</span> simple_estimates <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">100</span>)</span>
-<span id="cb256-21"><a href="la-integracion-de-ambas-inferencias.html#cb256-21" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
-<span id="cb256-22"><a href="la-integracion-de-ambas-inferencias.html#cb256-22" tabindex="-1"></a>    res       <span class="ot">&lt;-</span> <span class="fu">S.piPS</span>(sampled_cluster_count, cluster_size)</span>
-<span id="cb256-23"><a href="la-integracion-de-ambas-inferencias.html#cb256-23" tabindex="-1"></a>    sampled_clusters       <span class="ot">&lt;-</span> res[, <span class="dv">1</span>]</span>
-<span id="cb256-24"><a href="la-integracion-de-ambas-inferencias.html#cb256-24" tabindex="-1"></a>    sampled_cluster_size  <span class="ot">&lt;-</span> cluster_size[sampled_clusters]</span>
-<span id="cb256-25"><a href="la-integracion-de-ambas-inferencias.html#cb256-25" tabindex="-1"></a>    sampled_cluster_total <span class="ot">&lt;-</span> cluster_totals[sampled_clusters]</span>
-<span id="cb256-26"><a href="la-integracion-de-ambas-inferencias.html#cb256-26" tabindex="-1"></a>    sampled_cluster_mean  <span class="ot">&lt;-</span> cluster_means[sampled_clusters]</span>
-<span id="cb256-27"><a href="la-integracion-de-ambas-inferencias.html#cb256-27" tabindex="-1"></a>    design_estimates[j] <span class="ot">&lt;-</span> <span class="fu">mean</span>(sampled_cluster_mean)</span>
-<span id="cb256-28"><a href="la-integracion-de-ambas-inferencias.html#cb256-28" tabindex="-1"></a>    simple_estimates[j] <span class="ot">&lt;-</span> <span class="fu">sum</span>(sampled_cluster_total) <span class="sc">/</span> <span class="fu">sum</span>(sampled_cluster_size)</span>
-<span id="cb256-29"><a href="la-integracion-de-ambas-inferencias.html#cb256-29" tabindex="-1"></a>  }</span>
-<span id="cb256-30"><a href="la-integracion-de-ambas-inferencias.html#cb256-30" tabindex="-1"></a>  expected_design_estimates[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(design_estimates)</span>
-<span id="cb256-31"><a href="la-integracion-de-ambas-inferencias.html#cb256-31" tabindex="-1"></a>  expected_simple_estimates[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(simple_estimates)</span>
-<span id="cb256-32"><a href="la-integracion-de-ambas-inferencias.html#cb256-32" tabindex="-1"></a>}</span>
-<span id="cb256-33"><a href="la-integracion-de-ambas-inferencias.html#cb256-33" tabindex="-1"></a></span>
-<span id="cb256-34"><a href="la-integracion-de-ambas-inferencias.html#cb256-34" tabindex="-1"></a><span class="fu">cbind</span>(theta,</span>
-<span id="cb256-35"><a href="la-integracion-de-ambas-inferencias.html#cb256-35" tabindex="-1"></a>      <span class="at">mean_population =</span> <span class="fu">mean</span>(population_means),</span>
-<span id="cb256-36"><a href="la-integracion-de-ambas-inferencias.html#cb256-36" tabindex="-1"></a>      <span class="at">expected_pps =</span> <span class="fu">mean</span>(expected_design_estimates),</span>
-<span id="cb256-37"><a href="la-integracion-de-ambas-inferencias.html#cb256-37" tabindex="-1"></a>      <span class="at">bias_pps =</span> <span class="fu">mean</span>(expected_design_estimates) <span class="sc">-</span> theta,</span>
-<span id="cb256-38"><a href="la-integracion-de-ambas-inferencias.html#cb256-38" tabindex="-1"></a>      <span class="at">expected_simple =</span> <span class="fu">mean</span>(expected_simple_estimates),</span>
-<span id="cb256-39"><a href="la-integracion-de-ambas-inferencias.html#cb256-39" tabindex="-1"></a>      <span class="at">bias_simple =</span> <span class="fu">mean</span>(expected_simple_estimates) <span class="sc">-</span> theta)</span></code></pre></div>
+<span id="cb256-4"><a href="la-integracion-de-ambas-inferencias.html#cb256-4" tabindex="-1"></a>n_sim_population <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb256-5"><a href="la-integracion-de-ambas-inferencias.html#cb256-5" tabindex="-1"></a>expected_design_estimates <span class="ot">&lt;-</span> expected_simple_estimates <span class="ot">&lt;-</span> population_means <span class="ot">&lt;-</span></span>
+<span id="cb256-6"><a href="la-integracion-de-ambas-inferencias.html#cb256-6" tabindex="-1"></a>  <span class="fu">rep</span>(<span class="cn">NA</span>, n_sim_population)</span>
+<span id="cb256-7"><a href="la-integracion-de-ambas-inferencias.html#cb256-7" tabindex="-1"></a></span>
+<span id="cb256-8"><a href="la-integracion-de-ambas-inferencias.html#cb256-8" tabindex="-1"></a>cluster_size <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">each =</span> <span class="dv">5</span>)</span>
+<span id="cb256-9"><a href="la-integracion-de-ambas-inferencias.html#cb256-9" tabindex="-1"></a>n_clusters <span class="ot">&lt;-</span> <span class="fu">length</span>(cluster_size)</span>
+<span id="cb256-10"><a href="la-integracion-de-ambas-inferencias.html#cb256-10" tabindex="-1"></a>cluster_id <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">seq_len</span>(n_clusters), cluster_size)</span>
+<span id="cb256-11"><a href="la-integracion-de-ambas-inferencias.html#cb256-11" tabindex="-1"></a>size_center <span class="ot">&lt;-</span> <span class="fu">weighted.mean</span>(cluster_size, cluster_size)</span>
+<span id="cb256-12"><a href="la-integracion-de-ambas-inferencias.html#cb256-12" tabindex="-1"></a>prob_person <span class="ot">&lt;-</span> theta <span class="sc">+</span> <span class="fu">rep</span>((cluster_size <span class="sc">-</span> size_center) <span class="sc">/</span> <span class="dv">12</span>, cluster_size)</span>
+<span id="cb256-13"><a href="la-integracion-de-ambas-inferencias.html#cb256-13" tabindex="-1"></a>sampled_cluster_count <span class="ot">&lt;-</span> <span class="fu">floor</span>(n_clusters <span class="sc">*</span> <span class="fl">0.3</span>)</span>
+<span id="cb256-14"><a href="la-integracion-de-ambas-inferencias.html#cb256-14" tabindex="-1"></a></span>
+<span id="cb256-15"><a href="la-integracion-de-ambas-inferencias.html#cb256-15" tabindex="-1"></a><span class="cf">for</span> (population_sim <span class="cf">in</span> <span class="fu">seq_len</span>(n_sim_population)) {</span>
+<span id="cb256-16"><a href="la-integracion-de-ambas-inferencias.html#cb256-16" tabindex="-1"></a>  outcome <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(population_size, <span class="dv">1</span>, prob_person)</span>
+<span id="cb256-17"><a href="la-integracion-de-ambas-inferencias.html#cb256-17" tabindex="-1"></a>  population_means[population_sim] <span class="ot">&lt;-</span> <span class="fu">mean</span>(outcome)</span>
+<span id="cb256-18"><a href="la-integracion-de-ambas-inferencias.html#cb256-18" tabindex="-1"></a>  cluster_totals <span class="ot">&lt;-</span> <span class="fu">tapply</span>(outcome, cluster_id, sum)</span>
+<span id="cb256-19"><a href="la-integracion-de-ambas-inferencias.html#cb256-19" tabindex="-1"></a>  cluster_means <span class="ot">&lt;-</span> <span class="fu">tapply</span>(outcome, cluster_id, mean)</span>
+<span id="cb256-20"><a href="la-integracion-de-ambas-inferencias.html#cb256-20" tabindex="-1"></a></span>
+<span id="cb256-21"><a href="la-integracion-de-ambas-inferencias.html#cb256-21" tabindex="-1"></a>  design_estimates <span class="ot">&lt;-</span> simple_estimates <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">100</span>)</span>
+<span id="cb256-22"><a href="la-integracion-de-ambas-inferencias.html#cb256-22" tabindex="-1"></a>  <span class="cf">for</span> (sample_sim <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="dv">100</span>)) {</span>
+<span id="cb256-23"><a href="la-integracion-de-ambas-inferencias.html#cb256-23" tabindex="-1"></a>    pps_sample <span class="ot">&lt;-</span> <span class="fu">S.piPS</span>(sampled_cluster_count, cluster_size)</span>
+<span id="cb256-24"><a href="la-integracion-de-ambas-inferencias.html#cb256-24" tabindex="-1"></a>    sampled_clusters <span class="ot">&lt;-</span> pps_sample[, <span class="dv">1</span>]</span>
+<span id="cb256-25"><a href="la-integracion-de-ambas-inferencias.html#cb256-25" tabindex="-1"></a>    sampled_cluster_size <span class="ot">&lt;-</span> cluster_size[sampled_clusters]</span>
+<span id="cb256-26"><a href="la-integracion-de-ambas-inferencias.html#cb256-26" tabindex="-1"></a>    sampled_cluster_total <span class="ot">&lt;-</span> cluster_totals[sampled_clusters]</span>
+<span id="cb256-27"><a href="la-integracion-de-ambas-inferencias.html#cb256-27" tabindex="-1"></a>    sampled_cluster_mean <span class="ot">&lt;-</span> cluster_means[sampled_clusters]</span>
+<span id="cb256-28"><a href="la-integracion-de-ambas-inferencias.html#cb256-28" tabindex="-1"></a>    design_estimates[sample_sim] <span class="ot">&lt;-</span> <span class="fu">mean</span>(sampled_cluster_mean)</span>
+<span id="cb256-29"><a href="la-integracion-de-ambas-inferencias.html#cb256-29" tabindex="-1"></a>    simple_estimates[sample_sim] <span class="ot">&lt;-</span></span>
+<span id="cb256-30"><a href="la-integracion-de-ambas-inferencias.html#cb256-30" tabindex="-1"></a>      <span class="fu">sum</span>(sampled_cluster_total) <span class="sc">/</span> <span class="fu">sum</span>(sampled_cluster_size)</span>
+<span id="cb256-31"><a href="la-integracion-de-ambas-inferencias.html#cb256-31" tabindex="-1"></a>  }</span>
+<span id="cb256-32"><a href="la-integracion-de-ambas-inferencias.html#cb256-32" tabindex="-1"></a>  expected_design_estimates[population_sim] <span class="ot">&lt;-</span> <span class="fu">mean</span>(design_estimates)</span>
+<span id="cb256-33"><a href="la-integracion-de-ambas-inferencias.html#cb256-33" tabindex="-1"></a>  expected_simple_estimates[population_sim] <span class="ot">&lt;-</span> <span class="fu">mean</span>(simple_estimates)</span>
+<span id="cb256-34"><a href="la-integracion-de-ambas-inferencias.html#cb256-34" tabindex="-1"></a>}</span>
+<span id="cb256-35"><a href="la-integracion-de-ambas-inferencias.html#cb256-35" tabindex="-1"></a></span>
+<span id="cb256-36"><a href="la-integracion-de-ambas-inferencias.html#cb256-36" tabindex="-1"></a><span class="fu">cbind</span>(</span>
+<span id="cb256-37"><a href="la-integracion-de-ambas-inferencias.html#cb256-37" tabindex="-1"></a>  theta,</span>
+<span id="cb256-38"><a href="la-integracion-de-ambas-inferencias.html#cb256-38" tabindex="-1"></a>  <span class="at">mean_population =</span> <span class="fu">mean</span>(population_means),</span>
+<span id="cb256-39"><a href="la-integracion-de-ambas-inferencias.html#cb256-39" tabindex="-1"></a>  <span class="at">expected_pps =</span> <span class="fu">mean</span>(expected_design_estimates),</span>
+<span id="cb256-40"><a href="la-integracion-de-ambas-inferencias.html#cb256-40" tabindex="-1"></a>  <span class="at">bias_pps =</span> <span class="fu">mean</span>(expected_design_estimates) <span class="sc">-</span> theta,</span>
+<span id="cb256-41"><a href="la-integracion-de-ambas-inferencias.html#cb256-41" tabindex="-1"></a>  <span class="at">expected_simple =</span> <span class="fu">mean</span>(expected_simple_estimates),</span>
+<span id="cb256-42"><a href="la-integracion-de-ambas-inferencias.html#cb256-42" tabindex="-1"></a>  <span class="at">bias_simple =</span> <span class="fu">mean</span>(expected_simple_estimates) <span class="sc">-</span> theta</span>
+<span id="cb256-43"><a href="la-integracion-de-ambas-inferencias.html#cb256-43" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>##      theta mean_population expected_pps bias_pps expected_simple bias_simple
 ## [1,]   0.3           0.304        0.302  0.00248           0.332      0.0317</code></pre>
 <p>El código reproduce las dos fuentes de aleatoriedad. El ciclo externo representa el modelo <span class="math inline">\(\xi\)</span>, porque genera nuevas poblaciones finitas con <code>rbinom()</code>. El ciclo interno representa el diseño <span class="math inline">\(p\)</span>, porque para cada población se seleccionan múltiples muestras con <code>S.piPS()</code>. La salida incluye <code>mean_population</code>, que es el promedio de las medias poblacionales generadas; <code>expected_pps</code>, que resume el comportamiento del estimador que incorpora el diseño; y <code>expected_simple</code>, que resume el promedio simple de la muestra seleccionada. Cuando el diseño se incorpora correctamente, el sesgo Monte Carlo respecto de <code>theta</code> debe ser pequeño. La comparación con <code>expected_simple</code> muestra por qué la inferencia basada en encuestas requiere pesos y varianzas de diseño, incluso cuando se parte de un modelo estadístico sencillo.</p>

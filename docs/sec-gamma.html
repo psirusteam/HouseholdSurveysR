@@ -347,16 +347,16 @@ f(y_{hik}\mid\mu_{k},\phi)
 <p>En donde <span class="math inline">\(k\)</span> representa las unidades de observación de la muestra y <span class="math inline">\(w_k\)</span> corresponde al factor de expansión asociado a cada una de ellas. Esta función define el criterio de optimización utilizado para estimar los parámetros del modelo bajo el enfoque de pseudo-máxima verosimilitud. En <code>R</code>, se hace necesario primero definir el diseño de muestreo.</p>
 <div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="sec-gamma.html#cb155-1" tabindex="-1"></a>gamma_design <span class="ot">&lt;-</span> survey_data <span class="sc">%&gt;%</span></span>
 <span id="cb155-2"><a href="sec-gamma.html#cb155-2" tabindex="-1"></a>  <span class="fu">as_survey_design</span>(</span>
-<span id="cb155-3"><a href="sec-gamma.html#cb155-3" tabindex="-1"></a>    <span class="at">strata  =</span> Stratum,</span>
-<span id="cb155-4"><a href="sec-gamma.html#cb155-4" tabindex="-1"></a>    <span class="at">ids     =</span> PSU,</span>
+<span id="cb155-3"><a href="sec-gamma.html#cb155-3" tabindex="-1"></a>    <span class="at">strata =</span> Stratum,</span>
+<span id="cb155-4"><a href="sec-gamma.html#cb155-4" tabindex="-1"></a>    <span class="at">ids =</span> PSU,</span>
 <span id="cb155-5"><a href="sec-gamma.html#cb155-5" tabindex="-1"></a>    <span class="at">weights =</span> wk,</span>
-<span id="cb155-6"><a href="sec-gamma.html#cb155-6" tabindex="-1"></a>    <span class="at">nest    =</span> <span class="cn">TRUE</span></span>
+<span id="cb155-6"><a href="sec-gamma.html#cb155-6" tabindex="-1"></a>    <span class="at">nest =</span> <span class="cn">TRUE</span></span>
 <span id="cb155-7"><a href="sec-gamma.html#cb155-7" tabindex="-1"></a>  )</span></code></pre></div>
 <p>El siguiente código ajusta un modelo de regresión Gamma para la variable de ingresos del hogar (<code>Income</code>), incorporando el diseño complejo de la encuesta definido en el objeto <code>gamma_design</code>. El modelo utiliza como variables explicativas el gasto del hogar (<code>Expenditure</code>), la edad (<code>Age</code>), el sexo (<code>Sex</code>) y la zona de residencia (<code>Zone</code>). Asimismo, se especifica una función de enlace logarítmica, garantizando predicciones positivas y permitiendo interpretar los efectos de las variables explicativas en términos multiplicativos sobre el ingreso esperado. Los coeficientes estimados se presentan en la Tabla <a href="sec-gamma.html#tab:tab-gamma-coeficientes">6.5</a>:</p>
 <div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="sec-gamma.html#cb156-1" tabindex="-1"></a>gamma_model <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(</span>
 <span id="cb156-2"><a href="sec-gamma.html#cb156-2" tabindex="-1"></a>  <span class="at">formula =</span> Income <span class="sc">~</span> Expenditure <span class="sc">+</span> Age <span class="sc">+</span> Sex <span class="sc">+</span> Zone,</span>
-<span id="cb156-3"><a href="sec-gamma.html#cb156-3" tabindex="-1"></a>  <span class="at">design  =</span> gamma_design,</span>
-<span id="cb156-4"><a href="sec-gamma.html#cb156-4" tabindex="-1"></a>  <span class="at">family  =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>)</span>
+<span id="cb156-3"><a href="sec-gamma.html#cb156-3" tabindex="-1"></a>  <span class="at">design =</span> gamma_design,</span>
+<span id="cb156-4"><a href="sec-gamma.html#cb156-4" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>)</span>
 <span id="cb156-5"><a href="sec-gamma.html#cb156-5" tabindex="-1"></a>)</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-gamma-coeficientes">Tabla 6.5: </span>Coeficientes del modelo Gamma para el ingreso de los hogares</caption>

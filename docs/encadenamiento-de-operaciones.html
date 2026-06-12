@@ -305,7 +305,7 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="encadenamiento-de-operaciones" class="section level2 hasAnchor" number="8.3">
 <h2><span class="header-section-number">A.3</span> Encadenamiento de operaciones<a href="encadenamiento-de-operaciones.html#encadenamiento-de-operaciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Una de las contribuciones más útiles de <code>R</code> es la incorporación de las tuberías (<em>pipelines</em>), las cuales permiten construir consultas, transformaciones y nuevos objetos a partir de una base de datos de manera más intuitiva, ordenada y fácil de interpretar. El operador de encadenamiento <code>%&gt;%</code>, proveniente del paquete <code>magrittr</code> <span class="citation">(<a href="#ref-pipe">Bache &amp; Wickham, 2026</a>)</span> y cargado automáticamente al utilizar la librería <code>tidyverse</code>, permite enlazar varias operaciones sucesivas, de modo que el resultado obtenido en un paso se convierte en el insumo del paso siguiente. A continuación, se presenta un ejemplo sencillo de su uso con la base de datos <code>BigLucy</code>, en el cual se calcula el número total de elementos que contiene la base mediante la función <code>count</code>.</p>
+<p>Una de las contribuciones más útiles de <code>R</code> es la incorporación de las tuberías (<em>pipelines</em>), las cuales permiten construir consultas, transformaciones y nuevos objetos a partir de una base de datos de manera más intuitiva, ordenada y fácil de interpretar. El operador de encadenamiento <code>%&gt;%</code>, proveniente del paquete <code>magrittr</code> <span class="citation">(<a href="#ref-pipe">Bache &amp; Wickham, 2026</a>)</span> y cargado automáticamente al utilizar la librería <code>tidyverse</code>, permite enlazar varias operaciones sucesivas, de modo que el resultado obtenido en un paso se convierte en el insumo del paso siguiente. A continuación, se presenta un ejemplo sencillo de su uso con la base de datos <code>BigCity</code>, en el cual se calcula el número total de elementos que contiene la base mediante la función <code>count</code>.</p>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="encadenamiento-de-operaciones.html#cb212-1" tabindex="-1"></a>bigcity_data <span class="sc">%&gt;%</span></span>
 <span id="cb212-2"><a href="encadenamiento-de-operaciones.html#cb212-2" tabindex="-1"></a>  <span class="fu">count</span>()</span></code></pre></div>
 <pre><code>##        n
@@ -318,7 +318,7 @@ div.csl-indent {
 <span id="cb214-2"><a href="encadenamiento-de-operaciones.html#cb214-2" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>)</span>
 <span id="cb214-3"><a href="encadenamiento-de-operaciones.html#cb214-3" tabindex="-1"></a>female_data <span class="ot">&lt;-</span> bigcity_data <span class="sc">%&gt;%</span></span>
 <span id="cb214-4"><a href="encadenamiento-de-operaciones.html#cb214-4" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>)</span></code></pre></div>
-<p>También puede filtrarse por condición de pobreza. En este caso se conservan solo las personas clasificadas como no pobres. Em este caso, el objeto <code>nonpoor_data</code> contiene el subconjunto de registros cuya variable <code>Poverty</code> toma el valor <code>"NotPoor"</code>.</p>
+<p>También puede filtrarse por condición de pobreza. En este caso se conservan solo las personas clasificadas como no pobres. El objeto <code>nonpoor_data</code> contiene el subconjunto de registros cuya variable <code>Poverty</code> toma el valor <code>"NotPoor"</code>.</p>
 <div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="encadenamiento-de-operaciones.html#cb215-1" tabindex="-1"></a>nonpoor_data <span class="ot">&lt;-</span> bigcity_data <span class="sc">%&gt;%</span></span>
 <span id="cb215-2"><a href="encadenamiento-de-operaciones.html#cb215-2" tabindex="-1"></a>  <span class="fu">filter</span>(Poverty <span class="sc">==</span> <span class="st">&quot;NotPoor&quot;</span>)</span></code></pre></div>
 <p>La función <code>filter()</code> también permite conservar registros cuyos valores pertenecen a un conjunto específico. En los siguientes ejemplos se filtra por valores particulares de ingreso. Note que <code>%in%</code> evalúa si <code>Income</code> pertenece al conjunto indicado. Así, <code>working_data</code> conserva ingresos iguales a 265 o 600, y <code>income_filter_data</code> conserva ingresos iguales a 1000 o 2000.</p>
@@ -409,21 +409,23 @@ div.csl-indent {
 ## 4  idPer04    555       6.32
 ## 5  idPer05    555       6.32
 ## 6  idPer01    298       5.70</code></pre>
-<p>Note que <code>mutate()</code> puede crear más de una variable en el mismo paso. Además, las variables creadas al inicio de <code>mutate()</code> pueden ser utilizadas en cálculos posteriores dentro del mismo llamado. Por ejemplo, <code>Income2</code> duplica el ingreso original e <code>Income4</code> duplica <code>Income2</code>. La siguiente salida muestra que <code>Income4</code> equivale a cuatro veces el ingreso inicial.</p>
+<p>Note que <code>mutate()</code> puede crear más de una variable en el mismo paso. Además, las variables creadas al inicio de <code>mutate()</code> pueden ser utilizadas en cálculos posteriores dentro del mismo llamado. Por ejemplo, <code>income_2</code> duplica el ingreso original e <code>income_4</code> duplica <code>income_2</code>. La siguiente salida muestra que <code>income_4</code> equivale a cuatro veces el ingreso inicial.</p>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="encadenamiento-de-operaciones.html#cb229-1" tabindex="-1"></a>income_transform_data <span class="ot">&lt;-</span> log_income_data <span class="sc">%&gt;%</span></span>
-<span id="cb229-2"><a href="encadenamiento-de-operaciones.html#cb229-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Income2 =</span> <span class="dv">2</span> <span class="sc">*</span> Income,</span>
-<span id="cb229-3"><a href="encadenamiento-de-operaciones.html#cb229-3" tabindex="-1"></a>         <span class="at">Income4 =</span> <span class="dv">2</span> <span class="sc">*</span> Income2)</span>
-<span id="cb229-4"><a href="encadenamiento-de-operaciones.html#cb229-4" tabindex="-1"></a></span>
-<span id="cb229-5"><a href="encadenamiento-de-operaciones.html#cb229-5" tabindex="-1"></a>income_transform_data <span class="sc">%&gt;%</span></span>
-<span id="cb229-6"><a href="encadenamiento-de-operaciones.html#cb229-6" tabindex="-1"></a>  <span class="fu">select</span>(PersonID, Income2, Income4) <span class="sc">%&gt;%</span></span>
-<span id="cb229-7"><a href="encadenamiento-de-operaciones.html#cb229-7" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
-<pre><code>##   PersonID Income2 Income4
-## 1  idPer01    1110    2220
-## 2  idPer02    1110    2220
-## 3  idPer03    1110    2220
-## 4  idPer04    1110    2220
-## 5  idPer05    1110    2220
-## 6  idPer01     597    1193</code></pre>
+<span id="cb229-2"><a href="encadenamiento-de-operaciones.html#cb229-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb229-3"><a href="encadenamiento-de-operaciones.html#cb229-3" tabindex="-1"></a>    <span class="at">income_2 =</span> <span class="dv">2</span> <span class="sc">*</span> Income,</span>
+<span id="cb229-4"><a href="encadenamiento-de-operaciones.html#cb229-4" tabindex="-1"></a>    <span class="at">income_4 =</span> <span class="dv">2</span> <span class="sc">*</span> income_2</span>
+<span id="cb229-5"><a href="encadenamiento-de-operaciones.html#cb229-5" tabindex="-1"></a>  )</span>
+<span id="cb229-6"><a href="encadenamiento-de-operaciones.html#cb229-6" tabindex="-1"></a></span>
+<span id="cb229-7"><a href="encadenamiento-de-operaciones.html#cb229-7" tabindex="-1"></a>income_transform_data <span class="sc">%&gt;%</span></span>
+<span id="cb229-8"><a href="encadenamiento-de-operaciones.html#cb229-8" tabindex="-1"></a>  <span class="fu">select</span>(PersonID, income_2, income_4) <span class="sc">%&gt;%</span></span>
+<span id="cb229-9"><a href="encadenamiento-de-operaciones.html#cb229-9" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##   PersonID income_2 income_4
+## 1  idPer01     1110     2220
+## 2  idPer02     1110     2220
+## 3  idPer03     1110     2220
+## 4  idPer04     1110     2220
+## 5  idPer05     1110     2220
+## 6  idPer01      597     1193</code></pre>
 <p>También se puede crear una variable categórica mediante condiciones. En este ejemplo, la función <code>case_when()</code> clasifica la edad en rangos y luego convierte el resultado en un factor ordenado. El resultado es <code>age_group</code>, una variable de grupos etarios ordenados. Esta transformación facilita la producción de tablas por tramos de edad.</p>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="encadenamiento-de-operaciones.html#cb231-1" tabindex="-1"></a>bigcity_data <span class="ot">&lt;-</span> bigcity_data <span class="sc">%&gt;%</span></span>
 <span id="cb231-2"><a href="encadenamiento-de-operaciones.html#cb231-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -437,40 +439,44 @@ div.csl-indent {
 <span id="cb231-10"><a href="encadenamiento-de-operaciones.html#cb231-10" tabindex="-1"></a>    ),</span>
 <span id="cb231-11"><a href="encadenamiento-de-operaciones.html#cb231-11" tabindex="-1"></a>    <span class="at">age_group =</span> <span class="fu">factor</span>(</span>
 <span id="cb231-12"><a href="encadenamiento-de-operaciones.html#cb231-12" tabindex="-1"></a>      age_group,</span>
-<span id="cb231-13"><a href="encadenamiento-de-operaciones.html#cb231-13" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;0-5&quot;</span>, <span class="st">&quot;6-15&quot;</span>, <span class="st">&quot;16-30&quot;</span>,</span>
-<span id="cb231-14"><a href="encadenamiento-de-operaciones.html#cb231-14" tabindex="-1"></a>                 <span class="st">&quot;31-45&quot;</span>, <span class="st">&quot;46-60&quot;</span>, <span class="st">&quot;Over 60&quot;</span>),</span>
-<span id="cb231-15"><a href="encadenamiento-de-operaciones.html#cb231-15" tabindex="-1"></a>      <span class="at">ordered =</span> <span class="cn">TRUE</span></span>
-<span id="cb231-16"><a href="encadenamiento-de-operaciones.html#cb231-16" tabindex="-1"></a>    )</span>
-<span id="cb231-17"><a href="encadenamiento-de-operaciones.html#cb231-17" tabindex="-1"></a>  )</span></code></pre></div>
+<span id="cb231-13"><a href="encadenamiento-de-operaciones.html#cb231-13" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(</span>
+<span id="cb231-14"><a href="encadenamiento-de-operaciones.html#cb231-14" tabindex="-1"></a>        <span class="st">&quot;0-5&quot;</span>, <span class="st">&quot;6-15&quot;</span>, <span class="st">&quot;16-30&quot;</span>,</span>
+<span id="cb231-15"><a href="encadenamiento-de-operaciones.html#cb231-15" tabindex="-1"></a>        <span class="st">&quot;31-45&quot;</span>, <span class="st">&quot;46-60&quot;</span>, <span class="st">&quot;Over 60&quot;</span></span>
+<span id="cb231-16"><a href="encadenamiento-de-operaciones.html#cb231-16" tabindex="-1"></a>      ),</span>
+<span id="cb231-17"><a href="encadenamiento-de-operaciones.html#cb231-17" tabindex="-1"></a>      <span class="at">ordered =</span> <span class="cn">TRUE</span></span>
+<span id="cb231-18"><a href="encadenamiento-de-operaciones.html#cb231-18" tabindex="-1"></a>    )</span>
+<span id="cb231-19"><a href="encadenamiento-de-operaciones.html#cb231-19" tabindex="-1"></a>  )</span></code></pre></div>
 </div>
 <div id="summarise-resumenes-descriptivos" class="section level3 hasAnchor" number="8.3.5">
 <h3><span class="header-section-number">A.3.5</span> <code>summarise</code>: resúmenes descriptivos<a href="encadenamiento-de-operaciones.html#summarise-resumenes-descriptivos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La función <code>summarise()</code> permite construir una tabla resumen a partir de una o varias variables de la base de datos. En el siguiente ejemplo se calculan dos estadísticas descriptivas de la variable <code>Income</code>: el total y la media. Como resultado, se obtiene una tabla con una sola fila que contiene la suma de los ingresos observados y el ingreso promedio de los registros incluidos en la base.</p>
 <div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="encadenamiento-de-operaciones.html#cb232-1" tabindex="-1"></a>bigcity_data <span class="sc">%&gt;%</span></span>
-<span id="cb232-2"><a href="encadenamiento-de-operaciones.html#cb232-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_income =</span> <span class="fu">sum</span>(Income),</span>
-<span id="cb232-3"><a href="encadenamiento-de-operaciones.html#cb232-3" tabindex="-1"></a>            <span class="at">mean_income =</span> <span class="fu">mean</span>(Income))</span></code></pre></div>
+<span id="cb232-2"><a href="encadenamiento-de-operaciones.html#cb232-2" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb232-3"><a href="encadenamiento-de-operaciones.html#cb232-3" tabindex="-1"></a>    <span class="at">total_income =</span> <span class="fu">sum</span>(Income),</span>
+<span id="cb232-4"><a href="encadenamiento-de-operaciones.html#cb232-4" tabindex="-1"></a>    <span class="at">mean_income =</span> <span class="fu">mean</span>(Income)</span>
+<span id="cb232-5"><a href="encadenamiento-de-operaciones.html#cb232-5" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>##   total_income mean_income
 ## 1     87893117         585</code></pre>
 <p>También pueden calcularse medidas de localización para describir la posición de los valores dentro de la distribución. En este caso, se obtiene la mediana, el primer decil, el noveno decil y la diferencia entre estos dos últimos. El resultado permite resumir distintos puntos de la distribución del ingreso, mientras que el rango decílico muestra la distancia entre el 10% inferior y el 10% superior de los ingresos observados.</p>
 <div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="encadenamiento-de-operaciones.html#cb234-1" tabindex="-1"></a>bigcity_data <span class="sc">%&gt;%</span></span>
 <span id="cb234-2"><a href="encadenamiento-de-operaciones.html#cb234-2" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb234-3"><a href="encadenamiento-de-operaciones.html#cb234-3" tabindex="-1"></a>  <span class="at">median_income =</span> <span class="fu">median</span>(Income),</span>
-<span id="cb234-4"><a href="encadenamiento-de-operaciones.html#cb234-4" tabindex="-1"></a>  <span class="at">decile_1 =</span> <span class="fu">quantile</span>(Income, <span class="fl">0.1</span>),</span>
-<span id="cb234-5"><a href="encadenamiento-de-operaciones.html#cb234-5" tabindex="-1"></a>  <span class="at">decile_9 =</span> <span class="fu">quantile</span>(Income, <span class="fl">0.9</span>),</span>
-<span id="cb234-6"><a href="encadenamiento-de-operaciones.html#cb234-6" tabindex="-1"></a>  <span class="at">decile_range =</span> decile_9 <span class="sc">-</span> decile_1</span>
-<span id="cb234-7"><a href="encadenamiento-de-operaciones.html#cb234-7" tabindex="-1"></a>)</span></code></pre></div>
+<span id="cb234-3"><a href="encadenamiento-de-operaciones.html#cb234-3" tabindex="-1"></a>    <span class="at">median_income =</span> <span class="fu">median</span>(Income),</span>
+<span id="cb234-4"><a href="encadenamiento-de-operaciones.html#cb234-4" tabindex="-1"></a>    <span class="at">decile_1 =</span> <span class="fu">quantile</span>(Income, <span class="fl">0.1</span>),</span>
+<span id="cb234-5"><a href="encadenamiento-de-operaciones.html#cb234-5" tabindex="-1"></a>    <span class="at">decile_9 =</span> <span class="fu">quantile</span>(Income, <span class="fl">0.9</span>),</span>
+<span id="cb234-6"><a href="encadenamiento-de-operaciones.html#cb234-6" tabindex="-1"></a>    <span class="at">decile_range =</span> decile_9 <span class="sc">-</span> decile_1</span>
+<span id="cb234-7"><a href="encadenamiento-de-operaciones.html#cb234-7" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>##   median_income decile_1 decile_9 decile_range
 ## 1           449      165     1126          961</code></pre>
 <p>Con <code>summarise()</code> también es posible calcular medidas de dispersión, tales como la varianza, la desviación estándar, el valor mínimo, el valor máximo, el rango y el rango intercuartílico. Estas estadísticas permiten describir el grado de variabilidad de los ingresos observados en la muestra. En particular, el rango se obtiene como la diferencia entre el valor máximo y el valor mínimo, mientras que el rango intercuartílico resume la dispersión del 50% central de la distribución.</p>
 <div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="encadenamiento-de-operaciones.html#cb236-1" tabindex="-1"></a>bigcity_data <span class="sc">%&gt;%</span></span>
 <span id="cb236-2"><a href="encadenamiento-de-operaciones.html#cb236-2" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb236-3"><a href="encadenamiento-de-operaciones.html#cb236-3" tabindex="-1"></a>  <span class="at">variance_income =</span> <span class="fu">var</span>(Income),</span>
-<span id="cb236-4"><a href="encadenamiento-de-operaciones.html#cb236-4" tabindex="-1"></a>  <span class="at">sd_income =</span> <span class="fu">sd</span>(Income),</span>
-<span id="cb236-5"><a href="encadenamiento-de-operaciones.html#cb236-5" tabindex="-1"></a>  <span class="at">min_income =</span> <span class="fu">min</span>(Income),</span>
-<span id="cb236-6"><a href="encadenamiento-de-operaciones.html#cb236-6" tabindex="-1"></a>  <span class="at">max_income =</span> <span class="fu">max</span>(Income),</span>
-<span id="cb236-7"><a href="encadenamiento-de-operaciones.html#cb236-7" tabindex="-1"></a>  <span class="at">range_income =</span> max_income <span class="sc">-</span> min_income,</span>
-<span id="cb236-8"><a href="encadenamiento-de-operaciones.html#cb236-8" tabindex="-1"></a>  <span class="at">iqr_income =</span> <span class="fu">IQR</span>(Income)</span>
-<span id="cb236-9"><a href="encadenamiento-de-operaciones.html#cb236-9" tabindex="-1"></a>)</span></code></pre></div>
+<span id="cb236-3"><a href="encadenamiento-de-operaciones.html#cb236-3" tabindex="-1"></a>    <span class="at">variance_income =</span> <span class="fu">var</span>(Income),</span>
+<span id="cb236-4"><a href="encadenamiento-de-operaciones.html#cb236-4" tabindex="-1"></a>    <span class="at">sd_income =</span> <span class="fu">sd</span>(Income),</span>
+<span id="cb236-5"><a href="encadenamiento-de-operaciones.html#cb236-5" tabindex="-1"></a>    <span class="at">min_income =</span> <span class="fu">min</span>(Income),</span>
+<span id="cb236-6"><a href="encadenamiento-de-operaciones.html#cb236-6" tabindex="-1"></a>    <span class="at">max_income =</span> <span class="fu">max</span>(Income),</span>
+<span id="cb236-7"><a href="encadenamiento-de-operaciones.html#cb236-7" tabindex="-1"></a>    <span class="at">range_income =</span> max_income <span class="sc">-</span> min_income,</span>
+<span id="cb236-8"><a href="encadenamiento-de-operaciones.html#cb236-8" tabindex="-1"></a>    <span class="at">iqr_income =</span> <span class="fu">IQR</span>(Income)</span>
+<span id="cb236-9"><a href="encadenamiento-de-operaciones.html#cb236-9" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>##   variance_income sd_income min_income max_income range_income iqr_income
 ## 1          332463       577         10      32920        32910        468</code></pre>
 </div>
@@ -516,8 +522,10 @@ div.csl-indent {
 <p>Además de los conteos, también es posible calcular medidas resumen por grupo, como la media. En este caso, para obtener el ingreso promedio por región junto con el número total de registros, se agrupa la base según la variable <code>Region</code> y luego se aplica <code>summarise()</code>. El resultado es una tabla regional que presenta, para cada región, el total de observaciones y el ingreso medio correspondiente.</p>
 <div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="encadenamiento-de-operaciones.html#cb246-1" tabindex="-1"></a>bigcity_data <span class="sc">%&gt;%</span></span>
 <span id="cb246-2"><a href="encadenamiento-de-operaciones.html#cb246-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Region) <span class="sc">%&gt;%</span></span>
-<span id="cb246-3"><a href="encadenamiento-de-operaciones.html#cb246-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb246-4"><a href="encadenamiento-de-operaciones.html#cb246-4" tabindex="-1"></a>            <span class="at">mean_income =</span> <span class="fu">mean</span>(Income))</span></code></pre></div>
+<span id="cb246-3"><a href="encadenamiento-de-operaciones.html#cb246-3" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb246-4"><a href="encadenamiento-de-operaciones.html#cb246-4" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb246-5"><a href="encadenamiento-de-operaciones.html#cb246-5" tabindex="-1"></a>    <span class="at">mean_income =</span> <span class="fu">mean</span>(Income)</span>
+<span id="cb246-6"><a href="encadenamiento-de-operaciones.html#cb246-6" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 3
 ##   Region     n mean_income
 ##   &lt;fct&gt;  &lt;int&gt;       &lt;dbl&gt;
@@ -529,8 +537,10 @@ div.csl-indent {
 <p>El mismo procedimiento puede aplicarse para calcular el ingreso medio por sexo. En este caso, la base se agrupa según la variable <code>Sex</code> y luego se obtiene el promedio de <code>Income</code> para cada categoría. La tabla resultante permite comparar el ingreso medio observado entre los distintos grupos definidos por el sexo.</p>
 <div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="encadenamiento-de-operaciones.html#cb248-1" tabindex="-1"></a>bigcity_data <span class="sc">%&gt;%</span></span>
 <span id="cb248-2"><a href="encadenamiento-de-operaciones.html#cb248-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
-<span id="cb248-3"><a href="encadenamiento-de-operaciones.html#cb248-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb248-4"><a href="encadenamiento-de-operaciones.html#cb248-4" tabindex="-1"></a>            <span class="at">mean_income =</span> <span class="fu">mean</span>(Income))</span></code></pre></div>
+<span id="cb248-3"><a href="encadenamiento-de-operaciones.html#cb248-3" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb248-4"><a href="encadenamiento-de-operaciones.html#cb248-4" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb248-5"><a href="encadenamiento-de-operaciones.html#cb248-5" tabindex="-1"></a>    <span class="at">mean_income =</span> <span class="fu">mean</span>(Income)</span>
+<span id="cb248-6"><a href="encadenamiento-de-operaciones.html#cb248-6" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 3
 ##   Sex        n mean_income
 ##   &lt;chr&gt;  &lt;int&gt;       &lt;dbl&gt;

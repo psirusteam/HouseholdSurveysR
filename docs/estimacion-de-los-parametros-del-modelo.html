@@ -355,20 +355,24 @@ div.csl-indent {
 <p>En los ejemplos desarrollados a lo largo de este capítulo se emplerán los mismos subgrupos considerados en los capítulos anteriores.</p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="estimacion-de-los-parametros-del-modelo.html#cb114-1" tabindex="-1"></a>urban_subset <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb114-2"><a href="estimacion-de-los-parametros-del-modelo.html#cb114-2" tabindex="-1"></a>  <span class="fu">filter</span>(Zone <span class="sc">==</span> <span class="st">&quot;Urban&quot;</span>)</span>
-<span id="cb114-3"><a href="estimacion-de-los-parametros-del-modelo.html#cb114-3" tabindex="-1"></a>rural_subset  <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
-<span id="cb114-4"><a href="estimacion-de-los-parametros-del-modelo.html#cb114-4" tabindex="-1"></a>  <span class="fu">filter</span>(Zone <span class="sc">==</span> <span class="st">&quot;Rural&quot;</span>)</span>
-<span id="cb114-5"><a href="estimacion-de-los-parametros-del-modelo.html#cb114-5" tabindex="-1"></a>female_subset  <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
-<span id="cb114-6"><a href="estimacion-de-los-parametros-del-modelo.html#cb114-6" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>)</span>
-<span id="cb114-7"><a href="estimacion-de-los-parametros-del-modelo.html#cb114-7" tabindex="-1"></a>male_subset <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
-<span id="cb114-8"><a href="estimacion-de-los-parametros-del-modelo.html#cb114-8" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>)</span></code></pre></div>
+<span id="cb114-3"><a href="estimacion-de-los-parametros-del-modelo.html#cb114-3" tabindex="-1"></a></span>
+<span id="cb114-4"><a href="estimacion-de-los-parametros-del-modelo.html#cb114-4" tabindex="-1"></a>rural_subset <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb114-5"><a href="estimacion-de-los-parametros-del-modelo.html#cb114-5" tabindex="-1"></a>  <span class="fu">filter</span>(Zone <span class="sc">==</span> <span class="st">&quot;Rural&quot;</span>)</span>
+<span id="cb114-6"><a href="estimacion-de-los-parametros-del-modelo.html#cb114-6" tabindex="-1"></a></span>
+<span id="cb114-7"><a href="estimacion-de-los-parametros-del-modelo.html#cb114-7" tabindex="-1"></a>female_subset <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb114-8"><a href="estimacion-de-los-parametros-del-modelo.html#cb114-8" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>)</span>
+<span id="cb114-9"><a href="estimacion-de-los-parametros-del-modelo.html#cb114-9" tabindex="-1"></a></span>
+<span id="cb114-10"><a href="estimacion-de-los-parametros-del-modelo.html#cb114-10" tabindex="-1"></a>male_subset <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
+<span id="cb114-11"><a href="estimacion-de-los-parametros-del-modelo.html#cb114-11" tabindex="-1"></a>  <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>)</span></code></pre></div>
 <p>Con el objetivo de ajustar un modelo de regresión entre las variables ingreso y gasto, resulta conveniente explorar previamente la relación existente entre ambas variables. Para ello, se construye un diagrama de dispersión mediante <code>ggplot2</code>, el cual permite evaluar visualmente la forma y la intensidad de la asociación. El resultado se presenta en la Figura <a href="estimacion-de-los-parametros-del-modelo.html#fig:fig-scatter-muestra-sinP">5.1</a>.</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="estimacion-de-los-parametros-del-modelo.html#cb115-1" tabindex="-1"></a>unweighted_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> survey_data,</span>
-<span id="cb115-2"><a href="estimacion-de-los-parametros-del-modelo.html#cb115-2" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> Expenditure, <span class="at">y =</span> Income)) <span class="sc">+</span></span>
-<span id="cb115-3"><a href="estimacion-de-los-parametros-del-modelo.html#cb115-3" tabindex="-1"></a>            <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb115-4"><a href="estimacion-de-los-parametros-del-modelo.html#cb115-4" tabindex="-1"></a>            <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
-<span id="cb115-5"><a href="estimacion-de-los-parametros-del-modelo.html#cb115-5" tabindex="-1"></a>            <span class="at">se =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb115-6"><a href="estimacion-de-los-parametros-del-modelo.html#cb115-6" tabindex="-1"></a></span>
-<span id="cb115-7"><a href="estimacion-de-los-parametros-del-modelo.html#cb115-7" tabindex="-1"></a>unweighted_plot</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="estimacion-de-los-parametros-del-modelo.html#cb115-1" tabindex="-1"></a>unweighted_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
+<span id="cb115-2"><a href="estimacion-de-los-parametros-del-modelo.html#cb115-2" tabindex="-1"></a>  <span class="at">data =</span> survey_data,</span>
+<span id="cb115-3"><a href="estimacion-de-los-parametros-del-modelo.html#cb115-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Expenditure, <span class="at">y =</span> Income)</span>
+<span id="cb115-4"><a href="estimacion-de-los-parametros-del-modelo.html#cb115-4" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb115-5"><a href="estimacion-de-los-parametros-del-modelo.html#cb115-5" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb115-6"><a href="estimacion-de-los-parametros-del-modelo.html#cb115-6" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb115-7"><a href="estimacion-de-los-parametros-del-modelo.html#cb115-7" tabindex="-1"></a></span>
+<span id="cb115-8"><a href="estimacion-de-los-parametros-del-modelo.html#cb115-8" tabindex="-1"></a>unweighted_plot</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-scatter-muestra-sinP"></span>
 <img src="figures/fig-scatter-muestra-sinP-1.svg" alt="Diagrama de dispersión entre gasto e ingreso en la muestra (sin ponderar)" width="65%" />
 <p class="caption">
@@ -377,11 +381,13 @@ Figura 5.1: Diagrama de dispersión entre gasto e ingreso en la muestra (sin pon
 </div>
 <p>Los datos muestrales conservan una relación aproximadamente lineal entre ingreso y gasto, aunque se observa una mayor dispersión en los valores correspondientes a hogares con niveles de gasto más elevados. Una vez completada la exploración gráfica de los datos, se procede al ajuste de los modelos de regresión lineal.</p>
 <p>Para ajustar modelos incorporando los factores de expansión se usa la función <code>svyglm</code> de la librería <code>survey</code>, que permite estimar modelos lineales incorporando explícitamente las características del diseño muestral. En este caso, la expresión <code>Income ~ Expenditure</code> especifica que la variable <code>Income</code> se modela en función de la variable <code>Expenditure</code>; es decir, se ajusta una regresión lineal simple en la que el gasto actúa como variable explicativa del ingreso. El argumento <code>design = survey_design</code> indica que el modelo debe utilizar el objeto de diseño muestral previamente definido, mientras que <code>family = stats::gaussian()</code> especifica que se ajusta un modelo lineal con distribución normal, equivalente a una regresión lineal clásica.</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="estimacion-de-los-parametros-del-modelo.html#cb116-1" tabindex="-1"></a>fit_svy <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(Income <span class="sc">~</span> Expenditure <span class="sc">+</span> Zone <span class="sc">+</span> Sex,</span>
-<span id="cb116-2"><a href="estimacion-de-los-parametros-del-modelo.html#cb116-2" tabindex="-1"></a>                  <span class="at">design =</span> survey_design,</span>
-<span id="cb116-3"><a href="estimacion-de-los-parametros-del-modelo.html#cb116-3" tabindex="-1"></a>                  <span class="at">family=</span>stats<span class="sc">::</span><span class="fu">gaussian</span>())</span>
-<span id="cb116-4"><a href="estimacion-de-los-parametros-del-modelo.html#cb116-4" tabindex="-1"></a></span>
-<span id="cb116-5"><a href="estimacion-de-los-parametros-del-modelo.html#cb116-5" tabindex="-1"></a>fit_svy</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="estimacion-de-los-parametros-del-modelo.html#cb116-1" tabindex="-1"></a>fit_svy <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(</span>
+<span id="cb116-2"><a href="estimacion-de-los-parametros-del-modelo.html#cb116-2" tabindex="-1"></a>  Income <span class="sc">~</span> Expenditure <span class="sc">+</span> Zone <span class="sc">+</span> Sex,</span>
+<span id="cb116-3"><a href="estimacion-de-los-parametros-del-modelo.html#cb116-3" tabindex="-1"></a>  <span class="at">design =</span> survey_design,</span>
+<span id="cb116-4"><a href="estimacion-de-los-parametros-del-modelo.html#cb116-4" tabindex="-1"></a>  <span class="at">family =</span> stats<span class="sc">::</span><span class="fu">gaussian</span>()</span>
+<span id="cb116-5"><a href="estimacion-de-los-parametros-del-modelo.html#cb116-5" tabindex="-1"></a>)</span>
+<span id="cb116-6"><a href="estimacion-de-los-parametros-del-modelo.html#cb116-6" tabindex="-1"></a></span>
+<span id="cb116-7"><a href="estimacion-de-los-parametros-del-modelo.html#cb116-7" tabindex="-1"></a>fit_svy</span></code></pre></div>
 <pre><code>## Stratified 1 - level Cluster Sampling design (with replacement)
 ## With (238) clusters.
 ## Called via srvyr

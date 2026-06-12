@@ -1,4 +1,4 @@
-```{r setup, include=FALSE}
+```{r setup-regresion, include=FALSE}
 knitr::opts_chunk$set(
   warning = FALSE,
   message = FALSE,
@@ -145,13 +145,13 @@ $$
 
 En este capítulo se mostrará cómo implementar estos modelos en `R` mediante la librería `survey` [@Lumley2024], junto con `srvyr` [@Freedman2024] y `tidyverse` [@tidyverse2026] para organizar el flujo de trabajo. Se abordará la especificación del diseño muestral, la estimación de modelos lineales y logísticos, así como la obtención de errores estándar y pruebas de hipótesis ajustadas al diseño, integrando los fundamentos teóricos con ejemplos prácticos reproducibles. Para ejemplificar los conceptos desarrollados hasta este punto, se empleará la misma base de datos utilizada a lo largo del libro. El proceso inicia con la carga de las librerías, los datos y la definición del diseño de muestreo:
 
-```{r, echo=FALSE}
+```{r opciones-regresion, echo = FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, error = FALSE)
 options(digits = 4)
 ```
 
 
-```{r setup2, eval=TRUE}
+```{r preparar-diseno-regresion, eval = TRUE}
 library(survey)
 library(srvyr)
 library(tidyverse)
@@ -170,25 +170,29 @@ survey_design <- survey_data %>%
 
 En los ejemplos desarrollados a lo largo de este capítulo se emplerán los mismos subgrupos considerados en los capítulos anteriores.
 
-```{r}
+```{r crear-subpoblaciones-regresion}
 urban_subset <- survey_design %>%
   filter(Zone == "Urban")
-rural_subset  <- survey_design %>%
+
+rural_subset <- survey_design %>%
   filter(Zone == "Rural")
-female_subset  <- survey_design %>%
+
+female_subset <- survey_design %>%
   filter(Sex == "Female")
+
 male_subset <- survey_design %>%
   filter(Sex == "Male")
 ```
 
 Con el objetivo de ajustar un modelo de regresión entre las variables ingreso y gasto, resulta conveniente explorar previamente la relación existente entre ambas variables. Para ello, se construye un diagrama de dispersión mediante `ggplot2`, el cual permite evaluar visualmente la forma y la intensidad de la asociación. El resultado se presenta en la Figura \@ref(fig:fig-scatter-muestra-sinP).
 
-```{r fig-scatter-muestra-sinP, fig.cap="Diagrama de dispersión entre gasto e ingreso en la muestra (sin ponderar)", fig.align='center', out.width='65%', echo=TRUE}
-unweighted_plot <- ggplot(data = survey_data,
-            aes(x = Expenditure, y = Income)) +
-            geom_point() +
-            geom_smooth(method = "lm",
-            se = FALSE)
+```{r fig-scatter-muestra-sinP, fig.cap="Diagrama de dispersión entre gasto e ingreso en la muestra (sin ponderar)", fig.align='center', out.width='65%', echo = TRUE}
+unweighted_plot <- ggplot(
+  data = survey_data,
+  aes(x = Expenditure, y = Income)
+) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
 
 unweighted_plot
 ```
@@ -197,10 +201,12 @@ Los datos muestrales conservan una relación aproximadamente lineal entre ingres
 
 Para ajustar modelos incorporando los factores de expansión se usa la función `svyglm` de la librería `survey`, que permite estimar modelos lineales incorporando explícitamente las características del diseño muestral. En este caso, la expresión `Income ~ Expenditure` especifica que la variable `Income` se modela en función de la variable `Expenditure`; es decir, se ajusta una regresión lineal simple en la que el gasto actúa como variable explicativa del ingreso. El argumento `design = survey_design` indica que el modelo debe utilizar el objeto de diseño muestral previamente definido, mientras que `family = stats::gaussian()` especifica que se ajusta un modelo lineal con distribución normal, equivalente a una regresión lineal clásica.
 
-```{r, tab6, echo = TRUE, eval = TRUE}
-fit_svy <- svyglm(Income ~ Expenditure + Zone + Sex,
-                  design = survey_design,
-                  family=stats::gaussian())
+```{r ajustar-modelo-svy, echo = TRUE, eval = TRUE}
+fit_svy <- svyglm(
+  Income ~ Expenditure + Zone + Sex,
+  design = survey_design,
+  family = stats::gaussian()
+)
 
 fit_svy
 ```
@@ -236,26 +242,26 @@ De esta manera, el ajuste permite evaluar la capacidad explicativa del modelo co
 
 En `R`, el coeficiente de determinación $R^{2}$ puede estimarse a partir de los modelos ajustados previamente. Para ello, se ajusta inicialmente un modelo nulo (incluyendo únicamente el intercepto), el cual permite calcular la suma total ponderada de cuadrados ($\widehat{SST}$).
 
-```{r tab-r2-calculo, echo=TRUE}
+```{r tab-r2-calculo, echo = TRUE}
 null_model <- svyglm(Income ~ 1, design = survey_design)
 
 s1 <- summary(fit_svy)
 s0 <- summary(null_model)
 
-WSST <- s0$dispersion[1]
-WSSE <- s1$dispersion[1]
+wsst <- s0$dispersion[1]
+wsse <- s1$dispersion[1]
 ```
 
 La estimación del coeficiente de determinación y su contraparte ajustada se obtiene a partir del siguiente cálculo:
 
-```{r}
+```{r cod-r2-ajustado}
 n <- nrow(survey_design)
 p <- 4
-R2 <- 1 - WSSE / WSST
-R2Adj <- 1 - ((n - 1) / (n - p)) * (1 - R2)
+r2 <- 1 - wsse / wsst
+r2_adj <- 1 - ((n - 1) / (n - p)) * (1 - r2)
 
-R2
-R2Adj
+r2
+r2_adj
 ```
 
 ### Residuales {#residuales}
@@ -276,24 +282,28 @@ El supuesto de normalidad de los errores también debe verificarse de manera exp
 
 A continuación, estos diagnósticos se aplican a los modelos previamente ajustados. Para ello, se utiliza el paquete `svydiags` [@Valliant2024], desarrollado como extensión del paquete `survey` para el diagnóstico de modelos estimados bajo diseños muestrales complejos. Este paquete permite obtener los residuales estandarizados de manera directa, facilitando la evaluación de los supuestos del modelo en este tipo de contextos:
 
-```{r, echo = TRUE, eval=TRUE}
+```{r calcular-residuales-estandarizados, echo = TRUE, eval = TRUE}
 library(svydiags)
-stdresids = as.numeric(svystdres(fit_svy)$stdresids)
+stdresids <- as.numeric(svystdres(fit_svy)$stdresids)
 survey_design$variables <- survey_design$variables %>%
   mutate(stdresids = stdresids)
 ```
 
 El análisis de normalidad puede complementarse con el histograma de los residuales estandarizados, presentado en la Figura \@ref(fig:fig-hist-residuales). El histograma de los residuos estandarizados revela una falta de ajuste significativa respecto a la curva de distribución normal teórica (en rojo), lo cual corrobora una violación del supuesto de normalidad. La distribución de los residuos (representada en azul) muestra un pico mucho más agudo y estrecho que la curva normal, además de una asimetría positiva marcada con una cola extendida hacia la derecha. Esta discrepancia indica que el modelo no logra capturar la variabilidad real de los datos, lo que sugiere la necesidad de aplicar una transformación de la variable dependiente o emplear un modelo con una familia de distribución más flexible y robusta.
 
-```{r fig-hist-residuales, fig.cap="Histograma de residuales estandarizados con curva de densidad estimada y distribución normal teórica", fig.align='center', out.width='65%', echo=TRUE, eval=TRUE}
-ggplot(data = survey_design$variables,
-       aes(x = stdresids)) +
-  geom_histogram(aes(y = ..density..),
-                 colour = "black",
-                 fill = "blue", alpha = 0.3) +
+```{r fig-hist-residuales, fig.cap="Histograma de residuales estandarizados con curva de densidad estimada y distribución normal teórica", fig.align='center', out.width='65%', echo = TRUE, eval = TRUE}
+ggplot(
+  data = survey_design$variables,
+  aes(x = stdresids)
+) +
+  geom_histogram(
+    aes(y = ..density..),
+    colour = "black",
+    fill = "blue",
+    alpha = 0.3
+  ) +
   geom_density(size = 1, colour = "blue") +
-  geom_function(fun = dnorm, colour = "red",
-                size = 1) +
+  geom_function(fun = dnorm, colour = "red", size = 1) +
   labs(y = "")
 ```
 
@@ -302,25 +312,31 @@ La homocedasticidad de los errores (varianza constante), constituye uno de los s
 
 Para evaluar este supuesto, se recomienda analizar gráficamente los residuos en función de los valores estimados $\hat{\mu}_{k}$ o de covariables específicas del modelo. La aparición de patrones sistemáticos en estos gráficos constituye evidencia de heterocedasticidad o de posibles problemas de especificación funcional. En particular, para evaluar la homocedasticidad respecto de las covariables incluidas en el modelo, se construyen gráficos de residuos frente a cada una de ellas y se combinan con `patchwork` [@patchwork].
 
-```{r fig-residuales-covariables, fig.cap="Gráficos de residuales estandarizados frente a cada covariable del modelo", fig.align='center', out.width='80%', echo=TRUE, eval=TRUE}
+```{r fig-residuales-covariables, fig.cap="Gráficos de residuales estandarizados frente a cada covariable del modelo", fig.align='center', out.width='80%', echo = TRUE, eval = TRUE}
 library(patchwork)
 
-g1 <- ggplot(data = survey_design$variables,
-       aes(x = Expenditure, y = stdresids)) +
+g1 <- ggplot(
+  data = survey_design$variables,
+  aes(x = Expenditure, y = stdresids)
+) +
   geom_point() +
   geom_hline(yintercept = 0)
 
-g2 <- ggplot(data = survey_design$variables,
-       aes(x = Zone, y = stdresids)) +
+g2 <- ggplot(
+  data = survey_design$variables,
+  aes(x = Zone, y = stdresids)
+) +
   geom_point() +
   geom_hline(yintercept = 0)
 
-g3 <- ggplot(data = survey_design$variables,
-       aes(x = Sex, y = stdresids)) +
+g3 <- ggplot(
+  data = survey_design$variables,
+  aes(x = Sex, y = stdresids)
+) +
   geom_point() +
   geom_hline(yintercept = 0)
 
-(g1|g2|g3)
+(g1 | g2 | g3)
 ```
 
 La Figura \@ref(fig:fig-residuales-covariables) presenta los gráficos de dispersión de los residuos estandarizados frente a las covariables del modelo. En conjunto, estos resultados sugieren posibles limitaciones en la especificación funcional. En particular, para `Expenditure` se observa una ligera curvatura en la tendencia de los residuos, lo que podría indicar la presencia de una relación no lineal no completamente capturada por el modelo. Por su parte, en los gráficos asociados a `Zone` y `Sex` se aprecia una dispersión desigual de los residuos entre categorías, lo que sugiere diferencias en la variabilidad condicional o en el ajuste de la media entre grupos.
@@ -340,8 +356,8 @@ donde $p$ denota los parámetros del modelo y $df$ representa los grados de libe
 En `R`, se evalúa la presencia de observaciones influyentes mediante la distancia de Cook, estimada con la función `svyCooksD` del paquete `svydiags`. Los resultados obtenidos se presentan en la Figura \@ref(fig:fig-cook), en donde se observa que ninguna de las distancias de Cook supera el umbral de referencia de 3, por lo que, bajo este criterio, no se identifican observaciones con influencia significativa sobre el ajuste del modelo.
 
 
-```{r fig-cook, fig.cap="Distancia de Cook para cada observación de la muestra", fig.align='center', out.width='65%', echo=TRUE, eval=TRUE}
-svyCooksD(fit_svy, doplot=TRUE) %>%
+```{r fig-cook, fig.cap="Distancia de Cook para cada observación de la muestra", fig.align='center', out.width='65%', echo = TRUE, eval = TRUE}
+svyCooksD(fit_svy, doplot = TRUE) %>%
   head(10)
 ```
 
@@ -357,14 +373,14 @@ $$
 
 donde $z$ toma comúnmente valores de 2 o 3, $n_I$ representa el número de UPMs seleccionadas en la muestra de la primera etapa y $DEFF$ corresponde al efecto de diseño. A continuación, se evalúa la influencia de las observaciones sobre los coeficientes del modelo de ejemplo mediante la función `svydfbetas`. Los resultados correspondientes a las primeras diez observaciones se presentan en la Tabla \@ref(tab:tab-dfbetas-primeros).
 
-```{r eval=FALSE}
-d_dfbetas = data.frame(t(svydfbetas(fit_svy)$Dfbetas))
+```{r cod-dfbetas-primeros, eval = FALSE}
+d_dfbetas <- data.frame(t(svydfbetas(fit_svy)$Dfbetas))
 colnames(d_dfbetas) <- paste0("Beta_", 1:4)
 d_dfbetas %>%
   slice(1:10L)
 ```
-```{r tab-dfbetas-primeros, tab.cap="Valores DfBetas para las primeras diez observaciones de la muestra", echo=FALSE}
-d_dfbetas = data.frame(t(svydfbetas(fit_svy)$Dfbetas))
+```{r tab-dfbetas-primeros, tab.cap="Valores DfBetas para las primeras diez observaciones de la muestra", echo = FALSE}
+d_dfbetas <- data.frame(t(svydfbetas(fit_svy)$Dfbetas))
 colnames(d_dfbetas) <- paste0("Beta_", 1:4)
 d_dfbetas %>%
   slice(1:10L) %>%
@@ -373,7 +389,7 @@ d_dfbetas %>%
 
 Una vez obtenidos los valores de la medida DFBETA para cada observación y coeficiente del modelo, se calcula el correspondiente umbral de influencia a partir de los resultados generados por la función `svydfbetas`. Con base en este criterio, se construye una variable dicotómica que permite clasificar las observaciones según su nivel de influencia sobre las estimaciones del modelo. Los resultados de esta clasificación se presentan en la Tabla \@ref(tab:tab-dfbetas-influyentes).
 
-```{r eval=FALSE}
+```{r cod-dfbetas-influyentes, eval = FALSE}
 d_dfbetas$id <- 1:nrow(d_dfbetas)
 d_dfbetas <- reshape2::melt(d_dfbetas, id.vars = "id")
 cutoff <- svydfbetas(fit_svy)$cutoff
@@ -387,7 +403,7 @@ label_text <- d_dfbetas %>%
 
 label_text
 ```
-```{r tab-dfbetas-influyentes, echo=TRUE, tab.cap="Las diez observaciones más influyentes según el criterio DfBetas", echo=FALSE}
+```{r tab-dfbetas-influyentes, tab.cap="Las diez observaciones más influyentes según el criterio DfBetas", echo = FALSE}
 d_dfbetas$id <- 1:nrow(d_dfbetas)
 d_dfbetas <- reshape2::melt(d_dfbetas, id.vars = "id")
 cutoff <- svydfbetas(fit_svy)$cutoff
@@ -405,17 +421,20 @@ label_text %>%
 
 Los resultados muestran que varias observaciones superan el umbral establecido por el criterio $D_f\text{Beta}_{(k)j}$, lo que indica que dichas unidades ejercen una influencia importante sobre la estimación de algunos coeficientes del modelo, lo que sugiere la presencia de unidades con alto impacto sobre la estabilidad del ajuste. La Figura \@ref(fig:fig-dfbetas) presenta la representación gráfica de los valores de $D_f$Beta junto con el umbral de referencia utilizado para identificar observaciones influyentes. En la figura, los puntos resaltados en rojo corresponden a las observaciones que exceden dicho umbral y que, por tanto, requieren una revisión más detallada dentro del proceso de diagnóstico del modelo.
 
-```{r fig-dfbetas, fig.cap="Valores DfBetas por parámetro: observaciones influyentes señaladas en rojo", fig.align='center', out.width='80%', echo=TRUE, eval=TRUE}
+```{r fig-dfbetas, fig.cap="Valores DfBetas por parámetro: observaciones influyentes señaladas en rojo", fig.align='center', out.width='80%', echo = TRUE, eval = TRUE}
 ggplot(d_dfbetas, aes(y = abs(value), x = id)) +
   geom_point(aes(col = criterion)) +
-  geom_text(data = label_text,
-            angle = 45,
-            vjust = -1,
-            aes(label = id)) +
+  geom_text(
+    data = label_text,
+    angle = 45,
+    vjust = -1,
+    aes(label = id)
+  ) +
   geom_hline(aes(yintercept = cutoff)) +
   facet_wrap(. ~ variable, nrow = 2) +
   scale_color_manual(
-    values = c("Yes" = "red", "No" = "black"))
+    values = c("Yes" = "red", "No" = "black")
+  )
 ```
 
 
@@ -428,9 +447,11 @@ donde $z$ toma comúnmente valores de 2 o 3, mientras que $n$ representa el tama
 
 En `R`, el cálculo de este estadístico puede realizarse mediante la función `svydffits` del paquete `svydiags`, la cual obtiene las medidas de influencia considerando explícitamente la estructura del diseño muestral. Los resultados gráficos correspondientes se presentan en la Figura \@ref(fig:fig-dffits), en donde se confirma la existencia de algunas observaciones influyentes (señaladas en rojo).
 
-```{r fig-dffits, fig.cap="Valores DfFits: observaciones influyentes sobre el ajuste global señaladas en rojo", fig.align='center', out.width='65%', echo=TRUE, eval=TRUE}
-d_dffits = data.frame(dffits = svydffits(fit_svy)$Dffits,
-                      id = 1:length(svydffits(fit_svy)$Dffits))
+```{r fig-dffits, fig.cap="Valores DfFits: observaciones influyentes sobre el ajuste global señaladas en rojo", fig.align='center', out.width='65%', echo = TRUE, eval = TRUE}
+d_dffits <- data.frame(
+  dffits = svydffits(fit_svy)$Dffits,
+  id = 1:length(svydffits(fit_svy)$Dffits)
+)
 cutoff <- svydffits(fit_svy)$cutoff
 d_dffits <- d_dffits %>%
   mutate(cutoff_criterion = ifelse(abs(dffits) > cutoff, "Yes", "No"))
@@ -439,7 +460,8 @@ ggplot(d_dffits, aes(y = abs(dffits), x = id)) +
   geom_point(aes(col = cutoff_criterion)) +
   geom_hline(yintercept = cutoff) +
   scale_color_manual(
-    values = c("Yes" = "red", "No" = "black"))
+    values = c("Yes" = "red", "No" = "black")
+  )
 ```
 
 ## Inferencia sobre los parámetros del modelo {#inferencia-sobre-los-parametros-del-modelo}
@@ -477,13 +499,13 @@ donde $t_{1-\frac{\alpha}{2},\,df}$ representa el cuantil de orden $1-\alpha/2$ 
 
 Para implementar estos procedimientos en `R`, se utilizan las funciones `summary.svyglm` y `confint.svyglm`, las cuales permiten obtener, respectivamente, las pruebas de significación basadas en el estadístico $t$ y los intervalos de confianza de los coeficientes estimados bajo el diseño muestral complejo. Los resultados correspondientes se presentan en la Tabla \@ref(tab:tab-inferencia-modelo).
 
-```{r}
+```{r cod-tabla-inferencia-modelo}
 summary_table <- summary(fit_svy)$coefficients %>%
   as.data.frame() %>%
   tibble::rownames_to_column("Parameter")
 ```
 
-```{r tab-inferencia-modelo, tab.cap="Pruebas t e intervalos de confianza al 95% para los parámetros del modelo", echo=FALSE}
+```{r tab-inferencia-modelo, tab.cap="Pruebas t e intervalos de confianza al 95% para los parámetros del modelo", echo = FALSE}
 summary_table %>%
   tabla_fmt()
 ```
@@ -509,7 +531,7 @@ En donde $\hat{\boldsymbol{\Sigma}}=\widehat{Var}(\hat{\boldsymbol{\beta}})$ cor
 
 Los coeficientes del modelo se convierten a una tabla ordenada mediante `broom::tidy()` [@broom2026], lo que facilita presentar estimaciones, errores estándar y pruebas en una estructura rectangular.
 
-```{r tab-coeficientes-modelo, echo=FALSE, tab.cap="Coeficientes estimados del modelo de regresión con diseño muestral complejo"}
+```{r tab-coeficientes-modelo, echo = FALSE, tab.cap="Coeficientes estimados del modelo de regresión con diseño muestral complejo"}
 fit_svy %>%
   broom::tidy() %>%
   tabla_fmt()
@@ -523,27 +545,27 @@ $$
 
 El siguiente código calcula las predicciones del modelo de regresión para las observaciones incluidas en la muestra, utilizando la matriz de diseño y el vector de coeficientes estimados:
 
-```{r, echo=TRUE}
-xobs <- model.matrix(fit_svy) %>%
-        data.frame() %>%
-          as.matrix()
-hatbeta <- fit_svy$coe
-hatmu <- as.numeric(xobs %*% hatbeta)
-hatmu %>%
+```{r cod-prediccion-matricial, echo = TRUE}
+x_obs <- model.matrix(fit_svy) %>%
+  data.frame() %>%
+  as.matrix()
+hat_beta <- fit_svy$coe
+hat_mu <- as.numeric(x_obs %*% hat_beta)
+hat_mu %>%
   head(10)
 ```
 
-En primer lugar, la instrucción `model.matrix(fit_svy)` construye la matriz de diseño asociada al modelo ajustado, incorporando automáticamente las variables explicativas. A continuación, el objeto `hatbeta` almacena el vector de coeficientes estimados del modelo de regresión. Posteriormente, se obtienen las estimaciones mediante el producto matricial `xobs %*% hatbeta`. Finalmente, la función `head(10)` permite visualizar las primeras diez estimaciones obtenidas.
+En primer lugar, la instrucción `model.matrix(fit_svy)` construye la matriz de diseño asociada al modelo ajustado, incorporando automáticamente las variables explicativas. A continuación, el objeto `hat_beta` almacena el vector de coeficientes estimados del modelo de regresión. Posteriormente, se obtienen las estimaciones mediante el producto matricial `x_obs %*% hat_beta`. Finalmente, la función `head(10)` permite visualizar las primeras diez estimaciones obtenidas.
 
 Para calcular la varianza de las estimaciones se requiere la matriz de varianzas y covarianzas de los parámetros del modelo. Los elementos de la diagonal principal corresponden a las varianzas de los parámetros estimados, mientras que los elementos fuera de la diagonal representan las covarianzas entre pares de coeficientes. La matriz estimada de varianzas y covarianzas se presenta en la Tabla \@ref(tab:tab-vcov-modelo):
 
-```{r eval=FALSE}
+```{r cod-vcov-modelo, eval = FALSE}
 vcov(fit_svy) %>%
   as.data.frame() %>%
   tibble::rownames_to_column("Parameter")
 ```
 
-```{r tab-vcov-modelo, tab.cap="Matriz de varianzas y covarianzas de los coeficientes del modelo", echo=FALSE}
+```{r tab-vcov-modelo, tab.cap="Matriz de varianzas y covarianzas de los coeficientes del modelo", echo = FALSE}
 vcov(fit_svy) %>%
   as.data.frame() %>%
   tibble::rownames_to_column("Parameter") %>%
@@ -552,10 +574,10 @@ vcov(fit_svy) %>%
 
 En términos computacionales, esto implica combinar el vector de covariables de cada observación con la matriz $\hat{\boldsymbol{\Sigma}}$ para obtener la precisión de las predicciones individuales. El siguiente código calcula la varianza asociada a las predicciones obtenidas a partir del modelo de regresión:
 
-```{r, echo=TRUE}
+```{r cod-varianza-predicciones, echo = TRUE}
 cov_beta <- vcov(fit_svy) %>%
   as.matrix()
-mu_variance <- as.numeric(xobs %*% cov_beta %*% t(xobs))
+mu_variance <- as.numeric(x_obs %*% cov_beta %*% t(x_obs))
 mu_variance %>%
   head(10)
 ```
@@ -570,8 +592,8 @@ $$
 
 En R, la función `predict(fit_svy, type = "link")` genera las predicciones lineales del modelo ajustado. El argumento `type = "link"` indica que las estimaciones se obtienen en la escala del predictor lineal, es decir, utilizando directamente la combinación lineal de las covariables y los coeficientes estimados. Posteriormente, la función `confint()` calcula los intervalos de confianza asociados a dichas predicciones.
 
-```{r,pred01, echo=TRUE,eval=TRUE}
-hatmu <- data.frame(predict(fit_svy, type = "link"))
+```{r predicciones-muestra, echo = TRUE, eval = TRUE}
+hat_mu <- data.frame(predict(fit_svy, type = "link"))
 mu_ci <- data.frame(confint(predict(fit_svy, type = "link")))
 colnames(mu_ci) <- c("lower_limit", "upper_limit")
 ```
@@ -579,17 +601,20 @@ colnames(mu_ci) <- c("lower_limit", "upper_limit")
 
 Las estimaciones obtenidas a partir del modelo, junto con sus respectivos intervalos de confianza, pueden visualizarse gráficamente en la Figura \@ref(fig:fig-pred-intervalos).
 
-```{r fig-pred-intervalos, fig.cap="Predicciones puntuales e intervalos de confianza para las primeras 100 observaciones de la muestra", fig.align='center', out.width='65%', echo=TRUE, eval=TRUE}
-pred <- cbind(hatmu, mu_ci)
+```{r fig-pred-intervalos, fig.cap="Predicciones puntuales e intervalos de confianza para las primeras 100 observaciones de la muestra", fig.align='center', out.width='65%', echo = TRUE, eval = TRUE}
+pred <- cbind(hat_mu, mu_ci)
 pred$Expenditure <- survey_data$Expenditure
 pd <- position_dodge(width = 0.2)
-ggplot(pred %>%
-  slice(1:100L),
-       aes(x = Expenditure, y = link)) +
-  geom_errorbar(aes(ymin = lower_limit,
-                    ymax = upper_limit),
-                width = .1,
-                linetype = 1) +
+ggplot(
+  pred %>%
+    slice(1:100L),
+  aes(x = Expenditure, y = link)
+) +
+  geom_errorbar(
+    aes(ymin = lower_limit, ymax = upper_limit),
+    width = .1,
+    linetype = 1
+  ) +
   geom_point(size = 2, position = pd) +
   theme_bw()
 ```
@@ -625,13 +650,15 @@ $$
 
 Supóngase, por ejemplo, que se desea obtener la predicción del modelo para una nueva observación correspondiente a un individuo de sexo masculino (`Male`), residente en zona urbana (`Urban`) y con un nivel de gasto (`Expenditure`) igual a 1600. Este perfil puede definirse en `R` mediante el siguiente conjunto de datos:
 
-```{r}
-new_data <- data.frame(Expenditure = 1600,
-                           Sex = "Male",
-                           Zone = "Urban")
+```{r cod-prediccion-nueva-observacion}
+new_data <- data.frame(
+  Expenditure = 1600,
+  Sex = "Male",
+  Zone = "Urban"
+)
 
-predict(fit_svy, newdata = new_data, type =  "link")
-confint(predict(fit_svy,newdata = new_data))
+predict(fit_svy, newdata = new_data, type = "link")
+confint(predict(fit_svy, newdata = new_data))
 ```
 
 En primer lugar, el objeto `new_data` especifica los valores de las covariables incluidas en el modelo. Posteriormente, la función `predict()` calcula la predicción puntual asociada a dicha observación. El argumento `newdata = new_data` indica que la predicción debe realizarse utilizando la nueva información suministrada, mientras que `type = "link"` solicita el resultado en la escala del predictor lineal. Finalmente, la función `confint()` permite obtener el intervalo de confianza asociado a la predicción realizada. Este intervalo cuantifica la incertidumbre de la estimación y proporciona un rango de valores plausibles para el valor esperado de la variable respuesta correspondiente al perfil especificado.

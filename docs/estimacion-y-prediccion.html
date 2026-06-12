@@ -363,15 +363,15 @@ div.csl-indent {
 \hat{E}(y_{k}\mid\mathbf{x}_{k})=73.58+1.22 \times x_{1i}+66.65 \times x_{2i}+20.64  \times  x_{3i}
 \]</span></p>
 <p>El siguiente código calcula las predicciones del modelo de regresión para las observaciones incluidas en la muestra, utilizando la matriz de diseño y el vector de coeficientes estimados:</p>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="estimacion-y-prediccion.html#cb133-1" tabindex="-1"></a>xobs <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit_svy) <span class="sc">%&gt;%</span></span>
-<span id="cb133-2"><a href="estimacion-y-prediccion.html#cb133-2" tabindex="-1"></a>        <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb133-3"><a href="estimacion-y-prediccion.html#cb133-3" tabindex="-1"></a>          <span class="fu">as.matrix</span>()</span>
-<span id="cb133-4"><a href="estimacion-y-prediccion.html#cb133-4" tabindex="-1"></a>hatbeta <span class="ot">&lt;-</span> fit_svy<span class="sc">$</span>coe</span>
-<span id="cb133-5"><a href="estimacion-y-prediccion.html#cb133-5" tabindex="-1"></a>hatmu <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(xobs <span class="sc">%*%</span> hatbeta)</span>
-<span id="cb133-6"><a href="estimacion-y-prediccion.html#cb133-6" tabindex="-1"></a>hatmu <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="estimacion-y-prediccion.html#cb133-1" tabindex="-1"></a>x_obs <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit_svy) <span class="sc">%&gt;%</span></span>
+<span id="cb133-2"><a href="estimacion-y-prediccion.html#cb133-2" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb133-3"><a href="estimacion-y-prediccion.html#cb133-3" tabindex="-1"></a>  <span class="fu">as.matrix</span>()</span>
+<span id="cb133-4"><a href="estimacion-y-prediccion.html#cb133-4" tabindex="-1"></a>hat_beta <span class="ot">&lt;-</span> fit_svy<span class="sc">$</span>coe</span>
+<span id="cb133-5"><a href="estimacion-y-prediccion.html#cb133-5" tabindex="-1"></a>hat_mu <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(x_obs <span class="sc">%*%</span> hat_beta)</span>
+<span id="cb133-6"><a href="estimacion-y-prediccion.html#cb133-6" tabindex="-1"></a>hat_mu <span class="sc">%&gt;%</span></span>
 <span id="cb133-7"><a href="estimacion-y-prediccion.html#cb133-7" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##  [1] 517.6 496.9 496.9 517.6 496.9 553.1 553.1 573.7 553.1 184.8</code></pre>
-<p>En primer lugar, la instrucción <code>model.matrix(fit_svy)</code> construye la matriz de diseño asociada al modelo ajustado, incorporando automáticamente las variables explicativas. A continuación, el objeto <code>hatbeta</code> almacena el vector de coeficientes estimados del modelo de regresión. Posteriormente, se obtienen las estimaciones mediante el producto matricial <code>xobs %*% hatbeta</code>. Finalmente, la función <code>head(10)</code> permite visualizar las primeras diez estimaciones obtenidas.</p>
+<p>En primer lugar, la instrucción <code>model.matrix(fit_svy)</code> construye la matriz de diseño asociada al modelo ajustado, incorporando automáticamente las variables explicativas. A continuación, el objeto <code>hat_beta</code> almacena el vector de coeficientes estimados del modelo de regresión. Posteriormente, se obtienen las estimaciones mediante el producto matricial <code>x_obs %*% hat_beta</code>. Finalmente, la función <code>head(10)</code> permite visualizar las primeras diez estimaciones obtenidas.</p>
 <p>Para calcular la varianza de las estimaciones se requiere la matriz de varianzas y covarianzas de los parámetros del modelo. Los elementos de la diagonal principal corresponden a las varianzas de los parámetros estimados, mientras que los elementos fuera de la diagonal representan las covarianzas entre pares de coeficientes. La matriz estimada de varianzas y covarianzas se presenta en la Tabla <a href="estimacion-y-prediccion.html#tab:tab-vcov-modelo">5.5</a>:</p>
 <div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="estimacion-y-prediccion.html#cb135-1" tabindex="-1"></a><span class="fu">vcov</span>(fit_svy) <span class="sc">%&gt;%</span></span>
 <span id="cb135-2"><a href="estimacion-y-prediccion.html#cb135-2" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
@@ -421,7 +421,7 @@ div.csl-indent {
 <p>En términos computacionales, esto implica combinar el vector de covariables de cada observación con la matriz <span class="math inline">\(\hat{\boldsymbol{\Sigma}}\)</span> para obtener la precisión de las predicciones individuales. El siguiente código calcula la varianza asociada a las predicciones obtenidas a partir del modelo de regresión:</p>
 <div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="estimacion-y-prediccion.html#cb136-1" tabindex="-1"></a>cov_beta <span class="ot">&lt;-</span> <span class="fu">vcov</span>(fit_svy) <span class="sc">%&gt;%</span></span>
 <span id="cb136-2"><a href="estimacion-y-prediccion.html#cb136-2" tabindex="-1"></a>  <span class="fu">as.matrix</span>()</span>
-<span id="cb136-3"><a href="estimacion-y-prediccion.html#cb136-3" tabindex="-1"></a>mu_variance <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(xobs <span class="sc">%*%</span> cov_beta <span class="sc">%*%</span> <span class="fu">t</span>(xobs))</span>
+<span id="cb136-3"><a href="estimacion-y-prediccion.html#cb136-3" tabindex="-1"></a>mu_variance <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(x_obs <span class="sc">%*%</span> cov_beta <span class="sc">%*%</span> <span class="fu">t</span>(x_obs))</span>
 <span id="cb136-4"><a href="estimacion-y-prediccion.html#cb136-4" tabindex="-1"></a>mu_variance <span class="sc">%&gt;%</span></span>
 <span id="cb136-5"><a href="estimacion-y-prediccion.html#cb136-5" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##  [1] 1374.9 1002.6 1002.6 1374.9 1002.6 1107.8 1107.8 1480.1 1107.8  750.8</code></pre>
@@ -432,22 +432,25 @@ div.csl-indent {
 \mathbf{x}_{k}}
 \]</span></p>
 <p>En R, la función <code>predict(fit_svy, type = "link")</code> genera las predicciones lineales del modelo ajustado. El argumento <code>type = "link"</code> indica que las estimaciones se obtienen en la escala del predictor lineal, es decir, utilizando directamente la combinación lineal de las covariables y los coeficientes estimados. Posteriormente, la función <code>confint()</code> calcula los intervalos de confianza asociados a dichas predicciones.</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="estimacion-y-prediccion.html#cb138-1" tabindex="-1"></a>hatmu <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">predict</span>(fit_svy, <span class="at">type =</span> <span class="st">&quot;link&quot;</span>))</span>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="estimacion-y-prediccion.html#cb138-1" tabindex="-1"></a>hat_mu <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">predict</span>(fit_svy, <span class="at">type =</span> <span class="st">&quot;link&quot;</span>))</span>
 <span id="cb138-2"><a href="estimacion-y-prediccion.html#cb138-2" tabindex="-1"></a>mu_ci <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">confint</span>(<span class="fu">predict</span>(fit_svy, <span class="at">type =</span> <span class="st">&quot;link&quot;</span>)))</span>
 <span id="cb138-3"><a href="estimacion-y-prediccion.html#cb138-3" tabindex="-1"></a><span class="fu">colnames</span>(mu_ci) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;lower_limit&quot;</span>, <span class="st">&quot;upper_limit&quot;</span>)</span></code></pre></div>
 <p>Las estimaciones obtenidas a partir del modelo, junto con sus respectivos intervalos de confianza, pueden visualizarse gráficamente en la Figura <a href="estimacion-y-prediccion.html#fig:fig-pred-intervalos">5.7</a>.</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="estimacion-y-prediccion.html#cb139-1" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">cbind</span>(hatmu, mu_ci)</span>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="estimacion-y-prediccion.html#cb139-1" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">cbind</span>(hat_mu, mu_ci)</span>
 <span id="cb139-2"><a href="estimacion-y-prediccion.html#cb139-2" tabindex="-1"></a>pred<span class="sc">$</span>Expenditure <span class="ot">&lt;-</span> survey_data<span class="sc">$</span>Expenditure</span>
 <span id="cb139-3"><a href="estimacion-y-prediccion.html#cb139-3" tabindex="-1"></a>pd <span class="ot">&lt;-</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.2</span>)</span>
-<span id="cb139-4"><a href="estimacion-y-prediccion.html#cb139-4" tabindex="-1"></a><span class="fu">ggplot</span>(pred <span class="sc">%&gt;%</span></span>
-<span id="cb139-5"><a href="estimacion-y-prediccion.html#cb139-5" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span><span class="dt">L</span>),</span>
-<span id="cb139-6"><a href="estimacion-y-prediccion.html#cb139-6" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Expenditure, <span class="at">y =</span> link)) <span class="sc">+</span></span>
-<span id="cb139-7"><a href="estimacion-y-prediccion.html#cb139-7" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower_limit,</span>
-<span id="cb139-8"><a href="estimacion-y-prediccion.html#cb139-8" tabindex="-1"></a>                    <span class="at">ymax =</span> upper_limit),</span>
-<span id="cb139-9"><a href="estimacion-y-prediccion.html#cb139-9" tabindex="-1"></a>                <span class="at">width =</span> .<span class="dv">1</span>,</span>
-<span id="cb139-10"><a href="estimacion-y-prediccion.html#cb139-10" tabindex="-1"></a>                <span class="at">linetype =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb139-11"><a href="estimacion-y-prediccion.html#cb139-11" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">position =</span> pd) <span class="sc">+</span></span>
-<span id="cb139-12"><a href="estimacion-y-prediccion.html#cb139-12" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<span id="cb139-4"><a href="estimacion-y-prediccion.html#cb139-4" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb139-5"><a href="estimacion-y-prediccion.html#cb139-5" tabindex="-1"></a>  pred <span class="sc">%&gt;%</span></span>
+<span id="cb139-6"><a href="estimacion-y-prediccion.html#cb139-6" tabindex="-1"></a>    <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span><span class="dt">L</span>),</span>
+<span id="cb139-7"><a href="estimacion-y-prediccion.html#cb139-7" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Expenditure, <span class="at">y =</span> link)</span>
+<span id="cb139-8"><a href="estimacion-y-prediccion.html#cb139-8" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb139-9"><a href="estimacion-y-prediccion.html#cb139-9" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(</span>
+<span id="cb139-10"><a href="estimacion-y-prediccion.html#cb139-10" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">ymin =</span> lower_limit, <span class="at">ymax =</span> upper_limit),</span>
+<span id="cb139-11"><a href="estimacion-y-prediccion.html#cb139-11" tabindex="-1"></a>    <span class="at">width =</span> .<span class="dv">1</span>,</span>
+<span id="cb139-12"><a href="estimacion-y-prediccion.html#cb139-12" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="dv">1</span></span>
+<span id="cb139-13"><a href="estimacion-y-prediccion.html#cb139-13" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb139-14"><a href="estimacion-y-prediccion.html#cb139-14" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">position =</span> pd) <span class="sc">+</span></span>
+<span id="cb139-15"><a href="estimacion-y-prediccion.html#cb139-15" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-pred-intervalos"></span>
 <img src="figures/fig-pred-intervalos-1.svg" alt="Predicciones puntuales e intervalos de confianza para las primeras 100 observaciones de la muestra" width="65%" />
 <p class="caption">
@@ -479,14 +482,16 @@ t_{\left(1-\frac{\alpha}{2},df\right)}
 }
 \]</span></p>
 <p>Supóngase, por ejemplo, que se desea obtener la predicción del modelo para una nueva observación correspondiente a un individuo de sexo masculino (<code>Male</code>), residente en zona urbana (<code>Urban</code>) y con un nivel de gasto (<code>Expenditure</code>) igual a 1600. Este perfil puede definirse en <code>R</code> mediante el siguiente conjunto de datos:</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="estimacion-y-prediccion.html#cb140-1" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Expenditure =</span> <span class="dv">1600</span>,</span>
-<span id="cb140-2"><a href="estimacion-y-prediccion.html#cb140-2" tabindex="-1"></a>                           <span class="at">Sex =</span> <span class="st">&quot;Male&quot;</span>,</span>
-<span id="cb140-3"><a href="estimacion-y-prediccion.html#cb140-3" tabindex="-1"></a>                           <span class="at">Zone =</span> <span class="st">&quot;Urban&quot;</span>)</span>
-<span id="cb140-4"><a href="estimacion-y-prediccion.html#cb140-4" tabindex="-1"></a></span>
-<span id="cb140-5"><a href="estimacion-y-prediccion.html#cb140-5" tabindex="-1"></a><span class="fu">predict</span>(fit_svy, <span class="at">newdata =</span> new_data, <span class="at">type =</span>  <span class="st">&quot;link&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="estimacion-y-prediccion.html#cb140-1" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb140-2"><a href="estimacion-y-prediccion.html#cb140-2" tabindex="-1"></a>  <span class="at">Expenditure =</span> <span class="dv">1600</span>,</span>
+<span id="cb140-3"><a href="estimacion-y-prediccion.html#cb140-3" tabindex="-1"></a>  <span class="at">Sex =</span> <span class="st">&quot;Male&quot;</span>,</span>
+<span id="cb140-4"><a href="estimacion-y-prediccion.html#cb140-4" tabindex="-1"></a>  <span class="at">Zone =</span> <span class="st">&quot;Urban&quot;</span></span>
+<span id="cb140-5"><a href="estimacion-y-prediccion.html#cb140-5" tabindex="-1"></a>)</span>
+<span id="cb140-6"><a href="estimacion-y-prediccion.html#cb140-6" tabindex="-1"></a></span>
+<span id="cb140-7"><a href="estimacion-y-prediccion.html#cb140-7" tabindex="-1"></a><span class="fu">predict</span>(fit_svy, <span class="at">newdata =</span> new_data, <span class="at">type =</span> <span class="st">&quot;link&quot;</span>)</span></code></pre></div>
 <pre><code>##   link  SE
 ## 1 2117 243</code></pre>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="estimacion-y-prediccion.html#cb142-1" tabindex="-1"></a><span class="fu">confint</span>(<span class="fu">predict</span>(fit_svy,<span class="at">newdata =</span> new_data))</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="estimacion-y-prediccion.html#cb142-1" tabindex="-1"></a><span class="fu">confint</span>(<span class="fu">predict</span>(fit_svy, <span class="at">newdata =</span> new_data))</span></code></pre></div>
 <pre><code>##   2.5 % 97.5 %
 ## 1  1641   2593</code></pre>
 <p>En primer lugar, el objeto <code>new_data</code> especifica los valores de las covariables incluidas en el modelo. Posteriormente, la función <code>predict()</code> calcula la predicción puntual asociada a dicha observación. El argumento <code>newdata = new_data</code> indica que la predicción debe realizarse utilizando la nueva información suministrada, mientras que <code>type = "link"</code> solicita el resultado en la escala del predictor lineal. Finalmente, la función <code>confint()</code> permite obtener el intervalo de confianza asociado a la predicción realizada. Este intervalo cuantifica la incertidumbre de la estimación y proporciona un rango de valores plausibles para el valor esperado de la variable respuesta correspondiente al perfil especificado.</p>

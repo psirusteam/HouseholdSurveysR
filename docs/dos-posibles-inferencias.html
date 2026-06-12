@@ -330,20 +330,24 @@ E_{\xi}\left(\frac{1}{N}\sum_{k \in U}Y_k\right)
 \]</span></p>
 <p>La siguiente simulación de Monte Carlo reproduce este proceso. En cada repetición se genera una población completa de tamaño <span class="math inline">\(N=100\)</span> y se calcula su media. El promedio de esas medias poblacionales debe aproximarse a <span class="math inline">\(\theta\)</span>.</p>
 <div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="dos-posibles-inferencias.html#cb252-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
-<span id="cb252-2"><a href="dos-posibles-inferencias.html#cb252-2" tabindex="-1"></a>N     <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb252-2"><a href="dos-posibles-inferencias.html#cb252-2" tabindex="-1"></a>population_size <span class="ot">&lt;-</span> <span class="dv">100</span></span>
 <span id="cb252-3"><a href="dos-posibles-inferencias.html#cb252-3" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
-<span id="cb252-4"><a href="dos-posibles-inferencias.html#cb252-4" tabindex="-1"></a>nsim1 <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb252-5"><a href="dos-posibles-inferencias.html#cb252-5" tabindex="-1"></a>model_estimates  <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, nsim1)</span>
+<span id="cb252-4"><a href="dos-posibles-inferencias.html#cb252-4" tabindex="-1"></a>n_sim_model <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb252-5"><a href="dos-posibles-inferencias.html#cb252-5" tabindex="-1"></a>model_estimates <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, n_sim_model)</span>
 <span id="cb252-6"><a href="dos-posibles-inferencias.html#cb252-6" tabindex="-1"></a></span>
-<span id="cb252-7"><a href="dos-posibles-inferencias.html#cb252-7" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nsim1) {</span>
-<span id="cb252-8"><a href="dos-posibles-inferencias.html#cb252-8" tabindex="-1"></a>  y       <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(N, <span class="dv">1</span>, theta)</span>
-<span id="cb252-9"><a href="dos-posibles-inferencias.html#cb252-9" tabindex="-1"></a>  model_estimates[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb252-7"><a href="dos-posibles-inferencias.html#cb252-7" tabindex="-1"></a><span class="cf">for</span> (sim <span class="cf">in</span> <span class="fu">seq_len</span>(n_sim_model)) {</span>
+<span id="cb252-8"><a href="dos-posibles-inferencias.html#cb252-8" tabindex="-1"></a>  outcome <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(population_size, <span class="dv">1</span>, theta)</span>
+<span id="cb252-9"><a href="dos-posibles-inferencias.html#cb252-9" tabindex="-1"></a>  model_estimates[sim] <span class="ot">&lt;-</span> <span class="fu">mean</span>(outcome)</span>
 <span id="cb252-10"><a href="dos-posibles-inferencias.html#cb252-10" tabindex="-1"></a>}</span>
 <span id="cb252-11"><a href="dos-posibles-inferencias.html#cb252-11" tabindex="-1"></a></span>
-<span id="cb252-12"><a href="dos-posibles-inferencias.html#cb252-12" tabindex="-1"></a><span class="fu">cbind</span>(theta, <span class="at">expected_model_mean =</span> <span class="fu">mean</span>(model_estimates), <span class="at">bias =</span> <span class="fu">mean</span>(model_estimates) <span class="sc">-</span> theta)</span></code></pre></div>
+<span id="cb252-12"><a href="dos-posibles-inferencias.html#cb252-12" tabindex="-1"></a><span class="fu">cbind</span>(</span>
+<span id="cb252-13"><a href="dos-posibles-inferencias.html#cb252-13" tabindex="-1"></a>  theta,</span>
+<span id="cb252-14"><a href="dos-posibles-inferencias.html#cb252-14" tabindex="-1"></a>  <span class="at">expected_model_mean =</span> <span class="fu">mean</span>(model_estimates),</span>
+<span id="cb252-15"><a href="dos-posibles-inferencias.html#cb252-15" tabindex="-1"></a>  <span class="at">bias =</span> <span class="fu">mean</span>(model_estimates) <span class="sc">-</span> theta</span>
+<span id="cb252-16"><a href="dos-posibles-inferencias.html#cb252-16" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>##      theta expected_model_mean    bias
 ## [1,]   0.3               0.302 0.00225</code></pre>
-<p>El código fija una semilla para que el ejercicio sea reproducible. Luego genera <code>nsim1</code> poblaciones independientes mediante <code>rbinom()</code>. La salida reporta el parámetro verdadero <code>theta</code>, el promedio de las medias simuladas <code>expected_model_mean</code> y el sesgo Monte Carlo. Como se espera bajo el modelo Bernoulli IID, <code>expected_model_mean</code> queda muy cerca de 0.3 y el sesgo es cercano a cero. Las pequeñas diferencias se deben a que se usan 1000 simulaciones, no un número infinito de repeticiones.</p>
+<p>El código fija una semilla para que el ejercicio sea reproducible. Luego genera <code>n_sim_model</code> poblaciones independientes mediante <code>rbinom()</code>. La salida reporta el parámetro verdadero <code>theta</code>, el promedio de las medias simuladas <code>expected_model_mean</code> y el sesgo Monte Carlo. Como se espera bajo el modelo Bernoulli IID, <code>expected_model_mean</code> queda muy cerca de 0.3 y el sesgo es cercano a cero. Las pequeñas diferencias se deben a que se usan 1000 simulaciones, no un número infinito de repeticiones.</p>
 <p>En la teoría de muestreo, en cambio, las características de interés son parámetros fijos de la población. Si una persona está desempleada, su estado se considera un valor fijo de la población finita. Lo aleatorio es el mecanismo mediante el cual se selecciona la muestra. El total poblacional se define como <span class="math inline">\(t_y = \sum_{k \in U} y_k\)</span>, mientras que la media poblacional es <span class="math inline">\(\bar{y}_U = \frac{t_y}{N}\)</span>. Si se observa una muestra <span class="math inline">\(s\)</span>, el estimador de Horvitz-Thompson del total es</p>
 <p><span class="math display">\[
 \hat{t}_{y} = \sum_{k \in s}\frac{y_k}{\pi_k}
@@ -366,7 +370,7 @@ E_{\xi}\left(\frac{1}{N}\sum_{k \in U}Y_k\right)
 = \frac{1}{N}\sum_{i \in S_I}\frac{N_i\bar{y}_i}{n_I N_i/N}
 = \frac{1}{n_I}\sum_{i \in S_I}\bar{y}_i.
 \]</span></p>
-<p>Esta expresión ejemplifica por qué, cuándo el diseno de muestreo es complejo (en este caso selección proporcional al tamaño), el promedio de las medias de los conglomerados brinda insesgamiento. En contraste, el promedio simple de las personas observadas en las UPMs seleccionadas, sería:</p>
+<p>Esta expresión ejemplifica por qué, cuando el diseño de muestreo es complejo (en este caso selección proporcional al tamaño), el promedio de las medias de los conglomerados brinda insesgamiento. En contraste, el promedio simple de las personas observadas en las UPMs seleccionadas, sería:</p>
 <p><span class="math display">\[
 \bar{y}_s =
 \frac{\sum_{i \in S_I}t_{y_i}}
@@ -376,37 +380,40 @@ E_{\xi}\left(\frac{1}{N}\sum_{k \in U}Y_k\right)
 <div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="dos-posibles-inferencias.html#cb254-1" tabindex="-1"></a><span class="fu">library</span>(TeachingSampling)</span>
 <span id="cb254-2"><a href="dos-posibles-inferencias.html#cb254-2" tabindex="-1"></a></span>
 <span id="cb254-3"><a href="dos-posibles-inferencias.html#cb254-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
-<span id="cb254-4"><a href="dos-posibles-inferencias.html#cb254-4" tabindex="-1"></a>N      <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb254-5"><a href="dos-posibles-inferencias.html#cb254-5" tabindex="-1"></a>theta  <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
-<span id="cb254-6"><a href="dos-posibles-inferencias.html#cb254-6" tabindex="-1"></a>nsim2  <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb254-7"><a href="dos-posibles-inferencias.html#cb254-7" tabindex="-1"></a>design_estimates <span class="ot">&lt;-</span> simple_estimates <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, nsim2)</span>
+<span id="cb254-4"><a href="dos-posibles-inferencias.html#cb254-4" tabindex="-1"></a>population_size <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb254-5"><a href="dos-posibles-inferencias.html#cb254-5" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
+<span id="cb254-6"><a href="dos-posibles-inferencias.html#cb254-6" tabindex="-1"></a>n_sim_sampling <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb254-7"><a href="dos-posibles-inferencias.html#cb254-7" tabindex="-1"></a>design_estimates <span class="ot">&lt;-</span> simple_estimates <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, n_sim_sampling)</span>
 <span id="cb254-8"><a href="dos-posibles-inferencias.html#cb254-8" tabindex="-1"></a></span>
 <span id="cb254-9"><a href="dos-posibles-inferencias.html#cb254-9" tabindex="-1"></a>cluster_size <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">each =</span> <span class="dv">5</span>)</span>
-<span id="cb254-10"><a href="dos-posibles-inferencias.html#cb254-10" tabindex="-1"></a>NI           <span class="ot">&lt;-</span> <span class="fu">length</span>(cluster_size)</span>
-<span id="cb254-11"><a href="dos-posibles-inferencias.html#cb254-11" tabindex="-1"></a>cluster_id   <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">seq_len</span>(NI), cluster_size)</span>
-<span id="cb254-12"><a href="dos-posibles-inferencias.html#cb254-12" tabindex="-1"></a>size_center  <span class="ot">&lt;-</span> <span class="fu">weighted.mean</span>(cluster_size, cluster_size)</span>
-<span id="cb254-13"><a href="dos-posibles-inferencias.html#cb254-13" tabindex="-1"></a>prob_person  <span class="ot">&lt;-</span> theta <span class="sc">+</span> <span class="fu">rep</span>((cluster_size <span class="sc">-</span> size_center) <span class="sc">/</span> <span class="dv">12</span>, cluster_size)</span>
-<span id="cb254-14"><a href="dos-posibles-inferencias.html#cb254-14" tabindex="-1"></a>y            <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(N, <span class="dv">1</span>, prob_person)</span>
-<span id="cb254-15"><a href="dos-posibles-inferencias.html#cb254-15" tabindex="-1"></a>theta_population      <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
-<span id="cb254-16"><a href="dos-posibles-inferencias.html#cb254-16" tabindex="-1"></a>cluster_totals         <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, cluster_id, sum)</span>
-<span id="cb254-17"><a href="dos-posibles-inferencias.html#cb254-17" tabindex="-1"></a>cluster_means       <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, cluster_id, mean)</span>
+<span id="cb254-10"><a href="dos-posibles-inferencias.html#cb254-10" tabindex="-1"></a>n_clusters <span class="ot">&lt;-</span> <span class="fu">length</span>(cluster_size)</span>
+<span id="cb254-11"><a href="dos-posibles-inferencias.html#cb254-11" tabindex="-1"></a>cluster_id <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">seq_len</span>(n_clusters), cluster_size)</span>
+<span id="cb254-12"><a href="dos-posibles-inferencias.html#cb254-12" tabindex="-1"></a>size_center <span class="ot">&lt;-</span> <span class="fu">weighted.mean</span>(cluster_size, cluster_size)</span>
+<span id="cb254-13"><a href="dos-posibles-inferencias.html#cb254-13" tabindex="-1"></a>prob_person <span class="ot">&lt;-</span> theta <span class="sc">+</span> <span class="fu">rep</span>((cluster_size <span class="sc">-</span> size_center) <span class="sc">/</span> <span class="dv">12</span>, cluster_size)</span>
+<span id="cb254-14"><a href="dos-posibles-inferencias.html#cb254-14" tabindex="-1"></a>outcome <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(population_size, <span class="dv">1</span>, prob_person)</span>
+<span id="cb254-15"><a href="dos-posibles-inferencias.html#cb254-15" tabindex="-1"></a>theta_population <span class="ot">&lt;-</span> <span class="fu">mean</span>(outcome)</span>
+<span id="cb254-16"><a href="dos-posibles-inferencias.html#cb254-16" tabindex="-1"></a>cluster_totals <span class="ot">&lt;-</span> <span class="fu">tapply</span>(outcome, cluster_id, sum)</span>
+<span id="cb254-17"><a href="dos-posibles-inferencias.html#cb254-17" tabindex="-1"></a>cluster_means <span class="ot">&lt;-</span> <span class="fu">tapply</span>(outcome, cluster_id, mean)</span>
 <span id="cb254-18"><a href="dos-posibles-inferencias.html#cb254-18" tabindex="-1"></a></span>
-<span id="cb254-19"><a href="dos-posibles-inferencias.html#cb254-19" tabindex="-1"></a>sampled_cluster_count <span class="ot">&lt;-</span> <span class="fu">floor</span>(NI <span class="sc">*</span> <span class="fl">0.3</span>)</span>
-<span id="cb254-20"><a href="dos-posibles-inferencias.html#cb254-20" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nsim2) {</span>
-<span id="cb254-21"><a href="dos-posibles-inferencias.html#cb254-21" tabindex="-1"></a>  res         <span class="ot">&lt;-</span> <span class="fu">S.piPS</span>(sampled_cluster_count, cluster_size)</span>
-<span id="cb254-22"><a href="dos-posibles-inferencias.html#cb254-22" tabindex="-1"></a>  sampled_clusters         <span class="ot">&lt;-</span> res[, <span class="dv">1</span>]</span>
-<span id="cb254-23"><a href="dos-posibles-inferencias.html#cb254-23" tabindex="-1"></a>  sampled_cluster_size    <span class="ot">&lt;-</span> cluster_size[sampled_clusters]</span>
-<span id="cb254-24"><a href="dos-posibles-inferencias.html#cb254-24" tabindex="-1"></a>  sampled_cluster_total   <span class="ot">&lt;-</span> cluster_totals[sampled_clusters]</span>
-<span id="cb254-25"><a href="dos-posibles-inferencias.html#cb254-25" tabindex="-1"></a>  sampled_cluster_mean    <span class="ot">&lt;-</span> cluster_means[sampled_clusters]</span>
-<span id="cb254-26"><a href="dos-posibles-inferencias.html#cb254-26" tabindex="-1"></a>  design_estimates[j] <span class="ot">&lt;-</span> <span class="fu">mean</span>(sampled_cluster_mean)</span>
-<span id="cb254-27"><a href="dos-posibles-inferencias.html#cb254-27" tabindex="-1"></a>  simple_estimates[j] <span class="ot">&lt;-</span> <span class="fu">sum</span>(sampled_cluster_total) <span class="sc">/</span> <span class="fu">sum</span>(sampled_cluster_size)</span>
-<span id="cb254-28"><a href="dos-posibles-inferencias.html#cb254-28" tabindex="-1"></a>}</span>
-<span id="cb254-29"><a href="dos-posibles-inferencias.html#cb254-29" tabindex="-1"></a></span>
-<span id="cb254-30"><a href="dos-posibles-inferencias.html#cb254-30" tabindex="-1"></a><span class="fu">cbind</span>(theta_population,</span>
-<span id="cb254-31"><a href="dos-posibles-inferencias.html#cb254-31" tabindex="-1"></a>      <span class="at">expected_pps =</span> <span class="fu">mean</span>(design_estimates),</span>
-<span id="cb254-32"><a href="dos-posibles-inferencias.html#cb254-32" tabindex="-1"></a>      <span class="at">bias_pps =</span> <span class="fu">mean</span>(design_estimates) <span class="sc">-</span> theta_population,</span>
-<span id="cb254-33"><a href="dos-posibles-inferencias.html#cb254-33" tabindex="-1"></a>      <span class="at">expected_simple =</span> <span class="fu">mean</span>(simple_estimates),</span>
-<span id="cb254-34"><a href="dos-posibles-inferencias.html#cb254-34" tabindex="-1"></a>      <span class="at">bias_simple =</span> <span class="fu">mean</span>(simple_estimates) <span class="sc">-</span> theta_population)</span></code></pre></div>
+<span id="cb254-19"><a href="dos-posibles-inferencias.html#cb254-19" tabindex="-1"></a>sampled_cluster_count <span class="ot">&lt;-</span> <span class="fu">floor</span>(n_clusters <span class="sc">*</span> <span class="fl">0.3</span>)</span>
+<span id="cb254-20"><a href="dos-posibles-inferencias.html#cb254-20" tabindex="-1"></a><span class="cf">for</span> (sim <span class="cf">in</span> <span class="fu">seq_len</span>(n_sim_sampling)) {</span>
+<span id="cb254-21"><a href="dos-posibles-inferencias.html#cb254-21" tabindex="-1"></a>  pps_sample <span class="ot">&lt;-</span> <span class="fu">S.piPS</span>(sampled_cluster_count, cluster_size)</span>
+<span id="cb254-22"><a href="dos-posibles-inferencias.html#cb254-22" tabindex="-1"></a>  sampled_clusters <span class="ot">&lt;-</span> pps_sample[, <span class="dv">1</span>]</span>
+<span id="cb254-23"><a href="dos-posibles-inferencias.html#cb254-23" tabindex="-1"></a>  sampled_cluster_size <span class="ot">&lt;-</span> cluster_size[sampled_clusters]</span>
+<span id="cb254-24"><a href="dos-posibles-inferencias.html#cb254-24" tabindex="-1"></a>  sampled_cluster_total <span class="ot">&lt;-</span> cluster_totals[sampled_clusters]</span>
+<span id="cb254-25"><a href="dos-posibles-inferencias.html#cb254-25" tabindex="-1"></a>  sampled_cluster_mean <span class="ot">&lt;-</span> cluster_means[sampled_clusters]</span>
+<span id="cb254-26"><a href="dos-posibles-inferencias.html#cb254-26" tabindex="-1"></a>  design_estimates[sim] <span class="ot">&lt;-</span> <span class="fu">mean</span>(sampled_cluster_mean)</span>
+<span id="cb254-27"><a href="dos-posibles-inferencias.html#cb254-27" tabindex="-1"></a>  simple_estimates[sim] <span class="ot">&lt;-</span></span>
+<span id="cb254-28"><a href="dos-posibles-inferencias.html#cb254-28" tabindex="-1"></a>    <span class="fu">sum</span>(sampled_cluster_total) <span class="sc">/</span> <span class="fu">sum</span>(sampled_cluster_size)</span>
+<span id="cb254-29"><a href="dos-posibles-inferencias.html#cb254-29" tabindex="-1"></a>}</span>
+<span id="cb254-30"><a href="dos-posibles-inferencias.html#cb254-30" tabindex="-1"></a></span>
+<span id="cb254-31"><a href="dos-posibles-inferencias.html#cb254-31" tabindex="-1"></a><span class="fu">cbind</span>(</span>
+<span id="cb254-32"><a href="dos-posibles-inferencias.html#cb254-32" tabindex="-1"></a>  theta_population,</span>
+<span id="cb254-33"><a href="dos-posibles-inferencias.html#cb254-33" tabindex="-1"></a>  <span class="at">expected_pps =</span> <span class="fu">mean</span>(design_estimates),</span>
+<span id="cb254-34"><a href="dos-posibles-inferencias.html#cb254-34" tabindex="-1"></a>  <span class="at">bias_pps =</span> <span class="fu">mean</span>(design_estimates) <span class="sc">-</span> theta_population,</span>
+<span id="cb254-35"><a href="dos-posibles-inferencias.html#cb254-35" tabindex="-1"></a>  <span class="at">expected_simple =</span> <span class="fu">mean</span>(simple_estimates),</span>
+<span id="cb254-36"><a href="dos-posibles-inferencias.html#cb254-36" tabindex="-1"></a>  <span class="at">bias_simple =</span> <span class="fu">mean</span>(simple_estimates) <span class="sc">-</span> theta_population</span>
+<span id="cb254-37"><a href="dos-posibles-inferencias.html#cb254-37" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>##      theta_population expected_pps bias_pps expected_simple bias_simple
 ## [1,]              0.3        0.304  0.00368           0.358      0.0585</code></pre>
 <p>El primer bloque del código genera hogares de tamaños desiguales, entre 2 y 6 personas. Para hacer visible el efecto del diseño, la probabilidad individual de desempleo varía suavemente con el tamaño del hogar, pero se centra de manera que el promedio esperado de la población siga siendo cercano a <code>theta</code>. Luego se calcula <code>theta_population</code>, que es la proporción real de desempleo en esa población específica. En cada repetición, <code>S.piPS()</code> selecciona UPMs con probabilidades proporcionales al tamaño; después se calculan la media de las medias de las UPMs seleccionadas y el promedio simple de las personas observadas. La salida compara ambos estimadores con <code>theta_population</code>. El sesgo de Monte Carlo de <code>expected_pps</code> es cercano a cero, mientras que el de <code>expected_simple</code> no lo es, mostrando resultado de ignorar el diseño en este ejercicio.</p>

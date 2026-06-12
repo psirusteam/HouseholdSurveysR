@@ -371,7 +371,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="estimacion-de-parametros-descriptivos.html#cb6-1" tabindex="-1"></a>survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="estimacion-de-parametros-descriptivos.html#cb6-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
 <span id="cb6-3"><a href="estimacion-de-parametros-descriptivos.html#cb6-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">total =</span> <span class="fu">survey_total</span>(Income,</span>
-<span id="cb6-4"><a href="estimacion-de-parametros-descriptivos.html#cb6-4" tabindex="-1"></a>                               <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>),</span>
+<span id="cb6-4"><a href="estimacion-de-parametros-descriptivos.html#cb6-4" tabindex="-1"></a>                               <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>),</span>
 <span id="cb6-5"><a href="estimacion-de-parametros-descriptivos.html#cb6-5" tabindex="-1"></a>                               <span class="at">level =</span> <span class="fl">0.95</span>),</span>
 <span id="cb6-6"><a href="estimacion-de-parametros-descriptivos.html#cb6-6" tabindex="-1"></a>          <span class="at">.fill =</span> <span class="st">&quot;Total income&quot;</span>)</span></code></pre></div>
 <table>
@@ -480,7 +480,7 @@ div.csl-indent {
 <span id="cb9-2"><a href="estimacion-de-parametros-descriptivos.html#cb9-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Sex) <span class="sc">%&gt;%</span></span>
 <span id="cb9-3"><a href="estimacion-de-parametros-descriptivos.html#cb9-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">mean =</span> <span class="fu">survey_mean</span>(Expenditure,</span>
 <span id="cb9-4"><a href="estimacion-de-parametros-descriptivos.html#cb9-4" tabindex="-1"></a>                              <span class="at">level =</span> <span class="fl">0.95</span>,</span>
-<span id="cb9-5"><a href="estimacion-de-parametros-descriptivos.html#cb9-5" tabindex="-1"></a>                              <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
+<span id="cb9-5"><a href="estimacion-de-parametros-descriptivos.html#cb9-5" tabindex="-1"></a>                              <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
 <span id="cb9-6"><a href="estimacion-de-parametros-descriptivos.html#cb9-6" tabindex="-1"></a>        <span class="at">.fill =</span> <span class="st">&quot;Mean expenditure&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb9-7"><a href="estimacion-de-parametros-descriptivos.html#cb9-7" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Sex))</span></code></pre></div>
 <table>
@@ -523,7 +523,7 @@ div.csl-indent {
 <span id="cb10-2"><a href="estimacion-de-parametros-descriptivos.html#cb10-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone) <span class="sc">%&gt;%</span></span>
 <span id="cb10-3"><a href="estimacion-de-parametros-descriptivos.html#cb10-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">mean =</span> <span class="fu">survey_mean</span>(Expenditure,</span>
 <span id="cb10-4"><a href="estimacion-de-parametros-descriptivos.html#cb10-4" tabindex="-1"></a>                              <span class="at">level =</span> <span class="fl">0.95</span>,</span>
-<span id="cb10-5"><a href="estimacion-de-parametros-descriptivos.html#cb10-5" tabindex="-1"></a>                              <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
+<span id="cb10-5"><a href="estimacion-de-parametros-descriptivos.html#cb10-5" tabindex="-1"></a>                              <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
 <span id="cb10-6"><a href="estimacion-de-parametros-descriptivos.html#cb10-6" tabindex="-1"></a>        <span class="at">.fill =</span> <span class="st">&quot;Mean expenditure&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb10-7"><a href="estimacion-de-parametros-descriptivos.html#cb10-7" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Zone))</span></code></pre></div>
 <table>
@@ -566,7 +566,7 @@ div.csl-indent {
 <span id="cb11-2"><a href="estimacion-de-parametros-descriptivos.html#cb11-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Zone, Sex) <span class="sc">%&gt;%</span></span>
 <span id="cb11-3"><a href="estimacion-de-parametros-descriptivos.html#cb11-3" tabindex="-1"></a>  <span class="fu">cascade</span>(<span class="at">mean =</span> <span class="fu">survey_mean</span>(Expenditure,</span>
 <span id="cb11-4"><a href="estimacion-de-parametros-descriptivos.html#cb11-4" tabindex="-1"></a>                              <span class="at">level =</span> <span class="fl">0.95</span>,</span>
-<span id="cb11-5"><a href="estimacion-de-parametros-descriptivos.html#cb11-5" tabindex="-1"></a>                              <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
+<span id="cb11-5"><a href="estimacion-de-parametros-descriptivos.html#cb11-5" tabindex="-1"></a>                              <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>)),</span>
 <span id="cb11-6"><a href="estimacion-de-parametros-descriptivos.html#cb11-6" tabindex="-1"></a>        <span class="at">.fill =</span> <span class="st">&quot;Mean expenditure&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb11-7"><a href="estimacion-de-parametros-descriptivos.html#cb11-7" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Zone), <span class="fu">desc</span>(Sex))</span></code></pre></div>
 <table>
@@ -665,7 +665,7 @@ div.csl-indent {
 <span id="cb12-2"><a href="estimacion-de-parametros-descriptivos.html#cb12-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ratio =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> Expenditure,</span>
 <span id="cb12-3"><a href="estimacion-de-parametros-descriptivos.html#cb12-3" tabindex="-1"></a>                                 <span class="at">denominator =</span> Income,</span>
 <span id="cb12-4"><a href="estimacion-de-parametros-descriptivos.html#cb12-4" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
-<span id="cb12-5"><a href="estimacion-de-parametros-descriptivos.html#cb12-5" tabindex="-1"></a>                                 <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb12-5"><a href="estimacion-de-parametros-descriptivos.html#cb12-5" tabindex="-1"></a>                                 <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
 <span id="cb12-6"><a href="estimacion-de-parametros-descriptivos.html#cb12-6" tabindex="-1"></a>            )</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-razon-gasto-ingreso">Tabla 3.9: </span>Razón gasto/ingreso de los hogares</caption>
@@ -692,7 +692,7 @@ div.csl-indent {
 <span id="cb13-2"><a href="estimacion-de-parametros-descriptivos.html#cb13-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ratio =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>),</span>
 <span id="cb13-3"><a href="estimacion-de-parametros-descriptivos.html#cb13-3" tabindex="-1"></a>                                 <span class="at">denominator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>),</span>
 <span id="cb13-4"><a href="estimacion-de-parametros-descriptivos.html#cb13-4" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
-<span id="cb13-5"><a href="estimacion-de-parametros-descriptivos.html#cb13-5" tabindex="-1"></a>                                 <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb13-5"><a href="estimacion-de-parametros-descriptivos.html#cb13-5" tabindex="-1"></a>                                 <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
 <span id="cb13-6"><a href="estimacion-de-parametros-descriptivos.html#cb13-6" tabindex="-1"></a>            )</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-razon-sexo">Tabla 3.10: </span>Razón de mujeres por hombre en la población</caption>
@@ -714,13 +714,13 @@ div.csl-indent {
 </tbody>
 </table>
 <p>Dado que la variable sexo en la base de datos es categórica, fue necesario acudir a variables indicadoras para realizar el cálculo de la razón, utilizando <code>Sex == "Female"</code> para identificar a las mujeres y <code>Sex == "Male"</code> para los hombres. Los resultados muestran que en la población analizada hay una mayor cantidad de mujeres que de hombres, obteniéndose una razón estimada de 1.11. Esto indica que, por cada 100 hombres, existen aproximadamente 111 mujeres. Además, el intervalo de confianza al 95% sugiere que esta razón podría variar entre 1.05 y 1.18. Si se desea hacer la razón de mujeres y hombres pero en la zona rural, se haría de la siguiente manera, presentada en la Tabla <a href="estimacion-de-parametros-descriptivos.html#tab:tab-razon-sexo-rural">3.11</a>:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="estimacion-de-parametros-descriptivos.html#cb14-1" tabindex="-1"></a>rural_subset  <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="estimacion-de-parametros-descriptivos.html#cb14-1" tabindex="-1"></a>rural_subset <span class="ot">&lt;-</span> survey_design <span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="estimacion-de-parametros-descriptivos.html#cb14-2" tabindex="-1"></a>  <span class="fu">filter</span>(Zone <span class="sc">==</span> <span class="st">&quot;Rural&quot;</span>)</span>
 <span id="cb14-3"><a href="estimacion-de-parametros-descriptivos.html#cb14-3" tabindex="-1"></a>rural_subset <span class="sc">%&gt;%</span></span>
-<span id="cb14-4"><a href="estimacion-de-parametros-descriptivos.html#cb14-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ratio =</span>  <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>),</span>
+<span id="cb14-4"><a href="estimacion-de-parametros-descriptivos.html#cb14-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ratio =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>),</span>
 <span id="cb14-5"><a href="estimacion-de-parametros-descriptivos.html#cb14-5" tabindex="-1"></a>                                  <span class="at">denominator =</span> (Sex <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>),</span>
 <span id="cb14-6"><a href="estimacion-de-parametros-descriptivos.html#cb14-6" tabindex="-1"></a>                                  <span class="at">level =</span> <span class="fl">0.95</span>,</span>
-<span id="cb14-7"><a href="estimacion-de-parametros-descriptivos.html#cb14-7" tabindex="-1"></a>                                  <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb14-7"><a href="estimacion-de-parametros-descriptivos.html#cb14-7" tabindex="-1"></a>                                  <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
 <span id="cb14-8"><a href="estimacion-de-parametros-descriptivos.html#cb14-8" tabindex="-1"></a>            )</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-razon-sexo-rural">Tabla 3.11: </span>Razón de mujeres por hombre en zona rural</caption>
@@ -749,7 +749,7 @@ div.csl-indent {
 <span id="cb15-5"><a href="estimacion-de-parametros-descriptivos.html#cb15-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ratio =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> Expenditure,</span>
 <span id="cb15-6"><a href="estimacion-de-parametros-descriptivos.html#cb15-6" tabindex="-1"></a>                                 <span class="at">denominator =</span> Income,</span>
 <span id="cb15-7"><a href="estimacion-de-parametros-descriptivos.html#cb15-7" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
-<span id="cb15-8"><a href="estimacion-de-parametros-descriptivos.html#cb15-8" tabindex="-1"></a>                                 <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb15-8"><a href="estimacion-de-parametros-descriptivos.html#cb15-8" tabindex="-1"></a>                                 <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
 <span id="cb15-9"><a href="estimacion-de-parametros-descriptivos.html#cb15-9" tabindex="-1"></a>            )</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-razon-gasto-ingreso-mujer">Tabla 3.12: </span>Razón gasto/ingreso en hogares con jefatura femenina</caption>
@@ -778,7 +778,7 @@ div.csl-indent {
 <span id="cb16-5"><a href="estimacion-de-parametros-descriptivos.html#cb16-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ratio =</span> <span class="fu">survey_ratio</span>(<span class="at">numerator =</span> Expenditure,</span>
 <span id="cb16-6"><a href="estimacion-de-parametros-descriptivos.html#cb16-6" tabindex="-1"></a>                                 <span class="at">denominator =</span> Income,</span>
 <span id="cb16-7"><a href="estimacion-de-parametros-descriptivos.html#cb16-7" tabindex="-1"></a>                                 <span class="at">level =</span> <span class="fl">0.95</span>,</span>
-<span id="cb16-8"><a href="estimacion-de-parametros-descriptivos.html#cb16-8" tabindex="-1"></a>                                 <span class="at">vartype =</span>  <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
+<span id="cb16-8"><a href="estimacion-de-parametros-descriptivos.html#cb16-8" tabindex="-1"></a>                                 <span class="at">vartype =</span> <span class="fu">c</span>(<span class="st">&quot;se&quot;</span>, <span class="st">&quot;ci&quot;</span>))</span>
 <span id="cb16-9"><a href="estimacion-de-parametros-descriptivos.html#cb16-9" tabindex="-1"></a>            )</span></code></pre></div>
 <table>
 <caption><span id="tab:tab-razon-gasto-ingreso-hombre">Tabla 3.13: </span>Razón gasto/ingreso en hogares con jefatura masculina</caption>

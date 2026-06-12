@@ -328,7 +328,7 @@ q_k = \frac{w_k}{\hat{w}_k}.
 <li><p>Definir el nuevo diseño muestral utilizando los pesos ajustados <span class="math inline">\(q_k\)</span> en lugar de los pesos originales <span class="math inline">\(w_k\)</span>, y emplear este diseño para la estimación de los parámetros del modelo multinivel.</p></li>
 </ol>
 <p>El siguiente código implementa el procedimiento de construcción de pesos <em>q-weighted</em>. En primer lugar, ajusta un modelo de regresión lineal que explica los factores de expansión originales a partir de la variable explicativa gasto. De esta forma, los pesos resultantes conservan únicamente la componente de variación no explicada por las covariables incluidas en el modelo multinivel.</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="pesos-q-weighted.html#cb167-1" tabindex="-1"></a>mod_qw  <span class="ot">&lt;-</span> <span class="fu">lm</span>(wk <span class="sc">~</span> Expenditure, <span class="at">data =</span> survey_data)</span>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="pesos-q-weighted.html#cb167-1" tabindex="-1"></a>mod_qw <span class="ot">&lt;-</span> <span class="fu">lm</span>(wk <span class="sc">~</span> Expenditure, <span class="at">data =</span> survey_data)</span>
 <span id="cb167-2"><a href="pesos-q-weighted.html#cb167-2" tabindex="-1"></a>survey_data<span class="sc">$</span>qk <span class="ot">&lt;-</span> survey_data<span class="sc">$</span>wk <span class="sc">/</span> <span class="fu">predict</span>(mod_qw)</span></code></pre></div>
 </div>
 <h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
